@@ -856,6 +856,239 @@
             </section>
 
             <!-- ═══════════════════════════════════════════════════════
+                 ARCHITECTURE DIAGRAM — insert before #how-it-works
+                 ═══════════════════════════════════════════════════════ -->
+            <section class="relative py-24 md:py-32">
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-900/30 to-surface-950"
+                ></div>
+                <div class="relative max-w-7xl mx-auto px-6">
+                    <div class="max-w-3xl mx-auto text-center mb-16">
+                        <p
+                            class="mb-3 text-sm font-semibold uppercase tracking-widest text-kyde-400"
+                        >
+                            How It Works
+                        </p>
+                        <h2
+                            class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white"
+                        >
+                            One proxy. Every agent.
+                            <span class="text-surface-400"
+                                >Every provider.</span
+                            >
+                        </h2>
+                        <p class="mt-4 text-lg text-surface-300">
+                            Silicon Leash sits transparently in the call path —
+                            signing, chaining, and forwarding. Your agents see
+                            no difference.
+                        </p>
+                    </div>
+
+                    <!-- Diagram -->
+                    <div class="max-w-4xl mx-auto">
+                        <div
+                            class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0"
+                        >
+                            <!-- AI Agent -->
+                            <div
+                                class="w-full md:w-56 rounded-2xl border border-surface-700 bg-surface-900/60 p-6 text-center"
+                            >
+                                <div
+                                    class="mb-3 mx-auto inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface-700"
+                                >
+                                    <svg
+                                        class="h-5 w-5 text-surface-300"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                    >
+                                        <path
+                                            d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="font-semibold text-white text-sm">
+                                    AI Agent
+                                </p>
+                                <p class="mt-1 text-xs text-surface-400">
+                                    Any framework
+                                </p>
+                                <p class="text-xs text-surface-500">
+                                    LangChain · AutoGen · Custom
+                                </p>
+                            </div>
+
+                            <!-- Arrow right -->
+                            <div
+                                class="flex md:flex-col items-center justify-center rotate-90 md:rotate-0 px-2"
+                            >
+                                <div
+                                    class="h-px md:h-auto md:w-px w-8 md:h-8 bg-surface-600"
+                                ></div>
+                                <svg
+                                    class="h-4 w-4 text-kyde-400 shrink-0"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </div>
+
+                            <!-- Silicon Leash Proxy (center, highlighted) -->
+                            <div
+                                class="w-full md:w-64 rounded-2xl border border-kyde-500/50 bg-kyde-600/10 p-6 text-center glow-blue relative"
+                            >
+                                <div
+                                    class="mb-3 mx-auto inline-flex h-10 w-10 items-center justify-center rounded-xl bg-kyde-600/20"
+                                >
+                                    <svg
+                                        class="h-5 w-5 text-kyde-400"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                    >
+                                        <path
+                                            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="font-bold text-white">
+                                    Silicon Leash Proxy
+                                </p>
+                                <p class="mt-2 text-xs text-surface-400">
+                                    Signs · Logs · Forwards
+                                </p>
+                                <div
+                                    class="mt-3 flex justify-center gap-1 flex-wrap"
+                                >
+                                    <span
+                                        class="rounded-full bg-accent-green/10 px-2 py-0.5 text-xs text-accent-green"
+                                        >&lt;100ms</span
+                                    >
+                                    <span
+                                        class="rounded-full bg-kyde-400/10 px-2 py-0.5 text-xs text-kyde-400"
+                                        >Transparent</span
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- Arrow right -->
+                            <div
+                                class="flex md:flex-col items-center justify-center rotate-90 md:rotate-0 px-2"
+                            >
+                                <div
+                                    class="h-px md:h-auto md:w-px w-8 md:h-8 bg-surface-600"
+                                ></div>
+                                <svg
+                                    class="h-4 w-4 text-kyde-400 shrink-0"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </div>
+
+                            <!-- LLM Provider -->
+                            <div
+                                class="w-full md:w-56 rounded-2xl border border-surface-700 bg-surface-900/60 p-6 text-center"
+                            >
+                                <div
+                                    class="mb-3 mx-auto inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface-700"
+                                >
+                                    <svg
+                                        class="h-5 w-5 text-surface-300"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                    >
+                                        <path
+                                            d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="font-semibold text-white text-sm">
+                                    LLM Provider
+                                </p>
+                                <p class="mt-1 text-xs text-surface-400">
+                                    OpenAI · Anthropic
+                                </p>
+                                <p class="text-xs text-surface-500">
+                                    Gemini · Azure · Any
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Arrow down to ledger -->
+                        <div class="flex justify-center my-4">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-px h-6 bg-surface-600"></div>
+                                <svg
+                                    class="h-4 w-4 text-accent-cyan"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Behavioral Ledger -->
+                        <div
+                            class="max-w-xl mx-auto rounded-2xl border border-accent-cyan/30 bg-surface-900/60 p-6"
+                        >
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-accent-cyan/10"
+                                >
+                                    <svg
+                                        class="h-5 w-5 text-accent-cyan"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                    >
+                                        <path
+                                            d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 2.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="font-bold text-white">
+                                    Behavioral Ledger
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="rounded-full border border-surface-700 bg-surface-800 px-3 py-1 font-mono text-xs text-surface-300"
+                                    >Ed25519 signed</span
+                                >
+                                <span
+                                    class="rounded-full border border-surface-700 bg-surface-800 px-3 py-1 font-mono text-xs text-surface-300"
+                                    >SHA-256 hash-chained</span
+                                >
+                                <span
+                                    class="rounded-full border border-surface-700 bg-surface-800 px-3 py-1 font-mono text-xs text-surface-300"
+                                    >Append-only</span
+                                >
+                                <span
+                                    class="rounded-full border border-surface-700 bg-surface-800 px-3 py-1 font-mono text-xs text-surface-300"
+                                    >Tamper-evident</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════════════════════
          HOW IT WORKS
          ═══════════════════════════════════════════════════════ -->
             <section id="how-it-works" class="relative py-24 md:py-32">
