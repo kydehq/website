@@ -1,12 +1,10 @@
 ---
-const base = import.meta.env.BASE_URL;
-
 const navLinks = [
-  { label: 'Platform',   href: `${base}/platform`   },
-  { label: 'Use Cases',  href: `${base}/use-cases`  },
-  { label: 'Resources',  href: `${base}/resources`  },
-  { label: 'Company',    href: `${base}/company`    },
-  { label: 'KYDE Labs',  href: `${base}/labs`       },
+  { label: 'Platform',   href: '/platform'   },
+  { label: 'Use Cases',  href: '/use-cases'  },
+  { label: 'Resources',  href: '/resources'  },
+  { label: 'Company',    href: '/company'    },
+  { label: 'KYDE Labs',  href: '/labs'       },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -15,7 +13,7 @@ const currentPath = Astro.url.pathname;
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-md">
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
     <!-- Logo -->
-    <a href={`${base}/`} class="inline-flex items-center border border-zinc-700 px-3 py-1.5 font-mono text-sm font-bold tracking-widest text-white hover:border-zinc-500 transition-colors">
+    <a href="/" class="inline-flex items-center border border-zinc-700 px-3 py-1.5 font-mono text-sm font-bold tracking-widest text-white hover:border-zinc-500 transition-colors">
       KYDE
     </a>
 
@@ -27,7 +25,7 @@ const currentPath = Astro.url.pathname;
             href={href}
             class={[
               'text-sm font-medium transition-colors',
-              currentPath.startsWith(href) && href !== `${base}/`
+              currentPath.startsWith(href)
                 ? 'text-white'
                 : 'text-white/50 hover:text-white',
             ].join(' ')}
@@ -71,7 +69,7 @@ const currentPath = Astro.url.pathname;
             href={href}
             class={[
               'font-mono text-sm uppercase tracking-widest transition-colors',
-              currentPath.startsWith(href) && href !== `${base}/`
+              currentPath.startsWith(href)
                 ? 'text-white'
                 : 'text-zinc-400 hover:text-white',
             ].join(' ')}

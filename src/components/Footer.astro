@@ -1,18 +1,16 @@
 ---
-const base = import.meta.env.BASE_URL;
-
 const footerLinks = {
   Product: [
-    { label: 'Platform',   href: `${base}/platform`  },
-    { label: 'Use Cases',  href: `${base}/use-cases` },
-    { label: 'KYDE Labs',  href: `${base}/labs`      },
+    { label: 'Platform',   href: '/platform'  },
+    { label: 'Use Cases',  href: '/use-cases' },
+    { label: 'KYDE Labs',  href: '/labs'      },
   ],
   Company: [
-    { label: 'About',      href: `${base}/company`   },
-    { label: 'Resources',  href: `${base}/resources` },
+    { label: 'About',      href: '/company'   },
+    { label: 'Resources',  href: '/resources' },
   ],
   Legal: [
-    { label: 'Privacy & Imprint', href: `${base}/legal` },
+    { label: 'Privacy & Imprint', href: '/legal' },
   ],
 };
 
@@ -24,7 +22,7 @@ const year = new Date().getFullYear();
     <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
       <!-- Brand -->
       <div class="col-span-2 md:col-span-1">
-        <a href={`${base}/`} class="text-xl font-black italic tracking-tight text-white hover:text-blue-400 transition-colors">
+        <a href="/" class="text-xl font-black italic tracking-tight text-white hover:text-blue-400 transition-colors">
           KYDE
         </a>
         <p class="mt-3 text-sm text-white/40 leading-relaxed">
