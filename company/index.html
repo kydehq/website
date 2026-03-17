@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en" class="bg-black text-white antialiased"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="KYDE is building the trust infrastructure for the agentic economy. The governance layer that gives AI agents real economic authority while keeping humans in control."><title>Company — KYDE</title><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/website/favicon.svg"><!-- Google Fonts: Inter --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet"><!-- Additional head slot --><link rel="stylesheet" href="/_astro/Footer.CniCwXfD.css"></head> <body class="min-h-screen font-[Inter,sans-serif] bg-black text-white"> <!-- Modal overlay --><div id="demo-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" aria-modal="true" role="dialog"> <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="demo-modal-backdrop"></div> <div class="relative w-full max-w-lg rounded-sm border border-zinc-700 bg-zinc-900 shadow-2xl transition-all"> <!-- Close --> <button id="demo-modal-close" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors" aria-label="Close"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> <path d="M18 6L6 18M6 6l12 12"></path> </svg> </button> <div class="p-8"> <h3 class="text-xl font-bold text-white">Book a Compliance Demo</h3> <p class="mt-2 text-sm text-zinc-300">
+See how KYDE provides tamper-evident audit trails for your AI agents. 30 min, no commitment.
+</p> <!-- Form --> <form id="demo-form" class="mt-6 space-y-4" action="https://formspree.io/f/xwvrwlge" method="POST"> <div> <label for="demo-name" class="block text-xs font-medium text-zinc-400 mb-1.5">Name</label> <input type="text" id="demo-name" name="name" required placeholder="Jane Smith" class="w-full rounded-sm border border-zinc-600 bg-zinc-800 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"> </div> <div> <label for="demo-email" class="block text-xs font-medium text-zinc-400 mb-1.5">Work Email</label> <input type="email" id="demo-email" name="email" required placeholder="jane@company.com" class="w-full rounded-sm border border-zinc-600 bg-zinc-800 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"> </div> <div> <label for="demo-company" class="block text-xs font-medium text-zinc-400 mb-1.5">Company</label> <input type="text" id="demo-company" name="company" placeholder="Acme Corp" class="w-full rounded-sm border border-zinc-600 bg-zinc-800 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"> </div> <div> <label for="demo-agents" class="block text-xs font-medium text-zinc-400 mb-1.5">How many AI agents do you run?</label> <select id="demo-agents" name="agents" class="w-full rounded-sm border border-zinc-600 bg-zinc-800 px-4 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"> <option value="1-5">1–5</option> <option value="6-20">6–20</option> <option value="21-100">21–100</option> <option value="100+">100+</option> </select> </div> <input type="hidden" name="_subject" value="KYDE Demo Request"> <button type="submit" id="demo-submit" class="w-full bg-white px-4 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-all">
+Request Demo
+</button> <p class="text-xs text-zinc-500 text-center">We'll get back to you within 24 hours.</p> </form> <!-- Success state --> <div id="demo-success" class="hidden mt-6 text-center py-8"> <div class="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400/10"> <svg class="h-6 w-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path d="M5 13l4 4L19 7"></path> </svg> </div> <h4 class="text-lg font-semibold text-white">Request received!</h4> <p class="mt-2 text-sm text-zinc-300">We'll be in touch within 24 hours.</p> </div> </div> </div> </div> <script type="module">function n(){document.getElementById("demo-modal")?.classList.remove("hidden"),document.body.style.overflow="hidden"}function d(){document.getElementById("demo-modal")?.classList.add("hidden"),document.body.style.overflow=""}window.openModal=n;window.closeModal=d;document.getElementById("demo-modal-backdrop")?.addEventListener("click",d);document.getElementById("demo-modal-close")?.addEventListener("click",d);document.addEventListener("keydown",o=>{o.key==="Escape"&&d()});const t=document.getElementById("demo-form");t?.addEventListener("submit",async o=>{o.preventDefault();const e=document.getElementById("demo-submit");e.textContent="Sending…",e.disabled=!0;try{if((await fetch(t.action,{method:"POST",body:new FormData(t),headers:{Accept:"application/json"}})).ok)t.classList.add("hidden"),document.getElementById("demo-success")?.classList.remove("hidden");else throw new Error("server error")}catch{e.textContent="Request Demo",e.disabled=!1,alert("Something went wrong. Please email hello@kyde.com directly.")}});</script>  <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-md"> <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"> <!-- Logo --> <a href="/" class="inline-flex items-center border border-zinc-700 px-3 py-1.5 font-mono text-sm font-bold tracking-widest text-white hover:border-zinc-500 transition-colors">
+KYDE
+</a> <!-- Nav links (desktop) --> <ul class="hidden md:flex items-center gap-8"> <li> <a href="/platform" class="text-sm font-medium transition-colors text-white/50 hover:text-white"> Platform </a> </li><li> <a href="/use-cases" class="text-sm font-medium transition-colors text-white/50 hover:text-white"> Use Cases </a> </li><li> <a href="/resources" class="text-sm font-medium transition-colors text-white/50 hover:text-white"> Resources </a> </li><li> <a href="/company" class="text-sm font-medium transition-colors text-white"> Company </a> </li><li> <a href="/labs" class="text-sm font-medium transition-colors text-white/50 hover:text-white"> KYDE Labs </a> </li> </ul> <!-- CTA (desktop) --> <button onclick="openModal()" class="hidden md:inline-flex items-center gap-2 bg-white px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-zinc-200">
+Book Demo →
+</button> <!-- Mobile menu button --> <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-1" aria-label="Open menu" aria-expanded="false"> <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-1"></span> <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-2"></span> <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-3"></span> </button> </nav> <!-- Mobile menu --> <div id="mobile-menu" class="hidden md:hidden border-t border-zinc-800 bg-black px-6 py-6"> <ul class="flex flex-col gap-6 mb-8"> <li> <a href="/platform" class="font-mono text-sm uppercase tracking-widest transition-colors text-zinc-400 hover:text-white"> Platform </a> </li><li> <a href="/use-cases" class="font-mono text-sm uppercase tracking-widest transition-colors text-zinc-400 hover:text-white"> Use Cases </a> </li><li> <a href="/resources" class="font-mono text-sm uppercase tracking-widest transition-colors text-zinc-400 hover:text-white"> Resources </a> </li><li> <a href="/company" class="font-mono text-sm uppercase tracking-widest transition-colors text-white"> Company </a> </li><li> <a href="/labs" class="font-mono text-sm uppercase tracking-widest transition-colors text-zinc-400 hover:text-white"> KYDE Labs </a> </li> </ul> <button onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full bg-white px-4 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-all">
+Book Demo →
+</button> </div> </header> <script type="module">const e=document.getElementById("mobile-menu-btn"),o=document.getElementById("mobile-menu"),s=document.getElementById("burger-1"),n=document.getElementById("burger-2"),a=document.getElementById("burger-3");e?.addEventListener("click",()=>{const t=o?.classList.toggle("hidden")===!1;e.setAttribute("aria-expanded",String(t)),t?(s?.classList.add("translate-y-[7.5px]","rotate-45"),n?.classList.add("opacity-0"),a?.classList.add("-translate-y-[7.5px]","-rotate-45")):(s?.classList.remove("translate-y-[7.5px]","rotate-45"),n?.classList.remove("opacity-0"),a?.classList.remove("-translate-y-[7.5px]","-rotate-45"))});</script> <main> <!-- ══════════ HERO ══════════ --> <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36"> <div class="bg-grid absolute inset-0 pointer-events-none"></div> <div class="relative max-w-7xl mx-auto px-6"> <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+Company
+</p> <div class="mb-8 h-px bg-zinc-800"></div> <h1 class="hero-h1 max-w-3xl text-5xl text-white md:text-6xl lg:text-7xl">
+The Economy Is Going Agentic.<br>
+The Infrastructure for Trust Doesn't Exist Yet. We're building
+                    it.
+</h1> </div> </section> <!-- ══════════ THE SHIFT ══════════ --> <section class="relative py-24 md:py-32"> <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none"></div> <div class="relative max-w-7xl mx-auto px-6"> <div class="grid gap-16 lg:grid-cols-[1fr_2fr]"> <div> <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+The Shift
+</p> </div> <div class="space-y-6 text-lg leading-relaxed text-zinc-300"> <p class="text-xl font-semibold text-white">
+Something fundamental is changing.
+</p> <p>
+For decades, software executed instructions. Humans
+                            decided. Humans acted. The software was a tool —
+                            precise, obedient, inert.
+</p> <p class="text-amber-300 text-base border-l-2 border-amber-400/30 pl-5">
+That model is ending.
+</p> <p>
+AI agents don't wait for instructions. They reason,
+                            plan, and act. They book meetings, execute
+                            transactions, write and deploy code, manage customer
+                            relationships, and make procurement decisions —
+                            autonomously, at scale, faster than any human can
+                            supervise.
+</p> <p class="font-semibold text-white">
+This is not a future scenario. It is happening now.
+                            In your organization. Across every industry.
+</p> </div> </div> </div> </section> <!-- ══════════ THE PROBLEM ══════════ --> <section class="relative py-24 md:py-32"> <div class="max-w-7xl mx-auto px-6"> <div class="grid gap-16 lg:grid-cols-[1fr_2fr]"> <div> <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+The Problem With Speed
+</p> </div> <div class="space-y-6 text-lg leading-relaxed text-zinc-300"> <p>
+The agentic shift is creating economic value at a
+                            pace we haven't seen since the internet. But it is
+                            also creating a governance vacuum.
+</p> <div class="grid gap-4 md:grid-cols-2"> <div class="rounded-sm border border-zinc-600 bg-zinc-900/60 p-6"> <p class="text-sm font-semibold text-white mb-2">
+When a human takes a business decision
+</p> <p class="text-sm text-zinc-400 leading-relaxed">
+There is a legal framework — contracts,
+                                    liability, corporate law, audit trails. The
+                                    accountability structure is centuries old.
+                                    It is imperfect, but it exists.
+</p> </div> <div class="rounded-sm border border-zinc-800 bg-zinc-900/60 p-6"> <p class="text-sm font-semibold text-white mb-2">
+When an AI agent takes a business decision
+</p> <p class="text-sm text-zinc-400 leading-relaxed">
+There is almost nothing. The agent acts.
+                                    Something happens. A log entry may or may
+                                    not exist. Whether it can be trusted,
+                                    verified, or produced in a regulatory
+                                    inquiry is an open question for most
+                                    organizations.
+</p> </div> </div> <p>
+Regulators have noticed. The EU AI Act, NIS-2, DORA,
+                            and GDPR are not the end of the compliance wave.
+                            They are the beginning.
+</p> </div> </div> </div> </section> <!-- ══════════ WHAT WE'RE BUILDING ══════════ --> <section class="relative py-24 md:py-32"> <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none"></div> <div class="relative max-w-7xl mx-auto px-6"> <div class="grid gap-16 lg:grid-cols-[1fr_2fr]"> <div> <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+What KYDE Is Building
+</p> </div> <div class="space-y-6 text-lg leading-relaxed text-zinc-300"> <p class="text-xl font-semibold text-white">
+KYDE is building the trust infrastructure for the
+                            agentic economy.
+</p> <p class="text-zinc-400">
+Not a filter. Not a firewall. Not another
+                            observability dashboard.
+</p> <p>
+Governance infrastructure — the layer that gives AI
+                            agents real economic authority while keeping humans
+                            in control of the boundaries.
+</p> <div class="space-y-4 border-l-2 border-zinc-700 pl-6"> <div> <p class="text-sm font-semibold text-white">
+Near term
+</p> <p class="text-sm text-zinc-400 leading-relaxed mt-1">
+A tamper-evident append-only database for
+                                    every AI agent action. Evidence that cannot
+                                    be altered. Records that regulators,
+                                    auditors, and courts can trust.
+</p> </div> <div> <p class="text-sm font-semibold text-white">
+Longer term
+</p> <p class="text-sm text-zinc-400 leading-relaxed mt-1">
+Machine-readable policies that travel with
+                                    every agent. Cryptographically signed
+                                    mandates. A delegation model that lets
+                                    organizations give AI agents genuine
+                                    authority — with verifiable, unbreakable
+                                    limits.
+</p> </div> </div> <div class="rounded-sm border border-zinc-700 bg-zinc-900/40 px-8 py-6"> <p class="text-base leading-relaxed text-zinc-200">
+Think of what corporate law did for the limited
+                                liability company — it created a legal structure
+                                that enabled economic actors to operate with
+                                defined rights, responsibilities, and
+                                accountability.
+</p> <p class="mt-3 text-base font-semibold text-white">
+KYDE is building that structure for non-human
+                                economic actors.
+</p> </div> </div> </div> </div> </section> <!-- ══════════ WHY NOW ══════════ --> <section class="relative py-24 md:py-32"> <div class="max-w-7xl mx-auto px-6"> <div class="grid gap-16 lg:grid-cols-[1fr_2fr]"> <div> <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+Why Now
+</p> </div> <div> <p class="text-lg text-zinc-300 mb-10">
+Three forces are converging.
+</p> <div class="space-y-6"> <div class="flex gap-6 rounded-sm border bg-zinc-900/40 p-8 border-zinc-700"> <span class="font-mono text-3xl font-bold shrink-0 text-zinc-700"> 01 </span> <div> <p class="text-base font-semibold text-white mb-2"> Regulatory enforcement is real. </p> <p class="text-sm leading-relaxed text-zinc-400"> EU AI Act High-Risk enforcement begins August 2, 2026. NIS-2 is already in force. DORA is in force. The compliance deadlines are not hypothetical. </p> </div> </div><div class="flex gap-6 rounded-sm border bg-zinc-900/40 p-8 border-zinc-700"> <span class="font-mono text-3xl font-bold shrink-0 text-zinc-700"> 02 </span> <div> <p class="text-base font-semibold text-white mb-2"> Agent deployment is accelerating. </p> <p class="text-sm leading-relaxed text-zinc-400"> Every major enterprise is running AI agents today — often without knowing exactly what those agents are doing, why, or whether the record of their actions can be trusted. </p> </div> </div><div class="flex gap-6 rounded-sm border bg-zinc-900/40 p-8 border-zinc-700"> <span class="font-mono text-3xl font-bold shrink-0 text-zinc-700"> 03 </span> <div> <p class="text-base font-semibold text-white mb-2"> The window to define the infrastructure layer is open. </p> <p class="text-sm leading-relaxed text-zinc-400"> Trust infrastructure, like all infrastructure, is built once and depended on for decades. The organization that defines the governance standard for AI agents becomes the foundation everything else is built on. </p> </div> </div> </div> </div> </div> </div> </section> <!-- ══════════ CTA ══════════ --> <section class="py-24 md:py-32"> <div class="max-w-7xl mx-auto px-6"> <div class="rounded-sm border border-zinc-700 p-12 md:p-16"> <div class="max-w-2xl"> <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+Want to learn more or get involved?
+</h2> <p class="mt-4 text-lg text-zinc-300">
+We're early. If you're building in regulated
+                            industries, we want to talk.
+</p> <div class="mt-8 flex flex-col sm:flex-row gap-4"> <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all">
+Book a Demo →
+</button> <a href="mailto:hello@kyde.com" class="inline-flex items-center gap-2 border border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-all">
+hello@kyde.com
+</a> </div> </div> </div> </div> </section> </main> <footer class="border-t border-white/5 bg-black"> <div class="mx-auto max-w-7xl px-6 py-16"> <div class="grid grid-cols-2 gap-8 md:grid-cols-4"> <!-- Brand --> <div class="col-span-2 md:col-span-1"> <a href="/" class="text-xl font-black italic tracking-tight text-white hover:text-blue-400 transition-colors">
+KYDE
+</a> <p class="mt-3 text-sm text-white/40 leading-relaxed">
+Autonomous energy infrastructure for the next grid.
+</p> </div> <!-- Link groups --> <div> <p class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Product</p> <ul class="space-y-3"> <li> <a href="/platform" class="text-sm text-white/50 hover:text-white transition-colors"> Platform </a> </li><li> <a href="/use-cases" class="text-sm text-white/50 hover:text-white transition-colors"> Use Cases </a> </li><li> <a href="/labs" class="text-sm text-white/50 hover:text-white transition-colors"> KYDE Labs </a> </li> </ul> </div><div> <p class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Company</p> <ul class="space-y-3"> <li> <a href="/company" class="text-sm text-white/50 hover:text-white transition-colors"> About </a> </li><li> <a href="/resources" class="text-sm text-white/50 hover:text-white transition-colors"> Resources </a> </li> </ul> </div><div> <p class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Legal</p> <ul class="space-y-3"> <li> <a href="/legal" class="text-sm text-white/50 hover:text-white transition-colors"> Privacy &amp; Imprint </a> </li> </ul> </div> </div> <!-- Bottom bar --> <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-8 md:flex-row md:items-center"> <p class="text-xs text-white/25">
+&copy; 2026 KYDE GmbH. All rights reserved.
+</p> <p class="text-xs text-white/25">
+Built with Astro &amp; Tailwind CSS
+</p> </div> </div> </footer>  </body></html>
