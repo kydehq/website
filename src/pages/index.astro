@@ -38,7 +38,7 @@ import Footer from '../components/Footer.astro';
         <div class="mt-12 border-t border-zinc-800 pt-8 grid md:grid-cols-[200px_1fr] gap-8 items-start">
           <div>
             <p class="text-xs font-bold uppercase tracking-[0.15em] text-white">Governance Proxy</p>
-            <p class="mt-2 font-mono text-xs text-zinc-600">[Silicon Leash]</p>
+            <p class="mt-2 font-mono text-xs text-zinc-600">[KYDE WITNESS]</p>
           </div>
           <div>
             <p class="text-sm uppercase tracking-wide leading-relaxed text-zinc-400">
@@ -72,11 +72,11 @@ import Footer from '../components/Footer.astro';
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed">
               <p class="text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">export OPENAI_BASE_URL=http://localhost:8080/v1</span></p>
-              <p class="mt-1 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">silicon-leash init</span></p>
+              <p class="mt-1 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">witness init</span></p>
               <p class="mt-1 text-cyan-400">&#10003; Proxy started on :8080</p>
               <p class="text-cyan-400">&#10003; Ed25519 keypair generated</p>
               <p class="text-cyan-400">&#10003; Append-only database initialized</p>
-              <p class="mt-2 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">silicon-leash verify</span></p>
+              <p class="mt-2 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">witness verify</span></p>
               <p class="mt-1 text-emerald-400">&#10003; Chain integrity verified — 0 entries, 0 anomalies</p>
             </div>
           </div>
@@ -265,14 +265,14 @@ import Footer from '../components/Footer.astro';
             {
               n: '01',
               title: 'Deploy via Group Policy',
-              body: 'IT pushes one policy, routing all LLM API traffic through Silicon Leash. Zero developer action required.',
+              body: 'IT pushes one policy, routing all LLM API traffic through KYDE WITNESS. Zero developer action required.',
               code: 'LLM_BASE_URL=http://localhost:8080/v1',
               icon: 'M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m-6 3.75l3 3m0 0l3-3m-3 3V1.5',
             },
             {
               n: '02',
               title: 'Proxy intercepts every call',
-              body: 'Silicon Leash sits transparently between your agents and the LLM provider, capturing prompts, tool calls, and responses.',
+              body: 'KYDE WITNESS sits transparently between your agents and the LLM provider, capturing prompts, tool calls, and responses.',
               code: 'The agent sees no difference.',
               icon: 'M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5',
             },
@@ -287,7 +287,7 @@ import Footer from '../components/Footer.astro';
               n: '04',
               title: 'Audit anytime',
               body: 'Forensically complete records: who (user/machine), what (action + model + tool calls), why (causal context), from where (machine ID).',
-              code: 'silicon-leash audit --from 2026-01-01',
+              code: 'witness audit --from 2026-01-01',
               icon: 'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15a2.25 2.25 0 012.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z',
             },
           ].map(({ n, title, body, code, icon }) => (
@@ -506,11 +506,11 @@ import Footer from '../components/Footer.astro';
             },
             {
               q: 'What happens if the proxy goes down?',
-              a: 'Silicon Leash is designed as a transparent proxy. In case of failure, you can configure fail-open (agents continue without logging) or fail-closed (agents are blocked until the proxy recovers). Enterprise deployments run redundant instances.',
+              a: 'KYDE WITNESS is designed as a transparent proxy. In case of failure, you can configure fail-open (agents continue without logging) or fail-closed (agents are blocked until the proxy recovers). Enterprise deployments run redundant instances.',
             },
             {
               q: 'Can I export my audit data?',
-              a: 'Yes. Use the CLI tool: silicon-leash export --format json. Exports include full chain integrity metadata, allowing independent verification by any third party or regulator.',
+              a: 'Yes. Use the CLI tool: witness export --format json. Exports include full chain integrity metadata, allowing independent verification by any third party or regulator.',
             },
             {
               q: 'How does this differ from Zenity or Lakera?',
@@ -522,7 +522,7 @@ import Footer from '../components/Footer.astro';
             },
             {
               q: 'Do we need developer involvement to deploy?',
-              a: 'No. IT can deploy Silicon Leash via a single environment variable or Group Policy push. Agents that already use OpenAI-compatible endpoints require zero code changes. Typical deployment takes under 5 minutes.',
+              a: 'No. IT can deploy KYDE WITNESS via a single environment variable or Group Policy push. Agents that already use OpenAI-compatible endpoints require zero code changes. Typical deployment takes under 5 minutes.',
             },
           ].map(({ q, a }) => (
             <details class="group py-5">
