@@ -17,62 +17,54 @@ const base = import.meta.env.BASE_URL;
     <!-- ══════════ HERO ══════════ -->
     <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="pointer-events-none absolute top-0 left-0 h-[600px] w-[800px] rounded-full bg-blue-600/5 blur-3xl"></div>
-      <div class="pointer-events-none absolute top-40 right-0 h-[400px] w-[400px] rounded-full bg-cyan-400/5 blur-3xl"></div>
-
-      <!-- System micro-labels -->
-      <div class="pointer-events-none absolute top-6 right-6 hidden md:flex flex-col items-end gap-1">
-        <span class="font-mono text-[10px] uppercase tracking-widest text-blue-400/50">Silicon Leash // Active</span>
-        <span class="font-mono text-[10px] text-zinc-600">Governance Layer v1</span>
-      </div>
-      <div class="pointer-events-none absolute bottom-6 right-6 hidden md:flex flex-col items-end gap-1">
-        <span class="font-mono text-[10px] text-zinc-700">NIS-2 · EU AI Act · KRITIS</span>
-      </div>
 
       <div class="relative max-w-7xl mx-auto px-6">
 
-        <!-- Badge → Palantir-style ↳ label + rule -->
+        <!-- ↳ label + rule -->
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">↳ EU AI Act Enforcement — August 2, 2026</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-white/40 animate-pulse shrink-0"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">↳ EU AI Act Enforcement — August 2, 2026</span>
           </div>
           <div class="h-px w-full bg-zinc-800"></div>
         </div>
 
         <!-- Headline -->
-        <h1 class="hero-h1 max-w-4xl text-6xl text-white md:text-8xl lg:text-9xl">
+        <h1 class="hero-h1 max-w-5xl text-6xl text-white md:text-8xl lg:text-9xl">
           The Trust Layer<br />for the
           <span class="gradient-text"> Agentic Economy</span>
         </h1>
 
-        <!-- Sub -->
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-zinc-300 md:text-xl">
-          Model-agnostic governance proxy. Tamper-evident audit trail for every AI agent action — Claude, OpenAI, DeepSeek and more. Zero developer friction. Deployed via Group Policy.
-        </p>
-
-        <!-- CTAs -->
-        <div class="mt-10 flex flex-col sm:flex-row items-start gap-4">
-          <button
-            onclick="openModal()"
-            class="group inline-flex items-center gap-2 rounded-sm bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-500 transition-all"
-          >
-            Book Compliance Demo
-            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </button>
-          <a
-            href={`${base}/platform`}
-            class="inline-flex items-center gap-2 rounded-sm border border-zinc-700 bg-zinc-900/50 px-6 py-3.5 text-sm font-semibold text-zinc-200 hover:border-zinc-500 hover:bg-zinc-800 hover:text-white transition-all"
-          >
-            Explore Platform
-          </a>
+        <!-- Anduril-style two-col metadata -->
+        <div class="mt-12 border-t border-zinc-800 pt-8 grid md:grid-cols-[200px_1fr] gap-8 items-start">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-white">Governance Proxy</p>
+            <p class="mt-2 font-mono text-xs text-zinc-600">[Silicon Leash]</p>
+          </div>
+          <div>
+            <p class="text-sm uppercase tracking-wide leading-relaxed text-zinc-400">
+              Model-agnostic governance proxy. Tamper-evident audit trail for every AI agent action — Claude, OpenAI, DeepSeek and more. Zero developer friction. Deployed via Group Policy.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row items-start gap-4">
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book Compliance Demo →
+              </button>
+              <a
+                href={`${base}/platform`}
+                class="inline-flex items-center gap-2 border border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-300 hover:border-zinc-500 hover:text-white transition-all"
+              >
+                Explore Platform
+              </a>
+            </div>
+          </div>
         </div>
 
         <!-- Terminal -->
         <div class="mt-16 max-w-2xl">
-          <div class="glow-blue rounded-sm border border-zinc-700 bg-zinc-900">
+          <div class="rounded-sm border border-zinc-800 bg-zinc-900/80">
             <div class="flex items-center gap-2 border-b border-zinc-700 px-4 py-3">
               <span class="h-3 w-3 rounded-full bg-red-400/60"></span>
               <span class="h-3 w-3 rounded-full bg-amber-400/60"></span>
@@ -91,32 +83,12 @@ const base = import.meta.env.BASE_URL;
           </div>
         </div>
 
-        <!-- Trust badges -->
-        <div class="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 text-xs font-medium text-zinc-400">
-          <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            Ed25519 Signed
-          </div>
-          <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-            </svg>
-            SHA-256 Hash-Chained
-          </div>
-          <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            &lt;100ms Latency
-          </div>
-          <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-            </svg>
-            Provider-Agnostic
-          </div>
+        <!-- Trust markers — Anduril-style inline list -->
+        <div class="mt-8 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs uppercase tracking-widest text-zinc-600">
+          <span>Ed25519 Signed</span>
+          <span>SHA-256 Hash-Chained</span>
+          <span>&lt;100ms Latency</span>
+          <span>Provider-Agnostic</span>
         </div>
 
       </div>
@@ -182,11 +154,11 @@ const base = import.meta.env.BASE_URL;
         <div class="mt-16 grid gap-8 lg:grid-cols-3">
 
           <!-- Phase 1: AUDIT -->
-          <div class="relative rounded-sm border border-emerald-400/30 bg-zinc-900/60 p-8 hover:bg-zinc-800/60 transition-all">
+          <div class="relative rounded-sm border border-zinc-800 bg-zinc-900/60 p-8 hover:bg-zinc-800/60 transition-all">
             <div class="mb-6 flex items-center justify-between">
-              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-400">Phase 1</span>
-              <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-400">
-                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Available Now
+              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500">Phase 1</span>
+              <span class="inline-flex items-center gap-1.5 border border-zinc-700 px-3 py-1 text-xs font-mono text-zinc-400">
+                Available Now
               </span>
             </div>
             <h3 class="mb-1 font-mono text-2xl font-bold text-white">AUDIT</h3>
@@ -213,11 +185,11 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <!-- Phase 2: GOVERN -->
-          <div class="relative rounded-sm border border-blue-500/30 bg-zinc-900/60 p-8 hover:bg-zinc-800/60 transition-all">
+          <div class="relative rounded-sm border border-zinc-700 bg-zinc-900/60 p-8 hover:bg-zinc-800/60 transition-all">
             <div class="mb-6 flex items-center justify-between">
-              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-400">Phase 2</span>
-              <span class="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400">
-                <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>Coming Soon
+              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500">Phase 2</span>
+              <span class="inline-flex items-center gap-1.5 border border-zinc-600 px-3 py-1 text-xs font-mono text-zinc-300">
+                Coming Soon
               </span>
             </div>
             <h3 class="mb-1 font-mono text-2xl font-bold text-white">GOVERN</h3>
@@ -244,11 +216,11 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <!-- Phase 3: ATTEST -->
-          <div class="relative rounded-sm border border-cyan-400/30 bg-zinc-900/60 p-8 hover:bg-zinc-800/60 transition-all">
+          <div class="relative rounded-sm border border-zinc-800 bg-zinc-900/60 p-8 hover:bg-zinc-800/60 transition-all">
             <div class="mb-6 flex items-center justify-between">
-              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-400">Phase 3</span>
-              <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">
-                <span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>Roadmap 2027
+              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500">Phase 3</span>
+              <span class="inline-flex items-center gap-1.5 border border-zinc-700 px-3 py-1 text-xs font-mono text-zinc-500">
+                Roadmap 2027
               </span>
             </div>
             <h3 class="mb-1 font-mono text-2xl font-bold text-white">ATTEST</h3>
