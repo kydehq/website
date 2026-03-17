@@ -1,0 +1,200 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const cases = [
+  {
+    n: '01',
+    sector: 'HR Technology & Recruiting',
+    tag: 'EU AI Act — High Risk',
+    tagColor: 'amber',
+    challenge: 'AI agents in HR are classified as High-Risk under the EU AI Act (Annex III). Automated screening, scoring, and shortlisting of candidates are subject to mandatory logging, human oversight requirements, and audit-readiness obligations — with enforcement beginning August 2, 2026.',
+    solution: 'Every candidate interaction, every automated scoring decision, and every tool call made by your recruiting AI is captured in a tamper-evident append-only database. When a rejected candidate challenges the decision, you have a complete, unalterable record: what the model saw, what it decided, and why.',
+    regs: [
+      'EU AI Act — High-Risk AI System (Annex III, §4 Employment)',
+      'GDPR Art. 22 — Automated Decision-Making',
+      'AGG (Germany) — Anti-discrimination compliance for automated hiring',
+    ],
+  },
+  {
+    n: '02',
+    sector: 'Financial Services & Fintech',
+    tag: 'DORA · EU AI Act · GDPR',
+    tagColor: 'violet',
+    challenge: 'AI agents in finance — executing trades, assessing creditworthiness, processing BNPL decisions — operate at the intersection of the EU AI Act, DORA, and GDPR. A single unexplained automated decision can trigger regulatory inquiry. Tamper-evident records are no longer optional.',
+    solution: 'Every agent action in your financial stack is signed and hash-chained. Incident investigations resolve in minutes, not weeks. Regulators receive complete, verifiable audit exports. Your compliance team finally has a source of truth they can trust.',
+    regs: [
+      'DORA — Digital Operational Resilience Act (in force January 2025)',
+      'EU AI Act — High-Risk AI (Annex III, §5 Credit Scoring)',
+      'BaFin AI Guidance — Supervisory expectations for AI system accountability',
+      'GDPR Art. 35 — DPIA for automated financial processing',
+    ],
+  },
+  {
+    n: '03',
+    sector: 'Insurance & Claims Automation',
+    tag: 'EU AI Act · NIS-2 · Solvency II',
+    tagColor: 'cyan',
+    challenge: 'Claims processing, fraud detection, and underwriting are increasingly automated — and increasingly scrutinized. Insurers face dual exposure: regulatory risk under the EU AI Act for automated decisions, and legal risk when claimants challenge AI-assisted outcomes.',
+    solution: 'Silicon Leash provides an unbroken chain of evidence from claim intake to automated decision. Every model call, every tool invocation, every data point considered — recorded, signed, and verifiable. When a claim is disputed, the database is your defense.',
+    regs: [
+      'EU AI Act — High-Risk AI (Annex III, §5 Insurance)',
+      'NIS-2 — Operational resilience for critical sector entities',
+      'GDPR Art. 22 — Rights regarding automated decisions',
+      'Solvency II — Governance and risk management requirements',
+    ],
+  },
+  {
+    n: '04',
+    sector: 'Healthcare & MedTech',
+    tag: 'Highest EU AI Act Risk Class',
+    tagColor: 'red',
+    challenge: "AI in healthcare — clinical decision support, diagnostic tools, patient data processing — carries the highest EU AI Act risk classification. The evidence requirements are strict, the liability exposure is severe, and 'we can't access the logs' is not an acceptable answer to a regulator, auditor, or court.",
+    solution: 'Every AI-assisted clinical recommendation, every automated data retrieval, every patient interaction touching an LLM is logged with cryptographic precision. The causal chain — what the model was shown, what it returned, in what context — is preserved immutably. Your audit trail is complete before any incident occurs.',
+    regs: [
+      'EU AI Act — High-Risk AI (Annex III, §5 Health and Safety)',
+      'MDR / IVDR — Medical Device Regulation for AI-assisted diagnostics',
+      'GDPR Art. 9 — Processing of special category health data',
+      'NIS-2 — Critical health infrastructure requirements',
+    ],
+  },
+  {
+    n: '05',
+    sector: 'Energy & Critical Infrastructure',
+    tag: 'NIS-2 · KRITIS · EU AI Act',
+    tagColor: 'emerald',
+    challenge: 'Energy providers, grid operators, and their suppliers are at the center of NIS-2. AI agents managing load balancing, predictive maintenance, and operational decisions are invisible to most compliance teams — until something goes wrong. At that point, the absence of a tamper-evident audit trail is a regulatory and operational crisis.',
+    solution: 'Silicon Leash wraps every AI agent interaction in your operational stack with a signed, hash-chained record. System failures, anomalous AI behavior, and policy deviations are detectable in real time. Incident reports to regulators are backed by verifiable machine-generated evidence.',
+    regs: [
+      'NIS-2 — Network and Information Security (in force December 2025)',
+      'EU AI Act — High-Risk AI for critical infrastructure',
+      'KRITIS regulation (Germany) — Critical infrastructure protection',
+      'Cyber Resilience Act — Software security requirements',
+    ],
+  },
+];
+
+const tagStyles: Record<string, string> = {
+  amber:   'border-amber-400/30 bg-amber-400/5 text-amber-400',
+  violet:  'border-violet-400/30 bg-violet-400/5 text-violet-400',
+  cyan:    'border-cyan-400/30 bg-cyan-400/5 text-cyan-400',
+  red:     'border-red-400/30 bg-red-400/5 text-red-400',
+  emerald: 'border-emerald-400/30 bg-emerald-400/5 text-emerald-400',
+};
+
+const borderStyles: Record<string, string> = {
+  amber:   'border-amber-400/20 hover:border-amber-400/40',
+  violet:  'border-violet-400/20 hover:border-violet-400/40',
+  cyan:    'border-cyan-400/20 hover:border-cyan-400/40',
+  red:     'border-red-400/20 hover:border-red-400/40',
+  emerald: 'border-emerald-400/20 hover:border-emerald-400/40',
+};
+---
+
+<Base
+  title="Use Cases — KYDE"
+  description="Silicon Leash provides tamper-evident governance for any organization deploying AI agents — regardless of sector, provider, or use case."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="pointer-events-none absolute top-0 right-0 h-[500px] w-[600px] rounded-full bg-violet-600/5 blur-3xl"></div>
+
+      <div class="relative max-w-7xl mx-auto px-6">
+        <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-violet-400">Use Cases</p>
+        <h1 class="max-w-4xl text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+          AI agents are being deployed across every regulated industry.
+          <span class="gradient-text"> The audit trail requirements are the same everywhere.</span>
+        </h1>
+        <p class="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-300">
+          Silicon Leash provides tamper-evident governance for any organization deploying AI agents — regardless of sector, provider, or use case.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ INTRO ══════════ -->
+    <section class="pb-8">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="rounded-sm border border-zinc-800 bg-zinc-900/60 px-8 py-6 max-w-3xl">
+          <p class="text-zinc-300 leading-relaxed">
+            The EU AI Act, NIS-2, DORA, and GDPR do not care which LLM vendor you chose. They care about what your AI systems did, whether you can prove it, and whether the record can be trusted.
+          </p>
+          <p class="mt-3 font-semibold text-white">Silicon Leash answers all three — in five minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ USE CASES ══════════ -->
+    <section class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6 space-y-6">
+
+        {cases.map(({ n, sector, tag, tagColor, challenge, solution, regs }) => (
+          <div class={`rounded-sm border bg-zinc-900/40 transition-all ${borderStyles[tagColor]}`}>
+
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 border-b border-zinc-800 px-8 py-6">
+              <span class="font-mono text-2xl font-bold text-zinc-700 shrink-0">{n}</span>
+              <h2 class="flex-1 text-xl font-bold text-white">{sector}</h2>
+              <span class={`shrink-0 inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium ${tagStyles[tagColor]}`}>
+                {tag}
+              </span>
+            </div>
+
+            <!-- Body -->
+            <div class="grid gap-8 px-8 py-8 md:grid-cols-2">
+              <div>
+                <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-500">The Challenge</p>
+                <p class="text-sm leading-relaxed text-zinc-300">{challenge}</p>
+              </div>
+              <div>
+                <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-500">What Silicon Leash Does</p>
+                <p class="text-sm leading-relaxed text-zinc-300">{solution}</p>
+              </div>
+            </div>
+
+            <!-- Regs -->
+            <div class="border-t border-zinc-800 px-8 py-5 flex flex-wrap gap-2">
+              {regs.map(r => (
+                <span class="rounded-full border border-zinc-700 bg-zinc-800 px-3 py-1 text-xs text-zinc-400">{r}</span>
+              ))}
+            </div>
+
+          </div>
+        ))}
+
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="rounded-sm border border-violet-500/20 bg-violet-600/5 p-12 md:p-16">
+          <div class="max-w-2xl">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+              Your industry. Your agents.<br />Your compliance deadline.
+            </h2>
+            <p class="mt-4 text-lg text-zinc-300">
+              Silicon Leash works across every sector, every provider, every framework.
+            </p>
+            <div class="mt-8">
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 rounded-sm bg-violet-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 hover:bg-violet-500 transition-all"
+              >
+                Book a Sector-Specific Demo →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>

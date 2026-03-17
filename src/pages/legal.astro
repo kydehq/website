@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const sections = [
+  {
+    id: 'imprint',
+    n: '0.',
+    title: 'Imprint',
+    body: 'This website is operated by Jürgen Eckel and Jörg Radehaus, Klenzestraße 57, 80469 Munich, Germany. For legal enquiries: hello@kyde.com.',
+  },
+  {
+    id: 'server-logs',
+    n: '1.',
+    title: 'Server Log Files',
+    body: 'When you visit this website, the hosting provider automatically collects technical access data: IP address (anonymised where possible), date and time of access, browser type and version, operating system, requested file, and referrer URL. This data is used solely for technical monitoring, security, and error analysis. No profiling or merging with other data takes place. Legal basis: Art. 6(1)(f) GDPR.',
+  },
+  {
+    id: 'contact',
+    n: '2.',
+    title: 'Contact',
+    body: 'If you contact us by email, the data you provide is used solely to process your enquiry. Legal basis: Art. 6(1)(b) GDPR. Enquiries are retained for 12 months and then deleted, unless statutory retention obligations apply.',
+  },
+  {
+    id: 'cookies',
+    n: '3.',
+    title: 'Cookies',
+    body: 'This website uses only technically necessary cookies, or no cookies at all, depending on the hosting environment. No analytics, advertising, or tracking cookies are used.',
+  },
+  {
+    id: 'hosting',
+    n: '4.',
+    title: 'Hosting',
+    body: 'This website is hosted via GitHub Pages (GitHub Inc., USA). Data transfer to the USA is based on the EU–US Data Privacy Framework. Where the hosting provider processes personal data (e.g. server log files), this is governed by a data processing agreement pursuant to Art. 28 GDPR.',
+  },
+  {
+    id: 'rights',
+    n: '5.',
+    title: 'Your Rights',
+    body: 'Under the GDPR you have the right to access, rectification, erasure, restriction of processing, data portability, and objection. You also have the right to lodge a complaint with a supervisory authority.',
+  },
+  {
+    id: 'changes',
+    n: '6.',
+    title: 'Changes',
+    body: 'This privacy notice may be updated to reflect legal or technical changes.',
+  },
+];
+---
+
+<Base
+  title="Legal & Privacy — KYDE"
+  description="Imprint and privacy notice for KYDE."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-24">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+        <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-violet-400">Legal & Privacy</p>
+        <h1 class="max-w-2xl text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
+          Imprint & Privacy Notice
+        </h1>
+      </div>
+    </section>
+
+    <!-- ══════════ SECTIONS ══════════ -->
+    <section class="py-8 pb-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl space-y-4">
+          {sections.map(({ id, n, title, body }) => (
+            <div id={id} class="rounded-sm border border-zinc-800 bg-zinc-900/40 px-8 py-7">
+              <div class="flex items-baseline gap-3 mb-3">
+                <span class="font-mono text-sm text-zinc-600 shrink-0">{n}</span>
+                <h2 class="text-base font-bold text-white">{title}</h2>
+              </div>
+              <p class="text-sm leading-relaxed text-zinc-400 pl-6">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>

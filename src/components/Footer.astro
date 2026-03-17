@@ -1,0 +1,62 @@
+---
+const base = import.meta.env.BASE_URL;
+
+const footerLinks = {
+  Product: [
+    { label: 'Platform',   href: `${base}/platform`  },
+    { label: 'Use Cases',  href: `${base}/use-cases` },
+    { label: 'KYDE Labs',  href: `${base}/labs`      },
+  ],
+  Company: [
+    { label: 'About',      href: `${base}/company`   },
+    { label: 'Resources',  href: `${base}/resources` },
+  ],
+  Legal: [
+    { label: 'Privacy & Imprint', href: `${base}/legal` },
+  ],
+};
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/5 bg-black">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+      <!-- Brand -->
+      <div class="col-span-2 md:col-span-1">
+        <a href={`${base}/`} class="text-xl font-black italic tracking-tight text-white hover:text-violet-400 transition-colors">
+          KYDE
+        </a>
+        <p class="mt-3 text-sm text-white/40 leading-relaxed">
+          Autonomous energy infrastructure for the next grid.
+        </p>
+      </div>
+
+      <!-- Link groups -->
+      {Object.entries(footerLinks).map(([group, links]) => (
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">{group}</p>
+          <ul class="space-y-3">
+            {links.map(({ label, href }) => (
+              <li>
+                <a href={href} class="text-sm text-white/50 hover:text-white transition-colors">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-8 md:flex-row md:items-center">
+      <p class="text-xs text-white/25">
+        &copy; {year} KYDE GmbH. All rights reserved.
+      </p>
+      <p class="text-xs text-white/25">
+        Built with Astro &amp; Tailwind CSS
+      </p>
+    </div>
+  </div>
+</footer>

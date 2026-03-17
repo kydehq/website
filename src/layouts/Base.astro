@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import DemoModal from '../components/DemoModal.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'KYDE — Autonomous Energy Infrastructure',
+  description = 'KYDE OS automates how energy assets are owned, operated, and monetized.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="bg-black text-white antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/website/favicon.svg" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Additional head slot -->
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen font-[Inter,sans-serif] bg-black text-white">
+    <DemoModal />
+    <slot />
+  </body>
+</html>

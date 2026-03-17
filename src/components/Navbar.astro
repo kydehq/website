@@ -1,0 +1,59 @@
+---
+const base = import.meta.env.BASE_URL;
+
+const navLinks = [
+  { label: 'Platform',   href: `${base}/platform`   },
+  { label: 'Use Cases',  href: `${base}/use-cases`  },
+  { label: 'Resources',  href: `${base}/resources`  },
+  { label: 'Company',    href: `${base}/company`    },
+  { label: 'KYDE Labs',  href: `${base}/labs`       },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <!-- Logo -->
+    <a href={`${base}/`} class="text-xl font-black italic tracking-tight text-white hover:text-violet-400 transition-colors">
+      KYDE
+    </a>
+
+    <!-- Nav links (desktop) -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            class={[
+              'text-sm font-medium transition-colors',
+              currentPath.startsWith(href) && href !== `${base}/`
+                ? 'text-white'
+                : 'text-white/50 hover:text-white',
+            ].join(' ')}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- CTA -->
+    <button
+      onclick="openModal()"
+      class="hidden md:inline-flex items-center gap-2 rounded-sm bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-500"
+    >
+      Book Demo
+    </button>
+
+    <!-- Mobile menu button (placeholder — no JS toggle yet) -->
+    <button
+      class="md:hidden flex flex-col gap-1.5 p-1"
+      aria-label="Open menu"
+    >
+      <span class="block h-px w-6 bg-white"></span>
+      <span class="block h-px w-6 bg-white"></span>
+      <span class="block h-px w-6 bg-white"></span>
+    </button>
+  </nav>
+</header>

@@ -1,0 +1,574 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Platform — KYDE"
+  description="Silicon Leash. A model-agnostic proxy that sits between your AI agents and every LLM provider. Every action signed. Every chain verifiable."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="pointer-events-none absolute top-0 left-0 h-[500px] w-[700px] rounded-full bg-violet-600/5 blur-3xl"></div>
+
+      <div class="relative max-w-7xl mx-auto px-6">
+        <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-violet-400">Platform</p>
+        <h1 class="max-w-4xl text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+          Silicon Leash.<br />
+          <span class="gradient-text">The Governance Stack for AI Agents.</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-300 md:text-xl">
+          A model-agnostic proxy that sits between your AI agents and every LLM provider. Every action signed. Every chain verifiable. Every regulator satisfied.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row items-start gap-4">
+          <button
+            onclick="openModal()"
+            class="inline-flex items-center gap-2 rounded-sm bg-violet-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 hover:bg-violet-500 transition-all"
+          >
+            Book Compliance Demo
+          </button>
+          <a
+            href="#"
+            class="inline-flex items-center gap-2 rounded-sm border border-zinc-700 bg-zinc-900/50 px-6 py-3.5 text-sm font-semibold text-zinc-200 hover:border-zinc-500 hover:bg-zinc-800 hover:text-white transition-all"
+          >
+            View Integration Docs
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT IT IS ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+        <div class="grid gap-16 lg:grid-cols-2 lg:items-center">
+
+          <div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">What Silicon Leash is</p>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight">
+              Not a filter.<br />A cryptographic evidence layer.
+            </h2>
+            <div class="mt-6 space-y-4 text-zinc-300 leading-relaxed">
+              <p>
+                Silicon Leash does not inspect, block, or rate-limit your prompts by default. It is a transparent proxy that records what your AI agents did, in a form that cannot be altered after the fact.
+              </p>
+              <p>
+                Think of it as the black box for your agent fleet. It runs silently, adds less than 100ms of latency, and produces a tamper-evident audit trail that survives any audit, any incident investigation, and any regulatory inquiry.
+              </p>
+            </div>
+            <div class="mt-8 grid grid-cols-3 gap-4">
+              {[
+                { val: '<100ms', label: 'Added latency' },
+                { val: '100%', label: 'Provider coverage' },
+                { val: '0', label: 'Code changes required' },
+              ].map(({ val, label }) => (
+                <div class="rounded-sm border border-zinc-800 bg-zinc-900/60 p-4">
+                  <p class="font-mono text-2xl font-bold text-white">{val}</p>
+                  <p class="mt-1 text-xs text-zinc-400">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Terminal -->
+          <div class="glow-violet rounded-sm border border-zinc-700 bg-zinc-900">
+            <div class="flex items-center gap-2 border-b border-zinc-700 px-4 py-3">
+              <span class="h-3 w-3 rounded-full bg-red-400/60"></span>
+              <span class="h-3 w-3 rounded-full bg-amber-400/60"></span>
+              <span class="h-3 w-3 rounded-full bg-emerald-400/60"></span>
+              <span class="ml-2 text-xs text-zinc-500 font-mono">terminal</span>
+            </div>
+            <div class="p-6 font-mono text-sm leading-loose">
+              <p class="text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">export OPENAI_BASE_URL=http://localhost:8080/v1</span></p>
+              <p class="text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">silicon-leash init</span></p>
+              <p class="text-cyan-400">&#10003; Proxy started on :8080</p>
+              <p class="text-cyan-400">&#10003; Ed25519 keypair generated</p>
+              <p class="text-cyan-400">&#10003; Append-only database initialized</p>
+              <p class="mt-2 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">silicon-leash verify</span></p>
+              <p class="text-emerald-400">&#10003; Chain integrity: OK — 1,847 entries, 0 anomalies</p>
+              <p class="mt-2 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">silicon-leash audit --from 2026-03-01</span></p>
+              <p class="text-zinc-400 text-xs mt-1">entry_id &nbsp;&nbsp;&nbsp; agent &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; action &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; verified</p>
+              <p class="text-zinc-300 text-xs">e_7f3a2b1c &nbsp; sales_bot &nbsp;&nbsp;&nbsp;&nbsp; chat.completion &nbsp; <span class="text-emerald-400">✓</span></p>
+              <p class="text-zinc-300 text-xs">e_8a1c3d2e &nbsp; billing_agent &nbsp; tool.call &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-emerald-400">✓</span></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ ARCHITECTURE ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">Architecture</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Three layers. One proxy.</h2>
+        </div>
+
+        <div class="mt-16 grid gap-8 lg:grid-cols-3">
+
+          <!-- The Proxy -->
+          <div class="rounded-sm border border-zinc-700 bg-zinc-900/60 p-8">
+            <div class="mb-5 inline-flex rounded-sm bg-violet-400/10 p-3 text-violet-400">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+              </svg>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-white">The Proxy</h3>
+            <p class="text-sm leading-relaxed text-zinc-300 mb-4">
+              Silicon Leash runs as a local or hosted HTTP proxy, fully compatible with the OpenAI API schema. Any agent that can be pointed at a base URL can be governed.
+            </p>
+            <div class="rounded-sm bg-zinc-950 border border-zinc-800 px-4 py-3 font-mono text-xs text-emerald-400">
+              OPENAI_BASE_URL=http://localhost:8080/v1
+            </div>
+            <p class="mt-4 text-xs text-zinc-500">One environment variable. No SDK dependency. No code changes required.</p>
+          </div>
+
+          <!-- The Append-Only Database -->
+          <div class="rounded-sm border border-zinc-700 bg-zinc-900/60 p-8">
+            <div class="mb-5 inline-flex rounded-sm bg-cyan-400/10 p-3 text-cyan-400">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 2.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+              </svg>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-white">The Append-Only Database</h3>
+            <p class="text-sm leading-relaxed text-zinc-300 mb-4">Every LLM interaction produces a signed, hash-chained entry. Tamper with any single entry, and every subsequent link breaks.</p>
+            <ul class="space-y-2 text-sm text-zinc-400">
+              {[
+                ['Who acted', 'agent ID, machine ID, user identity'],
+                ['What happened', 'prompt, model, tool calls, response'],
+                ['Why it happened', 'last 5 messages as causal context'],
+                ['When', 'millisecond-precise UTC timestamp'],
+                ['Proof', 'Ed25519 sig + SHA-256 hash chain'],
+              ].map(([label, val]) => (
+                <li class="flex gap-2">
+                  <span class="shrink-0 font-mono text-xs text-zinc-500 w-24">{label}</span>
+                  <span class="text-xs text-zinc-400">{val}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- The Signing Layer -->
+          <div class="rounded-sm border border-zinc-700 bg-zinc-900/60 p-8">
+            <div class="mb-5 inline-flex rounded-sm bg-emerald-400/10 p-3 text-emerald-400">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+              </svg>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-white">The Signing Layer</h3>
+            <p class="text-sm leading-relaxed text-zinc-300 mb-4">
+              Each entry is signed with an Ed25519 keypair generated locally on first initialization.
+            </p>
+            <p class="text-sm leading-relaxed text-zinc-300">
+              In Phase 3, signing is optionally rooted in a PKCS#11 hardware security module (HSM) or Trusted Execution Environment (TEE) for the highest levels of evidential integrity.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {['Ed25519', 'PKCS#11', 'HSM', 'TDX/SEV-SNP'].map(t => (
+                <span class="rounded-full border border-zinc-700 bg-zinc-800 px-3 py-0.5 font-mono text-xs text-zinc-300">{t}</span>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ GATEWAY VS ENDPOINT ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="max-w-2xl mb-16">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">Architecture</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+            Gateway, not endpoint.<br />One deployment. Every agent.
+          </h2>
+          <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+            Other AI governance tools install on the agent or runtime. Silicon Leash sits in the network — between your entire agent fleet and the LLM API. That difference changes everything.
+          </p>
+        </div>
+
+        <!-- Architecture diagrams -->
+        <div class="grid gap-6 lg:grid-cols-2 mb-16">
+
+          <!-- Gateway diagram -->
+          <div class="rounded-sm border border-emerald-400/25 bg-zinc-900/60 p-8">
+            <div class="mb-5 flex items-center gap-3">
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-400">Silicon Leash</span>
+              <span class="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Gateway model</span>
+            </div>
+            <!-- Diagram -->
+            <div class="font-mono text-xs space-y-1 mb-6">
+              <div class="flex items-center gap-2">
+                <span class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1 text-zinc-300 w-28 text-center">Agent A</span>
+                <span class="text-zinc-600">──┐</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1 text-zinc-300 w-28 text-center">Agent B</span>
+                <span class="text-zinc-600">──┼──►</span>
+                <span class="rounded border border-violet-500/50 bg-violet-600/10 px-2 py-1 text-violet-300 font-semibold">Silicon Leash</span>
+                <span class="text-zinc-600">──►</span>
+                <span class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1 text-zinc-300">LLM API</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1 text-zinc-300 w-28 text-center">Agent C</span>
+                <span class="text-zinc-600">──┘</span>
+              </div>
+              <div class="mt-3 flex items-start gap-2 pl-36">
+                <span class="text-zinc-600">↓</span>
+              </div>
+              <div class="flex items-start gap-2 pl-32">
+                <span class="rounded border border-emerald-400/30 bg-emerald-400/5 px-2 py-1 text-emerald-400">Central DB · One record</span>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-zinc-300">
+              {[
+                'One deployment covers the entire fleet',
+                'Works with every agent, framework, and LLM',
+                'Central visibility — no aggregation required',
+                'No per-agent installation or configuration',
+              ].map(f => (
+                <li class="flex items-center gap-2">
+                  <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" /></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Endpoint diagram -->
+          <div class="rounded-sm border border-zinc-700 bg-zinc-900/40 p-8">
+            <div class="mb-5 flex items-center gap-3">
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-zinc-700/50 px-3 py-1 text-xs font-medium text-zinc-400">Endpoint / Runtime solutions</span>
+            </div>
+            <!-- Diagram -->
+            <div class="font-mono text-xs space-y-2 mb-6">
+              {['Agent A', 'Agent B', 'Agent C'].map((a, i) => (
+                <div class="flex items-center gap-2">
+                  <span class="rounded border border-zinc-700 bg-zinc-800/60 px-2 py-1 text-zinc-400 w-20 text-center">{a}</span>
+                  <span class="text-zinc-700">+</span>
+                  <span class="rounded border border-zinc-700 bg-zinc-800/60 px-2 py-1 text-zinc-500">Runtime</span>
+                  <span class="text-zinc-700">──►</span>
+                  <span class="rounded border border-zinc-700 bg-zinc-800/60 px-2 py-1 text-zinc-500">LLM API</span>
+                </div>
+              ))}
+              <div class="mt-3 flex gap-6 text-zinc-700">
+                <div class="flex flex-col items-center gap-1">
+                  <span>↓</span>
+                  <span class="rounded border border-zinc-800 px-2 py-1 text-zinc-600">Log A</span>
+                </div>
+                <div class="flex flex-col items-center gap-1 ml-4">
+                  <span>↓</span>
+                  <span class="rounded border border-zinc-800 px-2 py-1 text-zinc-600">Log B</span>
+                </div>
+                <div class="flex flex-col items-center gap-1 ml-4">
+                  <span>↓</span>
+                  <span class="rounded border border-zinc-800 px-2 py-1 text-zinc-600">Log C</span>
+                </div>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-zinc-500">
+              {[
+                'Install on every agent separately',
+                'Framework- and runtime-specific',
+                'Fragmented logs — difficult to aggregate',
+                'Each agent deployment is a separate project',
+              ].map(f => (
+                <li class="flex items-center gap-2">
+                  <svg class="h-4 w-4 shrink-0 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 12H6" /></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Comparison table -->
+        <div class="max-w-3xl">
+          <div class="rounded-sm border border-zinc-700 overflow-hidden">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-700 bg-zinc-900/80">
+                  <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-widest text-zinc-400">Property</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-widest text-violet-400">Silicon Leash</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-widest text-zinc-500">Endpoint solutions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-800 bg-zinc-900/40">
+                {[
+                  ['Deployment effort',    'One ENV variable',          'Per-agent installation'],
+                  ['Agent coverage',       'All agents, automatically', 'Each agent separately'],
+                  ['LLM provider support', 'Any OpenAI-compatible API', 'Varies by runtime'],
+                  ['Audit trail',          'Single, central record',    'Fragmented per agent'],
+                  ['Code changes needed',  'None',                      'Typically required'],
+                  ['Compliance export',    'Unified, one command',      'Aggregation required'],
+                ].map(([prop, us, them]) => (
+                  <tr class="hover:bg-zinc-800/20 transition-colors">
+                    <td class="px-6 py-4 text-zinc-400 font-medium">{prop}</td>
+                    <td class="px-6 py-4">
+                      <span class="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-medium">
+                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" /></svg>
+                        {us}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 text-zinc-500 text-xs">{them}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ THREE PHASES ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl mb-16">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">The Three Phases</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+            Start with visibility. Progress to control.
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+
+          <!-- Phase 1 -->
+          <div class="rounded-sm border border-emerald-400/25 bg-zinc-900/60 p-8 grid gap-8 md:grid-cols-[auto_1fr_1fr]">
+            <div class="md:w-48">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="font-mono text-xs font-bold uppercase tracking-widest text-zinc-500">Phase 1</span>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Available Now
+                </span>
+              </div>
+              <h3 class="font-mono text-2xl font-bold text-white">AUDIT</h3>
+              <p class="mt-1 text-sm text-violet-400">Prove what happened</p>
+            </div>
+            <div>
+              <p class="text-sm leading-relaxed text-zinc-300">
+                Passive observation and evidence preservation. The proxy intercepts every LLM call, signs it, and chains it. Nothing is blocked. Nothing is altered. You gain complete forensic visibility with zero operational risk.
+              </p>
+              <p class="mt-3 text-xs text-zinc-500">Deployment: ENV variable or Group Policy push. No developer involvement required.</p>
+            </div>
+            <ul class="space-y-2">
+              {[
+                'Tamper-evident append-only database',
+                'Ed25519 signing + SHA-256 hash chaining',
+                'Causal context capture (the "Why")',
+                'CLI audit and verification tools',
+                'Provider-agnostic interception',
+              ].map(f => (
+                <li class="flex items-center gap-2 text-sm">
+                  <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-zinc-200">{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="rounded-sm border border-violet-500/25 bg-zinc-900/60 p-8 grid gap-8 md:grid-cols-[auto_1fr_1fr]">
+            <div class="md:w-48">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="font-mono text-xs font-bold uppercase tracking-widest text-zinc-500">Phase 2</span>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-500/10 px-2.5 py-0.5 text-xs font-medium text-violet-400">
+                  <span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Coming Soon
+                </span>
+              </div>
+              <h3 class="font-mono text-2xl font-bold text-white">GOVERN</h3>
+              <p class="mt-1 text-sm text-violet-400">Control what happens</p>
+            </div>
+            <div>
+              <p class="text-sm leading-relaxed text-zinc-300">
+                The first active intervention layer. Silicon Leash starts enforcing economic and behavioral boundaries — without needing any developer code changes.
+              </p>
+            </div>
+            <ul class="space-y-2">
+              {[
+                'Token count and API spend limits',
+                'API allowlists and blocklists per agent',
+                'Real-time behavioral anomaly detection',
+                'Continuous chain integrity verification',
+                'Alerting for out-of-policy behavior',
+              ].map(f => (
+                <li class="flex items-center gap-2 text-sm">
+                  <svg class="h-4 w-4 shrink-0 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-zinc-200">{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="rounded-sm border border-cyan-400/25 bg-zinc-900/60 p-8 grid gap-8 md:grid-cols-[auto_1fr_1fr]">
+            <div class="md:w-48">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="font-mono text-xs font-bold uppercase tracking-widest text-zinc-500">Phase 3</span>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan-400/10 px-2.5 py-0.5 text-xs font-medium text-cyan-400">
+                  <span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>Roadmap 2027
+                </span>
+              </div>
+              <h3 class="font-mono text-2xl font-bold text-white">ATTEST</h3>
+              <p class="mt-1 text-sm text-violet-400">Govern who acts</p>
+            </div>
+            <div>
+              <p class="text-sm leading-relaxed text-zinc-300">
+                The full trust layer. Semantic policy enforcement, hardware-rooted signing, and machine-readable delegation — enabling agents to prove their authority to any counterparty.
+              </p>
+            </div>
+            <ul class="space-y-2">
+              {[
+                'Policy Enforcement Point with circuit breakers',
+                'HSM / TEE-rooted signing',
+                'Machine-readable Power of Attorney',
+                'Agent-to-agent delegation model',
+              ].map(f => (
+                <li class="flex items-center gap-2 text-sm">
+                  <svg class="h-4 w-4 shrink-0 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-zinc-200">{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DEPLOYMENT ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl mb-16">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">Deployment</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Three ways to deploy. Zero code changes.</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              n: '01',
+              title: 'Environment Variable',
+              sub: 'Developer / Single machine',
+              code: 'export OPENAI_BASE_URL=http://localhost:8080/v1\nsilicon-leash init',
+              desc: 'Point any agent at the proxy with one ENV variable. Ideal for local development or single-machine deployments.',
+            },
+            {
+              n: '02',
+              title: 'Group Policy',
+              sub: 'IT / Enterprise fleet',
+              code: null,
+              desc: 'Push a single GPO that redirects all LLM API traffic through Silicon Leash. No developer action, no application changes, no opt-in required.',
+            },
+            {
+              n: '03',
+              title: 'Hosted Proxy',
+              sub: 'Cloud / SaaS',
+              code: null,
+              desc: 'For teams that prefer a managed deployment. Traffic routes through KYDE\'s infrastructure. Data-residency options available for EU-regulated environments.',
+            },
+          ].map(({ n, title, sub, code, desc }) => (
+            <div class="rounded-sm border border-zinc-700 bg-zinc-900/60 p-8">
+              <span class="font-mono text-3xl font-bold text-zinc-700">{n}</span>
+              <h3 class="mt-4 text-lg font-bold text-white">{title}</h3>
+              <p class="text-xs text-zinc-500 mb-4">{sub}</p>
+              {code && (
+                <div class="rounded-sm bg-zinc-950 border border-zinc-800 px-4 py-3 font-mono text-xs text-emerald-400 whitespace-pre mb-4">{code}</div>
+              )}
+              <p class="text-sm leading-relaxed text-zinc-300">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ COMPATIBILITY ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl mb-16">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">Compatibility</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+            Provider-agnostic. Zero SDK changes required.
+          </h2>
+        </div>
+
+        <div class="max-w-2xl">
+          <div class="rounded-sm border border-zinc-700 overflow-hidden">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-700 bg-zinc-900/80">
+                  <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-widest text-zinc-400">Provider</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-widest text-zinc-400">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-800 bg-zinc-900/40">
+                {[
+                  'OpenAI (GPT-4o, o1, o3)',
+                  'Anthropic (Claude 3.5, 4.x)',
+                  'Azure OpenAI',
+                  'DeepSeek',
+                  'Mistral / Ollama / Local',
+                  'Google Gemini (via OpenAI compat.)',
+                ].map(provider => (
+                  <tr class="hover:bg-zinc-800/30 transition-colors">
+                    <td class="px-6 py-4 font-medium text-zinc-200">{provider}</td>
+                    <td class="px-6 py-4">
+                      <span class="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-medium">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" /></svg>
+                        Supported
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA FOOTER ══════════ -->
+    <section class="relative py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="rounded-sm border border-violet-500/20 bg-violet-600/5 p-12 md:p-16">
+          <div class="max-w-2xl">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+              Ready to make your agent fleet audit-ready?
+            </h2>
+            <p class="mt-4 text-lg text-zinc-300">
+              Deploy Silicon Leash today. Be compliant before the regulator asks.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 rounded-sm bg-violet-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 hover:bg-violet-500 transition-all"
+              >
+                Book Compliance Demo →
+              </button>
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 rounded-sm border border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-all"
+              >
+                View Docs →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
