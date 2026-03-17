@@ -294,8 +294,8 @@ const base = import.meta.env.BASE_URL;
           ].map(({ n, title, body, code, icon }) => (
             <div class="group relative rounded-sm border border-zinc-700 bg-zinc-900/40 p-6 hover:border-zinc-600 hover:bg-zinc-800/40 transition-all">
               <div class="mb-4 flex items-center gap-3">
-                <span class="font-mono text-3xl font-bold text-zinc-700 group-hover:text-blue-500 transition-colors">{n}</span>
-                <svg class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <span class="font-mono text-3xl font-bold text-zinc-700 group-hover:text-zinc-400 transition-colors">{n}</span>
+                <svg class="h-6 w-6 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path d={icon} />
                 </svg>
               </div>
@@ -309,26 +309,26 @@ const base = import.meta.env.BASE_URL;
         <!-- Ledger entry -->
         <div class="mx-auto mt-20 max-w-3xl">
           <h3 class="mb-6 text-center text-lg font-semibold text-white">Every action produces a tamper-evident database entry</h3>
-          <div class="glow-cyan rounded-sm border border-zinc-700 bg-zinc-900">
-            <div class="flex items-center gap-2 border-b border-zinc-700 px-4 py-3">
-              <span class="h-3 w-3 rounded-full bg-red-400/60"></span>
-              <span class="h-3 w-3 rounded-full bg-amber-400/60"></span>
-              <span class="h-3 w-3 rounded-full bg-emerald-400/60"></span>
+          <div class="rounded-sm border border-zinc-800 bg-zinc-900">
+            <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
+              <span class="h-2 w-2 rounded-full bg-zinc-600"></span>
+              <span class="h-2 w-2 rounded-full bg-zinc-600"></span>
+              <span class="h-2 w-2 rounded-full bg-zinc-600"></span>
               <span class="ml-2 text-xs text-zinc-500 font-mono">audit_entry.json</span>
             </div>
-            <pre class="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-zinc-200"><code>{`{
-  `}<span class="text-cyan-400">"entry_id"</span>{`: `}<span class="text-emerald-400">"e_7f3a2b1c"</span>{`,
-  `}<span class="text-cyan-400">"sequence"</span>{`: `}<span class="text-amber-400">1847</span>{`,
-  `}<span class="text-cyan-400">"agent_id"</span>{`: `}<span class="text-emerald-400">"sales_bot_prod"</span>{`,
-  `}<span class="text-cyan-400">"timestamp"</span>{`: `}<span class="text-emerald-400">"2026-03-15T14:23:07Z"</span>{`,
-  `}<span class="text-cyan-400">"action"</span>{`: `}<span class="text-emerald-400">"chat.completion"</span>{`,
-  `}<span class="text-cyan-400">"provider"</span>{`: `}<span class="text-emerald-400">"openai"</span>{`,
-  `}<span class="text-cyan-400">"model"</span>{`: `}<span class="text-emerald-400">"gpt-4o"</span>{`,
-  `}<span class="text-cyan-400">"tool_calls"</span>{`: [`}<span class="text-emerald-400">"crm.update_deal"</span>{`, `}<span class="text-emerald-400">"slack.send_message"</span>{`],
-  `}<span class="text-cyan-400">"input_hash"</span>{`: `}<span class="text-emerald-400">"sha256:9f86d0..."</span>{`,
-  `}<span class="text-cyan-400">"entry_hash"</span>{`: `}<span class="text-emerald-400">"sha256:7b2e4d..."</span>{`,
-  `}<span class="text-cyan-400">"prev_hash"</span>{`: `}<span class="text-emerald-400">"sha256:1c3f8a..."</span>{`,
-  `}<span class="text-cyan-400">"signature"</span>{`: `}<span class="text-emerald-400">"ed25519:Mk3nR9..."</span>{`
+            <pre class="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-zinc-400"><code>{`{
+  `}<span class="text-zinc-200">"entry_id"</span>{`: `}<span class="text-zinc-500">"e_7f3a2b1c"</span>{`,
+  `}<span class="text-zinc-200">"sequence"</span>{`: `}<span class="text-white">1847</span>{`,
+  `}<span class="text-zinc-200">"agent_id"</span>{`: `}<span class="text-zinc-500">"sales_bot_prod"</span>{`,
+  `}<span class="text-zinc-200">"timestamp"</span>{`: `}<span class="text-zinc-500">"2026-03-15T14:23:07Z"</span>{`,
+  `}<span class="text-zinc-200">"action"</span>{`: `}<span class="text-zinc-500">"chat.completion"</span>{`,
+  `}<span class="text-zinc-200">"provider"</span>{`: `}<span class="text-zinc-500">"openai"</span>{`,
+  `}<span class="text-zinc-200">"model"</span>{`: `}<span class="text-zinc-500">"gpt-4o"</span>{`,
+  `}<span class="text-zinc-200">"tool_calls"</span>{`: [`}<span class="text-zinc-500">"crm.update_deal"</span>{`, `}<span class="text-zinc-500">"slack.send_message"</span>{`],
+  `}<span class="text-zinc-200">"input_hash"</span>{`: `}<span class="text-zinc-500">"sha256:9f86d0..."</span>{`,
+  `}<span class="text-zinc-200">"entry_hash"</span>{`: `}<span class="text-zinc-500">"sha256:7b2e4d..."</span>{`,
+  `}<span class="text-zinc-200">"prev_hash"</span>{`: `}<span class="text-zinc-500">"sha256:1c3f8a..."</span>{`,
+  `}<span class="text-zinc-200">"signature"</span>{`: `}<span class="text-zinc-500">"ed25519:Mk3nR9..."</span>{`
 }`}</code></pre>
           </div>
         </div>
@@ -354,13 +354,13 @@ const base = import.meta.env.BASE_URL;
             { name: 'DORA', desc: 'Digital Operational Resilience for financial entities', deadline: 'Deadline: January 2025', urgent: false },
             { name: 'GDPR Art. 35', desc: 'Data Protection Impact Assessment for automated processing', deadline: 'Deadline: In force', urgent: false },
           ].map(({ name, desc, deadline, urgent }) => (
-            <div class={`rounded-sm border p-6 transition-all ${urgent ? 'border-amber-400/30 bg-amber-400/5 hover:border-amber-400/50' : 'border-zinc-700 bg-zinc-900/50 hover:border-zinc-600'}`}>
+            <div class={`rounded-sm border p-6 transition-all ${urgent ? 'border-zinc-600 bg-zinc-800/50 hover:border-zinc-500' : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700'}`}>
               <div class="flex items-start justify-between">
                 <div>
                   <h3 class="font-mono text-lg font-bold text-white">{name}</h3>
-                  <p class="mt-1 text-sm text-zinc-300">{desc}</p>
+                  <p class="mt-1 text-sm text-zinc-400">{desc}</p>
                 </div>
-                {urgent && <span class="shrink-0 rounded-full bg-amber-400/10 px-2 py-1 text-xs font-medium text-amber-400">Urgent</span>}
+                {urgent && <span class="shrink-0 border border-zinc-600 px-2 py-1 text-xs font-mono text-white">Urgent</span>}
               </div>
               <div class="mt-3 flex items-center gap-2 text-xs text-zinc-400">
                 <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -373,11 +373,11 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <div class="mt-16 text-center">
-          <div class="mx-auto inline-flex max-w-2xl flex-col items-center rounded-sm border border-blue-500/20 bg-blue-600/5 p-8 sm:p-12">
+          <div class="mx-auto inline-flex max-w-2xl flex-col items-center border border-zinc-700 p-8 sm:p-12">
             <h3 class="text-xl md:text-2xl font-bold text-white">Ready before your regulator asks?</h3>
-            <p class="mt-3 text-zinc-300">Deploy KYDE today and be audit-ready for every framework — EU AI Act, NIS-2, DORA, and GDPR.</p>
-            <button onclick="openModal()" class="mt-6 rounded-sm bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-500 transition-all">
-              Book Compliance Demo
+            <p class="mt-3 text-zinc-400">Deploy KYDE today and be audit-ready for every framework — EU AI Act, NIS-2, DORA, and GDPR.</p>
+            <button onclick="openModal()" class="mt-6 bg-white px-8 py-3.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all">
+              Book Compliance Demo →
             </button>
           </div>
         </div>
@@ -403,17 +403,17 @@ const base = import.meta.env.BASE_URL;
             <div class="mb-6">
               <span class="text-xs font-semibold uppercase tracking-widest text-zinc-400">Phase 1</span>
               <h3 class="mt-2 font-mono text-2xl font-bold text-white">Audit</h3>
-              <p class="mt-1 text-sm text-blue-400">Prove what happened</p>
+              <p class="mt-1 text-sm text-zinc-500">Prove what happened</p>
             </div>
             <div class="mb-2"><span class="text-3xl font-bold text-white">$2K–$8K</span><span class="text-zinc-400">/mo</span></div>
-            <p class="mb-6 text-sm text-zinc-400">Up to 20 agents</p>
-            <button onclick="openModal()" class="mb-8 block w-full rounded-sm border border-zinc-600 bg-zinc-900/50 px-4 py-3 text-center text-sm font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-all">
+            <p class="mb-6 text-sm text-zinc-500">Up to 20 agents</p>
+            <button onclick="openModal()" class="mb-8 block w-full border border-zinc-700 px-4 py-3 text-center text-sm font-semibold text-zinc-300 hover:border-zinc-500 hover:text-white transition-all">
               Start Audit Pilot
             </button>
             <ul class="space-y-3">
               {['Append-Only Database', 'Hash-Chain + Ed25519', 'Causal Why Context', 'CLI Audit Tools'].map(f => (
                 <li class="flex items-center gap-3 text-sm">
-                  <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  <svg class="h-4 w-4 shrink-0 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                   <span class="text-zinc-200">{f}</span>
                 </li>
               ))}
@@ -427,24 +427,24 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <!-- Govern (highlighted) -->
-          <div class="relative rounded-sm border border-blue-500/50 bg-zinc-800/60 p-8 glow-blue transition-all">
+          <div class="relative border border-zinc-500 bg-zinc-800/60 p-8 transition-all">
             <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span class="rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">Most Popular</span>
+              <span class="border border-zinc-500 bg-black px-3 py-1 text-xs font-mono text-white">Most Popular</span>
             </div>
             <div class="mb-6">
               <span class="text-xs font-semibold uppercase tracking-widest text-zinc-400">Phase 2</span>
               <h3 class="mt-2 font-mono text-2xl font-bold text-white">Govern</h3>
-              <p class="mt-1 text-sm text-blue-400">Control what happens</p>
+              <p class="mt-1 text-sm text-zinc-400">Control what happens</p>
             </div>
             <div class="mb-2"><span class="text-3xl font-bold text-white">$8K–$25K</span><span class="text-zinc-400">/mo</span></div>
             <p class="mb-6 text-sm text-zinc-400">Up to 100 agents</p>
-            <button onclick="openModal()" class="mb-8 block w-full rounded-sm bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-500 transition-all">
-              Book Demo
+            <button onclick="openModal()" class="mb-8 block w-full bg-white px-4 py-3 text-center text-sm font-semibold text-black hover:bg-zinc-200 transition-all">
+              Book Demo →
             </button>
             <ul class="space-y-3">
               {['Append-Only Database', 'Hash-Chain + Ed25519', 'Causal Why Context', 'CLI Audit Tools', 'Token / Cost Limits', 'API Allowlists', 'Anomaly Alerts'].map(f => (
                 <li class="flex items-center gap-3 text-sm">
-                  <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  <svg class="h-4 w-4 shrink-0 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                   <span class="text-zinc-200">{f}</span>
                 </li>
               ))}
@@ -462,17 +462,17 @@ const base = import.meta.env.BASE_URL;
             <div class="mb-6">
               <span class="text-xs font-semibold uppercase tracking-widest text-zinc-400">Phase 3</span>
               <h3 class="mt-2 font-mono text-2xl font-bold text-white">Attest</h3>
-              <p class="mt-1 text-sm text-blue-400">Govern who acts</p>
+              <p class="mt-1 text-sm text-zinc-500">Govern who acts</p>
             </div>
             <div class="mb-2"><span class="text-3xl font-bold text-white">$25K+</span><span class="text-zinc-400">/mo</span></div>
-            <p class="mb-6 text-sm text-zinc-400">Unlimited agents</p>
-            <a href="mailto:sales@kyde.com?subject=KYDE%20Attest%20Tier%20—%20Enterprise%20Inquiry" class="mb-8 block rounded-sm border border-zinc-600 bg-zinc-900/50 px-4 py-3 text-center text-sm font-semibold text-zinc-200 hover:border-zinc-500 hover:text-white transition-all">
+            <p class="mb-6 text-sm text-zinc-500">Unlimited agents</p>
+            <a href="mailto:sales@kyde.com?subject=KYDE%20Attest%20Tier%20—%20Enterprise%20Inquiry" class="mb-8 block border border-zinc-700 px-4 py-3 text-center text-sm font-semibold text-zinc-300 hover:border-zinc-500 hover:text-white transition-all">
               Contact Sales
             </a>
             <ul class="space-y-3">
               {['Append-Only Database', 'Hash-Chain + Ed25519', 'Causal Why Context', 'CLI Audit Tools', 'Token / Cost Limits', 'API Allowlists', 'Anomaly Alerts', 'Policy Engine', 'HSM / TEE Signing'].map(f => (
                 <li class="flex items-center gap-3 text-sm">
-                  <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  <svg class="h-4 w-4 shrink-0 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                   <span class="text-zinc-200">{f}</span>
                 </li>
               ))}
