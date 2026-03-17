@@ -38,7 +38,7 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <!-- CTA -->
+    <!-- CTA (desktop) -->
     <button
       onclick="openModal()"
       class="hidden md:inline-flex items-center gap-2 bg-white px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
@@ -46,14 +46,69 @@ const currentPath = Astro.url.pathname;
       Book Demo →
     </button>
 
-    <!-- Mobile menu button (placeholder — no JS toggle yet) -->
+    <!-- Mobile menu button -->
     <button
+      id="mobile-menu-btn"
       class="md:hidden flex flex-col gap-1.5 p-1"
       aria-label="Open menu"
+      aria-expanded="false"
     >
-      <span class="block h-px w-6 bg-white"></span>
-      <span class="block h-px w-6 bg-white"></span>
-      <span class="block h-px w-6 bg-white"></span>
+      <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-1"></span>
+      <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-2"></span>
+      <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-3"></span>
     </button>
   </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-zinc-800 bg-black px-6 py-6"
+  >
+    <ul class="flex flex-col gap-6 mb-8">
+      {navLinks.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            class={[
+              'font-mono text-sm uppercase tracking-widest transition-colors',
+              currentPath.startsWith(href) && href !== `${base}/`
+                ? 'text-white'
+                : 'text-zinc-400 hover:text-white',
+            ].join(' ')}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <button
+      onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
+      class="w-full bg-white px-4 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+    >
+      Book Demo →
+    </button>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const b1 = document.getElementById('burger-1');
+  const b2 = document.getElementById('burger-2');
+  const b3 = document.getElementById('burger-3');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(isOpen));
+    // animate to X
+    if (isOpen) {
+      b1?.classList.add('translate-y-[7.5px]', 'rotate-45');
+      b2?.classList.add('opacity-0');
+      b3?.classList.add('-translate-y-[7.5px]', '-rotate-45');
+    } else {
+      b1?.classList.remove('translate-y-[7.5px]', 'rotate-45');
+      b2?.classList.remove('opacity-0');
+      b3?.classList.remove('-translate-y-[7.5px]', '-rotate-45');
+    }
+  });
+</script>
