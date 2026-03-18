@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
+import '@fontsource-variable/inter';
 import DemoModal from '../components/DemoModal.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
@@ -24,19 +26,12 @@ const {
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap"
-      rel="stylesheet"
-    />
-
     <!-- Additional head slot -->
     <slot name="head" />
   </head>
   <body class="min-h-screen font-[Inter,sans-serif] bg-black text-white">
     <DemoModal />
     <slot />
+    <CookieBanner />
   </body>
 </html>

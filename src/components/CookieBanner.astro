@@ -1,0 +1,35 @@
+<!-- Cookie Banner — GDPR/DSGVO compliant -->
+<div
+  id="cookie-banner"
+  class="hidden fixed bottom-0 left-0 right-0 z-[200] border-t border-zinc-700 bg-black/95 backdrop-blur-sm"
+>
+  <div class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-xs text-zinc-400 leading-relaxed max-w-2xl">
+      This website uses only technically necessary cookies — no analytics, no advertising, no tracking.
+      Your data is never shared with third parties.
+      <a href="/legal" class="underline underline-offset-2 text-zinc-300 hover:text-white transition-colors">Privacy Policy</a>
+    </p>
+    <div class="flex items-center gap-3 shrink-0">
+      <button
+        id="cookie-accept"
+        class="bg-white px-5 py-2 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'kyde_cookie_consent';
+  const banner = document.getElementById('cookie-banner');
+
+  if (!localStorage.getItem(CONSENT_KEY)) {
+    banner?.classList.remove('hidden');
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    banner?.classList.add('hidden');
+  });
+</script>
