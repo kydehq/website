@@ -71,13 +71,13 @@ import Footer from '../components/Footer.astro';
               <span class="ml-2 text-xs text-zinc-500 font-mono">terminal</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed">
-              <p class="text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">export OPENAI_BASE_URL=http://localhost:8080/v1</span></p>
+              <p class="text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">export OPENAI_BASE_URL=https://witness.intranet/v1</span></p>
               <p class="mt-1 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">witness init</span></p>
               <p class="mt-1 text-cyan-400">&#10003; Proxy started on :8080</p>
               <p class="text-cyan-400">&#10003; Ed25519 keypair generated</p>
               <p class="text-cyan-400">&#10003; Append-only database initialized</p>
               <p class="mt-2 text-zinc-400"><span class="text-emerald-400">$</span> <span class="text-zinc-200">witness verify</span></p>
-              <p class="mt-1 text-emerald-400">&#10003; Chain integrity verified — 0 entries, 0 anomalies</p>
+              <p class="mt-1 text-emerald-400">&#10003; Data integrity verified — OK — 1,847 entries, 0 anomalies</p>
             </div>
           </div>
         </div>
@@ -204,7 +204,7 @@ import Footer from '../components/Footer.astro';
                 <p class="mt-0.5 text-sm leading-relaxed text-zinc-400">Real-time monitoring of behavioral baselines and API usage alerts.</p>
               </li>
               <li>
-                <h4 class="text-sm font-semibold text-zinc-100">Chain Integrity Verification</h4>
+                <h4 class="text-sm font-semibold text-zinc-100">Data Integrity Verification</h4>
                 <p class="mt-0.5 text-sm leading-relaxed text-zinc-400">Continuous automated validation of database integrity.</p>
               </li>
               <li>
@@ -266,7 +266,7 @@ import Footer from '../components/Footer.astro';
               n: '01',
               title: 'Deploy via Group Policy',
               body: 'IT pushes one policy, routing all LLM API traffic through KYDE WITNESS. Zero developer action required.',
-              code: 'LLM_BASE_URL=http://localhost:8080/v1',
+              code: 'LLM_BASE_URL=https://witness.intranet/v1',
               icon: 'M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m-6 3.75l3 3m0 0l3-3m-3 3V1.5',
             },
             {
@@ -507,7 +507,7 @@ import Footer from '../components/Footer.astro';
             },
             {
               q: 'Can I export my audit data?',
-              a: 'Yes. Use the CLI tool: witness export --format json. Exports include full chain integrity metadata, allowing independent verification by any third party or regulator.',
+              a: 'Yes. Use the CLI tool: witness export --format json. Exports include full data integrity metadata, allowing independent verification by any third party or regulator.',
             },
             {
               q: 'How does this differ from Zenity or Lakera?',
