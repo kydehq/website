@@ -1,0 +1,164 @@
+---
+// ArchitectureDiagram.astro
+// "How It Works" architecture visual — sits between Problem and Product Phases on the home page
+---
+
+<section class="relative border-t border-zinc-800/60 py-24 md:py-32">
+    <div class="relative max-w-7xl mx-auto px-6">
+
+        <!-- Section header -->
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+                ↳ How it works
+            </p>
+            <div class="mb-6 h-px bg-zinc-800"></div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white">
+                One proxy. Every agent. <span class="text-zinc-400">Full record.</span>
+            </h2>
+            <p class="mt-4 text-lg text-zinc-400">
+                KYDE WITNESS sits between your agents and any LLM provider — intercepting every call, signing every entry, and chaining every record into a tamper-evident audit log.
+            </p>
+        </div>
+
+        <!-- Diagram -->
+        <div class="rounded-sm border border-zinc-800 bg-zinc-900/60 p-4 md:p-6">
+            <svg
+                viewBox="0 0 825 265"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-full block"
+                aria-label="Architecture diagram: AI agents connect to KYDE WITNESS proxy, which forwards to LLM providers and writes a hash-chained audit log"
+                role="img"
+            >
+                <style>
+                    .d-caption  { font-family: ui-monospace, monospace; font-size: 9px;  fill: #71717a; letter-spacing: 0.12em; }
+                    .d-box      { fill: #18181b; stroke: #3f3f46; stroke-width: 1; }
+                    .d-box-ac   { fill: #18181b; stroke: #71717a; stroke-width: 1.5; }
+                    .d-pill     { fill: #18181b; stroke: #fbbf24; stroke-width: 1; }
+                    .d-line     { stroke: #71717a; stroke-width: 1.2; }
+                    .d-dot      { fill: #3f3f46; }
+                    .d-tag      { font-family: ui-monospace, monospace; font-size: 9px;  fill: #fbbf24; letter-spacing: 0.1em; }
+                    .d-witness  { font-family: ui-monospace, monospace; font-size: 12px; fill: #f4f4f5; }
+                    .d-meta     { font-family: ui-monospace, monospace; font-size: 8px;  fill: #3f3f46; }
+                    .d-llm      { font-family: ui-monospace, monospace; font-size: 11px; fill: #9ca3af; }
+                    .d-verified { font-family: ui-monospace, monospace; font-size: 8px;  fill: #52525b; }
+                    .d-a1       { font-family: ui-monospace, monospace; font-size: 7px;  fill: #71717a; }
+                    .d-a2       { font-family: ui-monospace, monospace; font-size: 8px;  fill: #71717a; }
+                    .d-a3       { font-family: ui-monospace, monospace; font-size: 9px;  fill: #9ca3af; }
+                </style>
+
+                <!-- ── CURVES: all agents → Witness at (330,122) ── -->
+                <!-- col 1 -->
+                <path d="M 73,57  C 160,57  285,122 330,122" class="d-line"/>
+                <path d="M 93,122 C 160,122 285,122 330,122" class="d-line"/>
+                <path d="M 73,187 C 160,187 285,122 330,122" class="d-line"/>
+                <!-- col 2 -->
+                <path d="M 165,29  C 235,29  295,122 330,122" class="d-line"/>
+                <path d="M 165,215 C 235,215 295,122 330,122" class="d-line"/>
+                <!-- col 3 -->
+                <path d="M 258,44  C 295,44  315,122 330,122" class="d-line"/>
+                <path d="M 238,122 C 285,122 315,122 330,122" class="d-line"/>
+                <path d="M 258,200 C 295,200 315,122 330,122" class="d-line"/>
+
+                <!-- ── COL 1: 3 agents ── -->
+                <rect x="27"  y="48"  width="46" height="18" rx="9"  class="d-pill"/>
+                <text x="50"  y="57"  text-anchor="middle" dominant-baseline="central" class="d-a1">ops_agent</text>
+
+                <rect x="7"   y="111" width="86" height="22" rx="11" class="d-pill"/>
+                <text x="50"  y="122" text-anchor="middle" dominant-baseline="central" class="d-a3">hr_agent</text>
+
+                <rect x="27"  y="178" width="46" height="18" rx="9"  class="d-pill"/>
+                <text x="50"  y="187" text-anchor="middle" dominant-baseline="central" class="d-a1">crm_agent</text>
+
+                <!-- ── COL 2: 2 agents, width 78 ── -->
+                <rect x="91"  y="19"  width="78" height="20" rx="10" class="d-pill"/>
+                <text x="130" y="29"  text-anchor="middle" dominant-baseline="central" class="d-a2">billing_agent</text>
+
+                <rect x="91"  y="205" width="78" height="20" rx="10" class="d-pill"/>
+                <text x="130" y="215" text-anchor="middle" dominant-baseline="central" class="d-a2">legal_agent</text>
+
+                <!-- ── COL 3: 3 agents, width 86 ── -->
+                <rect x="172" y="33"  width="86" height="22" rx="11" class="d-pill"/>
+                <text x="215" y="44"  text-anchor="middle" dominant-baseline="central" class="d-a3">exec_agent</text>
+
+                <!-- finance_agent shifted ~20px left -->
+                <rect x="152" y="111" width="86" height="22" rx="11" class="d-pill"/>
+                <text x="195" y="122" text-anchor="middle" dominant-baseline="central" class="d-a3">finance_agent</text>
+
+                <rect x="172" y="189" width="86" height="22" rx="11" class="d-pill"/>
+                <text x="215" y="200" text-anchor="middle" dominant-baseline="central" class="d-a3">risk_agent</text>
+
+                <text x="132" y="250" text-anchor="middle" class="d-caption">ENTERPRISE AGENTS</text>
+
+                <!-- ── CENTER: KYDE WITNESS — centered at y=122 ── -->
+                <rect x="330" y="65" width="185" height="114" rx="1" class="d-box-ac"/>
+                <text x="422" y="84"  text-anchor="middle" class="d-witness">KYDE WITNESS</text>
+                <text x="422" y="98"  text-anchor="middle" class="d-meta" style="fill:#52525b">Governance Proxy</text>
+                <line x1="342" y1="104" x2="503" y2="104" stroke="#27272a" stroke-width="1"/>
+                <text x="422" y="118" text-anchor="middle" class="d-tag">● ACTIVE</text>
+                <text x="342" y="135" class="d-meta">SIG  ed25519·9f3a…c1</text>
+                <text x="342" y="149" class="d-meta">CHAIN  1,847 entries</text>
+                <text x="342" y="163" class="d-meta">LAT  82ms</text>
+
+                <!-- ── CURVES: Witness → LLMs fan from (515,122) ── -->
+                <path d="M 515,122 C 545,122 560,44  670,44"  class="d-line"/>
+                <path d="M 515,122 C 545,122 560,122 670,122" class="d-line"/>
+                <path d="M 515,122 C 545,122 560,200 670,200" class="d-line"/>
+
+                <!-- ── RIGHT: LLM Providers ── -->
+                <rect x="670" y="22"  width="125" height="44" rx="1" class="d-box"/>
+                <text x="732" y="41"  text-anchor="middle" class="d-llm">Claude</text>
+                <text x="732" y="55"  text-anchor="middle" class="d-verified">✓ VERIFIED</text>
+
+                <rect x="670" y="100" width="125" height="44" rx="1" class="d-box"/>
+                <text x="732" y="119" text-anchor="middle" class="d-llm">OpenAI</text>
+                <text x="732" y="133" text-anchor="middle" class="d-verified">✓ VERIFIED</text>
+
+                <rect x="670" y="178" width="125" height="44" rx="1" class="d-box"/>
+                <text x="732" y="197" text-anchor="middle" class="d-llm">Azure / Other</text>
+                <text x="732" y="211" text-anchor="middle" class="d-verified">✓ VERIFIED</text>
+
+                <text x="732" y="250" text-anchor="middle" class="d-caption">ANY LLM PROVIDER</text>
+
+                <!-- ── BOTTOM: Audit chain ── -->
+                <line x1="422" y1="179" x2="422" y2="200" class="d-line"/>
+
+                <!-- 7 hash-chain dots, centered at x=422 -->
+                <circle cx="356" cy="210" r="6" class="d-dot"/>
+                <circle cx="378" cy="210" r="6" class="d-dot"/>
+                <circle cx="400" cy="210" r="6" class="d-dot"/>
+                <circle cx="422" cy="210" r="6" class="d-dot"/>
+                <circle cx="444" cy="210" r="6" class="d-dot"/>
+                <circle cx="466" cy="210" r="6" class="d-dot"/>
+                <circle cx="488" cy="210" r="6" class="d-dot"/>
+
+                <line x1="362" y1="210" x2="372" y2="210" class="d-line"/>
+                <line x1="384" y1="210" x2="394" y2="210" class="d-line"/>
+                <line x1="406" y1="210" x2="416" y2="210" class="d-line"/>
+                <line x1="428" y1="210" x2="438" y2="210" class="d-line"/>
+                <line x1="450" y1="210" x2="460" y2="210" class="d-line"/>
+                <line x1="472" y1="210" x2="482" y2="210" class="d-line"/>
+
+                <text x="422" y="250" text-anchor="middle" class="d-caption">SHA-256 HASH-CHAINED AUDIT LOG — ED25519 SIGNED</text>
+
+            </svg>
+        </div>
+
+        <!-- Three callouts below diagram -->
+        <div class="mt-28 grid gap-4 sm:grid-cols-3">
+            <div class="border border-zinc-800 bg-zinc-900/40 px-6 py-5">
+                <p class="font-mono text-xs uppercase tracking-widest text-zinc-300 mb-2">01 — Intercept</p>
+                <p class="text-sm text-zinc-200 leading-relaxed">Every request from every agent routes through the WITNESS proxy. No code changes required — one environment variable or Group Policy push.</p>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 px-6 py-5">
+                <p class="font-mono text-xs uppercase tracking-widest text-zinc-300 mb-2">02 — Sign & Chain</p>
+                <p class="text-sm text-zinc-200 leading-relaxed">Each event is Ed25519-signed and SHA-256 chained to the previous entry. Alter any record — every subsequent link breaks.</p>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 px-6 py-5">
+                <p class="font-mono text-xs uppercase tracking-widest text-zinc-300 mb-2">03 — Forward</p>
+                <p class="text-sm text-zinc-200 leading-relaxed">The original request is forwarded to the LLM provider with &lt;100ms overhead. Governance is invisible to agent code and end users.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
