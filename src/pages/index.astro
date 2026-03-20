@@ -625,6 +625,85 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
             </div>
         </section>
 
+        <!-- ══════════ TRUST / HARDWARE ROOT ══════════ -->
+        <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
+            <div class="relative max-w-7xl mx-auto px-6">
+
+                <!-- Label -->
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">↳ Built for the highest-stakes environments</span>
+                    </div>
+                    <div class="h-px w-full bg-zinc-800"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+
+                    <!-- Left: copy -->
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-6">
+                            The hardware-rootable standard.
+                        </h2>
+                        <p class="text-zinc-400 leading-relaxed mb-6">
+                            When a software-only audit log isn't enough. Industries operating under CMMC, NATO STANAG, and defense-grade compliance requirements demand more than cryptographic signatures — they demand that signing keys never touch the host OS.
+                        </p>
+                        <p class="text-zinc-400 leading-relaxed mb-10">
+                            KYDE WITNESS is architected for hardware-rooted attestation from day one — PKCS#11 / HSM signing and TEE attestation (TDX/SEV-SNP) on the roadmap, with no re-architecture required.
+                        </p>
+                        <p class="font-mono text-sm text-zinc-300 border-l-2 border-amber-400/60 pl-4 leading-relaxed">
+                            The same architecture that satisfies defense-grade requirements satisfies your EU AI Act audit trail. You don't need a separate product for different threat levels.
+                        </p>
+                    </div>
+
+                    <!-- Right: capability blocks -->
+                    <div class="space-y-4">
+
+                        <!-- Chain diagram -->
+                        <div class="font-mono text-xs text-zinc-500 tracking-widest mb-6 flex items-center gap-2 flex-wrap">
+                            <span class="border border-zinc-700 px-2 py-1 text-zinc-300">HSM / TPM</span>
+                            <span>→</span>
+                            <span class="border border-zinc-700 px-2 py-1 text-zinc-300">TEE Attestation</span>
+                            <span>→</span>
+                            <span class="border border-zinc-700 px-2 py-1 text-zinc-300">Witness Proxy</span>
+                            <span>→</span>
+                            <span class="border border-zinc-700 px-2 py-1 text-zinc-300">Ledger</span>
+                            <span>→</span>
+                            <span class="border border-amber-400/40 px-2 py-1 text-amber-300">Court</span>
+                        </div>
+
+                        <!-- Capability rows -->
+                        {[
+                            {
+                                label: "PKCS#11 / HSM Compatible",
+                                status: "ROADMAP",
+                                desc: "Signing keys isolated in hardware — never exposed to the host OS or application layer."
+                            },
+                            {
+                                label: "TEE Attestation",
+                                status: "ROADMAP",
+                                desc: "TDX / SEV-SNP attestation support. Proof that the Witness proxy ran in an unmodified trusted execution environment."
+                            },
+                            {
+                                label: "FIPS 140-3 Ready",
+                                status: "ROADMAP",
+                                desc: "Architecture designed for FIPS-validated cryptographic modules from day one."
+                            },
+                        ].map(({ label, status, desc }) => (
+                            <div class="border border-zinc-800 bg-zinc-900/40 p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-xs font-semibold tracking-widest text-white uppercase">{label}</span>
+                                    <span class="font-mono text-[10px] tracking-widest text-zinc-600 border border-zinc-800 px-2 py-0.5">{status}</span>
+                                </div>
+                                <p class="text-sm text-zinc-500 leading-relaxed">{desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <!-- ══════════ COMPLIANCE ══════════ -->
         <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
