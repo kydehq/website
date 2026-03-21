@@ -1,0 +1,574 @@
+---
+import SlideBase from "../../layouts/SlideBase.astro";
+---
+
+<SlideBase title="KYDE — Seed Round 2026">
+  <style slot="head">
+    :root {
+      --bg:     #09090b;
+      --bg1:    #18181b;
+      --bd:     #27272a;
+      --bd2:    #3f3f46;
+      --z3:     #d4d4d8;
+      --z4:     #a1a1aa;
+      --z5:     #71717a;
+      --z6:     #52525b;
+      --am:     #fbbf24;
+      --wh:     #f4f4f5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { background: var(--bg); }
+
+    body {
+      background: var(--bg);
+      color: var(--wh);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    .slides {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .slides::-webkit-scrollbar { display: none; }
+
+    .slide {
+      height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 52px 80px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .has-grid::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.016) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .nav-dots {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      z-index: 200;
+    }
+    .nd {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--bd2);
+      cursor: pointer;
+      transition: height .25s, border-radius .25s, background .25s;
+    }
+    .nd.on { height: 18px; border-radius: 2px; background: var(--am); }
+
+    .counter {
+      position: fixed;
+      bottom: 22px;
+      right: 36px;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--bd2);
+      z-index: 200;
+    }
+
+    .sn {
+      position: absolute;
+      top: 52px;
+      right: 80px;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--bd2);
+    }
+
+    .lrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-shrink: 0;
+    }
+    .lrow::after { content:''; flex:1; height:1px; background:var(--bd); }
+    .lbl {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--z6);
+    }
+    .dp {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--am);
+      opacity: .7;
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
+
+    .t-hero { font-size: clamp(60px,9vw,120px); font-weight:900; letter-spacing:-.04em; line-height:.92; }
+    .t-h1   { font-size: clamp(26px,3.4vw,50px); font-weight:800; letter-spacing:-.025em; line-height:1.05; }
+    .t-h2   { font-size: clamp(17px,2vw,30px); font-weight:700; letter-spacing:-.015em; line-height:1.1; }
+    .t-b    { font-size: 15px; line-height: 1.65; color: var(--z4); }
+    .t-sm   { font-size: 13px; line-height: 1.6; color: var(--z5); }
+    .mono   { font-family: ui-monospace, monospace; }
+    .am     { color: var(--am); }
+    .wh     { color: var(--wh); }
+    .dim    { color: var(--z5); }
+
+    .card  { border:1px solid var(--bd);  background:var(--bg1); padding:22px 24px; }
+    .card-l{ border:1px solid var(--bd2); background:var(--bg1); padding:22px 24px; border-left:2px solid var(--am); }
+
+    .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--bd); }
+    .g3>* { background:var(--bg); }
+    .g2 { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+
+    .rt   { width:100%; border-top:1px solid var(--bd); }
+    .rth  { display:grid; grid-template-columns:148px 1fr 1fr; background:var(--bg1); border-bottom:1px solid var(--bd); }
+    .rtr  { display:grid; grid-template-columns:148px 1fr 1fr; border-bottom:1px solid var(--bd); }
+    .rtr:last-child { border-bottom:none; }
+    .rtc  { padding:13px 16px; font-size:13px; line-height:1.5; }
+    .rtc+.rtc { border-left:1px solid var(--bd); }
+
+    .chain { display:flex; flex-direction:column; }
+    .cn    {
+      display:flex; align-items:center; justify-content:space-between;
+      border:1px solid var(--bd2); background:var(--bg1);
+      padding:11px 16px;
+      font-family:ui-monospace,monospace; font-size:12px; color:var(--z3); letter-spacing:.04em;
+    }
+    .cn.fin { border-color:rgba(251,191,36,.35); color:var(--am); }
+    .ca { font-family:ui-monospace,monospace; font-size:12px; color:var(--bd2); padding:4px 18px; }
+
+    .mq  { border-left:2px solid var(--am); padding-left:20px; }
+    .pen { border:1px solid rgba(251,191,36,.2); background:rgba(251,191,36,.03); padding:14px 20px; }
+  </style>
+
+  <!-- Nav dots -->
+  <div class="nav-dots">
+    <div class="nd on"  onclick="gts(0)"></div>
+    <div class="nd"     onclick="gts(1)"></div>
+    <div class="nd"     onclick="gts(2)"></div>
+    <div class="nd"     onclick="gts(3)"></div>
+    <div class="nd"     onclick="gts(4)"></div>
+    <div class="nd"     onclick="gts(5)"></div>
+    <div class="nd"     onclick="gts(6)"></div>
+    <div class="nd"     onclick="gts(7)"></div>
+    <div class="nd"     onclick="gts(8)"></div>
+  </div>
+
+  <div class="counter"><span id="cn">01</span> / 09</div>
+
+  <div class="slides" id="sl">
+
+    <!-- 01 TITLE -->
+    <section class="slide has-grid">
+      <span class="sn">01 / 09</span>
+      <div class="lrow"><span class="dp"></span><span class="lbl">KYDE WITNESS · SEED ROUND 2026</span></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <h1 class="t-hero" style="margin-bottom:28px">
+          The Trust Layer<br>
+          <span class="dim">for the Agentic</span><br>
+          Economy.
+        </h1>
+        <p class="t-b" style="max-width:520px;font-size:17px">
+          Cryptographic governance for autonomous AI at enterprise scale.
+        </p>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--bd)">
+        <div style="display:flex;gap:36px">
+          <div>
+            <p class="lbl" style="margin-bottom:4px">STATUS</p>
+            <p class="mono am" style="font-size:11px;letter-spacing:.1em">SEED ROUND OPEN</p>
+          </div>
+          <div>
+            <p class="lbl" style="margin-bottom:4px">TARGET</p>
+            <p class="mono wh" style="font-size:11px;letter-spacing:.1em">€1.6M</p>
+          </div>
+          <div>
+            <p class="lbl" style="margin-bottom:4px">ENFORCEMENT</p>
+            <p class="mono wh" style="font-size:11px;letter-spacing:.1em">AUG 2, 2026</p>
+          </div>
+        </div>
+        <p class="lbl" style="color:var(--bd2)">CONFIDENTIAL</p>
+      </div>
+    </section>
+
+    <!-- 02 THE SHIFT -->
+    <section class="slide">
+      <span class="sn">02 / 09</span>
+      <div class="lrow"><span class="lbl">↳ THE SHIFT</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">The economy is going agentic.</h2>
+      <p class="t-h2 dim" style="margin-bottom:28px">The infrastructure is blind.</p>
+
+      <div class="g3" style="flex:1">
+        <div style="padding:24px 26px">
+          <p class="lbl mono am" style="margin-bottom:12px">THE SHIFT</p>
+          <p class="t-b" style="font-size:14px;margin-bottom:8px">For decades, software executed instructions. Humans decided. That model is ending.</p>
+          <p class="t-sm">There will be billions of AI agents — they execute API calls, access databases, and trigger workflows autonomously.</p>
+        </div>
+        <div style="padding:24px 26px">
+          <p class="lbl mono" style="color:var(--z5);margin-bottom:12px">THE PROBLEM</p>
+          <p class="t-b" style="font-size:14px;margin-bottom:8px">There is zero human in the loop.</p>
+          <p class="t-sm">Enterprises have no verifiable visibility into what ran, when, or why. Logs are vendor-provided, unverifiable, and easily tampered.</p>
+        </div>
+        <div style="padding:24px 26px">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:12px">THE RESULT</p>
+          <p class="t-b" style="font-size:14px;margin-bottom:8px">Autonomous actors making economic decisions with real-world consequences.</p>
+          <p class="t-sm">Operating completely in the dark — no audit trail, no accountability, no recourse.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 THE CATALYST -->
+    <section class="slide">
+      <span class="sn">03 / 09</span>
+      <div class="lrow"><span class="lbl">↳ WHY NOW</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">Compliance is no longer optional.</h2>
+      <p class="t-h2 dim" style="margin-bottom:24px">The clock is ticking.</p>
+
+      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
+        <div style="background:var(--bg);display:grid;grid-template-columns:155px 1fr 155px;align-items:center;padding:16px 22px;gap:18px">
+          <div>
+            <p class="mono am" style="font-size:10px;margin-bottom:3px">EU AI ACT</p>
+            <p class="mono" style="font-size:9px;color:var(--z6);letter-spacing:.12em">HIGH-RISK SYSTEMS</p>
+          </div>
+          <p class="t-b" style="font-size:14px">Enforcement begins for High-Risk AI systems. Mandatory logging, traceability, and human oversight.</p>
+          <div style="text-align:right">
+            <p class="mono am" style="font-size:12px;letter-spacing:.08em">AUG 1, 2026</p>
+            <p class="mono" style="font-size:9px;color:var(--z6);margin-top:2px">ENFORCEMENT</p>
+          </div>
+        </div>
+        <div style="background:var(--bg);display:grid;grid-template-columns:155px 1fr 155px;align-items:center;padding:16px 22px;gap:18px">
+          <div>
+            <p class="mono" style="font-size:10px;color:var(--z4);margin-bottom:3px">NIS-2</p>
+            <p class="mono" style="font-size:9px;color:var(--z6);letter-spacing:.12em">CRITICAL INFRA</p>
+          </div>
+          <p class="t-b" style="font-size:14px">Incident reporting and supply chain security legally required for AI dependencies in critical infrastructure.</p>
+          <div style="text-align:right">
+            <p class="mono" style="font-size:12px;color:var(--z3);letter-spacing:.08em">ACTIVE NOW</p>
+            <p class="mono" style="font-size:9px;color:var(--z6);margin-top:2px">ENFORCED</p>
+          </div>
+        </div>
+        <div style="background:var(--bg);display:grid;grid-template-columns:155px 1fr 155px;align-items:center;padding:16px 22px;gap:18px">
+          <div>
+            <p class="mono" style="font-size:10px;color:var(--z4);margin-bottom:3px">DORA</p>
+            <p class="mono" style="font-size:9px;color:var(--z6);letter-spacing:.12em">FINANCIAL ENTITIES</p>
+          </div>
+          <p class="t-b" style="font-size:14px">AI dependency audit trail legally required for all financial entities operating in the EU.</p>
+          <div style="text-align:right">
+            <p class="mono" style="font-size:12px;color:var(--z3);letter-spacing:.08em">ACTIVE NOW</p>
+            <p class="mono" style="font-size:9px;color:var(--z6);margin-top:2px">ENFORCED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pen" style="margin-top:1px;flex-shrink:0">
+        <p class="lbl mono" style="margin-bottom:5px">THE PENALTY</p>
+        <p style="font-size:15px;color:var(--am)">
+          Up to <strong>€35M</strong> or <strong>7% of global annual revenue</strong>
+          <span style="color:var(--z5);font-size:14px"> — whichever is higher — for failure to produce verifiable audit trails.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 04 THE TABLE -->
+    <section class="slide">
+      <span class="sn">04 / 09</span>
+      <div class="lrow"><span class="lbl">↳ THE IMMEDIATE SOLUTION</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">The law has already answered the question.</h2>
+      <p class="t-b dim" style="margin-bottom:18px">What Regulators Require vs. What KYDE Delivers.</p>
+
+      <div class="rt" style="flex:1">
+        <div class="rth">
+          <div class="rtc"><p class="mono" style="font-size:10px;color:var(--z6)">REGULATION</p></div>
+          <div class="rtc"><p class="mono" style="font-size:10px;color:var(--z6)">REQUIREMENT</p></div>
+          <div class="rtc"><p class="mono am" style="font-size:10px">KYDE DELIVERS</p></div>
+        </div>
+        <div class="rtr">
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">ART. 12<br>EU AI ACT</p></div>
+          <div class="rtc"><p style="color:var(--z4)">Tamper-proof logging of every AI decision point.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Ed25519-signed, SHA-256 hash-chained ledger. Tamper any entry — the entire chain breaks.</p></div>
+        </div>
+        <div class="rtr">
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">ART. 13<br>EU AI ACT</p></div>
+          <div class="rtc"><p style="color:var(--z4)">Full traceability — what the agent saw before it acted.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Causal context capture: last 5 messages before every tool call. Cryptographically signed.</p></div>
+        </div>
+        <div class="rtr">
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">NIS-2<br>ACTIVE NOW</p></div>
+          <div class="rtc"><p style="color:var(--z4)">Verifiable incident reporting for AI-dependent systems.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Real-time forensic evidence. Instant export for auditors, SIEM, and regulators.</p></div>
+        </div>
+        <div class="rtr">
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">DORA<br>ACTIVE NOW</p></div>
+          <div class="rtc"><p style="color:var(--z4)">AI dependency audit trail for all financial entities.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Provider-agnostic: OpenAI, Anthropic, Gemini, Azure, or any compatible endpoint.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 STRUCTURAL MOAT -->
+    <section class="slide">
+      <span class="sn">05 / 09</span>
+      <div class="lrow"><span class="lbl">↳ WHY FRONTIER LABS WON'T KILL US</span></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:860px">
+        <h2 class="t-h1" style="margin-bottom:36px">
+          The frontier labs cannot<br>grade their own homework.
+        </h2>
+
+        <div style="display:flex;flex-direction:column;gap:1px;background:var(--bd)">
+          <div style="background:var(--bg);display:grid;grid-template-columns:140px 1fr;gap:20px;padding:18px 22px;align-items:start">
+            <p class="lbl mono" style="color:var(--z6);padding-top:2px">THE ASSUMPTION</p>
+            <p class="t-b">Won't OpenAI, Google, or Anthropic just build audit trails?</p>
+          </div>
+          <div style="background:var(--bg);display:grid;grid-template-columns:140px 1fr;gap:20px;padding:18px 22px;align-items:start">
+            <p class="lbl mono" style="color:var(--z4);padding-top:2px">THE TRUTH</p>
+            <p class="t-b"><strong class="wh">No.</strong> They are the engine. Under strict compliance frameworks, the provider of the AI model <strong class="wh">cannot legally act as the impartial verifier</strong> of its own actions.</p>
+          </div>
+          <div style="background:var(--bg);display:grid;grid-template-columns:140px 1fr;gap:20px;padding:18px 22px;align-items:start">
+            <p class="lbl mono am" style="padding-top:2px">THE GAP</p>
+            <div>
+              <p class="t-b" style="margin-bottom:12px">The ecosystem desperately needs an <strong class="wh">independent, verifiable third party.</strong></p>
+              <p class="mq t-b" style="font-size:16px">
+                The "KPMG for the Agentic Economy."<br>
+                <strong class="wh">That is KYDE.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 TECHNICAL MOAT -->
+    <section class="slide">
+      <span class="sn">06 / 09</span>
+      <div class="lrow"><span class="lbl">↳ THE TECHNICAL MOAT</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">Software logs are not enough.</h2>
+      <p class="t-b dim" style="margin-bottom:24px">We built secure infrastructure.</p>
+
+      <div class="g2" style="flex:1;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card-l">
+            <p class="lbl mono am" style="margin-bottom:7px">SECURE BY DESIGN — RUST</p>
+            <p class="t-b" style="font-size:14px">Memory-safe, zero-overhead proxy built for massive enterprise throughput. We are infrastructure, not a wrapper.</p>
+          </div>
+          <div class="card">
+            <p class="lbl mono" style="color:var(--z5);margin-bottom:7px">THE FLAW OF COMPETITORS</p>
+            <p class="t-b" style="font-size:14px">Existing tools rely on software-layer logs. A highly capable agent — or attacker — can spoof or alter a software record.</p>
+          </div>
+          <div class="card">
+            <p class="lbl mono" style="color:var(--z4);margin-bottom:7px">HARDWARE-ROOTED ATTESTATION</p>
+            <p class="t-b" style="font-size:14px">We tie the agent's actions directly to silicon. Signing keys are isolated in hardware and <strong class="wh">never touch the host OS.</strong></p>
+          </div>
+        </div>
+
+        <div>
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:18px">ARCHITECTURE</p>
+          <div class="chain">
+            <div class="cn"><span>HSM / TPM</span><span class="mono" style="font-size:10px;color:var(--z6)">hardware-sealed keys</span></div>
+            <div class="ca">↓</div>
+            <div class="cn"><span>Witness Proxy</span><span class="mono" style="font-size:10px;color:var(--z6)">intercepts &amp; signs</span></div>
+            <div class="ca">↓</div>
+            <div class="cn"><span>Cryptographic Ledger</span><span class="mono" style="font-size:10px;color:var(--z6)">SHA-256 chained</span></div>
+            <div class="ca">↓</div>
+            <div class="cn fin"><span>Court</span><span class="mono" style="font-size:10px;opacity:.6">cryptographic proof</span></div>
+          </div>
+          <p class="t-sm" style="margin-top:18px;padding-left:4px">
+            Signing keys are isolated in hardware (PKCS#11 / HSM) and never touch the host OS.<br>No agent can rewrite history.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 DEFENSE -->
+    <section class="slide">
+      <span class="sn">07 / 09</span>
+      <div class="lrow"><span class="lbl">↳ BUILT FOR THE HIGHEST-STAKES ENVIRONMENTS</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">Built for defense.</h2>
+      <p class="t-h2 dim" style="margin-bottom:24px">Priced for enterprise.</p>
+
+      <div class="g3" style="flex:1;max-height:220px">
+        <div style="padding:22px 24px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <p class="lbl mono wh">FIPS 140-3 Ready</p>
+            <span class="mono" style="font-size:9px;color:var(--z6);border:1px solid var(--bd);padding:2px 8px">ROADMAP</span>
+          </div>
+          <p class="t-b" style="font-size:14px">Architecture designed for FIPS-validated cryptographic modules from day one.</p>
+        </div>
+        <div style="padding:22px 24px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <p class="lbl mono wh">CMMC Aligned</p>
+            <span class="mono" style="font-size:9px;color:var(--z6);border:1px solid var(--bd);padding:2px 8px">ROADMAP</span>
+          </div>
+          <p class="t-b" style="font-size:14px">Meets US Department of Defense Cybersecurity Maturity Model Certification audit requirements.</p>
+        </div>
+        <div style="padding:22px 24px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <p class="lbl mono wh">Future-Proof</p>
+            <span class="mono" style="font-size:9px;color:var(--am);border:1px solid rgba(251,191,36,.3);padding:2px 8px">NOW</span>
+          </div>
+          <p class="t-b" style="font-size:14px">Deploy once. As your agents get more autonomous and dangerous, the infrastructure is already there.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--bd);flex-shrink:0">
+        <p class="mq t-b" style="font-size:16px;max-width:740px">
+          The same architecture that satisfies defense-grade requirements satisfies your EU AI Act audit trail.
+          <strong class="wh"> You don't need a separate product for different threat levels.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- 08 TEAM -->
+    <section class="slide">
+      <span class="sn">08 / 09</span>
+      <div class="lrow"><span class="lbl">↳ THE TEAM</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">Deep-tech infrastructure.</h2>
+      <p class="t-h2 dim" style="margin-bottom:24px">Strategic market execution.</p>
+
+      <div class="g2" style="flex:1;align-items:start;gap:20px">
+        <div class="card" style="border-color:var(--bd2);display:flex;flex-direction:column;height:100%">
+          <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--bd)">
+            <p style="font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--wh);margin-bottom:4px">Jürgen Eckel</p>
+            <p class="mono am" style="font-size:10px;letter-spacing:.15em">INFRASTRUCTURE &amp; CRYPTOGRAPHY</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:11px;flex:1">
+            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">15Y EXP</p>
+              <p class="t-sm">Distributed systems, cryptographic protocols, and confidential computing.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">SCALE</p>
+              <p class="t-sm">Led 30+ person R&D teams building high-stakes, high-throughput infrastructure.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">EXPERTISE</p>
+              <p class="t-sm">Bridging cryptographic verification with autonomous system execution.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-color:var(--bd2);display:flex;flex-direction:column;height:100%">
+          <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--bd)">
+            <p style="font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--wh);margin-bottom:4px">Jörg Radehaus</p>
+            <p class="mono am" style="font-size:10px;letter-spacing:.15em">PRODUCT STRATEGY &amp; GTM</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:11px;flex:1">
+            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">18Y EXP</p>
+              <p class="t-sm">Product vision and GTM for DAX enterprises — Allianz, BMW, Deutsche Bank.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">C-LEVEL</p>
+              <p class="t-sm">Translating complex regulatory frameworks into trusted, scalable platforms.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">EXPERTISE</p>
+              <p class="t-sm">Market framing and building trust layers for highly regulated sectors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;flex-shrink:0">
+        <p class="lbl mono" style="color:var(--z6);margin-bottom:5px">THE SYNERGY</p>
+        <p class="t-b" style="font-size:14px">Engineering the unbreakable technical foundation and the strategy to scale it.</p>
+      </div>
+    </section>
+
+    <!-- 09 THE ASK -->
+    <section class="slide has-grid">
+      <span class="sn">09 / 09</span>
+      <div class="lrow"><span class="lbl">↳ THE ASK</span></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="margin-bottom:36px">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:8px">SEED ROUND</p>
+          <p style="font-size:clamp(52px,9vw,104px);font-weight:900;letter-spacing:-.04em;color:var(--wh);line-height:1">€1.6M</p>
+        </div>
+
+        <div class="g3" style="gap:1px;background:var(--bd);margin-bottom:28px">
+          <div style="background:var(--bg);padding:20px 22px">
+            <p class="mono am" style="font-size:10px;margin-bottom:8px">GTM</p>
+            <p class="t-sm">Close first 5 enterprise pilots before the August 2026 enforcement deadline.</p>
+          </div>
+          <div style="background:var(--bg);padding:20px 22px">
+            <p class="mono am" style="font-size:10px;margin-bottom:8px">PRODUCT</p>
+            <p class="t-sm">Finalize HSM integration and scale to multi-provider support.</p>
+          </div>
+          <div style="background:var(--bg);padding:20px 22px">
+            <p class="mono am" style="font-size:10px;margin-bottom:8px">TRUST</p>
+            <p class="t-sm">Secure BSI and ISO 27001 certifications.</p>
+          </div>
+        </div>
+
+        <div class="card-l" style="max-width:640px">
+          <p style="font-size:17px;font-style:italic;color:var(--z3);line-height:1.6">
+            "Every AI agent needs a witness.<br>
+            We are the infrastructure they cannot operate without."
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end .slides -->
+
+  <script>
+    if (localStorage.getItem('kyde_slides_auth') !== 'kyde_2026') {
+      window.location.replace('/slides/');
+    }
+
+    const sl   = document.getElementById('sl') as HTMLElement;
+    const dots = document.querySelectorAll('.nd');
+    const cn   = document.getElementById('cn') as HTMLElement;
+
+    function upd() {
+      const i = Math.round(sl.scrollTop / window.innerHeight);
+      dots.forEach((d, j) => d.classList.toggle('on', j === i));
+      cn.textContent = String(Math.min(i + 1, 9)).padStart(2, '0');
+    }
+
+    sl.addEventListener('scroll', upd, { passive: true });
+    upd();
+
+    document.addEventListener('keydown', (e) => {
+      const h = window.innerHeight;
+      if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); sl.scrollBy({ top:  h, behavior: 'smooth' }); }
+      if (['ArrowUp','PageUp'].includes(e.key))          { e.preventDefault(); sl.scrollBy({ top: -h, behavior: 'smooth' }); }
+    });
+
+    function gts(i: number) { sl.scrollTo({ top: i * window.innerHeight, behavior: 'smooth' }); }
+    (window as any).gts = gts;
+  </script>
+</SlideBase>
