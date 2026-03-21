@@ -18,13 +18,11 @@ import SlideBase from "../../layouts/SlideBase.astro";
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { background: var(--bg); }
-
     body {
       background: var(--bg);
       color: var(--wh);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow: hidden;
     }
@@ -45,7 +43,7 @@ import SlideBase from "../../layouts/SlideBase.astro";
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: 52px 80px;
+      padding: 48px 80px;
       overflow: hidden;
       border-bottom: 1px solid var(--bd);
     }
@@ -61,156 +59,136 @@ import SlideBase from "../../layouts/SlideBase.astro";
       pointer-events: none;
     }
 
+    /* Nav dots */
     .nav-dots {
-      position: fixed;
-      right: 18px;
-      top: 50%;
+      position: fixed; right: 18px; top: 50%;
       transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
+      display: flex; flex-direction: column; gap: 6px;
       z-index: 200;
     }
     .nd {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--bd2);
-      cursor: pointer;
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--bd2); cursor: pointer;
       transition: height .25s, border-radius .25s, background .25s;
     }
-    .nd.on { height: 18px; border-radius: 2px; background: var(--am); }
+    .nd.on { height: 16px; border-radius: 2px; background: var(--am); }
 
     .counter {
-      position: fixed;
-      bottom: 22px;
-      right: 36px;
+      position: fixed; bottom: 22px; right: 36px;
       font-family: ui-monospace, monospace;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      color: var(--bd2);
-      z-index: 200;
+      font-size: 10px; letter-spacing: 0.22em; color: var(--bd2); z-index: 200;
     }
 
     .sn {
-      position: absolute;
-      top: 52px;
-      right: 80px;
+      position: absolute; top: 48px; right: 80px;
       font-family: ui-monospace, monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: var(--bd2);
+      font-size: 10px; letter-spacing: 0.2em; color: var(--bd2);
     }
 
-    .lrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 40px;
-      flex-shrink: 0;
-    }
+    /* Label row */
+    .lrow { display: flex; align-items: center; gap: 10px; margin-bottom: 32px; flex-shrink: 0; }
     .lrow::after { content:''; flex:1; height:1px; background:var(--bd); }
-    .lbl {
-      font-family: ui-monospace, monospace;
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--z6);
-    }
-    .dp {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--am);
-      opacity: .7;
-      flex-shrink: 0;
-      animation: pulse 2s ease-in-out infinite;
-    }
+    .lbl { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--z6); }
+    .dp { width:6px; height:6px; border-radius:50%; background:var(--am); opacity:.7; flex-shrink:0; animation:pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
 
-    .t-hero { font-family:'Inter',sans-serif; font-size: clamp(60px,9vw,120px); font-weight:600; letter-spacing:-.03em; line-height:1.08; text-transform:uppercase; }
-    .t-h1   { font-family:'Inter',sans-serif; font-size: clamp(32px,4vw,58px); font-weight:600; letter-spacing:-.03em; line-height:1.02; }
-    .t-h2   { font-family:'Inter',sans-serif; font-size: clamp(20px,2.4vw,34px); font-weight:500; letter-spacing:-.02em; line-height:1.1; }
-    .t-b    { font-size: 18px; line-height: 1.65; color: var(--z4); }
-    .t-sm   { font-size: 16px; line-height: 1.6;  color: var(--z5); }
+    /* Typography */
+    .t-hero { font-family:'Inter',sans-serif; font-size:clamp(52px,8vw,104px); font-weight:600; letter-spacing:-.03em; line-height:1.08; text-transform:uppercase; }
+    .t-h1   { font-family:'Inter',sans-serif; font-size:clamp(28px,3.6vw,52px); font-weight:600; letter-spacing:-.03em; line-height:1.05; }
+    .t-h2   { font-family:'Inter',sans-serif; font-size:clamp(18px,2.2vw,30px); font-weight:500; letter-spacing:-.02em; line-height:1.1; }
+    .t-b    { font-size:17px; line-height:1.65; color:var(--z4); }
+    .t-sm   { font-size:15px; line-height:1.6; color:var(--z5); }
     .mono   { font-family: ui-monospace, monospace; }
     .am     { color: var(--am); }
     .wh     { color: var(--wh); }
     .dim    { color: var(--z5); }
 
-    .card  { border:1px solid var(--bd);  background:var(--bg1); padding:22px 24px; }
-    .card-l{ border:1px solid var(--bd2); background:var(--bg1); padding:22px 24px; border-left:2px solid var(--am); }
+    /* Cards */
+    .card   { border:1px solid var(--bd);  background:var(--bg1); padding:20px 24px; }
+    .card-l { border:1px solid var(--bd2); background:var(--bg1); padding:20px 24px; border-left:2px solid var(--am); }
 
+    /* Grids */
     .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--bd); }
     .g3>* { background:var(--bg); }
     .g2 { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
 
-    .rt   { width:100%; border-top:1px solid var(--bd); }
-    .rth  { display:grid; grid-template-columns:160px 1fr 1fr; background:var(--bg1); border-bottom:1px solid var(--bd); }
-    .rtr  { display:grid; grid-template-columns:160px 1fr 1fr; border-bottom:1px solid var(--bd); flex:1; }
+    /* Stacked rows */
+    .rows { display:flex; flex-direction:column; gap:1px; background:var(--bd); }
+    .row  { background:var(--bg); display:grid; grid-template-columns:160px 1fr; gap:24px; padding:20px 24px; align-items:start; flex:1; }
+
+    /* Regulatory table */
+    .rt  { width:100%; border-top:1px solid var(--bd); display:flex; flex-direction:column; }
+    .rth { display:grid; grid-template-columns:130px 110px 1fr 1fr; background:var(--bg1); border-bottom:1px solid var(--bd); flex-shrink:0; }
+    .rtr { display:grid; grid-template-columns:130px 110px 1fr 1fr; border-bottom:1px solid var(--bd); flex:1; }
     .rtr:last-child { border-bottom:none; }
-    .rtc  { padding:20px 22px; font-size:17px; line-height:1.55; display:flex; align-items:center; }
+    .rtc { padding:16px 18px; font-size:15px; line-height:1.55; display:flex; align-items:center; }
     .rtc+.rtc { border-left:1px solid var(--bd); }
 
+    /* Architecture chain */
     .chain { display:flex; flex-direction:column; }
-    .cn    {
-      display:flex; align-items:center; justify-content:space-between;
-      border:1px solid var(--bd2); background:var(--bg1);
-      padding:11px 16px;
-      font-family:ui-monospace,monospace; font-size:12px; color:var(--z3); letter-spacing:.04em;
-    }
+    .cn    { display:flex; align-items:center; justify-content:space-between; border:1px solid var(--bd2); background:var(--bg1); padding:12px 18px; font-family:ui-monospace,monospace; font-size:13px; color:var(--z3); letter-spacing:.04em; }
     .cn.fin { border-color:rgba(251,191,36,.35); color:var(--am); }
-    .ca { font-family:ui-monospace,monospace; font-size:12px; color:var(--bd2); padding:4px 18px; }
+    .ca    { font-family:ui-monospace,monospace; font-size:12px; color:var(--bd2); padding:4px 20px; }
 
     .mq  { border-left:2px solid var(--am); padding-left:20px; }
-    .pen { border:1px solid rgba(251,191,36,.2); background:rgba(251,191,36,.03); padding:14px 20px; }
+    .pen { border:1px solid rgba(251,191,36,.2); background:rgba(251,191,36,.03); padding:16px 22px; }
+
+    /* Market size numbers */
+    .mnum { font-size:clamp(32px,4vw,56px); font-weight:600; letter-spacing:-.03em; color:var(--wh); line-height:1; margin-bottom:8px; }
   </style>
 
-  <!-- Nav dots -->
+  <!-- Nav dots (14) -->
   <div class="nav-dots">
-    <div class="nd on"  onclick="gts(0)"></div>
-    <div class="nd"     onclick="gts(1)"></div>
-    <div class="nd"     onclick="gts(2)"></div>
-    <div class="nd"     onclick="gts(3)"></div>
-    <div class="nd"     onclick="gts(4)"></div>
-    <div class="nd"     onclick="gts(5)"></div>
-    <div class="nd"     onclick="gts(6)"></div>
-    <div class="nd"     onclick="gts(7)"></div>
-    <div class="nd"     onclick="gts(8)"></div>
+    <div class="nd on" onclick="gts(0)"></div>
+    <div class="nd" onclick="gts(1)"></div>
+    <div class="nd" onclick="gts(2)"></div>
+    <div class="nd" onclick="gts(3)"></div>
+    <div class="nd" onclick="gts(4)"></div>
+    <div class="nd" onclick="gts(5)"></div>
+    <div class="nd" onclick="gts(6)"></div>
+    <div class="nd" onclick="gts(7)"></div>
+    <div class="nd" onclick="gts(8)"></div>
+    <div class="nd" onclick="gts(9)"></div>
+    <div class="nd" onclick="gts(10)"></div>
+    <div class="nd" onclick="gts(11)"></div>
+    <div class="nd" onclick="gts(12)"></div>
+    <div class="nd" onclick="gts(13)"></div>
   </div>
 
-  <div class="counter"><span id="cn">01</span> / 09</div>
+  <div class="counter"><span id="cn">01</span> / 14</div>
 
   <div class="slides" id="sl">
 
     <!-- 01 TITLE -->
     <section class="slide has-grid">
-      <span class="sn">01 / 09</span>
+      <span class="sn">01 / 14</span>
       <div class="lrow"><span class="dp"></span><span class="lbl">KYDE WITNESS · SEED ROUND 2026</span></div>
 
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-        <h1 class="t-hero" style="margin-bottom:32px">
-          The Trust Layer<br>
-          <span class="dim">for the Agentic</span><br>
-          Economy.
+        <h1 class="t-hero" style="margin-bottom:28px">
+          Who Did That?
         </h1>
-        <p class="t-b" style="max-width:520px;font-size:17px;text-transform:uppercase;letter-spacing:.08em;font-weight:500">
+        <p class="t-h2" style="color:var(--z4);margin-bottom:20px;max-width:700px;text-transform:uppercase;letter-spacing:.05em;font-weight:500">
+          Accountability Infrastructure for AI Agents<br>in a NIS-2 + AI Act World.
+        </p>
+        <p class="t-b" style="max-width:560px;color:var(--z5)">
           Cryptographic governance for autonomous AI at enterprise scale.
         </p>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--bd)">
-        <div style="display:flex;gap:36px">
+        <div style="display:flex;gap:40px">
           <div>
-            <p class="lbl" style="margin-bottom:4px">STATUS</p>
-            <p class="mono am" style="font-size:11px;letter-spacing:.1em">SEED ROUND OPEN</p>
+            <p class="lbl" style="margin-bottom:5px">STATUS</p>
+            <p class="mono am" style="font-size:12px;letter-spacing:.1em">SEED ROUND OPEN</p>
           </div>
           <div>
-            <p class="lbl" style="margin-bottom:4px">TARGET</p>
-            <p class="mono wh" style="font-size:11px;letter-spacing:.1em">€1.6M</p>
+            <p class="lbl" style="margin-bottom:5px">TARGET</p>
+            <p class="mono wh" style="font-size:12px;letter-spacing:.1em">€1.6M</p>
           </div>
           <div>
-            <p class="lbl" style="margin-bottom:4px">ENFORCEMENT</p>
-            <p class="mono wh" style="font-size:11px;letter-spacing:.1em">AUG 2, 2026</p>
+            <p class="lbl" style="margin-bottom:5px">ENFORCEMENT</p>
+            <p class="mono am" style="font-size:12px;letter-spacing:.1em">AUG 2, 2026</p>
           </div>
         </div>
         <p class="lbl" style="color:var(--bd2)">CONFIDENTIAL</p>
@@ -219,283 +197,417 @@ import SlideBase from "../../layouts/SlideBase.astro";
 
     <!-- 02 THE SHIFT -->
     <section class="slide">
-      <span class="sn">02 / 09</span>
-      <div class="lrow"><span class="lbl">↳ THE SHIFT</span></div>
+      <span class="sn">02 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE SHIFT & THE PROBLEM</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:4px">The economy is going agentic.</h2>
-      <p class="t-h2 dim" style="margin-bottom:28px">The infrastructure is blind.</p>
+      <h2 class="t-h1" style="margin-bottom:4px">The Economy is Going Agentic.</h2>
+      <p class="t-h2 dim" style="margin-bottom:28px">But — "Who Did That?"</p>
 
       <div class="g3" style="flex:1">
-        <div style="padding:24px 26px">
-          <p class="lbl mono am" style="margin-bottom:12px">THE SHIFT</p>
-          <p class="t-b" style="font-size:17px;margin-bottom:8px">For decades, software executed instructions. Humans decided. That model is ending.</p>
-          <p class="t-sm">There will be billions of AI agents — they execute API calls, access databases, and trigger workflows autonomously.</p>
+        <div style="padding:24px 28px">
+          <p class="lbl mono am" style="margin-bottom:14px">THE ECONOMIC BOOM</p>
+          <p class="t-b" style="margin-bottom:10px">AI is moving from "Chat" to "Execution".</p>
+          <p class="t-sm">Agents now independently plan, execute, access databases, and trigger API calls. This is the biggest productivity boom in history.</p>
         </div>
-        <div style="padding:24px 26px">
-          <p class="lbl mono" style="color:var(--z5);margin-bottom:12px">THE PROBLEM</p>
-          <p class="t-b" style="font-size:17px;margin-bottom:8px">There is zero human in the loop.</p>
-          <p class="t-sm">Enterprises have no verifiable visibility into what ran, when, or why. Logs are vendor-provided, unverifiable, and easily tampered.</p>
+        <div style="padding:24px 28px">
+          <p class="lbl mono" style="color:var(--z5);margin-bottom:14px">THE PROBLEM</p>
+          <p class="t-b" style="margin-bottom:10px">Too fast, too many — no human-in-the-loop possible.</p>
+          <p class="t-sm">The speed and scale of agent execution makes traditional oversight structurally impossible.</p>
         </div>
-        <div style="padding:24px 26px">
-          <p class="lbl mono" style="color:var(--z6);margin-bottom:12px">THE RESULT</p>
-          <p class="t-b" style="font-size:17px;margin-bottom:8px">Autonomous actors making economic decisions with real-world consequences.</p>
-          <p class="t-sm">Operating completely in the dark — no audit trail, no accountability, no recourse.</p>
+        <div style="padding:24px 28px">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:14px">THE GOVERNANCE GAP</p>
+          <p class="t-b" style="margin-bottom:10px">When an agent moves money or alters a database —</p>
+          <p class="t-sm">Enterprises have <strong class="wh">zero independently verifiable visibility</strong> into what ran, when, or why. Operating completely in the dark.</p>
         </div>
       </div>
     </section>
 
     <!-- 03 THE CATALYST -->
     <section class="slide">
-      <span class="sn">03 / 09</span>
-      <div class="lrow"><span class="lbl">↳ WHY NOW</span></div>
+      <span class="sn">03 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE CATALYST — THE REVENUE ENABLER</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:4px">Compliance is no longer optional.</h2>
-      <p class="t-h2 dim" style="margin-bottom:24px">The clock is ticking.</p>
+      <h2 class="t-h1" style="margin-bottom:28px;max-width:800px">Without KYDE, you cannot safely deploy<br>revenue-generating agents.</h2>
 
-      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
-        <div style="flex:1;background:var(--bg);display:grid;grid-template-columns:180px 1fr 180px;align-items:center;padding:24px 28px;gap:20px">
-          <div>
-            <p class="mono am" style="font-size:12px;margin-bottom:5px;letter-spacing:.12em">EU AI ACT</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.12em">HIGH-RISK SYSTEMS</p>
+      <div class="g2" style="flex:1;gap:32px;align-items:start">
+        <!-- Left -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card">
+            <p class="lbl mono" style="color:var(--z5);margin-bottom:10px">THE REALITY</p>
+            <p class="t-b" style="font-size:16px">Every enterprise wants to deploy autonomous agents. But <strong class="wh">Legal & Risk teams are blocking them.</strong></p>
+            <p class="t-sm" style="margin-top:8px">If you don't go agentic, you lose the market. If you deploy blindly, you face ruin.</p>
           </div>
-          <p class="t-b">Enforcement begins for High-Risk AI systems. Mandatory logging, traceability, and human oversight.</p>
-          <div style="text-align:right">
-            <p class="mono am" style="font-size:15px;letter-spacing:.08em">AUG 1, 2026</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);margin-top:4px">ENFORCEMENT</p>
+          <div class="card-l">
+            <p class="lbl mono am" style="margin-bottom:10px">THE SHIFT</p>
+            <p class="t-b" style="font-size:16px">KYDE isn't just a compliance cost.</p>
+            <p class="t-sm" style="margin-top:8px">We are the <strong class="wh">1-click Enabler</strong> that allows the CISO to say "YES" to autonomous AI.</p>
           </div>
         </div>
-        <div style="flex:1;background:var(--bg);display:grid;grid-template-columns:180px 1fr 180px;align-items:center;padding:24px 28px;gap:20px">
-          <div>
-            <p class="mono" style="font-size:12px;color:var(--z4);margin-bottom:5px;letter-spacing:.12em">NIS-2</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.12em">CRITICAL INFRA</p>
-          </div>
-          <p class="t-b">Incident reporting and supply chain security legally required for AI dependencies in critical infrastructure.</p>
-          <div style="text-align:right">
-            <p class="mono" style="font-size:15px;color:var(--z3);letter-spacing:.08em">ACTIVE NOW</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);margin-top:4px">ENFORCED</p>
-          </div>
-        </div>
-        <div style="flex:1;background:var(--bg);display:grid;grid-template-columns:180px 1fr 180px;align-items:center;padding:24px 28px;gap:20px">
-          <div>
-            <p class="mono" style="font-size:12px;color:var(--z4);margin-bottom:5px;letter-spacing:.12em">DORA</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.12em">FINANCIAL ENTITIES</p>
-          </div>
-          <p class="t-b">AI dependency audit trail legally required for all financial entities operating in the EU.</p>
-          <div style="text-align:right">
-            <p class="mono" style="font-size:15px;color:var(--z3);letter-spacing:.08em">ACTIVE NOW</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);margin-top:4px">ENFORCED</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="pen" style="margin-top:1px;flex-shrink:0">
-        <p class="lbl mono" style="margin-bottom:5px">THE PENALTY</p>
-        <p style="font-size:18px;color:var(--am)">
-          Up to <strong>€35M</strong> or <strong>7% of global annual revenue</strong>
-          <span style="color:var(--z5);font-size:17px"> — whichever is higher — for failure to produce verifiable audit trails.</span>
-        </p>
+        <!-- Right: Compliance Wall -->
+        <div>
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:16px">THE COMPLIANCE WALL</p>
+          <div style="display:flex;flex-direction:column;gap:1px;background:var(--bd);margin-bottom:1px">
+            <div style="background:var(--bg);padding:16px 20px;display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:center">
+              <p class="mono am" style="font-size:11px;letter-spacing:.1em">EU AI ACT<br><span style="color:var(--z6);font-size:10px">AUG 2026</span></p>
+              <p class="t-sm">Mandatory logging for High-Risk AI systems.</p>
+            </div>
+            <div style="background:var(--bg);padding:16px 20px;display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:center">
+              <p class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--z4)">NIS-2 / DORA<br><span style="color:var(--z6);font-size:10px">ACTIVE NOW</span></p>
+              <p class="t-sm">Legal requirement for AI audit trails in critical infra & finance.</p>
+            </div>
+          </div>
+          <div class="pen">
+            <p class="lbl mono" style="margin-bottom:6px">THE PENALTY</p>
+            <p style="font-size:16px;color:var(--am)">Up to <strong>€35M</strong> or <strong>7%</strong> of global revenue.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 04 THE TABLE -->
+    <!-- 04 THE SOLUTION -->
     <section class="slide">
-      <span class="sn">04 / 09</span>
-      <div class="lrow"><span class="lbl">↳ THE IMMEDIATE SOLUTION</span></div>
+      <span class="sn">04 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE SOLUTION</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">The Zero-Modification Cryptographic Witness.</h2>
+      <p class="t-h2 dim" style="margin-bottom:28px">What KYDE actually is.</p>
+
+      <div class="g2" style="flex:1;gap:1px;background:var(--bd)">
+        <div style="background:var(--bg);padding:28px 32px">
+          <p class="lbl mono am" style="margin-bottom:12px">ONE-LINE DEPLOYMENT</p>
+          <p class="t-b" style="margin-bottom:8px">No code changes.</p>
+          <p class="t-sm">The agent thinks it's talking to the LLM or an MCP server. It's talking to KYDE first.</p>
+        </div>
+        <div style="background:var(--bg);padding:28px 32px">
+          <p class="lbl mono" style="color:var(--z4);margin-bottom:12px">ZERO-MODIFICATION</p>
+          <p class="t-b" style="margin-bottom:8px">We observe and log without altering a single token.</p>
+          <p class="t-sm">The enterprise safely preserves its legal status as a "Deployer" — avoiding Article 25 liability.</p>
+        </div>
+        <div style="background:var(--bg);padding:28px 32px">
+          <p class="lbl mono" style="color:var(--z4);margin-bottom:12px">REAL-TIME ATTESTATION</p>
+          <p class="t-b" style="margin-bottom:8px">Every tool call, context window, and API execution —</p>
+          <p class="t-sm">Intercepted, <strong class="wh">Ed25519-signed</strong>, and pushed to an immutable ledger. In real time.</p>
+        </div>
+        <div style="background:var(--bg);padding:28px 32px">
+          <p class="lbl mono" style="color:var(--z5);margin-bottom:12px">TRANSPARENT PROXY</p>
+          <p class="t-b" style="margin-bottom:8px">Sits between your agent fleet and the outside world.</p>
+          <p class="t-sm">MCP-native routing. Works with any LLM provider. No vendor lock-in.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 REGULATORY FIT -->
+    <section class="slide">
+      <span class="sn">05 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE REGULATORY FIT</span></div>
 
       <h2 class="t-h1" style="margin-bottom:4px">The law has already answered the question.</h2>
       <p class="t-b dim" style="margin-bottom:18px">What Regulators Require vs. What KYDE Delivers.</p>
 
-      <div class="rt" style="flex:1;display:flex;flex-direction:column;">
+      <div class="rt" style="flex:1">
         <div class="rth">
-          <div class="rtc"><p class="mono" style="font-size:11px;color:var(--z6)">REGULATION</p></div>
-          <div class="rtc"><p class="mono" style="font-size:11px;color:var(--z6)">REQUIREMENT</p></div>
-          <div class="rtc"><p class="mono am" style="font-size:11px">KYDE DELIVERS</p></div>
+          <div class="rtc"><p class="mono" style="font-size:10px;color:var(--z6)">FRAMEWORK</p></div>
+          <div class="rtc"><p class="mono" style="font-size:10px;color:var(--z6)">ENFORCEMENT</p></div>
+          <div class="rtc"><p class="mono" style="font-size:10px;color:var(--z6)">REQUIREMENT</p></div>
+          <div class="rtc"><p class="mono am" style="font-size:10px">KYDE PROOF</p></div>
         </div>
         <div class="rtr">
-          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">ART. 12<br>EU AI ACT</p></div>
-          <div class="rtc"><p style="color:var(--z4)">Tamper-proof logging of every AI decision point.</p></div>
-          <div class="rtc"><p style="color:var(--z3)">Ed25519-signed, SHA-256 hash-chained ledger. Tamper any entry — the entire chain breaks.</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:11px;color:var(--z5)">EU AI Act<br>Article 12</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono am" style="font-size:12px">Aug 2026</p></div>
+          <div class="rtc"><p style="color:var(--z4)">Tamper-proof logging of every autonomous AI decision.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Ed25519-signed, SHA-256 chained ledger. Tamper any entry — the entire chain breaks.</p></div>
         </div>
         <div class="rtr">
-          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">ART. 13<br>EU AI ACT</p></div>
-          <div class="rtc"><p style="color:var(--z4)">Full traceability — what the agent saw before it acted.</p></div>
-          <div class="rtc"><p style="color:var(--z3)">Causal context capture: last 5 messages before every tool call. Cryptographically signed.</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:11px;color:var(--z5)">EU AI Act<br>Article 13</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono am" style="font-size:12px">Aug 2026</p></div>
+          <div class="rtc"><p style="color:var(--z4)">Full traceability of the system's context prior to execution.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Causal context capture. MCP routing logged to prove why the agent acted.</p></div>
         </div>
         <div class="rtr">
-          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">NIS-2<br>ACTIVE NOW</p></div>
-          <div class="rtc"><p style="color:var(--z4)">Verifiable incident reporting for AI-dependent systems.</p></div>
-          <div class="rtc"><p style="color:var(--z3)">Real-time forensic evidence. Instant export for auditors, SIEM, and regulators.</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:11px;color:var(--z5)">NIS-2<br>Directive</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:12px;color:var(--z3)">Active Now</p></div>
+          <div class="rtc"><p style="color:var(--z4)">Verifiable incident reporting for AI-dependent supply chains.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Real-time forensic evidence. Instant, irrefutable export for auditors and SIEM.</p></div>
         </div>
         <div class="rtr">
-          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:10px;color:var(--z5)">DORA<br>ACTIVE NOW</p></div>
-          <div class="rtc"><p style="color:var(--z4)">AI dependency audit trail for all financial entities.</p></div>
-          <div class="rtc"><p style="color:var(--z3)">Provider-agnostic: OpenAI, Anthropic, Gemini, Azure, or any compatible endpoint.</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:11px;color:var(--z5)">DORA</p></div>
+          <div class="rtc" style="background:var(--bg1)"><p class="mono" style="font-size:12px;color:var(--z3)">Active Now</p></div>
+          <div class="rtc"><p style="color:var(--z4)">ICT third-party risk audit trail for external AI dependencies.</p></div>
+          <div class="rtc"><p style="color:var(--z3)">Provider-agnostic proxy. Standardized logging across OpenAI, Anthropic, or Azure.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- 05 STRUCTURAL MOAT -->
+    <!-- 06 MARKET SIZE -->
     <section class="slide">
-      <span class="sn">05 / 09</span>
-      <div class="lrow"><span class="lbl">↳ WHY FRONTIER LABS WON'T KILL US</span></div>
+      <span class="sn">06 / 14</span>
+      <div class="lrow"><span class="lbl">↳ MARKET SIZE</span></div>
 
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:860px">
-        <h2 class="t-h1" style="margin-bottom:36px">
-          The frontier labs cannot<br>grade their own homework.
-        </h2>
+      <h2 class="t-h1" style="margin-bottom:4px">The Addressable Market is Defined by Law.</h2>
+      <p class="t-b dim" style="margin-bottom:32px">~50,000 enterprises in the EU must deploy High-Risk AI systems under the EU AI Act.</p>
 
-        <div style="display:flex;flex-direction:column;gap:1px;background:var(--bd)">
-          <div style="background:var(--bg);display:grid;grid-template-columns:140px 1fr;gap:20px;padding:18px 22px;align-items:start">
-            <p class="lbl mono" style="color:var(--z6);padding-top:2px">THE ASSUMPTION</p>
-            <p class="t-b">Won't OpenAI, Google, or Anthropic just build audit trails?</p>
+      <div class="g3" style="flex:1">
+        <div style="padding:32px 36px;display:flex;flex-direction:column;justify-content:center">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:16px">TAM</p>
+          <p class="mnum">€4.2B</p>
+          <p class="t-sm">Annual compliance infrastructure spend across EU regulated enterprises.</p>
+        </div>
+        <div style="padding:32px 36px;display:flex;flex-direction:column;justify-content:center">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:16px">SAM</p>
+          <p class="mnum">€820M</p>
+          <p class="t-sm">High-Risk AI Act verticals: Finance, HR, Insurance, Healthcare, Critical Infrastructure.</p>
+        </div>
+        <div style="padding:32px 36px;display:flex;flex-direction:column;justify-content:center">
+          <p class="lbl mono am" style="margin-bottom:16px">SOM</p>
+          <p class="mnum am">€12M ARR</p>
+          <p class="t-sm">5 enterprise pilots with expansion paths over 18 months.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 THE SECRET -->
+    <section class="slide">
+      <span class="sn">07 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE SECRET — THIEL INSIGHT</span></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:900px">
+        <h2 class="t-h1" style="margin-bottom:36px">Intelligence is Common.<br>Trust is the Bottleneck.</h2>
+
+        <div class="rows" style="flex:1;max-height:360px">
+          <div class="row">
+            <p class="lbl mono" style="color:var(--z6);padding-top:2px">THE BOTTLENECK</p>
+            <p class="t-b">No CEO grants an agent real power if they cannot govern its mandate. The intelligence problem is largely solved. <strong class="wh">The trust problem is not.</strong></p>
           </div>
-          <div style="background:var(--bg);display:grid;grid-template-columns:140px 1fr;gap:20px;padding:18px 22px;align-items:start">
-            <p class="lbl mono" style="color:var(--z4);padding-top:2px">THE TRUTH</p>
-            <p class="t-b"><strong class="wh">No.</strong> They are the engine. Under strict compliance frameworks, the provider of the AI model <strong class="wh">cannot legally act as the impartial verifier</strong> of its own actions.</p>
-          </div>
-          <div style="background:var(--bg);display:grid;grid-template-columns:140px 1fr;gap:20px;padding:18px 22px;align-items:start">
-            <p class="lbl mono am" style="padding-top:2px">THE GAP</p>
+          <div class="row">
+            <p class="lbl mono" style="color:var(--z4);padding-top:2px">DETERMINISTIC<br>VS. PROBABILISTIC</p>
             <div>
-              <p class="t-b" style="margin-bottom:12px">The ecosystem desperately needs an <strong class="wh">independent, verifiable third party.</strong></p>
-              <p class="mq t-b" style="font-size:18px">
-                The "KPMG for the Agentic Economy."<br>
-                <strong class="wh">That is KYDE.</strong>
-              </p>
+              <p class="t-b" style="margin-bottom:8px"><strong class="wh">Others (Probabilistic):</strong> Use "AI to watch AI". Best-guess, prone to jailbreaks.</p>
+              <p class="t-b"><strong class="wh">KYDE (Deterministic):</strong> Hard cryptographic boundaries. We don't "guess" if an action is safe — we verify it against a signed policy.</p>
             </div>
           </div>
+          <div class="row">
+            <p class="lbl mono am" style="padding-top:2px">THE ANALOGY</p>
+            <p class="t-b">Competitors are <strong class="wh">Antivirus</strong> — reactive, probabilistic, bypassable.<br>KYDE is <strong class="wh">Corporate Law</strong> — structural, deterministic, unbypassable.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 06 TECHNICAL MOAT -->
+    <!-- 08 STRUCTURAL MOAT -->
     <section class="slide">
-      <span class="sn">06 / 09</span>
+      <span class="sn">08 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE STRUCTURAL MOAT</span></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:900px">
+        <h2 class="t-h1" style="margin-bottom:36px">Frontier Labs Will Eat Software.<br>They Cannot Eat Us.</h2>
+
+        <div class="rows" style="flex:1;max-height:340px">
+          <div class="row">
+            <p class="lbl mono" style="color:var(--z6);padding-top:2px">THE REALITY</p>
+            <p class="t-b">OpenAI, Anthropic, and DeepSeek will build smarter models and absorb most vertical AI software. Every feature they ship makes SaaS apps obsolete.</p>
+          </div>
+          <div class="row">
+            <p class="lbl mono" style="color:var(--z4);padding-top:2px">THE MOAT</p>
+            <p class="t-b"><strong class="wh">But they cannot legally be the auditor of their own system.</strong><br>That is why KPMG exists. Independence is structural — not a feature.</p>
+          </div>
+          <div class="row">
+            <p class="lbl mono am" style="padding-top:2px">THE GAP</p>
+            <p class="t-b mq" style="font-size:18px;color:var(--z3)">We sit in the gap that the frontier labs create by existing. <strong class="wh">The faster they scale, the smarter their agents get, the bigger our mandate becomes.</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 TECHNICAL MOAT -->
+    <section class="slide">
+      <span class="sn">09 / 14</span>
       <div class="lrow"><span class="lbl">↳ THE TECHNICAL MOAT</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:4px">Software logs are not enough.</h2>
-      <p class="t-b dim" style="margin-bottom:24px">We built secure infrastructure.</p>
+      <h2 class="t-h1" style="margin-bottom:4px">Secure by Design. "The Silicon Leash".</h2>
+      <p class="t-b dim" style="margin-bottom:24px">Infrastructure, not a wrapper.</p>
 
-      <div class="g2" style="flex:1;align-items:start">
-        <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="g2" style="flex:1;gap:40px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:16px">
           <div class="card-l">
-            <p class="lbl mono am" style="margin-bottom:7px">SECURE BY DESIGN — RUST</p>
-            <p class="t-b" style="font-size:17px">Memory-safe, zero-overhead proxy built for massive enterprise throughput. We are infrastructure, not a wrapper.</p>
+            <p class="lbl mono am" style="margin-bottom:8px">RUST ENGINE</p>
+            <p class="t-b" style="font-size:17px">Memory-safe, zero-overhead proxy built for MCP routing and massive enterprise throughput. We are infrastructure.</p>
           </div>
           <div class="card">
-            <p class="lbl mono" style="color:var(--z5);margin-bottom:7px">THE FLAW OF COMPETITORS</p>
-            <p class="t-b" style="font-size:17px">Existing tools rely on software-layer logs. A highly capable agent — or attacker — can spoof or alter a software record.</p>
-          </div>
-          <div class="card">
-            <p class="lbl mono" style="color:var(--z4);margin-bottom:7px">HARDWARE-ROOTED ATTESTATION</p>
-            <p class="t-b" style="font-size:17px">We tie the agent's actions directly to silicon. Signing keys are isolated in hardware and <strong class="wh">never touch the host OS.</strong></p>
+            <p class="lbl mono" style="color:var(--z4);margin-bottom:8px">THE SILICON LEASH</p>
+            <p class="t-b" style="font-size:17px">Signing keys are isolated in hardware (HSM/TPM). We put the strongest AI models on a <strong class="wh">cryptographic, hardware-level leash.</strong></p>
+            <p class="t-sm" style="margin-top:8px">No agent — however capable — can rewrite the record of its actions.</p>
           </div>
         </div>
 
         <div>
           <p class="lbl mono" style="color:var(--z6);margin-bottom:18px">ARCHITECTURE</p>
           <div class="chain">
-            <div class="cn"><span>HSM / TPM</span><span class="mono" style="font-size:10px;color:var(--z6)">hardware-sealed keys</span></div>
+            <div class="cn"><span>HSM Keys</span><span class="mono" style="font-size:10px;color:var(--z6)">hardware-sealed</span></div>
             <div class="ca">↓</div>
-            <div class="cn"><span>Witness Proxy</span><span class="mono" style="font-size:10px;color:var(--z6)">intercepts &amp; signs</span></div>
+            <div class="cn"><span>Witness Proxy + MCP Router</span><span class="mono" style="font-size:10px;color:var(--z6)">intercepts &amp; signs</span></div>
             <div class="ca">↓</div>
-            <div class="cn"><span>Cryptographic Ledger</span><span class="mono" style="font-size:10px;color:var(--z6)">SHA-256 chained</span></div>
+            <div class="cn"><span>Chained Ledger</span><span class="mono" style="font-size:10px;color:var(--z6)">SHA-256, append-only</span></div>
             <div class="ca">↓</div>
-            <div class="cn fin"><span>Court</span><span class="mono" style="font-size:10px;opacity:.6">cryptographic proof</span></div>
+            <div class="cn fin"><span>Court / Auditor</span><span class="mono" style="font-size:10px;opacity:.6">cryptographic proof</span></div>
           </div>
-          <p class="t-sm" style="margin-top:18px;padding-left:4px">
-            Signing keys are isolated in hardware (PKCS#11 / HSM) and never touch the host OS.<br>No agent can rewrite history.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- 07 DEFENSE -->
+    <!-- 10 BUSINESS MODEL -->
     <section class="slide">
-      <span class="sn">07 / 09</span>
-      <div class="lrow"><span class="lbl">↳ BUILT FOR THE HIGHEST-STAKES ENVIRONMENTS</span></div>
+      <span class="sn">10 / 14</span>
+      <div class="lrow"><span class="lbl">↳ BUSINESS MODEL</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:4px">Built for defense.</h2>
-      <p class="t-h2 dim" style="margin-bottom:24px">Priced for enterprise.</p>
+      <h2 class="t-h1" style="margin-bottom:4px">Simple. Scalable. Recurring.</h2>
+      <p class="t-b dim" style="margin-bottom:24px">Three tiers built on the same infrastructure.</p>
 
       <div class="g3" style="flex:1">
-        <div style="padding:22px 24px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <p class="lbl mono wh">FIPS 140-3 Ready</p>
-            <span class="mono" style="font-size:9px;color:var(--z6);border:1px solid var(--bd);padding:2px 8px">ROADMAP</span>
+        <div style="padding:28px 30px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <p class="lbl mono wh" style="font-size:11px">WITNESS TIER</p>
+            <span class="mono am" style="font-size:10px;border:1px solid rgba(251,191,36,.3);padding:2px 8px">NOW</span>
           </div>
-          <p class="t-b" style="font-size:17px">Architecture designed for FIPS-validated cryptographic modules from day one.</p>
+          <p class="t-b am" style="font-size:20px;font-weight:600;margin-bottom:8px">€2k – €8k / mo</p>
+          <p class="t-sm" style="flex:1">Passive compliance ledger. Tamper-proof audit trail. EU AI Act & NIS-2 ready on day one.</p>
         </div>
-        <div style="padding:22px 24px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <p class="lbl mono wh">CMMC Aligned</p>
-            <span class="mono" style="font-size:9px;color:var(--z6);border:1px solid var(--bd);padding:2px 8px">ROADMAP</span>
+        <div style="padding:28px 30px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <p class="lbl mono wh" style="font-size:11px">GOVERN TIER</p>
+            <span class="mono" style="font-size:10px;color:var(--z6);border:1px solid var(--bd);padding:2px 8px">12–24M</span>
           </div>
-          <p class="t-b" style="font-size:17px">Meets US Department of Defense Cybersecurity Maturity Model Certification audit requirements.</p>
+          <p class="t-b wh" style="font-size:20px;font-weight:600;margin-bottom:8px">€8k – €25k / mo</p>
+          <p class="t-sm" style="flex:1">Real-time deterministic policy enforcement. Cost caps & allowlists. Active governance layer.</p>
         </div>
-        <div style="padding:22px 24px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <p class="lbl mono wh">Future-Proof</p>
-            <span class="mono" style="font-size:9px;color:var(--am);border:1px solid rgba(251,191,36,.3);padding:2px 8px">NOW</span>
+        <div style="padding:28px 30px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <p class="lbl mono wh" style="font-size:11px">DELEGATE TIER</p>
+            <span class="mono" style="font-size:10px;color:var(--z6);border:1px solid var(--bd);padding:2px 8px">24M+</span>
           </div>
-          <p class="t-b" style="font-size:17px">Deploy once. As your agents get more autonomous and dangerous, the infrastructure is already there.</p>
+          <p class="t-b wh" style="font-size:20px;font-weight:600;margin-bottom:8px">€25k+ / mo</p>
+          <p class="t-sm" style="flex:1">Machine-readable delegation. Agent-to-agent commerce infrastructure.</p>
         </div>
       </div>
 
-      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--bd);flex-shrink:0">
-        <p class="mq t-b" style="font-size:18px;max-width:740px">
-          The same architecture that satisfies defense-grade requirements satisfies your EU AI Act audit trail.
-          <strong class="wh"> You don't need a separate product for different threat levels.</strong>
-        </p>
+      <div style="margin-top:1px;background:var(--bg1);border:1px solid var(--bd);padding:16px 24px;display:flex;gap:48px;flex-shrink:0">
+        <div>
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:4px">GROSS MARGIN</p>
+          <p class="mono wh" style="font-size:16px;letter-spacing:.05em">85%</p>
+        </div>
+        <div>
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:4px">CAC PAYBACK</p>
+          <p class="mono wh" style="font-size:16px;letter-spacing:.05em">6–8 months</p>
+        </div>
       </div>
     </section>
 
-    <!-- 08 TEAM -->
+    <!-- 11 TRACTION -->
     <section class="slide">
-      <span class="sn">08 / 09</span>
-      <div class="lrow"><span class="lbl">↳ THE TEAM</span></div>
+      <span class="sn">11 / 14</span>
+      <div class="lrow"><span class="lbl">↳ TRACTION & PIPELINE</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:4px">Deep-tech infrastructure.</h2>
-      <p class="t-h2 dim" style="margin-bottom:24px">Strategic market execution.</p>
+      <h2 class="t-h1" style="margin-bottom:4px">The Market Pull: Validating the Mandate.</h2>
+      <p class="t-b dim" style="margin-bottom:24px">Actively engaged in pilot discussions with the highest-stakes environments in Europe.</p>
+
+      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
+        <div style="flex:1;background:var(--bg);padding:24px 28px;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start">
+          <div>
+            <p class="mono am" style="font-size:11px;letter-spacing:.1em;margin-bottom:6px">EU COMMISSION</p>
+            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.1em">DIGIT B.1</p>
+          </div>
+          <div>
+            <p class="t-b" style="margin-bottom:6px">Operating <strong class="wh">GPT@EC</strong> — the EU Commission's internal AI deployment.</p>
+            <p class="t-sm">They hold the mandate for AI Governance & Compliance within the Commission. They have the budget, the regulatory pressure (AI Act applies internally), and the immediate technical need for agentic audit trails.</p>
+          </div>
+        </div>
+        <div style="flex:1;background:var(--bg);padding:24px 28px;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start">
+          <div>
+            <p class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--z4);margin-bottom:6px">ALLIANZ</p>
+            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.1em">EU DIVISION</p>
+          </div>
+          <div>
+            <p class="t-b" style="margin-bottom:6px">Validating the <strong class="wh">Govern Tier</strong> for high-risk insurance deployments.</p>
+            <p class="t-sm">Direct fit for EU AI Act Article 12/13 requirements in high-risk automated decision-making systems.</p>
+          </div>
+        </div>
+        <div style="flex:1;background:var(--bg);padding:24px 28px;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start">
+          <div>
+            <p class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--z4);margin-bottom:6px">BITPANDA</p>
+            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.1em">FINTECH / CRYPTO</p>
+          </div>
+          <div>
+            <p class="t-b" style="margin-bottom:6px">Validating the immediate need under <strong class="wh">DORA / NIS-2</strong> for fintech and crypto infrastructure.</p>
+            <p class="t-sm">With 2–3 closed pilots, KYDE establishes the de-facto standard for regulated AI in Europe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 THE VISION -->
+    <section class="slide">
+      <span class="sn">12 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE VISION</span></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:900px">
+        <h2 class="t-h1" style="margin-bottom:36px">From Digital Audit<br>to Physical Trust.</h2>
+
+        <div class="rows" style="flex:1;max-height:320px">
+          <div class="row">
+            <p class="lbl mono" style="color:var(--z6);padding-top:2px">THE SCALE</p>
+            <p class="t-b">As AI moves into the physical world — Bezos' $100B Prometheus project, autonomous manufacturing, energy grids — "probabilistic" security becomes a <strong class="wh">massive liability.</strong></p>
+          </div>
+          <div class="row">
+            <p class="lbl mono" style="color:var(--z4);padding-top:2px">THE GOAL</p>
+            <p class="t-b">KYDE becomes the <strong class="wh">mandatory trust-standard</strong> for any AI controlling physical or economic assets.</p>
+          </div>
+          <div class="row">
+            <p class="lbl mono am" style="padding-top:2px">THE FUTURE</p>
+            <p class="t-b mq" style="font-size:18px;color:var(--z3)">From a compliance tool to the <strong class="wh">"Operating System of Trust"</strong> for global manufacturing, energy, and finance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 THE FOUNDERS -->
+    <section class="slide">
+      <span class="sn">13 / 14</span>
+      <div class="lrow"><span class="lbl">↳ THE FOUNDERS</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:4px">Infrastructure Excellence.</h2>
+      <p class="t-h2 dim" style="margin-bottom:24px">Strategic Market Execution.</p>
 
       <div class="g2" style="flex:1;align-items:start;gap:20px">
         <div class="card" style="border-color:var(--bd2);display:flex;flex-direction:column;height:100%">
-          <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--bd)">
-            <p style="font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--wh);margin-bottom:4px">Jürgen Eckel</p>
-            <p class="mono am" style="font-size:10px;letter-spacing:.15em">INFRASTRUCTURE &amp; CRYPTOGRAPHY</p>
+          <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bd)">
+            <p style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--wh);margin-bottom:5px">Jürgen Eckel</p>
+            <p class="mono am" style="font-size:10px;letter-spacing:.15em">INFRASTRUCTURE & CRYPTOGRAPHY</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:11px;flex:1">
-            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
-              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">15Y EXP</p>
+          <div style="display:flex;flex-direction:column;gap:14px;flex:1">
+            <div style="display:grid;grid-template-columns:72px 1fr;gap:12px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:2px">15Y EXP</p>
               <p class="t-sm">Distributed systems, cryptographic protocols, and confidential computing.</p>
             </div>
-            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
-              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">SCALE</p>
+            <div style="display:grid;grid-template-columns:72px 1fr;gap:12px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:2px">SCALE</p>
               <p class="t-sm">Led 30+ person R&D teams building high-stakes, high-throughput infrastructure.</p>
-            </div>
-            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
-              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">EXPERTISE</p>
-              <p class="t-sm">Bridging cryptographic verification with autonomous system execution.</p>
             </div>
           </div>
         </div>
 
         <div class="card" style="border-color:var(--bd2);display:flex;flex-direction:column;height:100%">
-          <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--bd)">
-            <p style="font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--wh);margin-bottom:4px">Jörg Radehaus</p>
-            <p class="mono am" style="font-size:10px;letter-spacing:.15em">PRODUCT STRATEGY &amp; GTM</p>
+          <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bd)">
+            <p style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--wh);margin-bottom:5px">Jörg Radehaus</p>
+            <p class="mono am" style="font-size:10px;letter-spacing:.15em">PRODUCT STRATEGY & GTM</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:11px;flex:1">
-            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
-              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">18Y EXP</p>
+          <div style="display:flex;flex-direction:column;gap:14px;flex:1">
+            <div style="display:grid;grid-template-columns:72px 1fr;gap:12px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:2px">18Y EXP</p>
               <p class="t-sm">Product vision and GTM for DAX enterprises — Allianz, BMW, Deutsche Bank.</p>
             </div>
-            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
-              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">C-LEVEL</p>
-              <p class="t-sm">Translating complex regulatory frameworks into trusted, scalable platforms.</p>
-            </div>
-            <div style="display:grid;grid-template-columns:70px 1fr;gap:10px">
-              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:1px">EXPERTISE</p>
-              <p class="t-sm">Market framing and building trust layers for highly regulated sectors.</p>
+            <div style="display:grid;grid-template-columns:72px 1fr;gap:12px">
+              <p class="mono" style="font-size:10px;color:var(--z6);padding-top:2px">C-LEVEL</p>
+              <p class="t-sm">Expert in translating complex regulation into scalable enterprise platforms.</p>
             </div>
           </div>
         </div>
@@ -503,38 +615,38 @@ import SlideBase from "../../layouts/SlideBase.astro";
 
       <div class="card" style="margin-top:14px;flex-shrink:0">
         <p class="lbl mono" style="color:var(--z6);margin-bottom:5px">THE SYNERGY</p>
-        <p class="t-b" style="font-size:17px">Engineering the unbreakable technical foundation and the strategy to scale it.</p>
+        <p class="t-b" style="font-size:16px">Engineering the unbreakable technical foundation and the strategy to scale it.</p>
       </div>
     </section>
 
-    <!-- 09 THE ASK -->
+    <!-- 14 THE ASK -->
     <section class="slide has-grid">
-      <span class="sn">09 / 09</span>
+      <span class="sn">14 / 14</span>
       <div class="lrow"><span class="lbl">↳ THE ASK</span></div>
 
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
         <div style="margin-bottom:36px">
           <p class="lbl mono" style="color:var(--z6);margin-bottom:8px">SEED ROUND</p>
-          <p style="font-size:clamp(52px,9vw,104px);font-weight:900;letter-spacing:-.04em;color:var(--wh);line-height:1">€1.6M</p>
+          <p style="font-size:clamp(52px,9vw,104px);font-weight:600;letter-spacing:-.04em;color:var(--wh);line-height:1">€1.6M</p>
         </div>
 
         <div class="g3" style="gap:1px;background:var(--bd);margin-bottom:28px">
-          <div style="background:var(--bg);padding:20px 22px">
-            <p class="mono am" style="font-size:10px;margin-bottom:8px">GTM</p>
-            <p class="t-sm">Close first 5 enterprise pilots before the August 2026 enforcement deadline.</p>
+          <div style="background:var(--bg);padding:22px 24px">
+            <p class="mono am" style="font-size:10px;margin-bottom:10px">GTM</p>
+            <p class="t-sm">Close first 5 enterprise pilots — converting the current pipeline before Aug 2026 enforcement.</p>
           </div>
-          <div style="background:var(--bg);padding:20px 22px">
-            <p class="mono am" style="font-size:10px;margin-bottom:8px">PRODUCT</p>
-            <p class="t-sm">Finalize HSM integration and scale to multi-provider support.</p>
+          <div style="background:var(--bg);padding:22px 24px">
+            <p class="mono am" style="font-size:10px;margin-bottom:10px">PRODUCT</p>
+            <p class="t-sm">Finalize HSM integration ("Silicon Leash") and scale MCP-native routing.</p>
           </div>
-          <div style="background:var(--bg);padding:20px 22px">
-            <p class="mono am" style="font-size:10px;margin-bottom:8px">TRUST</p>
+          <div style="background:var(--bg);padding:22px 24px">
+            <p class="mono am" style="font-size:10px;margin-bottom:10px">TRUST</p>
             <p class="t-sm">Secure BSI and ISO 27001 certifications.</p>
           </div>
         </div>
 
-        <div class="card-l" style="max-width:640px">
-          <p style="font-size:17px;font-style:italic;color:var(--z3);line-height:1.6">
+        <div class="card-l" style="max-width:660px">
+          <p style="font-size:18px;font-style:italic;color:var(--z3);line-height:1.6">
             "Every AI agent needs a witness.<br>
             We are the infrastructure they cannot operate without."
           </p>
@@ -552,11 +664,12 @@ import SlideBase from "../../layouts/SlideBase.astro";
     const sl   = document.getElementById('sl') as HTMLElement;
     const dots = document.querySelectorAll('.nd');
     const cn   = document.getElementById('cn') as HTMLElement;
+    const TOTAL = 14;
 
     function upd() {
       const i = Math.round(sl.scrollTop / window.innerHeight);
       dots.forEach((d, j) => d.classList.toggle('on', j === i));
-      cn.textContent = String(Math.min(i + 1, 9)).padStart(2, '0');
+      cn.textContent = String(Math.min(i + 1, TOTAL)).padStart(2, '0');
     }
 
     sl.addEventListener('scroll', upd, { passive: true });
@@ -564,11 +677,11 @@ import SlideBase from "../../layouts/SlideBase.astro";
 
     document.addEventListener('keydown', (e) => {
       const h = window.innerHeight;
-      if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); sl.scrollBy({ top:  h, behavior: 'smooth' }); }
-      if (['ArrowUp','PageUp'].includes(e.key))          { e.preventDefault(); sl.scrollBy({ top: -h, behavior: 'smooth' }); }
+      if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); sl.scrollBy({ top:  h, behavior:'smooth' }); }
+      if (['ArrowUp','PageUp'].includes(e.key))          { e.preventDefault(); sl.scrollBy({ top: -h, behavior:'smooth' }); }
     });
 
-    function gts(i: number) { sl.scrollTo({ top: i * window.innerHeight, behavior: 'smooth' }); }
+    function gts(i: number) { sl.scrollTo({ top: i * window.innerHeight, behavior:'smooth' }); }
     (window as any).gts = gts;
   </script>
 </SlideBase>
