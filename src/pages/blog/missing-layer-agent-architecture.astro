@@ -1,0 +1,219 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+// TODO: replace with Sam Witteveen's actual YouTube video URL
+const samVideoUrl = "https://www.youtube.com/@samwitteveenai";
+---
+
+<Base
+  title="The Missing Layer in Every Agent Architecture — KYDE"
+  description="The distinction between agent core and agent harness cuts to the heart of what most enterprise deployments get wrong. The harness isn't an add-on. For enterprise deployments, it's the product."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Technical</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            The Missing Layer in Every Agent Architecture
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Technical</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <!-- Source callout -->
+            <div class="not-prose mb-10 border border-zinc-800 bg-zinc-900/40 px-6 py-5 flex items-start gap-4">
+              <span class="font-mono text-xs text-zinc-600 shrink-0 mt-0.5">Source</span>
+              <a
+                href={samVideoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors leading-relaxed underline underline-offset-4"
+              >
+                "Single User Agent vs Multi User Agent" — Sam Witteveen ↗
+              </a>
+            </div>
+
+            <p>
+              Sam Witteveen, one of the sharper practitioners in the agent space, recently published a video breaking down the difference between single-user and multi-user agent systems. It's worth watching. One concept he introduces — the distinction between <strong>agent core</strong> and <strong>agent harness</strong> — cuts to the heart of what most enterprise deployments get wrong.
+            </p>
+            <p>
+              The core is what most frameworks focus on: planning, reasoning, tool calling, memory. The harness is everything that makes it survive real users: identity, isolation, cost controls, observability, policy enforcement.
+            </p>
+            <p>
+              His point is precise: single-user systems are core-heavy and light on harness. Multi-user systems need to be harness-first. The harness isn't an add-on. It's the foundation.
+            </p>
+            <p>For enterprise deployments, we'd go further. The harness isn't just a foundation. It's the product.</p>
+
+            <h2>What the demo doesn't show</h2>
+            <p>
+              Every impressive agent demo runs in a controlled environment. One user. Clean data. One set of API keys. The agent reasons well, the tools execute, the output looks right.
+            </p>
+            <p>
+              None of that tells you what happens at scale. And the gap between demo and production isn't a performance problem — it's an architecture problem.
+            </p>
+            <p>Here's what actually breaks when you move from one user to many:</p>
+            <p>
+              <strong>State and isolation.</strong> A single-user system can store state in a markdown file. Memory is personal and deep. In a multi-user system, that same approach means sessions contaminate each other — one user's context leaks into another's retrieval, one user's learned preferences surface in another's responses. This is not an edge case. It's the default failure mode of single-user architecture deployed at scale.
+            </p>
+            <p>
+              <strong>Cost attribution.</strong> A single user tolerates inefficiency. They know when they prompted wrong, when a tool chain took three attempts, when the agent over-ran. In a multi-user system, one user who triggers expensive chains affects every other user on the platform. Without hard budget limits per agent and per role, cost becomes structurally unpredictable.
+            </p>
+            <p>
+              <strong>Observability.</strong> In a single-user system, nobody needs traces. The user is the operator. They know what they asked for. In enterprise deployments, observability isn't a feature you add later — it's table stakes. When something goes wrong across a fleet of agents, you need a complete, attributable record: which agent, which identity, which action, which cost, in what sequence. Without it, post-incident review is guesswork.
+            </p>
+            <p>
+              <strong>Authentication surface.</strong> Single-user systems handle auth informally. One service account, broadly scoped. In multi-user deployments, every tool access needs to be traceable to a specific identity. Not because it's best practice — because when something goes wrong, the investigation demands it.
+            </p>
+
+            <h2>The enterprise version of this problem</h2>
+            <p>
+              Witteveen is describing what happens when developers move from personal agent projects to production systems. In enterprise environments, the same dynamic plays out at a different scale — and with regulatory consequences.
+            </p>
+            <p>
+              Enterprise deployments are multi-user by definition. Multiple agents, multiple roles, multiple teams, multiple compliance frameworks — all running concurrently, all subject to audit. The harness isn't optional. The only question is whether you build it yourself, as a custom engineering project that needs rebuilding every time you add an agent or change a provider — or whether you deploy it as infrastructure.
+            </p>
+            <p>
+              Infrastructure that sits outside the agent. That covers every agent automatically. That doesn't require code changes. That produces a tamper-evident record of every action, every identity, every cost attribution — before you need it.
+            </p>
+            <p>
+              The demo works without the harness. Production doesn't. And in regulated industries, neither does your compliance posture.
+            </p>
+
+            <!-- Video link -->
+            <div class="not-prose my-10 border-l-2 border-amber-400/60 pl-6 py-1">
+              <p class="text-sm text-zinc-400 leading-relaxed mb-3">
+                Watch Sam's original breakdown of single-user vs. multi-user agent architecture:
+              </p>
+              <a
+                href={samVideoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono text-sm text-amber-400 hover:text-amber-300 transition-colors underline underline-offset-4"
+              >
+                Single User Agent vs Multi User Agent ↗
+              </a>
+            </div>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness is the governance harness for enterprise agent fleets — identity, cost controls, policy enforcement, and tamper-evident audit trails across every agent, every provider, without touching agent code.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Core vs. Harness</p>
+              <div class="space-y-3">
+                <div>
+                  <p class="font-mono text-xs text-zinc-500 mb-1">Core</p>
+                  <p class="text-xs text-zinc-500 leading-relaxed">Planning · Reasoning · Tool calling · Memory</p>
+                </div>
+                <div class="h-px bg-zinc-800"></div>
+                <div>
+                  <p class="font-mono text-xs text-amber-300 mb-1">Harness</p>
+                  <p class="text-xs text-zinc-400 leading-relaxed">Identity · Isolation · Cost controls · Observability · Policy enforcement</p>
+                </div>
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Original source</p>
+              <a
+                href={samVideoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-amber-400 hover:text-amber-300 transition-colors leading-relaxed underline underline-offset-4"
+              >
+                Sam Witteveen — YouTube ↗
+              </a>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/hbr-ai-agents-infrastructure" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>HBR Just Described the Problem. Here's the Infrastructure That Solves It.</span>
+                </a>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What the EU AI Act Actually Requires for Audit Trails</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
