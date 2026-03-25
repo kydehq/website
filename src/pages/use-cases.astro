@@ -117,8 +117,24 @@ const cases = [
 
     <!-- ══════════ USE CASES ══════════ -->
     <section class="border-t border-zinc-800/60 py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-6 space-y-6">
+      <div class="max-w-7xl mx-auto px-6">
 
+        <!-- Toggle -->
+        <div class="flex gap-1 mb-10 border border-zinc-800 bg-zinc-900/60 p-1 w-fit">
+          <button
+            id="btn-industry"
+            onclick="showTab('industry')"
+            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all bg-white text-black"
+          >By Industry</button>
+          <button
+            id="btn-role"
+            onclick="showTab('role')"
+            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-zinc-400 hover:text-white"
+          >By Role</button>
+        </div>
+
+        <!-- BY INDUSTRY -->
+        <div id="tab-industry" class="space-y-6">
         {cases.map(({ n, sector, tag, reality, resilience, regs }) => (
           <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all">
 
@@ -156,9 +172,91 @@ const cases = [
 
           </div>
         ))}
+        </div>
+
+        <!-- BY ROLE -->
+        <div id="tab-role" class="hidden grid gap-6 md:grid-cols-2">
+          {[
+            {
+              role: "CISO",
+              label: "Chief Information Security Officer",
+              bullets: [
+                "Tamper-evident records — cryptographically signed at capture, hash-chained. A compromised host cannot alter them silently.",
+                "Cryptographic independence from LLM vendors — your audit trail is yours, not a vendor report signed by vendor keys.",
+                "Audit standing that satisfies regulators, courts, and InfoSec review — before an incident, not after.",
+              ],
+            },
+            {
+              role: "CTO",
+              label: "Chief Technology Officer",
+              bullets: [
+                "One environment variable. No SDK dependency. No code changes. Full fleet coverage in minutes.",
+                "Model-agnostic by design — switch providers, add local models, route cheap tasks anywhere. Governance follows automatically.",
+                "No lock-in. No per-agent installation. Architecture that outlasts your current LLM stack.",
+              ],
+            },
+            {
+              role: "Compliance & Legal",
+              label: "GC · DPO · CCO",
+              bullets: [
+                "EU AI Act High-Risk logging requirements, NIS-2, DORA, GDPR Art. 35 — one evidence trail covers all of them.",
+                "Verifiable audit exports for regulators and auditors — complete, machine-generated, tamper-evident.",
+                "Causal context per decision: what the agent saw, what it decided, why — reconstructable for any challenged outcome.",
+              ],
+            },
+            {
+              role: "CFO & Ops",
+              label: "Chief Financial Officer · Operations",
+              bullets: [
+                "Per-agent and per-role token and cost budgets. Hard limits, daily or monthly. No agent runs up a bill you didn't authorize.",
+                "Route classification tasks to cheap local models, reserve frontier models for high-value workloads. Governance doesn't prevent cost optimization.",
+                "Fleet efficiency: priority assignment means your production agents never queue behind an intern's research bot.",
+              ],
+            },
+          ].map(({ role, label, bullets }) => (
+            <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all p-8">
+              <div class="mb-6 pb-6 border-b border-zinc-800">
+                <h2 class="font-mono text-2xl font-bold text-white">{role}</h2>
+                <p class="mt-1 text-xs text-zinc-500 uppercase tracking-widest">{label}</p>
+              </div>
+              <ul class="space-y-4">
+                {bullets.map((b: string) => (
+                  <li class="flex gap-4 text-sm leading-relaxed text-zinc-300">
+                    <span class="font-mono text-amber-400 shrink-0 mt-0.5">→</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
       </div>
     </section>
+
+    <script>
+      function showTab(tab: string) {
+        const industry = document.getElementById('tab-industry');
+        const role = document.getElementById('tab-role');
+        const btnIndustry = document.getElementById('btn-industry');
+        const btnRole = document.getElementById('btn-role');
+        if (tab === 'industry') {
+          industry?.classList.remove('hidden');
+          role?.classList.add('hidden');
+          btnIndustry?.classList.add('bg-white', 'text-black');
+          btnIndustry?.classList.remove('text-zinc-400');
+          btnRole?.classList.remove('bg-white', 'text-black');
+          btnRole?.classList.add('text-zinc-400');
+        } else {
+          role?.classList.remove('hidden');
+          industry?.classList.add('hidden');
+          btnRole?.classList.add('bg-white', 'text-black');
+          btnRole?.classList.remove('text-zinc-400');
+          btnIndustry?.classList.remove('bg-white', 'text-black');
+          btnIndustry?.classList.add('text-zinc-400');
+        }
+      }
+    </script>
 
     <!-- ══════════ CLOSING CTA ══════════ -->
     <section class="border-t border-zinc-800/60 py-24 md:py-32">
