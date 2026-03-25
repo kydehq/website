@@ -1,0 +1,213 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="What Happens When an AI Agent Gets Compromised — And Nobody Has the Logs — KYDE"
+  description="ForcedLeak demonstrated a prompt injection attack against production enterprise agents in 2025. The most important question it raises isn't technical — it's operational. If this happened in your environment, would you know?"
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Security</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            What Happens When an AI Agent Gets Compromised — And Nobody Has the Logs
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Security</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              In 2025, researchers demonstrated a vulnerability they called ForcedLeak. By embedding malicious instructions in a routine web form, they manipulated a Salesforce Agentforce agent into retrieving sensitive CRM data and exfiltrating it to an external destination. The agent believed it was following legitimate instructions. Nobody noticed until the researchers disclosed it.
+            </p>
+            <p>
+              This is not a hypothetical threat model. It's a demonstrated attack pattern against production enterprise systems. And the most important question it raises isn't technical — it's operational.
+            </p>
+            <p class="font-mono text-zinc-200">If this happened in your environment, would you know?</p>
+
+            <h2>The new attack surface</h2>
+            <p>
+              Traditional cybersecurity assumes a relatively stable attack surface. Networks, endpoints, applications — each with known entry points that can be monitored and hardened.
+            </p>
+            <p>
+              AI agents introduce a fundamentally different surface. Every external input an agent processes is a potential attack vector. Emails. Support tickets. Web forms. Uploaded documents. Database records. Any of these can contain embedded instructions — invisible to human readers, interpretable by the agent — designed to redirect its behavior.
+            </p>
+            <p>
+              This is prompt injection. At single-agent scale it's a nuisance. At enterprise scale, with agents that have access to financial systems, HR data, customer records, and internal APIs, it's a serious operational risk.
+            </p>
+            <p>
+              The 2025 AppOmni research on ServiceNow's Now Assist environment demonstrated a related pattern — second-order prompt injection, where malicious instructions introduced through one agent were passed to another, creating a cascade of unintended actions across a multi-agent pipeline. The agents weren't malfunctioning. They were functioning exactly as designed — just with inputs that had been manipulated.
+            </p>
+
+            <h2>The forensics problem</h2>
+            <p>Here's the scenario most security teams haven't fully thought through.</p>
+            <p>
+              An AI agent in your procurement stack has been manipulated through a prompt injection in a vendor communication. Over three weeks, it has been surfacing confidential contract terms in responses, making subtly incorrect recommendations, and in two cases authorizing payments to accounts that shouldn't have been authorized.
+            </p>
+            <p>You find out when a vendor calls to ask about an unexpected payment.</p>
+            <p>Now the investigation begins. And immediately you hit the forensics problem.</p>
+            <p>
+              Which inputs did the agent process in the three weeks prior? What instructions did it receive? What did it retrieve from your internal systems, and in what context? Which decisions were influenced by the injected instructions, and which were legitimate? What exactly did it send, and where?
+            </p>
+            <p>
+              If your agent runs on provider-native logging, you have partial inputs and outputs from the provider's perspective. You don't have the full retrieval context. You don't have the causal chain that led to each decision. You don't have a tamper-evident record that proves the logs haven't been modified since the incident began. And if the provider's infrastructure was part of the attack surface, you may not fully trust the logs at all.
+            </p>
+            <p>
+              Without a complete, independent, tamper-evident audit trail, the investigation stalls. The full scope of the incident remains unknown. Regulatory reporting becomes a problem — <span class="font-mono text-zinc-200">DORA</span>'s 72-hour window doesn't pause while you wait for vendor logs.
+            </p>
+
+            <h2>Why software-layer logging isn't enough</h2>
+            <p>
+              The specific threat model of a compromised agent makes clear why software-layer logging is structurally insufficient.
+            </p>
+            <p>
+              A sophisticated attacker who has gained influence over an agent's behavior — through prompt injection or other means — may also be able to influence what gets logged, how it gets logged, or whether the logs are preserved. Software logs live on infrastructure that the host OS can access. A compromised environment can alter them silently. By the time the incident is discovered, the evidence trail may already be incomplete.
+            </p>
+            <p>
+              Tamper-evidence requires cryptographic integrity at the point of capture — outside the agent's execution environment. Every entry signed the moment it's written. Every entry chained to the previous one so any modification is detectable. The record must be independent of the agent, independent of the host, and independent of the LLM provider.
+            </p>
+            <p>
+              This is not a paranoid threat model. It's the same principle that underlies every independent audit function — the auditor cannot be subject to the influence of the entity being audited.
+            </p>
+
+            <h2>What detection requires</h2>
+            <p>
+              Catching a compromised agent before the damage accumulates requires behavioral baselines. What does normal look like for this agent, in this role, on this infrastructure? What volume of calls, what endpoints, what retrieval patterns, what cost profile?
+            </p>
+            <p>
+              Deviation from baseline is the signal. An agent that suddenly starts accessing endpoints outside its normal scope. A cost profile that spikes without a corresponding increase in legitimate workload. Tool calls that don't match the agent's assigned role. These are detectable — but only if you have a baseline, and only if you have a continuous, attributable record of every action to compare against it.
+            </p>
+            <p>Without that record, you're not running anomaly detection. You're running blind.</p>
+
+            <h2>The question to ask</h2>
+            <p>
+              Every enterprise deploying AI agents in production should be able to answer one question: if an agent in our fleet was compromised today, how long would it take us to know — and what would the investigation look like?
+            </p>
+            <p>
+              If the honest answer is "we'd find out when something obviously broke" and "the investigation would depend on vendor logs we can't fully verify" — that's the gap.
+            </p>
+            <p>The agents are running. The attack surface exists. The logs either do or they don't.</p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness captures every agent action in a cryptographically signed, hash-chained audit trail — independent of the agent, independent of the host, independent of the LLM provider. Behavioral baselines and anomaly detection on the roadmap. The record exists before the incident.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Attack patterns covered</p>
+              <div class="space-y-2">
+                {[
+                  "Prompt injection",
+                  "Second-order injection",
+                  "Data exfiltration via agent",
+                  "Multi-agent cascade",
+                ].map((r) => (
+                  <p class="flex gap-2 text-xs text-zinc-500"><span class="font-mono text-amber-400 shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Referenced research</p>
+              <div class="space-y-3">
+                <p class="text-xs text-zinc-500 leading-relaxed">ForcedLeak — Salesforce Agentforce, 2025</p>
+                <p class="text-xs text-zinc-500 leading-relaxed">AppOmni — ServiceNow Now Assist, 2025</p>
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Reporting window</p>
+              <p class="font-mono text-sm text-amber-300">72 hours</p>
+              <p class="text-xs text-zinc-600 mt-1">DORA major incident reporting</p>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/shadow-ai-production-systems" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Shadow AI Is Already in Your Production Systems</span>
+                </a>
+                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
