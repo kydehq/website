@@ -47,50 +47,53 @@
                     .d-a3       { font-family: ui-monospace, monospace; font-size: 9px;  fill: #9ca3af; }
                 </style>
 
-                <!-- ── CURVES: all agents → Witness at (330,122) ── -->
+                <!-- ── ORTHOGONAL: all agents → bus at x=310 → Witness ── -->
                 <!-- col 1 -->
-                <path d="M 73,57  C 160,57  285,122 330,122" class="d-line"/>
-                <path d="M 93,122 C 160,122 285,122 330,122" class="d-line"/>
-                <path d="M 73,187 C 160,187 285,122 330,122" class="d-line"/>
+                <path d="M 73,57  H 310 V 122 H 330" class="d-line"/>
+                <path d="M 93,122 H 330"             class="d-line"/>
+                <path d="M 73,187 H 310 V 122"       class="d-line"/>
                 <!-- col 2 -->
-                <path d="M 165,29  C 235,29  295,122 330,122" class="d-line"/>
-                <path d="M 165,215 C 235,215 295,122 330,122" class="d-line"/>
+                <path d="M 169,29  H 310 V 122" class="d-line"/>
+                <path d="M 169,215 H 310 V 122" class="d-line"/>
                 <!-- col 3 -->
-                <path d="M 258,44  C 295,44  315,122 330,122" class="d-line"/>
-                <path d="M 238,122 C 285,122 315,122 330,122" class="d-line"/>
-                <path d="M 258,200 C 295,200 315,122 330,122" class="d-line"/>
+                <path d="M 258,44  H 310 V 122" class="d-line"/>
+                <path d="M 238,122 H 330"        class="d-line"/>
+                <path d="M 258,200 H 310 V 122"  class="d-line"/>
+                <!-- bus → Witness -->
+                <line x1="310" y1="122" x2="330" y2="122" class="d-line"/>
+                <!-- junction dot at bus -->
+                <circle cx="310" cy="122" r="3" fill="#52525b"/>
 
                 <!-- ── COL 1: 3 agents ── -->
-                <rect x="27"  y="48"  width="46" height="18" rx="9"  class="d-pill"/>
+                <rect x="27"  y="48"  width="46" height="18" rx="1" class="d-pill"/>
                 <text x="50"  y="57"  text-anchor="middle" dominant-baseline="central" class="d-a1">ops_agent</text>
 
-                <rect x="7"   y="111" width="86" height="22" rx="11" class="d-pill"/>
+                <rect x="7"   y="111" width="86" height="22" rx="1" class="d-pill"/>
                 <text x="50"  y="122" text-anchor="middle" dominant-baseline="central" class="d-a3">hr_agent</text>
 
-                <rect x="27"  y="178" width="46" height="18" rx="9"  class="d-pill"/>
+                <rect x="27"  y="178" width="46" height="18" rx="1" class="d-pill"/>
                 <text x="50"  y="187" text-anchor="middle" dominant-baseline="central" class="d-a1">crm_agent</text>
 
-                <!-- ── COL 2: 2 agents, width 78 ── -->
-                <rect x="91"  y="19"  width="78" height="20" rx="10" class="d-pill"/>
+                <!-- ── COL 2: 2 agents ── -->
+                <rect x="91"  y="19"  width="78" height="20" rx="1" class="d-pill"/>
                 <text x="130" y="29"  text-anchor="middle" dominant-baseline="central" class="d-a2">billing_agent</text>
 
-                <rect x="91"  y="205" width="78" height="20" rx="10" class="d-pill"/>
+                <rect x="91"  y="205" width="78" height="20" rx="1" class="d-pill"/>
                 <text x="130" y="215" text-anchor="middle" dominant-baseline="central" class="d-a2">legal_agent</text>
 
-                <!-- ── COL 3: 3 agents, width 86 ── -->
-                <rect x="172" y="33"  width="86" height="22" rx="11" class="d-pill"/>
+                <!-- ── COL 3: 3 agents ── -->
+                <rect x="172" y="33"  width="86" height="22" rx="1" class="d-pill"/>
                 <text x="215" y="44"  text-anchor="middle" dominant-baseline="central" class="d-a3">exec_agent</text>
 
-                <!-- finance_agent shifted ~20px left -->
-                <rect x="152" y="111" width="86" height="22" rx="11" class="d-pill"/>
+                <rect x="152" y="111" width="86" height="22" rx="1" class="d-pill"/>
                 <text x="195" y="122" text-anchor="middle" dominant-baseline="central" class="d-a3">finance_agent</text>
 
-                <rect x="172" y="189" width="86" height="22" rx="11" class="d-pill"/>
+                <rect x="172" y="189" width="86" height="22" rx="1" class="d-pill"/>
                 <text x="215" y="200" text-anchor="middle" dominant-baseline="central" class="d-a3">risk_agent</text>
 
                 <text x="132" y="250" text-anchor="middle" class="d-caption">ENTERPRISE AGENTS</text>
 
-                <!-- ── CENTER: KYDE WITNESS — centered at y=122 ── -->
+                <!-- ── CENTER: KYDE WITNESS ── -->
                 <rect x="330" y="65" width="185" height="114" rx="1" class="d-box-ac"/>
                 <text x="422" y="84"  text-anchor="middle" class="d-witness">KYDE WITNESS</text>
                 <text x="422" y="98"  text-anchor="middle" class="d-meta" style="fill:#52525b">Governance Proxy</text>
@@ -100,10 +103,12 @@
                 <text x="342" y="149" class="d-meta">CHAIN  1,847 entries</text>
                 <text x="342" y="163" class="d-meta">LAT  82ms</text>
 
-                <!-- ── CURVES: Witness → LLMs fan from (515,122) ── -->
-                <path d="M 515,122 C 545,122 560,44  670,44"  class="d-line"/>
-                <path d="M 515,122 C 545,122 560,122 670,122" class="d-line"/>
-                <path d="M 515,122 C 545,122 560,200 670,200" class="d-line"/>
+                <!-- ── ORTHOGONAL: Witness → bus at x=593 → LLMs ── -->
+                <path d="M 515,122 H 593 V 44  H 670" class="d-line"/>
+                <path d="M 515,122 H 670"             class="d-line"/>
+                <path d="M 515,122 H 593 V 200 H 670" class="d-line"/>
+                <!-- junction dot at right bus -->
+                <circle cx="593" cy="122" r="3" fill="#52525b"/>
 
                 <!-- ── RIGHT: LLM Providers ── -->
                 <rect x="670" y="22"  width="125" height="44" rx="1" class="d-box"/>
