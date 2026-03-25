@@ -1,0 +1,198 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="Shadow AI Is Already in Your Production Systems — You Just Can't See It — KYDE"
+  description="Shadow AI is the same problem as Shadow IT — at a different order of magnitude. Every LLM call that touches enterprise data without logging, attribution, or scope is a liability accumulating in silence."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Security</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            Shadow AI Is Already in Your Production Systems — You Just Can't See It
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Security</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              Shadow IT was a problem enterprises spent a decade learning to manage. Employees installing unauthorized software, spinning up unsanctioned SaaS tools, connecting personal devices to corporate networks. The solution was visibility — asset inventories, network monitoring, endpoint management. You can't govern what you can't see.
+            </p>
+            <p>
+              Shadow AI is the same problem at a different order of magnitude. And most enterprises are at least three years behind where they were with Shadow IT when they finally started paying attention.
+            </p>
+
+            <h2>What shadow AI actually looks like</h2>
+            <p>It doesn't look like rogue deployments. It looks like a marketing team using ChatGPT to draft proposals that reference internal pricing. It looks like a developer running a local agent that has access to production credentials because it was easier to set up that way. It looks like a procurement manager who built a simple automation that calls an LLM with supplier contract data because it saves two hours a week.</p>
+            <p>None of these people think they're doing something wrong. They're not. They're doing their jobs efficiently with the tools available to them.</p>
+            <p>
+              The problem is structural. Every one of those interactions is an LLM call that touches enterprise data — and none of it is logged, attributed, scoped, or auditable. If any of it goes wrong, nobody knows it happened until the consequences surface.
+            </p>
+
+            <h2>Why this is different from Shadow IT</h2>
+            <p>
+              Shadow IT was largely a data residency and access control problem. Unauthorized software might exfiltrate data or create a vulnerability. The risk was passive.
+            </p>
+            <p>
+              Shadow AI is an execution risk. AI agents don't just store or transmit data — they reason over it, retrieve from it, and act on it. An unsanctioned agent with access to a CRM doesn't just read customer records. It might update them, summarize them incorrectly, or surface them in a context where they shouldn't appear.
+            </p>
+            <p>
+              The attack surface is also fundamentally different. Every tool an agent can call is a potential injection point. Every external input — an email, a form, a support ticket — is a potential vector for embedded instructions designed to manipulate the agent's behavior. In a sanctioned, governed deployment, these risks can be monitored and mitigated. In a shadow deployment, they're invisible.
+            </p>
+
+            <h2>The inventory problem</h2>
+            <p>
+              Most enterprises currently have no reliable inventory of which AI agents are running across their organization. They know about the ones IT provisioned. They don't know about the ones engineering spun up during a hackathon and never decommissioned. They don't know about the ones a business unit bought through a SaaS vendor that added an "AI assistant" to their existing product. They don't know about the local models running on developer machines.
+            </p>
+            <p>
+              This is not a compliance gap. It's an operational blindspot. You cannot set budgets for agents you don't know exist. You cannot scope permissions for agents you haven't registered. You cannot produce an audit trail for actions you never captured.
+            </p>
+            <p>
+              The first step is visibility. Not a policy. Not a training program. Actual technical visibility into what is running, what it's calling, and what it's touching.
+            </p>
+
+            <h2>What governance infrastructure provides</h2>
+            <p>
+              A governance proxy that sits in the data path of LLM traffic solves the shadow AI problem structurally, not administratively.
+            </p>
+            <p>
+              When all LLM API traffic routes through a central proxy — whether by environment variable, Group Policy push, or network configuration — every call becomes visible regardless of who made it or what framework they used. Agents that were previously invisible get registered. Actions that were previously unattributed get an identity. Costs that were previously uncontrolled get a budget envelope.
+            </p>
+            <p>
+              This is the Group Policy approach applied to AI infrastructure. You don't ask employees to report their AI usage. You route all AI traffic through a point that sees everything — and governs accordingly.
+            </p>
+            <p>Shadow AI doesn't disappear. It becomes governed AI.</p>
+
+            <h2>The window is closing</h2>
+            <p>
+              Shadow AI is expanding faster than governance frameworks are being deployed. Every month that passes without a central governance layer is another month of unattributed agent actions, unscoped permissions, and unlogged decisions accumulating across your production environment.
+            </p>
+            <p>
+              When the <span class="font-mono text-zinc-200">EU AI Act</span> enforcement deadline arrives, regulators won't accept "we didn't know that agent was running" as a defense. The audit trail requirement applies to every high-risk AI system in operation — not just the ones IT sanctioned.
+            </p>
+            <p>
+              The time to build visibility is before you need it. By the time an incident surfaces, the logs you needed already don't exist.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness routes all LLM API traffic through a central governance proxy — giving every agent an identity, every action an attribution, and every cost a budget envelope. Shadow AI becomes governed AI from day one.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Risk profile</p>
+              <div class="space-y-2">
+                {[
+                  "Unattributed LLM calls",
+                  "Unscoped agent permissions",
+                  "No audit trail",
+                  "Prompt injection surface",
+                  "No cost visibility",
+                ].map((r) => (
+                  <p class="flex gap-2 text-xs text-zinc-500"><span class="font-mono text-amber-400 shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Regulatory exposure</p>
+              <div class="space-y-2">
+                {["EU AI Act", "GDPR Art. 35", "NIS-2"].map((r) => (
+                  <p class="font-mono text-xs text-zinc-400">{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/missing-layer-agent-architecture" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>The Missing Layer in Every Agent Architecture</span>
+                </a>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What the EU AI Act Actually Requires for Audit Trails</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
