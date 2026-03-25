@@ -1,0 +1,228 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Pricing — KYDE"
+  description="One platform. Three levels of control. Every organization starts with full visibility. Governance and enforcement activate as your fleet scales."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">↳ Pricing</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <h1 class="hero-h1 max-w-5xl text-5xl text-white uppercase tracking-tight md:text-6xl lg:text-7xl">
+          One platform.<br />
+          <span class="gradient-text">Three levels of control.</span>
+        </h1>
+
+        <div class="mt-16 border-t border-zinc-800 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-white">Structure</p>
+            <p class="mt-2 font-mono text-xs text-zinc-600">[MODULAR]</p>
+          </div>
+          <div>
+            <p class="text-sm uppercase tracking-wide leading-relaxed text-zinc-400">
+              Every organization starts with full visibility. Governance and enforcement activate as your fleet scales.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ TIERS ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid gap-6 lg:grid-cols-3">
+
+          <!-- PHASE 1 — OBSERVE -->
+          <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all flex flex-col">
+            <div class="px-8 py-8 border-b border-zinc-800">
+              <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300 mb-3">Phase 1</p>
+              <h2 class="text-2xl font-bold text-white uppercase tracking-tight mb-1">Observe</h2>
+              <p class="text-sm text-zinc-500 uppercase tracking-widest">The evidence layer.</p>
+            </div>
+            <div class="px-8 py-8 flex-1">
+              <p class="text-sm leading-relaxed text-zinc-300 mb-8">
+                The foundation. Deploy in minutes. Every agent action signed, chained, and preserved — before you need it.
+              </p>
+              <ul class="space-y-3">
+                {[
+                  "Tamper-evident append-only ledger",
+                  "Ed25519 signing + SHA-256 hash chaining",
+                  "Agent identity registration",
+                  "Causal context capture (last 5 messages per tool call)",
+                  "Provider-agnostic interception — every model, every provider",
+                  "CLI audit and verification tools",
+                  "One environment variable deployment",
+                ].map((item) => (
+                  <li class="flex gap-3 text-sm text-zinc-400 leading-relaxed">
+                    <span class="font-mono text-amber-400 shrink-0 mt-0.5">→</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="px-8 py-6 border-t border-zinc-800">
+              <button
+                onclick="openModal()"
+                class="w-full inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+          </div>
+
+          <!-- PHASE 2 — GOVERN -->
+          <div class="rounded-sm border border-zinc-700 bg-zinc-900/60 hover:border-zinc-500 transition-all flex flex-col relative">
+            <div class="absolute top-0 left-0 right-0 h-px bg-amber-400/40"></div>
+            <div class="px-8 py-8 border-b border-zinc-800">
+              <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300 mb-3">Phase 2</p>
+              <h2 class="text-2xl font-bold text-white uppercase tracking-tight mb-1">Govern</h2>
+              <p class="text-sm text-zinc-500 uppercase tracking-widest">The control layer.</p>
+            </div>
+            <div class="px-8 py-8 flex-1">
+              <p class="text-sm leading-relaxed text-zinc-300 mb-4">
+                Active fleet management. Role-based identity, resource allocation, and policy enforcement — across your entire agent workforce.
+              </p>
+              <p class="text-xs font-mono uppercase tracking-widest text-zinc-600 mb-4">Everything in Observe, plus:</p>
+              <ul class="space-y-3">
+                {[
+                  { text: "Role-based identity and priority assignment", soon: false },
+                  { text: "Token and cost budgets per agent, per role, per team", soon: false },
+                  { text: "API allowlists and blocklists per role", soon: false },
+                  { text: "Behavioral anomaly detection and out-of-policy alerting", soon: true },
+                  { text: "Multi-user RBAC with SSO / Okta / Azure AD", soon: true },
+                  { text: "Continuous data integrity verification", soon: false },
+                ].map(({ text, soon }) => (
+                  <li class="flex gap-3 text-sm text-zinc-400 leading-relaxed">
+                    <span class="font-mono text-amber-400 shrink-0 mt-0.5">→</span>
+                    <span>{text}{soon && <span class="ml-2 font-mono text-xs text-zinc-600">Coming Soon</span>}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="px-8 py-6 border-t border-zinc-800">
+              <button
+                onclick="openModal()"
+                class="w-full inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+          </div>
+
+          <!-- ENTERPRISE -->
+          <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all flex flex-col">
+            <div class="px-8 py-8 border-b border-zinc-800">
+              <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300 mb-3">Enterprise</p>
+              <h2 class="text-2xl font-bold text-white uppercase tracking-tight mb-1">Resilience</h2>
+              <p class="text-sm text-zinc-500 uppercase tracking-widest">The resilience layer.</p>
+            </div>
+            <div class="px-8 py-8 flex-1">
+              <p class="text-sm leading-relaxed text-zinc-300 mb-4">
+                For regulated environments where software-only governance isn't enough. Hardware-rooted attestation, machine-readable policy, and agent-to-agent trust delegation.
+              </p>
+              <p class="text-xs font-mono uppercase tracking-widest text-zinc-600 mb-4">Everything in Govern, plus:</p>
+              <ul class="space-y-3">
+                {[
+                  { text: "HSM / PKCS#11 hardware-rooted signing", tag: "Roadmap" },
+                  { text: "TEE attestation (TDX/SEV-SNP)", tag: "Roadmap" },
+                  { text: "Policy Enforcement Point with hard circuit breakers", tag: "Roadmap" },
+                  { text: "Machine-readable Proof of Authority", tag: "Roadmap" },
+                  { text: "Agent-to-agent trust delegation", tag: "Roadmap" },
+                  { text: "Dedicated support SLA", tag: null },
+                  { text: "EU data residency options", tag: null },
+                  { text: "ISO 27001 / BSI procurement track", tag: "In progress" },
+                ].map(({ text, tag }) => (
+                  <li class="flex gap-3 text-sm text-zinc-400 leading-relaxed">
+                    <span class="font-mono text-amber-400 shrink-0 mt-0.5">→</span>
+                    <span>{text}{tag && <span class="ml-2 font-mono text-xs text-zinc-600">{tag}</span>}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="px-8 py-6 border-t border-zinc-800">
+              <a
+                href="mailto:hello@kyde.com"
+                class="w-full inline-flex items-center justify-center gap-2 border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-300 hover:border-zinc-500 hover:text-white transition-all"
+              >
+                Contact Sales →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ ALL PLANS ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300 mb-3">↳ All Plans Include</p>
+          <div class="h-px bg-zinc-800"></div>
+        </div>
+
+        <div class="grid gap-px bg-zinc-800 border border-zinc-800 sm:grid-cols-2 lg:grid-cols-5">
+          {[
+            { label: "Provider coverage", value: "Every model. Every provider." },
+            { label: "Deployment", value: "One ENV variable or Group Policy push" },
+            { label: "Latency overhead", value: "<100ms" },
+            { label: "Code changes required", value: "None" },
+            { label: "Data ownership", value: "Yours — not ours, not your vendor's" },
+          ].map(({ label, value }) => (
+            <div class="bg-zinc-900/60 px-6 py-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2">{label}</p>
+              <p class="text-sm text-zinc-200 leading-relaxed">{value}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ CLOSING CTA ══════════ -->
+    <section class="border-t border-zinc-800/60 py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="border border-zinc-700 p-12 md:p-20">
+          <div class="max-w-3xl">
+            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-amber-300">↳ Not sure which tier fits?</p>
+            <div class="mb-8 h-px bg-zinc-800"></div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
+              Most enterprises start with Observe and activate Govern within 90 days.
+            </h2>
+            <p class="text-lg text-zinc-400 mb-10">
+              Book a 30-minute call — we'll tell you exactly where you are and what you need.
+            </p>
+            <button
+              onclick="openModal()"
+              class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+            >
+              Book a Demo →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
