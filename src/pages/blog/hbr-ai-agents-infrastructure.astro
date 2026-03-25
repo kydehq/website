@@ -1,0 +1,230 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="HBR Just Described the Problem. Here's the Infrastructure That Solves It. — KYDE"
+  description="Harvard Business Review identified four frictions that derail enterprise AI agent deployments: identity, context, control, and accountability. Here's what the infrastructure layer that addresses all four actually looks like."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Thought Leadership</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            HBR Just Described the Problem. Here's the Infrastructure That Solves It.
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Thought Leadership</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <!-- HBR source callout -->
+            <div class="not-prose mb-10 border border-zinc-800 bg-zinc-900/40 px-6 py-5 flex items-start gap-4">
+              <span class="font-mono text-xs text-zinc-600 shrink-0 mt-0.5">Source</span>
+              <a
+                href="https://hbr.org/2026/03/to-scale-ai-agents-successfully-think-of-them-like-team-members"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors leading-relaxed underline underline-offset-4"
+              >
+                "To Scale AI Agents Successfully, Think of Them Like Team Members" — Harvard Business Review, March 2026 ↗
+              </a>
+            </div>
+
+            <p>
+              In March 2026, Harvard Business Review published a piece by researchers from Carnegie Mellon and the University of Pittsburgh with a deceptively simple argument: deploying AI agents is not a software installation. It's a workforce management decision.
+            </p>
+            <p>
+              The article identified four recurring frictions that derail enterprise agent deployments at scale: identity, context, control, and accountability. It's worth <a href="https://hbr.org/2026/03/to-scale-ai-agents-successfully-think-of-them-like-team-members" target="_blank" rel="noopener noreferrer">reading in full</a>. What it stops short of is specifying what the infrastructure layer that addresses all four actually looks like.
+            </p>
+            <p>That's what we build.</p>
+
+            <h2>On Identity</h2>
+            <p>
+              The HBR piece describes a customer service agent operating through a shared service account — no traceable identity, no role boundary, no scope limit. The result: a refund authorized for €500 gets issued for €5,000 because nobody scoped the agent's authority.
+            </p>
+            <p>
+              The authors' prescription is correct: every agent needs a distinct identity, narrowly scoped permissions, and a traceable action log. What they don't describe is how to enforce that across a heterogeneous fleet — agents running on different frameworks, different providers, different machines — without touching every agent's code.
+            </p>
+            <p>
+              The answer is a governance proxy. One deployment point. Every agent in your fleet gets an identity, a role, and a scope — enforced before the call reaches the LLM provider. The agent sees no difference. Your audit trail sees everything.
+            </p>
+
+            <h2>On Context</h2>
+            <p>
+              The article describes an HR agent retrieving a 2022 policy document and using it to guide a termination process — the current policy said something different. Nobody logged which source the agent relied on.
+            </p>
+            <p>
+              This is precisely why causal context capture matters. It's not enough to log what an agent did. You need to log why — the retrieval context, the last messages before every tool call, the data sources the agent accessed in the moments before it made a decision.
+            </p>
+            <p>
+              When that termination is challenged, the question won't be "did the agent take an action." It will be "what was the agent shown, and when." If you can't answer that, you can't defend the decision.
+            </p>
+
+            <h2>On Control</h2>
+            <p>
+              The authors make a point that most enterprises learn the hard way: deterministic controls need to wrap probabilistic systems. A model that passes your test suite today may behave differently tomorrow. In multi-agent environments, a bad output from one agent becomes an executable instruction for the next.
+            </p>
+            <p>
+              The structural answer is a policy enforcement point — a layer between the agent and the systems it acts on that validates every proposed action against hard rules before execution. Not guardrails in the model. Deterministic enforcement outside it.
+            </p>
+            <p>
+              That's not a feature you configure in your LLM provider's dashboard. It's infrastructure.
+            </p>
+
+            <h2>On Accountability</h2>
+            <p>
+              The article ends where the legal exposure begins. It cites <em>Moffatt v. Air Canada</em> — a tribunal rejecting the airline's argument that its chatbot was a separate legal entity — as an early signal of how accountability will be assigned.
+            </p>
+            <p>
+              Their conclusion: organizations must maintain comprehensive records of how agents operate, enabling reconstruction of the full decision chain for any challenged outcome.
+            </p>
+            <p>
+              The word "comprehensive" is doing a lot of work there. A log that can be altered after the fact is not a record. It's a liability. Tamper-evidence is not a feature request — it is the architectural property that determines whether your evidence trail holds up under scrutiny or collapses under it.
+            </p>
+
+            <h2>The Gap Between Prescription and Infrastructure</h2>
+            <p>
+              The HBR article is excellent at naming the problem. What it leaves open is the implementation question: how do you actually deploy identity, causal context, deterministic control, and tamper-evident accountability — across every agent, every provider, every framework — without making it an engineering project every time you add an agent?
+            </p>
+            <p>
+              The answer is a governance layer that sits in the data path. One proxy. Every agent routes through it. Identity is registered. Context is captured. Policy is enforced. Every action is signed and chained before it reaches the provider.
+            </p>
+            <p>
+              The authors frame it as a management challenge. It is. But management challenges at machine speed require machine-speed infrastructure.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness is the governance proxy that gives every AI agent an identity, captures causal context per decision, enforces policy deterministically, and produces a tamper-evident evidence trail — across every provider, without touching agent code.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Four frictions</p>
+              <div class="space-y-2">
+                {["Identity", "Context", "Control", "Accountability"].map((f) => (
+                  <p class="font-mono text-xs text-zinc-400">→ {f}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Original source</p>
+              <a
+                href="https://hbr.org/2026/03/to-scale-ai-agents-successfully-think-of-them-like-team-members"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-amber-400 hover:text-amber-300 transition-colors leading-relaxed underline underline-offset-4"
+              >
+                Harvard Business Review, March 2026 ↗
+              </a>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What the EU AI Act Actually Requires for Audit Trails</span>
+                </a>
+                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde em { color: #d4d4d8; font-style: italic; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
