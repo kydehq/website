@@ -589,6 +589,59 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
+        <!-- ══════════ MCP & TOOL GOVERNANCE ══════════ -->
+        <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
+            <div class="relative max-w-7xl mx-auto px-6">
+
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">↳ Beyond LLM calls</span>
+                    </div>
+                    <div class="h-px w-full bg-zinc-800"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-6">
+                            Every action. One record.
+                        </h2>
+                        <p class="text-zinc-400 leading-relaxed mb-6">
+                            Kyde governs not just LLM calls — but every tool your agents invoke. MCP servers, internal APIs, external services. The full execution surface. One tamper-evident record.
+                        </p>
+                        <p class="font-mono text-sm text-zinc-300 border-l-2 border-amber-400/60 pl-4 leading-relaxed">
+                            As the industry moves from apps to MCP infrastructure, governance needs to move with it — not stay scoped to the chat completion endpoint.
+                        </p>
+                    </div>
+
+                    <div class="border border-zinc-800 divide-y divide-zinc-800">
+                        <div class="grid grid-cols-[1fr_80px] divide-x divide-zinc-800 bg-zinc-900/60">
+                            <div class="px-5 py-3"><p class="font-mono text-xs uppercase tracking-widest text-zinc-500">Action type</p></div>
+                            <div class="px-5 py-3"><p class="font-mono text-xs uppercase tracking-widest text-zinc-500">Governed</p></div>
+                        </div>
+                        {[
+                            { type: "LLM Call",            desc: "chat.completion, embeddings, any model request",    governed: true  },
+                            { type: "MCP Tool Call",        desc: "crm.update, slack.send, db.query via MCP server",   governed: true  },
+                            { type: "Internal API",         desc: "REST/gRPC calls made by agents to internal systems", governed: true  },
+                            { type: "Agent-to-Agent",       desc: "Delegation and sub-agent invocation",               governed: true  },
+                            { type: "External Service",     desc: "Third-party API calls routed through the proxy",    governed: true  },
+                        ].map(({ type, desc, governed }) => (
+                            <div class="grid grid-cols-[1fr_80px] divide-x divide-zinc-800">
+                                <div class="px-5 py-4">
+                                    <p class="text-sm font-semibold text-zinc-200 mb-0.5">{type}</p>
+                                    <p class="text-xs text-zinc-600">{desc}</p>
+                                </div>
+                                <div class="px-5 py-4 flex items-center">
+                                    <span class="font-mono text-xs text-emerald-400">✓ Yes</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- ══════════ CLOSING CTA ══════════ -->
         <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
