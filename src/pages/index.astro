@@ -193,6 +193,64 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
             </div>
         </section>
 
+        <!-- ══════════ PROVIDER AGNOSTIC ══════════ -->
+        <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
+            <div class="relative max-w-7xl mx-auto px-6">
+
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">↳ One layer. Every provider. No dependencies.</span>
+                    </div>
+                    <div class="h-px w-full bg-zinc-800"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
+                    <div class="space-y-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            Models change monthly. Providers compete for your stack. Production workloads route across frontier models, fast cheap models, and local instances that never leave your perimeter.
+                        </p>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Provider-native governance covers one slice. And an audit trail that lives on Anthropic's infrastructure, signed by Anthropic's keys — is a vendor report. Not an independent record. Regulators, courts, and your InfoSec team know the difference.
+                        </p>
+                        <p class="font-mono text-sm text-zinc-300 border-l-2 border-amber-400/60 pl-4 leading-relaxed">
+                            Governance shouldn't be the reason you can't route a €0.001 classification task to a local model.
+                        </p>
+                    </div>
+
+                    <!-- Comparison table -->
+                    <div class="border border-zinc-800 divide-y divide-zinc-800">
+                        <div class="grid grid-cols-3 divide-x divide-zinc-800 bg-zinc-900/60">
+                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-zinc-500"></p></div>
+                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-zinc-600">Provider-Native</p></div>
+                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-white">Kyde Witness</p></div>
+                        </div>
+                        {[
+                            { prop: "Coverage",           other: "One vendor",                    kyde: "Every model. Every provider." },
+                            { prop: "Independence",       other: "Self-reported",                 kyde: "Cryptographically verified at capture" },
+                            { prop: "Cost optimization",  other: "Locked to provider pricing",    kyde: "Route cheap tasks to local models" },
+                            { prop: "Multi-model routing",other: "One silo per provider",         kyde: "One governance layer" },
+                            { prop: "Model switching",    other: "Rebuild governance",            kyde: "Zero changes" },
+                            { prop: "Audit standing",     other: "Vendor report",                 kyde: "Tamper-evident chain of evidence" },
+                        ].map(({ prop, other, kyde }) => (
+                            <div class="grid grid-cols-3 divide-x divide-zinc-800">
+                                <div class="px-4 py-3"><p class="text-xs text-zinc-500 uppercase tracking-widest">{prop}</p></div>
+                                <div class="px-4 py-3"><p class="text-xs text-zinc-600">{other}</p></div>
+                                <div class="px-4 py-3"><p class="text-xs text-zinc-200">{kyde}</p></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div class="border border-zinc-800 bg-zinc-900/30 px-8 py-8">
+                    <p class="text-zinc-400 leading-relaxed max-w-3xl">
+                        Models change monthly. Providers compete for your stack. Your governance infrastructure needs to outlast those decisions — not depend on them.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
         <!-- ══════════ PRODUCT ══════════ -->
         <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
@@ -287,64 +345,6 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
         <!-- ══════════ ARCHITECTURE DIAGRAM ══════════ -->
         <ArchitectureDiagram />
-
-        <!-- ══════════ PROVIDER AGNOSTIC ══════════ -->
-        <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">↳ One layer. Every provider. No dependencies.</span>
-                    </div>
-                    <div class="h-px w-full bg-zinc-800"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
-                    <div class="space-y-6">
-                        <p class="text-zinc-300 leading-relaxed">
-                            Models change monthly. Providers compete for your stack. Production workloads route across frontier models, fast cheap models, and local instances that never leave your perimeter.
-                        </p>
-                        <p class="text-zinc-400 leading-relaxed">
-                            Provider-native governance covers one slice. And an audit trail that lives on Anthropic's infrastructure, signed by Anthropic's keys — is a vendor report. Not an independent record. Regulators, courts, and your InfoSec team know the difference.
-                        </p>
-                        <p class="font-mono text-sm text-zinc-300 border-l-2 border-amber-400/60 pl-4 leading-relaxed">
-                            Governance shouldn't be the reason you can't route a €0.001 classification task to a local model.
-                        </p>
-                    </div>
-
-                    <!-- Comparison table -->
-                    <div class="border border-zinc-800 divide-y divide-zinc-800">
-                        <div class="grid grid-cols-3 divide-x divide-zinc-800 bg-zinc-900/60">
-                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-zinc-500"></p></div>
-                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-zinc-600">Provider-Native</p></div>
-                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-white">Kyde Witness</p></div>
-                        </div>
-                        {[
-                            { prop: "Coverage",           other: "One vendor",                    kyde: "Every model. Every provider." },
-                            { prop: "Independence",       other: "Self-reported",                 kyde: "Cryptographically verified at capture" },
-                            { prop: "Cost optimization",  other: "Locked to provider pricing",    kyde: "Route cheap tasks to local models" },
-                            { prop: "Multi-model routing",other: "One silo per provider",         kyde: "One governance layer" },
-                            { prop: "Model switching",    other: "Rebuild governance",            kyde: "Zero changes" },
-                            { prop: "Audit standing",     other: "Vendor report",                 kyde: "Tamper-evident chain of evidence" },
-                        ].map(({ prop, other, kyde }) => (
-                            <div class="grid grid-cols-3 divide-x divide-zinc-800">
-                                <div class="px-4 py-3"><p class="text-xs text-zinc-500 uppercase tracking-widest">{prop}</p></div>
-                                <div class="px-4 py-3"><p class="text-xs text-zinc-600">{other}</p></div>
-                                <div class="px-4 py-3"><p class="text-xs text-zinc-200">{kyde}</p></div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div class="border border-zinc-800 bg-zinc-900/30 px-8 py-8">
-                    <p class="text-zinc-400 leading-relaxed max-w-3xl">
-                        Models change monthly. Providers compete for your stack. Your governance infrastructure needs to outlast those decisions — not depend on them.
-                    </p>
-                </div>
-
-            </div>
-        </section>
 
         <!-- ══════════ ROOT OF TRUST ══════════ -->
         <section class="relative border-t border-zinc-800/60 py-24 md:py-32">
