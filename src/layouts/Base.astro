@@ -1,37 +1,44 @@
 ---
-import '../styles/global.css';
-import '@fontsource-variable/inter';
-import DemoModal from '../components/DemoModal.astro';
-import CookieBanner from '../components/CookieBanner.astro';
+import "../styles/global.css";
+import "@fontsource-variable/inter";
+import DemoModal from "../components/DemoModal.astro";
+import CookieBanner from "../components/CookieBanner.astro";
 
 interface Props {
-  title?: string;
-  description?: string;
+    title?: string;
+    description?: string;
 }
 
 const {
-  title = 'KYDE — Autonomous Energy Infrastructure',
-  description = 'KYDE OS automates how energy assets are owned, operated, and monetized.',
+    title = "KYDE — The Trust Laye for the Agentic Economy.",
+    description = "KYDE - Secures AI driven Infrastructure.",
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="bg-black text-white antialiased">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <title>{title}</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Additional head slot -->
-    <slot name="head" />
-  </head>
-  <body class="min-h-screen font-[Inter,sans-serif] bg-black text-white">
-    <DemoModal />
-    <slot />
-    <CookieBanner />
-  </body>
+        <!-- Additional head slot -->
+        <slot name="head" />
+
+        <!-- Privacy-friendly analytics by Plausible -->
+        <script async src="https://plausible.io/js/pa-44yi9etmwZRWONOecCXmL.js"></script>
+        <script>
+            window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+            plausible.init()
+        </script>
+    </head>
+    <body class="min-h-screen font-[Inter,sans-serif] bg-black text-white">
+        <DemoModal />
+        <slot />
+        <CookieBanner />
+    </body>
 </html>
