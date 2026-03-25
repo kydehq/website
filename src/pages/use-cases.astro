@@ -180,48 +180,53 @@ const cases = [
             {
               role: "CISO",
               label: "Chief Information Security Officer",
+              quote: "Your vendor's log isn't an independent record.",
               bullets: [
-                "Tamper-evident records — cryptographically signed at capture, hash-chained. A compromised host cannot alter them silently.",
-                "Cryptographic independence from LLM vendors — your audit trail is yours, not a vendor report signed by vendor keys.",
-                "Audit standing that satisfies regulators, courts, and InfoSec review — before an incident, not after.",
+                "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure — is a vendor report. A compromised host can rewrite it silently. Kyde's records are cryptographically signed at the point of capture. Alter any entry — every subsequent link breaks.",
+                "Your audit trail is yours. Not locked to a provider console, not dependent on vendor uptime, not subject to vendor retention policies.",
+                "Audit standing that satisfies regulators, courts, and your own InfoSec review — built before an incident, not assembled after one.",
               ],
             },
             {
               role: "CTO",
               label: "Chief Technology Officer",
+              quote: "Your governance layer shouldn't depend on your LLM choice.",
               bullets: [
-                "One environment variable. No SDK dependency. No code changes. Full fleet coverage in minutes.",
-                "Model-agnostic by design — switch providers, add local models, route cheap tasks anywhere. Governance follows automatically.",
-                "No lock-in. No per-agent installation. Architecture that outlasts your current LLM stack.",
+                "One environment variable. No SDK dependency. No code changes. Full fleet coverage in minutes — your agents see no difference.",
+                "Models change monthly. Add a local model for sensitive data, route cheap tasks to a cheaper provider, switch frontier models entirely. Governance follows automatically. No re-integration required.",
+                "No per-agent installation. No framework lock-in. Architecture that outlasts your current LLM stack — by design.",
               ],
             },
             {
               role: "Compliance & Legal",
               label: "GC · DPO · CCO",
+              quote: "One framework won't be enough. One evidence trail has to cover all of them.",
               bullets: [
-                "EU AI Act High-Risk logging requirements, NIS-2, DORA, GDPR Art. 35 — one evidence trail covers all of them.",
-                "Verifiable audit exports for regulators and auditors — complete, machine-generated, tamper-evident.",
-                "Causal context per decision: what the agent saw, what it decided, why — reconstructable for any challenged outcome.",
+                "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35 — regulators don't coordinate their requirements around your roadmap. Kyde's tamper-evident trail satisfies all of them from day one.",
+                "Verifiable audit exports on demand — complete, machine-generated, cryptographically signed. Not a screenshot. Not a filtered vendor report.",
+                "Every challenged decision is reconstructable: what the agent was shown, what it decided, which sources it relied on. The record exists before the challenge arrives.",
               ],
             },
             {
               role: "CFO & Ops",
               label: "Chief Financial Officer · Operations",
+              quote: "An agent with no budget ceiling is a liability with no ceiling.",
               bullets: [
-                "Per-agent and per-role token and cost budgets. Hard limits, daily or monthly. No agent runs up a bill you didn't authorize.",
-                "Route classification tasks to cheap local models, reserve frontier models for high-value workloads. Governance doesn't prevent cost optimization.",
-                "Fleet efficiency: priority assignment means your production agents never queue behind an intern's research bot.",
+                "Hard token and cost limits per agent, per role, per day. Enforced before the call is made — not flagged after the bill arrives.",
+                "Governance shouldn't force you onto expensive frontier models for every task. Route classification and low-stakes workloads to cheap local models. Reserve frontier capacity for decisions that justify it.",
+                "Priority assignment means your production agents never queue behind an intern's research bot. Fleet efficiency is a governance decision.",
               ],
             },
-          ].map(({ role, label, bullets }) => (
+          ].map(({ role, label, quote, bullets }) => (
             <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all p-8">
               <div class="mb-6 pb-6 border-b border-zinc-800">
                 <h2 class="font-mono text-2xl font-bold text-white">{role}</h2>
                 <p class="mt-1 text-xs text-zinc-500 uppercase tracking-widest">{label}</p>
               </div>
+              <p class="mb-6 font-mono text-sm text-zinc-300 border-l-2 border-amber-400/60 pl-4 leading-relaxed">"{quote}"</p>
               <ul class="space-y-4">
                 {bullets.map((b: string) => (
-                  <li class="flex gap-4 text-sm leading-relaxed text-zinc-300">
+                  <li class="flex gap-4 text-sm leading-relaxed text-zinc-400">
                     <span class="font-mono text-amber-400 shrink-0 mt-0.5">→</span>
                     <span>{b}</span>
                   </li>
