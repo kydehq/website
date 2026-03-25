@@ -1,0 +1,206 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="What the EU AI Act Actually Requires for Audit Trails — KYDE"
+  description="The EU AI Act enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises believe their LLM provider's logs will be sufficient. They won't be."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Regulatory</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            What the EU AI Act Actually Requires for Audit Trails — And What Most Enterprises Are Missing
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Regulatory</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              The <span class="font-mono text-zinc-200">EU AI Act</span> enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises deploying AI agents in regulated environments believe they have time. They also believe their existing logging infrastructure — or their LLM provider's audit console — will be sufficient when that deadline arrives.
+            </p>
+            <p>Both assumptions are wrong.</p>
+
+            <h2>What the regulation actually says</h2>
+            <p>
+              Articles 12 and 26 of the <span class="font-mono text-zinc-200">EU AI Act</span> establish specific requirements for High-Risk AI systems. The key obligations are not vague:
+            </p>
+            <ul>
+              <li>Automatic logging of events throughout the system lifecycle</li>
+              <li>Logs must be retained for a minimum of six months</li>
+              <li>Logs must enable human oversight and post-hoc review</li>
+              <li>For credit, insurance, and employment decisions: the log must capture enough context to explain the decision</li>
+            </ul>
+            <p>
+              Article 14 adds a human oversight requirement that has teeth: enterprises must be able to meaningfully intervene in or override AI decisions. That's impossible without a complete causal record — not just what the agent did, but what it was shown, what it retrieved, and why it decided what it decided.
+            </p>
+
+            <h2>Where most enterprises currently stand</h2>
+            <p>
+              Most AI deployments today rely on one of three logging approaches — all of which fall short:
+            </p>
+            <p>
+              <strong>Provider-native logs.</strong> OpenAI, Anthropic, and Azure all offer some form of request logging. The problem is structural: a log that lives on the provider's infrastructure, signed by the provider's keys, and accessible only through the provider's console is not an independent audit trail. It is a vendor report. Regulators and courts treat them differently.
+            </p>
+            <p>
+              <strong>Application-layer logging.</strong> Many teams log at the application level — capturing inputs and outputs in their own database. This is better than nothing, but software-layer logs can be altered. A compromised host OS can rewrite them silently. They have no cryptographic integrity guarantee.
+            </p>
+            <p>
+              <strong>No logging.</strong> A significant portion of enterprise AI deployments have no structured audit trail at all. Agents run on shared service accounts with no traceable identity.
+            </p>
+
+            <h2>What "tamper-evident" actually means</h2>
+            <p>
+              The <span class="font-mono text-zinc-200">EU AI Act</span> doesn't use the phrase "tamper-evident" directly — but the requirement is implicit. A log that can be altered after the fact does not satisfy the regulation's intent. When BaFin or the European Commission asks for the audit trail from a challenged automated decision, "we had logs but they may have been modified" is not an acceptable answer.
+            </p>
+            <p>
+              Tamper-evidence requires cryptographic integrity at the point of capture. Every entry must be signed at the moment it is written — and each entry must be chained to the previous one, so that any alteration is detectable. This is not a software configuration. It is an architectural property.
+            </p>
+
+            <h2>The causal context requirement</h2>
+            <p>
+              This is the gap most enterprises underestimate. Article 14's human oversight requirement means that for every challenged AI decision, you need to reconstruct the full decision chain: what documents or data the agent retrieved, what the model was shown, what it returned, and in what sequence.
+            </p>
+            <p>
+              A log that records inputs and outputs is not sufficient. You need causal context — the state of the conversation and retrieval context at the moment of every tool call and decision.
+            </p>
+
+            <h2>What to do before 2027</h2>
+            <p>Three things every enterprise deploying High-Risk AI systems should address now:</p>
+            <p>
+              <strong>First,</strong> audit your current logging infrastructure against the specific requirements of Articles 12, 14, and 26. Most will find gaps.
+            </p>
+            <p>
+              <strong>Second,</strong> ensure your audit trail is architecturally independent of your LLM provider. Independence is not a feature you can request from your provider — it requires a separate governance layer.
+            </p>
+            <p>
+              <strong>Third,</strong> verify cryptographic integrity. If your logs can be modified without detection, they will not withstand regulatory scrutiny.
+            </p>
+            <p>
+              2027 is closer than it looks. The enterprises that treat audit infrastructure as an afterthought will build it under pressure. The ones that treat it as operational infrastructure will have it before they need it.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness is a model-agnostic governance proxy that produces tamper-evident, cryptographically signed audit trails for every AI agent action — across every provider, from day one.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Regulations covered</p>
+              <div class="space-y-2">
+                {["EU AI Act — Art. 12, 14, 26", "GDPR Art. 35 — DPIA", "BaFin AI Guidance"].map((r) => (
+                  <p class="font-mono text-xs text-zinc-400">{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Key deadline</p>
+              <p class="font-mono text-sm text-amber-300">August 2, 2027</p>
+              <p class="text-xs text-zinc-600 mt-1">High-Risk AI enforcement</p>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <span>DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30</span>
+              </a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+    space-y: 0.5rem;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>

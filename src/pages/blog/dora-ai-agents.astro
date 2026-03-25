@@ -1,0 +1,196 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30 — KYDE"
+  description="DORA is already in force. Financial entities using AI agents have a specific problem: vendor-provided logs don't constitute an independent audit trail under Article 30."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Regulatory</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Regulatory</span>
+            <span>·</span>
+            <span>4 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              <span class="font-mono text-zinc-200">DORA</span> — the Digital Operational Resilience Act — has been in force since January 2025. Financial entities subject to DORA have had time to assess their ICT risk management frameworks. Most have not yet assessed what DORA means specifically for AI agents.
+            </p>
+            <p>They should. The gap is significant.</p>
+
+            <h2>What DORA Article 30 requires</h2>
+            <p>
+              DORA Article 30 governs contractual arrangements with ICT third-party service providers. LLM providers — OpenAI, Anthropic, Azure OpenAI, and others — are ICT third-party providers under DORA's definition. The regulation requires financial entities to maintain audit trails of third-party ICT provider interactions that are independent of the provider itself.
+            </p>
+            <p>
+              The logic is straightforward: an audit trail that depends on the provider's infrastructure and cooperation cannot serve as an independent record during an incident investigation or regulatory review. This is the same principle that prevents an audited company from writing its own audit report.
+            </p>
+
+            <h2>The structural problem with provider-native logs</h2>
+            <p>
+              When a financial institution uses OpenAI or Anthropic for AI agent operations, those providers offer logging capabilities. The logs are real. The problem is structural.
+            </p>
+            <p>
+              Provider-native logs live on infrastructure the provider controls. They are signed — if at all — by the provider's own keys. They are accessible through the provider's console, subject to the provider's retention policies, and dependent on the provider's continued cooperation. In a dispute involving the provider, or in an incident where the provider's infrastructure is compromised, those logs offer limited evidentiary value.
+            </p>
+            <p>
+              DORA's independent audit trail requirement means exactly what it says: the trail must be independent. That requires a governance layer that sits outside the provider relationship — capturing, signing, and preserving records before they reach the provider's infrastructure.
+            </p>
+
+            <h2>The 72-hour incident reporting problem</h2>
+            <p>
+              DORA Article 23 requires financial entities to report major ICT incidents within 72 hours. For AI agent incidents — an agent that accessed unauthorized data, executed an unauthorized transaction, or produced a decision that caused financial harm — that 72-hour window requires immediate access to a complete, forensically usable evidence record.
+            </p>
+            <p>
+              "We're waiting for logs from our LLM provider" is not a viable response to a regulator within a 72-hour window. The evidence needs to exist, independently, before the incident occurs.
+            </p>
+
+            <h2>What a DORA-compliant AI agent audit trail looks like</h2>
+            <p>Four properties are required:</p>
+            <p>
+              <strong>Independence.</strong> The trail must be captured and stored independently of any LLM provider. It cannot depend on provider cooperation or provider infrastructure.
+            </p>
+            <p>
+              <strong>Integrity.</strong> The trail must be cryptographically signed at the point of capture. Any modification must be detectable.
+            </p>
+            <p>
+              <strong>Completeness.</strong> Every agent action — every model call, every tool invocation, every data retrieval — must be captured. Partial logs do not satisfy incident investigation requirements.
+            </p>
+            <p>
+              <strong>Availability.</strong> The trail must be immediately exportable in a machine-readable format for regulatory submission.
+            </p>
+
+            <h2>The practical implication</h2>
+            <p>
+              Financial entities deploying AI agents for operational functions — credit decisions, customer interactions, fraud detection, claims processing — need a governance layer that satisfies all four properties above. That layer cannot be the LLM provider. It must sit between the agent fleet and the provider, capturing and signing every action independently.
+            </p>
+            <p>
+              <span class="font-mono text-zinc-200">DORA</span> is already in force. The question is not whether you need this infrastructure. It is whether you have it.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness sits between your agent fleet and any LLM provider — capturing, signing, and chaining every action into a tamper-evident, provider-independent audit trail that satisfies DORA Article 30 from day one.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Regulations covered</p>
+              <div class="space-y-2">
+                {["DORA — Art. 23, Art. 30", "NIS-2 — Operational resilience", "GDPR Art. 22"].map((r) => (
+                  <p class="font-mono text-xs text-zinc-400">{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Status</p>
+              <p class="font-mono text-sm text-emerald-400">In Force</p>
+              <p class="text-xs text-zinc-600 mt-1">Since January 2025</p>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <span>What the EU AI Act Actually Requires for Audit Trails — And What Most Enterprises Are Missing</span>
+              </a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
