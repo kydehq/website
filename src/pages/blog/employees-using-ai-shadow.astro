@@ -1,0 +1,214 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="Your Employees Are Already Using AI. You Just Don't Know How. — KYDE"
+  description="78% of AI users bring their own tools to work. Your employees are not waiting for your AI strategy. They already have one. Here's what that means for security, compliance, and governance."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Security</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            Your Employees Are Already Using AI. You Just Don't Know How.
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600">
+            <span>Security</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              Here is a number worth sitting with: in a 2024 Microsoft survey, 78% of AI users reported bringing their own AI tools to work. Not tools provisioned by IT. Not tools approved by security. Their own — personal subscriptions, browser extensions, SaaS products with AI features, direct API access.
+            </p>
+            <p>Your employees are not waiting for your AI strategy. They already have one.</p>
+
+            <h2>What shadow AI actually looks like</h2>
+            <p>It doesn't announce itself. It looks like productivity.</p>
+            <p>
+              A sales manager pastes a pipeline summary into ChatGPT to draft a board presentation. A developer uses a personal GitHub Copilot subscription to accelerate a sprint — on a codebase that contains proprietary business logic. A support team adopts an AI summarization tool they found on Product Hunt because it saves them forty minutes a day. A finance analyst uploads a spreadsheet with customer data to get help with a formula.
+            </p>
+            <p>
+              None of these people think they're creating a security incident. They're doing their jobs, faster, with the best tools available to them. The problem is structural, not behavioral — and that's exactly why policies and training programs don't solve it.
+            </p>
+
+            <h2>Why it happens — and why telling people to stop doesn't work</h2>
+            <p>
+              Shadow AI exists for the same reason shadow IT existed before it: official channels are too slow, official tools are too limited, and the productivity gain from the unauthorized tool is immediate and obvious.
+            </p>
+            <p>
+              When an employee discovers that ChatGPT can do in three minutes what used to take three hours, the risk calculus they perform is intuitive and wrong. The benefit is concrete and personal. The risk is abstract and organizational. They proceed.
+            </p>
+            <p>
+              This is not a failure of security awareness. It is a predictable human response to friction. Organizations that respond with stricter policies and more training find that usage continues — it just becomes less visible. Employees learn to not mention the tools they use, not ask questions about whether it's allowed, and not report incidents that might reveal their workflow.
+            </p>
+            <p>The result is worse than the original problem: shadow AI that is actively concealed.</p>
+
+            <h2>The five risks that actually matter</h2>
+            <p>
+              <strong>Data leakage.</strong> This is the most immediate exposure. When an employee pastes customer data, contract terms, personnel records, or financial information into a public AI model, that data leaves the organization's control. The terms of service of most consumer AI products are not written for enterprise data handling. <span class="font-mono text-zinc-200">GDPR</span>, <span class="font-mono text-zinc-200">NIS-2</span>, HIPAA, and sector-specific regulations do not have an exception for "the employee didn't realize it was a problem."
+            </p>
+            <p>
+              <strong>No audit trail.</strong> Every AI-influenced decision made through an unsanctioned tool is invisible to the organization. When a hiring manager uses an unauthorized AI tool to help screen candidates, when a compliance officer uses ChatGPT to interpret a regulatory requirement, when a trader uses an AI assistant to inform a position — none of that is logged, attributed, or auditable. If those decisions are later challenged, the organization cannot reconstruct how they were made.
+            </p>
+            <p>
+              <strong>Compliance violations.</strong> Regulated industries have specific requirements about where data can be processed, by which systems, under which controls. An employee sending regulated data to a consumer AI model is creating a compliance violation the organization may not discover until a regulator does.
+            </p>
+            <p>
+              <strong>IP exposure.</strong> Proprietary code, business logic, product roadmaps, unreleased financial results — any of this shared with a third-party AI model is potentially exposed. Most enterprise AI agreements with major providers include data handling commitments. Personal subscriptions do not.
+            </p>
+            <p>
+              <strong>Unchecked outputs.</strong> Consumer AI tools hallucinate. An employee acting on an incorrect AI output — a wrong regulatory interpretation, an inaccurate competitive analysis, a flawed financial model — may not realize the output was wrong until the consequence surfaces. Without a governed, logged interaction, there is no way to identify which decisions were AI-influenced or whether the model used was appropriate for the task.
+            </p>
+
+            <h2>The detection problem</h2>
+            <p>
+              Most organizations currently have no reliable way to measure how much AI is being used internally — let alone which tools, with which data, by which employees. Network monitoring catches some traffic. Endpoint management catches some installations. Neither catches browser-based access to consumer AI tools, API calls made from personal devices, or SaaS products with AI features embedded in otherwise sanctioned software.
+            </p>
+            <p>
+              The realistic picture in most enterprises: AI usage is significantly higher than IT is aware of, the data being processed is more sensitive than security teams would be comfortable with, and the audit trail is essentially nonexistent.
+            </p>
+
+            <h2>Why governance infrastructure solves what policy cannot</h2>
+            <p>
+              The response to shadow AI cannot be prohibition. The productivity gains from AI tools are real, significant, and increasingly necessary for competitive parity. Enterprises that succeed in prohibiting AI use don't eliminate shadow AI — they eliminate legitimate AI adoption and push shadow usage further underground.
+            </p>
+            <p>
+              The response needs to be structural visibility. Not asking employees to report their AI usage. Not issuing policies that create liability without changing behavior. Technical infrastructure that routes AI traffic through a governance layer — where it can be seen, attributed, scoped, and logged — regardless of which tool initiated it.
+            </p>
+            <p>
+              A governance proxy that intercepts LLM API traffic provides exactly this. When all AI traffic routes through a central point, shadow AI doesn't disappear — it becomes visible. The employee's workflow is unchanged. The organization gains the attribution, the audit trail, and the cost visibility it needs.
+            </p>
+            <p>
+              The tools employees want to use can be made available through sanctioned channels — with appropriate data handling, appropriate scoping, and appropriate logging. The choice stops being between security and productivity. It becomes how to provide productivity securely.
+            </p>
+
+            <h2>The regulatory timeline makes this urgent</h2>
+            <p>
+              The <span class="font-mono text-zinc-200">EU AI Act</span>, <span class="font-mono text-zinc-200">GDPR</span>, <span class="font-mono text-zinc-200">NIS-2</span>, and <span class="font-mono text-zinc-200">DORA</span> do not distinguish between sanctioned and unsanctioned AI usage. If regulated data is processed by an AI tool — any AI tool — the organization is responsible for demonstrating appropriate governance.
+            </p>
+            <p>
+              "We didn't know employees were using it" has never been an acceptable compliance defense. It is not becoming one.
+            </p>
+            <p>
+              The window to build visibility before a regulator builds it for you is closing. Shadow AI is not a future risk to plan for. It is a current operational reality to govern now.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ KYDE WITNESS</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde Witness routes all LLM API traffic through a central governance proxy — giving every AI interaction an identity, an attribution, and an audit trail. Shadow AI becomes governed AI. The employee's workflow doesn't change. Your visibility does.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2">Key stat</p>
+              <p class="font-mono text-3xl font-bold text-amber-300 mb-1">78%</p>
+              <p class="text-xs text-zinc-500 leading-relaxed">of AI users bring their own tools to work — Microsoft Work Trend Index 2024</p>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Five risks</p>
+              <div class="space-y-2">
+                {["Data leakage", "No audit trail", "Compliance violations", "IP exposure", "Unchecked outputs"].map((r) => (
+                  <p class="flex gap-2 text-xs text-zinc-500"><span class="font-mono text-red-400 shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Regulatory exposure</p>
+              <div class="space-y-2">
+                {["EU AI Act", "GDPR Art. 35", "NIS-2", "DORA Art. 30"].map((r) => (
+                  <p class="font-mono text-xs text-zinc-400">{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/shadow-ai-production-systems" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Shadow AI Is Already in Your Production Systems</span>
+                </a>
+                <a href="/blog/compromised-agent-no-logs" class="group flex items-start gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors leading-relaxed">
+                  <span class="font-mono text-amber-400 shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What Happens When an AI Agent Gets Compromised</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
