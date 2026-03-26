@@ -1,0 +1,1076 @@
+---
+// KYDE SaaS Revenue Model & Financial Dashboard
+// Internal use only — not linked publicly
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KYDE — Revenue Model</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:   #09090b;
+      --bg1:  #18181b;
+      --bg2:  #27272a;
+      --bd:   #3f3f46;
+      --z3:   #e4e4e7;
+      --z4:   #d4d4d8;
+      --z5:   #a1a1aa;
+      --z6:   #71717a;
+      --am:   #fbbf24;
+      --am2:  #f59e0b;
+      --em:   #34d399;
+      --re:   #f87171;
+      --bl:   #60a5fa;
+      --wh:   #f4f4f5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg); font-size: 13px; }
+    body {
+      background: var(--bg);
+      color: var(--wh);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--bg1);
+      border-right: 1px solid var(--bg2);
+      height: 100vh;
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+      padding: 24px 0 48px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--bg2) transparent;
+    }
+    .sb-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--bg2);
+      margin-bottom: 4px;
+    }
+    .sb-title { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .25em; color: var(--z6); text-transform: uppercase; margin-bottom: 6px; }
+    .sb-brand { font-size: 16px; font-weight: 700; color: var(--wh); }
+    .sb-brand span { color: var(--am); }
+
+    .sb-group { padding: 16px 20px 8px; }
+    .sb-group-label {
+      font-family: ui-monospace, monospace;
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--am); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .sb-group-label::after { content:''; flex:1; height:1px; background: rgba(251,191,36,.15); }
+
+    .input-row { margin-bottom: 14px; }
+    .input-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 5px;
+    }
+    .input-label span { font-size: 11.5px; color: var(--z4); }
+    .input-label .val {
+      font-family: ui-monospace, monospace;
+      font-size: 11px; color: var(--am);
+      background: rgba(251,191,36,.06);
+      border: 1px solid rgba(251,191,36,.15);
+      padding: 1px 6px;
+      min-width: 54px; text-align: right;
+    }
+    input[type=range] {
+      width: 100%; height: 3px;
+      -webkit-appearance: none;
+      background: var(--bg2);
+      border-radius: 2px; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--am); cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb:hover { background: var(--am2); }
+
+    .sub-note { font-size: 10px; color: var(--z6); margin-top: 3px; line-height: 1.4; }
+
+    /* ── MAIN ── */
+    #main {
+      flex: 1;
+      padding: 28px 32px 60px;
+      overflow-y: auto;
+      min-width: 0;
+    }
+
+    .page-header { margin-bottom: 28px; border-bottom: 1px solid var(--bg2); padding-bottom: 20px; }
+    .page-title { font-size: 22px; font-weight: 700; letter-spacing: -.02em; color: var(--wh); margin-bottom: 4px; }
+    .page-sub { font-size: 12px; color: var(--z5); font-family: ui-monospace, monospace; letter-spacing: .1em; }
+
+    /* KPI Cards */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--bg2); margin-bottom: 28px; }
+    .kpi {
+      background: var(--bg1);
+      padding: 18px 20px;
+    }
+    .kpi-label { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .2em; color: var(--z6); text-transform: uppercase; margin-bottom: 8px; }
+    .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -.03em; line-height: 1; margin-bottom: 4px; }
+    .kpi-sub { font-size: 10px; color: var(--z6); }
+    .kpi-good  { color: var(--em); }
+    .kpi-warn  { color: var(--am); }
+    .kpi-bad   { color: var(--re); }
+    .kpi-neutral { color: var(--wh); }
+
+    /* Chart sections */
+    .section { margin-bottom: 32px; }
+    .section-label {
+      font-family: ui-monospace, monospace;
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--am); display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-label::after { content:''; flex:1; height:1px; background: rgba(251,191,36,.12); }
+
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .chart-grid-1 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+    .chart-card {
+      background: var(--bg1);
+      border: 1px solid var(--bg2);
+      padding: 20px 22px;
+    }
+    .chart-title { font-size: 12px; font-weight: 600; color: var(--z3); margin-bottom: 4px; }
+    .chart-desc { font-size: 10px; color: var(--z6); margin-bottom: 14px; font-family: ui-monospace, monospace; }
+    .chart-wrap { position: relative; height: 200px; }
+    .chart-wrap-tall { position: relative; height: 260px; }
+
+    /* VC Soundbite */
+    .soundbite {
+      border-left: 2px solid var(--am);
+      padding: 10px 16px;
+      margin: 12px 0 0;
+      background: rgba(251,191,36,.03);
+    }
+    .soundbite p { font-size: 11px; color: var(--z4); line-height: 1.6; font-style: italic; }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    .data-table th {
+      font-family: ui-monospace, monospace;
+      font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--z6); padding: 8px 12px;
+      border-bottom: 1px solid var(--bg2); text-align: left; font-weight: 500;
+    }
+    .data-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(63,63,70,.4);
+      color: var(--z4);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .num { text-align: right; font-family: ui-monospace, monospace; color: var(--wh); }
+    .data-table .am { color: var(--am); font-family: ui-monospace, monospace; text-align: right; }
+    .data-table .em { color: var(--em); font-family: ui-monospace, monospace; text-align: right; }
+    .data-table .re { color: var(--re); font-family: ui-monospace, monospace; text-align: right; }
+    .data-table .dim { color: var(--z6); }
+
+    /* Rule of 40 gauge */
+    .rule40 { display: flex; align-items: center; gap: 16px; }
+    .r40-val { font-size: 42px; font-weight: 700; letter-spacing: -.04em; }
+    .r40-bar-wrap { flex: 1; }
+    .r40-bar-bg { height: 8px; background: var(--bg2); border-radius: 4px; position: relative; overflow: visible; }
+    .r40-bar-fill { height: 8px; border-radius: 4px; transition: width .4s; position: relative; }
+    .r40-marker { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--z6); }
+    .r40-labels { display: flex; justify-content: space-between; margin-top: 5px; }
+    .r40-label { font-family: ui-monospace, monospace; font-size: 9px; color: var(--z6); }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .1em;
+      padding: 2px 7px; border: 1px solid; text-transform: uppercase;
+    }
+    .tag-good  { border-color: rgba(52,211,153,.3); color: var(--em); background: rgba(52,211,153,.04); }
+    .tag-warn  { border-color: rgba(251,191,36,.3);  color: var(--am); background: rgba(251,191,36,.04); }
+    .tag-bad   { border-color: rgba(248,113,113,.3); color: var(--re); background: rgba(248,113,113,.04); }
+
+    /* Scrollbar */
+    #main::-webkit-scrollbar { width: 4px; }
+    #main::-webkit-scrollbar-track { background: transparent; }
+    #main::-webkit-scrollbar-thumb { background: var(--bg2); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside id="sidebar">
+  <div class="sb-header">
+    <p class="sb-title">Internal Model · Confidential</p>
+    <p class="sb-brand"><span>KYDE</span> Revenue Engine</p>
+  </div>
+
+  <!-- PRICING -->
+  <div class="sb-group">
+    <div class="sb-group-label">↳ Pricing</div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Platform Base Fee</span><span class="val" id="v-base">€3,000</span></div>
+      <input type="range" id="base" min="500" max="10000" step="500" value="3000" />
+      <p class="sub-note">Monthly per enterprise customer</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Production Agent / mo</span><span class="val" id="v-prod-agent">€50</span></div>
+      <input type="range" id="prod-agent" min="10" max="200" step="5" value="50" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Research Agent / mo</span><span class="val" id="v-res-agent">€10</span></div>
+      <input type="range" id="res-agent" min="5" max="50" step="5" value="10" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Retention (€/GB/mo)</span><span class="val" id="v-retention">€0.013</span></div>
+      <input type="range" id="retention" min="0.005" max="0.05" step="0.001" value="0.013" />
+      <p class="sub-note">Warm tier (S3 IA equivalent)</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Enterprise ACV</span><span class="val" id="v-ent-acv">€80k</span></div>
+      <input type="range" id="ent-acv" min="20000" max="300000" step="5000" value="80000" />
+      <p class="sub-note">HSM / Silicon Leash deals</p>
+    </div>
+  </div>
+
+  <!-- GROWTH -->
+  <div class="sb-group">
+    <div class="sb-group-label">↳ Growth</div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Customers Year 1</span><span class="val" id="v-c1">5</span></div>
+      <input type="range" id="c1" min="1" max="50" step="1" value="5" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Customers Year 2</span><span class="val" id="v-c2">20</span></div>
+      <input type="range" id="c2" min="5" max="150" step="5" value="20" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Customers Year 3</span><span class="val" id="v-c3">60</span></div>
+      <input type="range" id="c3" min="10" max="300" step="10" value="60" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Avg Prod Agents (start)</span><span class="val" id="v-agents-start">10</span></div>
+      <input type="range" id="agents-start" min="2" max="100" step="2" value="10" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Agent Growth (×/year)</span><span class="val" id="v-agent-growth">3×</span></div>
+      <input type="range" id="agent-growth" min="1.2" max="6" step="0.1" value="3" />
+      <p class="sub-note">NRR driver — agents proliferate</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Research : Prod ratio</span><span class="val" id="v-res-ratio">30%</span></div>
+      <input type="range" id="res-ratio" min="0" max="100" step="5" value="30" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Enterprise customers %</span><span class="val" id="v-ent-pct">10%</span></div>
+      <input type="range" id="ent-pct" min="2" max="40" step="2" value="10" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Annual Logo Churn</span><span class="val" id="v-churn">5%</span></div>
+      <input type="range" id="churn" min="0" max="30" step="1" value="5" />
+    </div>
+  </div>
+
+  <!-- COSTS -->
+  <div class="sb-group">
+    <div class="sb-group-label">↳ Costs</div>
+
+    <div class="input-row">
+      <div class="input-label"><span>CAC (blended)</span><span class="val" id="v-cac">€15k</span></div>
+      <input type="range" id="cac" min="2000" max="80000" step="1000" value="15000" />
+      <p class="sub-note">Sales + onboarding per new logo</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>COGS % of Revenue</span><span class="val" id="v-cogs">12%</span></div>
+      <input type="range" id="cogs" min="3" max="30" step="1" value="12" />
+      <p class="sub-note">Infra, signing, storage</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Headcount (FTEs)</span><span class="val" id="v-hc">4</span></div>
+      <input type="range" id="hc" min="1" max="30" step="1" value="4" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Avg Total Comp (€k)</span><span class="val" id="v-comp">€120k</span></div>
+      <input type="range" id="comp" min="60" max="250" step="10" value="120" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Marketing / mo</span><span class="val" id="v-mkt">€10k</span></div>
+      <input type="range" id="mkt" min="0" max="100000" step="2500" value="10000" />
+      <p class="sub-note">SEO, content, events, paid</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Data / Agent / mo (GB)</span><span class="val" id="v-data-gb">3 GB</span></div>
+      <input type="range" id="data-gb" min="0.3" max="10" step="0.1" value="3" />
+    </div>
+  </div>
+</aside>
+
+<!-- ══════════ MAIN ══════════ -->
+<main id="main">
+
+  <div class="page-header">
+    <h1 class="page-title">KYDE — Revenue Engine</h1>
+    <p class="page-sub">↳ MONETIZING THE DIGITAL WORKFORCE · ALL FIGURES CALCULATED LIVE FROM INPUTS</p>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="section">
+    <div class="section-label">↳ KEY METRICS — YEAR 3</div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <p class="kpi-label">ARR Year 3</p>
+        <p class="kpi-value kpi-neutral" id="kpi-arr">—</p>
+        <p class="kpi-sub">Annual recurring revenue</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Gross Margin</p>
+        <p class="kpi-value kpi-good" id="kpi-gm">—</p>
+        <p class="kpi-sub">After COGS</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">NRR (Net Revenue Retention)</p>
+        <p class="kpi-value" id="kpi-nrr">—</p>
+        <p class="kpi-sub">Expansion - churn</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">LTV / CAC</p>
+        <p class="kpi-value" id="kpi-ltvcac">—</p>
+        <p class="kpi-sub">Target: >5×</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">CAC Payback</p>
+        <p class="kpi-value" id="kpi-payback">—</p>
+        <p class="kpi-sub">Months to recover CAC</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Monthly Burn Y1</p>
+        <p class="kpi-value kpi-warn" id="kpi-burn">—</p>
+        <p class="kpi-sub">OpEx before revenue</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Rule of 40</p>
+        <p class="kpi-value" id="kpi-r40">—</p>
+        <p class="kpi-sub">Growth% + Margin%</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Avg ACV Y3</p>
+        <p class="kpi-value kpi-neutral" id="kpi-acv">—</p>
+        <p class="kpi-sub">Per customer, per year</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARR GROWTH -->
+  <div class="section">
+    <div class="section-label">↳ REVENUE BUILD</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">ARR by Year & Revenue Axis</p>
+        <p class="chart-desc">Agent Seats · Evidence Ledger · Enterprise HSM</p>
+        <div class="chart-wrap-tall"><canvas id="chart-arr"></canvas></div>
+        <div class="soundbite"><p id="sb-arr">"..."</p></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">ARR Waterfall — Year 3</p>
+        <p class="chart-desc">New ARR + Expansion ARR − Churn = Net New ARR</p>
+        <div class="chart-wrap-tall"><canvas id="chart-waterfall"></canvas></div>
+        <div class="soundbite"><p id="sb-waterfall">"..."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIT ECONOMICS -->
+  <div class="section">
+    <div class="section-label">↳ UNIT ECONOMICS</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">LTV vs CAC</p>
+        <p class="chart-desc">Customer Lifetime Value vs Customer Acquisition Cost</p>
+        <div class="chart-wrap"><canvas id="chart-ltvcac"></canvas></div>
+        <div id="ltvcac-detail" style="margin-top:12px"></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Revenue per Customer over 36 Months</p>
+        <p class="chart-desc">NRR expansion — agent fleet growth drives revenue without new CAC</p>
+        <div class="chart-wrap"><canvas id="chart-expansion"></canvas></div>
+        <div class="soundbite"><p id="sb-expansion">"..."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE 3 CURVES -->
+  <div class="section">
+    <div class="section-label">↳ THE VC CURVES</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">Curve 1 — The Workforce Flip</p>
+        <p class="chart-desc">Human employees (flat) vs AI agents per enterprise (exponential)</p>
+        <div class="chart-wrap-tall"><canvas id="chart-workforce"></canvas></div>
+        <div class="soundbite"><p>"Classic SaaS charges per human seat — a stagnating market. KYDE charges per agent identity. We monetize the only workforce growing exponentially."</p></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Curve 2 — The Deployment Wall</p>
+        <p class="chart-desc">Legacy IAM liability explodes with agent autonomy. KYDE caps it.</p>
+        <div class="chart-wrap-tall"><canvas id="chart-wall"></canvas></div>
+        <div class="soundbite"><p>"Enterprises are running at full speed toward a compliance wall. KYDE doesn't slow them down — it removes the wall."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BURN & PROFITABILITY -->
+  <div class="section">
+    <div class="section-label">↳ BURN & PROFITABILITY</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">Monthly Burn vs Revenue</p>
+        <p class="chart-desc">OpEx (headcount + marketing + infra) vs MRR ramp</p>
+        <div class="chart-wrap"><canvas id="chart-burn"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Rule of 40</p>
+        <p class="chart-desc">Growth rate % + Net Profit Margin % — VCs expect >40</p>
+        <div class="chart-wrap" style="height:160px">
+          <div class="rule40" style="height:100%;align-items:center">
+            <div>
+              <p class="kpi-label" style="margin-bottom:4px">Score</p>
+              <p class="r40-val" id="r40-val">—</p>
+              <span class="tag" id="r40-tag" style="margin-top:6px">—</span>
+            </div>
+            <div class="r40-bar-wrap">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:10px;color:var(--z6)">Growth Y2→Y3</span>
+                <span class="val" id="r40-growth" style="font-family:ui-monospace,monospace;font-size:11px;color:var(--z4)">—</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:10px;color:var(--z6)">Net Margin Y3</span>
+                <span class="val" id="r40-margin" style="font-family:ui-monospace,monospace;font-size:11px;color:var(--z4)">—</span>
+              </div>
+              <div class="r40-bar-bg" style="margin-top:12px">
+                <div class="r40-bar-fill" id="r40-bar" style="width:0%;background:var(--am)"></div>
+                <div class="r40-marker" style="left:40%"></div>
+              </div>
+              <div class="r40-labels">
+                <span class="r40-label">0</span>
+                <span class="r40-label" style="color:var(--am)">40 (threshold)</span>
+                <span class="r40-label">100+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="soundbite" style="margin-top:16px"><p>Rule of 40 = Revenue Growth % + EBITDA Margin %. Above 40 = healthy SaaS. Top-quartile: 60+.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORAGE COST ANALYSIS -->
+  <div class="section">
+    <div class="section-label">↳ INFRASTRUCTURE COST ANALYSIS</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">Storage Cost by Tier</p>
+        <p class="chart-desc">Tiered retention strategy — monthly cost at end of each year</p>
+        <div class="chart-wrap"><canvas id="chart-storage"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Storage Unit Economics</p>
+        <p class="chart-desc">Revenue from Retention tier vs storage cost</p>
+        <div style="margin-top:8px">
+          <table class="data-table" id="tbl-storage">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th style="text-align:right">Agents</th>
+                <th style="text-align:right">Data (TB)</th>
+                <th style="text-align:right">Storage Cost</th>
+                <th style="text-align:right">Retention Rev</th>
+                <th style="text-align:right">Margin</th>
+              </tr>
+            </thead>
+            <tbody id="storage-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL P&L TABLE -->
+  <div class="section">
+    <div class="section-label">↳ SIMPLIFIED P&L</div>
+    <div class="chart-card">
+      <p class="chart-title">Annual P&L Summary</p>
+      <p class="chart-desc">Revenue, COGS, Gross Profit, OpEx, EBITDA — all three years</p>
+      <table class="data-table" id="tbl-pl">
+        <thead>
+          <tr>
+            <th>Line Item</th>
+            <th style="text-align:right">Year 1</th>
+            <th style="text-align:right">Year 2</th>
+            <th style="text-align:right">Year 3</th>
+          </tr>
+        </thead>
+        <tbody id="pl-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MARKETING BREAKDOWN -->
+  <div class="section">
+    <div class="section-label">↳ MARKETING & CAC BREAKDOWN</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">Marketing Spend Allocation</p>
+        <p class="chart-desc">How the monthly marketing budget maps to CAC</p>
+        <div class="chart-wrap"><canvas id="chart-mkt"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">CAC Sensitivity</p>
+        <p class="chart-desc">LTV/CAC ratio at different CAC levels (your inputs vs scenarios)</p>
+        <div class="chart-wrap"><canvas id="chart-cacsens"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script is:inline>
+  // ── CHART INSTANCES (for destroy/rebuild) ──
+  const charts = {};
+
+  // ── HELPERS ──
+  function fmt(n, prefix='€', decimals=0) {
+    if (n >= 1e6) return prefix + (n/1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return prefix + (n/1e3).toFixed(0) + 'k';
+    return prefix + n.toFixed(decimals);
+  }
+  function pct(n) { return n.toFixed(1) + '%'; }
+  function fmtFull(n) {
+    return '€' + Math.round(n).toLocaleString('de-DE');
+  }
+
+  const AM  = '#fbbf24';
+  const AM2 = '#f59e0b';
+  const EM  = '#34d399';
+  const RE  = '#f87171';
+  const BL  = '#60a5fa';
+  const Z4  = '#d4d4d8';
+  const Z5  = '#a1a1aa';
+  const Z6  = '#71717a';
+  const BG1 = '#18181b';
+  const BG2 = '#27272a';
+
+  const CHART_DEFAULTS = {
+    plugins: { legend: { labels: { color: Z5, font: { size: 10, family: 'ui-monospace' } } }, tooltip: { backgroundColor: '#18181b', borderColor: BG2, borderWidth: 1, titleColor: Z4, bodyColor: Z5 } },
+    scales: {
+      x: { grid: { color: 'rgba(63,63,70,.3)' }, ticks: { color: Z6, font: { size: 10 } } },
+      y: { grid: { color: 'rgba(63,63,70,.3)' }, ticks: { color: Z6, font: { size: 10 } } }
+    }
+  };
+
+  function mkChart(id, config) {
+    if (charts[id]) charts[id].destroy();
+    const ctx = document.getElementById(id).getContext('2d');
+    charts[id] = new Chart(ctx, config);
+    return charts[id];
+  }
+
+  // ── INPUT BINDINGS ──
+  const inputs = {
+    base:         { el: 'base',         fmt: v => '€'+parseInt(v).toLocaleString('de-DE'), out: 'v-base' },
+    prodAgent:    { el: 'prod-agent',   fmt: v => '€'+v,           out: 'v-prod-agent' },
+    resAgent:     { el: 'res-agent',    fmt: v => '€'+v,           out: 'v-res-agent' },
+    retention:    { el: 'retention',    fmt: v => '€'+parseFloat(v).toFixed(3), out: 'v-retention' },
+    entAcv:       { el: 'ent-acv',      fmt: v => '€'+Math.round(v/1000)+'k', out: 'v-ent-acv' },
+    c1:           { el: 'c1',           fmt: v => v,               out: 'v-c1' },
+    c2:           { el: 'c2',           fmt: v => v,               out: 'v-c2' },
+    c3:           { el: 'c3',           fmt: v => v,               out: 'v-c3' },
+    agentsStart:  { el: 'agents-start', fmt: v => v,               out: 'v-agents-start' },
+    agentGrowth:  { el: 'agent-growth', fmt: v => parseFloat(v).toFixed(1)+'×', out: 'v-agent-growth' },
+    resRatio:     { el: 'res-ratio',    fmt: v => v+'%',           out: 'v-res-ratio' },
+    entPct:       { el: 'ent-pct',      fmt: v => v+'%',           out: 'v-ent-pct' },
+    churn:        { el: 'churn',        fmt: v => v+'%',           out: 'v-churn' },
+    cac:          { el: 'cac',          fmt: v => '€'+Math.round(v/1000)+'k', out: 'v-cac' },
+    cogs:         { el: 'cogs',         fmt: v => v+'%',           out: 'v-cogs' },
+    hc:           { el: 'hc',           fmt: v => v,               out: 'v-hc' },
+    comp:         { el: 'comp',         fmt: v => '€'+v+'k',       out: 'v-comp' },
+    mkt:          { el: 'mkt',          fmt: v => '€'+Math.round(v/1000)+'k', out: 'v-mkt' },
+    dataGb:       { el: 'data-gb',      fmt: v => parseFloat(v).toFixed(1)+' GB', out: 'v-data-gb' },
+  };
+
+  function getInputs() {
+    return {
+      base:        +document.getElementById('base').value,
+      prodAgent:   +document.getElementById('prod-agent').value,
+      resAgent:    +document.getElementById('res-agent').value,
+      retention:   +document.getElementById('retention').value,
+      entAcv:      +document.getElementById('ent-acv').value,
+      c1:          +document.getElementById('c1').value,
+      c2:          +document.getElementById('c2').value,
+      c3:          +document.getElementById('c3').value,
+      agentsStart: +document.getElementById('agents-start').value,
+      agentGrowth: +document.getElementById('agent-growth').value,
+      resRatio:    +document.getElementById('res-ratio').value / 100,
+      entPct:      +document.getElementById('ent-pct').value / 100,
+      churn:       +document.getElementById('churn').value / 100,
+      cac:         +document.getElementById('cac').value,
+      cogs:        +document.getElementById('cogs').value / 100,
+      hc:          +document.getElementById('hc').value,
+      comp:        +document.getElementById('comp').value * 1000,
+      mkt:         +document.getElementById('mkt').value,
+      dataGb:      +document.getElementById('data-gb').value,
+    };
+  }
+
+  // ── CALCULATION ENGINE ──
+  function calc(p) {
+    const years = [1, 2, 3];
+    const customers = [p.c1, p.c2, p.c3];
+
+    // Agents per customer per year (start × growth^year)
+    const agentsPerCust = [
+      p.agentsStart,
+      p.agentsStart * p.agentGrowth,
+      p.agentsStart * p.agentGrowth * p.agentGrowth,
+    ];
+    const resAgentsPerCust = agentsPerCust.map(a => a * p.resRatio);
+
+    // Revenue axes
+    const seatRev = years.map((_, i) => customers[i] * (
+      p.base * 12 +
+      agentsPerCust[i] * p.prodAgent * 12 +
+      resAgentsPerCust[i] * p.resAgent * 12
+    ));
+
+    // Data per year (cumulative agents × GB × months)
+    const totalAgents = years.map((_, i) => customers[i] * agentsPerCust[i]);
+    const dataTB = years.map((_, i) => totalAgents[i] * p.dataGb * 12 / 1024); // TB cumulative
+    const ledgerRev = years.map((_, i) => totalAgents[i] * p.dataGb * p.retention * 12);
+
+    const entCustomers = customers.map(c => Math.max(1, Math.round(c * p.entPct)));
+    const entRev = entCustomers.map(e => e * p.entAcv);
+
+    const totalARR = years.map((_, i) => seatRev[i] + ledgerRev[i] + entRev[i]);
+
+    // COGS & Gross Profit
+    const cogs = totalARR.map(a => a * p.cogs);
+    const grossProfit = totalARR.map((a, i) => a - cogs[i]);
+    const grossMargin = grossProfit.map((g, i) => g / totalARR[i]);
+
+    // OpEx
+    const headcountCost = p.hc * p.comp; // annual
+    const mktAnnual = p.mkt * 12;
+    const opex = years.map(() => headcountCost + mktAnnual);
+
+    // EBITDA
+    const ebitda = years.map((_, i) => grossProfit[i] - opex[i]);
+    const ebitdaMargin = ebitda.map((e, i) => e / totalARR[i]);
+
+    // Monthly burn Y1
+    const monthlyBurnY1 = (headcountCost + mktAnnual) / 12;
+
+    // NRR: expansion from agent growth minus logo churn
+    // Cohort: customer stays, their revenue grows by agentGrowth each year
+    const nrr = (p.agentGrowth * (1 - p.churn));
+
+    // LTV: ACV × Gross Margin / Churn (if churn = 0, cap at 10x)
+    const avgAcvY3 = totalARR[2] / customers[2];
+    const effectiveChurn = Math.max(p.churn, 0.01);
+    const ltv = avgAcvY3 * grossMargin[2] / effectiveChurn;
+    const ltvCac = ltv / p.cac;
+
+    // CAC Payback: months = CAC / (MRR × Gross Margin)
+    const mrrY3 = totalARR[2] / 12;
+    const mrrPerCust = mrrY3 / customers[2];
+    const paybackMonths = p.cac / (mrrPerCust * grossMargin[2]);
+
+    // Rule of 40
+    const growthRate = (totalARR[2] - totalARR[1]) / totalARR[1] * 100;
+    const rule40 = growthRate + (ebitdaMargin[2] * 100);
+
+    // Waterfall Y3
+    const newArr = (customers[2] - Math.round(customers[1] * (1 - p.churn))) * avgAcvY3;
+    const expansionArr = Math.round(customers[1] * (1 - p.churn)) * avgAcvY3 * (p.agentGrowth - 1);
+    const churnArr = customers[1] * avgAcvY3 * p.churn;
+
+    // Monthly expansion per customer cohort (36 months)
+    const monthlyRev36 = Array.from({length: 36}, (_, m) => {
+      const yr = m / 12;
+      const agentsAtMonth = p.agentsStart * Math.pow(p.agentGrowth, yr);
+      const resAgents = agentsAtMonth * p.resRatio;
+      const monthData = agentsAtMonth * p.dataGb;
+      return (p.base + agentsAtMonth * p.prodAgent + resAgents * p.resAgent + monthData * p.retention) * 1; // single customer MRR
+    });
+
+    // Storage cost (tiered)
+    const storageMonthlyY = years.map((_, i) => {
+      const cumData_GB = totalAgents[i] * p.dataGb * 12; // cumulative GB
+      const hot = Math.min(cumData_GB, totalAgents[i] * p.dataGb * 3);    // last 3mo hot
+      const warm = Math.min(cumData_GB - hot, totalAgents[i] * p.dataGb * 9); // mo 4-12 warm
+      const cold = Math.max(0, cumData_GB - hot - warm);                  // rest cold
+      return hot * 0.115 + warm * 0.023 + cold * 0.004;
+    });
+
+    return {
+      customers, agentsPerCust, totalAgents,
+      seatRev, ledgerRev, entRev, totalARR,
+      cogs, grossProfit, grossMargin,
+      opex, ebitda, ebitdaMargin,
+      monthlyBurnY1, nrr, ltv, ltvCac, paybackMonths,
+      avgAcvY3, mrrY3, growthRate, rule40,
+      newArr, expansionArr, churnArr,
+      monthlyRev36, dataTB, storageMonthlyY,
+      entCustomers, headcountCost, mktAnnual,
+    };
+  }
+
+  // ── RENDER ──
+  function render() {
+    const p = getInputs();
+    const d = calc(p);
+
+    // KPI Cards
+    document.getElementById('kpi-arr').textContent = fmt(d.totalARR[2]);
+    document.getElementById('kpi-arr').className = 'kpi-value kpi-neutral';
+
+    const gm3 = d.grossMargin[2] * 100;
+    document.getElementById('kpi-gm').textContent = pct(gm3);
+    document.getElementById('kpi-gm').className = 'kpi-value ' + (gm3 > 80 ? 'kpi-good' : gm3 > 60 ? 'kpi-warn' : 'kpi-bad');
+
+    const nrrPct = d.nrr * 100;
+    document.getElementById('kpi-nrr').textContent = pct(nrrPct);
+    document.getElementById('kpi-nrr').className = 'kpi-value ' + (nrrPct > 130 ? 'kpi-good' : nrrPct > 100 ? 'kpi-warn' : 'kpi-bad');
+
+    document.getElementById('kpi-ltvcac').textContent = d.ltvCac.toFixed(1) + '×';
+    document.getElementById('kpi-ltvcac').className = 'kpi-value ' + (d.ltvCac > 5 ? 'kpi-good' : d.ltvCac > 3 ? 'kpi-warn' : 'kpi-bad');
+
+    document.getElementById('kpi-payback').textContent = Math.round(d.paybackMonths) + ' mo';
+    document.getElementById('kpi-payback').className = 'kpi-value ' + (d.paybackMonths < 18 ? 'kpi-good' : d.paybackMonths < 36 ? 'kpi-warn' : 'kpi-bad');
+
+    document.getElementById('kpi-burn').textContent = fmt(d.monthlyBurnY1) + '/mo';
+    document.getElementById('kpi-acv').textContent = fmt(d.avgAcvY3);
+
+    const r40 = d.rule40;
+    document.getElementById('kpi-r40').textContent = Math.round(r40);
+    document.getElementById('kpi-r40').className = 'kpi-value ' + (r40 > 60 ? 'kpi-good' : r40 > 40 ? 'kpi-warn' : 'kpi-bad');
+
+    // ARR Chart
+    mkChart('chart-arr', {
+      type: 'bar',
+      data: {
+        labels: ['Year 1', 'Year 2', 'Year 3'],
+        datasets: [
+          { label: 'Agent Seats', data: d.seatRev, backgroundColor: AM, stack: 's' },
+          { label: 'Evidence Ledger', data: d.ledgerRev, backgroundColor: EM, stack: 's' },
+          { label: 'Enterprise HSM', data: d.entRev, backgroundColor: BL, stack: 's' },
+        ]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins,
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw) } }
+        },
+        scales: { ...CHART_DEFAULTS.scales,
+          y: { ...CHART_DEFAULTS.scales.y, stacked: true, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } },
+          x: { ...CHART_DEFAULTS.scales.x, stacked: true }
+        }
+      }
+    });
+    document.getElementById('sb-arr').textContent =
+      `Year 3 ARR: ${fmt(d.totalARR[2])} across ${d.customers[2]} customers. Agent seats are ${pct(d.seatRev[2]/d.totalARR[2]*100)} of revenue. Enterprise deals (${d.entCustomers[2]} customers) at ${fmt(p.entAcv)} ACV.`;
+
+    // Waterfall Chart
+    const wfData = [d.totalARR[1], d.newArr, d.expansionArr, -d.churnArr, d.totalARR[2]];
+    mkChart('chart-waterfall', {
+      type: 'bar',
+      data: {
+        labels: ['ARR Y2', 'New ARR', 'Expansion ARR', 'Churn', 'ARR Y3'],
+        datasets: [{
+          data: wfData,
+          backgroundColor: wfData.map((v, i) => i === 0 ? Z5 : i === 4 ? AM : v >= 0 ? EM : RE),
+        }]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + fmt(Math.abs(ctx.raw)) } }
+        },
+        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } } }
+      }
+    });
+    document.getElementById('sb-waterfall').textContent =
+      `Expansion ARR ${fmt(d.expansionArr)} comes from existing customers adding agents — zero additional CAC. Churn only ${fmt(d.churnArr)}.`;
+
+    // LTV/CAC Chart
+    mkChart('chart-ltvcac', {
+      type: 'bar',
+      data: {
+        labels: ['CAC', 'LTV'],
+        datasets: [{ data: [p.cac, d.ltv], backgroundColor: [RE, EM], borderRadius: 2 }]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+        plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + fmt(ctx.raw) } }
+        },
+        scales: { ...CHART_DEFAULTS.scales, x: { ...CHART_DEFAULTS.scales.x, ticks: { ...CHART_DEFAULTS.scales.x.ticks, callback: v => fmt(v) } } }
+      }
+    });
+    const ltvCacColor = d.ltvCac >= 5 ? EM : d.ltvCac >= 3 ? AM : RE;
+    const ltvCacTag = d.ltvCac >= 5 ? 'tag-good' : d.ltvCac >= 3 ? 'tag-warn' : 'tag-bad';
+    document.getElementById('ltvcac-detail').innerHTML = `
+      <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap">
+        <div><p class="kpi-label">LTV</p><p style="font-family:ui-monospace;font-size:16px;color:${EM}">${fmt(d.ltv)}</p></div>
+        <div><p class="kpi-label">CAC</p><p style="font-family:ui-monospace;font-size:16px;color:${RE}">${fmt(p.cac)}</p></div>
+        <div><p class="kpi-label">Ratio</p><p style="font-family:ui-monospace;font-size:16px;color:${ltvCacColor}">${d.ltvCac.toFixed(1)}×</p></div>
+        <div><p class="kpi-label">Payback</p><p style="font-family:ui-monospace;font-size:16px;color:${AM}">${Math.round(d.paybackMonths)} months</p></div>
+      </div>
+      <div class="soundbite" style="margin-top:10px"><p>VCs want LTV/CAC > 5×. Payback < 18 months for top-quartile SaaS.</p></div>`;
+
+    // Expansion per customer
+    mkChart('chart-expansion', {
+      type: 'line',
+      data: {
+        labels: Array.from({length: 36}, (_, i) => i === 0 ? 'M1' : i % 6 === 0 ? `M${i+1}` : ''),
+        datasets: [{
+          label: 'MRR / Customer',
+          data: d.monthlyRev36,
+          borderColor: AM, backgroundColor: 'rgba(251,191,36,.08)',
+          fill: true, tension: 0.3, pointRadius: 0,
+        }]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' MRR: ' + fmt(ctx.raw) } }
+        },
+        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } } }
+      }
+    });
+    document.getElementById('sb-expansion').textContent =
+      `Month 1 MRR/customer: ${fmt(d.monthlyRev36[0])}. Month 36: ${fmt(d.monthlyRev36[35])}. That's ${(d.monthlyRev36[35]/d.monthlyRev36[0]).toFixed(1)}× growth from one customer with zero additional CAC.`;
+
+    // Workforce Flip
+    const wfYears = ['2024','2025','2026','2027','2028','2029','2030'];
+    const humanEmpl = [100, 103, 105, 106, 107, 108, 109];
+    const aiAgents  = [1, 3, 10, 30, 80, 180, 400];
+    mkChart('chart-workforce', {
+      type: 'line',
+      data: {
+        labels: wfYears,
+        datasets: [
+          { label: 'Human Employees (indexed)', data: humanEmpl, borderColor: Z5, backgroundColor: 'transparent', tension: 0.2, borderDash: [4,4], pointRadius: 3 },
+          { label: 'AI Agents (indexed)', data: aiAgents, borderColor: AM, backgroundColor: 'rgba(251,191,36,.06)', fill: true, tension: 0.4, pointRadius: 3 },
+        ]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins },
+        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => v + 'x' } } }
+      }
+    });
+
+    // Deployment Wall
+    const autonomyLevels = ['1 agent', '10 agents', '50 agents', '200 agents', '1k agents', '5k agents'];
+    const legacyRisk  = [5, 20, 80, 250, 800, 2500];
+    const kydeRisk    = [5, 12, 18, 22, 25, 27];
+    mkChart('chart-wall', {
+      type: 'line',
+      data: {
+        labels: autonomyLevels,
+        datasets: [
+          { label: 'Legacy IAM / Status Quo', data: legacyRisk, borderColor: RE, backgroundColor: 'rgba(248,113,113,.06)', fill: true, tension: 0.3, pointRadius: 3 },
+          { label: 'KYDE Infrastructure', data: kydeRisk, borderColor: EM, backgroundColor: 'rgba(52,211,153,.06)', fill: true, tension: 0.3, pointRadius: 3 },
+        ]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins,
+          annotation: { annotations: { line1: { type: 'line', x: '200 agents', borderColor: Z6, borderDash: [4,4], label: { content: 'Compliance Block', enabled: true } } } }
+        },
+        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, title: { display: true, text: 'Liability Exposure (indexed)', color: Z6, font: { size: 9 } } } }
+      }
+    });
+
+    // Burn Chart (monthly, year 1)
+    const burnMonths = Array.from({length: 12}, (_, m) => {
+      const monthlyOpex = d.monthlyBurnY1;
+      const mrrAtMonth = (d.totalARR[0] / 12) * ((m + 1) / 12); // ramp
+      return { burn: monthlyOpex, mrr: mrrAtMonth };
+    });
+    mkChart('chart-burn', {
+      type: 'line',
+      data: {
+        labels: Array.from({length: 12}, (_, i) => `M${i+1}`),
+        datasets: [
+          { label: 'Monthly OpEx (Burn)', data: burnMonths.map(b => b.burn), borderColor: RE, backgroundColor: 'rgba(248,113,113,.06)', fill: true, tension: 0.1, pointRadius: 0 },
+          { label: 'MRR (Ramp)', data: burnMonths.map(b => b.mrr), borderColor: EM, backgroundColor: 'rgba(52,211,153,.06)', fill: true, tension: 0.4, pointRadius: 0 },
+        ]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins },
+        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } } }
+      }
+    });
+
+    // Rule of 40
+    const r40Score = Math.round(d.rule40);
+    document.getElementById('r40-val').textContent = r40Score;
+    document.getElementById('r40-val').style.color = r40Score >= 60 ? EM : r40Score >= 40 ? AM : RE;
+    document.getElementById('r40-growth').textContent = pct(d.growthRate);
+    document.getElementById('r40-margin').textContent = pct(d.ebitdaMargin[2] * 100);
+    const fillPct = Math.min(100, Math.max(0, r40Score));
+    document.getElementById('r40-bar').style.width = fillPct + '%';
+    document.getElementById('r40-bar').style.background = r40Score >= 60 ? EM : r40Score >= 40 ? AM : RE;
+    const r40TagEl = document.getElementById('r40-tag');
+    r40TagEl.textContent = r40Score >= 60 ? '↑ Top Quartile' : r40Score >= 40 ? '✓ Above Threshold' : '↓ Below 40';
+    r40TagEl.className = 'tag ' + (r40Score >= 60 ? 'tag-good' : r40Score >= 40 ? 'tag-warn' : 'tag-bad');
+
+    // Storage chart
+    mkChart('chart-storage', {
+      type: 'bar',
+      data: {
+        labels: ['Year 1', 'Year 2', 'Year 3'],
+        datasets: [
+          { label: 'Hot (DB)', data: d.storageMonthlyY.map(v => v * 0.4), backgroundColor: RE, stack: 's' },
+          { label: 'Warm (S3 IA)', data: d.storageMonthlyY.map(v => v * 0.35), backgroundColor: AM, stack: 's' },
+          { label: 'Cold (Glacier)', data: d.storageMonthlyY.map(v => v * 0.25), backgroundColor: BL, stack: 's' },
+        ]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins },
+        scales: { ...CHART_DEFAULTS.scales,
+          y: { ...CHART_DEFAULTS.scales.y, stacked: true, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } },
+          x: { ...CHART_DEFAULTS.scales.x, stacked: true }
+        }
+      }
+    });
+
+    // Storage table
+    const stbody = document.getElementById('storage-tbody');
+    stbody.innerHTML = [0,1,2].map(i => {
+      const retRev = d.ledgerRev[i] / 12;
+      const storeCost = d.storageMonthlyY[i];
+      const margin = retRev > 0 ? ((retRev - storeCost) / retRev * 100) : 0;
+      return `<tr>
+        <td>End Year ${i+1}</td>
+        <td class="num">${Math.round(d.totalAgents[i]).toLocaleString('de-DE')}</td>
+        <td class="num">${d.dataTB[i].toFixed(0)} TB</td>
+        <td class="re">€${Math.round(storeCost).toLocaleString('de-DE')}/mo</td>
+        <td class="am">€${Math.round(retRev).toLocaleString('de-DE')}/mo</td>
+        <td class="${margin > 80 ? 'em' : 'am'}">${margin.toFixed(0)}%</td>
+      </tr>`;
+    }).join('');
+
+    // P&L Table
+    const plbody = document.getElementById('pl-tbody');
+    const plLines = [
+      ['↳ Agent Seat Revenue', d.seatRev, 'am'],
+      ['↳ Evidence Ledger Revenue', d.ledgerRev, 'am'],
+      ['↳ Enterprise Revenue', d.entRev, 'am'],
+      ['TOTAL REVENUE', d.totalARR, 'am'],
+      ['COGS (Infra, Storage)', d.cogs.map(v => -v), 're'],
+      ['GROSS PROFIT', d.grossProfit, 'em'],
+      ['Gross Margin %', d.grossMargin.map(v => v*100), null, true],
+      ['Headcount', [d.headcountCost, d.headcountCost, d.headcountCost].map(v => -v), 're'],
+      ['Marketing', [d.mktAnnual, d.mktAnnual, d.mktAnnual].map(v => -v), 're'],
+      ['TOTAL OPEX', d.opex.map(v => -v), 're'],
+      ['EBITDA', d.ebitda, null],
+      ['EBITDA Margin %', d.ebitdaMargin.map(v => v*100), null, true],
+    ];
+    plbody.innerHTML = plLines.map(([label, vals, cls, isPct]) => {
+      const isHeader = ['TOTAL REVENUE','GROSS PROFIT','EBITDA'].includes(label);
+      const style = isHeader ? 'font-weight:600;color:var(--wh);border-top:1px solid var(--bg2)' : '';
+      return `<tr style="${style}">
+        <td style="${isHeader ? 'color:var(--wh)' : ''}">${label}</td>
+        ${vals.map((v, i) => {
+          const color = isPct ? (v >= 80 ? 'var(--em)' : v >= 50 ? 'var(--am)' : v >= 0 ? 'var(--wh)' : 'var(--re)') :
+                        v > 0 && cls === 'am' ? 'var(--am)' :
+                        v > 0 && cls === 'em' ? 'var(--em)' :
+                        v < 0 ? 'var(--re)' :
+                        v > 0 ? 'var(--em)' : 'var(--re)';
+          const formatted = isPct ? pct(v) : fmt(Math.abs(v));
+          const sign = !isPct && v < 0 ? '−' : '';
+          return `<td class="num" style="color:${color}">${sign}${formatted}</td>`;
+        }).join('')}
+      </tr>`;
+    }).join('');
+
+    // Marketing breakdown chart
+    mkChart('chart-mkt', {
+      type: 'doughnut',
+      data: {
+        labels: ['SEO & Content', 'Events & Outbound', 'Paid / Display', 'PR & Analyst'],
+        datasets: [{ data: [35, 30, 20, 15], backgroundColor: [AM, EM, BL, Z5], borderWidth: 1, borderColor: BG1 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins,
+          legend: { position: 'bottom', labels: { color: Z5, font: { size: 10, family: 'ui-monospace' }, padding: 12 } },
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + ctx.label + ': ' + ctx.raw + '%' } }
+        }
+      }
+    });
+
+    // CAC Sensitivity
+    const cacLevels = [5000, 10000, 15000, 25000, 40000, 60000, 80000];
+    const ltvVals = cacLevels.map(cac => {
+      const ltvAtCac = d.ltv; // LTV doesn't change with CAC
+      return (ltvAtCac / cac).toFixed(1);
+    });
+    mkChart('chart-cacsens', {
+      type: 'bar',
+      data: {
+        labels: cacLevels.map(c => fmt(c)),
+        datasets: [{
+          label: 'LTV/CAC Ratio',
+          data: ltvVals,
+          backgroundColor: ltvVals.map(v => parseFloat(v) >= 5 ? EM : parseFloat(v) >= 3 ? AM : RE),
+        }]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' LTV/CAC: ' + ctx.raw + '×' } }
+        },
+        scales: { ...CHART_DEFAULTS.scales,
+          y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => v + '×' } }
+        }
+      }
+    });
+  }
+
+  // ── BIND INPUTS ──
+  Object.entries(inputs).forEach(([key, cfg]) => {
+    const el = document.getElementById(cfg.el);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      document.getElementById(cfg.out).textContent = cfg.fmt(el.value);
+      render();
+    });
+  });
+
+  // ── AUTH ──
+  if (localStorage.getItem('kyde_slides_auth') !== 'kyde_2026') {
+    window.location.replace('/slides/');
+  }
+
+  // ── INIT ──
+  render();
+</script>
+
+</body>
+</html>
