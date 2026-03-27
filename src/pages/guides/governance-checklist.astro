@@ -1,0 +1,488 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="Shadow AI Governance Checklist — KYDE"
+  description="8-phase checklist for implementing AI governance: from shadow AI discovery to compliance readiness. Includes templates, RACI matrix, and incident response."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Technical Guide</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            Shadow AI Governance Checklist
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600 mb-6">
+            <span>Implementation · Compliance</span>
+            <span>·</span>
+            <span>35 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">8-Phase Framework</span>
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">70+ Checkboxes</span>
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">RACI Matrix</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              <strong>Governance</strong> is the step after detection and classification. This checklist walks you through the process of taking a shadow AI system you've discovered and making it compliant with EU AI Act and operational best practices.
+            </p>
+
+            <h2 id="lifecycle">The Governance Lifecycle</h2>
+
+            <p>
+              This checklist covers 8 phases:
+            </p>
+
+            <ol>
+              <li><strong>Discovery & Assessment</strong> — Document the shadow AI system</li>
+              <li><strong>Classification & Legal</strong> — Determine its risk level</li>
+              <li><strong>Governance Implementation</strong> — Build audit trail, policy, enforcement</li>
+              <li><strong>Performance Monitoring</strong> — Test for bias and drift</li>
+              <li><strong>Compliance Documentation</strong> — Prepare for regulation</li>
+              <li><strong>Regulatory Readiness</strong> — Get sign-off and incident response ready</li>
+              <li><strong>Ongoing Compliance</strong> — Monthly/quarterly/annual reviews</li>
+              <li><strong>Continuous Improvement</strong> — Share learnings across organization</li>
+            </ol>
+
+            <p class="mt-6">
+              <strong>Timeline:</strong> 4-6 months from discovery to compliance-ready.
+            </p>
+
+            <h2 id="phase-1">Phase 1: Discovery & Initial Assessment</h2>
+
+            <h3>Step 1.1: Document the Shadow AI System</h3>
+
+            <p>
+              Create a system record with:
+            </p>
+
+            <ul>
+              <li>System name/description</li>
+              <li>Owner/responsible team</li>
+              <li>When discovered (date)</li>
+              <li>Detection method (DNS logs, firewall, employee report)</li>
+              <li>Date of first deployment (if known)</li>
+            </ul>
+
+            <h3>Step 1.2: Understand System Purpose & Scope</h3>
+
+            <ul>
+              <li>What does this system do?</li>
+              <li>What decisions does it make?</li>
+              <li>How many employees/customers use it?</li>
+              <li>How frequently is it used?</li>
+              <li>What data does it process? (PII? Health? Financial?)</li>
+            </ul>
+
+            <h3>Step 1.3: Preliminary Risk Screening</h3>
+
+            <ul>
+              <li>Does it process personal data?</li>
+              <li>Does it make automated decisions affecting individuals?</li>
+              <li>Is it in a regulated industry?</li>
+              <li>Could it cause harm if it fails?</li>
+            </ul>
+
+            <h2 id="phase-2">Phase 2: Classification & Legal Assessment</h2>
+
+            <h3>Step 2.1: Formal Classification</h3>
+
+            <p>
+              Use the AI Classification Guide (see related guides) to determine:
+            </p>
+
+            <ul>
+              <li>Is it prohibited? (If yes, discontinue immediately)</li>
+              <li>Is it High-Risk? (If yes, full governance required)</li>
+              <li>Is it General-Purpose? (Limited transparency obligations)</li>
+              <li>Is it Low-Risk? (Standard data protection)</li>
+            </ul>
+
+            <h3>Step 2.2: Substantial Modification Assessment</h3>
+
+            <p>
+              Check if your governance approach could accidentally make you the provider:
+            </p>
+
+            <ul>
+              <li>Will you modify prompts? Will you filter outputs?</li>
+              <li>Will you change model weights? Will you add training data?</li>
+              <li>If all are NO → Safe to proceed as deployer</li>
+              <li>If any are YES → Risk becoming provider; consult legal</li>
+            </ul>
+
+            <h2 id="phase-3">Phase 3: Governance Implementation</h2>
+
+            <h3>Step 3.1: Audit Trail Setup</h3>
+
+            <p>
+              Every decision the AI makes must be logged with context.
+            </p>
+
+            <ul>
+              <li>Audit trail system selected & deployed</li>
+              <li>Captures: Decision / Timestamp / User / Authorization / Output</li>
+              <li>Logs are immutable (cannot be deleted/modified retroactively)</li>
+              <li>Logs are cryptographically signed (tamper-proof)</li>
+              <li>Logs retained for minimum 3 years</li>
+              <li>Access control implemented (only authorized users can view)</li>
+              <li>All log access is itself logged</li>
+              <li>Regular backup of logs (offsite, immutable)</li>
+            </ul>
+
+            <h3>Step 3.2: Policy & Authorization Framework</h3>
+
+            <p>
+              Define what the AI system is authorized to do.
+            </p>
+
+            <ul>
+              <li>Policy document created (intended scope, decision limits)</li>
+              <li>Escalation thresholds defined (when to escalate to human)</li>
+              <li>Exception procedures documented</li>
+              <li>Signed by business owner & CISO</li>
+              <li>Policy is machine-readable (enforcement system can parse it)</li>
+              <li>Policy version control implemented</li>
+              <li>Policy cryptographically signed (hash included in every log entry)</li>
+            </ul>
+
+            <h3>Step 3.3: Enforcement System</h3>
+
+            <p>
+              Implement controls to prevent the AI from violating its policy.
+            </p>
+
+            <ul>
+              <li>Enforcement layer deployed</li>
+              <li>System decisions routed through enforcement layer</li>
+              <li>Enforcement layer intercepts decisions before execution</li>
+              <li>Can be monitored without enforcement (audit-only mode)</li>
+              <li>Easy rollback if enforcement causes problems</li>
+              <li>Enforcement rules tested (10+ violation scenarios)</li>
+              <li>All violations correctly blocked/flagged</li>
+              <li>Performance impact measured & acceptable</li>
+            </ul>
+
+            <h3>Step 3.4: Human Oversight Mechanism</h3>
+
+            <ul>
+              <li>Human review process defined (when review is required, by whom)</li>
+              <li>Review SLA specified (how quickly must review happen)</li>
+              <li>Review documentation requirements established</li>
+              <li>Appeal/override process defined</li>
+              <li>Reviewers trained on system scope, bias detection, escalation</li>
+              <li>Review system monitored (time to review, override rate, feedback captured)</li>
+            </ul>
+
+            <h2 id="phase-4">Phase 4: Performance Monitoring & Bias Testing</h2>
+
+            <h3>Step 4.1: Baseline Performance Metrics</h3>
+
+            <ul>
+              <li>Accuracy: ____% (measured on validation set)</li>
+              <li>Precision: ____% (false positive rate)</li>
+              <li>Recall: ____% (false negative rate)</li>
+              <li>Latency: ____ ms</li>
+              <li>Uptime target: ____%</li>
+              <li>Initial performance measured and documented</li>
+              <li>Comparison to human baseline (if applicable)</li>
+              <li>Acceptable performance thresholds defined</li>
+            </ul>
+
+            <h3>Step 4.2: Bias & Fairness Testing</h3>
+
+            <ul>
+              <li>Protected characteristics identified (gender, race, age, disability, socioeconomic)</li>
+              <li>Test scenarios designed for each characteristic</li>
+              <li>Fairness metrics defined (e.g., Disparate Impact Ratio)</li>
+              <li>Initial bias testing completed (500+ samples with known attributes)</li>
+              <li>Results disaggregated by protected group</li>
+              <li>Discrimination indicators measured</li>
+              <li>If bias found, mitigation strategy created</li>
+              <li>Quarterly bias testing scheduled</li>
+              <li>Production data monitored for group disparities</li>
+            </ul>
+
+            <h3>Step 4.3: Performance Drift Detection</h3>
+
+            <ul>
+              <li>Performance monitoring dashboard created</li>
+              <li>Tracks accuracy, precision, recall over time</li>
+              <li>Alerts if metrics drop below thresholds</li>
+              <li>Data drift detection implemented</li>
+              <li>Incident response process defined (detect → investigate → remediate)</li>
+            </ul>
+
+            <h2 id="phase-5">Phase 5: Compliance & Documentation</h2>
+
+            <h3>Step 5.1: Technical Documentation Package</h3>
+
+            <ul>
+              <li>System description (what it does, how it works)</li>
+              <li>Training data documentation</li>
+              <li>Model architecture & performance metrics</li>
+              <li>Risk assessment (what can go wrong)</li>
+              <li>Mitigation measures documented</li>
+              <li>Testing & validation results</li>
+              <li>Performance monitoring process</li>
+              <li>Human oversight process</li>
+              <li>Risk management plan (harms, probability, severity, mitigation)</li>
+            </ul>
+
+            <h3>Step 5.2: User Notification & Transparency</h3>
+
+            <ul>
+              <li>Users notified of automated decision</li>
+              <li>Clear notice: "An AI system was used to make this decision"</li>
+              <li>Provided at decision point (not buried in T&Cs)</li>
+              <li>Explanation available on request (plain language)</li>
+              <li>Explanation includes key factors in decision</li>
+            </ul>
+
+            <h3>Step 5.3: Appeals & Rights Process</h3>
+
+            <ul>
+              <li>Clear steps to appeal a decision</li>
+              <li>Escalation to human review</li>
+              <li>Timeline for response: _____ days</li>
+              <li>Right to appeal documented</li>
+              <li>No penalty for appealing</li>
+              <li>All appeals logged</li>
+              <li>Appeal outcomes tracked</li>
+            </ul>
+
+            <h2 id="phase-6">Phase 6: Regulatory Readiness</h2>
+
+            <h3>Pre-Inspection Checklist</h3>
+
+            <ul>
+              <li>Technical documentation complete & accessible</li>
+              <li>Risk assessment signed</li>
+              <li>Performance metrics & bias testing results current</li>
+              <li>Audit trail complete & sample entries provided</li>
+              <li>Query examples demonstrated (show decisions by date, violations, metrics)</li>
+              <li>Log integrity verified (tamper-evident)</li>
+              <li>Latest bias testing completed within 90 days</li>
+              <li>No evidence of discrimination (or mitigation documented)</li>
+              <li>Legal review completed</li>
+              <li>Compliance officer sign-off obtained</li>
+            </ul>
+
+            <h3>Incident Response Plan</h3>
+
+            <ul>
+              <li>Definition of "incident" (e.g., High-Risk decision outside policy)</li>
+              <li>Notification procedures (who to contact)</li>
+              <li>Investigation process</li>
+              <li>Remediation process (how to fix affected decisions)</li>
+              <li>Regulator notification process (if required)</li>
+              <li>Key contacts identified & escalation path defined</li>
+            </ul>
+
+            <h2 id="phase-7">Phase 7: Ongoing Compliance & Monitoring</h2>
+
+            <h3>Monthly Monitoring</h3>
+
+            <ul>
+              <li>Performance metrics reviewed</li>
+              <li>Alert logs reviewed (concerning patterns?)</li>
+              <li>Audit trail integrity verified</li>
+              <li>Issues reported to leadership</li>
+            </ul>
+
+            <h3>Quarterly Assessment</h3>
+
+            <ul>
+              <li>Bias testing completed</li>
+              <li>Performance drift analysis</li>
+              <li>Policy violations reviewed</li>
+              <li>Appeals/override patterns analyzed</li>
+              <li>Compliance status reported to leadership</li>
+            </ul>
+
+            <h3>Annual Comprehensive Review</h3>
+
+            <ul>
+              <li>Full bias testing (all protected characteristics)</li>
+              <li>Performance benchmarking</li>
+              <li>Documentation updated</li>
+              <li>Risk assessment revisited</li>
+              <li>Classification re-validated (still High-Risk?)</li>
+              <li>Legal/compliance sign-off renewed</li>
+            </ul>
+
+            <h2 id="phase-8">Phase 8: Continuous Improvement</h2>
+
+            <ul>
+              <li>Document governance experience (what worked, what was hard)</li>
+              <li>Create playbook/runbook for other High-Risk systems</li>
+              <li>Train other system owners on compliance process</li>
+              <li>Share best practices across organization</li>
+            </ul>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ Ready to Implement?</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                Kyde automates the audit trail, policy enforcement, and compliance monitoring across all three phases: detection, classification, and governance.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/shadow-ai-trilogy"
+                  class="inline-flex items-center gap-2 border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-300 hover:border-zinc-600 transition-all"
+                >
+                  Back to Trilogy Overview →
+                </a>
+                <button
+                  onclick="openModal()"
+                  class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+                >
+                  Start Implementation →
+                </button>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">On This Page</p>
+              <div class="space-y-2 text-xs">
+                <a href="#lifecycle" class="block text-zinc-500 hover:text-zinc-300 transition-colors">8-Phase Framework</a>
+                <a href="#phase-1" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Discovery</a>
+                <a href="#phase-3" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Implementation</a>
+                <a href="#phase-4" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Monitoring</a>
+                <a href="#phase-6" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Readiness</a>
+              </div>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">The Trilogy</p>
+              <div class="space-y-3 text-xs">
+                <a href="/guides/detect-shadow-ai" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <span>→</span>
+                  <span>Detect Shadow AI</span>
+                </a>
+                <a href="/guides/classify-ai-systems" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <span>→</span>
+                  <span>Classify Risk Level</span>
+                </a>
+                <div class="flex items-center gap-2">
+                  <span class="text-amber-300">✓</span>
+                  <span class="text-zinc-400">Implement Governance</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Timeline</p>
+              <p class="font-mono text-sm text-amber-300">4-6 months</p>
+              <p class="text-xs text-zinc-600 mt-1">From discovery to compliance</p>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Checkpoint</p>
+              <p class="font-mono text-sm text-emerald-400">70+ Checkboxes</p>
+              <p class="text-xs text-zinc-600 mt-1">Governance accountability</p>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde h3 {
+    color: #e4e4e7;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde ol {
+    list-style: decimal;
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose-kyde ol li {
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>

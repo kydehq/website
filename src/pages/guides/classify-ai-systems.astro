@@ -1,0 +1,453 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="How to Classify AI Systems Under EU AI Act — KYDE"
+  description="Step-by-step framework for determining if your AI systems are High-Risk, General-Purpose, or Low-Risk under EU AI Act Annex III."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Technical Guide</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            How to Classify AI Systems Under EU AI Act
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600 mb-6">
+            <span>Regulatory · Compliance</span>
+            <span>·</span>
+            <span>30 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">Annex III Categories</span>
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">Risk Assessment</span>
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">Regulatory Obligations</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              <strong>Classification is the foundation of AI governance.</strong> Get this wrong, and your compliance strategy fails.
+            </p>
+
+            <p>
+              The EU AI Act creates four categories of AI systems, each with different compliance obligations. By August 2026, enforcement begins for High-Risk systems in specific verticals (HR, Finance, Insurance, Healthcare).
+            </p>
+
+            <h2 id="categories">The Four Categories</h2>
+
+            <p>
+              Every AI system in your organization falls into one of these:
+            </p>
+
+            <table class="text-sm">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Compliance Burden</th>
+                  <th>Fines</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Prohibited</strong></td>
+                  <td>Ban immediately</td>
+                  <td>€30M or 6% revenue</td>
+                </tr>
+                <tr>
+                  <td><strong>High-Risk</strong></td>
+                  <td>Full governance + audit trail</td>
+                  <td>€30M or 7% revenue</td>
+                </tr>
+                <tr>
+                  <td><strong>General-Purpose</strong></td>
+                  <td>Limited transparency</td>
+                  <td>€15M or 4% revenue</td>
+                </tr>
+                <tr>
+                  <td><strong>Low-Risk</strong></td>
+                  <td>Standard data protection</td>
+                  <td>GDPR-level</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2 id="prohibited">Step 1: Is Your System Prohibited?</h2>
+
+            <p>
+              If ANY of these are true, your system is <strong>prohibited and must be banned immediately</strong>:
+            </p>
+
+            <h3>Prohibited Use Case #1: Real-Time Facial Recognition</h3>
+
+            <p>
+              <strong>Question:</strong> Does your AI system perform real-time remote biometric identification (facial recognition, iris recognition, gait analysis) in public spaces or for law enforcement?
+            </p>
+
+            <p>
+              If YES → System is <strong>prohibited</strong>. Stop using it.
+            </p>
+
+            <h3>Prohibited Use Case #2: Emotion Recognition for Law Enforcement</h3>
+
+            <p>
+              <strong>Question:</strong> Does your system recognize emotions or mental states from biometric data (facial expressions, voice, heart rate) for law enforcement, border control, immigration, or workplace monitoring?
+            </p>
+
+            <p>
+              If YES without explicit legal authorization → System is <strong>prohibited</strong>.
+            </p>
+
+            <h3>Prohibited Use Case #3: Social Scoring</h3>
+
+            <p>
+              <strong>Question:</strong> Does your system assign social credit scores or create comprehensive profiles for automated discrimination, exclusion, or punitive treatment?
+            </p>
+
+            <p>
+              If YES → System is <strong>prohibited</strong>.
+            </p>
+
+            <p class="mt-6">
+              <strong>If all three answers are NO:</strong> Continue to Step 2. Your system is not prohibited.
+            </p>
+
+            <h2 id="high-risk">Step 2: Is Your System High-Risk?</h2>
+
+            <p>
+              High-Risk systems require full governance: conformity assessment, technical documentation, risk management, audit trails, bias testing, and human oversight.
+            </p>
+
+            <h3>The 37 High-Risk Categories (Annex III)</h3>
+
+            <p>
+              The EU AI Act lists 37 specific High-Risk categories across these domains:
+            </p>
+
+            <ul>
+              <li><strong>Biometric & Identification:</strong> Facial recognition for access control, age/gender estimation</li>
+              <li><strong>Critical Infrastructure:</strong> AI controlling power grids, water systems, transportation</li>
+              <li><strong>Public Services:</strong> Determining eligibility for benefits, housing, permits</li>
+              <li><strong>Employment & Education:</strong> Resume screening, hiring decisions, grade assessment, student admissions</li>
+              <li><strong>Finance & Insurance:</strong> Credit decisions, underwriting, pricing, claims assessment</li>
+              <li><strong>Law Enforcement & Justice:</strong> Predictive policing, bail/sentencing recommendations, crime detection</li>
+              <li><strong>Healthcare & Welfare:</strong> Medical diagnosis, treatment recommendations, mental health assessment</li>
+            </ul>
+
+            <h3>How to Determine if YOUR System is High-Risk</h3>
+
+            <p>
+              <strong>Step 1: Identify the domain</strong> — Look at the list above. Does your AI system fit any of these categories?
+            </p>
+
+            <p>
+              <strong>Step 2: Assess impact</strong> — Even if your system fits a category, it may not be High-Risk if decisions can be easily overridden or if there's strong human authority above it.
+            </p>
+
+            <p>
+              <strong>Step 3: Document the classification</strong> — Create a formal record.
+            </p>
+
+            <h2 id="decision-tree">Classification Decision Tree</h2>
+
+            <pre><code>┌─ Does system do real-time facial recognition in public?
+│  └─ YES → PROHIBITED
+
+├─ Does system recognize emotions/mental states for law enforcement?
+│  └─ YES → PROHIBITED
+
+├─ Does system create social credit scores?
+│  └─ YES → PROHIBITED
+
+├─ Does system make automated decisions affecting individual rights?
+│  │ (hiring, credit, insurance, benefits, education, justice, healthcare)
+│  ├─ YES → Check Annex III
+│  │         ├─ Matches category → HIGH-RISK
+│  │         └─ No match → GENERAL-PURPOSE
+│  └─ NO → Continue
+
+└─ Is system a general-purpose LLM (ChatGPT, Claude)?
+   ├─ YES → GENERAL-PURPOSE
+   └─ NO → LOW-RISK or GENERAL-PURPOSE</code></pre>
+
+            <h2 id="mistakes">Common Classification Mistakes</h2>
+
+            <h3>Mistake #1: "It's a General-Purpose LLM, So No Obligations"</h3>
+
+            <p>
+              <strong>Wrong.</strong> How you <em>use</em> a general-purpose LLM determines its risk classification.
+            </p>
+
+            <ul>
+              <li>ChatGPT for customer service = general-purpose ✓</li>
+              <li>ChatGPT for hiring decisions = HIGH-RISK ✗</li>
+            </ul>
+
+            <h3>Mistake #2: "If Humans Review It, It's Not Automated"</h3>
+
+            <p>
+              <strong>Wrong.</strong> The EU AI Act applies even with human review. High-Risk systems must still have audit trails, bias testing, and performance documentation.
+            </p>
+
+            <h3>Mistake #3: "We'll Reclassify If Enforcement Comes"</h3>
+
+            <p>
+              <strong>Too late.</strong> Fines apply retroactively to all deployments made without proper governance. Classification must happen <em>before</em> deployment.
+            </p>
+
+            <h2 id="obligations">Obligations by Classification</h2>
+
+            <h3>If You're the Deployer (You Use the AI System)</h3>
+
+            <table class="text-sm">
+              <thead>
+                <tr>
+                  <th>High-Risk</th>
+                  <th>General-Purpose</th>
+                  <th>Low-Risk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Conformity assessment</td>
+                  <td>Transparency marker</td>
+                  <td>Standard data protection</td>
+                </tr>
+                <tr>
+                  <td>Risk management plan</td>
+                  <td>Copyright compliance</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Audit trail</td>
+                  <td>Abuse prevention</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Performance monitoring</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Bias testing</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Human oversight</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2 id="article-25">The Substantial Modification Risk (Article 25)</h2>
+
+            <p>
+              <strong>Critical:</strong> Your governance solution might accidentally make you the provider instead of the deployer.
+            </p>
+
+            <p>
+              If your governance approach <strong>substantially modifies</strong> the AI system (changes how it behaves), you transition from <strong>Deployer → Provider</strong> status and inherit all provider obligations.
+            </p>
+
+            <p>
+              <strong>Examples of non-modification (safe):</strong>
+            </p>
+
+            <ul>
+              <li>Logging decisions (monitoring, not changing)</li>
+              <li>Blocking calls (preventing execution, not changing behavior)</li>
+              <li>Routing decisions (directing traffic, not changing behavior)</li>
+            </ul>
+
+            <p class="mt-6">
+              This is why <strong>proxy-based governance is legally safer</strong> — it logs and blocks without modifying system behavior, keeping you as the deployer.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ Classified? Now Govern It.</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                You've determined your system's risk level. Now implement the governance controls and compliance obligations.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/guides/governance-checklist"
+                  class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+                >
+                  Next: Governance Checklist →
+                </a>
+                <button
+                  onclick="openModal()"
+                  class="inline-flex items-center gap-2 border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-300 hover:border-zinc-600 transition-all"
+                >
+                  Schedule Consultation →
+                </button>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">On This Page</p>
+              <div class="space-y-2 text-xs">
+                <a href="#categories" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Four Categories</a>
+                <a href="#prohibited" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Prohibited Systems</a>
+                <a href="#high-risk" class="block text-zinc-500 hover:text-zinc-300 transition-colors">High-Risk Classification</a>
+                <a href="#mistakes" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Common Mistakes</a>
+                <a href="#article-25" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Article 25 Risk</a>
+              </div>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">The Trilogy</p>
+              <div class="space-y-3 text-xs">
+                <a href="/guides/detect-shadow-ai" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <span>→</span>
+                  <span>Detect Shadow AI</span>
+                </a>
+                <div class="flex items-center gap-2">
+                  <span class="text-amber-300">✓</span>
+                  <span class="text-zinc-400">Classify Risk Level</span>
+                </div>
+                <a href="/guides/governance-checklist" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <span>→</span>
+                  <span>Implement Governance</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Deadline</p>
+              <p class="font-mono text-sm text-red-400">August 2, 2026</p>
+              <p class="text-xs text-zinc-600 mt-1">High-Risk enforcement</p>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde h3 {
+    color: #e4e4e7;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+  }
+  .prose-kyde table thead {
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde table th {
+    text-align: left;
+    padding: 0.75rem;
+    color: #e4e4e7;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .prose-kyde table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde pre {
+    background: #18181b;
+    border: 1px solid #27272a;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+  }
+  .prose-kyde code {
+    font-family: ui-monospace, monospace;
+    font-size: 0.875rem;
+    color: #d4d4d8;
+    line-height: 1.5;
+  }
+  .prose-kyde pre code {
+    color: inherit;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde em { color: #d4d4d8; font-style: italic; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>

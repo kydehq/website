@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base
+    title="404 — KYDE"
+    description="Page not found."
+>
+    <Navbar />
+
+    <main>
+        <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36 min-h-[70vh] flex items-center">
+            <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+            <div class="relative max-w-7xl mx-auto px-6 w-full">
+
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-red-400/60 animate-pulse shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] text-red-300">↳ 404 · Page Not Found</span>
+                    </div>
+                    <div class="h-px w-full bg-zinc-800"></div>
+                </div>
+
+                <h1 class="hero-h1 max-w-5xl text-5xl text-white uppercase tracking-tight md:text-6xl lg:text-7xl">
+                    Lost in the
+                    <span class="gradient-text">agentic wilderness.</span>
+                </h1>
+
+                <div class="mt-16 border-t border-zinc-800 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.15em] text-white">
+                            Redirect
+                        </p>
+                        <p class="mt-2 font-mono text-xs text-zinc-600">[AUTO-ROUTING]</p>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-sm uppercase tracking-wide leading-relaxed text-zinc-400">
+                            The page you're looking for doesn't exist or has been moved.
+                            You'll be redirected to the homepage in <span id="countdown" class="text-amber-300 font-mono">5</span> seconds.
+                        </p>
+
+                        <div class="rounded-sm border border-zinc-800 bg-zinc-900/80">
+                            <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-2">
+                                <span class="h-2 w-2 rounded-full bg-red-500/80"></span>
+                                <span class="h-2 w-2 rounded-full bg-amber-500/80"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-500/80"></span>
+                                <span class="ml-2 font-mono text-[11px] text-zinc-600">redirect.sh</span>
+                            </div>
+                            <pre class="px-4 py-4 font-mono text-xs leading-relaxed text-zinc-300 overflow-x-auto"><code><span class="text-zinc-600">$</span> kyde route --fallback<br/><span class="text-amber-300">warn</span>  requested path not found<br/><span class="text-emerald-400">info</span>  redirecting to <span class="text-white">/</span> in <span id="countdown-terminal" class="text-amber-300">5</span>s...</code></pre>
+                        </div>
+
+                        <a
+                            href="/"
+                            class="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-amber-300 hover:text-amber-200 transition-colors"
+                        >
+                            Go to homepage now &rarr;
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Base>
+
+<script>
+    let seconds = 5;
+    const countdownEl = document.getElementById("countdown");
+    const countdownTerminalEl = document.getElementById("countdown-terminal");
+
+    const timer = setInterval(() => {
+        seconds--;
+        if (countdownEl) countdownEl.textContent = String(seconds);
+        if (countdownTerminalEl) countdownTerminalEl.textContent = String(seconds);
+        if (seconds <= 0) {
+            clearInterval(timer);
+            window.location.href = "/";
+        }
+    }, 1000);
+</script>
