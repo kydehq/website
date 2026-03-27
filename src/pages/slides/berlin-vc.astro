@@ -92,7 +92,7 @@ import SlideBase from "../../layouts/SlideBase.astro";
     .dp  { width:6px; height:6px; border-radius:50%; background:var(--am); opacity:.7; flex-shrink:0; animation:pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
 
-    /* Typography — bumped up for PPT feel */
+    /* Typography */
     .t-hero { font-family:'Inter',sans-serif; font-size:clamp(56px,8.5vw,112px); font-weight:600; letter-spacing:-.03em; line-height:1.06; text-transform:uppercase; }
     .t-h1   { font-family:'Inter',sans-serif; font-size:clamp(34px,4.2vw,62px);  font-weight:600; letter-spacing:-.03em; line-height:1.05; }
     .t-h2   { font-family:'Inter',sans-serif; font-size:clamp(22px,2.6vw,38px);  font-weight:500; letter-spacing:-.02em; line-height:1.1; }
@@ -115,34 +115,27 @@ import SlideBase from "../../layouts/SlideBase.astro";
 
     /* Stacked rows */
     .rows { display:flex; flex-direction:column; gap:1px; background:var(--bd); }
-    .row  { background:var(--bg); display:grid; grid-template-columns:180px 1fr; gap:24px; padding:24px 28px; align-items:start; flex:1; }
+    .row  { background:var(--bg); display:grid; grid-template-columns:200px 1fr; gap:24px; padding:24px 28px; align-items:start; flex:1; }
 
-    /* Step rows */
-    .step   { display:grid; grid-template-columns:50px 1fr; gap:20px; padding:22px 0; border-bottom:1px solid var(--bd); align-items:start; flex:1; }
-    .step:last-child { border-bottom:none; }
-    .step-n { font-family:ui-monospace,monospace; font-size:11px; color:var(--am); letter-spacing:.2em; padding-top:4px; }
-
-    /* Moat rows */
-    .moat-row { display:grid; grid-template-columns:140px 1fr; gap:24px; padding:18px 0; border-bottom:1px solid var(--bd); align-items:start; flex:1; }
-    .moat-row:last-child { border-bottom:none; }
-
-    /* Pilot rows */
-    .pilot-row { display:grid; grid-template-columns:200px 1fr; gap:20px; padding:16px 24px; background:var(--bg); align-items:start; }
+    /* Question rows */
+    .qrow { display:grid; grid-template-columns:220px 1fr; gap:24px; padding:20px 28px; background:var(--bg); align-items:start; border-bottom:1px solid var(--bd); }
+    .qrow:last-child { border-bottom:none; }
 
     /* Market numbers */
     .mnum { font-size:clamp(40px,5vw,72px); font-weight:600; letter-spacing:-.03em; color:var(--wh); line-height:1; margin-bottom:10px; }
 
-    /* Silicon Leash badge */
-    .sl-badge {
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid rgba(251,191,36,.25); background:rgba(251,191,36,.04);
-      padding:6px 14px; flex-shrink:0;
-    }
-    .sl-badge span { font-family:ui-monospace,monospace; font-size:10px; letter-spacing:.2em; color:var(--am); }
+    /* Pilot rows */
+    .pilot-row { display:grid; grid-template-columns:200px 1fr; gap:20px; padding:16px 24px; background:var(--bg); align-items:start; }
 
-    /* Question rows */
-    .qrow { display:grid; grid-template-columns:180px 1fr; gap:24px; padding:20px 28px; background:var(--bg); align-items:start; border-bottom:1px solid var(--bd); }
-    .qrow:last-child { border-bottom:none; }
+    /* Workforce flip chart */
+    .flip-chart {
+      flex: 1;
+      position: relative;
+      border: 1px solid var(--bd);
+      background: var(--bg1);
+      overflow: hidden;
+    }
+    .flip-chart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
   </style>
 
   <!-- Nav dots (12) -->
@@ -172,12 +165,16 @@ import SlideBase from "../../layouts/SlideBase.astro";
 
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
         <p class="mono am" style="font-size:11px;letter-spacing:.3em;margin-bottom:24px">KYDE</p>
-        <h1 class="t-hero" style="margin-bottom:28px">
-          Who Did That?
+        <h1 class="t-hero" style="margin-bottom:32px">
+          The Trust &amp; Control Layer<br>for the Agentic Economy.
         </h1>
-        <p class="t-h2" style="color:var(--z4);max-width:780px">
-          The Trust & Control Layer<br>for the Agentic Economy.
-        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <span class="mono" style="font-size:12px;letter-spacing:.12em;color:var(--z5);border:1px solid var(--bd);padding:6px 14px;">EU AI Act</span>
+          <span class="mono" style="font-size:12px;letter-spacing:.12em;color:var(--z5);border:1px solid var(--bd);padding:6px 14px;">NIS-2</span>
+          <span class="mono" style="font-size:12px;letter-spacing:.12em;color:var(--z5);border:1px solid var(--bd);padding:6px 14px;">DORA</span>
+          <span class="mono" style="font-size:12px;letter-spacing:.12em;color:var(--z5);border:1px solid var(--bd);padding:6px 14px;">GDPR</span>
+          <span class="mono am" style="font-size:12px;letter-spacing:.12em;border:1px solid rgba(251,191,36,.3);padding:6px 14px;">Audit-Ready from Day One.</span>
+        </div>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--bd)">
@@ -198,363 +195,450 @@ import SlideBase from "../../layouts/SlideBase.astro";
       </div>
     </section>
 
-    <!-- 02 THE PROBLEM -->
+    <!-- 02 THE PARADIGM SHIFT -->
     <section class="slide">
       <span class="sn">02 / 12</span>
-      <div class="lrow"><span class="lbl">↳ THE PROBLEM · 01 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ THE PARADIGM SHIFT · 01 / 10</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:8px;max-width:840px">IT is becoming the HR department<br>for AI agents.</h2>
-      <p class="t-b dim" style="margin-bottom:28px;flex-shrink:0;max-width:760px">Enterprises deploy autonomous agents that negotiate contracts, move money, and orchestrate production systems. Unlike software, agents act. Unlike employees, nobody manages them.</p>
+      <h2 class="t-h1" style="margin-bottom:8px;max-width:900px">The Machine-to-Machine Economy</h2>
+      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0;max-width:820px">Legacy AI built workspaces for humans. We are building the infrastructure for a world without humans in the loop.</p>
 
-      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
-        <div class="qrow">
-          <p class="mono am" style="font-size:11px;letter-spacing:.14em;padding-top:3px">WHO ACTED?</p>
-          <p class="t-b">Agents share service accounts. No traceable identity.</p>
+      <div style="flex:1;display:flex;gap:1px;background:var(--bd)">
+        <!-- Chart visual -->
+        <div style="flex:1.4;background:var(--bg);padding:28px 32px;display:flex;flex-direction:column;">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:20px">WORKFORCE COMPOSITION OVER TIME</p>
+          <div style="flex:1;position:relative;">
+            <svg viewBox="0 0 400 200" preserveAspectRatio="none" style="width:100%;height:100%;">
+              <!-- Grid lines -->
+              <line x1="0" y1="50"  x2="400" y2="50"  stroke="#27272a" stroke-width="1"/>
+              <line x1="0" y1="100" x2="400" y2="100" stroke="#27272a" stroke-width="1"/>
+              <line x1="0" y1="150" x2="400" y2="150" stroke="#27272a" stroke-width="1"/>
+              <!-- Human workforce — flat -->
+              <polyline points="0,120 80,118 160,117 240,118 320,120 400,122"
+                fill="none" stroke="#52525b" stroke-width="2" stroke-dasharray="6,4"/>
+              <!-- AI agents — exponential -->
+              <polyline points="0,185 60,180 120,168 180,148 240,118 300,78 360,32 400,8"
+                fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+              <!-- Labels -->
+              <text x="410" y="125" fill="#52525b" font-family="monospace" font-size="9" dominant-baseline="middle">HUMANS</text>
+              <text x="410" y="12"  fill="#fbbf24" font-family="monospace" font-size="9" dominant-baseline="middle">AI AGENTS</text>
+            </svg>
+          </div>
+          <div style="display:flex;gap:24px;margin-top:12px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:20px;height:2px;background:#52525b;border-top:2px dashed #52525b;"></div>
+              <span class="mono" style="font-size:10px;color:var(--z6)">Human Workforce</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:20px;height:2px;background:var(--am);"></div>
+              <span class="mono" style="font-size:10px;color:var(--am)">Autonomous Agents</span>
+            </div>
+          </div>
         </div>
-        <div class="qrow">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);padding-top:3px">WHY THAT DECISION?</p>
-          <p class="t-b">Nobody logged which source it relied on.</p>
+        <!-- Text -->
+        <div style="flex:1;background:var(--bg);padding:32px 36px;display:flex;flex-direction:column;gap:24px;">
+          <div>
+            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:10px">THE SHIFT</p>
+            <p class="t-b">Agents don't need UIs, they don't wait for human permission, and they execute at machine speed.</p>
+          </div>
+          <div style="height:1px;background:var(--bd);"></div>
+          <div>
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z5);margin-bottom:10px">NVIDIA CEO</p>
+            <p class="t-b" style="font-style:italic;color:var(--z3)">"IT is becoming the HR department for AI."</p>
+          </div>
+          <div style="height:1px;background:var(--bd);"></div>
+          <div>
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z5);margin-bottom:10px">THE GAP</p>
+            <p class="t-b">The enterprise lacks the operational <strong class="wh">System of Record</strong> to govern a workforce that operates entirely via APIs.</p>
+          </div>
         </div>
-        <div class="qrow">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);padding-top:3px">WHAT WERE THE LIMITS?</p>
-          <p class="t-b">Token budgets don't exist. API access is unrestricted.</p>
-        </div>
-        <div class="qrow" style="border-left:2px solid rgba(251,191,36,.2)">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);padding-top:3px">WHAT HAPPENED?</p>
-          <p class="t-b">Logs are vendor-provided, self-reported, rewritable.</p>
-        </div>
-      </div>
-
-      <div style="padding-top:16px;flex-shrink:0">
-        <p class="t-sm" style="color:var(--z6)">Without answers, a minor hallucination cascades into a legal and financial disaster.</p>
       </div>
     </section>
 
-    <!-- 03 THE SOLUTION -->
+    <!-- 03 THE ENTERPRISE LIABILITY GAP -->
     <section class="slide">
       <span class="sn">03 / 12</span>
-      <div class="lrow"><span class="lbl">↳ THE SOLUTION · 02 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ THE ENTERPRISE LIABILITY GAP · 02 / 10</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:8px">The first Agent-Native Governance<br>and Liability Infrastructure.</h2>
-      <p class="t-b dim" style="margin-bottom:28px;flex-shrink:0">We do not build agents. We authorize them and hold them accountable.</p>
+      <h2 class="t-h1" style="margin-bottom:8px;max-width:860px">Moving to multi-tenant production<br>breaks legacy IAM.</h2>
+      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0;max-width:820px">When agents autonomously trigger sub-agents (Delegation Chains), compliance collapses. Enterprises cannot answer four critical questions:</p>
 
-      <div style="flex:1;background:var(--bg1);border:1px solid var(--bd);padding:32px 36px;display:flex;flex-direction:column;justify-content:center;margin-bottom:20px">
-        <p class="mono" style="font-size:11px;letter-spacing:.2em;color:var(--z6);margin-bottom:16px">ONE ENVIRONMENT VARIABLE. NO CODE CHANGES.</p>
-        <p class="mono wh" style="font-size:clamp(16px,2vw,26px);letter-spacing:.04em;line-height:1.8">export OPENAI_BASE_URL=https://witness.intranet/v1</p>
-        <p class="t-sm" style="margin-top:16px;color:var(--z6)">Every agent covered. Every provider. From day one.</p>
-      </div>
-
-      <div class="g3" style="flex:1">
-        <div style="padding:28px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono am" style="margin-bottom:14px">↳ IDENTITY & SCOPE</p>
-          <p class="t-b" style="font-size:18px;margin-bottom:10px;flex:1">Every agent gets a distinct identity, role, and hard budget. Shared service accounts replaced with accountable principals.</p>
+      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
+        <div class="qrow">
+          <div>
+            <p class="mono am" style="font-size:11px;letter-spacing:.14em;margin-bottom:4px">IDENTITY</p>
+            <p class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--z6)">Who?</p>
+          </div>
+          <p class="t-b">Shared service accounts. No traceable roles or accountability.</p>
         </div>
-        <div style="padding:28px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z4);margin-bottom:14px">↳ CAUSAL CONTEXT</p>
-          <p class="t-b" style="font-size:18px;margin-bottom:10px;flex:1">Every tool call logged with the last 5 messages. Full decision chain reconstructable. Not just what happened — why.</p>
+        <div class="qrow">
+          <div>
+            <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);margin-bottom:4px">CAUSAL CONTEXT</p>
+            <p class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--z6)">Why?</p>
+          </div>
+          <p class="t-b">AI operates as a black box. No record of the reasoning or source documents relied upon.</p>
         </div>
-        <div style="padding:28px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z5);margin-bottom:14px">↳ TAMPER-EVIDENT LEDGER</p>
-          <p class="t-b" style="font-size:18px;flex:1">Ed25519-signed, SHA-256 hash-chained. Alter any entry and every subsequent link breaks. Chain of evidence, not a log.</p>
+        <div class="qrow">
+          <div>
+            <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);margin-bottom:4px">SCOPE &amp; BUDGET</p>
+            <p class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--z6)">Limits?</p>
+          </div>
+          <p class="t-b">Unrestricted access leads to massive token cost explosions and state collisions between agents.</p>
+        </div>
+        <div class="qrow" style="border-left:2px solid rgba(251,191,36,.2)">
+          <div>
+            <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);margin-bottom:4px">TAMPER-EVIDENCE</p>
+            <p class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--z6)">Proof?</p>
+          </div>
+          <p class="t-b">Self-reported, easily editable vendor logs that <strong class="wh">fail in court.</strong></p>
         </div>
       </div>
     </section>
 
-    <!-- 04 THE PRODUCT -->
+    <!-- 04 THE SOLUTION -->
     <section class="slide">
       <span class="sn">04 / 12</span>
-      <div class="lrow"><span class="lbl">↳ THE PRODUCT · 03 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ THE SOLUTION · 03 / 10</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:8px">Kyde sits between your agent fleet<br>and any LLM provider.</h2>
-      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0">Six capabilities. One proxy. Under 100ms latency.</p>
+      <h2 class="t-h1" style="margin-bottom:8px">Agent-Native Governance.</h2>
+      <p class="t-b dim" style="margin-bottom:28px;flex-shrink:0;max-width:820px">Developers build the Agent Core. KYDE provides the Multi-Tenant Harness. We do not build agents — we authorize them and hold them legally accountable.</p>
 
-      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
-        <div class="row">
-          <p class="mono am" style="font-size:11px;letter-spacing:.14em;padding-top:3px">IDENTITY & SCOPE</p>
-          <p class="t-b" style="font-size:18px">Every agent gets a distinct identity, role, and hard budget. Shared service accounts replaced with accountable principals.</p>
+      <div style="flex:1;display:flex;gap:1px;background:var(--bd)">
+        <div style="flex:1;background:var(--bg);padding:32px 36px;display:flex;flex-direction:column;justify-content:center">
+          <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z6);margin-bottom:20px">ARCHITECTURE</p>
+          <div style="display:flex;flex-direction:column;gap:1px;margin-bottom:24px">
+            <div style="background:var(--bg1);border:1px solid var(--bd);padding:16px 20px;">
+              <p class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--z5)">YOUR AGENT FLEET</p>
+              <p class="t-sm" style="margin-top:4px">Custom enterprise agents, MCP clients, external integrations</p>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;height:28px;">
+              <div style="width:1px;height:28px;background:var(--am);opacity:.5;"></div>
+            </div>
+            <div style="background:var(--bg1);border:1px solid rgba(251,191,36,.3);border-left:2px solid var(--am);padding:16px 20px;">
+              <p class="mono am" style="font-size:11px;letter-spacing:.12em;">KYDE WITNESS — INVISIBLE PROXY</p>
+              <p class="t-sm" style="margin-top:4px">Identity · Budget · Signing · Enforcement · Ledger</p>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;height:28px;">
+              <div style="width:1px;height:28px;background:var(--bd2);opacity:.5;"></div>
+            </div>
+            <div style="background:var(--bg1);border:1px solid var(--bd);padding:16px 20px;">
+              <p class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--z5)">ANY LLM PROVIDER</p>
+              <p class="t-sm" style="margin-top:4px">OpenAI · Anthropic · Gemini · Mistral · self-hosted</p>
+            </div>
+          </div>
         </div>
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);padding-top:3px">LIABILITY FIREBREAKS</p>
-          <p class="t-b" style="font-size:18px">Unauthorized or out-of-budget actions dropped in real-time, before they reach external systems.</p>
-        </div>
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);padding-top:3px">CAUSAL CONTEXT</p>
-          <p class="t-b" style="font-size:18px">Every tool call logged with the last 5 messages. Not just what happened — why.</p>
-        </div>
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z4);padding-top:3px">TAMPER-EVIDENT LEDGER</p>
-          <p class="t-b" style="font-size:18px">Ed25519-signed, SHA-256 hash-chained. Alter any entry — every subsequent link breaks.</p>
-        </div>
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);padding-top:3px">FLEET MANAGEMENT</p>
-          <p class="t-b" style="font-size:18px">Role-based priorities, per-agent budgets, API allowlists. Production agents take precedence over intern bots.</p>
-        </div>
-        <div class="row" style="border-left:2px solid rgba(251,191,36,.15)">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);padding-top:3px">ZERO-FRICTION DEPLOY</p>
-          <p class="t-b" style="font-size:18px">One environment variable or Group Policy push. Agent sees no difference.</p>
+        <div style="flex:1;background:var(--bg);padding:32px 36px;display:flex;flex-direction:column;gap:20px">
+          <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z6)">KYDE SITS AS NETWORK PROXY — ENFORCING HARD BOUNDARIES ON EVERY MACHINE DECISION</p>
+          <div style="height:1px;background:var(--bd);"></div>
+          <div>
+            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:8px">↳ PROVIDER-AGNOSTIC</p>
+            <p class="t-b">Switching LLM provider is a config change. Governance stays intact.</p>
+          </div>
+          <div>
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:8px">↳ ZERO VENDOR LOCK-IN</p>
+            <p class="t-b">Your governance layer does not depend on your LLM choice.</p>
+          </div>
+          <div>
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:8px">↳ ZERO DEVELOPER FRICTION</p>
+            <p class="t-b">One environment variable. No SDK integration. No code refactoring.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 05 TRACTION -->
+    <!-- 05 THE CORE ENGINE -->
     <section class="slide">
       <span class="sn">05 / 12</span>
-      <div class="lrow"><span class="lbl">↳ TRACTION · 04 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ THE CORE ENGINE · 04 / 10</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:8px">Deployed where governance<br>matters most.</h2>
-      <p class="t-b dim" style="margin-bottom:28px;flex-shrink:0">Early partners in regulated environments.</p>
+      <h2 class="t-h1" style="margin-bottom:8px">Liability Firebreaks &amp;<br>Transitive Accountability.</h2>
+      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0">Every machine decision — signed, chained, and policy-enforced in under 100ms.</p>
 
-      <div style="display:flex;flex-direction:column;gap:1px;background:var(--bd);flex-shrink:0;margin-bottom:24px">
-        <div class="pilot-row">
-          <div>
-            <p class="mono am" style="font-size:12px;letter-spacing:.1em;margin-bottom:4px">European Commission</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.08em">DIGIT B.1</p>
+      <div style="flex:1;display:flex;gap:1px;background:var(--bd)">
+        <!-- Code block -->
+        <div style="flex:1.2;background:#0d0d0f;padding:28px 32px;display:flex;flex-direction:column;font-family:ui-monospace,monospace;">
+          <p style="font-size:10px;letter-spacing:.15em;color:var(--z6);margin-bottom:16px">audit_entry.json</p>
+          <pre style="font-size:14px;line-height:1.8;color:var(--z4);flex:1;white-space:pre-wrap;">{
+  <span style="color:#fbbf24">"agent_id"</span>: <span style="color:#a3e635">"billing-agent-7f3a"</span>,
+  <span style="color:#fbbf24">"role"</span>:     <span style="color:#a3e635">"finance::readonly"</span>,
+  <span style="color:#fbbf24">"action"</span>:  <span style="color:#a3e635">"tool_call::get_invoice"</span>,
+  <span style="color:#fbbf24">"budget"</span>: {
+    <span style="color:#60a5fa">"limit_tokens"</span>: <span style="color:#fb923c">50000</span>,
+    <span style="color:#60a5fa">"used_tokens"</span>:  <span style="color:#fb923c">12847</span>
+  },
+  <span style="color:#fbbf24">"signature"</span>: <span style="color:#a3e635">"ed25519::a9f2..."</span>,
+  <span style="color:#fbbf24">"prev_hash"</span>: <span style="color:#a3e635">"sha256::3c8b..."</span>,
+  <span style="color:#fbbf24">"timestamp"</span>: <span style="color:#a3e635">"2026-03-27T09:14:02Z"</span>
+}</pre>
+        </div>
+        <!-- Three pillars -->
+        <div style="flex:1;background:var(--bg);display:flex;flex-direction:column;gap:1px;background:var(--bd)">
+          <div style="background:var(--bg);padding:28px 30px;flex:1;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:12px">↳ CRYPTOGRAPHIC IDENTITY</p>
+            <p class="t-b" style="font-size:18px">Every agent receives a distinct, verifiable identity with strict role boundaries.</p>
           </div>
-          <p class="t-sm">AI governance mandate for the EU. Operating GPT@EC — the Commission's internal AI deployment. Direct regulatory pressure, immediate need.</p>
-        </div>
-        <div class="pilot-row">
-          <div>
-            <p class="mono" style="font-size:12px;letter-spacing:.1em;color:var(--z4);margin-bottom:4px">Allianz Life</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.08em">HIGH-RISK INSURANCE · BAFIN</p>
+          <div style="background:var(--bg);padding:28px 30px;flex:1;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:12px">↳ LIABILITY FIREBREAKS</p>
+            <p class="t-b" style="font-size:18px">Real-time (&lt;100ms) policy enforcement. Unauthorized or out-of-budget actions are hard-dropped before they impact external systems.</p>
           </div>
-          <p class="t-sm">High-risk insurance under BaFin. EU AI Act Article 12/13 requirements in automated decision-making systems.</p>
-        </div>
-        <div class="pilot-row">
-          <div>
-            <p class="mono" style="font-size:12px;letter-spacing:.1em;color:var(--z4);margin-bottom:4px">Bitpanda</p>
-            <p class="mono" style="font-size:10px;color:var(--z6);letter-spacing:.08em">DORA / NIS-2 · CRYPTO</p>
+          <div style="background:var(--bg);padding:28px 30px;flex:1;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z5);margin-bottom:12px">↳ TAMPER-EVIDENT LEDGER</p>
+            <p class="t-b" style="font-size:18px;">Ed25519-signed + SHA-256 hash-chained. A <strong class="wh">mathematically proven chain of evidence</strong> for regulatory and judicial scrutiny.</p>
           </div>
-          <p class="t-sm">DORA/NIS-2 crypto operations. Tamper-evident audit trail for every agent action in production.</p>
-        </div>
-      </div>
-
-      <div class="g3" style="flex:1">
-        <div style="padding:24px 28px;display:flex;flex-direction:column;justify-content:center">
-          <p class="mnum">3</p>
-          <p class="t-sm">Active design partners</p>
-        </div>
-        <div style="padding:24px 28px;display:flex;flex-direction:column;justify-content:center">
-          <p class="mnum" style="color:var(--z3)">MVP</p>
-          <p class="t-sm">Live and intercepting production traffic</p>
-        </div>
-        <div style="padding:24px 28px;display:flex;flex-direction:column;justify-content:center">
-          <p class="mnum" style="font-size:clamp(28px,3.5vw,52px);color:var(--z3)">Aug 2027</p>
-          <p class="t-sm">EU AI Act enforcement — our mandate deadline</p>
         </div>
       </div>
     </section>
 
-    <!-- 06 THE MARKET -->
-    <section class="slide">
+    <!-- 06 THE WEDGE -->
+    <section class="slide has-grid">
       <span class="sn">06 / 12</span>
-      <div class="lrow"><span class="lbl">↳ THE MARKET · 05 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ THE WEDGE · GO-TO-MARKET · 05 / 10</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:8px">Every enterprise deploying<br>AI agents is a prospect.</h2>
-      <p class="t-b dim" style="margin-bottom:28px;flex-shrink:0">That is every enterprise. Regulation makes it mandatory.</p>
+      <h2 class="t-h1" style="margin-bottom:8px">The Zero-Friction Proxy.</h2>
+      <p class="t-b dim" style="margin-bottom:32px;flex-shrink:0">Governance without developer pushback.</p>
 
-      <div class="g3" style="flex:1;margin-bottom:20px">
-        <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono am" style="margin-bottom:20px">TOTAL ADDRESSABLE MARKET</p>
-          <p class="mnum">€4.3B</p>
-          <p class="t-sm" style="flex:1">~50k EU enterprises × avg. 3 AI systems × €29k annual compliance cost (EU Commission Impact Assessment).</p>
+      <div style="flex:1;display:flex;flex-direction:column;gap:20px">
+        <!-- Terminal -->
+        <div style="background:#0d0d0f;border:1px solid var(--bd);padding:32px 40px;flex-shrink:0">
+          <p class="mono" style="font-size:10px;letter-spacing:.15em;color:var(--z6);margin-bottom:16px">DEPLOY KYDE IN 30 SECONDS</p>
+          <p class="mono wh" style="font-size:clamp(16px,2vw,26px);letter-spacing:.04em;line-height:1.8">$ export OPENAI_BASE_URL=https://witness.intranet/v1</p>
+          <p class="mono" style="font-size:14px;color:var(--z6);margin-top:12px"># No SDK integration. No code refactoring. Agent sees no difference.</p>
         </div>
-        <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z4);margin-bottom:20px">SERVICEABLE ADDRESSABLE MARKET</p>
-          <p class="mnum">€820M</p>
-          <p class="t-sm" style="flex:1">Financial services, healthcare, critical infrastructure — ~20% of TAM. High-risk by law, immediately actionable.</p>
-        </div>
-        <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z5);margin-bottom:20px">18-MONTH TARGET</p>
-          <p class="mnum" style="font-size:clamp(28px,3.5vw,50px);color:var(--z3)">DACH + EU</p>
-          <p class="t-sm" style="flex:1">Regulated enterprises in Western Europe. DORA in force. EU AI Act enforcement clock running.</p>
-        </div>
-      </div>
 
-      <div style="background:var(--bg1);border:1px solid var(--bd);padding:18px 28px;display:flex;gap:48px;flex-shrink:0">
-        <div>
-          <p class="lbl mono am" style="margin-bottom:6px">DORA IN FORCE</p>
-          <p class="mono wh" style="font-size:14px;letter-spacing:.05em">January 2025</p>
-        </div>
-        <div>
-          <p class="lbl mono" style="color:var(--z5);margin-bottom:6px">NIS-2 TRANSPOSED</p>
-          <p class="mono" style="font-size:14px;color:var(--z4);letter-spacing:.04em">October 2024</p>
-        </div>
-        <div>
-          <p class="lbl mono am" style="margin-bottom:6px">EU AI ACT ENFORCEMENT</p>
-          <p class="mono wh" style="font-size:14px;letter-spacing:.05em">August 2, 2027</p>
-        </div>
-        <div style="flex:1;text-align:right;display:flex;align-items:center;justify-content:flex-end">
-          <p class="t-sm" style="color:var(--z6)">Kyde is not a nice-to-have. For regulated enterprises, it is the legal prerequisite for agents in production.</p>
+        <div class="g3" style="flex:1">
+          <div style="padding:28px 30px;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:14px">↳ CISO WINS</p>
+            <p class="t-b" style="font-size:18px">Instant visibility and control over the entire shadow AI fleet. No IT ticket required.</p>
+          </div>
+          <div style="padding:28px 30px;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:14px">↳ DEVELOPER WINS</p>
+            <p class="t-b" style="font-size:18px;">Zero refactoring. Works with any framework. Switch LLM providers freely.</p>
+          </div>
+          <div style="padding:28px 30px;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:14px">↳ COMPLIANCE WINS</p>
+            <p class="t-b" style="font-size:18px">Audit trail active from deployment day one. EU AI Act, DORA, NIS-2 coverage immediately.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 07 BUSINESS MODEL -->
+    <!-- 07 USE CASES & TAM -->
     <section class="slide">
       <span class="sn">07 / 12</span>
-      <div class="lrow"><span class="lbl">↳ BUSINESS MODEL · 06 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ USE CASES &amp; TAM · 06 / 10</span></div>
 
-      <h2 class="t-h1" style="margin-bottom:8px">SaaS. Usage-based. Enterprise contracts.</h2>
-      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0">Land with developers. Expand to compliance. Lock in with the ledger.</p>
+      <h2 class="t-h1" style="margin-bottom:8px">The Zero-Trust Gateway for<br>the Autonomous Enterprise.</h2>
+      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0">The indispensable compliance layer for internal fleets and external MCP integrations.</p>
+
+      <div style="flex:1;display:flex;gap:1px;background:var(--bd)">
+        <!-- Architecture -->
+        <div style="flex:1;background:var(--bg);padding:28px 32px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:8px">ARCHITECTURE</p>
+          <div style="border:1px solid var(--bd);background:var(--bg1);padding:14px 18px;text-align:center">
+            <p class="mono" style="font-size:12px;color:var(--z4);letter-spacing:.1em">EXTERNAL AGENTS</p>
+            <p class="mono" style="font-size:10px;color:var(--z6)">MCP clients · API callers</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px">
+            <div style="flex:1;height:1px;background:var(--bd);"></div>
+            <span class="mono" style="font-size:10px;color:var(--z6)">+</span>
+            <div style="flex:1;height:1px;background:var(--bd);"></div>
+          </div>
+          <div style="border:1px solid var(--bd);background:var(--bg1);padding:14px 18px;text-align:center">
+            <p class="mono" style="font-size:12px;color:var(--z4);letter-spacing:.1em">INTERNAL AGENT FLEET</p>
+            <p class="mono" style="font-size:10px;color:var(--z6)">Custom enterprise agents</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center">
+            <div style="width:1px;height:28px;background:var(--am);opacity:.6;"></div>
+          </div>
+          <div style="border:1px solid rgba(251,191,36,.3);border-left:2px solid var(--am);background:var(--bg1);padding:14px 18px;text-align:center">
+            <p class="mono am" style="font-size:12px;letter-spacing:.1em">KYDE PROXY</p>
+            <p class="mono" style="font-size:10px;color:var(--z6)">Identity · Enforcement · Ledger</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center">
+            <div style="width:1px;height:28px;background:var(--bd2);opacity:.5;"></div>
+          </div>
+          <div style="border:1px solid var(--bd);background:var(--bg1);padding:14px 18px;text-align:center">
+            <p class="mono" style="font-size:12px;color:var(--z4);letter-spacing:.1em">ENTERPRISE MCP SERVER</p>
+            <p class="mono" style="font-size:10px;color:var(--z6)">Tools · Data · APIs</p>
+          </div>
+        </div>
+        <!-- Use cases -->
+        <div style="flex:1.4;background:var(--bg);display:flex;flex-direction:column;gap:1px;background:var(--bd)">
+          <div style="background:var(--bg);padding:28px 30px;flex:1;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:10px">↳ FINANCE</p>
+            <p class="t-b" style="font-size:19px">Hard budgets for autonomous trading agents and external MCP requests. Hard-drop before execution. DORA audit trail built-in.</p>
+          </div>
+          <div style="background:var(--bg);padding:28px 30px;flex:1;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:10px">↳ HEALTHCARE</p>
+            <p class="t-b" style="font-size:19px">HIPAA-compliant causal context tracking for medical billing bots. Every source document logged. Every decision reproducible.</p>
+          </div>
+          <div style="background:var(--bg);padding:28px 30px;flex:1;display:flex;flex-direction:column;justify-content:center">
+            <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z4);margin-bottom:10px">↳ SUPPLY CHAIN</p>
+            <p class="t-b" style="font-size:19px">Scope enforcement for procurement agents negotiating directly with supplier APIs. Role boundaries before any external call.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 THE MOAT -->
+    <section class="slide">
+      <span class="sn">08 / 12</span>
+      <div class="lrow"><span class="lbl">↳ THE MOAT · 07 / 10</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:8px">Workspaces for Humans<br>vs. Infrastructure for Machines.</h2>
+      <p class="t-b dim" style="margin-bottom:28px;flex-shrink:0">The fundamental architectural divide of the AI era.</p>
+
+      <div style="flex:1;display:flex;gap:1px;background:var(--bd)">
+        <!-- Human layer -->
+        <div style="flex:1;background:var(--bg);padding:36px 38px;display:flex;flex-direction:column;">
+          <p class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--z6);margin-bottom:20px">THE HUMAN LAYER</p>
+          <p class="t-h2" style="color:var(--z5);margin-bottom:20px;font-size:clamp(18px,2vw,28px)">Assistants &amp; Copilots</p>
+          <div style="display:flex;flex-direction:column;gap:14px;flex:1">
+            <p class="t-b" style="font-size:18px">Built for human productivity.</p>
+            <p class="t-b" style="font-size:18px">Relies on Chat UIs and human-in-the-loop validation.</p>
+            <p class="t-b" style="font-size:18px">Session-based security.</p>
+            <p class="t-b" style="font-size:18px">Makes humans faster.</p>
+          </div>
+        </div>
+        <!-- KYDE layer -->
+        <div style="flex:1;background:var(--bg);padding:36px 38px;display:flex;flex-direction:column;border-left:2px solid rgba(251,191,36,.2)">
+          <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:20px">THE MACHINE LAYER — KYDE</p>
+          <p class="t-h2" style="color:var(--wh);margin-bottom:20px;font-size:clamp(18px,2vw,28px)">Built for True Autonomy</p>
+          <div style="display:flex;flex-direction:column;gap:14px;flex:1">
+            <p class="t-b" style="font-size:18px;color:var(--z3)">No UIs, no human validation.</p>
+            <p class="t-b" style="font-size:18px;color:var(--z3)">Network proxy and cryptographic ledger securing the M2M economy.</p>
+            <p class="t-b" style="font-size:18px;color:var(--z3)">Enforces hard boundaries at machine speed.</p>
+            <p class="t-b" style="font-size:18px;color:var(--wh)"><strong>Makes autonomous machines legally and operationally safe.</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 BUSINESS MODEL -->
+    <section class="slide">
+      <span class="sn">09 / 12</span>
+      <div class="lrow"><span class="lbl">↳ BUSINESS MODEL · 08 / 10</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:8px">Monetizing the Digital Workforce.</h2>
+      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0">Charge for the machine, not the human.</p>
 
       <div class="g3" style="flex:1;margin-bottom:20px">
         <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z5);margin-bottom:12px">FREE / OPEN SOURCE</p>
-          <p class="t-b" style="font-size:18px;margin-bottom:12px;flex:1">Core proxy, basic signing, community tier.</p>
-          <p class="t-sm">Developer adoption. Bottom-up distribution. Every installation is a future enterprise account.</p>
+          <p class="lbl mono am" style="margin-bottom:16px">THE MODEL</p>
+          <p class="t-b" style="font-size:18px;flex:1">Platform Base Fee + Per-Agent License.</p>
+          <p class="t-sm">As the agent fleet proliferates, KYDE scales automatically. Zero additional CAC.</p>
         </div>
         <div style="padding:32px 30px;display:flex;flex-direction:column;border-left:2px solid rgba(251,191,36,.15)">
-          <p class="lbl mono am" style="margin-bottom:12px">PRO</p>
-          <p class="t-b" style="font-size:18px;margin-bottom:12px;flex:1">Fleet management, causal context, audit dashboard.</p>
-          <p class="t-sm">Per-agent per-month pricing. Scales with fleet size.</p>
+          <p class="lbl mono" style="color:var(--z4);margin-bottom:16px">THE LOCK-IN</p>
+          <p class="t-b" style="font-size:18px;flex:1">Premium Vault Retention — 3 to 7 years of cryptographic audit trail storage.</p>
+          <p class="t-sm">EU AI Act and DORA mandate it. Once anchored, migration is structurally impossible.</p>
         </div>
         <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z4);margin-bottom:12px">ENTERPRISE</p>
-          <p class="t-b" style="font-size:18px;margin-bottom:12px;flex:1">Tamper-evident ledger, compliance exports, SLA, HSM integration.</p>
-          <p class="t-sm">Annual contract. The ledger creates the lock-in.</p>
-        </div>
-      </div>
-
-      <div class="card-l" style="flex-shrink:0;max-width:780px">
-        <p class="t-b" style="font-size:20px;color:var(--z3);line-height:1.5">
-          Switching cost: once an enterprise anchors its audit and legal defense history on Kyde's ledger, migration is structurally impossible.
-        </p>
-      </div>
-    </section>
-
-    <!-- 08 COMPETITION -->
-    <section class="slide">
-      <span class="sn">08 / 12</span>
-      <div class="lrow"><span class="lbl">↳ COMPETITION · 07 / 10</span></div>
-
-      <h2 class="t-h1" style="margin-bottom:8px">Nobody is building this exact layer.</h2>
-      <p class="t-b dim" style="margin-bottom:24px;flex-shrink:0">That is the opportunity — and the risk.</p>
-
-      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--bd)">
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);padding-top:3px">OKTA / IAM</p>
-          <p class="t-b" style="font-size:18px">Identity for humans, retrofitted for agents. No cryptographic audit trail. No causal context. No agent-native architecture.</p>
-        </div>
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);padding-top:3px">LANGCHAIN / ORCHESTRATION</p>
-          <p class="t-b" style="font-size:18px">Dev tools for building agents. Different layer entirely. No governance, no accountability.</p>
-        </div>
-        <div class="row">
-          <p class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--z5);padding-top:3px">PROVIDER-NATIVE LOGGING</p>
-          <p class="t-b" style="font-size:18px">Self-reported, vendor-controlled, legally worthless as independent evidence. The auditor cannot audit themselves.</p>
-        </div>
-        <div class="row" style="border-left:2px solid rgba(251,191,36,.25)">
-          <p class="mono am" style="font-size:11px;letter-spacing:.14em;padding-top:3px">KYDE</p>
-          <p class="t-b" style="font-size:18px">Purpose-built for agents. Independent of providers. <strong class="wh">Tamper-evident by architecture, not by policy.</strong> The first mover who becomes the institutional memory of enterprise agent fleets owns the category.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 09 VISION -->
-    <section class="slide has-grid">
-      <span class="sn">09 / 12</span>
-      <div class="lrow"><span class="lbl">↳ VISION · 08 / 10</span></div>
-
-      <h2 class="t-h1" style="margin-bottom:8px">Today: software proxy.<br>Phase 3: Silicon Leash.</h2>
-      <p class="t-b dim" style="margin-bottom:32px;flex-shrink:0">The same root of trust that satisfies a court satisfies a substation.</p>
-
-      <div class="g3" style="flex:1;margin-bottom:24px">
-        <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono am" style="margin-bottom:14px">NOW — OBSERVE</p>
-          <p class="t-b" style="font-size:18px;flex:1">Software proxy securing digital agent decisions. Every LLM call, every tool invocation, every MCP action — signed and chained.</p>
-        </div>
-        <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z4);margin-bottom:14px">NEXT — GOVERN</p>
-          <p class="t-b" style="font-size:18px;flex:1">Active fleet management. Role-based identity. Hard limits before the call is made. Policy enforcement, not policy advice.</p>
-        </div>
-        <div style="padding:32px 30px;display:flex;flex-direction:column">
-          <p class="lbl mono" style="color:var(--z5);margin-bottom:14px">PHASE 3 — SILICON LEASH</p>
-          <p class="t-b" style="font-size:18px;flex:1">Trust layer anchored in hardware. HSM, PKCS#11, TEE. The prerequisite for delegating authority to agents in the physical world.</p>
+          <p class="lbl mono" style="color:var(--z5);margin-bottom:16px">UNIT ECONOMICS</p>
+          <p class="t-b" style="font-size:18px;flex:1">High-margin infrastructure (&gt;85% gross margin) with guaranteed NRR expansion.</p>
+          <p class="t-sm">Fleet growth = automatic revenue expansion. No additional selling motion required.</p>
         </div>
       </div>
 
       <div class="card-l" style="flex-shrink:0">
-        <p class="t-b" style="font-size:20px;color:var(--z3);line-height:1.5;margin-bottom:12px">
-          Power grids. Logistics hubs. Critical cyber-physical infrastructure.
-        </p>
-        <p class="t-b" style="font-size:20px;color:var(--wh);line-height:1.5">
-          Okta manages human identity. Workday manages the human workforce.<br>
-          <strong>Kyde manages the autonomous workforce.</strong>
+        <p class="t-b" style="font-size:20px;color:var(--z3);line-height:1.5">
+          Intelligence is becoming a commodity.<br>
+          <strong class="wh">Trust is not. KYDE builds trust.</strong>
         </p>
       </div>
     </section>
 
-    <!-- 10 TEAM -->
-    <section class="slide">
+    <!-- 10 THE VISION -->
+    <section class="slide has-grid">
       <span class="sn">10 / 12</span>
-      <div class="lrow"><span class="lbl">↳ THE TEAM · 09 / 10</span></div>
+      <div class="lrow"><span class="lbl">↳ THE VISION · 09 / 10</span></div>
+
+      <h2 class="t-h1" style="margin-bottom:8px">From Bits to Atoms.</h2>
+      <p class="t-b dim" style="margin-bottom:32px;flex-shrink:0">The same root of trust that satisfies a court satisfies a substation.</p>
+
+      <div class="g3" style="flex:1;margin-bottom:24px">
+        <div style="padding:32px 30px;display:flex;flex-direction:column">
+          <p class="lbl mono am" style="margin-bottom:14px">PHASE 1 &amp; 2 — NOW</p>
+          <p class="t-b" style="font-size:18px;flex:1">Securing digital workflows via software proxy. Every LLM call, every tool invocation, every MCP action — signed, chained, policy-enforced.</p>
+        </div>
+        <div style="padding:32px 30px;display:flex;flex-direction:column">
+          <p class="lbl mono" style="color:var(--z4);margin-bottom:14px">PHASE 3 — 2027+</p>
+          <p class="t-b" style="font-size:18px;flex:1">The <strong class="wh">Silicon Leash.</strong> Anchoring the KYDE trust layer directly into hardware via HSM / PKCS#11.</p>
+          <p class="t-sm">The cryptographic root of trust required for agents in the physical world.</p>
+        </div>
+        <div style="padding:32px 30px;display:flex;flex-direction:column">
+          <p class="lbl mono" style="color:var(--z5);margin-bottom:14px">THE CATEGORY</p>
+          <p class="t-b" style="font-size:18px;flex:1">Okta manages human identity. Workday manages the human workforce.</p>
+          <p class="t-b" style="font-size:18px;color:var(--wh);margin-top:12px"><strong>KYDE manages the autonomous workforce.</strong></p>
+        </div>
+      </div>
+
+      <div class="card-l" style="flex-shrink:0">
+        <p class="t-b" style="font-size:20px;color:var(--z3);line-height:1.5">
+          Power grids. Logistics hubs. Critical cyber-physical systems.<br>
+          <strong class="wh">Securing authority delegation to agents in the physical world.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- 11 TEAM -->
+    <section class="slide">
+      <span class="sn">11 / 12</span>
+      <div class="lrow"><span class="lbl">↳ THE TEAM · 10 / 10</span></div>
 
       <h2 class="t-h1" style="margin-bottom:32px">Built by people who've lived the problem.</h2>
 
       <div class="g2" style="flex:1">
         <div style="padding:36px 40px;display:flex;flex-direction:column">
           <p style="font-size:clamp(22px,2.5vw,34px);font-weight:600;letter-spacing:-.02em;color:var(--wh);margin-bottom:6px">Jörg Radehaus</p>
-          <p class="mono am" style="font-size:11px;letter-spacing:.12em;margin-bottom:20px">PRODUCT STRATEGY & GTM</p>
+          <p class="mono am" style="font-size:11px;letter-spacing:.12em;margin-bottom:20px">PRODUCT STRATEGY &amp; GTM</p>
           <p class="t-sm" style="flex:1">18y regulated enterprise GTM. Built Europe's first digital life insurance (0→1). Directed DAX conglomerate digital shifts. Allianz, BMW, Google, Accenture.</p>
         </div>
         <div style="padding:36px 40px;display:flex;flex-direction:column">
           <p style="font-size:clamp(22px,2.5vw,34px);font-weight:600;letter-spacing:-.02em;color:var(--wh);margin-bottom:6px">Jürgen Eckel</p>
-          <p class="mono am" style="font-size:11px;letter-spacing:.12em;margin-bottom:20px">INFRASTRUCTURE & CRYPTOGRAPHY</p>
+          <p class="mono am" style="font-size:11px;letter-spacing:.12em;margin-bottom:20px">INFRASTRUCTURE &amp; CRYPTOGRAPHY</p>
           <p class="t-sm" style="flex:1">15y cryptographic governance for distributed systems. Multi-datacenter infra at scale. Secure protocols powering global enterprise networks. Full stack in Rust.</p>
         </div>
       </div>
     </section>
 
-    <!-- 11 THE ASK -->
-    <section class="slide has-grid">
-      <span class="sn">11 / 12</span>
-      <div class="lrow"><span class="lbl">↳ THE ASK · 10 / 10</span></div>
-
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-        <div style="margin-bottom:40px">
-          <p class="lbl mono" style="color:var(--z6);margin-bottom:10px">SEED ROUND</p>
-          <p style="font-size:clamp(56px,9vw,108px);font-weight:600;letter-spacing:-.04em;color:var(--wh);line-height:1">€1.6M</p>
-        </div>
-
-        <div class="g3" style="gap:1px;background:var(--bd);margin-bottom:28px;flex-shrink:0">
-          <div style="background:var(--bg);padding:28px 30px">
-            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:14px">↳ GO-TO-MARKET</p>
-            <p class="t-sm">5 contracted pilots. €250k+ ARR run-rate by month 12.</p>
-          </div>
-          <div style="background:var(--bg);padding:28px 30px">
-            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:14px">↳ PRODUCT</p>
-            <p class="t-sm">Production-grade HSM (Silicon Leash). Sub-100ms at 10k req/sec. Multi-provider policy engine.</p>
-          </div>
-          <div style="background:var(--bg);padding:28px 30px">
-            <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:14px">↳ TRUST & CERT</p>
-            <p class="t-sm">ISO 27001 by month 15. BSI audit initiated.</p>
-          </div>
-        </div>
-
-        <div class="card-l" style="max-width:720px;flex-shrink:0">
-          <p class="t-b" style="font-size:22px;color:var(--z3);line-height:1.55">
-            Intelligence is becoming a commodity.<br>
-            <strong class="wh">Trust is not. Kyde builds trust.</strong>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 12 CLOSE -->
+    <!-- 12 THE ASK / CLOSE -->
     <section class="slide has-grid">
       <span class="sn">12 / 12</span>
       <div class="lrow"><span class="dp"></span><span class="lbl">KYDE · SEED ROUND 2026</span></div>
 
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-        <p class="mono am" style="font-size:11px;letter-spacing:.3em;margin-bottom:24px">KYDE</p>
-        <h1 class="t-hero" style="margin-bottom:32px">
-          Thank you.
-        </h1>
-        <p class="t-h2" style="color:var(--z5)">The Trust & Control Layer for the Agentic Economy.</p>
-        <p class="mono" style="font-size:14px;letter-spacing:.2em;color:var(--z6);margin-top:20px">KYDE.COM</p>
+      <div style="flex:1;display:flex;gap:48px">
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+          <p class="lbl mono" style="color:var(--z6);margin-bottom:10px">SEED ROUND</p>
+          <p style="font-size:clamp(56px,9vw,108px);font-weight:600;letter-spacing:-.04em;color:var(--wh);line-height:1;margin-bottom:32px">€1.6M</p>
+
+          <div style="display:flex;flex-direction:column;gap:1px;background:var(--bd);margin-bottom:28px">
+            <div style="background:var(--bg);padding:22px 26px">
+              <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:10px">↳ GO-TO-MARKET</p>
+              <p class="t-sm">5 contracted pilots. €250k+ ARR run-rate by month 12.</p>
+            </div>
+            <div style="background:var(--bg);padding:22px 26px">
+              <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:10px">↳ PRODUCT</p>
+              <p class="t-sm">Production-grade HSM (Silicon Leash). Sub-100ms at 10k req/sec. Multi-provider policy engine.</p>
+            </div>
+            <div style="background:var(--bg);padding:22px 26px">
+              <p class="mono am" style="font-size:10px;letter-spacing:.2em;margin-bottom:10px">↳ TRUST &amp; CERT</p>
+              <p class="t-sm">ISO 27001 by month 15. BSI audit initiated.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+          <p class="mono am" style="font-size:11px;letter-spacing:.3em;margin-bottom:24px">KYDE</p>
+          <h1 class="t-hero" style="font-size:clamp(40px,6vw,80px);margin-bottom:20px">
+            Thank you.
+          </h1>
+          <p class="t-h2" style="color:var(--z5);margin-bottom:12px">The Trust &amp; Control Layer<br>for the Agentic Economy.</p>
+          <p class="mono" style="font-size:14px;letter-spacing:.2em;color:var(--z6)">KYDE.COM</p>
+        </div>
       </div>
 
-      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--bd)">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--bd);flex-shrink:0">
         <div style="display:flex;gap:48px">
           <div>
             <p class="lbl" style="margin-bottom:6px">SEED ROUND OPEN</p>
