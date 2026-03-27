@@ -1,0 +1,368 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const guides = [
+  {
+    title: "How to Detect Shadow AI",
+    description: "Step-by-step technical methods to identify unauthorized AI systems in enterprise networks. DNS rules, SIEM queries, and behavioral detection patterns.",
+    readTime: "25 min",
+    category: "Technical · Security",
+    href: "/guides/detect-shadow-ai",
+    status: "detect",
+    tags: ["DNS Detection", "SIEM Rules", "Behavioral Patterns"]
+  },
+  {
+    title: "How to Classify AI Systems Under EU AI Act",
+    description: "Framework for determining if your AI systems are High-Risk, General-Purpose, or Low-Risk under EU AI Act Annex III. Includes all 37 categories.",
+    readTime: "30 min",
+    category: "Regulatory · Compliance",
+    href: "/guides/classify-ai-systems",
+    status: "classify",
+    tags: ["Annex III", "Risk Assessment", "Obligations"]
+  },
+  {
+    title: "Shadow AI Governance Checklist",
+    description: "8-phase checklist for implementing AI governance from discovery to compliance readiness. 70+ checkboxes, RACI matrix, and incident response planning.",
+    readTime: "35 min",
+    category: "Implementation · Compliance",
+    href: "/guides/governance-checklist",
+    status: "govern",
+    tags: ["8-Phase Framework", "70+ Checkboxes", "RACI Matrix"]
+  }
+];
+---
+
+<Base
+  title="The Shadow AI Trilogy — KYDE"
+  description="Three interconnected technical guides: Detection, Classification, and Governance. The complete playbook for discovering and governing unauthorized AI systems."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">↳ Technical Guides</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-4xl mb-12">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
+            The Shadow AI Trilogy
+          </h1>
+          <p class="text-lg text-zinc-400 leading-relaxed max-w-2xl">
+            Three interconnected guides that form the complete playbook for discovering, classifying, and governing unauthorized AI systems in enterprise environments.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-6 max-w-2xl">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm text-zinc-500">Total reading time</span>
+            <span class="font-mono text-lg font-bold text-amber-300">90 minutes</span>
+          </div>
+          <div class="h-10 w-px bg-zinc-700"></div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm text-zinc-500">Implementation timeline</span>
+            <span class="font-mono text-lg font-bold text-amber-300">4-6 months</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ GUIDES CARDS ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="space-y-6">
+          {guides.map(({ title, description, readTime, category, href, status, tags }, index) => (
+            <a
+              href={href}
+              class="group block border border-zinc-800 bg-zinc-900/40 hover:border-zinc-600 hover:bg-zinc-900/60 transition-all p-8 md:p-10"
+            >
+              <div class="flex flex-col gap-6">
+
+                <!-- Header -->
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center justify-center h-6 w-6 rounded-full border border-amber-300 bg-amber-300/10 font-mono text-xs font-bold text-amber-300">
+                          {index + 1}
+                        </span>
+                      </div>
+                      <span class="font-mono text-xs uppercase tracking-widest text-amber-300">{category}</span>
+                      <span class="text-zinc-700">·</span>
+                      <span class="font-mono text-xs text-zinc-600">{readTime} read</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-zinc-100 leading-snug">{title}</h2>
+                    <p class="text-zinc-400 leading-relaxed">{description}</p>
+                  </div>
+                  <span class="font-mono text-amber-400 text-lg shrink-0 mt-2 group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs font-mono text-zinc-500">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+              </div>
+            </a>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FLOW DIAGRAM ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">How It Works</h2>
+          <p class="text-zinc-400 text-sm max-w-2xl">
+            The trilogy is designed as a progressive workflow. Start with detection, move to classification, and implement governance. Each guide builds on the previous one.
+          </p>
+        </div>
+
+        <!-- Visual Flow -->
+        <div class="grid md:grid-cols-3 gap-6">
+          {guides.map(({ title, href }, index) => (
+            <div key={index} class="relative">
+              <a
+                href={href}
+                class="block border border-zinc-700 bg-zinc-900/60 p-8 h-full group hover:border-amber-300/50 transition-colors"
+              >
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="flex items-center justify-center h-10 w-10 rounded-full border-2 border-amber-300 font-mono text-sm font-bold text-amber-300">
+                    {index + 1}
+                  </div>
+                  <span class="font-mono text-xs uppercase tracking-widest text-amber-300">
+                    {index === 0 ? "Discover" : index === 1 ? "Assess" : "Implement"}
+                  </span>
+                </div>
+                <p class="text-white font-semibold text-sm leading-snug group-hover:text-amber-300 transition-colors">
+                  {title}
+                </p>
+              </a>
+
+              {index < 2 && (
+                <div class="hidden md:flex absolute top-1/2 -right-3 z-10 translate-y-1/2">
+                  <div class="text-amber-300 font-mono text-xl">→</div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ TIMELINE ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">Implementation Timeline</h2>
+          <p class="text-zinc-400 text-sm max-w-2xl">
+            From discovery to regulatory compliance readiness typically takes 4-6 months.
+          </p>
+        </div>
+
+        <div class="max-w-3xl">
+          <div class="space-y-4">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-24">
+                <p class="font-mono text-xs uppercase tracking-widest text-amber-300">Month 1-2</p>
+              </div>
+              <div class="flex-1 border-l border-zinc-700 pl-6 pb-8">
+                <p class="font-semibold text-zinc-200 mb-2">Detection & Discovery</p>
+                <p class="text-sm text-zinc-500">Implement SIEM rules, identify shadow AI systems, document findings</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-24">
+                <p class="font-mono text-xs uppercase tracking-widest text-amber-300">Month 2-3</p>
+              </div>
+              <div class="flex-1 border-l border-zinc-700 pl-6 pb-8">
+                <p class="font-semibold text-zinc-200 mb-2">Classification & Assessment</p>
+                <p class="text-sm text-zinc-500">Determine risk level, identify High-Risk systems, legal review</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-24">
+                <p class="font-mono text-xs uppercase tracking-widest text-amber-300">Month 3-5</p>
+              </div>
+              <div class="flex-1 border-l border-zinc-700 pl-6 pb-8">
+                <p class="font-semibold text-zinc-200 mb-2">Governance Implementation</p>
+                <p class="text-sm text-zinc-500">Audit trail, policy enforcement, monitoring setup, bias testing</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-24">
+                <p class="font-mono text-xs uppercase tracking-widest text-amber-300">Month 5-6</p>
+              </div>
+              <div class="flex-1 border-l border-zinc-700 pl-6">
+                <p class="font-semibold text-zinc-200 mb-2">Readiness & Sign-Off</p>
+                <p class="text-sm text-zinc-500">Documentation complete, compliance sign-off, incident response ready</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 border-t border-zinc-700 pt-8">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center border border-red-800/60 bg-red-900/20 px-3 py-1 font-mono text-xs text-red-400">
+                Urgent
+              </span>
+              <span class="text-sm text-zinc-400">
+                EU AI Act High-Risk enforcement: <strong class="text-red-400">August 2, 2026</strong>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ QUICK START ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+          <!-- Left: Next Steps -->
+          <div>
+            <h2 class="text-2xl font-bold text-white uppercase tracking-tight mb-6">Get Started Now</h2>
+
+            <div class="space-y-4">
+              <a
+                href="/guides/detect-shadow-ai"
+                class="group flex items-start gap-4 p-4 border border-zinc-800 bg-zinc-900/40 hover:border-zinc-600 hover:bg-zinc-900/60 transition-all"
+              >
+                <span class="font-mono text-amber-300 text-lg mt-0.5">→</span>
+                <div className="flex-1">
+                  <p class="font-semibold text-white text-sm group-hover:text-zinc-100">Detection Guide</p>
+                  <p class="text-xs text-zinc-500 mt-1">Start finding shadow AI in your network today</p>
+                </div>
+              </a>
+
+              <a
+                href="/guides/classify-ai-systems"
+                class="group flex items-start gap-4 p-4 border border-zinc-800 bg-zinc-900/40 hover:border-zinc-600 hover:bg-zinc-900/60 transition-all"
+              >
+                <span class="font-mono text-amber-300 text-lg mt-0.5">→</span>
+                <div className="flex-1">
+                  <p class="font-semibold text-white text-sm group-hover:text-zinc-100">Classification Guide</p>
+                  <p class="text-xs text-zinc-500 mt-1">Understand what you've found and your obligations</p>
+                </div>
+              </a>
+
+              <a
+                href="/guides/governance-checklist"
+                class="group flex items-start gap-4 p-4 border border-zinc-800 bg-zinc-900/40 hover:border-zinc-600 hover:bg-zinc-900/60 transition-all"
+              >
+                <span class="font-mono text-amber-300 text-lg mt-0.5">→</span>
+                <div className="flex-1">
+                  <p class="font-semibold text-white text-sm group-hover:text-zinc-100">Governance Checklist</p>
+                  <p class="text-xs text-zinc-500 mt-1">Implement governance and compliance controls</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: CTA -->
+          <div class="border border-zinc-700 p-8 md:p-10 bg-zinc-900/60">
+            <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300 mb-4">↳ Ready to Govern?</p>
+            <h3 class="text-xl font-bold text-white mb-3">Need Implementation Support?</h3>
+            <p class="text-sm text-zinc-400 mb-6 leading-relaxed">
+              Kyde provides end-to-end AI governance infrastructure. We automate the audit trail, policy enforcement, and compliance monitoring across all three phases.
+            </p>
+            <div class="space-y-3">
+              <button
+                onclick="openModal()"
+                class="w-full inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+              >
+                Schedule Discovery Call →
+              </button>
+              <a
+                href="/"
+                class="w-full inline-flex items-center justify-center gap-2 border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-300 hover:border-zinc-600 transition-all"
+              >
+                Learn About Kyde →
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto px-6">
+
+        <h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-12">Frequently Asked Questions</h2>
+
+        <div class="space-y-6">
+
+          <div>
+            <h3 class="font-semibold text-white text-sm mb-2">How long does it take to read all three guides?</h3>
+            <p class="text-sm text-zinc-400">
+              Approximately 90 minutes combined. Detection (25 min), Classification (30 min), Governance (35 min). You can read them sequentially or focus on specific guides based on your current phase.
+            </p>
+          </div>
+
+          <div class="border-t border-zinc-800 pt-6">
+            <h3 class="font-semibold text-white text-sm mb-2">Do I need to follow all three in order?</h3>
+            <p class="text-sm text-zinc-400">
+              Yes, conceptually. Detection → Classification → Governance is the natural workflow. However, if you already know you have High-Risk AI systems, you can start with classification and governance.
+            </p>
+          </div>
+
+          <div class="border-t border-zinc-800 pt-6">
+            <h3 class="font-semibold text-white text-sm mb-2">What if I'm already using AI systems?</h3>
+            <p class="text-sm text-zinc-400">
+              Start with classification. Determine which systems are High-Risk under EU AI Act. Then use the governance checklist to implement compliance controls retroactively.
+            </p>
+          </div>
+
+          <div class="border-t border-zinc-800 pt-6">
+            <h3 class="font-semibold text-white text-sm mb-2">Are these guides applicable outside the EU?</h3>
+            <p class="text-sm text-zinc-400">
+              The guides focus on EU AI Act, but the principles apply to similar regulations (DORA, NIS2, GDPR). Many principles also align with regulatory frameworks in other jurisdictions.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  :global(body) {
+    background: #0a0a0a;
+  }
+</style>

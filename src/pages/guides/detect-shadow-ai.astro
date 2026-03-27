@@ -1,0 +1,441 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="How to Detect Shadow AI: Technical Guide for SOC Teams — KYDE"
+  description="Step-by-step technical methods to identify shadow AI in enterprise networks. DNS rules, SIEM queries, and behavioral detection patterns."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300 transition-colors">↑ Resources</a>
+            <span class="text-zinc-700">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">Technical Guide</span>
+          </div>
+          <div class="h-px w-full bg-zinc-800"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+            How to Detect Shadow AI: Technical Guide for SOC Teams
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-zinc-600 mb-6">
+            <span>Technical · Security</span>
+            <span>·</span>
+            <span>25 min read</span>
+            <span>·</span>
+            <span>March 2026</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">DNS Detection</span>
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">SIEM Rules</span>
+            <span class="inline-flex items-center border border-zinc-700 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400">Behavioral Patterns</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-zinc-800/60 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde">
+
+            <p>
+              <strong>Shadow AI</strong> — AI systems running in production that aren't formally tracked in your IT asset inventory or governed by your security policies.
+            </p>
+
+            <p>
+              Most enterprises have <strong>5-50x more AI systems running</strong> than their security team knows about. Shadow AI represents a significant compliance and security risk:
+            </p>
+
+            <ul>
+              <li><strong>Compliance Risk:</strong> Ungoverned High-Risk AI applications violate EU AI Act, DORA, and similar regulations</li>
+              <li><strong>Security Risk:</strong> Unvetted AI systems may process sensitive data, make critical business decisions, or exfiltrate information</li>
+              <li><strong>Audit Risk:</strong> You cannot prove what unauthorized AI systems are doing</li>
+            </ul>
+
+            <h2 id="signals">What Signals Indicate Shadow AI?</h2>
+
+            <p>
+              Shadow AI most commonly manifests as <strong>HTTPS traffic to Large Language Model (LLM) API providers</strong> from systems you didn't authorize.
+            </p>
+
+            <h3>LLM Providers to Monitor</h3>
+
+            <p>
+              These are the primary cloud-based LLM vendors. Traffic to these providers, from internal systems, is your first detection vector:
+            </p>
+
+            <table class="text-sm">
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>API Domain</th>
+                  <th>Detection Confidence</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>OpenAI</strong></td>
+                  <td>api.openai.com</td>
+                  <td>Very High</td>
+                </tr>
+                <tr>
+                  <td><strong>Anthropic</strong></td>
+                  <td>api.anthropic.com</td>
+                  <td>Very High</td>
+                </tr>
+                <tr>
+                  <td><strong>Azure OpenAI</strong></td>
+                  <td>*.openai.azure.com</td>
+                  <td>Very High</td>
+                </tr>
+                <tr>
+                  <td><strong>Google Gemini</strong></td>
+                  <td>generativelanguage.googleapis.com</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td><strong>Cohere</strong></td>
+                  <td>api.cohere.ai</td>
+                  <td>High</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Secondary Signals: API Behavior Patterns</h3>
+
+            <p>
+              Once you identify traffic to LLM providers, these patterns help confirm it's an active AI system:
+            </p>
+
+            <ul>
+              <li><strong>High-volume requests:</strong> 100+ requests/hour from single IP = likely automated agent</li>
+              <li><strong>Off-hours consistency:</strong> Requests at 2-5 AM on schedule = scheduled agent</li>
+              <li><strong>Large payloads:</strong> Request bodies &gt;10KB = sending documents/data to LLM</li>
+              <li><strong>Backend/database calls:</strong> LLM calls from servers, not web frontends = ungovernered business logic</li>
+              <li><strong>Cloud function calls:</strong> Lambda/Cloud Run making LLM calls = serverless automation</li>
+            </ul>
+
+            <h2 id="detection-rules">Network Detection Rules</h2>
+
+            <h3>Rule 1: DNS Queries to LLM Providers (Easiest Starting Point)</h3>
+
+            <p>
+              <strong>What to monitor:</strong> DNS queries to LLM provider domains
+            </p>
+
+            <p>
+              <strong>Why this works:</strong> Before any HTTPS connection, the system must resolve the domain via DNS. DNS logs are easier to collect and parse than full packet capture.
+            </p>
+
+            <h4>SIEM Rule (Splunk)</h4>
+
+            <pre><code>sourcetype="dns"
+| search query="api.openai.com" OR query="api.anthropic.com"
+  OR query="generativelanguage.googleapis.com"
+| stats count, values(src_ip), values(query) by src_ip
+| where count > 5</code></pre>
+
+            <h4>SIEM Rule (Zeek/Elasticsearch)</h4>
+
+            <p class="text-sm text-zinc-500">
+              See documentation for Elasticsearch query DSL configuration for LLM provider detection.
+            </p>
+
+            <h3>Rule 2: HTTPS Traffic with LLM-Specific Headers</h3>
+
+            <p>
+              <strong>What to monitor:</strong> HTTPS connections with LLM SDK User-Agent or API authentication headers
+            </p>
+
+            <p>
+              <strong>Detection Method:</strong> If you have TLS inspection or HTTP proxy logs, look for:
+            </p>
+
+            <pre><code>User-Agent contains: openai, anthropic, cohere, mistral, huggingface
+
+OR
+
+Header contains: X-API-Key, Authorization (Bearer pattern)</code></pre>
+
+            <h3>Rule 3: Asset Inventory Gap Detection</h3>
+
+            <p>
+              <strong>What to monitor:</strong> Outbound HTTPS traffic from internal systems to LLM providers, compared against your authorized software inventory.
+            </p>
+
+            <p>
+              <strong>Why this works:</strong> Finds shadow AI even if the provider is unknown.
+            </p>
+
+            <h4>Process</h4>
+
+            <ol>
+              <li>Query firewall logs: destination = LLM provider domains</li>
+              <li>Extract: source_ip, source_hostname, destination, timestamp</li>
+              <li>Query asset inventory: get all approved systems</li>
+              <li>Find gaps: hosts in logs NOT in inventory = shadow AI candidates</li>
+            </ol>
+
+            <h2 id="behavioral">Behavioral Detection Rules</h2>
+
+            <h3>Rule 4: Volumetric Anomaly (Agent Behavior)</h3>
+
+            <p>
+              <strong>What to monitor:</strong> Sustained high-volume requests from a single source to an LLM provider
+            </p>
+
+            <p>
+              <strong>Why this works:</strong> Humans rarely make 1000+ API calls to an LLM in a day. Agents do.
+            </p>
+
+            <pre><code>Monitor LLM provider traffic per source IP.
+Flag if:
+  - More than 100 requests/hour to a single LLM provider
+  - More than 500 requests/day
+  - Requests sustained over multiple hours</code></pre>
+
+            <h3>Rule 5: Time-Based Anomaly (Scheduled Agent)</h3>
+
+            <p>
+              <strong>What to monitor:</strong> Requests to LLM APIs at unusual times
+            </p>
+
+            <p>
+              <strong>Why this works:</strong> Human developers don't test at 3 AM. Scheduled agents do.
+            </p>
+
+            <h2 id="workflow">Detection Workflow</h2>
+
+            <pre><code>Week 1: Network Capture
+- Enable full packet capture on egress (or log all DNS/HTTPS to LLM domains)
+- Set 7-day baseline
+
+Week 2: Analysis
+- Parse logs, identify all LLM API calls
+- Correlate source IPs/hostnames to asset inventory
+- Catalog by system, department, usage pattern
+
+Week 3: Validation
+- Cross-check with IT asset inventory
+- Interview IT: "Is this system authorized?"
+- Identify gaps (shadow AI candidates)
+
+Week 4: Report & Conversation
+- Prepare findings for CISO conversation
+- Quantify: "We found X systems calling LLMs"
+- Prepare recommendations</code></pre>
+
+            <h2 id="roadmap">Implementation Roadmap</h2>
+
+            <h3>Phase 1: Quick Wins (Week 1)</h3>
+
+            <ul>
+              <li>Enable DNS logging to LLM provider domains</li>
+              <li>Add SIEM rule for DNS queries to api.openai.com, api.anthropic.com</li>
+              <li>Create alert for any matches</li>
+            </ul>
+
+            <h3>Phase 2: Inventory Baseline (Week 2-3)</h3>
+
+            <ul>
+              <li>Export last 30 days of HTTPS traffic to LLM providers</li>
+              <li>Cross-reference against CMDB/asset inventory</li>
+              <li>Document all legitimate systems that call LLM APIs</li>
+              <li>Create whitelist for known approved systems</li>
+            </ul>
+
+            <h3>Phase 3: Behavioral Rules (Week 3-4)</h3>
+
+            <ul>
+              <li>Deploy volumetric anomaly detection (&gt;100 requests/hour)</li>
+              <li>Deploy time-based anomaly detection (off-hours consistency)</li>
+              <li>Set up alerting thresholds</li>
+            </ul>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-zinc-700 bg-zinc-900/60 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">↳ Detection Complete. What's Next?</p>
+              <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                You've found shadow AI. Now you need to classify it (is it High-Risk?) and govern it (can you prove what it does?).
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/guides/classify-ai-systems"
+                  class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 transition-all"
+                >
+                  Next: Classify AI Systems →
+                </a>
+                <button
+                  onclick="openModal()"
+                  class="inline-flex items-center gap-2 border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-300 hover:border-zinc-600 transition-all"
+                >
+                  Book Discovery Call →
+                </button>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">On This Page</p>
+              <div class="space-y-2 text-xs">
+                <a href="#signals" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Detection Signals</a>
+                <a href="#detection-rules" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Network Rules</a>
+                <a href="#behavioral" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Behavioral Patterns</a>
+                <a href="#roadmap" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Implementation</a>
+              </div>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">The Trilogy</p>
+              <div class="space-y-3 text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="text-amber-300">✓</span>
+                  <span class="text-zinc-400">Detect Shadow AI</span>
+                </div>
+                <a href="/guides/classify-ai-systems" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <span>→</span>
+                  <span>Classify Risk Level</span>
+                </a>
+                <a href="/guides/governance-checklist" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <span>→</span>
+                  <span>Implement Governance</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="border border-zinc-800 bg-zinc-900/40 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-3">Status</p>
+              <p class="font-mono text-sm text-amber-300">4-6 weeks to detection</p>
+              <p class="text-xs text-zinc-600 mt-1">From first alert to documented inventory</p>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #a1a1aa;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #f4f4f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde h3 {
+    color: #e4e4e7;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-kyde h4 {
+    color: #d4d4d8;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde ol {
+    list-style: decimal;
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose-kyde ol li {
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+  }
+  .prose-kyde table thead {
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde table th {
+    text-align: left;
+    padding: 0.75rem;
+    color: #e4e4e7;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .prose-kyde table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #27272a;
+  }
+  .prose-kyde pre {
+    background: #18181b;
+    border: 1px solid #27272a;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+  }
+  .prose-kyde code {
+    font-family: ui-monospace, monospace;
+    font-size: 0.875rem;
+    color: #d4d4d8;
+    line-height: 1.5;
+  }
+  .prose-kyde pre code {
+    color: inherit;
+  }
+  .prose-kyde strong { color: #e4e4e7; font-weight: 600; }
+  .prose-kyde a { color: #fbbf24; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
