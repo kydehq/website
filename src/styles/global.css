@@ -20,6 +20,7 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* iOS Safari: must be on html, not just body */
   }
 
   body {
@@ -58,4 +59,24 @@
 /* Gradient headline text — now just white */
 .gradient-text {
   color: #E6EAF0;
+}
+
+/* Prose mobile fixes — global overrides so they apply regardless of Astro scoping */
+.prose-kyde {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+.prose-kyde pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  white-space: pre;
+}
+.prose-kyde table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
