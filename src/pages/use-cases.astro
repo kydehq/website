@@ -6,67 +6,68 @@ import Footer from '../components/Footer.astro';
 const cases = [
   {
     n: '01',
-    sector: 'Financial Services & Fintech',
-    tag: 'DORA · EU AI Act · GDPR',
-    reality: 'AI agents in finance execute trades, assess creditworthiness, process BNPL decisions, and manage customer interactions — autonomously. Each is a workforce member operating in one of the most heavily regulated environments on earth. A single unexplained automated decision can trigger regulatory inquiry, customer litigation, or license review.\n\nMost financial institutions have no way to answer the basic question: what did this agent do, why, and can you prove the record hasn\'t been altered?',
-    resilience: 'Every agent in your financial stack gets an identity and a role. Token budgets prevent runaway costs. API allowlists ensure agents only reach authorized endpoints. Every action is signed and hash-chained — incident investigations resolve in minutes, not weeks. Regulators receive complete, verifiable audit exports. Your compliance team has a source of truth built on a cryptographic root of trust.',
-    regs: [
-      'DORA — Digital Operational Resilience Act (in force January 2025)',
-      'EU AI Act — High-Risk AI (Annex III, §5 Credit Scoring)',
-      'BaFin AI Guidance — Supervisory expectations for AI system accountability',
-      'GDPR Art. 35 — DPIA for automated financial processing',
+    sector: 'Financial Services & Banking',
+    tag: 'DORA · BaFin · EU AI Act',
+    scenario: 'A trading agent autonomously rebalances customer portfolios and accesses the trading API via an internal MCP server.',
+    pillars: [
+      { label: 'IDENTITY', q: 'Who acted?', text: 'No more shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha"). When a trade executes, the core banking system knows exactly which agent acted — and can prove it.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent sells 1,000 Tesla shares. KYDE logs the context: the agent had just read a Reuters alert and the customer\'s 2024 risk profile PDF. The decision chain is immediately reconstructable for the advisor — and for BaFin.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Hard limit: max 5% of portfolio value per day, no margin trading. KYDE blocks any API call that exceeds this firebreak in under 100ms — before it reaches the exchange.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'Every autonomous trade is Ed25519-signed in the ledger. When BaFin demands a review, the bank delivers a mathematical proof of action — not an editable server log.' },
     ],
+    regs: ['DORA — Digital Operational Resilience Act', 'EU AI Act — Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35 — DPIA'],
   },
   {
     n: '02',
-    sector: 'HR Technology & Recruiting',
-    tag: 'EU AI Act — High Risk',
-    reality: 'AI agents in HR are classified as High-Risk under the EU AI Act (Annex III). Automated screening, scoring, and shortlisting of candidates are subject to mandatory logging, human oversight requirements, and audit-readiness obligations — with enforcement beginning August 2, 2027.\n\nThese agents are a workforce making decisions about your workforce. Without governance infrastructure, a rejected candidate\'s legal challenge becomes an existential question: can you reconstruct what the agent saw, what it decided, and why?',
-    resilience: 'Every candidate interaction, every scoring decision, every tool call is captured with full causal context. Role-based fleet management ensures your recruiting agents operate within defined boundaries. The tamper-evident evidence trail means that when a decision is challenged, the record speaks for itself — and it can\'t be rewritten after the fact.',
-    regs: [
-      'EU AI Act — High-Risk AI System (Annex III, §4 Employment)',
-      'GDPR Art. 22 — Automated Decision-Making',
-      'AGG (Germany) — Anti-discrimination compliance for automated hiring',
+    sector: 'Industry & Supply Chain',
+    tag: 'EU AI Act · NIS-2 · GDPR',
+    scenario: 'A procurement agent monitors global supply chains and autonomously reorders raw materials in the ERP system when shortages are detected.',
+    pillars: [
+      { label: 'IDENTITY', q: 'Who acted?', text: 'The order is not triggered by an anonymous service account, but by a verified agent identity authorized exclusively for the steel procurement department.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged that it had processed an internal email about a threatened port strike. The purchasing manager sees the reason immediately.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Budget limit: max €50,000 per order. If the agent tries to place a €500,000 order due to a hallucination, the proxy rejects the request in under 100ms — before it reaches the supplier API.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'The complete negotiation trail with the supplier API and the final order amount are hash-chained. The CFO has court-admissible proof of every financial commitment the machine entered.' },
     ],
+    regs: ['EU AI Act — High-Risk AI for automated procurement', 'NIS-2 — Critical supply chain infrastructure', 'GDPR Art. 35 — DPIA for large-scale processing'],
   },
   {
     n: '03',
-    sector: 'Insurance & Claims Automation',
-    tag: 'EU AI Act · NIS-2 · Solvency II',
-    reality: 'Claims processing, fraud detection, and underwriting are increasingly automated — and increasingly scrutinized. Insurers face dual exposure: regulatory risk under the EU AI Act for automated decisions, and legal risk when claimants challenge AI-assisted outcomes. In Moffatt v. Air Canada, a tribunal held the company liable for its chatbot\'s incorrect statements. The precedent is set.',
-    resilience: 'Kyde provides an unbroken chain of evidence from claim intake to automated decision. Every model call, every tool invocation, every data point considered — recorded, signed, and verifiable. Fleet management ensures claims agents operate within their authorized scope. When a claim is disputed, the evidence trail is your defense — and it\'s tamper-evident by design, not by policy.',
-    regs: [
-      'EU AI Act — High-Risk AI (Annex III, §5 Insurance)',
-      'NIS-2 — Operational resilience for critical sector entities',
-      'GDPR Art. 22 — Rights regarding automated decisions',
-      'Solvency II — Governance and risk management requirements',
+    sector: 'Healthcare & Pharma',
+    tag: 'EU AI Act · GDPR Art. 9 · HIPAA',
+    scenario: 'A medical billing agent scans patient records, assigns ICD-10 diagnosis codes, and submits reimbursement claims to health insurers.',
+    pillars: [
+      { label: 'IDENTITY', q: 'Who acted?', text: 'The billing agent operates in strict isolation from the triage agent. Every access to the patient API is attributed to a specific machine identity — never a shared service account.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent bills for an expensive specialist treatment. KYDE records that it referenced Dr. Müller\'s clinical letter from 08:00. The causal chain is immediately verifiable in any audit or billing dispute.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Strict API blocklists. The agent has role "Billing.Read". KYDE enforces that it can never write to clinical findings or delete medical data — scope is enforced at the proxy, not by trust.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'In a GDPR/HIPAA-critical environment, the tamper-evident audit trail guarantees hospitals can prove in any audit exactly which agent processed which patient data and when.' },
     ],
+    regs: ['EU AI Act — Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9 — Special category health data', 'MDR / IVDR — AI-assisted diagnostics', 'NIS-2 — Critical health infrastructure'],
   },
   {
     n: '04',
-    sector: 'Healthcare & MedTech',
-    tag: 'Highest EU AI Act Risk Class',
-    reality: 'AI in healthcare — clinical decision support, diagnostic tools, patient data processing — carries the highest EU AI Act risk classification. These agents interact with the most sensitive data that exists and make recommendations that affect human lives. "We can\'t access the logs" is not an acceptable answer to a regulator, an auditor, or a court.',
-    resilience: 'Every AI-assisted clinical recommendation, every automated data retrieval, every patient interaction touching an LLM is governed with infrastructure-grade rigor. The causal chain — what the model was shown, what it returned, in what context — is preserved in a tamper-evident record. Role-based fleet management ensures clinical agents and administrative agents operate within distinct scopes. Your evidence trail is complete before any incident occurs.',
-    regs: [
-      'EU AI Act — High-Risk AI (Annex III, §5 Health and Safety)',
-      'MDR / IVDR — Medical Device Regulation for AI-assisted diagnostics',
-      'GDPR Art. 9 — Processing of special category health data',
-      'NIS-2 — Critical health infrastructure requirements',
+    sector: 'Insurance & Claims Automation',
+    tag: 'EU AI Act · Solvency II · GDPR',
+    scenario: 'A claims agent evaluates uploaded photos of water damage and authorizes payouts to policyholders — autonomously.',
+    pillars: [
+      { label: 'IDENTITY', q: 'Who acted?', text: 'Clear role boundaries. The claims agent does not have the same rights as the underwriting agent that calculates policy pricing. Separation is enforced by KYDE, not by policy documents.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent rejects a water damage claim. KYDE stores the last 5 prompts and tool calls: the agent had read the 2021 policy PDF in which elemental damage was explicitly excluded. The adjuster can explain the logic to the policyholder immediately.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Hard limit: maximum automatic claims approval = €2,000. Anything above is blocked by the proxy and routed automatically to human escalation — a hard human-in-the-loop enforcement.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'When a fraud ring floods automated agents with fake images, the KYDE ledger proves immutably on what data basis the agent approved payment — essential for internal fraud investigators and regulators.' },
     ],
+    regs: ['EU AI Act — High-Risk AI Annex III §5 Insurance', 'Solvency II — Governance and risk management', 'GDPR Art. 22 — Automated decision-making rights', 'NIS-2 — Operational resilience'],
   },
   {
     n: '05',
     sector: 'Energy & Critical Infrastructure',
     tag: 'NIS-2 · KRITIS · EU AI Act',
-    reality: 'Energy providers, grid operators, and their suppliers are critical infrastructure — by law and by function. AI agents managing load balancing, predictive maintenance, and operational decisions are invisible to most compliance teams until something goes wrong. At that point, the absence of a tamper-evident audit trail is both a regulatory and an operational crisis.\n\nThis is where Kyde started. We understand infrastructure because we come from infrastructure.',
-    resilience: 'Kyde wraps every AI agent in your operational stack with a signed, hash-chained record. Fleet management gives every agent a scoped role — your grid-balancing agent and your reporting agent don\'t share permissions. Anomalous behavior and policy deviations are detectable against behavioral baselines. Incident reports to regulators are backed by verifiable, machine-generated evidence.\n\nFor defense-grade and CMMC-aligned environments, Kyde\'s architecture is built for hardware-rooted attestation. PKCS#11 and HSM signing on the roadmap. No re-architecture required.',
-    regs: [
-      'NIS-2 — Network and Information Security (in force December 2025)',
-      'EU AI Act — High-Risk AI for critical infrastructure',
-      'KRITIS regulation (Germany) — Critical infrastructure protection',
-      'Cyber Resilience Act — Software security requirements',
+    scenario: 'A grid-balancing agent manages electricity procurement and activates local large-scale batteries to compensate for network fluctuations.',
+    pillars: [
+      { label: 'IDENTITY', q: 'Who acted?', text: 'In NIS-2 critical environments there is no anonymity. The dispatch agent has a signed identity whose priority is ranked above the internal HR bot — fleet management is operational, not bureaucratic.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent ramps up a local power plant. The KYDE log shows the cause: grid frequency dropped 0.1 Hz and the agent processed a local weather signal indicating a drop in solar production. Every grid action is explainable.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Here, latency and blast radius control matter. KYDE limits API access precisely to the assigned substations. The agent cannot accidentally switch off the wrong grid segment — scope is enforced at the proxy layer.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'When an outage or grid instability occurs, federal authorities (e.g. Bundesnetzagentur) demand complete reports. Vendor cloud logs don\'t suffice. KYDE delivers the cryptographic ledger proving compliant grid management.' },
     ],
+    regs: ['NIS-2 — Network and Information Security (in force December 2025)', 'EU AI Act — High-Risk AI for critical infrastructure', 'KRITIS — German critical infrastructure protection', 'Cyber Resilience Act'],
   },
 ];
 ---
@@ -135,36 +136,36 @@ const cases = [
 
         <!-- BY INDUSTRY -->
         <div id="tab-industry" class="space-y-6">
-        {cases.map(({ n, sector, tag, reality, resilience, regs }) => (
-          <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all">
+        {cases.map(({ n, sector, tag, scenario, pillars, regs }) => (
+          <div class="border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all">
 
             <!-- Header -->
-            <div class="flex flex-col sm:flex-row sm:items-center gap-4 border-b border-zinc-800 px-8 py-6">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4 border-b border-zinc-800 px-6 sm:px-8 py-6">
               <span class="font-mono text-2xl font-bold text-zinc-700 shrink-0">{n}</span>
-              <h2 class="flex-1 text-xl font-bold text-white">{sector}</h2>
-              <span class="shrink-0 inline-flex items-center border border-amber-400/30 bg-amber-400/5 px-3 py-1 text-xs font-mono text-amber-300">
+              <div class="flex-1">
+                <h2 class="text-xl font-bold text-white mb-2">{sector}</h2>
+                <p class="text-sm text-zinc-500 leading-relaxed">{scenario}</p>
+              </div>
+              <span class="shrink-0 inline-flex items-center border border-amber-400/30 bg-amber-400/5 px-3 py-1 text-xs font-mono text-amber-300 self-start">
                 {tag}
               </span>
             </div>
 
-            <!-- Body -->
-            <div class="grid gap-0 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-zinc-800">
-              <div class="px-8 py-8">
-                <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-zinc-500">↳ The Operational Reality</p>
-                {reality.split('\n\n').map((para: string) => (
-                  <p class="text-sm leading-relaxed text-zinc-300 mb-3 last:mb-0">{para}</p>
-                ))}
-              </div>
-              <div class="px-8 py-8">
-                <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-zinc-500">↳ How Kyde Builds Resilience</p>
-                {resilience.split('\n\n').map((para: string) => (
-                  <p class="text-sm leading-relaxed text-zinc-300 mb-3 last:mb-0">{para}</p>
-                ))}
-              </div>
+            <!-- 4 Pillars -->
+            <div class="divide-y divide-zinc-800/60">
+              {pillars.map(({ label, q, text }) => (
+                <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
+                  <div class="shrink-0">
+                    <p class="font-mono text-xs font-bold text-amber-300 uppercase tracking-widest">{label}</p>
+                    <p class="font-mono text-xs text-zinc-600 mt-0.5">{q}</p>
+                  </div>
+                  <p class="text-sm leading-relaxed text-zinc-300">{text}</p>
+                </div>
+              ))}
             </div>
 
             <!-- Regs -->
-            <div class="border-t border-zinc-800 px-8 py-5 flex flex-wrap gap-2">
+            <div class="border-t border-zinc-800 px-6 sm:px-8 py-5 flex flex-wrap gap-2">
               {regs.map((r: string) => (
                 <span class="border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs font-mono text-zinc-500">{r}</span>
               ))}
