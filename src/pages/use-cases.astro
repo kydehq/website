@@ -10,10 +10,10 @@ const cases = [
     tag: 'DORA · BaFin · EU AI Act',
     scenario: 'A trading agent autonomously rebalances customer portfolios and accesses the trading API via an internal MCP server.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'No more shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha"). When a trade executes, the core banking system knows exactly which agent acted — and can prove it.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent sells 1,000 Tesla shares. KYDE logs the context: the agent had just read a Reuters alert and the customer\'s 2024 risk profile PDF. The decision chain is immediately reconstructable for the advisor — and for BaFin.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Hard limit: max 5% of portfolio value per day, no margin trading. KYDE blocks any API call that exceeds this firebreak in under 100ms — before it reaches the exchange.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'Every autonomous trade is Ed25519-signed in the ledger. When BaFin demands a review, the bank delivers a mathematical proof of action — not an editable server log.' },
+      { label: 'IDENTITY', q: 'Who acted?', lc: 'text-blue-400', bc: 'border-l-blue-500/40', text: 'No more shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha"). When a trade executes, the core banking system knows exactly which agent acted — and can prove it.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', lc: 'text-amber-300', bc: 'border-l-amber-400/40', text: 'The agent sells 1,000 Tesla shares. KYDE logs the context: the agent had just read a Reuters alert and the customer\'s 2024 risk profile PDF. The decision chain is immediately reconstructable for the advisor — and for BaFin.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', lc: 'text-red-400', bc: 'border-l-red-500/40', text: 'Hard limit: max 5% of portfolio value per day, no margin trading. KYDE blocks any API call that exceeds this firebreak in under 100ms — before it reaches the exchange.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', lc: 'text-emerald-400', bc: 'border-l-emerald-500/40', text: 'Every autonomous trade is Ed25519-signed in the ledger. When BaFin demands a review, the bank delivers a mathematical proof of action — not an editable server log.' },
     ],
     regs: ['DORA — Digital Operational Resilience Act', 'EU AI Act — Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35 — DPIA'],
   },
@@ -23,10 +23,10 @@ const cases = [
     tag: 'EU AI Act · NIS-2 · GDPR',
     scenario: 'A procurement agent monitors global supply chains and autonomously reorders raw materials in the ERP system when shortages are detected.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'The order is not triggered by an anonymous service account, but by a verified agent identity authorized exclusively for the steel procurement department.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged that it had processed an internal email about a threatened port strike. The purchasing manager sees the reason immediately.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Budget limit: max €50,000 per order. If the agent tries to place a €500,000 order due to a hallucination, the proxy rejects the request in under 100ms — before it reaches the supplier API.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'The complete negotiation trail with the supplier API and the final order amount are hash-chained. The CFO has court-admissible proof of every financial commitment the machine entered.' },
+      { label: 'IDENTITY', q: 'Who acted?', lc: 'text-blue-400', bc: 'border-l-blue-500/40', text: 'The order is not triggered by an anonymous service account, but by a verified agent identity authorized exclusively for the steel procurement department.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', lc: 'text-amber-300', bc: 'border-l-amber-400/40', text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged that it had processed an internal email about a threatened port strike. The purchasing manager sees the reason immediately.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', lc: 'text-red-400', bc: 'border-l-red-500/40', text: 'Budget limit: max €50,000 per order. If the agent tries to place a €500,000 order due to a hallucination, the proxy rejects the request in under 100ms — before it reaches the supplier API.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', lc: 'text-emerald-400', bc: 'border-l-emerald-500/40', text: 'The complete negotiation trail with the supplier API and the final order amount are hash-chained. The CFO has court-admissible proof of every financial commitment the machine entered.' },
     ],
     regs: ['EU AI Act — High-Risk AI for automated procurement', 'NIS-2 — Critical supply chain infrastructure', 'GDPR Art. 35 — DPIA for large-scale processing'],
   },
@@ -36,10 +36,10 @@ const cases = [
     tag: 'EU AI Act · GDPR Art. 9 · HIPAA',
     scenario: 'A medical billing agent scans patient records, assigns ICD-10 diagnosis codes, and submits reimbursement claims to health insurers.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'The billing agent operates in strict isolation from the triage agent. Every access to the patient API is attributed to a specific machine identity — never a shared service account.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent bills for an expensive specialist treatment. KYDE records that it referenced Dr. Müller\'s clinical letter from 08:00. The causal chain is immediately verifiable in any audit or billing dispute.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Strict API blocklists. The agent has role "Billing.Read". KYDE enforces that it can never write to clinical findings or delete medical data — scope is enforced at the proxy, not by trust.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'In a GDPR/HIPAA-critical environment, the tamper-evident audit trail guarantees hospitals can prove in any audit exactly which agent processed which patient data and when.' },
+      { label: 'IDENTITY', q: 'Who acted?', lc: 'text-blue-400', bc: 'border-l-blue-500/40', text: 'The billing agent operates in strict isolation from the triage agent. Every access to the patient API is attributed to a specific machine identity — never a shared service account.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', lc: 'text-amber-300', bc: 'border-l-amber-400/40', text: 'The agent bills for an expensive specialist treatment. KYDE records that it referenced Dr. Müller\'s clinical letter from 08:00. The causal chain is immediately verifiable in any audit or billing dispute.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', lc: 'text-red-400', bc: 'border-l-red-500/40', text: 'Strict API blocklists. The agent has role "Billing.Read". KYDE enforces that it can never write to clinical findings or delete medical data — scope is enforced at the proxy, not by trust.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', lc: 'text-emerald-400', bc: 'border-l-emerald-500/40', text: 'In a GDPR/HIPAA-critical environment, the tamper-evident audit trail guarantees hospitals can prove in any audit exactly which agent processed which patient data and when.' },
     ],
     regs: ['EU AI Act — Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9 — Special category health data', 'MDR / IVDR — AI-assisted diagnostics', 'NIS-2 — Critical health infrastructure'],
   },
@@ -49,10 +49,10 @@ const cases = [
     tag: 'EU AI Act · Solvency II · GDPR',
     scenario: 'A claims agent evaluates uploaded photos of water damage and authorizes payouts to policyholders — autonomously.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'Clear role boundaries. The claims agent does not have the same rights as the underwriting agent that calculates policy pricing. Separation is enforced by KYDE, not by policy documents.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent rejects a water damage claim. KYDE stores the last 5 prompts and tool calls: the agent had read the 2021 policy PDF in which elemental damage was explicitly excluded. The adjuster can explain the logic to the policyholder immediately.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Hard limit: maximum automatic claims approval = €2,000. Anything above is blocked by the proxy and routed automatically to human escalation — a hard human-in-the-loop enforcement.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'When a fraud ring floods automated agents with fake images, the KYDE ledger proves immutably on what data basis the agent approved payment — essential for internal fraud investigators and regulators.' },
+      { label: 'IDENTITY', q: 'Who acted?', lc: 'text-blue-400', bc: 'border-l-blue-500/40', text: 'Clear role boundaries. The claims agent does not have the same rights as the underwriting agent that calculates policy pricing. Separation is enforced by KYDE, not by policy documents.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', lc: 'text-amber-300', bc: 'border-l-amber-400/40', text: 'The agent rejects a water damage claim. KYDE stores the last 5 prompts and tool calls: the agent had read the 2021 policy PDF in which elemental damage was explicitly excluded. The adjuster can explain the logic to the policyholder immediately.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', lc: 'text-red-400', bc: 'border-l-red-500/40', text: 'Hard limit: maximum automatic claims approval = €2,000. Anything above is blocked by the proxy and routed automatically to human escalation — a hard human-in-the-loop enforcement.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', lc: 'text-emerald-400', bc: 'border-l-emerald-500/40', text: 'When a fraud ring floods automated agents with fake images, the KYDE ledger proves immutably on what data basis the agent approved payment — essential for internal fraud investigators and regulators.' },
     ],
     regs: ['EU AI Act — High-Risk AI Annex III §5 Insurance', 'Solvency II — Governance and risk management', 'GDPR Art. 22 — Automated decision-making rights', 'NIS-2 — Operational resilience'],
   },
@@ -62,10 +62,10 @@ const cases = [
     tag: 'NIS-2 · KRITIS · EU AI Act',
     scenario: 'A grid-balancing agent manages electricity procurement and activates local large-scale batteries to compensate for network fluctuations.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'In NIS-2 critical environments there is no anonymity. The dispatch agent has a signed identity whose priority is ranked above the internal HR bot — fleet management is operational, not bureaucratic.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent ramps up a local power plant. The KYDE log shows the cause: grid frequency dropped 0.1 Hz and the agent processed a local weather signal indicating a drop in solar production. Every grid action is explainable.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Here, latency and blast radius control matter. KYDE limits API access precisely to the assigned substations. The agent cannot accidentally switch off the wrong grid segment — scope is enforced at the proxy layer.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'When an outage or grid instability occurs, federal authorities (e.g. Bundesnetzagentur) demand complete reports. Vendor cloud logs don\'t suffice. KYDE delivers the cryptographic ledger proving compliant grid management.' },
+      { label: 'IDENTITY', q: 'Who acted?', lc: 'text-blue-400', bc: 'border-l-blue-500/40', text: 'In NIS-2 critical environments there is no anonymity. The dispatch agent has a signed identity whose priority is ranked above the internal HR bot — fleet management is operational, not bureaucratic.' },
+      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', lc: 'text-amber-300', bc: 'border-l-amber-400/40', text: 'The agent ramps up a local power plant. The KYDE log shows the cause: grid frequency dropped 0.1 Hz and the agent processed a local weather signal indicating a drop in solar production. Every grid action is explainable.' },
+      { label: 'SCOPE & BUDGET', q: 'What were the limits?', lc: 'text-red-400', bc: 'border-l-red-500/40', text: 'Here, latency and blast radius control matter. KYDE limits API access precisely to the assigned substations. The agent cannot accidentally switch off the wrong grid segment — scope is enforced at the proxy layer.' },
+      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', lc: 'text-emerald-400', bc: 'border-l-emerald-500/40', text: 'When an outage or grid instability occurs, federal authorities (e.g. Bundesnetzagentur) demand complete reports. Vendor cloud logs don\'t suffice. KYDE delivers the cryptographic ledger proving compliant grid management.' },
     ],
     regs: ['NIS-2 — Network and Information Security (in force December 2025)', 'EU AI Act — High-Risk AI for critical infrastructure', 'KRITIS — German critical infrastructure protection', 'Cyber Resilience Act'],
   },
@@ -153,10 +153,10 @@ const cases = [
 
             <!-- 4 Pillars -->
             <div class="divide-y divide-zinc-800/60">
-              {pillars.map(({ label, q, text }) => (
-                <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
+              {pillars.map(({ label, q, lc, bc, text }) => (
+                <div class={`grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5 border-l-2 ${bc}`}>
                   <div class="shrink-0">
-                    <p class="font-mono text-xs font-bold text-amber-300 uppercase tracking-widest">{label}</p>
+                    <p class={`font-mono text-xs font-bold uppercase tracking-widest ${lc}`}>{label}</p>
                     <p class="font-mono text-xs text-zinc-600 mt-0.5">{q}</p>
                   </div>
                   <p class="text-sm leading-relaxed text-zinc-300">{text}</p>
@@ -180,6 +180,7 @@ const cases = [
           {[
             {
               role: "CISO",
+              rc: "text-red-400",
               label: "Chief Information Security Officer",
               quote: "Your vendor's log isn't an independent record.",
               bullets: [
@@ -190,6 +191,7 @@ const cases = [
             },
             {
               role: "CTO",
+              rc: "text-blue-400",
               label: "Chief Technology Officer",
               quote: "Your governance layer shouldn't depend on your LLM choice.",
               bullets: [
@@ -200,6 +202,7 @@ const cases = [
             },
             {
               role: "Compliance & Legal",
+              rc: "text-emerald-400",
               label: "GC · DPO · CCO",
               quote: "One framework won't be enough. One evidence trail has to cover all of them.",
               bullets: [
@@ -210,6 +213,7 @@ const cases = [
             },
             {
               role: "CFO & Ops",
+              rc: "text-amber-300",
               label: "Chief Financial Officer · Operations",
               quote: "An agent with no budget ceiling is a liability with no ceiling.",
               bullets: [
@@ -218,13 +222,13 @@ const cases = [
                 "Priority assignment means your production agents never queue behind an intern's research bot. Fleet efficiency is a governance decision.",
               ],
             },
-          ].map(({ role, label, quote, bullets }) => (
+          ].map(({ role, rc, label, quote, bullets }) => (
             <div class="rounded-sm border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-all p-8">
               <div class="mb-6 pb-6 border-b border-zinc-800">
-                <h2 class="font-mono text-2xl font-bold text-white">{role}</h2>
+                <h2 class={`font-mono text-2xl font-bold ${rc}`}>{role}</h2>
                 <p class="mt-1 text-xs text-zinc-500 uppercase tracking-widest">{label}</p>
               </div>
-              <p class="mb-6 font-mono text-sm text-zinc-300 border-l-2 border-amber-400/60 pl-4 leading-relaxed">"{quote}"</p>
+              <p class="mb-6 font-mono text-sm text-zinc-300 border-l-2 border-zinc-600/60 pl-4 leading-relaxed">"{quote}"</p>
               <ul class="space-y-4">
                 {bullets.map((b: string) => (
                   <li class="flex gap-4 text-sm leading-relaxed text-zinc-400">
