@@ -50,7 +50,7 @@ import Footer from '../../components/Footer.astro';
     <!-- ══════════ ARTICLE BODY ══════════ -->
     <section class="border-t border-zinc-800/60 py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-[1fr_280px] gap-16 items-start">
+        <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
           <article class="prose-kyde">
@@ -371,6 +371,8 @@ import Footer from '../../components/Footer.astro';
     font-size: 0.9375rem;
     line-height: 1.75;
     max-width: 68ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   .prose-kyde p { margin-bottom: 1.25rem; }
   .prose-kyde h2 {
@@ -411,6 +413,9 @@ import Footer from '../../components/Footer.astro';
     margin-top: 0.1rem;
   }
   .prose-kyde table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     width: 100%;
     border-collapse: collapse;
     margin: 1.25rem 0;
