@@ -210,36 +210,57 @@
     <p class="sb-brand"><span>KYDE</span> Revenue Engine</p>
   </div>
 
-  <!-- PRICING -->
+  <!-- PRICING TIERS — Fixed rates -->
   <div class="sb-group">
-    <div class="sb-group-label">↳ Pricing</div>
+    <div class="sb-group-label">↳ Pricing Tiers</div>
+    <div style="display:flex;flex-direction:column;gap:1px;background:var(--bg2);margin-bottom:4px">
+      <div style="background:var(--bg);padding:9px 12px">
+        <p style="font-family:ui-monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">STARTER</p>
+        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€1k/mo + <span style="color:var(--am)">€5</span>/agent · max 100</p>
+      </div>
+      <div style="background:var(--bg);padding:9px 12px">
+        <p style="font-family:ui-monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">BUSINESS</p>
+        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€3.5k/mo + <span style="color:var(--am)">€3</span>/agent · max 2k</p>
+      </div>
+      <div style="background:var(--bg);padding:9px 12px">
+        <p style="font-family:ui-monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">ENTERPRISE</p>
+        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€8k/mo + <span style="color:var(--am)">€1</span>/agent · unlimited</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER MIX -->
+  <div class="sb-group">
+    <div class="sb-group-label">↳ Tier Mix</div>
 
     <div class="input-row">
-      <div class="input-label"><span>Platform Base Fee</span><span class="val" id="v-base">€3,000</span></div>
-      <input type="range" id="base" min="500" max="10000" step="500" value="3000" />
-      <p class="sub-note">Monthly per enterprise customer</p>
+      <div class="input-label"><span>Starter %</span><span class="val" id="v-starter-pct">60%</span></div>
+      <input type="range" id="starter-pct" min="0" max="90" step="5" value="60" />
     </div>
 
     <div class="input-row">
-      <div class="input-label"><span>Production Agent / mo</span><span class="val" id="v-prod-agent">€50</span></div>
-      <input type="range" id="prod-agent" min="10" max="200" step="5" value="50" />
+      <div class="input-label"><span>Business %</span><span class="val" id="v-business-pct">30%</span></div>
+      <input type="range" id="business-pct" min="0" max="90" step="5" value="30" />
     </div>
 
     <div class="input-row">
-      <div class="input-label"><span>Research Agent / mo</span><span class="val" id="v-res-agent">€10</span></div>
-      <input type="range" id="res-agent" min="5" max="50" step="5" value="10" />
+      <div class="input-label"><span>Enterprise %</span><span class="val" id="v-enterprise-pct">10%</span></div>
+      <p class="sub-note">Auto: 100% − Starter% − Business%</p>
     </div>
 
     <div class="input-row">
-      <div class="input-label"><span>Retention (€/GB/mo)</span><span class="val" id="v-retention">€0.013</span></div>
-      <input type="range" id="retention" min="0.005" max="0.05" step="0.001" value="0.013" />
-      <p class="sub-note">Warm tier (S3 IA equivalent)</p>
+      <div class="input-label"><span>Starter avg agents</span><span class="val" id="v-starter-agents">30</span></div>
+      <input type="range" id="starter-agents" min="5" max="100" step="5" value="30" />
     </div>
 
     <div class="input-row">
-      <div class="input-label"><span>Enterprise ACV</span><span class="val" id="v-ent-acv">€80k</span></div>
-      <input type="range" id="ent-acv" min="20000" max="300000" step="5000" value="80000" />
-      <p class="sub-note">HSM / Silicon Leash deals</p>
+      <div class="input-label"><span>Business avg agents</span><span class="val" id="v-business-agents">300</span></div>
+      <input type="range" id="business-agents" min="50" max="2000" step="50" value="300" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Enterprise avg agents</span><span class="val" id="v-enterprise-agents">600</span></div>
+      <input type="range" id="enterprise-agents" min="100" max="5000" step="100" value="600" />
     </div>
   </div>
 
@@ -263,24 +284,9 @@
     </div>
 
     <div class="input-row">
-      <div class="input-label"><span>Avg Prod Agents (start)</span><span class="val" id="v-agents-start">10</span></div>
-      <input type="range" id="agents-start" min="2" max="100" step="2" value="10" />
-    </div>
-
-    <div class="input-row">
       <div class="input-label"><span>Agent Growth (×/year)</span><span class="val" id="v-agent-growth">3×</span></div>
       <input type="range" id="agent-growth" min="1.2" max="6" step="0.1" value="3" />
       <p class="sub-note">NRR driver — agents proliferate</p>
-    </div>
-
-    <div class="input-row">
-      <div class="input-label"><span>Research : Prod ratio</span><span class="val" id="v-res-ratio">30%</span></div>
-      <input type="range" id="res-ratio" min="0" max="100" step="5" value="30" />
-    </div>
-
-    <div class="input-row">
-      <div class="input-label"><span>Enterprise customers %</span><span class="val" id="v-ent-pct">10%</span></div>
-      <input type="range" id="ent-pct" min="2" max="40" step="2" value="10" />
     </div>
 
     <div class="input-row">
@@ -320,11 +326,6 @@
       <input type="range" id="mkt" min="0" max="100000" step="2500" value="10000" />
       <p class="sub-note">SEO, content, events, paid</p>
     </div>
-
-    <div class="input-row">
-      <div class="input-label"><span>Data / Agent / mo (GB)</span><span class="val" id="v-data-gb">3 GB</span></div>
-      <input type="range" id="data-gb" min="0.3" max="10" step="0.1" value="3" />
-    </div>
   </div>
 </aside>
 
@@ -334,6 +335,67 @@
   <div class="page-header">
     <h1 class="page-title">KYDE — Revenue Engine</h1>
     <p class="page-sub">↳ MONETIZING THE DIGITAL WORKFORCE · ALL FIGURES CALCULATED LIVE FROM INPUTS</p>
+  </div>
+
+  <!-- PRICING ARCHITECTURE -->
+  <div class="section">
+    <div class="section-label">↳ PRICING ARCHITECTURE — SCOPE-BASED TIERS</div>
+    <div class="chart-card" style="padding:0;overflow:hidden">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:160px"></th>
+            <th style="text-align:center;color:var(--z5)">STARTER</th>
+            <th style="text-align:center;color:var(--am)">BUSINESS</th>
+            <th style="text-align:center;color:var(--em)">ENTERPRISE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dim">Agents</td>
+            <td style="text-align:center;color:var(--z5)">up to 100</td>
+            <td style="text-align:center;color:var(--z4)">up to 2,000</td>
+            <td style="text-align:center;color:var(--z3)">Unlimited</td>
+          </tr>
+          <tr>
+            <td class="dim">Policies</td>
+            <td style="text-align:center;color:var(--z5)">Standard Set</td>
+            <td style="text-align:center;color:var(--z4)">Custom</td>
+            <td style="text-align:center;color:var(--z3)">Custom + Multi-Regulatory</td>
+          </tr>
+          <tr>
+            <td class="dim">Environments</td>
+            <td style="text-align:center;color:var(--z5)">1</td>
+            <td style="text-align:center;color:var(--z4)">3 (Dev / Staging / Prod)</td>
+            <td style="text-align:center;color:var(--z3)">Unlimited + On-Prem</td>
+          </tr>
+          <tr>
+            <td class="dim">Support</td>
+            <td style="text-align:center;color:var(--z5)">Community</td>
+            <td style="text-align:center;color:var(--z4)">Business Hours</td>
+            <td style="text-align:center;color:var(--z3)">Dedicated + SLA</td>
+          </tr>
+          <tr>
+            <td class="dim">PREVENT · PINPOINT · PROVE</td>
+            <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
+            <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
+            <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
+          </tr>
+          <tr style="border-top:1px solid var(--bg2)">
+            <td style="color:var(--wh);font-weight:600">Base / mo</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--z5)">€1,000</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--am);font-weight:600">€3,500</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--em);font-weight:600">€8,000</td>
+          </tr>
+          <tr>
+            <td style="color:var(--wh);font-weight:600">Per Agent / mo</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--z5)">€5</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--am);font-weight:600">€3</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--em);font-weight:600">€1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- KPI ROW -->
@@ -388,8 +450,8 @@
     <div class="section-label">↳ REVENUE BUILD</div>
     <div class="chart-grid">
       <div class="chart-card">
-        <p class="chart-title">ARR by Year & Revenue Axis</p>
-        <p class="chart-desc">Agent Seats · Evidence Ledger · Enterprise HSM</p>
+        <p class="chart-title">ARR by Year & Tier</p>
+        <p class="chart-desc">Starter · Business · Enterprise — scope-based tier mix</p>
         <div class="chart-wrap-tall"><canvas id="chart-arr"></canvas></div>
         <div class="soundbite"><p id="sb-arr">"..."</p></div>
       </div>
@@ -485,31 +547,31 @@
     </div>
   </div>
 
-  <!-- STORAGE COST ANALYSIS -->
+  <!-- TIER MIX ANALYSIS -->
   <div class="section">
-    <div class="section-label">↳ INFRASTRUCTURE COST ANALYSIS</div>
+    <div class="section-label">↳ TIER MIX ANALYSIS</div>
     <div class="chart-grid">
       <div class="chart-card">
-        <p class="chart-title">Storage Cost by Tier</p>
-        <p class="chart-desc">Tiered retention strategy — monthly cost at end of each year</p>
-        <div class="chart-wrap"><canvas id="chart-storage"></canvas></div>
+        <p class="chart-title">ARR Contribution by Tier</p>
+        <p class="chart-desc">Revenue split across Starter / Business / Enterprise — Year 3</p>
+        <div class="chart-wrap"><canvas id="chart-tier-mix"></canvas></div>
       </div>
       <div class="chart-card">
-        <p class="chart-title">Storage Unit Economics</p>
-        <p class="chart-desc">Revenue from Retention tier vs storage cost</p>
+        <p class="chart-title">Customer &amp; Agent Count by Tier — Year 3</p>
+        <p class="chart-desc">Scale comparison across tiers</p>
         <div style="margin-top:8px">
-          <table class="data-table" id="tbl-storage">
+          <table class="data-table" id="tbl-tier">
             <thead>
               <tr>
-                <th>Period</th>
-                <th style="text-align:right">Agents</th>
-                <th style="text-align:right">Data (TB)</th>
-                <th style="text-align:right">Storage Cost</th>
-                <th style="text-align:right">Retention Rev</th>
-                <th style="text-align:right">Margin</th>
+                <th>Tier</th>
+                <th style="text-align:right">Customers</th>
+                <th style="text-align:right">Avg Agents</th>
+                <th style="text-align:right">ACV / Customer</th>
+                <th style="text-align:right">Tier ARR</th>
+                <th style="text-align:right">ARR %</th>
               </tr>
             </thead>
-            <tbody id="storage-tbody"></tbody>
+            <tbody id="tier-tbody"></tbody>
           </table>
         </div>
       </div>
@@ -556,7 +618,7 @@
 </main>
 
 <script is:inline>
-  // ── CHART INSTANCES (for destroy/rebuild) ──
+  // ── CHART INSTANCES ──
   const charts = {};
 
   // ── HELPERS ──
@@ -566,12 +628,8 @@
     return prefix + n.toFixed(decimals);
   }
   function pct(n) { return n.toFixed(1) + '%'; }
-  function fmtFull(n) {
-    return '€' + Math.round(n).toLocaleString('de-DE');
-  }
 
   const AM  = '#fbbf24';
-  const AM2 = '#f59e0b';
   const EM  = '#34d399';
   const RE  = '#f87171';
   const BL  = '#60a5fa';
@@ -582,7 +640,7 @@
   const BG2 = '#27272a';
 
   const CHART_DEFAULTS = {
-    plugins: { legend: { labels: { color: Z5, font: { size: 10, family: 'ui-monospace' } } }, tooltip: { backgroundColor: '#18181b', borderColor: BG2, borderWidth: 1, titleColor: Z4, bodyColor: Z5 } },
+    plugins: { legend: { labels: { color: Z5, font: { size: 10, family: 'ui-monospace' } } }, tooltip: { backgroundColor: BG1, borderColor: BG2, borderWidth: 1, titleColor: Z4, bodyColor: Z5 } },
     scales: {
       x: { grid: { color: 'rgba(63,63,70,.3)' }, ticks: { color: Z6, font: { size: 10 } } },
       y: { grid: { color: 'rgba(63,63,70,.3)' }, ticks: { color: Z6, font: { size: 10 } } }
@@ -598,48 +656,58 @@
 
   // ── INPUT BINDINGS ──
   const inputs = {
-    base:         { el: 'base',         fmt: v => '€'+parseInt(v).toLocaleString('de-DE'), out: 'v-base' },
-    prodAgent:    { el: 'prod-agent',   fmt: v => '€'+v,           out: 'v-prod-agent' },
-    resAgent:     { el: 'res-agent',    fmt: v => '€'+v,           out: 'v-res-agent' },
-    retention:    { el: 'retention',    fmt: v => '€'+parseFloat(v).toFixed(3), out: 'v-retention' },
-    entAcv:       { el: 'ent-acv',      fmt: v => '€'+Math.round(v/1000)+'k', out: 'v-ent-acv' },
-    c1:           { el: 'c1',           fmt: v => v,               out: 'v-c1' },
-    c2:           { el: 'c2',           fmt: v => v,               out: 'v-c2' },
-    c3:           { el: 'c3',           fmt: v => v,               out: 'v-c3' },
-    agentsStart:  { el: 'agents-start', fmt: v => v,               out: 'v-agents-start' },
-    agentGrowth:  { el: 'agent-growth', fmt: v => parseFloat(v).toFixed(1)+'×', out: 'v-agent-growth' },
-    resRatio:     { el: 'res-ratio',    fmt: v => v+'%',           out: 'v-res-ratio' },
-    entPct:       { el: 'ent-pct',      fmt: v => v+'%',           out: 'v-ent-pct' },
-    churn:        { el: 'churn',        fmt: v => v+'%',           out: 'v-churn' },
-    cac:          { el: 'cac',          fmt: v => '€'+Math.round(v/1000)+'k', out: 'v-cac' },
-    cogs:         { el: 'cogs',         fmt: v => v+'%',           out: 'v-cogs' },
-    hc:           { el: 'hc',           fmt: v => v,               out: 'v-hc' },
-    comp:         { el: 'comp',         fmt: v => '€'+v+'k',       out: 'v-comp' },
-    mkt:          { el: 'mkt',          fmt: v => '€'+Math.round(v/1000)+'k', out: 'v-mkt' },
-    dataGb:       { el: 'data-gb',      fmt: v => parseFloat(v).toFixed(1)+' GB', out: 'v-data-gb' },
+    starterPct:       { el: 'starter-pct',      fmt: v => v+'%',                              out: 'v-starter-pct' },
+    businessPct:      { el: 'business-pct',     fmt: v => v+'%',                              out: 'v-business-pct' },
+    starterAgents:    { el: 'starter-agents',   fmt: v => v,                                  out: 'v-starter-agents' },
+    businessAgents:   { el: 'business-agents',  fmt: v => v,                                  out: 'v-business-agents' },
+    enterpriseAgents: { el: 'enterprise-agents',fmt: v => v,                                  out: 'v-enterprise-agents' },
+    c1:               { el: 'c1',               fmt: v => v,                                  out: 'v-c1' },
+    c2:               { el: 'c2',               fmt: v => v,                                  out: 'v-c2' },
+    c3:               { el: 'c3',               fmt: v => v,                                  out: 'v-c3' },
+    agentGrowth:      { el: 'agent-growth',     fmt: v => parseFloat(v).toFixed(1)+'×',       out: 'v-agent-growth' },
+    churn:            { el: 'churn',            fmt: v => v+'%',                              out: 'v-churn' },
+    cac:              { el: 'cac',              fmt: v => '€'+Math.round(v/1000)+'k',         out: 'v-cac' },
+    cogs:             { el: 'cogs',             fmt: v => v+'%',                              out: 'v-cogs' },
+    hc:               { el: 'hc',              fmt: v => v,                                  out: 'v-hc' },
+    comp:             { el: 'comp',             fmt: v => '€'+v+'k',                          out: 'v-comp' },
+    mkt:              { el: 'mkt',              fmt: v => '€'+Math.round(v/1000)+'k',         out: 'v-mkt' },
   };
 
+  // Update enterprise % display automatically
+  function updateEnterprisePct() {
+    const s = +document.getElementById('starter-pct').value;
+    const b = +document.getElementById('business-pct').value;
+    document.getElementById('v-enterprise-pct').textContent = Math.max(0, 100 - s - b) + '%';
+  }
+  document.getElementById('starter-pct').addEventListener('input', updateEnterprisePct);
+  document.getElementById('business-pct').addEventListener('input', updateEnterprisePct);
+
   function getInputs() {
+    const starterPct  = +document.getElementById('starter-pct').value / 100;
+    const businessPct = +document.getElementById('business-pct').value / 100;
+    const enterprisePct = Math.max(0, 1 - starterPct - businessPct);
     return {
-      base:        +document.getElementById('base').value,
-      prodAgent:   +document.getElementById('prod-agent').value,
-      resAgent:    +document.getElementById('res-agent').value,
-      retention:   +document.getElementById('retention').value,
-      entAcv:      +document.getElementById('ent-acv').value,
+      // Fixed tier pricing
+      starterBase: 1000, businessBase: 3500, enterpriseBase: 8000,
+      starterPerAgent: 5, businessPerAgent: 3, enterprisePerAgent: 1,
+      // Tier mix
+      starterPct, businessPct, enterprisePct,
+      // Agents per tier at start
+      starterAgents:    +document.getElementById('starter-agents').value,
+      businessAgents:   +document.getElementById('business-agents').value,
+      enterpriseAgents: +document.getElementById('enterprise-agents').value,
+      // Growth
       c1:          +document.getElementById('c1').value,
       c2:          +document.getElementById('c2').value,
       c3:          +document.getElementById('c3').value,
-      agentsStart: +document.getElementById('agents-start').value,
       agentGrowth: +document.getElementById('agent-growth').value,
-      resRatio:    +document.getElementById('res-ratio').value / 100,
-      entPct:      +document.getElementById('ent-pct').value / 100,
       churn:       +document.getElementById('churn').value / 100,
+      // Costs
       cac:         +document.getElementById('cac').value,
       cogs:        +document.getElementById('cogs').value / 100,
       hc:          +document.getElementById('hc').value,
       comp:        +document.getElementById('comp').value * 1000,
       mkt:         +document.getElementById('mkt').value,
-      dataGb:      +document.getElementById('data-gb').value,
     };
   }
 
@@ -648,100 +716,81 @@
     const years = [1, 2, 3];
     const customers = [p.c1, p.c2, p.c3];
 
-    // Agents per customer per year (start × growth^year)
-    const agentsPerCust = [
-      p.agentsStart,
-      p.agentsStart * p.agentGrowth,
-      p.agentsStart * p.agentGrowth * p.agentGrowth,
-    ];
-    const resAgentsPerCust = agentsPerCust.map(a => a * p.resRatio);
+    // Customers per tier
+    const starterC  = customers.map(c => Math.max(0, Math.round(c * p.starterPct)));
+    const businessC = customers.map(c => Math.max(0, Math.round(c * p.businessPct)));
+    const enterpriseC = customers.map((c, i) => Math.max(0, c - starterC[i] - businessC[i]));
 
-    // Revenue axes
-    const seatRev = years.map((_, i) => customers[i] * (
-      p.base * 12 +
-      agentsPerCust[i] * p.prodAgent * 12 +
-      resAgentsPerCust[i] * p.resAgent * 12
-    ));
+    // Agents per tier per year (with caps)
+    const mult = [1, p.agentGrowth, p.agentGrowth * p.agentGrowth];
+    const starterAgentsY    = mult.map(m => Math.min(100,  p.starterAgents * m));
+    const businessAgentsY   = mult.map(m => Math.min(2000, p.businessAgents * m));
+    const enterpriseAgentsY = mult.map(m => p.enterpriseAgents * m);
 
-    // Data per year (cumulative agents × GB × months)
-    const totalAgents = years.map((_, i) => customers[i] * agentsPerCust[i]);
-    const dataTB = years.map((_, i) => totalAgents[i] * p.dataGb * 12 / 1024); // TB cumulative
-    const ledgerRev = years.map((_, i) => totalAgents[i] * p.dataGb * p.retention * 12);
+    // Revenue per tier
+    const starterRev    = years.map((_, i) => starterC[i]    * (p.starterBase    * 12 + starterAgentsY[i]    * p.starterPerAgent    * 12));
+    const businessRev   = years.map((_, i) => businessC[i]   * (p.businessBase   * 12 + businessAgentsY[i]   * p.businessPerAgent   * 12));
+    const enterpriseRev = years.map((_, i) => enterpriseC[i] * (p.enterpriseBase * 12 + enterpriseAgentsY[i] * p.enterprisePerAgent * 12));
+    const totalARR      = years.map((_, i) => starterRev[i] + businessRev[i] + enterpriseRev[i]);
 
-    const entCustomers = customers.map(c => Math.max(1, Math.round(c * p.entPct)));
-    const entRev = entCustomers.map(e => e * p.entAcv);
-
-    const totalARR = years.map((_, i) => seatRev[i] + ledgerRev[i] + entRev[i]);
+    const totalAgents = years.map((_, i) =>
+      starterC[i] * starterAgentsY[i] + businessC[i] * businessAgentsY[i] + enterpriseC[i] * enterpriseAgentsY[i]);
 
     // COGS & Gross Profit
-    const cogs = totalARR.map(a => a * p.cogs);
+    const cogs        = totalARR.map(a => a * p.cogs);
     const grossProfit = totalARR.map((a, i) => a - cogs[i]);
     const grossMargin = grossProfit.map((g, i) => g / totalARR[i]);
 
     // OpEx
-    const headcountCost = p.hc * p.comp; // annual
-    const mktAnnual = p.mkt * 12;
-    const opex = years.map(() => headcountCost + mktAnnual);
+    const headcountCost = p.hc * p.comp;
+    const mktAnnual     = p.mkt * 12;
+    const opex          = years.map(() => headcountCost + mktAnnual);
 
     // EBITDA
-    const ebitda = years.map((_, i) => grossProfit[i] - opex[i]);
+    const ebitda       = years.map((_, i) => grossProfit[i] - opex[i]);
     const ebitdaMargin = ebitda.map((e, i) => e / totalARR[i]);
 
-    // Monthly burn Y1
     const monthlyBurnY1 = (headcountCost + mktAnnual) / 12;
+    const nrr           = p.agentGrowth * (1 - p.churn);
 
-    // NRR: expansion from agent growth minus logo churn
-    // Cohort: customer stays, their revenue grows by agentGrowth each year
-    const nrr = (p.agentGrowth * (1 - p.churn));
-
-    // LTV: ACV × Gross Margin / Churn (if churn = 0, cap at 10x)
-    const avgAcvY3 = totalARR[2] / customers[2];
+    const avgAcvY3      = totalARR[2] / customers[2];
     const effectiveChurn = Math.max(p.churn, 0.01);
-    const ltv = avgAcvY3 * grossMargin[2] / effectiveChurn;
-    const ltvCac = ltv / p.cac;
+    const ltv           = avgAcvY3 * grossMargin[2] / effectiveChurn;
+    const ltvCac        = ltv / p.cac;
 
-    // CAC Payback: months = CAC / (MRR × Gross Margin)
-    const mrrY3 = totalARR[2] / 12;
-    const mrrPerCust = mrrY3 / customers[2];
+    const mrrY3         = totalARR[2] / 12;
+    const mrrPerCust    = mrrY3 / customers[2];
     const paybackMonths = p.cac / (mrrPerCust * grossMargin[2]);
 
-    // Rule of 40
-    const growthRate = (totalARR[2] - totalARR[1]) / totalARR[1] * 100;
-    const rule40 = growthRate + (ebitdaMargin[2] * 100);
+    const growthRate    = (totalARR[2] - totalARR[1]) / totalARR[1] * 100;
+    const rule40        = growthRate + (ebitdaMargin[2] * 100);
 
     // Waterfall Y3
-    const newArr = (customers[2] - Math.round(customers[1] * (1 - p.churn))) * avgAcvY3;
+    const newArr       = (customers[2] - Math.round(customers[1] * (1 - p.churn))) * avgAcvY3;
     const expansionArr = Math.round(customers[1] * (1 - p.churn)) * avgAcvY3 * (p.agentGrowth - 1);
-    const churnArr = customers[1] * avgAcvY3 * p.churn;
+    const churnArr     = customers[1] * avgAcvY3 * p.churn;
 
-    // Monthly expansion per customer cohort (36 months)
+    // Monthly expansion — blended avg customer (36 months)
+    const avgBase = p.starterPct * p.starterBase + p.businessPct * p.businessBase + p.enterprisePct * p.enterpriseBase;
+    const avgAgentRevStart =
+      p.starterPct * p.starterAgents * p.starterPerAgent +
+      p.businessPct * p.businessAgents * p.businessPerAgent +
+      p.enterprisePct * p.enterpriseAgents * p.enterprisePerAgent;
     const monthlyRev36 = Array.from({length: 36}, (_, m) => {
       const yr = m / 12;
-      const agentsAtMonth = p.agentsStart * Math.pow(p.agentGrowth, yr);
-      const resAgents = agentsAtMonth * p.resRatio;
-      const monthData = agentsAtMonth * p.dataGb;
-      return (p.base + agentsAtMonth * p.prodAgent + resAgents * p.resAgent + monthData * p.retention) * 1; // single customer MRR
-    });
-
-    // Storage cost (tiered)
-    const storageMonthlyY = years.map((_, i) => {
-      const cumData_GB = totalAgents[i] * p.dataGb * 12; // cumulative GB
-      const hot = Math.min(cumData_GB, totalAgents[i] * p.dataGb * 3);    // last 3mo hot
-      const warm = Math.min(cumData_GB - hot, totalAgents[i] * p.dataGb * 9); // mo 4-12 warm
-      const cold = Math.max(0, cumData_GB - hot - warm);                  // rest cold
-      return hot * 0.115 + warm * 0.023 + cold * 0.004;
+      return avgBase + avgAgentRevStart * Math.pow(p.agentGrowth, yr);
     });
 
     return {
-      customers, agentsPerCust, totalAgents,
-      seatRev, ledgerRev, entRev, totalARR,
+      customers, starterC, businessC, enterpriseC,
+      starterAgentsY, businessAgentsY, enterpriseAgentsY, totalAgents,
+      starterRev, businessRev, enterpriseRev, totalARR,
       cogs, grossProfit, grossMargin,
       opex, ebitda, ebitdaMargin,
       monthlyBurnY1, nrr, ltv, ltvCac, paybackMonths,
       avgAcvY3, mrrY3, growthRate, rule40,
-      newArr, expansionArr, churnArr,
-      monthlyRev36, dataTB, storageMonthlyY,
-      entCustomers, headcountCost, mktAnnual,
+      newArr, expansionArr, churnArr, monthlyRev36,
+      headcountCost, mktAnnual,
     };
   }
 
@@ -769,21 +818,21 @@
     document.getElementById('kpi-payback').className = 'kpi-value ' + (d.paybackMonths < 18 ? 'kpi-good' : d.paybackMonths < 36 ? 'kpi-warn' : 'kpi-bad');
 
     document.getElementById('kpi-burn').textContent = fmt(d.monthlyBurnY1) + '/mo';
-    document.getElementById('kpi-acv').textContent = fmt(d.avgAcvY3);
+    document.getElementById('kpi-acv').textContent  = fmt(d.avgAcvY3);
 
     const r40 = d.rule40;
-    document.getElementById('kpi-r40').textContent = Math.round(r40);
-    document.getElementById('kpi-r40').className = 'kpi-value ' + (r40 > 60 ? 'kpi-good' : r40 > 40 ? 'kpi-warn' : 'kpi-bad');
+    document.getElementById('kpi-r40').textContent  = Math.round(r40);
+    document.getElementById('kpi-r40').className    = 'kpi-value ' + (r40 > 60 ? 'kpi-good' : r40 > 40 ? 'kpi-warn' : 'kpi-bad');
 
-    // ARR Chart
+    // ARR Chart — by tier
     mkChart('chart-arr', {
       type: 'bar',
       data: {
         labels: ['Year 1', 'Year 2', 'Year 3'],
         datasets: [
-          { label: 'Agent Seats', data: d.seatRev, backgroundColor: AM, stack: 's' },
-          { label: 'Evidence Ledger', data: d.ledgerRev, backgroundColor: EM, stack: 's' },
-          { label: 'Enterprise HSM', data: d.entRev, backgroundColor: BL, stack: 's' },
+          { label: 'Starter',     data: d.starterRev,    backgroundColor: Z5,  stack: 's' },
+          { label: 'Business',    data: d.businessRev,   backgroundColor: AM,  stack: 's' },
+          { label: 'Enterprise',  data: d.enterpriseRev, backgroundColor: EM,  stack: 's' },
         ]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
@@ -796,8 +845,9 @@
         }
       }
     });
+    const entPct = d.enterpriseRev[2] / d.totalARR[2] * 100;
     document.getElementById('sb-arr').textContent =
-      `Year 3 ARR: ${fmt(d.totalARR[2])} across ${d.customers[2]} customers. Agent seats are ${pct(d.seatRev[2]/d.totalARR[2]*100)} of revenue. Enterprise deals (${d.entCustomers[2]} customers) at ${fmt(p.entAcv)} ACV.`;
+      `Year 3 ARR: ${fmt(d.totalARR[2])} across ${d.customers[2]} customers. Enterprise (${d.enterpriseC[2]} customers) contributes ${pct(entPct)} of revenue. Business tier: ${d.businessC[2]} customers.`;
 
     // Waterfall Chart
     const wfData = [d.totalARR[1], d.newArr, d.expansionArr, -d.churnArr, d.totalARR[2]];
@@ -805,10 +855,7 @@
       type: 'bar',
       data: {
         labels: ['ARR Y2', 'New ARR', 'Expansion ARR', 'Churn', 'ARR Y3'],
-        datasets: [{
-          data: wfData,
-          backgroundColor: wfData.map((v, i) => i === 0 ? Z5 : i === 4 ? AM : v >= 0 ? EM : RE),
-        }]
+        datasets: [{ data: wfData, backgroundColor: wfData.map((v, i) => i === 0 ? Z5 : i === 4 ? AM : v >= 0 ? EM : RE) }]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
         plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
@@ -818,7 +865,7 @@
       }
     });
     document.getElementById('sb-waterfall').textContent =
-      `Expansion ARR ${fmt(d.expansionArr)} comes from existing customers adding agents — zero additional CAC. Churn only ${fmt(d.churnArr)}.`;
+      `Expansion ARR ${fmt(d.expansionArr)} from existing customers adding agents — zero additional CAC. Churn only ${fmt(d.churnArr)}.`;
 
     // LTV/CAC Chart
     mkChart('chart-ltvcac', {
@@ -835,7 +882,6 @@
       }
     });
     const ltvCacColor = d.ltvCac >= 5 ? EM : d.ltvCac >= 3 ? AM : RE;
-    const ltvCacTag = d.ltvCac >= 5 ? 'tag-good' : d.ltvCac >= 3 ? 'tag-warn' : 'tag-bad';
     document.getElementById('ltvcac-detail').innerHTML = `
       <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap">
         <div><p class="kpi-label">LTV</p><p style="font-family:ui-monospace;font-size:16px;color:${EM}">${fmt(d.ltv)}</p></div>
@@ -845,17 +891,13 @@
       </div>
       <div class="soundbite" style="margin-top:10px"><p>VCs want LTV/CAC > 5×. Payback < 18 months for top-quartile SaaS.</p></div>`;
 
-    // Expansion per customer
+    // Expansion per customer (blended)
     mkChart('chart-expansion', {
       type: 'line',
       data: {
         labels: Array.from({length: 36}, (_, i) => i === 0 ? 'M1' : i % 6 === 0 ? `M${i+1}` : ''),
-        datasets: [{
-          label: 'MRR / Customer',
-          data: d.monthlyRev36,
-          borderColor: AM, backgroundColor: 'rgba(251,191,36,.08)',
-          fill: true, tension: 0.3, pointRadius: 0,
-        }]
+        datasets: [{ label: 'MRR / Customer (blended)', data: d.monthlyRev36,
+          borderColor: AM, backgroundColor: 'rgba(251,191,36,.08)', fill: true, tension: 0.3, pointRadius: 0 }]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
         plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
@@ -865,153 +907,135 @@
       }
     });
     document.getElementById('sb-expansion').textContent =
-      `Month 1 MRR/customer: ${fmt(d.monthlyRev36[0])}. Month 36: ${fmt(d.monthlyRev36[35])}. That's ${(d.monthlyRev36[35]/d.monthlyRev36[0]).toFixed(1)}× growth from one customer with zero additional CAC.`;
+      `Blended MRR/customer Month 1: ${fmt(d.monthlyRev36[0])}. Month 36: ${fmt(d.monthlyRev36[35])}. ${(d.monthlyRev36[35]/d.monthlyRev36[0]).toFixed(1)}× expansion — zero additional CAC.`;
 
     // Workforce Flip
-    const wfYears = ['2024','2025','2026','2027','2028','2029','2030'];
-    const humanEmpl = [100, 103, 105, 106, 107, 108, 109];
-    const aiAgents  = [1, 3, 10, 30, 80, 180, 400];
     mkChart('chart-workforce', {
       type: 'line',
       data: {
-        labels: wfYears,
+        labels: ['2024','2025','2026','2027','2028','2029','2030'],
         datasets: [
-          { label: 'Human Employees (indexed)', data: humanEmpl, borderColor: Z5, backgroundColor: 'transparent', tension: 0.2, borderDash: [4,4], pointRadius: 3 },
-          { label: 'AI Agents (indexed)', data: aiAgents, borderColor: AM, backgroundColor: 'rgba(251,191,36,.06)', fill: true, tension: 0.4, pointRadius: 3 },
+          { label: 'Human Employees (indexed)', data: [100,103,105,106,107,108,109], borderColor: Z5, backgroundColor: 'transparent', tension: 0.2, borderDash: [4,4], pointRadius: 3 },
+          { label: 'AI Agents (indexed)', data: [1,3,10,30,80,180,400], borderColor: AM, backgroundColor: 'rgba(251,191,36,.06)', fill: true, tension: 0.4, pointRadius: 3 },
         ]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
-        plugins: { ...CHART_DEFAULTS.plugins },
         scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => v + 'x' } } }
       }
     });
 
     // Deployment Wall
-    const autonomyLevels = ['1 agent', '10 agents', '50 agents', '200 agents', '1k agents', '5k agents'];
-    const legacyRisk  = [5, 20, 80, 250, 800, 2500];
-    const kydeRisk    = [5, 12, 18, 22, 25, 27];
     mkChart('chart-wall', {
       type: 'line',
       data: {
-        labels: autonomyLevels,
+        labels: ['1 agent','10 agents','50 agents','200 agents','1k agents','5k agents'],
         datasets: [
-          { label: 'Legacy IAM / Status Quo', data: legacyRisk, borderColor: RE, backgroundColor: 'rgba(248,113,113,.06)', fill: true, tension: 0.3, pointRadius: 3 },
-          { label: 'KYDE Infrastructure', data: kydeRisk, borderColor: EM, backgroundColor: 'rgba(52,211,153,.06)', fill: true, tension: 0.3, pointRadius: 3 },
+          { label: 'Legacy IAM / Status Quo', data: [5,20,80,250,800,2500], borderColor: RE, backgroundColor: 'rgba(248,113,113,.06)', fill: true, tension: 0.3, pointRadius: 3 },
+          { label: 'KYDE Infrastructure',     data: [5,12,18,22,25,27],    borderColor: EM, backgroundColor: 'rgba(52,211,153,.06)',  fill: true, tension: 0.3, pointRadius: 3 },
         ]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
-        plugins: { ...CHART_DEFAULTS.plugins,
-          annotation: { annotations: { line1: { type: 'line', x: '200 agents', borderColor: Z6, borderDash: [4,4], label: { content: 'Compliance Block', enabled: true } } } }
-        },
         scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, title: { display: true, text: 'Liability Exposure (indexed)', color: Z6, font: { size: 9 } } } }
       }
     });
 
-    // Burn Chart (monthly, year 1)
-    const burnMonths = Array.from({length: 12}, (_, m) => {
-      const monthlyOpex = d.monthlyBurnY1;
-      const mrrAtMonth = (d.totalARR[0] / 12) * ((m + 1) / 12); // ramp
-      return { burn: monthlyOpex, mrr: mrrAtMonth };
-    });
+    // Burn Chart
+    const burnMonths = Array.from({length: 12}, (_, m) => ({
+      burn: d.monthlyBurnY1,
+      mrr:  (d.totalARR[0] / 12) * ((m + 1) / 12),
+    }));
     mkChart('chart-burn', {
       type: 'line',
       data: {
         labels: Array.from({length: 12}, (_, i) => `M${i+1}`),
         datasets: [
           { label: 'Monthly OpEx (Burn)', data: burnMonths.map(b => b.burn), borderColor: RE, backgroundColor: 'rgba(248,113,113,.06)', fill: true, tension: 0.1, pointRadius: 0 },
-          { label: 'MRR (Ramp)', data: burnMonths.map(b => b.mrr), borderColor: EM, backgroundColor: 'rgba(52,211,153,.06)', fill: true, tension: 0.4, pointRadius: 0 },
+          { label: 'MRR (Ramp)',          data: burnMonths.map(b => b.mrr),  borderColor: EM, backgroundColor: 'rgba(52,211,153,.06)',  fill: true, tension: 0.4, pointRadius: 0 },
         ]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
-        plugins: { ...CHART_DEFAULTS.plugins },
         scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } } }
       }
     });
 
     // Rule of 40
     const r40Score = Math.round(d.rule40);
-    document.getElementById('r40-val').textContent = r40Score;
-    document.getElementById('r40-val').style.color = r40Score >= 60 ? EM : r40Score >= 40 ? AM : RE;
+    document.getElementById('r40-val').textContent  = r40Score;
+    document.getElementById('r40-val').style.color  = r40Score >= 60 ? EM : r40Score >= 40 ? AM : RE;
     document.getElementById('r40-growth').textContent = pct(d.growthRate);
     document.getElementById('r40-margin').textContent = pct(d.ebitdaMargin[2] * 100);
-    const fillPct = Math.min(100, Math.max(0, r40Score));
-    document.getElementById('r40-bar').style.width = fillPct + '%';
+    document.getElementById('r40-bar').style.width    = Math.min(100, Math.max(0, r40Score)) + '%';
     document.getElementById('r40-bar').style.background = r40Score >= 60 ? EM : r40Score >= 40 ? AM : RE;
     const r40TagEl = document.getElementById('r40-tag');
     r40TagEl.textContent = r40Score >= 60 ? '↑ Top Quartile' : r40Score >= 40 ? '✓ Above Threshold' : '↓ Below 40';
-    r40TagEl.className = 'tag ' + (r40Score >= 60 ? 'tag-good' : r40Score >= 40 ? 'tag-warn' : 'tag-bad');
+    r40TagEl.className   = 'tag ' + (r40Score >= 60 ? 'tag-good' : r40Score >= 40 ? 'tag-warn' : 'tag-bad');
 
-    // Storage chart
-    mkChart('chart-storage', {
-      type: 'bar',
+    // Tier Mix Doughnut
+    mkChart('chart-tier-mix', {
+      type: 'doughnut',
       data: {
-        labels: ['Year 1', 'Year 2', 'Year 3'],
-        datasets: [
-          { label: 'Hot (DB)', data: d.storageMonthlyY.map(v => v * 0.4), backgroundColor: RE, stack: 's' },
-          { label: 'Warm (S3 IA)', data: d.storageMonthlyY.map(v => v * 0.35), backgroundColor: AM, stack: 's' },
-          { label: 'Cold (Glacier)', data: d.storageMonthlyY.map(v => v * 0.25), backgroundColor: BL, stack: 's' },
-        ]
+        labels: ['Starter', 'Business', 'Enterprise'],
+        datasets: [{ data: [d.starterRev[2], d.businessRev[2], d.enterpriseRev[2]], backgroundColor: [Z5, AM, EM], borderWidth: 1, borderColor: BG1 }]
       },
-      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
-        plugins: { ...CHART_DEFAULTS.plugins },
-        scales: { ...CHART_DEFAULTS.scales,
-          y: { ...CHART_DEFAULTS.scales.y, stacked: true, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } },
-          x: { ...CHART_DEFAULTS.scales.x, stacked: true }
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins,
+          legend: { position: 'bottom', labels: { color: Z5, font: { size: 10, family: 'ui-monospace' }, padding: 12 } },
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + ctx.label + ': ' + fmt(ctx.raw) + ' (' + pct(ctx.raw / d.totalARR[2] * 100) + ')' } }
         }
       }
     });
 
-    // Storage table
-    const stbody = document.getElementById('storage-tbody');
-    stbody.innerHTML = [0,1,2].map(i => {
-      const retRev = d.ledgerRev[i] / 12;
-      const storeCost = d.storageMonthlyY[i];
-      const margin = retRev > 0 ? ((retRev - storeCost) / retRev * 100) : 0;
+    // Tier table
+    const tiers = [
+      { name: 'Starter',    c: d.starterC[2],    agents: d.starterAgentsY[2],    rev: d.starterRev[2],    color: Z5 },
+      { name: 'Business',   c: d.businessC[2],   agents: d.businessAgentsY[2],   rev: d.businessRev[2],   color: AM },
+      { name: 'Enterprise', c: d.enterpriseC[2], agents: d.enterpriseAgentsY[2], rev: d.enterpriseRev[2], color: EM },
+    ];
+    document.getElementById('tier-tbody').innerHTML = tiers.map(t => {
+      const acv = t.c > 0 ? t.rev / t.c : 0;
+      const revPct = d.totalARR[2] > 0 ? t.rev / d.totalARR[2] * 100 : 0;
       return `<tr>
-        <td>End Year ${i+1}</td>
-        <td class="num">${Math.round(d.totalAgents[i]).toLocaleString('de-DE')}</td>
-        <td class="num">${d.dataTB[i].toFixed(0)} TB</td>
-        <td class="re">€${Math.round(storeCost).toLocaleString('de-DE')}/mo</td>
-        <td class="am">€${Math.round(retRev).toLocaleString('de-DE')}/mo</td>
-        <td class="${margin > 80 ? 'em' : 'am'}">${margin.toFixed(0)}%</td>
+        <td style="color:${t.color};font-weight:600">${t.name}</td>
+        <td class="num">${t.c}</td>
+        <td class="num">${Math.round(t.agents).toLocaleString('de-DE')}</td>
+        <td class="am">${fmt(acv)}</td>
+        <td class="am">${fmt(t.rev)}</td>
+        <td class="${revPct > 50 ? 'em' : revPct > 20 ? 'am' : 'dim'}">${pct(revPct)}</td>
       </tr>`;
     }).join('');
 
     // P&L Table
     const plbody = document.getElementById('pl-tbody');
     const plLines = [
-      ['↳ Agent Seat Revenue', d.seatRev, 'am'],
-      ['↳ Evidence Ledger Revenue', d.ledgerRev, 'am'],
-      ['↳ Enterprise Revenue', d.entRev, 'am'],
-      ['TOTAL REVENUE', d.totalARR, 'am'],
-      ['COGS (Infra, Storage)', d.cogs.map(v => -v), 're'],
-      ['GROSS PROFIT', d.grossProfit, 'em'],
-      ['Gross Margin %', d.grossMargin.map(v => v*100), null, true],
-      ['Headcount', [d.headcountCost, d.headcountCost, d.headcountCost].map(v => -v), 're'],
-      ['Marketing', [d.mktAnnual, d.mktAnnual, d.mktAnnual].map(v => -v), 're'],
-      ['TOTAL OPEX', d.opex.map(v => -v), 're'],
-      ['EBITDA', d.ebitda, null],
-      ['EBITDA Margin %', d.ebitdaMargin.map(v => v*100), null, true],
+      ['↳ Starter Revenue',     d.starterRev,                   'am'],
+      ['↳ Business Revenue',    d.businessRev,                  'am'],
+      ['↳ Enterprise Revenue',  d.enterpriseRev,                'am'],
+      ['TOTAL REVENUE',         d.totalARR,                     'am'],
+      ['COGS (Infra, Signing, Storage)', d.cogs.map(v => -v),  're'],
+      ['GROSS PROFIT',          d.grossProfit,                  'em'],
+      ['Gross Margin %',        d.grossMargin.map(v => v*100),  null, true],
+      ['Headcount',             [d.headcountCost, d.headcountCost, d.headcountCost].map(v => -v), 're'],
+      ['Marketing',             [d.mktAnnual, d.mktAnnual, d.mktAnnual].map(v => -v), 're'],
+      ['TOTAL OPEX',            d.opex.map(v => -v),            're'],
+      ['EBITDA',                d.ebitda,                       null],
+      ['EBITDA Margin %',       d.ebitdaMargin.map(v => v*100), null, true],
     ];
     plbody.innerHTML = plLines.map(([label, vals, cls, isPct]) => {
       const isHeader = ['TOTAL REVENUE','GROSS PROFIT','EBITDA'].includes(label);
-      const style = isHeader ? 'font-weight:600;color:var(--wh);border-top:1px solid var(--bg2)' : '';
+      const style = isHeader ? 'font-weight:600;border-top:1px solid var(--bg2)' : '';
       return `<tr style="${style}">
         <td style="${isHeader ? 'color:var(--wh)' : ''}">${label}</td>
-        ${vals.map((v, i) => {
+        ${vals.map(v => {
           const color = isPct ? (v >= 80 ? 'var(--em)' : v >= 50 ? 'var(--am)' : v >= 0 ? 'var(--wh)' : 'var(--re)') :
                         v > 0 && cls === 'am' ? 'var(--am)' :
                         v > 0 && cls === 'em' ? 'var(--em)' :
-                        v < 0 ? 'var(--re)' :
-                        v > 0 ? 'var(--em)' : 'var(--re)';
-          const formatted = isPct ? pct(v) : fmt(Math.abs(v));
-          const sign = !isPct && v < 0 ? '−' : '';
-          return `<td class="num" style="color:${color}">${sign}${formatted}</td>`;
+                        v < 0 ? 'var(--re)' : v > 0 ? 'var(--em)' : 'var(--re)';
+          return `<td class="num" style="color:${color}">${isPct ? pct(v) : (v < 0 ? '−' : '') + fmt(Math.abs(v))}</td>`;
         }).join('')}
       </tr>`;
     }).join('');
 
-    // Marketing breakdown chart
+    // Marketing breakdown
     mkChart('chart-mkt', {
       type: 'doughnut',
       data: {
@@ -1028,27 +1052,18 @@
 
     // CAC Sensitivity
     const cacLevels = [5000, 10000, 15000, 25000, 40000, 60000, 80000];
-    const ltvVals = cacLevels.map(cac => {
-      const ltvAtCac = d.ltv; // LTV doesn't change with CAC
-      return (ltvAtCac / cac).toFixed(1);
-    });
+    const ltvVals   = cacLevels.map(cac => (d.ltv / cac).toFixed(1));
     mkChart('chart-cacsens', {
       type: 'bar',
       data: {
         labels: cacLevels.map(c => fmt(c)),
-        datasets: [{
-          label: 'LTV/CAC Ratio',
-          data: ltvVals,
-          backgroundColor: ltvVals.map(v => parseFloat(v) >= 5 ? EM : parseFloat(v) >= 3 ? AM : RE),
-        }]
+        datasets: [{ label: 'LTV/CAC Ratio', data: ltvVals, backgroundColor: ltvVals.map(v => parseFloat(v) >= 5 ? EM : parseFloat(v) >= 3 ? AM : RE) }]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
         plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
           tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' LTV/CAC: ' + ctx.raw + '×' } }
         },
-        scales: { ...CHART_DEFAULTS.scales,
-          y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => v + '×' } }
-        }
+        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => v + '×' } } }
       }
     });
   }
