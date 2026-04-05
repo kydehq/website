@@ -424,9 +424,9 @@
           <p class="kpi-sub">Revenue minus COGS</p>
         </div>
         <div class="kpi">
-          <p class="kpi-label">EBITDA Margin Y3</p>
+          <p class="kpi-label">EBITDA Y3</p>
           <p class="kpi-value" id="kpi-ebitda">—</p>
-          <p class="kpi-sub">After all OpEx — path to profit</p>
+          <p class="kpi-sub" id="kpi-ebitda-sub">Margin % · after all OpEx</p>
         </div>
       </div>
     </div>
@@ -866,8 +866,10 @@
     document.getElementById('kpi-gm').className   = 'kpi-value ' + (gm3 > 75 ? 'kpi-good' : gm3 > 60 ? 'kpi-warn' : 'kpi-bad');
 
     const eb3 = d.ebitdaMargin[2] * 100;
-    document.getElementById('kpi-ebitda').textContent = pct(eb3);
+    const ebitdaAbs = d.ebitda[2];
+    document.getElementById('kpi-ebitda').textContent = fmt(ebitdaAbs);
     document.getElementById('kpi-ebitda').className   = 'kpi-value ' + (eb3 > 20 ? 'kpi-good' : eb3 > 0 ? 'kpi-warn' : 'kpi-bad');
+    document.getElementById('kpi-ebitda-sub').textContent = pct(eb3) + ' margin · ' + (ebitdaAbs >= 0 ? 'profitable' : 'loss-making');
 
     // Row 2: Capital Efficiency
     const bm = d.burnMultiple;
