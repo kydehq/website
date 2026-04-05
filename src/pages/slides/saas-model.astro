@@ -218,11 +218,11 @@
     <div style="display:flex;flex-direction:column;gap:1px;background:var(--bg2);margin-bottom:4px">
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:ui-monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">STARTER</p>
-        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€1k/mo + <span style="color:var(--am)">€5</span>/agent · max 100</p>
+        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€1k/mo + <span style="color:var(--am)">€5</span>/agent · max 25</p>
       </div>
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:ui-monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">BUSINESS</p>
-        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€3.5k/mo + <span style="color:var(--am)">€3</span>/agent · max 2k</p>
+        <p style="font-family:ui-monospace;font-size:11px;color:var(--z4)">€3k/mo + <span style="color:var(--am)">€3</span>/agent · max 250</p>
       </div>
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:ui-monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">ENTERPRISE</p>
@@ -252,12 +252,12 @@
 
     <div class="input-row">
       <div class="input-label"><span>Starter avg agents</span><span class="val" id="v-starter-agents">30</span></div>
-      <input type="range" id="starter-agents" min="5" max="100" step="5" value="30" />
+      <input type="range" id="starter-agents" min="5" max="25" step="1" value="15" />
     </div>
 
     <div class="input-row">
       <div class="input-label"><span>Business avg agents</span><span class="val" id="v-business-agents">300</span></div>
-      <input type="range" id="business-agents" min="50" max="2000" step="50" value="300" />
+      <input type="range" id="business-agents" min="10" max="250" step="10" value="80" />
     </div>
 
     <div class="input-row">
@@ -355,8 +355,8 @@
         <tbody>
           <tr>
             <td class="dim">Agents</td>
-            <td style="text-align:center;color:var(--z5)">up to 100</td>
-            <td style="text-align:center;color:var(--z4)">up to 2,000</td>
+            <td style="text-align:center;color:var(--z5)">up to 25</td>
+            <td style="text-align:center;color:var(--z4)">up to 250</td>
             <td style="text-align:center;color:var(--z3)">Unlimited</td>
           </tr>
           <tr>
@@ -373,20 +373,32 @@
           </tr>
           <tr>
             <td class="dim">Support</td>
-            <td style="text-align:center;color:var(--z5)">Community</td>
+            <td style="text-align:center;color:var(--z5)">48h SLA</td>
             <td style="text-align:center;color:var(--z4)">Business Hours</td>
             <td style="text-align:center;color:var(--z3)">Dedicated + SLA</td>
           </tr>
           <tr>
-            <td class="dim">PREVENT · PINPOINT · PROVE</td>
+            <td class="dim">PREVENT</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:10px;color:var(--z5)">✓ Full DLP</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
+          </tr>
+          <tr>
+            <td class="dim">PINPOINT</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:10px;color:var(--z5)">7d log</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:10px;color:var(--z4)">30d log</td>
+            <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
+          </tr>
+          <tr>
+            <td class="dim">PROVE (DORA · NIS-2 · EU AI Act)</td>
+            <td style="text-align:center;color:var(--z6);font-size:12px">—</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:10px;color:var(--z4)">Compliance Export</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
           </tr>
           <tr style="border-top:1px solid var(--bg2)">
             <td style="color:var(--wh);font-weight:600">Base / mo</td>
             <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--z5)">€1,000</td>
-            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--am);font-weight:600">€3,500</td>
+            <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--am);font-weight:600">€3,000</td>
             <td style="text-align:center;font-family:ui-monospace;font-size:15px;color:var(--em);font-weight:600">€8,000</td>
           </tr>
           <tr>
@@ -729,7 +741,7 @@
     const enterprisePct = Math.max(0, 1 - starterPct - businessPct);
     return {
       // Fixed tier pricing
-      starterBase: 1000, businessBase: 3500, enterpriseBase: 8000,
+      starterBase: 1000, businessBase: 3000, enterpriseBase: 8000,
       starterPerAgent: 5, businessPerAgent: 3, enterprisePerAgent: 1,
       // Tier mix
       starterPct, businessPct, enterprisePct,
@@ -764,8 +776,8 @@
 
     // Agents per tier per year (with caps)
     const mult = [1, p.agentGrowth, p.agentGrowth * p.agentGrowth];
-    const starterAgentsY    = mult.map(m => Math.min(100,  p.starterAgents * m));
-    const businessAgentsY   = mult.map(m => Math.min(2000, p.businessAgents * m));
+    const starterAgentsY    = mult.map(m => Math.min(25,  p.starterAgents * m));
+    const businessAgentsY   = mult.map(m => Math.min(250, p.businessAgents * m));
     const enterpriseAgentsY = mult.map(m => p.enterpriseAgents * m);
 
     // Revenue per tier
