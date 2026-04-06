@@ -62,15 +62,15 @@
     }
     .sb-title { font-family: 'Andale Mono', 'Courier New', ui-monospace, monospace; font-size: 9px; letter-spacing: .25em; color: var(--z6); text-transform: uppercase; margin-bottom: 6px; }
     .sb-brand { font-size: 15px; font-weight: 800; letter-spacing: -.01em; color: var(--wh); }
-    .sb-brand span { color: var(--am); }
+    .sb-brand span { color: var(--wh); }
 
     .sb-group { padding: 16px 20px 8px; }
     .sb-group-label {
       font-family: 'Andale Mono', 'Courier New', ui-monospace, monospace;
       font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
-      color: var(--am); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+      color: var(--z5); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
     }
-    .sb-group-label::after { content:''; flex:1; height:1px; background: rgba(252,184,48,.25); }
+    .sb-group-label::after { content:''; flex:1; height:1px; background: var(--bg2); }
 
     .input-row { margin-bottom: 12px; }
     .input-label {
@@ -81,24 +81,26 @@
     .input-label .val {
       font-family: 'Andale Mono', 'Courier New', ui-monospace, monospace;
       font-size: 11px; color: var(--z3);
-      background: rgba(252,184,48,.10);
-      border: 1px solid rgba(252,184,48,.30);
+      background: var(--bg1);
+      border: 1px solid var(--bd);
       padding: 1px 6px;
       min-width: 54px; text-align: right;
       font-weight: 700;
     }
     input[type=range] {
-      width: 100%; height: 3px;
+      width: 100%; height: 2px;
       -webkit-appearance: none;
       background: var(--bg2);
-      border-radius: 2px; cursor: pointer;
+      border-radius: 1px; cursor: pointer;
     }
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--am); cursor: pointer;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--z3); cursor: pointer;
+      border: 2px solid var(--bg1);
+      box-shadow: 0 0 0 1px var(--bd);
     }
-    input[type=range]::-webkit-slider-thumb:hover { background: var(--am2); }
+    input[type=range]::-webkit-slider-thumb:hover { background: var(--z5); }
 
     .sub-note { font-size: 10px; color: var(--z6); margin-top: 3px; line-height: 1.3; }
 
@@ -156,12 +158,12 @@
 
     /* VC Soundbite */
     .soundbite {
-      border-left: 3px solid var(--am);
+      border-left: 2px solid var(--bd);
       padding: 8px 14px;
       margin: 10px 0 0;
-      background: rgba(252,184,48,.06);
+      background: transparent;
     }
-    .soundbite p { font-size: 11px; color: var(--z5); line-height: 1.5; font-style: italic; }
+    .soundbite p { font-size: 11px; color: var(--z6); line-height: 1.5; font-style: italic; }
 
     /* Table */
     .data-table { width: 100%; border-collapse: collapse; font-size: 11px; }
@@ -198,9 +200,9 @@
       font-family: 'Andale Mono', 'Courier New', ui-monospace, monospace; font-size: 9px; letter-spacing: .1em;
       padding: 2px 7px; border: 1px solid; text-transform: uppercase;
     }
-    .tag-good  { border-color: rgba(10,124,78,.35);  color: var(--em); background: rgba(10,124,78,.05); }
-    .tag-warn  { border-color: rgba(252,184,48,.45);  color: #c47a00;   background: rgba(252,184,48,.08); }
-    .tag-bad   { border-color: rgba(198,40,40,.3);   color: var(--re);  background: rgba(198,40,40,.05); }
+    .tag-good  { border-color: rgba(10,124,78,.4);   color: var(--em); background: rgba(10,124,78,.05); }
+    .tag-warn  { border-color: var(--bd);             color: var(--z5); background: var(--bg); }
+    .tag-bad   { border-color: rgba(198,40,40,.35);  color: var(--re); background: rgba(198,40,40,.04); }
 
     /* Pricing table amber highlight rows */
     .price-row td { background: var(--am); color: #0d0e10 !important; font-weight: 800; font-family: 'Andale Mono', 'Courier New', ui-monospace, monospace; font-size: 13px; letter-spacing: .05em; border-bottom: none !important; }
@@ -227,15 +229,15 @@
     <div style="display:flex;flex-direction:column;gap:1px;background:var(--bg2);margin-bottom:4px">
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:'Andale Mono','Courier New',monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">STARTER</p>
-        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€1k/mo + <span style="color:var(--am)">€5</span>/agent · max 25</p>
+        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€1k/mo + <span style="color:var(--z4)">€5</span>/agent · max 25</p>
       </div>
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:'Andale Mono','Courier New',monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">BUSINESS</p>
-        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€3k/mo + <span style="color:var(--am)">€3</span>/agent · max 250</p>
+        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€3k/mo + <span style="color:var(--z4)">€3</span>/agent · max 250</p>
       </div>
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:'Andale Mono','Courier New',monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">ENTERPRISE</p>
-        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€8k/mo + <span style="color:var(--am)">€1</span>/agent · unlimited</p>
+        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€8k/mo + <span style="color:var(--z4)">€1</span>/agent · unlimited</p>
       </div>
     </div>
   </div>
@@ -363,8 +365,8 @@
           <tr>
             <th style="width:160px"></th>
             <th style="text-align:center;color:var(--z5)">STARTER</th>
-            <th style="text-align:center;color:var(--am)">BUSINESS</th>
-            <th style="text-align:center;color:var(--em)">ENTERPRISE</th>
+            <th style="text-align:center;color:var(--z4)">BUSINESS</th>
+            <th style="text-align:center;color:var(--z3)">ENTERPRISE</th>
           </tr>
         </thead>
         <tbody>
@@ -393,19 +395,19 @@
             <td style="text-align:center;color:var(--z3)">Dedicated + SLA</td>
           </tr>
           <tr>
-            <td class="dim">PREVENT</td>
+            <td class="dim">AUTHORIZE</td>
             <td style="text-align:center;font-family:'Andale Mono','Courier New',monospace;font-size:10px;color:var(--z5)">✓ Full DLP</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
           </tr>
           <tr>
-            <td class="dim">PINPOINT</td>
+            <td class="dim">ATTRIBUTE</td>
             <td style="text-align:center;font-family:'Andale Mono','Courier New',monospace;font-size:10px;color:var(--z5)">7d log</td>
             <td style="text-align:center;font-family:'Andale Mono','Courier New',monospace;font-size:10px;color:var(--z4)">30d log</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
           </tr>
           <tr>
-            <td class="dim">PROVE (DORA · NIS-2 · EU AI Act)</td>
+            <td class="dim">ATTEST (DORA · NIS-2 · EU AI Act)</td>
             <td style="text-align:center;color:var(--z6);font-size:12px">—</td>
             <td style="text-align:center;font-family:'Andale Mono','Courier New',monospace;font-size:10px;color:var(--z4)">Compliance Export</td>
             <td style="text-align:center;color:var(--em);font-size:14px">✓</td>
@@ -607,7 +609,7 @@
               </div>
               <div class="r40-labels">
                 <span class="r40-label">0</span>
-                <span class="r40-label" style="color:var(--am)">40 (threshold)</span>
+                <span class="r40-label" style="color:var(--z5)">40 (threshold)</span>
                 <span class="r40-label">100+</span>
               </div>
             </div>
@@ -1012,7 +1014,7 @@
       data: {
         labels: Array.from({length: 36}, (_, i) => i === 0 ? 'M1' : i % 6 === 0 ? `M${i+1}` : ''),
         datasets: [{ label: 'MRR / Customer (blended)', data: d.monthlyRev36,
-          borderColor: AM, backgroundColor: 'rgba(252,184,48,.08)', fill: true, tension: 0.3, pointRadius: 0 }]
+          borderColor: AM, backgroundColor: 'rgba(0,0,0,.04)', fill: true, tension: 0.3, pointRadius: 0 }]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
         plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false },
@@ -1031,7 +1033,7 @@
         labels: ['2024','2025','2026','2027','2028','2029','2030'],
         datasets: [
           { label: 'Human Employees (indexed)', data: [100,103,105,106,107,108,109], borderColor: Z5, backgroundColor: 'transparent', tension: 0.2, borderDash: [4,4], pointRadius: 3 },
-          { label: 'AI Agents (indexed)', data: [1,3,10,30,80,180,400], borderColor: AM, backgroundColor: 'rgba(252,184,48,.06)', fill: true, tension: 0.4, pointRadius: 3 },
+          { label: 'AI Agents (indexed)', data: [1,3,10,30,80,180,400], borderColor: AM, backgroundColor: 'rgba(0,0,0,.03)', fill: true, tension: 0.4, pointRadius: 3 },
         ]
       },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
