@@ -257,6 +257,9 @@
     </div>
   </div>
 
+  <!-- ══ MODEL SIDEBAR ══ -->
+  <div class="tab-section active" id="model-sidebar">
+
   <!-- PRICING TIERS — Fixed rates -->
   <div class="sb-group">
     <div class="sb-group-label">↳ Pricing Tiers</div>
@@ -380,6 +383,8 @@
       <p class="sub-note">SEO, content, events, paid</p>
     </div>
   </div>
+
+  </div><!-- end model-sidebar -->
 
   <!-- ══ RAISE CALCULATOR SIDEBAR ══ -->
   <div class="tab-section" id="raise-sidebar">
@@ -1403,13 +1408,9 @@
   function switchTab(tab) {
     ['model','raise'].forEach(t => {
       document.getElementById(t + '-content').classList.toggle('active', t === tab);
+      document.getElementById(t + '-sidebar').classList.toggle('active', t === tab);
       document.getElementById('sb-tab-' + t).classList.toggle('active', t === tab);
       document.getElementById('main-tab-' + t).classList.toggle('active', t === tab);
-    });
-    document.getElementById('raise-sidebar').classList.toggle('active', tab === 'raise');
-    // Show/hide model sidebar groups
-    document.querySelectorAll('#sidebar .sb-group').forEach(g => {
-      g.style.display = tab === 'model' ? '' : 'none';
     });
     if (tab === 'raise') renderRaise();
   }
@@ -1575,8 +1576,6 @@
 
   // ── INIT ──
   render();
-  // Show only model sidebar groups initially
-  document.getElementById('raise-sidebar').classList.remove('active');
 </script>
 
 </body>
