@@ -409,7 +409,7 @@
     </div>
 
     <div class="sb-group">
-      <div class="sb-group-label">↳ Founders</div>
+      <div class="sb-group-label">↳ Team (this raise covers)</div>
       <div class="input-row">
         <div class="input-label"><span>Founders</span><span class="val" id="v-founders">2</span></div>
         <input type="range" id="founders" min="1" max="4" step="1" value="2" />
@@ -418,6 +418,32 @@
         <div class="input-label"><span>Founder Salary / mo</span><span class="val" id="v-founder-sal">€5k</span></div>
         <input type="range" id="founder-sal" min="0" max="15000" step="500" value="5000" />
         <p class="sub-note">Each founder, incl. social security</p>
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>New Hires</span><span class="val" id="v-new-hires">2</span></div>
+        <input type="range" id="new-hires" min="0" max="15" step="1" value="2" />
+        <p class="sub-note">Engineers, sales, ops — funded by raise</p>
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>Avg Hire Comp / yr</span><span class="val" id="v-hire-comp">€80k</span></div>
+        <input type="range" id="hire-comp" min="40000" max="200000" step="5000" value="80000" />
+        <p class="sub-note">Gross salary incl. employer costs</p>
+      </div>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-label">↳ Monthly Ops Costs</div>
+      <div class="input-row">
+        <div class="input-label"><span>AWS / Cloud / mo</span><span class="val" id="v-ops-aws">€2k</span></div>
+        <input type="range" id="ops-aws" min="0" max="20000" step="500" value="2000" />
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>Tools & SaaS / mo</span><span class="val" id="v-ops-tools">€1k</span></div>
+        <input type="range" id="ops-tools" min="0" max="10000" step="250" value="1000" />
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>Office / misc / mo</span><span class="val" id="v-ops-misc">€1k</span></div>
+        <input type="range" id="ops-misc" min="0" max="10000" step="250" value="1000" />
       </div>
     </div>
 
@@ -819,9 +845,9 @@
           <p class="kpi-sub">Post-money implied valuation</p>
         </div>
         <div class="kpi" style="flex:1">
-          <p class="kpi-label">Monthly Burn (incl. founders)</p>
+          <p class="kpi-label">Monthly Burn</p>
           <p id="raise-burn" class="kpi-value kpi-warn">—</p>
-          <p class="kpi-sub">All-in monthly cash out</p>
+          <p class="kpi-sub" id="raise-burn-sub">Founders + hires + ops</p>
         </div>
         <div class="kpi" style="flex:1">
           <p class="kpi-label">One-Time Setup Costs</p>
@@ -1422,6 +1448,11 @@
     dilution:   { el: 'dilution',   fmt: v => v + '%',                           out: 'v-dilution' },
     founders:   { el: 'founders',   fmt: v => v,                                 out: 'v-founders' },
     founderSal: { el: 'founder-sal',fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-founder-sal' },
+    newHires:   { el: 'new-hires',  fmt: v => v,                                 out: 'v-new-hires' },
+    hireComp:   { el: 'hire-comp',  fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-hire-comp' },
+    opsAws:     { el: 'ops-aws',    fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ops-aws' },
+    opsTools:   { el: 'ops-tools',  fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ops-tools' },
+    opsMisc:    { el: 'ops-misc',   fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ops-misc' },
     otBsi:      { el: 'ot-bsi',    fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-bsi' },
     otCyber:    { el: 'ot-cyber',  fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-cyber' },
     otDo:       { el: 'ot-do',     fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-do' },
@@ -1440,26 +1471,30 @@
   });
 
   function getRaiseInputs() {
-    const model = getInputs();
-    const d     = calc(model);
     return {
       runway:      +document.getElementById('runway').value,
       bufferPct:   +document.getElementById('buffer').value / 100,
       dilutionPct: +document.getElementById('dilution').value / 100,
       founders:    +document.getElementById('founders').value,
       founderSal:  +document.getElementById('founder-sal').value,
+      newHires:    +document.getElementById('new-hires').value,
+      hireComp:    +document.getElementById('hire-comp').value,
+      opsAws:      +document.getElementById('ops-aws').value,
+      opsTools:    +document.getElementById('ops-tools').value,
+      opsMisc:     +document.getElementById('ops-misc').value,
       otBsi:       +document.getElementById('ot-bsi').value,
       otCyber:     +document.getElementById('ot-cyber').value,
       otDo:        +document.getElementById('ot-do').value,
       otLegal:     +document.getElementById('ot-legal').value,
       otAws:       +document.getElementById('ot-aws').value,
-      modelBurn:   d.monthlyBurnY1,  // opex from main model
     };
   }
 
   function calcRaise(r) {
     const founderMonthlyCost = r.founders * r.founderSal;
-    const totalMonthlyBurn   = r.modelBurn + founderMonthlyCost;
+    const hireMonthlyCost    = r.newHires * r.hireComp / 12;
+    const opsMonthlyCost     = r.opsAws + r.opsTools + r.opsMisc;
+    const totalMonthlyBurn   = founderMonthlyCost + hireMonthlyCost + opsMonthlyCost;
     const oneTimeCosts       = r.otBsi + r.otCyber + r.otDo + r.otLegal + r.otAws;
     const operationalNeed    = totalMonthlyBurn * r.runway;
     const raiseBase          = operationalNeed + oneTimeCosts;
@@ -1489,7 +1524,7 @@
       return { pre, post, dil };
     });
 
-    return { totalMonthlyBurn, founderMonthlyCost, oneTimeCosts, raiseBase, raiseAmount, preMoney, postMoney, burndown, matrixRows, valuationRows };
+    return { totalMonthlyBurn, founderCost: founderMonthlyCost, hireCost: hireMonthlyCost, opsCost: opsMonthlyCost, oneTimeCosts, raiseBase, raiseAmount, preMoney, postMoney, burndown, matrixRows, valuationRows };
   }
 
   function renderRaise() {
@@ -1498,10 +1533,12 @@
 
     document.getElementById('lbl-dilution').textContent = Math.round(r.dilutionPct * 100);
     document.getElementById('raise-amount').textContent  = fmt(d.raiseAmount);
-    document.getElementById('raise-sub').textContent     =
-      `${r.runway} months runway · ${Math.round(r.bufferPct*100)}% buffer · €${Math.round(d.oneTimeCosts/1000)}k one-time · €${Math.round(d.totalMonthlyBurn/1000)}k/mo burn`;
+    const burnBreakdown = `${r.founders} founders + ${r.newHires} hires + ops`;
+    document.getElementById('raise-sub').textContent =
+      `${r.runway} mo · ${Math.round(r.bufferPct*100)}% buffer · ${fmt(d.totalMonthlyBurn)}/mo (${burnBreakdown}) · ${fmt(d.oneTimeCosts)} one-time`;
     document.getElementById('raise-premoney').textContent = fmt(d.preMoney);
-    document.getElementById('raise-burn').textContent    = fmt(d.totalMonthlyBurn) + '/mo';
+    document.getElementById('raise-burn').textContent     = fmt(d.totalMonthlyBurn) + '/mo';
+    document.getElementById('raise-burn-sub').textContent = `${fmt(d.founderCost)} founders · ${fmt(d.hireCost)} hires · ${fmt(d.opsCost)} ops`;
     document.getElementById('raise-onetime').textContent = fmt(d.oneTimeCosts);
 
     // Burndown chart
