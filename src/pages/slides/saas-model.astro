@@ -471,6 +471,40 @@
       </div>
     </div>
 
+    <div class="sb-group">
+      <div class="sb-group-label">↳ Revenue Offset</div>
+      <div class="input-row">
+        <div class="input-label"><span>Pilot MRR</span><span class="val" id="v-offset-mrr">€0</span></div>
+        <input type="range" id="offset-mrr" min="0" max="100000" step="2500" value="0" />
+        <p class="sub-note">Expected MRR from first pilots (0 = disabled)</p>
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>Revenue starts at M</span><span class="val" id="v-offset-month">6</span></div>
+        <input type="range" id="offset-month" min="1" max="24" step="1" value="6" />
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>Series A target MRR</span><span class="val" id="v-seriesA-mrr">€80k</span></div>
+        <input type="range" id="seriesA-mrr" min="10000" max="300000" step="5000" value="80000" />
+        <p class="sub-note">≈ €1M ARR — when next round becomes possible</p>
+      </div>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-label">↳ Milestones</div>
+      <div class="input-row">
+        <div class="input-label"><span>MVP live at M</span><span class="val" id="v-ms1">3</span></div>
+        <input type="range" id="ms1" min="1" max="36" step="1" value="3" />
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>First Pilots at M</span><span class="val" id="v-ms2">8</span></div>
+        <input type="range" id="ms2" min="1" max="36" step="1" value="8" />
+      </div>
+      <div class="input-row">
+        <div class="input-label"><span>Certified at M</span><span class="val" id="v-ms3">12</span></div>
+        <input type="range" id="ms3" min="1" max="36" step="1" value="12" />
+      </div>
+    </div>
+
   </div>
 </aside>
 
@@ -1453,11 +1487,17 @@
     opsAws:     { el: 'ops-aws',    fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ops-aws' },
     opsTools:   { el: 'ops-tools',  fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ops-tools' },
     opsMisc:    { el: 'ops-misc',   fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ops-misc' },
-    otBsi:      { el: 'ot-bsi',    fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-bsi' },
-    otCyber:    { el: 'ot-cyber',  fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-cyber' },
-    otDo:       { el: 'ot-do',     fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-do' },
-    otLegal:    { el: 'ot-legal',  fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-legal' },
-    otAws:      { el: 'ot-aws',    fmt: v => '€' + Math.round(v/1000) + 'k',   out: 'v-ot-aws' },
+    otBsi:      { el: 'ot-bsi',      fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-ot-bsi' },
+    otCyber:    { el: 'ot-cyber',    fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-ot-cyber' },
+    otDo:       { el: 'ot-do',       fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-ot-do' },
+    otLegal:    { el: 'ot-legal',    fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-ot-legal' },
+    otAws:      { el: 'ot-aws',      fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-ot-aws' },
+    offsetMrr:  { el: 'offset-mrr',  fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-offset-mrr' },
+    offsetMonth:{ el: 'offset-month',fmt: v => v,                               out: 'v-offset-month' },
+    seriesAMrr: { el: 'seriesA-mrr', fmt: v => '€' + Math.round(v/1000) + 'k', out: 'v-seriesA-mrr' },
+    ms1:        { el: 'ms1',         fmt: v => v,                               out: 'v-ms1' },
+    ms2:        { el: 'ms2',         fmt: v => v,                               out: 'v-ms2' },
+    ms3:        { el: 'ms3',         fmt: v => v,                               out: 'v-ms3' },
   };
 
   Object.entries(raiseInputs).forEach(([, cfg]) => {
@@ -1487,6 +1527,12 @@
       otDo:        +document.getElementById('ot-do').value,
       otLegal:     +document.getElementById('ot-legal').value,
       otAws:       +document.getElementById('ot-aws').value,
+      offsetMrr:   +document.getElementById('offset-mrr').value,
+      offsetMonth: +document.getElementById('offset-month').value,
+      seriesAMrr:  +document.getElementById('seriesA-mrr').value,
+      ms1:         +document.getElementById('ms1').value,
+      ms2:         +document.getElementById('ms2').value,
+      ms3:         +document.getElementById('ms3').value,
     };
   }
 
@@ -1502,11 +1548,19 @@
     const postMoney          = raiseAmount / r.dilutionPct;
     const preMoney           = postMoney - raiseAmount;
 
-    // Burndown: month-by-month cash remaining (conservative: no revenue)
-    const burndown = Array.from({length: r.runway + 1}, (_, m) => {
-      if (m === 0) return raiseAmount;
-      return Math.max(0, raiseAmount - totalMonthlyBurn * m - (m === 1 ? oneTimeCosts : 0));
-    });
+    // Burndown: iterative with revenue offset
+    let cash = raiseAmount;
+    const burndown = [cash];
+    const mrrCurve = [0];
+    for (let m = 1; m <= r.runway; m++) {
+      const oneTime = m === 1 ? oneTimeCosts : 0;
+      const mrr     = (r.offsetMrr > 0 && m >= r.offsetMonth) ? r.offsetMrr : 0;
+      cash = Math.max(0, cash - totalMonthlyBurn - oneTime + mrr);
+      burndown.push(cash);
+      mrrCurve.push(mrr);
+    }
+    // Series A readiness: first month where MRR >= target
+    const seriesAMonth = mrrCurve.findIndex(m => m >= r.seriesAMrr);
 
     // Negotiation matrix: 12 / 15 / 18 months
     const runwayScenarios  = [12, 15, 18, 24];
@@ -1524,7 +1578,7 @@
       return { pre, post, dil };
     });
 
-    return { totalMonthlyBurn, founderCost: founderMonthlyCost, hireCost: hireMonthlyCost, opsCost: opsMonthlyCost, oneTimeCosts, raiseBase, raiseAmount, preMoney, postMoney, burndown, matrixRows, valuationRows };
+    return { totalMonthlyBurn, founderCost: founderMonthlyCost, hireCost: hireMonthlyCost, opsCost: opsMonthlyCost, oneTimeCosts, raiseBase, raiseAmount, preMoney, postMoney, burndown, mrrCurve, seriesAMonth, matrixRows, valuationRows };
   }
 
   function renderRaise() {
@@ -1543,30 +1597,84 @@
 
     // Burndown chart
     const months = Array.from({length: r.runway + 1}, (_, i) => 'M' + i);
-    const dangerLine = d.totalMonthlyBurn * 3; // 3-month warning
+    const dangerLine = d.totalMonthlyBurn * 3;
+    const milestones = [
+      { month: r.ms1, label: 'MVP' },
+      { month: r.ms2, label: 'Pilots' },
+      { month: r.ms3, label: 'Certified' },
+    ].filter(m => m.month <= r.runway);
+
+    // Inline plugin for milestone vertical lines + Series A marker
+    const milestonesPlugin = {
+      id: 'milestones',
+      afterDraw(chart) {
+        const ctx  = chart.ctx;
+        const meta = chart.getDatasetMeta(0);
+        if (!meta.data.length) return;
+        milestones.forEach(ms => {
+          if (ms.month >= meta.data.length) return;
+          const x = meta.data[ms.month].x;
+          ctx.save();
+          ctx.strokeStyle = Z5;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath();
+          ctx.moveTo(x, chart.chartArea.top);
+          ctx.lineTo(x, chart.chartArea.bottom);
+          ctx.stroke();
+          ctx.fillStyle = Z5;
+          ctx.font = "bold 8px 'Andale Mono','Courier New',monospace";
+          ctx.fillText(ms.label, x + 3, chart.chartArea.top + 10);
+          ctx.restore();
+        });
+        // Series A marker
+        if (d.seriesAMonth > 0 && d.seriesAMonth < meta.data.length) {
+          const x = meta.data[d.seriesAMonth].x;
+          ctx.save();
+          ctx.strokeStyle = EM;
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([6, 3]);
+          ctx.beginPath();
+          ctx.moveTo(x, chart.chartArea.top);
+          ctx.lineTo(x, chart.chartArea.bottom);
+          ctx.stroke();
+          ctx.fillStyle = EM;
+          ctx.font = "bold 8px 'Andale Mono','Courier New',monospace";
+          ctx.fillText('Series A ready', x + 3, chart.chartArea.top + 22);
+          ctx.restore();
+        }
+      }
+    };
+
+    const chartDatasets = [
+      { label: 'Cash Remaining', data: d.burndown, borderColor: Z4, backgroundColor: 'rgba(0,0,0,.04)', fill: true, tension: 0.1, pointRadius: 0, yAxisID: 'y' },
+      { label: '3-Month Warning', data: Array(r.runway + 1).fill(dangerLine), borderColor: RE, borderDash: [4,4], pointRadius: 0, borderWidth: 1, yAxisID: 'y' },
+    ];
+    if (r.offsetMrr > 0) {
+      chartDatasets.push({ label: 'Pilot MRR', data: d.mrrCurve, borderColor: EM, backgroundColor: 'rgba(10,124,78,.06)', fill: true, tension: 0.1, pointRadius: 0, yAxisID: 'y2', borderDash: [2,2] });
+    }
+
     mkChart('chart-burndown', {
       type: 'line',
-      data: {
-        labels: months,
-        datasets: [
-          { label: 'Cash Remaining', data: d.burndown, borderColor: Z4, backgroundColor: 'rgba(0,0,0,.04)', fill: true, tension: 0.1, pointRadius: 2 },
-          { label: '3-Month Warning', data: Array(r.runway + 1).fill(dangerLine), borderColor: RE, borderDash: [4,4], pointRadius: 0, borderWidth: 1 },
-        ]
-      },
+      data: { labels: months, datasets: chartDatasets },
       options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
         plugins: { ...CHART_DEFAULTS.plugins,
           tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw) } }
         },
-        scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } } }
-      }
+        scales: {
+          ...CHART_DEFAULTS.scales,
+          y:  { ...CHART_DEFAULTS.scales.y, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } },
+          y2: { position: 'right', grid: { drawOnChartArea: false }, ticks: { color: EM, font: { size: 10 }, callback: v => fmt(v) }, display: r.offsetMrr > 0 },
+        }
+      },
+      plugins: [milestonesPlugin],
     });
 
-    // Break-even month
     const beMo = d.burndown.findIndex(v => v <= 0);
+    const revenueNote = r.offsetMrr > 0 ? ` Revenue offset of ${fmt(r.offsetMrr)}/mo from M${r.offsetMonth} extends runway.` : ' No revenue offset — conservative model.';
+    const seriesANote = d.seriesAMonth > 0 ? ` Series A readiness at M${d.seriesAMonth} when MRR hits ${fmt(r.seriesAMrr)}.` : '';
     document.getElementById('sb-burndown').textContent =
-      beMo > 0
-        ? `Cash hits zero at month ${beMo}. 3-month safety buffer line at ${fmt(dangerLine)}. Raise covers ${r.runway} months of full operations.`
-        : `Raise of ${fmt(d.raiseAmount)} funds all ${r.runway} months. Cash floor reached at end of runway.`;
+      (beMo > 0 ? `Cash hits zero at M${beMo}.` : `Full ${r.runway}-month runway funded.`) + revenueNote + seriesANote;
 
     // Negotiation matrix
     const highlight = r.runway; // highlight row matching current target runway
