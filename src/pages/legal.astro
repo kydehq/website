@@ -61,8 +61,8 @@ const sections = [
     <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-24">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
       <div class="relative max-w-7xl mx-auto px-6">
-        <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-blue-400">Legal & Privacy</p>
-        <h1 class="max-w-2xl text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
+        <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-[#4472c4]">Legal & Privacy</p>
+        <h1 class="max-w-2xl text-5xl font-extrabold leading-tight tracking-tight text-[#0d0e10] md:text-6xl">
           Imprint & Privacy Notice
         </h1>
       </div>
@@ -73,12 +73,12 @@ const sections = [
       <div class="max-w-7xl mx-auto px-6">
         <div class="max-w-2xl space-y-4">
           {sections.map(({ id, n, title, body }) => (
-            <div id={id} class="rounded-sm border border-zinc-800 bg-zinc-900/40 px-8 py-7">
+            <div id={id} class="rounded-sm border border-dotted border-[#0d0e10]/15 bg-white px-8 py-7">
               <div class="flex items-baseline gap-3 mb-3">
-                <span class="font-mono text-sm text-zinc-600 shrink-0">{n}</span>
-                <h2 class="text-base font-bold text-white">{title}</h2>
+                <span class="font-mono text-sm text-[#aaa] shrink-0">{n}</span>
+                <h2 class="text-base font-bold text-[#0d0e10]">{title}</h2>
               </div>
-              <p class="text-sm leading-relaxed text-zinc-400 pl-6">{body}</p>
+              <p class="text-sm leading-relaxed text-[#555] pl-6">{body}</p>
             </div>
           ))}
         </div>
