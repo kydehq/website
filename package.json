@@ -9,12 +9,20 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "qa:spell": "cspell \"src/pages/**/*.astro\" \"src/components/**/*.astro\" --no-progress",
+    "qa:links": "lychee --base dist --no-progress --exclude-mail --exclude 'plausible\\.io' 'dist/**/*.html'",
+    "qa:html": "html-validate 'dist/**/*.html'",
+    "qa": "./scripts/qa.sh"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.0.5",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "cspell": "^10.0.0",
+    "html-validate": "^10.11.3"
   }
 }
