@@ -134,7 +134,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         <div class="border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
                             <p class="font-mono text-sm text-[#333] leading-relaxed">
                                 Governance isn't the brake.<br />
-                                <span class="text-[#0d0e10]">It's what lets you accelerate.</span>
+                                <span class="bg-[#fcb830] text-[#0d0e10] px-1">It's what lets you accelerate.</span>
                             </p>
                         </div>
                     </div>
@@ -311,7 +311,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         },
                         {
                             title: "Zero-Friction Deployment",
-                            body: "One environment variable. One Group Policy push. No code changes. No SDK integration. The agent sees no difference. Latency under 100ms.",
+                            body: '<span class="bg-[#fcb830] text-[#0d0e10] px-1">One environment variable.</span> One Group Policy push. No code changes. No SDK. The agent sees no difference. Latency under 100ms.',
                             tag: "Ops",
                         },
                     ].map(({ title, body, tag }) => (
@@ -320,7 +320,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                                 <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{tag}</span>
                             </div>
                             <h3 class="mb-3 text-base font-semibold text-[#0d0e10]">{title}</h3>
-                            <p class="text-sm leading-relaxed text-[#333]">{body}</p>
+                            <p class="text-sm leading-relaxed text-[#333]" set:html={body}></p>
                         </div>
                     ))}
                 </div>
@@ -431,7 +431,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         Three guarantees. One stack.
                     </h2>
                     <p class="mt-4 text-lg text-[#333]">
-                        Not a roadmap. Not phases. A complete infrastructure layer that ships as a unit — deployed in minutes, covering every agent from day one.
+                        <span class="bg-[#fcb830] text-[#0d0e10] px-1">Not a roadmap.</span> Not phases. A complete infrastructure layer that ships as a unit — deployed in minutes, covering every agent from day one.
                     </p>
                 </div>
 
