@@ -88,7 +88,7 @@ const cases = [
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
             <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#888]">↳ Use Cases</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">↳ Use Cases</span>
           </div>
           <div class="h-px w-full bg-[#e8e9eb]"></div>
         </div>
@@ -101,13 +101,13 @@ const cases = [
         <div class="mt-16 border-t border-dotted border-[#0d0e10]/25 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
           <div>
             <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0d0e10]">Coverage</p>
-            <p class="mt-2 font-mono text-xs text-[#aaa]">[ALL SECTORS]</p>
+            <p class="mt-2 font-mono text-xs text-[#666]">[ALL SECTORS]</p>
           </div>
           <div class="space-y-6">
-            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#555]">
+            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
               KYDE WITNESS provides infrastructure-grade fleet management for any organization running AI agents in production — regardless of sector, provider, or use case.
             </p>
-            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#888]">
+            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
               The <span class="font-mono text-[#333]">EU AI Act</span>, <span class="font-mono text-[#333]">NIS-2</span>, <span class="font-mono text-[#333]">DORA</span>, and <span class="font-mono text-[#333]">GDPR</span> don't care which LLM vendor you chose. They care whether you can prove what your agents did, explain why, and demonstrate that the record can't be tampered with.
             </p>
           </div>
@@ -130,7 +130,7 @@ const cases = [
           <button
             id="btn-role"
             onclick="showTab('role')"
-            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-[#555] hover:text-[#0d0e10]"
+            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-[#333] hover:text-[#0d0e10]"
           >By Role</button>
         </div>
 
@@ -141,12 +141,12 @@ const cases = [
 
             <!-- Header -->
             <div class="flex flex-col sm:flex-row sm:items-start gap-4 px-6 sm:px-8 py-6">
-              <span class="font-mono text-2xl font-bold text-[#ccc] shrink-0">{n}</span>
+              <span class="font-mono text-2xl font-bold text-[#333] shrink-0">{n}</span>
               <div class="flex-1">
                 <h2 class="text-xl font-bold text-[#0d0e10] mb-2">{sector}</h2>
-                <p class="text-sm text-[#888] leading-relaxed">{scenario}</p>
+                <p class="text-sm text-[#333] leading-relaxed">{scenario}</p>
               </div>
-              <span class="shrink-0 inline-flex items-center border border-dotted border-[#0d0e10]/20 bg-transparent px-3 py-1 text-xs font-mono text-[#888] self-start">
+              <span class="shrink-0 inline-flex items-center border border-dotted border-[#0d0e10]/20 bg-transparent px-3 py-1 text-xs font-mono text-[#333] self-start">
                 {tag}
               </span>
             </div>
@@ -156,8 +156,8 @@ const cases = [
               {pillars.map(({ label, q, text }) => (
                 <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
                   <div class="shrink-0">
-                    <p class="font-mono text-xs font-bold uppercase tracking-widest text-[#555]">{label}</p>
-                    <p class="font-mono text-xs text-[#aaa] mt-0.5">{q}</p>
+                    <p class="font-mono text-xs font-bold uppercase tracking-widest text-[#333]">{label}</p>
+                    <p class="font-mono text-xs text-[#666] mt-0.5">{q}</p>
                   </div>
                   <p class="text-sm leading-relaxed text-[#333]">{text}</p>
                 </div>
@@ -167,7 +167,7 @@ const cases = [
             <!-- Regs -->
             <div class="px-6 sm:px-8 py-5 flex flex-wrap gap-2">
               {regs.map((r: string) => (
-                <span class="border border-dotted border-[#0d0e10]/15 px-3 py-1 text-xs font-mono text-[#888]">{r}</span>
+                <span class="border border-dotted border-[#0d0e10]/15 px-3 py-1 text-xs font-mono text-[#333]">{r}</span>
               ))}
             </div>
 
@@ -222,13 +222,13 @@ const cases = [
             <div class="p-8">
               <div class="mb-6 pb-6 border-b border-dotted border-[#0d0e10]/25">
                 <h2 class="font-mono text-2xl font-bold text-[#0d0e10]">{role}</h2>
-                <p class="mt-1 text-xs text-[#888] uppercase tracking-widest">{label}</p>
+                <p class="mt-1 text-xs text-[#333] uppercase tracking-widest">{label}</p>
               </div>
               <p class="mb-6 font-mono text-sm text-[#333] border-l-2 border-dotted border-[#0d0e10]/20 pl-4 leading-relaxed">"{quote}"</p>
               <ul class="space-y-4">
                 {bullets.map((b: string) => (
-                  <li class="flex gap-4 text-sm leading-relaxed text-[#555]">
-                    <span class="font-mono text-[#888] shrink-0 mt-0.5">→</span>
+                  <li class="flex gap-4 text-sm leading-relaxed text-[#333]">
+                    <span class="font-mono text-[#333] shrink-0 mt-0.5">→</span>
                     <span>{b}</span>
                   </li>
                 ))}
@@ -250,16 +250,16 @@ const cases = [
           industry?.classList.remove('hidden');
           role?.classList.add('hidden');
           btnIndustry?.classList.add('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnIndustry?.classList.remove('text-[#555]');
+          btnIndustry?.classList.remove('text-[#333]');
           btnRole?.classList.remove('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnRole?.classList.add('text-[#555]');
+          btnRole?.classList.add('text-[#333]');
         } else {
           role?.classList.remove('hidden');
           industry?.classList.add('hidden');
           btnRole?.classList.add('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnRole?.classList.remove('text-[#555]');
+          btnRole?.classList.remove('text-[#333]');
           btnIndustry?.classList.remove('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnIndustry?.classList.add('text-[#555]');
+          btnIndustry?.classList.add('text-[#333]');
         }
       }
     </script>
@@ -269,12 +269,12 @@ const cases = [
       <div class="max-w-7xl mx-auto px-6">
         <div class="border-b border-dotted border-[#0d0e10]/25 p-12 md:p-20">
           <div class="max-w-3xl">
-            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[#888]">↳ Get started</p>
+            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[#333]">↳ Get started</p>
             <div class="mb-8 h-px bg-[#0d0e10]/40"></div>
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-4">
               Your industry. Your agents.<br />Your critical infrastructure.
             </h2>
-            <p class="text-lg text-[#555] mb-10">
+            <p class="text-lg text-[#333] mb-10">
               Kyde Witness works across every sector, every provider, every framework. Governance isn't the brake. It's what lets you accelerate.
             </p>
             <button
