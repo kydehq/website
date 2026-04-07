@@ -15,7 +15,7 @@
                 One proxy. Every agent. <span class="text-[#333]">Full record.</span>
             </h2>
             <p class="mt-4 text-lg text-[#333]">
-                KYDE WITNESS sits between your agents and any LLM provider — intercepting every call, signing every entry, and chaining every record into a tamper-evident audit log.
+                KYDE sits between your agents and any LLM provider — intercepting every call, signing every entry, and chaining every record into a tamper-evident audit log.
             </p>
         </div>
 
@@ -26,7 +26,7 @@
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 class="w-full block"
-                aria-label="Architecture diagram: AI agents connect to KYDE WITNESS proxy, which forwards to LLM providers and writes a hash-chained audit log"
+                aria-label="Architecture diagram: AI agents connect to KYDE proxy, which forwards to LLM providers and writes a hash-chained audit log"
                 role="img"
             >
                 <style>
@@ -37,7 +37,7 @@
                     .d-line     { stroke: #0d0e10; stroke-width: 1; stroke-opacity: 0.2; stroke-dasharray: 3 3; }
                     .d-dot      { fill: #0d0e10; fill-opacity: 0.15; }
                     .d-tag      { font-family: ui-monospace, monospace; font-size: 9px;  fill: #fcb830; letter-spacing: 0.1em; }
-                    .d-witness  { font-family: ui-monospace, monospace; font-size: 12px; fill: #0d0e10; }
+                    .d-kyde  { font-family: ui-monospace, monospace; font-size: 12px; fill: #0d0e10; }
                     .d-meta     { font-family: ui-monospace, monospace; font-size: 8px;  fill: #aaa; }
                     .d-llm      { font-family: ui-monospace, monospace; font-size: 11px; fill: #555; }
                     .d-verified { font-family: ui-monospace, monospace; font-size: 8px;  fill: #0a7c4e; }
@@ -46,7 +46,7 @@
                     .d-a3       { font-family: ui-monospace, monospace; font-size: 9px;  fill: #555; }
                 </style>
 
-                <!-- ── ORTHOGONAL: all agents → bus at x=310 → Witness ── -->
+                <!-- ── ORTHOGONAL: all agents → bus at x=310 → KYDE ── -->
                 <!-- col 1 -->
                 <path d="M 73,57  H 310 V 122 H 330" class="d-line"/>
                 <path d="M 93,122 H 330"             class="d-line"/>
@@ -58,7 +58,7 @@
                 <path d="M 258,44  H 310 V 122" class="d-line"/>
                 <path d="M 238,122 H 330"        class="d-line"/>
                 <path d="M 258,200 H 310 V 122"  class="d-line"/>
-                <!-- bus → Witness -->
+                <!-- bus → KYDE -->
                 <line x1="310" y1="122" x2="330" y2="122" class="d-line"/>
                 <!-- junction dot at bus -->
                 <circle cx="310" cy="122" r="3" fill="#0d0e10" fill-opacity="0.2"/>
@@ -92,9 +92,9 @@
 
                 <text x="132" y="250" text-anchor="middle" class="d-caption">ENTERPRISE AGENTS</text>
 
-                <!-- ── CENTER: KYDE WITNESS ── -->
+                <!-- ── CENTER: KYDE ── -->
                 <rect x="330" y="65" width="185" height="114" rx="1" class="d-box-ac"/>
-                <text x="422" y="84"  text-anchor="middle" class="d-witness">KYDE WITNESS</text>
+                <text x="422" y="84"  text-anchor="middle" class="d-kyde">KYDE</text>
                 <text x="422" y="98"  text-anchor="middle" class="d-meta" style="fill:#aaa">Governance Proxy</text>
                 <line x1="342" y1="104" x2="503" y2="104" stroke="#0d0e10" stroke-width="0.8" stroke-opacity="0.15"/>
                 <text x="422" y="118" text-anchor="middle" class="d-tag">● ACTIVE</text>
@@ -102,7 +102,7 @@
                 <text x="342" y="149" class="d-meta">CHAIN  1,847 entries</text>
                 <text x="342" y="163" class="d-meta">LAT  82ms</text>
 
-                <!-- ── ORTHOGONAL: Witness → bus at x=593 → LLMs ── -->
+                <!-- ── ORTHOGONAL: KYDE → bus at x=593 → LLMs ── -->
                 <path d="M 515,122 H 593 V 44  H 670" class="d-line"/>
                 <path d="M 515,122 H 670"             class="d-line"/>
                 <path d="M 515,122 H 593 V 200 H 670" class="d-line"/>
@@ -152,7 +152,7 @@
         <div class="mt-28 grid gap-4 sm:grid-cols-3">
             <div class="border border-dotted border-[#0d0e10]/15 bg-white px-6 py-5">
                 <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-2">01 — Intercept</p>
-                <p class="text-sm text-[#333] leading-relaxed">Every request from every agent routes through the WITNESS proxy. No code changes required — one environment variable or Group Policy push.</p>
+                <p class="text-sm text-[#333] leading-relaxed">Every request from every agent routes through the KYDE Proxy. No code changes required — one environment variable or Group Policy push.</p>
             </div>
             <div class="border border-dotted border-[#0d0e10]/15 bg-white px-6 py-5">
                 <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-2">02 — Sign & Chain</p>
