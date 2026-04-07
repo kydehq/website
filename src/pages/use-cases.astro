@@ -10,10 +10,21 @@ const cases = [
     tag: 'DORA · BaFin · EU AI Act',
     scenario: 'A trading agent autonomously rebalances customer portfolios and accesses the trading API via an internal MCP server.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'No more shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha"). When a trade executes, the core banking system knows exactly which agent acted — and can prove it.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent sells 1,000 Tesla shares. KYDE logs the context: the agent had just read a Reuters alert and the customer\'s 2024 risk profile PDF. The decision chain is immediately reconstructable for the advisor — and for BaFin.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Hard limit: max 5% of portfolio value per day, no margin trading. KYDE blocks any API call that exceeds this firebreak in under 100ms — before it reaches the exchange.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'Every autonomous trade is Ed25519-signed in the ledger. When BaFin demands a review, the bank delivers a mathematical proof of action — not an editable server log.' },
+      {
+        label: 'AUTHORIZE',
+        q: 'Who is cleared — and what is the hard limit?',
+        text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by the Zero-Trust AI Stack in under 100ms — before it reaches the exchange. Not rate-limited. Blocked.',
+      },
+      {
+        label: 'ATTRIBUTE',
+        q: 'Full Chain Reconstruction.',
+        text: 'The agent sells 1,000 Tesla shares. KYDE logs the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. The path from signal to trade is immediately reconstructable — for the advisor, for BaFin, and for any court.',
+      },
+      {
+        label: 'ATTEST',
+        q: 'What is the cryptographic proof?',
+        text: 'Every autonomous trade is Ed25519-signed at the point of capture. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof — not an editable server log.',
+      },
     ],
     regs: ['DORA — Digital Operational Resilience Act', 'EU AI Act — Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35 — DPIA'],
   },
@@ -23,10 +34,21 @@ const cases = [
     tag: 'EU AI Act · NIS-2 · GDPR',
     scenario: 'A procurement agent monitors global supply chains and autonomously reorders raw materials in the ERP system when shortages are detected.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'The order is not triggered by an anonymous service account, but by a verified agent identity authorized exclusively for the steel procurement department.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged that it had processed an internal email about a threatened port strike. The purchasing manager sees the reason immediately.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Budget limit: max €50,000 per order. If the agent tries to place a €500,000 order due to a hallucination, the proxy rejects the request in under 100ms — before it reaches the supplier API.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'The complete negotiation trail with the supplier API and the final order amount are hash-chained. The CFO has court-admissible proof of every financial commitment the machine entered.' },
+      {
+        label: 'AUTHORIZE',
+        q: 'Who is cleared — and what is the hard limit?',
+        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity authorized exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms — before it reaches the supplier API.',
+      },
+      {
+        label: 'ATTRIBUTE',
+        q: 'Full Chain Reconstruction.',
+        text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged the full chain: internal email about a threatened port strike received → procurement database read → order placed. The purchasing manager sees not just what was ordered but the exact reasoning path that triggered the decision.',
+      },
+      {
+        label: 'ATTEST',
+        q: 'What is the cryptographic proof?',
+        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof — not a filtered dashboard export.',
+      },
     ],
     regs: ['EU AI Act — High-Risk AI for automated procurement', 'NIS-2 — Critical supply chain infrastructure', 'GDPR Art. 35 — DPIA for large-scale processing'],
   },
@@ -36,10 +58,21 @@ const cases = [
     tag: 'EU AI Act · GDPR Art. 9 · HIPAA',
     scenario: 'A medical billing agent scans patient records, assigns ICD-10 diagnosis codes, and submits reimbursement claims to health insurers.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'The billing agent operates in strict isolation from the triage agent. Every access to the patient API is attributed to a specific machine identity — never a shared service account.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent bills for an expensive specialist treatment. KYDE records that it referenced Dr. Müller\'s clinical letter from 08:00. The causal chain is immediately verifiable in any audit or billing dispute.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Strict API blocklists. The agent has role "Billing.Read". KYDE enforces that it can never write to clinical findings or delete medical data — scope is enforced at the proxy, not by trust.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'In a GDPR/HIPAA-critical environment, the tamper-evident audit trail guarantees hospitals can prove in any audit exactly which agent processed which patient data and when.' },
+      {
+        label: 'AUTHORIZE',
+        q: 'Who is cleared — and what is the hard limit?',
+        text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy — the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Zero-Trust AI Stack on every API call.',
+      },
+      {
+        label: 'ATTRIBUTE',
+        q: 'Full Chain Reconstruction.',
+        text: 'The agent bills for an expensive specialist treatment. KYDE records the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. The causal path from clinical input to billing decision is immediately verifiable in any audit or billing dispute.',
+      },
+      {
+        label: 'ATTEST',
+        q: 'What is the cryptographic proof?',
+        text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Zero-Trust AI Stack guarantees that hospitals can prove — in any audit — exactly which agent processed which patient data, when, and on what basis. Signed at the point of capture. Unalterable.',
+      },
     ],
     regs: ['EU AI Act — Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9 — Special category health data', 'MDR / IVDR — AI-assisted diagnostics', 'NIS-2 — Critical health infrastructure'],
   },
@@ -49,10 +82,21 @@ const cases = [
     tag: 'EU AI Act · Solvency II · GDPR',
     scenario: 'A claims agent evaluates uploaded photos of water damage and authorizes payouts to policyholders — autonomously.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'Clear role boundaries. The claims agent does not have the same rights as the underwriting agent that calculates policy pricing. Separation is enforced by KYDE, not by policy documents.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent rejects a water damage claim. KYDE stores the last 5 prompts and tool calls: the agent had read the 2021 policy PDF in which elemental damage was explicitly excluded. The adjuster can explain the logic to the policyholder immediately.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Hard limit: maximum automatic claims approval = €2,000. Anything above is blocked by the proxy and routed automatically to human escalation — a hard human-in-the-loop enforcement.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'When a fraud ring floods automated agents with fake images, the KYDE ledger proves immutably on what data basis the agent approved payment — essential for internal fraud investigators and regulators.' },
+      {
+        label: 'AUTHORIZE',
+        q: 'Who is cleared — and what is the hard limit?',
+        text: 'Clear role boundaries enforced in hardware — not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop — not a configurable soft limit.',
+      },
+      {
+        label: 'ATTRIBUTE',
+        q: 'Full Chain Reconstruction.',
+        text: 'The agent rejects a water damage claim. KYDE stores the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. The adjuster can explain the decision logic to the policyholder immediately — with the exact document and passage the agent used.',
+      },
+      {
+        label: 'ATTEST',
+        q: 'What is the cryptographic proof?',
+        text: 'When a fraud ring floods automated agents with fake images, the Zero-Trust AI Stack proves immutably — on what data basis, at what timestamp — the agent approved each payment. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
+      },
     ],
     regs: ['EU AI Act — High-Risk AI Annex III §5 Insurance', 'Solvency II — Governance and risk management', 'GDPR Art. 22 — Automated decision-making rights', 'NIS-2 — Operational resilience'],
   },
@@ -62,10 +106,21 @@ const cases = [
     tag: 'NIS-2 · KRITIS · EU AI Act',
     scenario: 'A grid-balancing agent manages electricity procurement and activates local large-scale batteries to compensate for network fluctuations.',
     pillars: [
-      { label: 'IDENTITY', q: 'Who acted?', text: 'In NIS-2 critical environments there is no anonymity. The dispatch agent has a signed identity whose priority is ranked above the internal HR bot — fleet management is operational, not bureaucratic.' },
-      { label: 'CAUSAL CONTEXT', q: 'Why that decision?', text: 'The agent ramps up a local power plant. The KYDE log shows the cause: grid frequency dropped 0.1 Hz and the agent processed a local weather signal indicating a drop in solar production. Every grid action is explainable.' },
-      { label: 'SCOPE & BUDGET', q: 'What were the limits?', text: 'Here, latency and blast radius control matter. KYDE limits API access precisely to the assigned substations. The agent cannot accidentally switch off the wrong grid segment — scope is enforced at the proxy layer.' },
-      { label: 'TAMPER-EVIDENCE', q: 'What is the proof?', text: 'When an outage or grid instability occurs, federal authorities (e.g. Bundesnetzagentur) demand complete reports. Vendor cloud logs don\'t suffice. KYDE delivers the cryptographic ledger proving compliant grid management.' },
+      {
+        label: 'AUTHORIZE',
+        q: 'Who is cleared — and what is the hard limit?',
+        text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment — API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
+      },
+      {
+        label: 'ATTRIBUTE',
+        q: 'Full Chain Reconstruction.',
+        text: 'The agent ramps up a local power plant. The KYDE log reconstructs the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Every grid action is explainable — in real time and in retrospect.',
+      },
+      {
+        label: 'ATTEST',
+        q: 'What is the cryptographic proof?',
+        text: 'When an outage occurs, the Bundesnetzagentur demands a provenance-grade record. Vendor cloud logs do not qualify. For KRITIS-grade deployments, the Zero-Trust AI Stack provides military-grade hardware isolation (TPM/HSM) — signing keys never exposed to the host OS. What regulators receive is a cryptographic ledger with unbreakable chain of custody.',
+      },
     ],
     regs: ['NIS-2 — Network and Information Security (in force December 2025)', 'EU AI Act — High-Risk AI for critical infrastructure', 'KRITIS — German critical infrastructure protection', 'Cyber Resilience Act'],
   },
@@ -74,7 +129,7 @@ const cases = [
 
 <Base
   title="Use Cases — KYDE"
-  description="KYDE WITNESS provides infrastructure-grade fleet management for any organization running AI agents in production — regardless of sector, provider, or use case."
+  description="The Zero-Trust AI Stack. Infrastructure-grade governance for any organization running AI agents in production — regardless of sector, provider, or use case."
 >
   <Navbar />
 
@@ -105,7 +160,7 @@ const cases = [
           </div>
           <div class="space-y-6">
             <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
-              KYDE WITNESS provides infrastructure-grade fleet management for any organization running AI agents in production — regardless of sector, provider, or use case.
+              The Zero-Trust AI Stack provides infrastructure-grade governance for any organization running AI agents in production — regardless of sector, provider, or use case.
             </p>
             <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
               The <span class="font-mono text-[#333]">EU AI Act</span>, <span class="font-mono text-[#333]">NIS-2</span>, <span class="font-mono text-[#333]">DORA</span>, and <span class="font-mono text-[#333]">GDPR</span> don't care which LLM vendor you chose. They care whether you can prove what your agents did, explain why, and demonstrate that the record can't be tampered with.
@@ -151,13 +206,13 @@ const cases = [
               </span>
             </div>
 
-            <!-- 4 Pillars -->
+            <!-- 3 Guarantees -->
             <div class="divide-y divide-dotted divide-[#0d0e10]/15">
               {pillars.map(({ label, q, text }) => (
                 <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
                   <div class="shrink-0">
-                    <p class="font-mono text-xs font-bold uppercase tracking-widest text-[#333]">{label}</p>
-                    <p class="font-mono text-xs text-[#666] mt-0.5">{q}</p>
+                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 mb-1 ${label === 'AUTHORIZE' ? 'text-[#c00000] bg-[#c00000]/8' : label === 'ATTRIBUTE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{label}</span>
+                    <p class="font-mono text-xs text-[#555] mt-1 leading-relaxed">{q}</p>
                   </div>
                   <p class="text-sm leading-relaxed text-[#333]">{text}</p>
                 </div>
@@ -275,7 +330,7 @@ const cases = [
               Your industry. Your agents.<br />Your critical infrastructure.
             </h2>
             <p class="text-lg text-[#333] mb-10">
-              Kyde Witness works across every sector, every provider, every framework. Governance isn't the brake. It's what lets you accelerate.
+              The Zero-Trust AI Stack works across every sector, every provider, every framework. Governance isn't the brake. It's what lets you accelerate.
             </p>
             <button
               onclick="openModal()"
