@@ -28,8 +28,8 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
                 <!-- Headline -->
                 <h1 class="hero-h1 max-w-5xl text-6xl text-[#0d0e10] uppercase tracking-tight my-12 md:text-7xl lg:text-8xl">
-                    The Zero-Trust<br />
-                    <span class="gradient-text">AI Stack.</span>
+                    When AI breaks,<br />it doesn't crash.<br />
+                    <span class="gradient-text">It acts.</span>
                 </h1>
 
                 <!-- two-col metadata -->
@@ -43,7 +43,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <div class="space-y-10">
                         <!-- Subline -->
                         <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
-                            Your AI agents aren't software. They're an autonomous workforce — reasoning, deciding, executing across your production systems. And like any workforce, they need roles, boundaries, supervision, and accountability.
+                            AI agents are calling APIs, moving money, making binding decisions — with no identity, no scope, no audit trail. When something goes wrong, nobody can answer who acted, why, or what the boundaries were. KYDE is the enforcement layer that sits outside the agent. It cannot be overridden.
                         </p>
 
                         <!-- Terminal -->
@@ -86,22 +86,116 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
                         <!-- CTAs -->
                         <div class="flex flex-col sm:flex-row items-start gap-4">
-                            <button
-                                onclick="openModal()"
+                            <a
+                                href="#problem"
                                 class="inline-flex items-center gap-2 bg-[#0d0e10] px-6 py-3.5 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
                             >
-                                Book Demo →
-                            </button>
-                            <a
-                                href="https://github.com/kydehq"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                See why this matters →
+                            </a>
+                            <button
+                                onclick="openModal()"
                                 class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/40 px-6 py-3.5 text-sm font-semibold text-[#0d0e10] hover:border-[#0d0e10] transition-all"
                             >
-                                View on GitHub
-                            </a>
+                                Book Demo
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ PROBLEM ══════════ -->
+        <section id="problem" class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
+            <div class="relative max-w-7xl mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The operational gap</p>
+                    <div class="mb-6 h-px bg-[#0d0e10]/15"></div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10]">
+                        Four questions most enterprises can't answer.
+                    </h2>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    {[
+                        {
+                            q: "Who acted?",
+                            body: "Agents share service accounts with broad permissions. No traceable identity. No role boundaries. A support agent authorized for €500 refunds issues €5,000 because nobody scoped its authority.",
+                            label: "Identity",
+                        },
+                        {
+                            q: "Why did it decide that?",
+                            body: "An HR agent retrieves a policy document from 2022 and uses it to guide a termination. The current policy says something different. Nobody logged which source it relied on.",
+                            label: "Causal Context",
+                        },
+                        {
+                            q: "What are the boundaries?",
+                            body: "Token budgets don't exist. API access is unrestricted. An intern's research agent burns through your entire monthly token allocation while your production agents queue.",
+                            label: "Scope & Budget",
+                        },
+                        {
+                            q: "What happened?",
+                            body: "A procurement agent posts confidential contract terms in Slack. Leadership needs the full evidence trail. The logs are vendor-provided, self-reported, software-only. A compromised host can rewrite them silently.",
+                            label: "Tamper-Evidence",
+                        },
+                    ].map(({ q, body, label }) => (
+                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 transition-all hover:bg-[#0d0e10]/[0.02]">
+                            <div class="mb-4 flex items-center justify-between">
+                                <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{label}</span>
+                                <span class="h-1.5 w-1.5 rounded-full bg-[#c00000]/50"></span>
+                            </div>
+                            <h3 class="mb-4 text-xl font-bold text-[#0d0e10]">{q}</h3>
+                            <p class="leading-relaxed text-[#333] text-sm">{body}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div class="mt-12 px-12 py-24 text-center">
+                    <p class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10] mx-auto leading-tight">
+                        Resilient organizations don't just detect these failures.<br />They architect systems that prevent them.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ THE INSIGHT ══════════ -->
+        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32 bg-[#0d0e10]">
+            <div class="relative max-w-7xl mx-auto px-6">
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The insight</span>
+                    </div>
+                    <div class="h-px w-full bg-white/10"></div>
+                </div>
+
+                <h2 class="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase mb-16">
+                    Governance cannot live<br />inside the AI.
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-px bg-white/10">
+                    <div class="bg-[#0d0e10] px-8 py-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-[#fcb830] mb-4">The Status Quo</p>
+                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Control is applied at the endpoint</span> — System Prompts, SDKs, application logic.</p>
+                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Safeguards live inside</span> the agent's own code.</p>
+                        <p class="text-sm text-white/80 leading-relaxed"><span class="font-semibold text-white">Security is treated as a feature,</span> not a foundation.</p>
+                    </div>
+                    <div class="bg-[#0d0e10] px-8 py-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-[#c00000] mb-4">The Structural Flaw</p>
+                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Capable agents can bypass</span> their own rules and rewrite their own logs.</p>
+                        <p class="text-sm text-white/80 leading-relaxed"><span class="font-semibold text-white">Human oversight does not scale</span> to machine speed.</p>
+                    </div>
+                    <div class="bg-[#0d0e10] px-8 py-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-[#fcb830] mb-4">The Necessity</p>
+                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Governance must sit outside.</span> Security inside the agent is suggestion, not enforcement.</p>
+                        <p class="text-sm text-white/80 leading-relaxed"><span class="font-semibold text-white">If the agent can touch the lock,</span> it can pick it.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 border-t border-white/10 pt-10 text-center">
+                    <p class="text-xl md:text-2xl font-bold text-white">
+                        The only governance that holds is the kind<br />
+                        <span class="bg-[#fcb830] text-[#0d0e10] px-2">the agent cannot touch.</span>
+                    </p>
                 </div>
             </div>
         </section>
@@ -154,59 +248,6 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         <p class="text-4xl font-bold text-[#0d0e10]">€52,000</p>
                         <p class="mt-2 font-mono text-xs text-[#333] uppercase tracking-widest">per high-risk system per year — compliance cost floor</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ PROBLEM ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-                <div class="max-w-3xl mx-auto text-center mb-16">
-                    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The operational gap</p>
-                    <div class="mb-6 h-px bg-[#0d0e10]/15"></div>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10]">
-                        Four questions most enterprises can't answer.
-                    </h2>
-                </div>
-
-                <div class="grid gap-6 md:grid-cols-2">
-                    {[
-                        {
-                            q: "Who acted?",
-                            body: "Agents share service accounts with broad permissions. No traceable identity. No role boundaries. A support agent authorized for €500 refunds issues €5,000 because nobody scoped its authority.",
-                            label: "Identity",
-                        },
-                        {
-                            q: "Why did it decide that?",
-                            body: "An HR agent retrieves a policy document from 2022 and uses it to guide a termination. The current policy says something different. Nobody logged which source it relied on.",
-                            label: "Causal Context",
-                        },
-                        {
-                            q: "What are the boundaries?",
-                            body: "Token budgets don't exist. API access is unrestricted. An intern's research agent burns through your entire monthly token allocation while your production agents queue.",
-                            label: "Scope & Budget",
-                        },
-                        {
-                            q: "What happened?",
-                            body: "A procurement agent posts confidential contract terms in Slack. Leadership needs the full evidence trail. The logs are vendor-provided, self-reported, software-only. A compromised host can rewrite them silently.",
-                            label: "Tamper-Evidence",
-                        },
-                    ].map(({ q, body, label }) => (
-                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 transition-all hover:bg-[#0d0e10]/[0.02]">
-                            <div class="mb-4 flex items-center justify-between">
-                                <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{label}</span>
-                                <span class="h-1.5 w-1.5 rounded-full bg-[#c00000]/50"></span>
-                            </div>
-                            <h3 class="mb-4 text-xl font-bold text-[#0d0e10]">{q}</h3>
-                            <p class="leading-relaxed text-[#333] text-sm">{body}</p>
-                        </div>
-                    ))}
-                </div>
-
-                <div class="mt-12 px-12 py-24 text-center">
-                    <p class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10] mx-auto leading-tight">
-                        Resilient organizations don't just detect these failures.<br />They architect systems that prevent them.
-                    </p>
                 </div>
             </div>
         </section>
