@@ -77,11 +77,11 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
                         <!-- Trust markers -->
                         <div class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#666]">
-                            <span>Ed25519 Signed</span>
+                            <span>One ENV Variable</span>
                             <span>&lt;100ms Latency</span>
                             <span>Provider-Agnostic</span>
                             <span>MCP-Ready</span>
-                            <span>TPM/HSM Ready</span>
+                            <span>Zero Code Changes</span>
                         </div>
 
                         <!-- CTAs -->
@@ -158,11 +158,11 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
         </section>
 
         <!-- ══════════ THE INSIGHT ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32 bg-[#0d0e10]">
+        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32 bg-[#1c1e24]">
             <div class="relative max-w-7xl mx-auto px-6">
                 <div class="mb-12">
                     <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
+                        <span class="h-1.5 w-1.5 rounded-full bg-white/30 shrink-0"></span>
                         <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The insight</span>
                     </div>
                     <div class="h-px w-full bg-white/10"></div>
@@ -173,57 +173,57 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 </h2>
 
                 <div class="grid md:grid-cols-3 gap-px bg-white/10">
-                    <div class="bg-[#0d0e10] px-8 py-8">
-                        <p class="font-mono text-xs uppercase tracking-widest text-[#fcb830] mb-4">The Status Quo</p>
-                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Control is applied at the endpoint</span> — System Prompts, SDKs, application logic.</p>
-                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Safeguards live inside</span> the agent's own code.</p>
-                        <p class="text-sm text-white/80 leading-relaxed"><span class="font-semibold text-white">Security is treated as a feature,</span> not a foundation.</p>
+                    <div class="bg-[#1c1e24] px-8 py-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">The Status Quo</p>
+                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Control is applied at the endpoint</span> — System Prompts, SDKs, application logic.</p>
+                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Safeguards live inside</span> the agent's own code.</p>
+                        <p class="text-sm text-white/70 leading-relaxed"><span class="font-semibold text-white">Security is treated as a feature,</span> not a foundation.</p>
                     </div>
-                    <div class="bg-[#0d0e10] px-8 py-8">
-                        <p class="font-mono text-xs uppercase tracking-widest text-[#c00000] mb-4">The Structural Flaw</p>
-                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Capable agents can bypass</span> their own rules and rewrite their own logs.</p>
-                        <p class="text-sm text-white/80 leading-relaxed"><span class="font-semibold text-white">Human oversight does not scale</span> to machine speed.</p>
+                    <div class="bg-[#1c1e24] px-8 py-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">The Structural Flaw</p>
+                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Capable agents can bypass</span> their own rules and rewrite their own logs.</p>
+                        <p class="text-sm text-white/70 leading-relaxed"><span class="font-semibold text-white">Human oversight does not scale</span> to machine speed.</p>
                     </div>
-                    <div class="bg-[#0d0e10] px-8 py-8">
-                        <p class="font-mono text-xs uppercase tracking-widest text-[#fcb830] mb-4">The Necessity</p>
-                        <p class="text-sm text-white/80 leading-relaxed mb-3"><span class="font-semibold text-white">Governance must sit outside.</span> Security inside the agent is suggestion, not enforcement.</p>
-                        <p class="text-sm text-white/80 leading-relaxed"><span class="font-semibold text-white">If the agent can touch the lock,</span> it can pick it.</p>
+                    <div class="bg-[#1c1e24] px-8 py-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">The Necessity</p>
+                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Governance must sit outside.</span> Security inside the agent is suggestion, not enforcement.</p>
+                        <p class="text-sm text-white/70 leading-relaxed"><span class="font-semibold text-white">If the agent can touch the lock,</span> it can pick it.</p>
                     </div>
                 </div>
 
-                <div class="mt-12 border-t border-white/10 pt-10 text-center">
-                    <p class="text-xl md:text-2xl font-bold text-white">
-                        The only governance that holds is the kind<br />
-                        <span class="bg-[#fcb830] text-[#0d0e10] px-2">the agent cannot touch.</span>
+                <div class="mt-16 border-t border-white/10 pt-16 text-center">
+                    <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                        The only governance that holds<br />is the kind
+                        <span class="bg-[#fcb830] text-[#0d0e10] px-2 ml-2">the agent cannot touch.</span>
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ MINDSET SHIFT ══════════ -->
+        <!-- ══════════ THE SOLUTION / MINDSET SHIFT ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
                 <div class="mb-12">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The paradigm shift</span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The solution</span>
                     </div>
                     <div class="h-px w-full bg-[#0d0e10]/15"></div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
                     <div>
-                        <p class="font-mono text-xs uppercase tracking-[0.15em] text-[#333] mb-4">Stop installing agents. Start managing them.</p>
+                        <p class="font-mono text-xs uppercase tracking-[0.15em] text-[#333] mb-4">Stop installing agents. Start governing them.</p>
                         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10]">
                             The IT Department<br />is Becoming the HR<br />Department for AI Agents.
                         </h2>
                     </div>
                     <div class="space-y-6">
                         <p class="text-[#333] leading-relaxed">
-                            Traditional software gets deployed and configured. AI agents get hired. They negotiate with customers, move money, access personnel data, and make decisions that bind your organization. The deployment model that worked for SaaS doesn't work for a workforce that acts autonomously.
+                            Traditional software gets deployed and configured. AI agents get hired. They negotiate with customers, move money, access personnel data, and make decisions that bind your organization.
                         </p>
                         <p class="text-[#333] leading-relaxed">
-                            Every agent needs an identity. A role. A scope of authority. A budget. Escalation rules. And a tamper-evident record of everything it does. Not because compliance demands it — but because operational resilience requires it.
+                            Every agent needs an identity. A role. A scope of authority. A budget. Escalation rules. Not because compliance demands it — but because operational resilience requires it.
                         </p>
                         <div class="border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
                             <p class="font-mono text-sm text-[#333] leading-relaxed">
@@ -234,8 +234,30 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     </div>
                 </div>
 
+                <!-- Before / After -->
+                <div class="space-y-px border border-dotted border-[#0d0e10]/15 mb-16">
+                    {[
+                        { old: "Deploy and hope", next: "Scope, sign, and recover" },
+                        { old: "Shared service accounts", next: "Per-agent cryptographic identity" },
+                        { old: "Vendor-provided logs", next: "Independent tamper-evident evidence" },
+                        { old: "Compliance as overhead", next: "Governance as accelerant" },
+                        { old: "React to breaches", next: "Architect for resilience" },
+                    ].map(({ old: o, next: n }) => (
+                        <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15">
+                            <div class="p-4 bg-[#f1f3f5]">
+                                <p class="font-mono text-xs text-[#666] mb-1 uppercase tracking-widest">Before</p>
+                                <p class="text-sm text-[#666]">{o}</p>
+                            </div>
+                            <div class="p-4 bg-white">
+                                <p class="font-mono text-xs text-[#0a5c36] mb-1 uppercase tracking-widest">With Kyde</p>
+                                <p class="text-sm text-[#0d0e10]">{n}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
                 <!-- Market numbers -->
-                <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 border-t border-b border-dotted border-[#0d0e10]/20 divide-y sm:divide-y-0 sm:divide-x divide-dotted divide-[#0d0e10]/15">
+                <div class="grid grid-cols-1 sm:grid-cols-3 border-t border-b border-dotted border-[#0d0e10]/20 divide-y sm:divide-y-0 sm:divide-x divide-dotted divide-[#0d0e10]/15">
                     <div class="px-8 py-8">
                         <p class="text-4xl font-bold text-[#0d0e10]">18–50%</p>
                         <p class="mt-2 font-mono text-xs text-[#333] uppercase tracking-widest">of enterprise AI qualifies as High-Risk under EU AI Act</p>
@@ -320,7 +342,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                             Manage your agents like critical infrastructure.
                         </h2>
                         <p class="text-[#333] leading-relaxed">
-                            Kyde is the governance proxy that sits between your agents and any LLM provider. One deployment point. Every agent covered. Full operational control.
+                            Kyde is the <span class="font-semibold text-[#0d0e10]">zero-trust governance proxy</span> that sits between your agents and any LLM provider. One deployment point. Every agent covered. Full operational control — including instant alerts when an agent violates its scope.
                         </p>
                     </div>
                     <div class="font-mono text-sm border border-dotted border-[#0d0e10]/20 bg-white p-6">
@@ -501,6 +523,10 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                                 <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Define which endpoints each role can reach. Hard blocks before actions reach external systems.</p>
                             </li>
                             <li>
+                                <h4 class="text-sm font-semibold text-[#0d0e10]">Violation Alerts & Human-in-the-Loop</h4>
+                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">When an agent exceeds its scope — blocked instantly at the proxy. Alerts fire to your team via Slack or Teams. Supervisors review, override, or terminate. No silent failures.</p>
+                            </li>
+                            <li>
                                 <h4 class="text-sm font-semibold text-[#0d0e10]">Zero-Friction Deployment</h4>
                                 <p class="mt-0.5 text-sm leading-relaxed text-[#333]">One environment variable or Group Policy push. No code changes. No SDK. Under 100ms latency.</p>
                             </li>
@@ -557,55 +583,6 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                                 <p class="mt-0.5 text-sm leading-relaxed text-[#333]">For maximum integrity: signing keys isolated in hardware, never exposed to the host OS. Military-grade for environments where software-only isn't enough.</p>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ RESILIENCE FRAMING ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The strategic shift</span>
-                    </div>
-                    <div class="h-px w-full bg-[#0d0e10]/15"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-6">
-                            Security is shifting. From risk avoidance to operational resilience.
-                        </h2>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            The old model: identify risks, build walls, react to breaches. The new model: architect systems that maintain integrity under stress — and produce the evidence to prove it.
-                        </p>
-                        <p class="text-[#333] leading-relaxed">
-                            Kyde doesn't just protect you from agent failures. It builds the infrastructure that lets you deploy more agents, with more autonomy, faster — because every action is scoped, signed, and recoverable.
-                        </p>
-                    </div>
-
-                    <div class="space-y-px border border-dotted border-[#0d0e10]/15">
-                        {[
-                            { old: "React to breaches", next: "Architect for resilience" },
-                            { old: "Shared service accounts", next: "Per-agent cryptographic identity" },
-                            { old: "Vendor-provided logs", next: "Tamper-evident chain of evidence" },
-                            { old: "Deploy and hope", next: "Scope, sign, and recover" },
-                            { old: "Compliance as overhead", next: "Governance as accelerant" },
-                        ].map(({ old: o, next: n }) => (
-                            <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15">
-                                <div class="p-4 bg-[#f1f3f5]">
-                                    <p class="font-mono text-xs text-[#666] mb-1 uppercase tracking-widest">Before</p>
-                                    <p class="text-sm text-[#666]">{o}</p>
-                                </div>
-                                <div class="p-4 bg-white">
-                                    <p class="font-mono text-xs text-[#0a5c36] mb-1 uppercase tracking-widest">With Kyde</p>
-                                    <p class="text-sm text-[#0d0e10]">{n}</p>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
