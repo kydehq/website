@@ -200,289 +200,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
             </div>
         </section>
 
-        <!-- ══════════ THE SOLUTION / MINDSET SHIFT ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The solution</span>
-                    </div>
-                    <div class="h-px w-full bg-[#0d0e10]/15"></div>
-                </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
-                    <div>
-                        <p class="font-mono text-xs uppercase tracking-[0.15em] text-[#333] mb-4">Stop installing agents. Start governing them.</p>
-                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10]">
-                            The IT Department<br />is Becoming the HR<br />Department for AI Agents.
-                        </h2>
-                    </div>
-                    <div class="space-y-6">
-                        <p class="text-[#333] leading-relaxed">
-                            Traditional software gets deployed and configured. AI agents get hired. They negotiate with customers, move money, access personnel data, and make decisions that bind your organization.
-                        </p>
-                        <p class="text-[#333] leading-relaxed">
-                            Every agent needs an identity. A role. A scope of authority. A budget. Escalation rules. Not because compliance demands it — but because operational resilience requires it.
-                        </p>
-                        <div class="border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
-                            <p class="font-mono text-sm text-[#333] leading-relaxed">
-                                Governance isn't the brake.<br />
-                                <span class="bg-[#fcb830] text-[#0d0e10] px-1">It's what lets you accelerate.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Before / After -->
-                <div class="space-y-px border border-dotted border-[#0d0e10]/15 mb-16">
-                    {[
-                        { old: "Deploy and hope", next: "Scope, sign, and recover" },
-                        { old: "Shared service accounts", next: "Per-agent cryptographic identity" },
-                        { old: "Vendor-provided logs", next: "Independent tamper-evident evidence" },
-                        { old: "Compliance as overhead", next: "Governance as accelerant" },
-                        { old: "React to breaches", next: "Architect for resilience" },
-                    ].map(({ old: o, next: n }) => (
-                        <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15">
-                            <div class="p-4 bg-[#f1f3f5]">
-                                <p class="font-mono text-xs text-[#666] mb-1 uppercase tracking-widest">Before</p>
-                                <p class="text-sm text-[#666]">{o}</p>
-                            </div>
-                            <div class="p-4 bg-white">
-                                <p class="font-mono text-xs text-[#0a5c36] mb-1 uppercase tracking-widest">With Kyde</p>
-                                <p class="text-sm text-[#0d0e10]">{n}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <!-- Market numbers -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 border-t border-b border-dotted border-[#0d0e10]/20 divide-y sm:divide-y-0 sm:divide-x divide-dotted divide-[#0d0e10]/15">
-                    <div class="px-8 py-8">
-                        <p class="text-4xl font-bold text-[#0d0e10]">18–50%</p>
-                        <p class="mt-2 font-mono text-xs text-[#333] uppercase tracking-widest">of enterprise AI qualifies as High-Risk under EU AI Act</p>
-                    </div>
-                    <div class="px-8 py-8">
-                        <p class="text-4xl font-bold text-[#0d0e10]">€17B</p>
-                        <p class="mt-2 font-mono text-xs text-[#333] uppercase tracking-widest">AI compliance market by 2030</p>
-                    </div>
-                    <div class="px-8 py-8">
-                        <p class="text-4xl font-bold text-[#0d0e10]">€52,000</p>
-                        <p class="mt-2 font-mono text-xs text-[#333] uppercase tracking-widest">per high-risk system per year — compliance cost floor</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ PROVIDER AGNOSTIC ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ One layer. Every provider. No dependencies.</span>
-                    </div>
-                    <div class="h-px w-full bg-[#0d0e10]/15"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
-                    <div class="space-y-6">
-                        <p class="text-[#333] leading-relaxed">
-                            Models change monthly. Providers compete for your stack. Production workloads route across frontier models, fast cheap models, and local instances that never leave your perimeter.
-                        </p>
-                        <p class="text-[#333] leading-relaxed">
-                            Provider-native governance covers one slice. And an audit trail that lives on Anthropic's infrastructure, signed by Anthropic's keys — is a vendor report. Not an independent record. Regulators, courts, and your InfoSec team know the difference.
-                        </p>
-                        <p class="font-mono text-sm text-[#333] border-l-2 border-dotted border-[#0d0e10]/25 pl-4 leading-relaxed">
-                            Governance shouldn't be the reason you can't route a €0.001 classification task to a local model.
-                        </p>
-                    </div>
-
-                    <!-- Comparison table -->
-                    <div class="border border-dotted border-[#0d0e10]/20 divide-y divide-dotted divide-[#0d0e10]/15">
-                        <div class="grid grid-cols-3 divide-x divide-dotted divide-[#0d0e10]/15 bg-[#0d0e10]/[0.03]">
-                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333]"></p></div>
-                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#666]">Provider-Native</p></div>
-                            <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Zero-Trust AI Stack</p></div>
-                        </div>
-                        {[
-                            { prop: "Coverage",           other: "One vendor",                    kyde: "Every model. Every provider." },
-                            { prop: "Independence",       other: "Self-reported",                 kyde: "Cryptographically verified at capture" },
-                            { prop: "Cost optimization",  other: "Locked to provider pricing",    kyde: "Route cheap tasks to local models" },
-                            { prop: "Multi-model routing",other: "One silo per provider",         kyde: "One governance layer" },
-                            { prop: "Model switching",    other: "Rebuild governance",            kyde: "Zero changes" },
-                            { prop: "Audit standing",     other: "Vendor report",                 kyde: "Hardware-rooted attestation. Ed25519-signed chain of evidence." },
-                        ].map(({ prop, other, kyde }) => (
-                            <div class="grid grid-cols-3 divide-x divide-dotted divide-[#0d0e10]/15">
-                                <div class="px-4 py-3"><p class="text-xs text-[#333] uppercase tracking-widest">{prop}</p></div>
-                                <div class="px-4 py-3"><p class="text-xs text-[#666]">{other}</p></div>
-                                <div class="px-4 py-3"><p class="text-xs text-[#0d0e10]">{kyde}</p></div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ PRODUCT ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-                <div class="mb-16">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ Kyde</span>
-                    </div>
-                    <div class="h-px w-full bg-[#0d0e10]/15"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-6">
-                            Manage your agents like critical infrastructure.
-                        </h2>
-                        <p class="text-[#333] leading-relaxed">
-                            Kyde is the <span class="font-semibold text-[#0d0e10]">zero-trust governance proxy</span> that sits between your agents and any LLM provider. One deployment point. Every agent covered. Full operational control — including instant alerts when an agent violates its scope.
-                        </p>
-                    </div>
-                    <div class="font-mono text-sm border border-dotted border-[#0d0e10]/20 bg-white p-6">
-                        <p class="text-[#333] mb-1">$ <span class="text-[#0d0e10]">kyde fleet status --verbose</span></p>
-                        <p class="text-[#0a7c4e] mt-2">&#10003; sales_bot_prod     [ACTIVE]  scope: crm.* budget: €200/day</p>
-                        <p class="text-[#0a7c4e]">&#10003; hr_agent_v2        [ACTIVE]  scope: hr.read budget: 50k tok/day</p>
-                        <p class="text-[#0a7c4e]">&#10003; procurement_agent  [ACTIVE]  scope: po.create &lt;€10k</p>
-                        <p class="text-[#666]">  intern_research    [CAPPED]  budget exhausted — queued</p>
-                        <p class="mt-3 text-[#333]">4 agents | 3 active | 1 capped | 0 violations</p>
-                    </div>
-                </div>
-
-                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {[
-                        {
-                            title: "Identity & Fleet Management",
-                            body: "Every agent gets a distinct identity, a role, and a scope. Assign priorities — your production infrastructure agent takes precedence over your intern's research bot. Set token and cost budgets per role. Define which API endpoints each agent is permitted to reach.",
-                            tag: "Core",
-                        },
-                        {
-                            title: "Cryptographic Root of Trust",
-                            body: "Every agent action is Ed25519-signed and SHA-256 hash-chained to the previous entry. Alter any record — every subsequent link breaks. This is not a log. It's a tamper-evident chain of evidence.",
-                            tag: "Security",
-                        },
-                        {
-                            title: "Causal Context",
-                            body: "Kyde captures not just what the agent did, but why — logging the last five messages before every tool call. When something goes wrong, you can reconstruct the full decision chain.",
-                            tag: "Audit",
-                        },
-                        {
-                            title: "Zero-Friction Deployment",
-                            body: '<span class="bg-[#fcb830] text-[#0d0e10] px-1">One environment variable.</span> One Group Policy push. No code changes. No SDK. The agent sees no difference. Latency under 100ms.',
-                            tag: "Ops",
-                        },
-                    ].map(({ title, body, tag }) => (
-                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-6 transition-all hover:bg-[#0d0e10]/[0.02]">
-                            <div class="mb-4 flex items-center justify-between">
-                                <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{tag}</span>
-                            </div>
-                            <h3 class="mb-3 text-base font-semibold text-[#0d0e10]">{title}</h3>
-                            <p class="text-sm leading-relaxed text-[#333]" set:html={body}></p>
-                        </div>
-                    ))}
-                </div>
-
-                <!-- Ledger entry -->
-                <div class="mx-auto mt-16 max-w-3xl">
-                    <h3 class="mb-6 text-center text-lg font-semibold text-[#0d0e10]">
-                        Every agent action produces a tamper-evident entry
-                    </h3>
-                    <div class="border border-dotted border-[#0d0e10]/20 bg-white">
-                        <div class="flex items-center gap-2 border-b border-dotted border-[#0d0e10]/15 px-4 py-3">
-                            <span class="h-2 w-2 rounded-full bg-[#0d0e10]/20"></span>
-                            <span class="h-2 w-2 rounded-full bg-[#0d0e10]/20"></span>
-                            <span class="h-2 w-2 rounded-full bg-[#0d0e10]/20"></span>
-                            <span class="ml-2 text-xs text-[#666] font-mono">audit_entry.json</span>
-                        </div>
-                        <pre class="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-[#333]"><code>{`{
-  `}<span class="text-[#0d0e10]">"entry_id"</span>{`: `}<span class="text-[#333]">"e_7f3a2b1c"</span>{`,
-  `}<span class="text-[#0d0e10]">"agent_id"</span>{`: `}<span class="text-[#333]">"sales_bot_prod"</span>{`,
-  `}<span class="text-[#0d0e10]">"role"</span>{`: `}<span class="text-[#333]">"sales_agent"</span>{`,
-  `}<span class="text-[#0d0e10]">"scope"</span>{`: `}<span class="text-[#333]">"crm.* | refund.max=500"</span>{`,
-  `}<span class="text-[#0d0e10]">"action"</span>{`: `}<span class="text-[#333]">"chat.completion"</span>{`,
-  `}<span class="text-[#0d0e10]">"tool_calls"</span>{`: [`}<span class="text-[#333]">"crm.update_deal"</span>{`, `}<span class="text-[#333]">"slack.send_message"</span>{`],
-  `}<span class="text-[#0d0e10]">"causal_context"</span>{`: `}<span class="text-[#333]">"[last 5 messages]"</span>{`,
-  `}<span class="text-[#0d0e10]">"entry_hash"</span>{`: `}<span class="text-[#333]">"sha256:7b2e4d..."</span>{`,
-  `}<span class="text-[#0d0e10]">"prev_hash"</span>{`: `}<span class="text-[#333]">"sha256:1c3f8a..."</span>{`,
-  `}<span class="text-[#0d0e10]">"signature"</span>{`: `}<span class="text-[#333]">"ed25519:Mk3nR9..."</span>{`
-}`}</code></pre>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ ARCHITECTURE DIAGRAM ══════════ -->
-        <ArchitectureDiagram />
-
-        <!-- ══════════ ROOT OF TRUST ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ Tamper-evident by architecture</span>
-                    </div>
-                    <div class="h-px w-full bg-[#0d0e10]/15"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-16 items-start">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-6">
-                            Software logs can be rewritten.<br />Kyde's records can't.
-                        </h2>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            Vendor-provided audit logs are self-reported. They live on infrastructure the vendor controls. A compromised host OS can alter them silently.
-                        </p>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            Kyde is architecturally different. Every entry is cryptographically signed at the point of capture and hash-chained to every entry before it. The record is immutable by design — not by policy.
-                        </p>
-                        <p class="text-[#333] leading-relaxed mb-10">
-                            For the highest-stakes environments, Kyde supports hardware-rooted attestation via TPM/HSM — signing keys isolated in hardware, never exposed to the host OS. The same architecture from software to silicon. No re-integration required.
-                        </p>
-                        <p class="font-mono text-sm text-[#333] border-l-2 border-dotted border-[#0d0e10]/25 pl-4 leading-relaxed">
-                            The same root of trust that satisfies defense-grade requirements satisfies your <span class="font-mono text-[#0d0e10]">EU AI Act</span> audit trail. One architecture. Every threat level.
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 mb-6">
-                            <div class="font-mono text-sm text-[#333] flex items-center gap-3 flex-wrap">
-                                <span class="text-[#333]">[HSM / TPM]</span>
-                                <span class="text-[#333]">→</span>
-                                <span class="text-[#333]">[KYDE Proxy]</span>
-                                <span class="text-[#333]">→</span>
-                                <span class="text-[#333]">[Ledger]</span>
-                                <span class="text-[#333]">→</span>
-                                <span class="bg-[#fcb830] text-[#0d0e10] px-1">[Court]</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-3">
-                            {[
-                                { label: "Ed25519 Signed Ledger", desc: "Cryptographic immutability at the point of capture. Every entry signed, every link verifiable.", status: "LIVE" },
-                                { label: "TPM / HSM Hardware Isolation", desc: "Signing keys isolated in hardware — never exposed to the host OS. Optional high-security layer for regulated environments.", status: "AVAILABLE" },
-                                { label: "FIPS 140-3 Ready", desc: "Architecture designed for FIPS-validated cryptographic modules.", status: "AVAILABLE" },
-                            ].map(({ label, desc, status }) => (
-                                <div class="border-t border-dotted border-[#0d0e10]/15 pt-4 pb-4 flex items-start justify-between gap-4">
-                                    <div>
-                                        <p class="font-mono text-xs font-semibold tracking-widest text-[#0d0e10] uppercase mb-1">{label}</p>
-                                        <p class="text-xs text-[#666] leading-relaxed">{desc}</p>
-                                    </div>
-                                    <span class={`font-mono text-[10px] tracking-widest border border-dotted px-2 py-0.5 shrink-0 ${status === "LIVE" ? "text-[#0a7c4e] border-[#0a7c4e]/40" : "text-[#4472c4] border-[#4472c4]/40"}`}>{status}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- ══════════ THREE GUARANTEES ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
@@ -588,109 +306,54 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
             </div>
         </section>
 
-        <!-- ══════════ LEGAL REALITY ══════════ -->
+        <!-- ══════════ URGENCY ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
 
                 <div class="mb-12">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ Legal precedent</span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ The legal reality</span>
                     </div>
                     <div class="h-px w-full bg-[#0d0e10]/15"></div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-6">
-                            Your agents act on your behalf. Courts agree.
+                            Your agents act on your behalf.<br />Courts agree.
                         </h2>
                         <p class="text-[#333] leading-relaxed mb-6">
-                            Your agents are your workforce. They negotiate, transact, and make commitments in your name. Regulators, auditors, and courts will hold you accountable for what they do.
+                            They negotiate, transact, and make commitments in your name. Regulators, auditors, and courts will hold you accountable for what they do.
                         </p>
-                        <p class="text-[#333] leading-relaxed">
+                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-6 mb-6">
+                            <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Moffatt v. Air Canada</p>
+                            <p class="font-mono text-sm text-[#333] leading-relaxed border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
+                                "Air Canada cannot avoid responsibility for information provided by its agent."
+                            </p>
+                        </div>
+                        <p class="text-sm text-[#666] leading-relaxed">
                             The question isn't whether you need an evidence trail. It's whether yours can withstand scrutiny.
                         </p>
                     </div>
 
-                    <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8">
-                        <div class="mb-6 flex items-center gap-3">
-                            <span class="font-mono text-xs uppercase tracking-widest text-[#333]">Case Law</span>
-                            <div class="h-px flex-1 bg-[#0d0e10]/15"></div>
-                        </div>
-                        <h3 class="font-mono text-lg font-bold text-[#0d0e10] mb-3">Moffatt v. Air Canada</h3>
-                        <p class="text-[#333] text-sm leading-relaxed mb-6">
-                            A tribunal held the airline liable for incorrect information its chatbot provided — rejecting the argument that the bot was a separate legal entity with its own policies.
-                        </p>
-                        <div class="border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
-                            <p class="font-mono text-sm text-[#333] leading-relaxed">
-                                "Air Canada cannot avoid responsibility for information provided by its agent."
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ REGULATORY LANDSCAPE ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
-                <div class="max-w-3xl mx-auto text-center mb-16">
-                    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ Regulatory landscape</p>
-                    <div class="mb-6 h-px bg-[#0d0e10]/15"></div>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10]">
-                        Compliance deadlines don't wait for your roadmap.
-                    </h2>
-                    <p class="mt-4 text-lg text-[#333]">
-                        Kyde delivers the tamper-evident evidence trail these frameworks require — for every agent, across every provider, from day one.
-                    </p>
-                </div>
-
-                <div class="mx-auto max-w-4xl grid gap-4 md:grid-cols-2">
-                    {[
-                        {
-                            name: "EU AI Act",
-                            desc: "High-risk AI system logging requirements",
-                            deadline: "Enforcement: August 2, 2027",
-                            urgent: true,
-                        },
-                        {
-                            name: "NIS-2",
-                            desc: "Network and information security for essential entities",
-                            deadline: "Transposition: October 2024",
-                            urgent: false,
-                        },
-                        {
-                            name: "DORA",
-                            desc: "Digital operational resilience for financial entities",
-                            deadline: "In force: January 2025",
-                            urgent: false,
-                        },
-                        {
-                            name: "GDPR Art. 35",
-                            desc: "Data protection impact assessment for automated processing",
-                            deadline: "In force",
-                            urgent: false,
-                        },
-                    ].map(({ name, desc, deadline, urgent }) => (
-                        <div class={`border border-dotted p-6 transition-all ${urgent ? "border-[#c00000]/30 bg-[#fff0f0] hover:border-[#c00000]/50" : "border-[#0d0e10]/15 bg-white hover:border-[#0d0e10]/25"}`}>
-                            <div class="flex items-start justify-between">
-                                <div>
-                                    <h3 class="font-mono text-lg font-bold text-[#0d0e10]">{name}</h3>
-                                    <p class="mt-1 text-sm text-[#333]">{desc}</p>
+                    <div class="grid gap-4 grid-cols-2">
+                        {[
+                            { name: "EU AI Act", desc: "High-risk AI system logging", deadline: "Enforcement: Aug 2027", urgent: true },
+                            { name: "NIS-2",     desc: "Essential entities security",  deadline: "In force",            urgent: false },
+                            { name: "DORA",      desc: "Financial entity resilience",  deadline: "In force: Jan 2025",  urgent: false },
+                            { name: "GDPR 35",   desc: "Automated processing DPIA",    deadline: "In force",            urgent: false },
+                        ].map(({ name, desc, deadline, urgent }) => (
+                            <div class={`border border-dotted p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#0d0e10]/15 bg-white"}`}>
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="font-mono text-sm font-bold text-[#0d0e10]">{name}</h3>
+                                    {urgent && <span class="font-mono text-[9px] border border-dotted border-[#c00000]/50 px-1.5 py-0.5 text-[#c00000]">Urgent</span>}
                                 </div>
-                                {urgent && (
-                                    <span class="shrink-0 border border-dotted border-[#c00000]/50 bg-transparent px-2 py-1 text-xs font-mono text-[#c00000]">Urgent</span>
-                                )}
+                                <p class="text-xs text-[#555] mb-2">{desc}</p>
+                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-[#333]'}`}>{deadline}</p>
                             </div>
-                            <div class={`mt-3 flex items-center gap-2 text-xs ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-[#333]'}`}>
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                {deadline}
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
