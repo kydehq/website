@@ -266,16 +266,54 @@
     <div style="display:flex;flex-direction:column;gap:1px;background:var(--bg2);margin-bottom:4px">
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:'Andale Mono','Courier New',monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">STARTER</p>
-        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€1k/mo + <span style="color:var(--z4)">€5</span>/agent · max 25</p>
+        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€1k/mo + €5/agent · 100K req incl.</p>
       </div>
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:'Andale Mono','Courier New',monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">BUSINESS</p>
-        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€3k/mo + <span style="color:var(--z4)">€3</span>/agent · max 250</p>
+        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€3k/mo + €3/agent · 250K req incl.</p>
       </div>
       <div style="background:var(--bg);padding:9px 12px">
         <p style="font-family:'Andale Mono','Courier New',monospace;font-size:9px;letter-spacing:.15em;color:var(--z6);margin-bottom:3px">ENTERPRISE</p>
-        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€8k/mo + <span style="color:var(--z4)">€1</span>/agent · unlimited</p>
+        <p style="font-family:'Andale Mono','Courier New',monospace;font-size:11px;color:var(--z4)">€8k/mo + €1/agent · unlimited req</p>
       </div>
+    </div>
+  </div>
+
+  <!-- REQUEST VOLUME -->
+  <div class="sb-group">
+    <div class="sb-group-label">↳ Request Volume</div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Starter req/agent/day</span><span class="val" id="v-starter-req">100</span></div>
+      <input type="range" id="starter-req" min="10" max="500" step="10" value="100" />
+      <p class="sub-note">→ total req/mo per customer</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Business req/agent/day</span><span class="val" id="v-business-req">200</span></div>
+      <input type="range" id="business-req" min="10" max="1000" step="10" value="200" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Enterprise req/agent/day</span><span class="val" id="v-enterprise-req">500</span></div>
+      <input type="range" id="enterprise-req" min="50" max="5000" step="50" value="500" />
+      <p class="sub-note">Unlimited incl. — volume for display only</p>
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Starter incl. req/mo (K)</span><span class="val" id="v-starter-incl">100K</span></div>
+      <input type="range" id="starter-incl" min="50" max="500" step="25" value="100" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Business incl. req/mo (K)</span><span class="val" id="v-business-incl">250K</span></div>
+      <input type="range" id="business-incl" min="100" max="2000" step="50" value="250" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-label"><span>Overage rate (€/1K req)</span><span class="val" id="v-overage-rate">€10</span></div>
+      <input type="range" id="overage-rate" min="1" max="50" step="1" value="10" />
+      <p class="sub-note">= €0.01/req at default</p>
     </div>
   </div>
 
@@ -595,6 +633,18 @@
             <td style="text-align:center">€3</td>
             <td style="text-align:center">€1</td>
           </tr>
+          <tr class="price-row">
+            <td>INCL. REQUESTS</td>
+            <td style="text-align:center">100K/MO</td>
+            <td style="text-align:center">250K/MO</td>
+            <td style="text-align:center">UNLIMITED</td>
+          </tr>
+          <tr class="price-row">
+            <td>OVERAGE</td>
+            <td style="text-align:center">€10/1K REQ</td>
+            <td style="text-align:center">€10/1K REQ</td>
+            <td style="text-align:center">—</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -704,6 +754,27 @@
         <p class="chart-desc">New ARR + Expansion ARR − Churn = Net New ARR</p>
         <div class="chart-wrap-tall"><canvas id="chart-waterfall"></canvas></div>
         <div class="soundbite"><p id="sb-waterfall">"..."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BASE vs. VOLUME REVENUE -->
+  <div class="section">
+    <div class="section-label">↳ BASE vs. VOLUME REVENUE — REQUEST OVERAGE EXPANSION</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <p class="chart-title">Base ARR vs. Volume ARR by Year</p>
+        <p class="chart-desc">Identity + Agent fees (predictable) vs. Request overage (expansion)</p>
+        <div class="chart-wrap-tall"><canvas id="chart-vol-split"></canvas></div>
+        <div class="soundbite"><p id="sb-vol-split">"..."</p></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Volume Revenue Detail — Year 3</p>
+        <p class="chart-desc">Overage per tier · avg requests/customer/mo vs. included band</p>
+        <div style="margin-top:12px">
+          <table class="data-table" id="tbl-volume"></table>
+        </div>
+        <div class="soundbite" style="margin-top:12px"><p id="sb-vol-detail">"..."</p></div>
       </div>
     </div>
   </div>
@@ -1006,6 +1077,12 @@
     hcGrowth:         { el: 'hc-growth',       fmt: v => parseFloat(v).toFixed(1)+'×',       out: 'v-hc-growth' },
     comp:             { el: 'comp',             fmt: v => '€'+v+'k',                          out: 'v-comp' },
     mkt:              { el: 'mkt',              fmt: v => '€'+Math.round(v/1000)+'k',         out: 'v-mkt' },
+    starterReq:       { el: 'starter-req',      fmt: v => v,                                  out: 'v-starter-req' },
+    businessReq:      { el: 'business-req',     fmt: v => v,                                  out: 'v-business-req' },
+    enterpriseReq:    { el: 'enterprise-req',   fmt: v => v,                                  out: 'v-enterprise-req' },
+    starterIncl:      { el: 'starter-incl',     fmt: v => v+'K',                              out: 'v-starter-incl' },
+    businessIncl:     { el: 'business-incl',    fmt: v => v+'K',                              out: 'v-business-incl' },
+    overageRate:      { el: 'overage-rate',     fmt: v => '€'+v,                              out: 'v-overage-rate' },
   };
 
   // Update enterprise % display automatically
@@ -1044,6 +1121,13 @@
       hcGrowth:    +document.getElementById('hc-growth').value,
       comp:        +document.getElementById('comp').value * 1000,
       mkt:         +document.getElementById('mkt').value,
+      // Request volume
+      starterReqDay:    +document.getElementById('starter-req').value,
+      businessReqDay:   +document.getElementById('business-req').value,
+      enterpriseReqDay: +document.getElementById('enterprise-req').value,
+      starterIncluded:  +document.getElementById('starter-incl').value * 1000,
+      businessIncluded: +document.getElementById('business-incl').value * 1000,
+      overageRate:      +document.getElementById('overage-rate').value / 1000, // €/req
     };
   }
 
@@ -1063,11 +1147,31 @@
     const businessAgentsY   = mult.map(m => Math.min(250, p.businessAgents * m));
     const enterpriseAgentsY = mult.map(m => p.enterpriseAgents * m);
 
-    // Revenue per tier
-    const starterRev    = years.map((_, i) => starterC[i]    * (p.starterBase    * 12 + starterAgentsY[i]    * p.starterPerAgent    * 12));
-    const businessRev   = years.map((_, i) => businessC[i]   * (p.businessBase   * 12 + businessAgentsY[i]   * p.businessPerAgent   * 12));
+    // Request volume overage per customer per tier (monthly)
+    const starterOverageMo  = mult.map((m, i) => {
+      const agents = starterAgentsY[i];
+      const totalReq = agents * p.starterReqDay * 30;
+      return Math.max(0, totalReq - p.starterIncluded) * p.overageRate;
+    });
+    const businessOverageMo = mult.map((m, i) => {
+      const agents = businessAgentsY[i];
+      const totalReq = agents * p.businessReqDay * 30;
+      return Math.max(0, totalReq - p.businessIncluded) * p.overageRate;
+    });
+    // Enterprise: unlimited requests included — no overage
+
+    // Revenue per tier (base + agent fee + overage)
+    const starterRev    = years.map((_, i) => starterC[i]    * (p.starterBase    * 12 + starterAgentsY[i]    * p.starterPerAgent    * 12 + starterOverageMo[i]  * 12));
+    const businessRev   = years.map((_, i) => businessC[i]   * (p.businessBase   * 12 + businessAgentsY[i]   * p.businessPerAgent   * 12 + businessOverageMo[i] * 12));
     const enterpriseRev = years.map((_, i) => enterpriseC[i] * (p.enterpriseBase * 12 + enterpriseAgentsY[i] * p.enterprisePerAgent * 12));
     const totalARR      = years.map((_, i) => starterRev[i] + businessRev[i] + enterpriseRev[i]);
+
+    // Base ARR vs Volume ARR split
+    const baseARR   = years.map((_, i) =>
+      starterC[i]    * (p.starterBase    * 12 + starterAgentsY[i]    * p.starterPerAgent    * 12) +
+      businessC[i]   * (p.businessBase   * 12 + businessAgentsY[i]   * p.businessPerAgent   * 12) +
+      enterpriseC[i] * (p.enterpriseBase * 12 + enterpriseAgentsY[i] * p.enterprisePerAgent * 12));
+    const volumeARR = years.map((_, i) => totalARR[i] - baseARR[i]);
 
     const totalAgents = years.map((_, i) =>
       starterC[i] * starterAgentsY[i] + businessC[i] * businessAgentsY[i] + enterpriseC[i] * enterpriseAgentsY[i]);
@@ -1136,6 +1240,7 @@
       customers, starterC, businessC, enterpriseC,
       starterAgentsY, businessAgentsY, enterpriseAgentsY, totalAgents,
       starterRev, businessRev, enterpriseRev, totalARR,
+      baseARR, volumeARR, starterOverageMo, businessOverageMo,
       cogs, grossProfit, grossMargin,
       opex, ebitda, ebitdaMargin,
       monthlyBurnY1, nrr, ltv, ltvCac, paybackMonths,
@@ -1243,6 +1348,70 @@
     });
     document.getElementById('sb-waterfall').textContent =
       `Expansion ARR ${fmt(d.expansionArr)} from existing customers adding agents — zero additional CAC. Churn only ${fmt(d.churnArr)}.`;
+
+    // Base vs. Volume ARR Chart
+    mkChart('chart-vol-split', {
+      type: 'bar',
+      data: {
+        labels: ['Year 1', 'Year 2', 'Year 3'],
+        datasets: [
+          { label: 'Base ARR (Identity + Agents)', data: d.baseARR,   backgroundColor: Z5, stack: 's' },
+          { label: 'Volume ARR (Overage)',          data: d.volumeARR, backgroundColor: AM, stack: 's' },
+        ]
+      },
+      options: { ...CHART_DEFAULTS, responsive: true, maintainAspectRatio: false,
+        plugins: { ...CHART_DEFAULTS.plugins,
+          tooltip: { ...CHART_DEFAULTS.plugins.tooltip, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw) } }
+        },
+        scales: { ...CHART_DEFAULTS.scales,
+          y: { ...CHART_DEFAULTS.scales.y, stacked: true, ticks: { ...CHART_DEFAULTS.scales.y.ticks, callback: v => fmt(v) } },
+          x: { ...CHART_DEFAULTS.scales.x, stacked: true }
+        }
+      }
+    });
+    const volPct3 = d.totalARR[2] > 0 ? d.volumeARR[2] / d.totalARR[2] * 100 : 0;
+    document.getElementById('sb-vol-split').textContent =
+      `Volume (overage) = ${pct(volPct3)} of Year 3 ARR (${fmt(d.volumeARR[2])}). Grows automatically as agent fleets scale — zero additional sales motion.`;
+
+    // Volume Detail Table
+    const p2 = p;
+    const starterTotalReqY3  = d.starterAgentsY[2]  * p2.starterReqDay  * 30;
+    const businessTotalReqY3 = d.businessAgentsY[2] * p2.businessReqDay * 30;
+    const starterOverageReqY3  = Math.max(0, starterTotalReqY3  - p2.starterIncluded);
+    const businessOverageReqY3 = Math.max(0, businessTotalReqY3 - p2.businessIncluded);
+    document.getElementById('tbl-volume').innerHTML = `
+      <thead><tr>
+        <th>Tier</th><th style="text-align:right">Avg Agents</th>
+        <th style="text-align:right">Total Req/Mo</th><th style="text-align:right">Incl.</th>
+        <th style="text-align:right">Overage Req</th><th style="text-align:right">Overage/Mo</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="dim">Starter</td>
+          <td class="num">${Math.round(d.starterAgentsY[2])}</td>
+          <td class="num">${(starterTotalReqY3/1000).toFixed(0)}K</td>
+          <td class="num">${(p2.starterIncluded/1000).toFixed(0)}K</td>
+          <td class="${starterOverageReqY3 > 0 ? 'am' : 'num'}">${(starterOverageReqY3/1000).toFixed(0)}K</td>
+          <td class="${d.starterOverageMo[2] > 0 ? 'am' : 'num'}">${fmt(d.starterOverageMo[2])}</td>
+        </tr>
+        <tr>
+          <td class="dim">Business</td>
+          <td class="num">${Math.round(d.businessAgentsY[2])}</td>
+          <td class="num">${(businessTotalReqY3/1000).toFixed(0)}K</td>
+          <td class="num">${(p2.businessIncluded/1000).toFixed(0)}K</td>
+          <td class="${businessOverageReqY3 > 0 ? 'am' : 'num'}">${(businessOverageReqY3/1000).toFixed(0)}K</td>
+          <td class="${d.businessOverageMo[2] > 0 ? 'am' : 'num'}">${fmt(d.businessOverageMo[2])}</td>
+        </tr>
+        <tr>
+          <td class="dim">Enterprise</td>
+          <td class="num">${Math.round(d.enterpriseAgentsY[2])}</td>
+          <td class="num">${(d.enterpriseAgentsY[2] * p2.enterpriseReqDay * 30 / 1000).toFixed(0)}K</td>
+          <td colspan="2" style="text-align:center;font-family:'Andale Mono','Courier New',monospace;font-size:10px;color:var(--z5)">Unlimited</td>
+          <td class="em">—</td>
+        </tr>
+      </tbody>`;
+    document.getElementById('sb-vol-detail').textContent =
+      `Total Volume ARR Y3: ${fmt(d.volumeARR[2])} — ${pct(volPct3)} of total. Overage kicks in automatically when fleets scale past included bands.`;
 
     // LTV/CAC Chart
     mkChart('chart-ltvcac', {
