@@ -366,7 +366,7 @@ import Footer from "../components/Footer.astro";
                             Each entry is signed with an Ed25519 keypair generated locally on first initialization. The hash chain ensures sequential integrity — tamper with any single entry, and every subsequent link breaks.
                         </p>
                         <p class="text-[#333] leading-relaxed mb-10">
-                            For environments where software-only signing isn't enough, Kyde's architecture is built for hardware-rooted sealation from day one.
+                            For environments where software-only signing isn't enough, Kyde's architecture is built for hardware-rooted attestation from day one.
                         </p>
                         <p class="font-mono text-sm text-[#333] border-l-2 border-dotted border-[#0d0e10]/20 pl-4 leading-relaxed">
                             No re-architecture required between levels. Same API. Same data format. Same evidence chain. The root of trust gets deeper — the interface stays the same.
@@ -382,7 +382,7 @@ import Footer from "../components/Footer.astro";
                         {[
                             { level: "Ed25519 Signed", desc: "Cryptographic signing at the point of capture — available now.", status: "LIVE", live: true, available: false },
                             { level: "TPM / HSM", desc: "Military-grade hardware isolation. Signing keys never exposed to host OS.", status: "AVAILABLE", live: false, available: true },
-                            { level: "TEE (TDX/SEV-SNP)", desc: "Trusted Execution Environment sealation for maximum integrity.", status: "AVAILABLE", live: false, available: true },
+                            { level: "TEE (TDX/SEV-SNP)", desc: "Trusted Execution Environment attestation for maximum integrity.", status: "AVAILABLE", live: false, available: true },
                             { level: "FIPS 140-3", desc: "Architecture designed for FIPS-validated cryptographic modules.", status: "AVAILABLE", live: false, available: true },
                         ].map(({ level, desc, status, live, available }) => (
                             <div class="grid grid-cols-[140px_1fr_90px] divide-x divide-dotted divide-[#0d0e10]/15">
