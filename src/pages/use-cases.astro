@@ -11,17 +11,17 @@ const cases = [
     scenario: 'A trading agent autonomously rebalances customer portfolios and accesses the trading API via an internal MCP server.',
     pillars: [
       {
-        label: 'AUTHORIZE',
+        label: 'SCOPE',
         q: 'Who is cleared — and what is the hard limit?',
         text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by the Zero-Trust AI Stack in under 100ms — before it reaches the exchange. Not rate-limited. Blocked.',
       },
       {
-        label: 'ATTRIBUTE',
+        label: 'TRACE',
         q: 'Full Chain Reconstruction.',
         text: 'The agent sells 1,000 Tesla shares. KYDE logs the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. The path from signal to trade is immediately reconstructable — for the advisor, for BaFin, and for any court.',
       },
       {
-        label: 'ATTEST',
+        label: 'SEAL',
         q: 'What is the cryptographic proof?',
         text: 'Every autonomous trade is Ed25519-signed at the point of capture. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof — not an editable server log.',
       },
@@ -35,17 +35,17 @@ const cases = [
     scenario: 'A procurement agent monitors global supply chains and autonomously reorders raw materials in the ERP system when shortages are detected.',
     pillars: [
       {
-        label: 'AUTHORIZE',
+        label: 'SCOPE',
         q: 'Who is cleared — and what is the hard limit?',
-        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity authorized exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms — before it reaches the supplier API.',
+        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity scoped exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms — before it reaches the supplier API.',
       },
       {
-        label: 'ATTRIBUTE',
+        label: 'TRACE',
         q: 'Full Chain Reconstruction.',
         text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged the full chain: internal email about a threatened port strike received → procurement database read → order placed. The purchasing manager sees not just what was ordered but the exact reasoning path that triggered the decision.',
       },
       {
-        label: 'ATTEST',
+        label: 'SEAL',
         q: 'What is the cryptographic proof?',
         text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof — not a filtered dashboard export.',
       },
@@ -59,17 +59,17 @@ const cases = [
     scenario: 'A medical billing agent scans patient records, assigns ICD-10 diagnosis codes, and submits reimbursement claims to health insurers.',
     pillars: [
       {
-        label: 'AUTHORIZE',
+        label: 'SCOPE',
         q: 'Who is cleared — and what is the hard limit?',
         text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy — the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Zero-Trust AI Stack on every API call.',
       },
       {
-        label: 'ATTRIBUTE',
+        label: 'TRACE',
         q: 'Full Chain Reconstruction.',
         text: 'The agent bills for an expensive specialist treatment. KYDE records the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. The causal path from clinical input to billing decision is immediately verifiable in any audit or billing dispute.',
       },
       {
-        label: 'ATTEST',
+        label: 'SEAL',
         q: 'What is the cryptographic proof?',
         text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Zero-Trust AI Stack guarantees that hospitals can prove — in any audit — exactly which agent processed which patient data, when, and on what basis. Signed at the point of capture. Unalterable.',
       },
@@ -80,20 +80,20 @@ const cases = [
     n: '04',
     sector: 'Insurance & Claims Automation',
     tag: 'EU AI Act · Solvency II · GDPR',
-    scenario: 'A claims agent evaluates uploaded photos of water damage and authorizes payouts to policyholders — autonomously.',
+    scenario: 'A claims agent evaluates uploaded photos of water damage and scopes payouts to policyholders — autonomously.',
     pillars: [
       {
-        label: 'AUTHORIZE',
+        label: 'SCOPE',
         q: 'Who is cleared — and what is the hard limit?',
         text: 'Clear role boundaries enforced in hardware — not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop — not a configurable soft limit.',
       },
       {
-        label: 'ATTRIBUTE',
+        label: 'TRACE',
         q: 'Full Chain Reconstruction.',
         text: 'The agent rejects a water damage claim. KYDE stores the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. The adjuster can explain the decision logic to the policyholder immediately — with the exact document and passage the agent used.',
       },
       {
-        label: 'ATTEST',
+        label: 'SEAL',
         q: 'What is the cryptographic proof?',
         text: 'When a fraud ring floods automated agents with fake images, the Zero-Trust AI Stack proves immutably — on what data basis, at what timestamp — the agent approved each payment. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
       },
@@ -107,17 +107,17 @@ const cases = [
     scenario: 'A grid-balancing agent manages electricity procurement and activates local large-scale batteries to compensate for network fluctuations.',
     pillars: [
       {
-        label: 'AUTHORIZE',
+        label: 'SCOPE',
         q: 'Who is cleared — and what is the hard limit?',
         text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment — API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
       },
       {
-        label: 'ATTRIBUTE',
+        label: 'TRACE',
         q: 'Full Chain Reconstruction.',
         text: 'The agent ramps up a local power plant. The KYDE log reconstructs the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Every grid action is explainable — in real time and in retrospect.',
       },
       {
-        label: 'ATTEST',
+        label: 'SEAL',
         q: 'What is the cryptographic proof?',
         text: 'When an outage occurs, the Bundesnetzagentur demands a provenance-grade record. Vendor cloud logs do not qualify. For KRITIS-grade deployments, the Zero-Trust AI Stack provides military-grade hardware isolation (TPM/HSM) — signing keys never exposed to the host OS. What regulators receive is a cryptographic ledger with unbreakable chain of custody.',
       },
@@ -211,8 +211,8 @@ const cases = [
               {pillars.map(({ label, q, text }) => (
                 <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
                   <div class="shrink-0">
-                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 mb-1 ${label === 'AUTHORIZE' ? 'text-[#c00000] bg-[#c00000]/8' : label === 'ATTRIBUTE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{label}</span>
-                    {label === 'ATTRIBUTE'
+                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 mb-1 ${label === 'SCOPE' ? 'text-[#c00000] bg-[#c00000]/8' : label === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{label}</span>
+                    {label === 'TRACE'
                       ? <p class="font-mono text-xs mt-1 leading-relaxed"><span class="bg-[#fcb830] text-[#0d0e10] px-1">{q}</span></p>
                       : <p class="font-mono text-xs text-[#555] mt-1 leading-relaxed">{q}</p>
                     }

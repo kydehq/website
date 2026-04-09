@@ -96,7 +96,7 @@ import Footer from '../../components/Footer.astro';
               Most MCP servers being built today are not being built with that governance layer. They're being built for capability and speed. The governance question is being deferred.
             </p>
             <p>
-              That deferral is a significant risk. Every MCP call an agent makes is an action taken in the name of the organization — against real systems, with real consequences. A customer record updated. A transaction authorized. A compliance check triggered. A document retrieved and summarized.
+              That deferral is a significant risk. Every MCP call an agent makes is an action taken in the name of the organization — against real systems, with real consequences. A customer record updated. A transaction scoped. A compliance check triggered. A document retrieved and summarized.
             </p>
             <p>The application layer that used to validate, log, and scope these actions is gone. Something needs to replace it.</p>
 
@@ -105,7 +105,7 @@ import Footer from '../../components/Footer.astro';
               In <em>Moffatt v. Air Canada</em>, a tribunal held the airline liable for incorrect information its chatbot provided — rejecting the argument that the bot was a separate entity with its own policies. The principle established is clear: your agents act on your behalf. You are accountable for what they do.
             </p>
             <p>
-              That principle applies with full force to MCP-mediated actions. When an agent calls a core banking system through an MCP server and authorizes a payment, that authorization is legally attributable to the organization that deployed the agent. When an agent retrieves personnel data through an HR system MCP server and uses it to make a recommendation, that retrieval and that recommendation are subject to <span class="font-mono text-[#333]">GDPR</span>, to <span class="font-mono text-[#333]">EU AI Act</span> obligations, to whatever regulatory framework governs that data.
+              That principle applies with full force to MCP-mediated actions. When an agent calls a core banking system through an MCP server and scopes a payment, that authorization is legally attributable to the organization that deployed the agent. When an agent retrieves personnel data through an HR system MCP server and uses it to make a recommendation, that retrieval and that recommendation are subject to <span class="font-mono text-[#333]">GDPR</span>, to <span class="font-mono text-[#333]">EU AI Act</span> obligations, to whatever regulatory framework governs that data.
             </p>
             <p>
               The absence of a human in the loop — the fact that no application interface was involved, no employee clicked a button — does not create a legal shield. It removes one.
@@ -124,7 +124,7 @@ import Footer from '../../components/Footer.astro';
             </p>
             <ul>
               <li>An identity — which agent made it</li>
-              <li>A scope — was this agent authorized to call this server with these parameters</li>
+              <li>A scope — was this agent scoped to call this server with these parameters</li>
               <li>A record — what exactly was called, what was returned, in what context</li>
               <li>A tamper-evident trail — proof that the record hasn't been modified since the call was made</li>
             </ul>
@@ -155,7 +155,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
               <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3">↳ KYDE</p>
               <p class="text-sm text-[#333] leading-relaxed mb-6">
-                Kyde governs not just LLM calls but every tool your agents invoke — including MCP servers. Every call is intercepted, attributed to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. The app layer disappears. The governance layer doesn't.
+                Kyde governs not just LLM calls but every tool your agents invoke — including MCP servers. Every call is intercepted, traced to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. The app layer disappears. The governance layer doesn't.
               </p>
               <button
                 onclick="openModal()"

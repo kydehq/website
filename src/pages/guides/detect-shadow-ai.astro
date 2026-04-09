@@ -66,13 +66,13 @@ import Footer from '../../components/Footer.astro';
             <ul>
               <li><strong>Compliance Risk:</strong> Ungoverned High-Risk AI applications violate EU AI Act, DORA, and similar regulations</li>
               <li><strong>Security Risk:</strong> Unvetted AI systems may process sensitive data, make critical business decisions, or exfiltrate information</li>
-              <li><strong>Audit Risk:</strong> You cannot prove what unauthorized AI systems are doing</li>
+              <li><strong>Audit Risk:</strong> You cannot prove what unscoped AI systems are doing</li>
             </ul>
 
             <h2 id="signals">What Signals Indicate Shadow AI?</h2>
 
             <p>
-              Shadow AI most commonly manifests as <strong>HTTPS traffic to Large Language Model (LLM) API providers</strong> from systems you didn't authorize.
+              Shadow AI most commonly manifests as <strong>HTTPS traffic to Large Language Model (LLM) API providers</strong> from systems you didn't scope.
             </p>
 
             <h3>LLM Providers to Monitor</h3>
@@ -177,7 +177,7 @@ Header contains: X-API-Key, Authorization (Bearer pattern)</code></pre>
             <h3>Rule 3: Asset Inventory Gap Detection</h3>
 
             <p>
-              <strong>What to monitor:</strong> Outbound HTTPS traffic from internal systems to LLM providers, compared against your authorized software inventory.
+              <strong>What to monitor:</strong> Outbound HTTPS traffic from internal systems to LLM providers, compared against your scoped software inventory.
             </p>
 
             <p>
@@ -234,7 +234,7 @@ Week 2: Analysis
 
 Week 3: Validation
 - Cross-check with IT asset inventory
-- Interview IT: "Is this system authorized?"
+- Interview IT: "Is this system scoped?"
 - Identify gaps (shadow AI candidates)
 
 Week 4: Report & Conversation

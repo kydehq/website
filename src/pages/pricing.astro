@@ -87,10 +87,10 @@ import Footer from '../components/Footer.astro';
               <p class="text-xs text-[#333] leading-relaxed mb-6">For developers and testing. Full zero-trust from day one — no credit card required.</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Agent identity registration", g: "AUTHORIZE" },
-                  { text: "Ed25519 cryptographic signing", g: "ATTEST" },
+                  { text: "Agent identity registration", g: "SCOPE" },
+                  { text: "Ed25519 cryptographic signing", g: "SEAL" },
                   { text: "Provider-agnostic interception", g: null },
-                  { text: "Tamper-evident audit log", g: "ATTRIBUTE" },
+                  { text: "Tamper-evident audit log", g: "TRACE" },
                   { text: "One ENV variable deployment", g: null },
                   { text: "CLI verification tools", g: null },
                 ].map(({ text, g }) => (
@@ -98,7 +98,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'AUTHORIZE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'ATTRIBUTE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'SCOPE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -126,18 +126,18 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Sandbox, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Role-based identity & access control", g: "AUTHORIZE" },
-                  { text: "API allowlists & blocklists per role", g: "AUTHORIZE" },
-                  { text: "7-day audit log retention", g: "ATTRIBUTE" },
-                  { text: "Causal context capture", g: "ATTRIBUTE" },
-                  { text: "Behavioral anomaly detection", g: "ATTRIBUTE" },
+                  { text: "Role-based identity & access control", g: "SCOPE" },
+                  { text: "API allowlists & blocklists per role", g: "SCOPE" },
+                  { text: "7-day audit log retention", g: "TRACE" },
+                  { text: "Causal context capture", g: "TRACE" },
+                  { text: "Behavioral anomaly detection", g: "TRACE" },
                   { text: "SSO / Okta / Azure AD", g: null },
                 ].map(({ text, g }) => (
                   <li class="flex gap-2.5 text-xs text-[#333] leading-relaxed">
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'AUTHORIZE' ? 'text-[#c00000] bg-[#c00000]/8' : 'text-[#555] bg-[#0d0e10]/6'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'SCOPE' ? 'text-[#c00000] bg-[#c00000]/8' : 'text-[#555] bg-[#0d0e10]/6'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -169,19 +169,19 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Starter, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Token & cost budgets per agent / role / team", g: "AUTHORIZE" },
-                  { text: "Policy Enforcement Point (hard circuit breakers)", g: "AUTHORIZE" },
-                  { text: "30-day audit log retention", g: "ATTRIBUTE" },
-                  { text: "Continuous data integrity verification", g: "ATTRIBUTE" },
-                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "ATTEST" },
-                  { text: "Court-ready cryptographic audit trail", g: "ATTEST" },
-                  { text: "Machine-readable Proof of Authority", g: "ATTEST" },
+                  { text: "Token & cost budgets per agent / role / team", g: "SCOPE" },
+                  { text: "Policy Enforcement Point (hard circuit breakers)", g: "SCOPE" },
+                  { text: "30-day audit log retention", g: "TRACE" },
+                  { text: "Continuous data integrity verification", g: "TRACE" },
+                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "SEAL" },
+                  { text: "Court-ready cryptographic audit trail", g: "SEAL" },
+                  { text: "Machine-readable Proof of Authority", g: "SEAL" },
                 ].map(({ text, g }) => (
                   <li class="flex gap-2.5 text-xs text-[#333] leading-relaxed">
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'AUTHORIZE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'ATTRIBUTE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'SCOPE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -205,16 +205,16 @@ import Footer from '../components/Footer.astro';
               <p class="text-xs text-[#666]">Custom + Air-Gapped</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-[#333] leading-relaxed mb-4">For KRITIS, banks, and defense. Hardware-rooted attestation. Air-gapped deployments. Silicon Leash — signing keys never exposed to host OS.</p>
+              <p class="text-xs text-[#333] leading-relaxed mb-4">For KRITIS, banks, and defense. Hardware-rooted sealation. Air-gapped deployments. Silicon Leash — signing keys never exposed to host OS.</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Business, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Agent-to-agent trust delegation", g: "AUTHORIZE" },
-                  { text: "Unlimited log retention", g: "ATTRIBUTE" },
-                  { text: "SIEM / SOC integration", g: "ATTRIBUTE" },
-                  { text: "Silicon Leash — TPM/HSM hardware signing", g: "ATTEST" },
-                  { text: "TEE attestation (TDX/SEV-SNP)", g: "ATTEST" },
-                  { text: "FIPS 140-3 validated crypto modules", g: "ATTEST" },
+                  { text: "Agent-to-agent trust delegation", g: "SCOPE" },
+                  { text: "Unlimited log retention", g: "TRACE" },
+                  { text: "SIEM / SOC integration", g: "TRACE" },
+                  { text: "Silicon Leash — TPM/HSM hardware signing", g: "SEAL" },
+                  { text: "TEE sealation (TDX/SEV-SNP)", g: "SEAL" },
+                  { text: "FIPS 140-3 validated crypto modules", g: "SEAL" },
                   { text: "Air-gapped deployment option", g: null },
                   { text: "EU data residency", g: null },
                   { text: "ISO 27001 / BSI procurement track", g: null },
@@ -224,7 +224,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'AUTHORIZE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'ATTRIBUTE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'SCOPE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
