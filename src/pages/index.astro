@@ -88,13 +88,13 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         <div class="flex flex-col sm:flex-row items-start gap-4">
                             <a
                                 href="#problem"
-                                class="inline-flex items-center gap-2 bg-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                                class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
                             >
                                 See why this matters →
                             </a>
                             <button
                                 onclick="openModal()"
-                                class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/40 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all"
+                                class="inline-flex items-center gap-2 border border-[#0d0e10] rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#fcb830] hover:border-[#fcb830] transition-all"
                             >
                                 Book Demo
                             </button>
@@ -138,7 +138,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                             label: "Tamper-Evidence",
                         },
                     ].map(({ q, body, label }) => (
-                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 transition-all hover:bg-[#0d0e10]/[0.02]">
+                        <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
                             <div class="mb-4 flex items-center justify-between">
                                 <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{label}</span>
                                 <span class="h-1.5 w-1.5 rounded-full bg-[#c00000]/50"></span>
@@ -244,7 +244,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
                 <div class="mt-16 grid gap-8 lg:grid-cols-3">
                     <!-- SCOPE -->
-                    <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 transition-all hover:bg-[#0d0e10]/[0.02]">
+                    <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#666]">01</span>
                         </div>
@@ -278,7 +278,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     </div>
 
                     <!-- TRACE -->
-                    <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 transition-all hover:bg-[#0d0e10]/[0.02]">
+                    <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#666]">02</span>
                         </div>
@@ -304,7 +304,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     </div>
 
                     <!-- SEAL -->
-                    <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-8 transition-all hover:bg-[#0d0e10]/[0.02]">
+                    <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#666]">03</span>
                         </div>
@@ -370,7 +370,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                             { name: "DORA",      desc: "Financial entity resilience",  deadline: "In force: Jan 2025",  urgent: false },
                             { name: "GDPR 35",   desc: "Automated processing DPIA",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
-                            <div class={`border border-dotted p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#dae4e5] bg-[#dae4e5]/20"}`}>
+                            <div class={`border rounded-[14px] p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#dae4e5] bg-[#dae4e5]/20"}`}>
                                 <div class="flex items-start justify-between mb-2">
                                     <h3 class="font-mono text-sm font-bold text-[#0d0e10]">{name}</h3>
                                     {urgent && <span class="font-mono text-[9px] border border-dotted border-[#c00000]/50 px-1.5 py-0.5 text-[#c00000]">Urgent</span>}
@@ -399,7 +399,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
                         >
                             Book Demo →
                         </button>
