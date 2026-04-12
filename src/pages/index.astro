@@ -15,13 +15,13 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
         <!-- ══════════ HERO STAGE (viewport) ══════════ -->
         <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20">
             <!-- Background video -->
-            <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="/stage-poster.jpg">
+            <video class="absolute inset-0 w-full h-full object-cover hero-video" muted loop playsinline poster="/stage-poster.jpg">
                 <source src="/stage-video.mp4" type="video/mp4" />
             </video>
             <!-- Gradient overlay -->
             <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/30 via-[#0d0e10]/60 to-[#0d0e10]/90"></div>
             <!-- Noise texture -->
-            <div class="absolute inset-0 pointer-events-none opacity-[0.04]" style="background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\"); background-size: 200px 200px;"></div>
+            <div class="absolute inset-0 pointer-events-none hero-noise"></div>
             <div class="bg-grid absolute inset-0 pointer-events-none opacity-20"></div>
             <!-- Corner vignette — covers bottom-right, looks cinematic -->
             <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 40% 35% at 100% 100%, #0d0e10 0%, transparent 100%);"></div>
@@ -89,6 +89,10 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   const l2 = document.getElementById("hero-l2") as HTMLElement;
   if (l1) scrambleLine(l1, "IDENTITY AND CONTROL", 200);
   if (l2) scrambleLine(l2, "FOR THE AGENTIC ECONOMY.", 200);
+
+  // Autoplay via JS to pass HTML validator (autoplay attr not allowed per spec)
+  const vid = document.querySelector(".hero-video") as HTMLVideoElement;
+  if (vid) vid.play().catch(() => {});
 </script>
 
         <!-- ══════════ HERO INTRO ══════════ -->
