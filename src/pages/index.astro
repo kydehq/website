@@ -34,8 +34,8 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 </div>
                 <!-- Headline — two separate lines so width changes never cause reflow -->
                 <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
-                    <span id="hero-l1" style="display:block;overflow:hidden;white-space:nowrap">Identity and Control</span>
-                    <span id="hero-l2" style="display:block;overflow:hidden;white-space:nowrap">for the Agentic Economy.</span>
+                    <span id="hero-l1" style="display:block">Identity and Control</span>
+                    <span id="hero-l2" style="display:block">for the Agentic Economy.</span>
                 </h1>
             </div>
         </section>
@@ -69,9 +69,16 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
         requestAnimationFrame(tick);
       } else {
         el.innerText = target;
+        el.style.whiteSpace = "";
+        el.style.overflow = "";
       }
     }
-    setTimeout(tick, delay);
+    setTimeout(() => {
+      // Lock during scramble only
+      el.style.whiteSpace = "nowrap";
+      el.style.overflow = "hidden";
+      tick();
+    }, delay);
   }
 
   const l1 = document.getElementById("hero-l1") as HTMLElement;
