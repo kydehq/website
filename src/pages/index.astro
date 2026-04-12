@@ -31,8 +31,8 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ EU AI Act · NIS-2 · DORA · GDPR — Audit-Ready from Day One</span>
                 </div>
                 <!-- Headline -->
-                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.4s ease-out 0.1s forwards;">
-                    Identity and Control<br />for <span id="hero-scramble">Agentic AI.</span>
+                <h1 id="hero-headline" class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
+                    Identity and Control<br />for Agentic AI.
                 </h1>
             </div>
         </section>
@@ -44,34 +44,46 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 </style>
 
 <script>
-  const target = "AGENTIC AI.";
-  const el = document.getElementById("hero-scramble");
+  const lines = ["IDENTITY AND CONTROL", "FOR AGENTIC AI."];
+  const flat = lines.join("\n");
+  const el = document.getElementById("hero-headline");
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let frame = 0;
-  const speed = 0.18;
+  const speed = 0.22;
+
+  function render(progress: number) {
+    let html = "";
+    let charIndex = 0;
+    for (let li = 0; li < lines.length; li++) {
+      for (let ci = 0; ci < lines[li].length; ci++) {
+        const ch = lines[li][ci];
+        if (charIndex < progress) {
+          html += ch;
+        } else if (ch === " " || ch === ".") {
+          html += ch;
+        } else {
+          html += chars[Math.floor(Math.random() * chars.length)];
+        }
+        charIndex++;
+      }
+      if (li < lines.length - 1) html += "<br/>";
+      charIndex++; // account for \n
+    }
+    return html;
+  }
 
   function scramble() {
-    let out = "";
-    for (let i = 0; i < target.length; i++) {
-      if (i < frame) {
-        out += target[i];
-      } else if (target[i] === " " || target[i] === ".") {
-        out += target[i];
-      } else {
-        out += chars[Math.floor(Math.random() * chars.length)];
-      }
-    }
-    if (el) el.innerText = out;
+    if (!el) return;
+    el.innerHTML = render(frame);
     frame += speed;
-    if (frame < target.length) {
+    if (frame < flat.length) {
       requestAnimationFrame(scramble);
     } else {
-      if (el) el.innerText = target;
+      el.innerHTML = lines.join("<br/>");
     }
   }
 
-  // Start after fade-in begins
-  setTimeout(scramble, 300);
+  setTimeout(scramble, 200);
 </script>
 
         <!-- ══════════ HERO INTRO ══════════ -->
