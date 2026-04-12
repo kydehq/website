@@ -15,12 +15,14 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
         <!-- ══════════ HERO ══════════ -->
         <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
             <!-- Background video -->
-            <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
+            <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="/stage-poster.jpg">
                 <source src="/stage-video.mp4" type="video/mp4" />
             </video>
-            <!-- Dark overlay -->
-            <div class="absolute inset-0 bg-[#0d0e10]/80"></div>
-            <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/40 via-[#0d0e10]/70 to-[#0d0e10]/90"></div>
+            <!-- Noise texture -->
+            <div class="absolute inset-0 pointer-events-none opacity-[0.04]" style="background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\"); background-size: 200px 200px;"></div>
+            <div class="bg-grid absolute inset-0 pointer-events-none opacity-20"></div>
 
             <div class="relative max-w-7xl mx-auto px-6">
                 <!-- label + rule -->
