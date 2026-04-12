@@ -12,62 +12,61 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
     <Navbar />
 
     <main>
-        <!-- ══════════ HERO ══════════ -->
-        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center">
+        <!-- ══════════ HERO STAGE (viewport) ══════════ -->
+        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-end pb-16">
             <!-- Background video -->
             <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="/stage-poster.jpg">
                 <source src="/stage-video.mp4" type="video/mp4" />
             </video>
             <!-- Gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/40 via-[#0d0e10]/70 to-[#0d0e10]/90"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/30 via-[#0d0e10]/60 to-[#0d0e10]/90"></div>
             <!-- Noise texture -->
             <div class="absolute inset-0 pointer-events-none opacity-[0.04]" style="background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\"); background-size: 200px 200px;"></div>
             <div class="bg-grid absolute inset-0 pointer-events-none opacity-20"></div>
 
-            <div class="relative max-w-7xl mx-auto px-6">
-                <!-- label + rule -->
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ EU AI Act · NIS-2 · DORA · GDPR — Audit-Ready from Day One</span>
-                    </div>
-                    <div class="h-px w-full bg-white/15"></div>
+            <div class="relative max-w-7xl mx-auto px-6 w-full">
+                <!-- compliance label -->
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ EU AI Act · NIS-2 · DORA · GDPR — Audit-Ready from Day One</span>
                 </div>
-
                 <!-- Headline -->
-                <h1 class="hero-h1 max-w-5xl text-6xl text-white uppercase tracking-tight my-12 md:text-7xl lg:text-8xl">
-                    When your AI breaks,<br />it doesn't crash.<br />
-                    It acts.
+                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tight md:text-7xl lg:text-8xl">
+                    When your AI breaks,<br />it doesn't crash.<br />It acts.
                 </h1>
+            </div>
+        </section>
 
-                <!-- two-col metadata -->
-                <div class="mt-16 border-t border-dotted border-white/20 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
+        <!-- ══════════ HERO INTRO ══════════ -->
+        <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-[200px_1fr] gap-8 items-start">
                     <div>
-                        <p class="text-xs font-bold uppercase tracking-[0.15em] text-white/60">
+                        <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0d0e10]/60">
                             Securing the Agentic Economy
                         </p>
-                        <p class="mt-2 font-mono text-xs text-white/40">[KYDE]</p>
+                        <p class="mt-2 font-mono text-xs text-[#0d0e10]/40">[KYDE]</p>
                     </div>
                     <div class="space-y-10">
                         <!-- Subline -->
-                        <p class="text-sm uppercase tracking-wide leading-relaxed text-white/70">
+                        <p class="text-sm uppercase tracking-wide leading-relaxed text-[#0d0e10]/70">
                             AI agents are calling APIs, moving money, making binding decisions — with no identity, no scope, no audit trail. When something goes wrong, nobody can answer who acted, why, or what the boundaries were. KYDE is the enforcement layer that sits outside the agent. It cannot be overridden.
                         </p>
 
                         <!-- Terminal -->
-                        <div class="border border-dotted border-white/20 bg-[#0d0e10]/60 backdrop-blur-sm">
+                        <div class="border border-dotted border-[#0d0e10]/20 bg-white">
                             <div class="flex items-center gap-2 border-b border-dotted border-[#0d0e10]/15 px-4 py-3">
                                 <span class="h-3 w-3 rounded-full bg-[#c00000]/40"></span>
                                 <span class="h-3 w-3 rounded-full bg-[#fcb830]/60"></span>
                                 <span class="h-3 w-3 rounded-full bg-[#0a7c4e]/40"></span>
-                                <span class="ml-2 text-xs text-[#666] font-mono">terminal</span>
+                                <span class="ml-2 text-xs text-[#888] font-mono">terminal</span>
                             </div>
                             <div class="p-5 font-mono text-sm leading-relaxed">
-                                <p class="text-[#333]">
+                                <p class="text-[#555]">
                                     <span class="text-[#0a7c4e]">$</span>
                                     <span class="text-[#0d0e10]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span>
                                 </p>
-                                <p class="mt-1 text-[#333]">
+                                <p class="mt-1 text-[#555]">
                                     <span class="text-[#0a7c4e]">$</span>
                                     <span class="text-[#0d0e10]"> kyde fleet init</span>
                                 </p>
@@ -75,7 +74,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                                 <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
                                 <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
                                 <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
-                                <p class="mt-2 text-[#333]">
+                                <p class="mt-2 text-[#555]">
                                     <span class="text-[#0a7c4e]">$</span>
                                     <span class="text-[#0d0e10]"> kyde fleet status</span>
                                 </p>
@@ -84,7 +83,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         </div>
 
                         <!-- Trust markers -->
-                        <div class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs uppercase tracking-widest text-white/40">
+                        <div class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#0d0e10]/40">
                             <span>One ENV Variable</span>
                             <span>&lt;100ms Latency</span>
                             <span>Provider-Agnostic</span>
@@ -96,13 +95,13 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         <div class="flex flex-col sm:flex-row items-start gap-4">
                             <a
                                 href="#problem"
-                                class="inline-flex items-center gap-2 bg-white rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#fcb830] transition-all"
+                                class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white hover:bg-[#fcb830] hover:text-[#0d0e10] transition-all"
                             >
                                 See why this matters →
                             </a>
                             <button
                                 onclick="openModal()"
-                                class="inline-flex items-center gap-2 border border-white/40 rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white hover:bg-white/10 hover:border-white transition-all"
+                                class="inline-flex items-center gap-2 border border-[#0d0e10]/30 rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all"
                             >
                                 Book Demo
                             </button>
