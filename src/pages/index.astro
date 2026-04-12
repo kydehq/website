@@ -32,9 +32,10 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
                     <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ EU AI Act · NIS-2 · DORA · GDPR — Audit-Ready from Day One</span>
                 </div>
-                <!-- Headline -->
-                <h1 id="hero-headline" class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
-                    Identity and Control<br />for the Agentic Economy.
+                <!-- Headline — two separate lines so width changes never cause reflow -->
+                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
+                    <span id="hero-l1" style="display:block;overflow:hidden;white-space:nowrap">Identity and Control</span>
+                    <span id="hero-l2" style="display:block;overflow:hidden;white-space:nowrap">for the Agentic Economy.</span>
                 </h1>
             </div>
         </section>
@@ -46,54 +47,37 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 </style>
 
 <script>
-  const lines = ["IDENTITY AND CONTROL", "FOR THE AGENTIC ECONOMY."];
-  const flat = lines.join("\n");
-  const el = document.getElementById("hero-headline");
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let frame = 0;
-  const speed = 0.22;
+  const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const SPEED = 0.22;
 
-  function render(progress: number) {
-    let html = "";
-    let charIndex = 0;
-    for (let li = 0; li < lines.length; li++) {
-      for (let ci = 0; ci < lines[li].length; ci++) {
-        const ch = lines[li][ci];
-        if (charIndex < progress) {
-          html += ch;
-        } else if (ch === " " || ch === ".") {
-          html += ch;
+  function scrambleLine(el: HTMLElement, target: string, delay: number) {
+    let frame = 0;
+    function tick() {
+      let out = "";
+      for (let i = 0; i < target.length; i++) {
+        if (i < frame) {
+          out += target[i];
+        } else if (target[i] === " " || target[i] === ".") {
+          out += target[i];
         } else {
-          html += chars[Math.floor(Math.random() * chars.length)];
+          out += CHARS[Math.floor(Math.random() * CHARS.length)];
         }
-        charIndex++;
       }
-      if (li < lines.length - 1) html += "<br/>";
-      charIndex++; // account for \n
+      el.innerText = out;
+      frame += SPEED;
+      if (frame < target.length) {
+        requestAnimationFrame(tick);
+      } else {
+        el.innerText = target;
+      }
     }
-    return html;
+    setTimeout(tick, delay);
   }
 
-  function scramble() {
-    if (!el) return;
-    el.innerHTML = render(frame);
-    frame += speed;
-    if (frame < flat.length) {
-      requestAnimationFrame(scramble);
-    } else {
-      el.innerHTML = lines.join("<br/>");
-      el.style.height = "";
-      el.style.overflow = "";
-    }
-  }
-
-  setTimeout(() => {
-    if (!el) return;
-    // Lock height before scramble starts to prevent layout jumps
-    el.style.height = el.offsetHeight + "px";
-    el.style.overflow = "hidden";
-    scramble();
-  }, 200);
+  const l1 = document.getElementById("hero-l1") as HTMLElement;
+  const l2 = document.getElementById("hero-l2") as HTMLElement;
+  if (l1) scrambleLine(l1, "IDENTITY AND CONTROL", 200);
+  if (l2) scrambleLine(l2, "FOR THE AGENTIC ECONOMY.", 200);
 </script>
 
         <!-- ══════════ HERO INTRO ══════════ -->
