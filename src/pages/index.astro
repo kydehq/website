@@ -80,10 +80,18 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
       requestAnimationFrame(scramble);
     } else {
       el.innerHTML = lines.join("<br/>");
+      el.style.height = "";
+      el.style.overflow = "";
     }
   }
 
-  setTimeout(scramble, 200);
+  setTimeout(() => {
+    if (!el) return;
+    // Lock height before scramble starts to prevent layout jumps
+    el.style.height = el.offsetHeight + "px";
+    el.style.overflow = "hidden";
+    scramble();
+  }, 200);
 </script>
 
         <!-- ══════════ HERO INTRO ══════════ -->
