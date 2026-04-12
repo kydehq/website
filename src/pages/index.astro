@@ -31,11 +31,48 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ EU AI Act · NIS-2 · DORA · GDPR — Audit-Ready from Day One</span>
                 </div>
                 <!-- Headline -->
-                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl">
-                    Identity and Control<br />for Agentic AI.
+                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.4s ease-out 0.1s forwards;">
+                    Identity and Control<br />for <span id="hero-scramble">Agentic AI.</span>
                 </h1>
             </div>
         </section>
+
+<style>
+  @keyframes heroFadeIn {
+    to { opacity: 1; }
+  }
+</style>
+
+<script>
+  const target = "AGENTIC AI.";
+  const el = document.getElementById("hero-scramble");
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let frame = 0;
+  const speed = 0.55;
+
+  function scramble() {
+    let out = "";
+    for (let i = 0; i < target.length; i++) {
+      if (i < frame) {
+        out += target[i];
+      } else if (target[i] === " " || target[i] === ".") {
+        out += target[i];
+      } else {
+        out += chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+    if (el) el.innerText = out;
+    frame += speed;
+    if (frame < target.length) {
+      requestAnimationFrame(scramble);
+    } else {
+      if (el) el.innerText = target;
+    }
+  }
+
+  // Start after fade-in begins
+  setTimeout(scramble, 300);
+</script>
 
         <!-- ══════════ HERO INTRO ══════════ -->
         <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
