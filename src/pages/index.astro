@@ -52,31 +52,35 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
   function scrambleLine(el: HTMLElement, target: string, delay: number) {
     let frame = 0;
-    function tick() {
-      let out = "";
-      for (let i = 0; i < target.length; i++) {
-        if (i < frame) {
-          out += target[i];
-        } else if (target[i] === " " || target[i] === ".") {
-          out += target[i];
+    setTimeout(() => {
+      // Measure the height of the FINAL text first, then lock to it
+      // so the container never jumps when scramble resolves
+      el.innerText = target;
+      const finalH = el.offsetHeight;
+      el.style.height = finalH + "px";
+      el.style.overflow = "hidden";
+
+      function tick() {
+        let out = "";
+        for (let i = 0; i < target.length; i++) {
+          if (i < frame) {
+            out += target[i];
+          } else if (target[i] === " " || target[i] === ".") {
+            out += target[i];
+          } else {
+            out += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+        }
+        el.innerText = out;
+        frame += SPEED;
+        if (frame < target.length) {
+          requestAnimationFrame(tick);
         } else {
-          out += CHARS[Math.floor(Math.random() * CHARS.length)];
+          el.innerText = target;
+          el.style.height = "";
+          el.style.overflow = "";
         }
       }
-      el.innerText = out;
-      frame += SPEED;
-      if (frame < target.length) {
-        requestAnimationFrame(tick);
-      } else {
-        el.innerText = target;
-        el.style.whiteSpace = "";
-        el.style.overflow = "";
-      }
-    }
-    setTimeout(() => {
-      // Lock during scramble only
-      el.style.whiteSpace = "nowrap";
-      el.style.overflow = "hidden";
       tick();
     }, delay);
   }
