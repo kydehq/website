@@ -43,9 +43,9 @@ import Footer from "../components/Footer.astro";
                         <!-- Stats -->
                         <div class="grid grid-cols-3 divide-x divide-dotted divide-[#0d0e10]/15 border border-dotted border-[#0d0e10]/15">
                             {[
-                                { value: "<100ms", label: "Added latency" },
-                                { value: "100%", label: "Provider coverage" },
-                                { value: "0", label: "Code changes required" },
+                                { value: "<100ms", label: "Target latency" },
+                                { value: "100%", label: "Planned provider coverage" },
+                                { value: "0", label: "Code changes by design" },
                             ].map(({ value, label }) => (
                                 <div class="px-6 py-5">
                                     <p class="font-mono text-2xl font-bold text-[#0d0e10]">{value}</p>
@@ -105,7 +105,7 @@ import Footer from "../components/Footer.astro";
                                 <p class="text-[#333]"><span class="text-[#0a7c4e]">$</span><span class="text-[#333]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
                             </div>
                         </div>
-                        <p class="font-mono text-sm text-[#333]">One environment variable. No SDK dependency. No code changes required.</p>
+                        <p class="font-mono text-sm text-[#333]">Target deployment: one environment variable. Designed for zero code changes.</p>
                     </div>
 
                     <div class="space-y-px border border-dotted border-[#0d0e10]/15">
@@ -113,7 +113,7 @@ import Footer from "../components/Footer.astro";
                             { n: "01", title: "Intercept", body: "Every request from every agent routes through the proxy. The agent sees no difference." },
                             { n: "02", title: "Register", body: "The request is matched to an agent identity and role. Budget and policy checks run before the call is forwarded." },
                             { n: "03", title: "Sign & Chain", body: "An Ed25519-signed, SHA-256 hash-chained entry is written. Alter any record — every subsequent link breaks." },
-                            { n: "04", title: "Forward", body: "The original request continues to the LLM provider. Total added latency: under 100ms." },
+                            { n: "04", title: "Forward", body: "The original request continues to the LLM provider. Target added latency: under 100ms." },
                         ].map(({ n, title, body }) => (
                             <div class="grid grid-cols-[48px_1fr] bg-white hover:bg-[#f1f3f5] transition-all">
                                 <div class="flex items-start justify-center pt-6 border-r border-dotted border-[#0d0e10]/15">
@@ -286,7 +286,7 @@ import Footer from "../components/Footer.astro";
                         <ul class="space-y-2">
                             {[
                                 "One deployment covers the entire fleet",
-                                "Works with every agent, framework, and LLM",
+                                "Built to support every agent, framework, and LLM",
                                 "Central visibility — no aggregation required",
                                 "No per-agent installation or configuration",
                             ].map((item) => (
@@ -380,10 +380,10 @@ import Footer from "../components/Footer.astro";
                             <div class="px-4 py-3"><p class="font-mono text-xs text-[#666] uppercase tracking-widest">Status</p></div>
                         </div>
                         {[
-                            { level: "Ed25519 Signed", desc: "Cryptographic signing at the point of capture — available now.", status: "LIVE", live: true, available: false },
-                            { level: "TPM / HSM", desc: "Military-grade hardware isolation. Signing keys never exposed to host OS.", status: "AVAILABLE", live: false, available: true },
-                            { level: "TEE (TDX/SEV-SNP)", desc: "Trusted Execution Environment attestation for maximum integrity.", status: "AVAILABLE", live: false, available: true },
-                            { level: "FIPS 140-3", desc: "Architecture designed for FIPS-validated cryptographic modules.", status: "AVAILABLE", live: false, available: true },
+                            { level: "Ed25519 Signed", desc: "Cryptographic signing at the point of capture — core to the current development phase.", status: "IN DEVELOPMENT", live: true, available: false },
+                            { level: "TPM / HSM", desc: "Military-grade hardware isolation. Signing keys never exposed to host OS.", status: "PLANNED", live: false, available: true },
+                            { level: "TEE (TDX/SEV-SNP)", desc: "Trusted Execution Environment attestation for maximum integrity.", status: "PLANNED", live: false, available: true },
+                            { level: "FIPS 140-3", desc: "Architecture designed for FIPS-validated cryptographic modules.", status: "TARGET ARCHITECTURE", live: false, available: true },
                         ].map(({ level, desc, status, live, available }) => (
                             <div class="grid grid-cols-[140px_1fr_90px] divide-x divide-dotted divide-[#0d0e10]/15">
                                 <div class="px-4 py-4"><p class="font-mono text-sm text-[#0d0e10]">{level}</p></div>
@@ -509,7 +509,7 @@ import Footer from "../components/Footer.astro";
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-16">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-6">
-                            One environment variable.<br /><span class="font-semibold">0 code changes.</span>
+                            One environment variable.<br /><span class="font-semibold">Designed for 0 code changes.</span>
                         </h2>
                         <p class="text-[#333] leading-relaxed mb-6">
                             The stack sits outside your agent. It cannot be overridden by agent code — and it requires none. Any agent that can be pointed at a base URL is governed, immediately.
@@ -519,7 +519,7 @@ import Footer from "../components/Footer.astro";
                                 { label: "Sits outside the agent", desc: "Cannot be overridden by agent logic or bypassed by agent code." },
                                 { label: "No SDK dependency", desc: "No library to install, no wrapper to integrate, no runtime to manage." },
                                 { label: "Framework-agnostic", desc: "LangChain, AutoGen, CrewAI, custom — governed equally with one ENV variable." },
-                                { label: "Under 100ms latency", desc: "Governance is invisible to agent code and end users." },
+                                { label: "Targeting under 100ms latency", desc: "Governance is designed to be invisible to agent code and end users." },
                             ].map(({ label, desc }) => (
                                 <div class="border-t border-dotted border-[#0d0e10]/15 pt-3">
                                     <p class="font-mono text-xs font-semibold uppercase tracking-widest text-[#0d0e10] mb-0.5">{label}</p>
