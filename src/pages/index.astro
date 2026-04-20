@@ -30,7 +30,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 <!-- compliance label -->
                 <div class="flex items-center gap-3 mb-6">
                     <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
-                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ EU AI Act · NIS-2 · DORA · GDPR — Audit-Ready from Day One</span>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
                 </div>
                 <!-- Headline — two separate lines so width changes never cause reflow -->
                 <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
@@ -419,7 +419,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                             Your agents act on your behalf.<br />Courts agree.
                         </h2>
                         <p class="text-[#333] leading-relaxed mb-6">
-                            They negotiate, transact, and make commitments in your name. Regulators, auditors, and courts will hold you accountable for what they do.
+                            They negotiate, transact, and make commitments in your name. Regulators, auditors, and courts will hold you accountable for what they do — and the obligations are already in force.
                         </p>
                         <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-6 mb-6">
                             <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Moffatt v. Air Canada</p>
@@ -434,9 +434,9 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
                     <div class="grid gap-4 grid-cols-2">
                         {[
-                            { name: "EU AI Act", desc: "High-risk AI system logging", deadline: "Enforcement: Aug 2027", urgent: true },
-                            { name: "NIS-2",     desc: "Essential entities security",  deadline: "In force",            urgent: false },
+                            { name: "NIS-2",     desc: "~160,000 companies in DE/EU. Critical + important sectors. AI systems included.", deadline: "In force · DE: NIS2UmsuCG", urgent: true },
                             { name: "DORA",      desc: "Financial entity resilience",  deadline: "In force: Jan 2025",  urgent: false },
+                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements", deadline: "Phasing in 2026/2027", urgent: false },
                             { name: "GDPR 35",   desc: "Automated processing DPIA",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
                             <div class={`border rounded-[14px] p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#dae4e5] bg-[#dae4e5]/20"}`}>

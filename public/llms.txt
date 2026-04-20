@@ -1,0 +1,70 @@
+# KYDE
+
+> KYDE is the zero-trust governance proxy for enterprise AI agent fleets — cryptographic agent identity, role-based scope enforcement, tamper-evident audit trails, and cost controls. Deployed via a single environment variable. No agent code changes required.
+
+## What KYDE does
+
+KYDE sits as an HTTP proxy between AI agents and any LLM provider (OpenAI, Anthropic, Azure, Mistral, etc.). It intercepts every request, enforces policy, signs every entry with Ed25519, and builds a hash-chained audit ledger before forwarding to the model.
+
+Every audit entry captures: who acted (agent ID, role), what happened (prompt, tool calls, response), why it decided (last 5 messages as causal context), when (millisecond-precise timestamp), and cryptographic proof (Ed25519 signature + SHA-256 hash chain).
+
+## Core problem KYDE solves
+
+Enterprises deploying AI agents face four unanswered questions:
+1. Who acted? — Agents share service accounts with no traceable identity or role boundaries.
+2. Why did it decide that? — No causal context is captured. Decisions cannot be reconstructed.
+3. What are the boundaries? — No token budgets or API scope enforcement. Agents run unconstrained.
+4. What happened? — Vendor-provided logs are software-only and can be silently rewritten.
+
+The structural reason governance fails when built inside agents: capable agents can bypass their own rules and rewrite their own logs. KYDE sits outside the agent and cannot be overridden by agent logic.
+
+## Product: Three guarantees
+
+**SCOPE** — No agent acts without identity and clearance.
+- Cryptographic agent identity per agent and role
+- API allowlists and circuit breakers per role
+- Token and cost budgets enforced before the call is made
+- Human-in-the-loop alerts via Slack/Teams on policy violations
+
+**TRACE** — No incident without accountability.
+- Every action traced to a specific agent identity, not a shared service account
+- Causal context: last 5 messages captured per tool call
+- Full decision chain reconstruction
+- Behavioral anomaly detection and alerting
+
+**SEAL** — Cryptographic audit trail. Court-ready.
+- Ed25519-signed, SHA-256 hash-chained append-only ledger
+- Tamper-evident: alter any entry, every subsequent link breaks
+- Independent of LLM provider infrastructure
+- Designed for NIS-2, DORA, EU AI Act, and GDPR Article 35 compliance evidence
+
+## Deployment
+
+Three modes, all requiring zero code changes to agent logic:
+- Environment variable: `export OPENAI_BASE_URL=https://kyde.intranet/v1`
+- Group Policy (GPO): enterprise fleet deployment, no developer action required
+- Hosted proxy: managed SaaS, EU data residency available
+
+Target latency overhead: under 100ms.
+
+## Regulatory context
+
+**NIS-2 (EU Directive 2022/2555):** In force across the EU. In Germany implemented as NIS2UmsuCG. Applies to approximately 160,000 companies in critical and important sectors — including healthcare, energy, finance, transport, digital infrastructure, and manufacturing. Requires demonstrable security of information systems including AI-operated ones. KYDE's tamper-evident ledger directly addresses NIS-2 audit and incident documentation requirements.
+
+**DORA (EU Regulation 2022/2554):** In force since January 2025. Applies to financial entities across the EU. Requires ICT incident reporting, resilience testing, and audit trails for automated systems including AI agents.
+
+**EU AI Act:** High-risk AI system obligations are phasing in. Exact enforcement timelines for specific categories are subject to ongoing legislative review (Omnibus). Audit trail and logging requirements for high-risk systems will apply; KYDE's architecture is designed to meet these requirements.
+
+**GDPR Article 35 (DPIA):** In force. Applies to automated processing with significant effect on individuals, including AI agent decision-making in HR, credit, insurance, and healthcare.
+
+## Key differentiator vs. endpoint/SDK solutions
+
+KYDE is a gateway, not an endpoint agent. One deployment covers an entire fleet automatically. No per-agent installation. No framework dependency. Central visibility without aggregation. The governance layer sits where the agent cannot touch it.
+
+## Provider compatibility
+
+Supported: OpenAI (GPT-4o, o1, o3), Anthropic (all models), Azure OpenAI, DeepSeek, Mistral, Ollama, local models, Google Gemini (via OpenAI compatibility).
+
+## Company
+
+KYDE is an enterprise AI governance infrastructure company founded in 2026. The product is in active development. Contact: kyde.io
