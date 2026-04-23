@@ -181,7 +181,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 <div class="max-w-3xl mx-auto text-center mb-16">
                     <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5 w-fit mx-auto">↳ The operational gap</p>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10] uppercase">
-                        Four questions most enterprises can't answer.
+                        Questions most enterprises can't answer.
                     </h2>
                 </div>
 
@@ -206,6 +206,11 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                             q: "What happened?",
                             body: "A procurement agent posts confidential contract terms in Slack. Leadership needs the full evidence trail. The logs are vendor-provided, self-reported, software-only. A compromised host can rewrite them silently.",
                             label: "Tamper-Evidence",
+                        },
+                        {
+                            q: "Who governs the chain?",
+                            body: "An agent raises a price in Salesforce, triggers a payment in Stripe, and updates inventory in SAP. Each vendor logs their own system. Nobody logs the complete workflow. When the chain breaks, you have fragmented logs across ten consoles — and zero cross-system governance.",
+                            label: "Cross-System Governance",
                         },
                     ].map(({ q, body, label }) => (
                         <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
