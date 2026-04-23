@@ -1,0 +1,297 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="Every Vendor Governs Their Stack. Nobody Governs the Chain. — KYDE"
+  description="Microsoft has a governance story. Google has a governance story. Every major platform vendor is building agent governance — for the agents that run inside their own stack. Nobody is building governance for what happens between stacks."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#333] hover:text-[#333] transition-colors">↑ Resources</a>
+            <span class="text-[#333]">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">Strategic</span>
+          </div>
+          <div class="h-px w-full bg-[#e8e9eb]"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0d0e10] tracking-tight leading-tight mb-6">
+            Every Vendor Governs Their Stack. Nobody Governs the Chain.
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-[#666]">
+            <span>Strategic</span>
+            <span>·</span>
+            <span>6 min read</span>
+            <span>·</span>
+            <span>April 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Microsoft has a governance story. It's called Copilot, and it runs inside Azure, inside M365, inside the Microsoft trust domain. It's real, it's serious, and for everything that lives inside that domain, it works.
+            </p>
+            <p>
+              Google has a governance story. It's called Vertex AI Agent Builder, and it runs inside Google Cloud, inside Workspace, inside the Google trust domain. Also real. Also serious. Also scoped to one world.
+            </p>
+            <p>
+              Every major platform vendor is building agent governance. And every one of them is building it for the same thing: the agents that run inside their own stack.
+            </p>
+            <p>
+              Nobody is building governance for what happens between stacks. That gap is not an oversight. It is a structural property of how enterprise technology actually works — and it is where most of the risk lives.
+            </p>
+
+            <h2>How enterprises actually run</h2>
+            <p>
+              No enterprise of any meaningful size runs on one vendor's stack. The idea is appealing in a vendor presentation. It is not how technology gets purchased, inherited, or operated across a decade of business decisions.
+            </p>
+            <p>
+              Take a mid-size hotel chain. Not a hyperscaler customer. Not a tech company. A normal regulated business with normal operational complexity.
+            </p>
+            <p>
+              Their daily technology stack looks something like this: Opera or Mews for property management. SiteMinder or D-EDGE for channel management. Booking.com and Expedia for distribution — not hyperscalers, independent platforms with their own APIs, their own data models, their own terms. IDeaS or Duetto for revenue management. Stripe or Adyen for payments. Oracle MICROS for point of sale. Revinate or Salesforce for CRM. SAP or NetSuite for accounting. Microsoft Entra for identity. AWS for infrastructure.
+            </p>
+            <p>
+              Ten to twenty vendors. Each with their own integration pattern. Each with their own access controls. Each with their own logging. Each optimizing for their own platform.
+            </p>
+            <p>
+              This is not an unusual enterprise. This is a typical one.
+            </p>
+
+            <h2>What an agent chain looks like across that stack</h2>
+            <p>
+              Now deploy AI agents into that environment. Not hypothetically — this is happening now, across the hospitality industry and every industry like it.
+            </p>
+            <p>
+              A demand signal comes in. Occupancy is rising. An event is happening in the city. The revenue management agent reads KPIs from the forecasting system, pulls historical data from the data lake, evaluates current pricing against competitor rates, and makes a decision: raise room prices by 18% across all channels.
+            </p>
+            <p>
+              That decision propagates. The channel management agent pushes updated pricing to Booking.com, Expedia, and the hotel's direct booking engine simultaneously. The procurement agent, seeing increased occupancy, orders additional housekeeping capacity, activates the external laundry service, and increases food and beverage stock. Purchase orders go out. Payments are authorized. Invoices are queued in SAP.
+            </p>
+            <p>
+              A guest agent, working from the same occupancy data, starts offering room upgrades and loyalty point incentives to guests who booked at the lower rate. Refunds are issued for price-match requests. Credits are applied.
+            </p>
+            <p>
+              The entire chain — from demand signal to payment authorization to physical operations — has been executed by AI agents. Across Opera, Booking.com, Stripe, SAP, Salesforce, and four other systems. In minutes.
+            </p>
+
+            <h2>Where governance breaks down</h2>
+            <p>
+              Each system in that chain has its own governance. Opera logs what happens in Opera. Stripe logs what happens in Stripe. SAP logs what happens in SAP. Booking.com logs what Booking.com sees.
+            </p>
+            <p>
+              None of them logs the chain.
+            </p>
+            <p>
+              Nobody has a record of the full decision sequence — the demand signal that triggered the revenue agent, the reasoning that produced the 18% price increase, the cascade of procurement and payment actions that followed, the guest interactions that resulted. The evidence is fragmented across ten vendor consoles, in ten different formats, with ten different retention policies, none of which are cryptographically verified.
+            </p>
+            <p>
+              When the CFO asks why procurement costs spiked on a Tuesday, the investigation begins. When a guest disputes a charge, the trail requires assembling logs from three systems. When a regulator asks for a complete audit of automated decisions affecting customer pricing, there is no single record that answers the question.
+            </p>
+            <p>
+              And this is the optimistic scenario — where nothing went wrong except that nobody can explain what happened.
+            </p>
+            <p>
+              Now add the adversarial case. The revenue agent has been manipulated through a prompt injection in a vendor data feed. For two weeks, it has been making pricing decisions that look reasonable individually but are systematically incorrect. The procurement agent has been authorizing payments to a vendor that shouldn't be on the approved list. Nobody noticed because each system's logs looked normal — in isolation.
+            </p>
+            <p>
+              The chain was compromised. The chain had no governance layer.
+            </p>
+
+            <h2>Why hyperscalers can't solve this — and won't</h2>
+            <p>
+              The structural reason Microsoft and Google cannot provide cross-system governance is not technical. It is political and commercial.
+            </p>
+            <p>
+              If Microsoft builds a governance layer that sits over AWS infrastructure, Google analytics, and Salesforce CRM — it controls its competitors' systems. AWS will not accept that. Salesforce will not accept that. The enterprise will not accept a situation where their primary cloud vendor has governance authority over every other vendor in their stack.
+            </p>
+            <p>
+              The same logic applies to every hyperscaler. Each one is incentivized to deepen governance within their own domain. None of them is incentivized — or positioned — to be the neutral authority over the others.
+            </p>
+            <p>
+              This is not a gap that will be filled by a better product from an existing vendor. It is a structural property of competitive markets. The control layer that governs cross-system agent chains cannot come from a vendor that has a stake in any of those systems.
+            </p>
+            <p>
+              It has to come from outside.
+            </p>
+
+            <h2>What neutral cross-system governance requires</h2>
+            <p>
+              The governance layer that covers a chain like the hotel example above needs four properties that no single-vendor solution can provide.
+            </p>
+            <p>
+              <strong>Neutrality.</strong> It cannot be owned by or optimized for any system in the chain. The moment it is, every other system in the chain has a reason to distrust it.
+            </p>
+            <p>
+              <strong>Position.</strong> It needs to sit in the data path — between agents and the systems they act on — not as a monitoring tool that reads logs after the fact, but as an interception layer that sees every action before it executes.
+            </p>
+            <p>
+              <strong>Identity across systems.</strong> Every agent action needs to be attributed to a specific agent identity, regardless of which system it touches. The revenue agent that raised prices, the procurement agent that authorized the payment, the guest agent that issued the refund — one identity layer, one attribution model, across all of them.
+            </p>
+            <p>
+              <strong>A single tamper-evident record.</strong> Not ten logs in ten consoles. One cryptographically signed, hash-chained audit trail that covers the full chain — every action, every system, every agent identity — in a record that cannot be modified after the fact.
+            </p>
+
+            <h2>The category that doesn't exist yet</h2>
+            <p>
+              Enterprise software has solved cross-system identity — that's what Okta does. It has solved cross-system network governance — that's what Cloudflare does. It has solved cross-system observability — that's what Datadog does.
+            </p>
+            <p>
+              It has not solved cross-system agent governance. The category does not yet have an established winner. The window to define it is open — and it is closing as agent deployments accelerate and the chains they operate across become load-bearing infrastructure.
+            </p>
+            <p>
+              The hotel chain is one example. The same structure exists in retail — agents spanning warehouse systems, logistics APIs, payment processors, and CRMs. In manufacturing — agents spanning ERP, supply chain platforms, quality systems, and logistics providers. In financial services — agents spanning core banking, risk engines, compliance databases, trading infrastructure, and payment rails.
+            </p>
+            <p>
+              Every enterprise is a chain of systems. Every enterprise is deploying agents into that chain. Every enterprise has a governance gap where the chain crosses vendor boundaries.
+            </p>
+
+            <h2>What this means for how you deploy agents</h2>
+            <p>
+              The practical implication is straightforward. Before you deploy agents into a multi-system environment, you need to answer one question: who governs the chain?
+            </p>
+            <p>
+              Not who governs the Microsoft part. Not who governs the Salesforce part. Who governs the sequence of actions that starts in one system and ends, four steps later, in another — and produces a financial, operational, or regulatory consequence that none of the individual systems logged completely?
+            </p>
+            <p>
+              If the answer is "each system governs itself," you don't have cross-system governance. You have fragmented logging with a governance-shaped gap in the middle.
+            </p>
+            <p>
+              The agents are already in the chain. The chain needs a control layer.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
+              <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3">↳ KYDE</p>
+              <p class="text-sm text-[#333] leading-relaxed mb-6">
+                Kyde Witness sits between your agents and every system they act on — across every vendor, every provider, every platform. One identity layer. One policy enforcement point. One record of every action in the chain, regardless of which system it touched.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Four requirements</p>
+              <div class="space-y-2">
+                {["Neutrality", "In-path position", "Cross-system identity", "Tamper-evident record"].map((r) => (
+                  <p class="flex gap-2 text-xs text-[#333]"><span class="font-mono text-[#fcb830] shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">The unsolved category</p>
+              <div class="space-y-2">
+                {[
+                  { solved: true, label: "Cross-system identity" },
+                  { solved: true, label: "Cross-system network governance" },
+                  { solved: true, label: "Cross-system observability" },
+                  { solved: false, label: "Cross-system agent governance" },
+                ].map((r) => (
+                  <p class="flex gap-2 text-xs text-[#333]">
+                    <span class="font-mono shrink-0" style={r.solved ? "color:#333" : "color:#fcb830"}>{r.solved ? "✓" : "✕"}</span>
+                    <span class={r.solved ? "line-through decoration-zinc-400" : "font-semibold"}>{r.label}</span>
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/compromised-agent-no-logs" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What Happens When an AI Agent Gets Compromised</span>
+                </a>
+                <a href="/blog/mcp-changes-ai-governance" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Why MCP Changes Everything About AI Governance</span>
+                </a>
+                <a href="/blog/missing-layer-agent-architecture" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>The Missing Layer in Every Agent Architecture</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #333;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #0d0e10;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dotted rgba(13,14,16,0.15);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fcb830;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: #333; font-weight: 600; }
+  .prose-kyde em { color: #333; font-style: italic; }
+  .prose-kyde a { color: #fcb830; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
