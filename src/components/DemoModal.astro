@@ -38,13 +38,23 @@ const HS_FORM_ID = "1fbf02d1-220e-48da-93a2-90929bd44333";
         data-hs-portal={HS_PORTAL_ID}
         data-hs-form={HS_FORM_ID}
       >
-        <div>
-          <label for="demo-name" class="block text-xs font-medium text-[#333] mb-1.5">Name</label>
-          <input
-            type="text" id="demo-name" name="name" required
-            placeholder="Jane Smith"
-            class="w-full border border-dotted border-[#0d0e10]/20 bg-white px-4 py-2.5 text-sm text-[#0d0e10] placeholder-[#aaa] focus:border-[#4472c4] focus:outline-none focus:ring-1 focus:ring-[#4472c4] transition-colors"
-          />
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="demo-firstname" class="block text-xs font-medium text-[#333] mb-1.5">First Name</label>
+            <input
+              type="text" id="demo-firstname" name="firstname" required
+              placeholder="Jane"
+              class="w-full border border-dotted border-[#0d0e10]/20 bg-white px-4 py-2.5 text-sm text-[#0d0e10] placeholder-[#aaa] focus:border-[#4472c4] focus:outline-none focus:ring-1 focus:ring-[#4472c4] transition-colors"
+            />
+          </div>
+          <div>
+            <label for="demo-lastname" class="block text-xs font-medium text-[#333] mb-1.5">Last Name</label>
+            <input
+              type="text" id="demo-lastname" name="lastname" required
+              placeholder="Smith"
+              class="w-full border border-dotted border-[#0d0e10]/20 bg-white px-4 py-2.5 text-sm text-[#0d0e10] placeholder-[#aaa] focus:border-[#4472c4] focus:outline-none focus:ring-1 focus:ring-[#4472c4] transition-colors"
+            />
+          </div>
         </div>
         <div>
           <label for="demo-email" class="block text-xs font-medium text-[#333] mb-1.5">Work Email</label>
@@ -141,7 +151,8 @@ const HS_FORM_ID = "1fbf02d1-220e-48da-93a2-90929bd44333";
 
     const payload = {
       fields: [
-        { name: 'firstname',   value: data.get('name') ?? '' },
+        { name: 'firstname',   value: data.get('firstname') ?? '' },
+        { name: 'lastname',    value: data.get('lastname') ?? '' },
         { name: 'email',       value: data.get('email') ?? '' },
         { name: 'company',     value: data.get('company') ?? '' },
         { name: 'message',     value: `AI agents: ${data.get('agents') ?? ''}` },
