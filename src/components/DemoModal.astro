@@ -1,5 +1,6 @@
 ---
-const FORMSPREE_ID = "xwvrwlge";
+const HS_PORTAL_ID = "148311022";
+const HS_FORM_ID = "1fbf02d1-220e-48da-93a2-90929bd44333";
 ---
 
 <!-- Modal overlay -->
@@ -34,8 +35,8 @@ const FORMSPREE_ID = "xwvrwlge";
       <form
         id="demo-form"
         class="mt-6 space-y-4"
-        action={`https://formspree.io/f/${FORMSPREE_ID}`}
-        method="POST"
+        data-hs-portal={HS_PORTAL_ID}
+        data-hs-form={HS_FORM_ID}
       >
         <div>
           <label for="demo-name" class="block text-xs font-medium text-[#333] mb-1.5">Name</label>
@@ -73,7 +74,6 @@ const FORMSPREE_ID = "xwvrwlge";
             <option value="100+">100+</option>
           </select>
         </div>
-        <input type="hidden" name="_subject" value="KYDE Demo Request" />
         <button
           type="submit" id="demo-submit"
           class="w-full bg-[#0d0e10] px-4 py-3 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
@@ -118,7 +118,7 @@ const FORMSPREE_ID = "xwvrwlge";
   document.getElementById('demo-modal-close')?.addEventListener('click', closeModal);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-  // Form submit
+  // Form submit → HubSpot Forms API
   const form = document.getElementById('demo-form') as HTMLFormElement | null;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -126,12 +126,32 @@ const FORMSPREE_ID = "xwvrwlge";
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
+    const portalId = form.dataset.hsPortal!;
+    const formId = form.dataset.hsForm!;
+    const data = new FormData(form);
+
+    const payload = {
+      fields: [
+        { name: 'firstname', value: data.get('name') ?? '' },
+        { name: 'email',     value: data.get('email') ?? '' },
+        { name: 'company',   value: data.get('company') ?? '' },
+        { name: 'message',   value: `AI agents: ${data.get('agents') ?? ''}` },
+      ],
+      context: {
+        pageUri:  window.location.href,
+        pageName: document.title,
+      },
+    };
+
     try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
+      const res = await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }
+      );
       if (res.ok) {
         form.classList.add('hidden');
         document.getElementById('demo-success')?.classList.remove('hidden');
