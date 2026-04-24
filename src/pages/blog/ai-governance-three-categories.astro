@@ -1,0 +1,352 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="AI Agent Security, AI Governance, and Agent Enforcement: Three Categories Enterprises Are Confusing — KYDE"
+  description="The market for AI agent oversight tools is growing faster than the terminology is stabilizing. This article defines the three distinct categories, maps them to specific enterprise needs and regulatory requirements, and identifies representative vendors in each."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#333] hover:text-[#333] transition-colors">↑ Resources</a>
+            <span class="text-[#333]">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">Reference</span>
+          </div>
+          <div class="h-px w-full bg-[#e8e9eb]"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0d0e10] tracking-tight leading-tight mb-6">
+            AI Agent Security, AI Governance, and Agent Enforcement: Three Categories Enterprises Are Confusing — And Why It Matters
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-[#666]">
+            <span>Reference</span>
+            <span>·</span>
+            <span>6 min read</span>
+            <span>·</span>
+            <span>April 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              The market for AI agent oversight tools is growing faster than the terminology is stabilizing. CISOs, CTOs, and compliance teams are evaluating products that all describe themselves as "AI governance" or "AI security" — but solve fundamentally different problems at fundamentally different layers of the stack.
+            </p>
+            <p>
+              This article defines the three distinct categories, maps them to specific enterprise needs and regulatory requirements, and identifies representative vendors in each.
+            </p>
+
+            <h2>The three categories</h2>
+
+            <h3>Category 1: AI Security &amp; Detection</h3>
+            <p>
+              <strong>What it is:</strong> Tools that detect threats, attacks, and misuse targeting AI systems. Focus on prompt injection, jailbreaks, adversarial inputs, and model-level vulnerabilities. Typically deployed as content filters or threat detection layers around model endpoints.
+            </p>
+            <p>
+              <strong>What it solves:</strong> Protecting AI systems from external attacks and malicious inputs. Detecting anomalous or adversarial behavior in real time.
+            </p>
+            <p>
+              <strong>What it doesn't solve:</strong> Governance of legitimate agent actions, audit trails for regulatory compliance, cross-system policy enforcement, or identity management across agent fleets.
+            </p>
+            <p>
+              <strong>Representative vendors:</strong> Lakera, Prompt Security, Rebuff, Protect AI
+            </p>
+
+            <h3>Category 2: AI Risk &amp; Compliance Management</h3>
+            <p>
+              <strong>What it is:</strong> Platforms for documenting, assessing, and managing AI risk across an organization. Focus on model inventories, risk assessments, policy frameworks, bias detection, and compliance reporting. Often dashboard-based.
+            </p>
+            <p>
+              <strong>What it solves:</strong> Organizational governance of AI programs. Demonstrating compliance posture to regulators. Managing AI risk at the portfolio level.
+            </p>
+            <p>
+              <strong>What it doesn't solve:</strong> Real-time enforcement of policies at the point of agent action, tamper-evident audit trails of individual agent decisions, or cross-system governance of autonomous agent fleets.
+            </p>
+            <p>
+              <strong>Representative vendors:</strong> Credo AI, ISMS.online, IBM OpenPages, Microsoft Purview (partial)
+            </p>
+
+            <h3>Category 3: Agent Enforcement Layer</h3>
+            <p>
+              <strong>What it is:</strong> Infrastructure that sits in the data path between AI agents and the systems they act on — enforcing policies, managing identities, capturing tamper-evident audit trails, and governing every action before it executes. Proxy-based architecture means governance is external to the agent and requires no code changes.
+            </p>
+            <p>
+              <strong>What it solves:</strong> Real-time policy enforcement across agent fleets. Cryptographically verifiable audit trails for regulatory compliance. Identity and scope management per agent. Cross-system governance that doesn't depend on any single vendor's platform.
+            </p>
+            <p>
+              <strong>What it doesn't solve:</strong> Organizational risk management at the portfolio level, or threat detection for adversarial model attacks.
+            </p>
+            <p>
+              <strong>Representative vendors:</strong> Kyde, WitnessAI, Zenity (partial), Lunar.dev (partial)
+            </p>
+
+            <h2>Comparison table</h2>
+
+            <!-- Comparison table -->
+            <div class="not-prose my-8 border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 overflow-x-auto">
+              <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5] min-w-[600px]">
+                <div class="px-4 py-3"></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Security &amp; Detection</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Risk &amp; Compliance</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">Agent Enforcement Layer</p></div>
+              </div>
+              {[
+                { label: "Primary layer",               a: "Model / Input",      b: "Org / Portfolio",     c: "Infra / Data path" },
+                { label: "Deployment",                  a: "SDK / API wrapper",  b: "Dashboard / SaaS",    c: "Proxy / Gateway" },
+                { label: "Real-time enforcement",       a: "Partial",            b: "No",                  c: "Yes" },
+                { label: "Tamper-evident audit trail",  a: "No",                 b: "No",                  c: "Yes" },
+                { label: "Agent identity management",   a: "No",                 b: "No",                  c: "Yes" },
+                { label: "Cross-system governance",     a: "No",                 b: "No",                  c: "Yes" },
+                { label: "Regulatory audit export",     a: "No",                 b: "Partial",             c: "Yes" },
+                { label: "Code changes required",       a: "Typically",          b: "No",                  c: "No" },
+                { label: "EU AI Act Art. 12 logging",   a: "Partial",            b: "Partial",             c: "Yes" },
+                { label: "DORA independent audit trail",a: "No",                 b: "No",                  c: "Yes" },
+                { label: "NIS-2 forensic evidence",     a: "No",                 b: "No",                  c: "Yes" },
+              ].map(({ label, a, b, c }) => (
+                <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 min-w-[600px]">
+                  <div class="px-4 py-3"><p class="text-xs font-semibold text-[#333]">{label}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{a}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{b}</p></div>
+                  <div class="px-4 py-3"><p class={`text-xs font-semibold ${c === "Yes" ? "text-[#0a7c4e]" : "text-[#666]"}`}>{c}</p></div>
+                </div>
+              ))}
+            </div>
+
+            <h2>When you need which category</h2>
+
+            <p><strong>You need AI Security &amp; Detection when:</strong></p>
+            <ul>
+              <li>You are deploying customer-facing AI applications exposed to untrusted inputs</li>
+              <li>You need real-time protection against prompt injection and jailbreak attempts</li>
+              <li>You are hardening model endpoints against adversarial attack</li>
+              <li>Your primary concern is what comes into the model, not what the agent does afterward</li>
+            </ul>
+
+            <p><strong>You need AI Risk &amp; Compliance Management when:</strong></p>
+            <ul>
+              <li>You need an organizational inventory of all AI systems in use</li>
+              <li>You are preparing for a regulatory audit and need documented risk assessments</li>
+              <li>You need to demonstrate a governance framework to a board or regulator at the program level</li>
+              <li>You are managing AI policy across business units rather than governing individual agent actions</li>
+            </ul>
+
+            <p><strong>You need an Agent Enforcement Layer when:</strong></p>
+            <ul>
+              <li>You are deploying AI agents that take actions across production systems</li>
+              <li>You need a tamper-evident audit trail that satisfies EU AI Act, DORA, or NIS-2 requirements</li>
+              <li>Your agents operate across multiple vendors and platforms — not just within one stack</li>
+              <li>You need to enforce hard limits on agent actions — spending caps, API allowlists, scope boundaries — without modifying agent code</li>
+              <li>A regulator, auditor, or court may ask you to produce a complete, verifiable record of what a specific agent did, when, and why</li>
+            </ul>
+
+            <h2>Regulatory mapping</h2>
+
+            <!-- Regulatory mapping table -->
+            <div class="not-prose my-8 border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 overflow-x-auto">
+              <div class="grid grid-cols-[2fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5] min-w-[600px]">
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333]">Requirement</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Security</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Risk &amp; Compliance</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">Agent Enforcement</p></div>
+              </div>
+              {[
+                { label: "EU AI Act Art. 12 — Automatic logging of high-risk AI events",      a: "Partial",  b: "Partial", c: "✓" },
+                { label: "EU AI Act Art. 14 — Human oversight and causal reconstructability", a: "No",       b: "No",      c: "✓" },
+                { label: "EU AI Act Art. 26 — Log retention minimum 6 months",                a: "No",       b: "No",      c: "✓" },
+                { label: "DORA Art. 30 — Independent audit trail for ICT third-party providers", a: "No",    b: "No",      c: "✓" },
+                { label: "DORA Art. 23 — 72-hour forensic incident reporting",                a: "No",       b: "No",      c: "✓" },
+                { label: "NIS-2 Art. 23 — Forensic evidence for incident reporting",          a: "No",       b: "No",      c: "✓" },
+                { label: "GDPR Art. 22 — Automated decision-making documentation",            a: "No",       b: "Partial", c: "✓" },
+                { label: "GDPR Art. 35 — DPIA for high-risk automated processing",            a: "No",       b: "✓",       c: "Partial" },
+              ].map(({ label, a, b, c }) => (
+                <div class="grid grid-cols-[2fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 min-w-[600px]">
+                  <div class="px-4 py-3"><p class="text-xs text-[#333]">{label}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{a}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{b}</p></div>
+                  <div class="px-4 py-3"><p class={`text-xs font-semibold ${c === "✓" ? "text-[#0a7c4e]" : "text-[#666]"}`}>{c}</p></div>
+                </div>
+              ))}
+            </div>
+
+            <h2>Why enterprises need more than one category</h2>
+            <p>
+              These categories are not substitutes. They address different layers of the same problem.
+            </p>
+            <p>
+              A financial institution deploying AI agents for credit decisioning under DORA and the EU AI Act needs all three: AI Security &amp; Detection to protect model endpoints from adversarial inputs. AI Risk &amp; Compliance Management to document the governance framework and demonstrate organizational oversight to BaFin. An Agent Enforcement Layer to produce the tamper-evident, independent audit trail that DORA Article 30 requires — and that vendor-provided logging cannot satisfy.
+            </p>
+            <p>
+              The common mistake is assuming one category covers the others. A compliance dashboard that documents AI risk does not produce a forensically valid audit trail of individual agent decisions. A prompt injection filter does not enforce spending limits on a procurement agent. An agent enforcement proxy does not replace organizational risk documentation.
+            </p>
+            <p>
+              Each category does one thing well. Enterprise AI governance at scale requires all three.
+            </p>
+
+            <h2>The category most enterprises are missing</h2>
+            <p>
+              AI Security tools have been available since the first LLM deployments. AI Risk &amp; Compliance platforms have existed in various forms for years and are well understood by procurement teams.
+            </p>
+            <p>
+              The Agent Enforcement Layer is the newest category — and the least understood. It emerged as a distinct requirement when AI agents moved from generating content to taking actions: updating records, authorizing payments, calling APIs, executing transactions across production systems.
+            </p>
+            <p>
+              At that point, the governance problem changed. A content filter is insufficient when the risk is not what the agent says but what it does. A compliance dashboard is insufficient when the regulator is asking for a cryptographically verifiable record of a specific agent action on a specific date.
+            </p>
+            <p>
+              The Agent Enforcement Layer exists because agents act. And every action needs an identity, a policy check, and a tamper-evident record — before it reaches the system it targets, not after.
+            </p>
+
+            <h2>Summary: Choosing the right category</h2>
+            <p>
+              If your question is <em>"Are our AI systems protected from attacks?"</em> — you need AI Security &amp; Detection.
+            </p>
+            <p>
+              If your question is <em>"Can we demonstrate our AI governance framework to a regulator?"</em> — you need AI Risk &amp; Compliance Management.
+            </p>
+            <p>
+              If your question is <em>"Can we prove what our agents did, enforce limits on what they can do, and produce a tamper-evident audit trail that satisfies DORA and the EU AI Act?"</em> — you need an Agent Enforcement Layer.
+            </p>
+            <p>
+              If you are deploying AI agents in a regulated environment, the answer to all three questions is probably yes.
+            </p>
+
+            <!-- Kyde callout -->
+            <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
+              <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3">↳ KYDE</p>
+              <p class="text-sm text-[#333] leading-relaxed mb-6">
+                Kyde is an Agent Enforcement Layer — a model-agnostic governance proxy that sits between your AI agents and every system they act on. Every agent gets an identity. Every action is policy-checked. Every event is cryptographically signed and hash-chained into a tamper-evident audit trail. No code changes required.
+              </p>
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
+              >
+                Book a Demo →
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Three categories</p>
+              <div class="space-y-3">
+                {[
+                  { num: "01", label: "AI Security & Detection" },
+                  { num: "02", label: "AI Risk & Compliance Management" },
+                  { num: "03", label: "Agent Enforcement Layer" },
+                ].map(({ num, label }) => (
+                  <p class="flex gap-2 text-xs text-[#333]">
+                    <span class="font-mono text-[#fcb830] shrink-0">{num}</span>
+                    {label}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Regulatory coverage</p>
+              <div class="space-y-2">
+                {["EU AI Act Art. 12, 14, 26", "DORA Art. 23, 30", "NIS-2 Art. 23", "GDPR Art. 22, 35"].map((r) => (
+                  <p class="font-mono text-xs text-[#333]">{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What the EU AI Act Actually Requires for Audit Trails</span>
+                </a>
+                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30</span>
+                </a>
+                <a href="/blog/nobody-governs-the-chain" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Every Vendor Governs Their Stack. Nobody Governs the Chain.</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #333;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #0d0e10;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dotted rgba(13,14,16,0.15);
+  }
+  .prose-kyde h3 {
+    color: #0d0e10;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fcb830;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: #333; font-weight: 600; }
+  .prose-kyde em { color: #333; font-style: italic; }
+  .prose-kyde a { color: #fcb830; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover { color: #fde68a; }
+</style>
