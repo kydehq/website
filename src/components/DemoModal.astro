@@ -132,10 +132,11 @@ const HS_FORM_ID = "1fbf02d1-220e-48da-93a2-90929bd44333";
 
     const payload = {
       fields: [
-        { name: 'firstname', value: data.get('name') ?? '' },
-        { name: 'email',     value: data.get('email') ?? '' },
-        { name: 'company',   value: data.get('company') ?? '' },
-        { name: 'message',   value: `AI agents: ${data.get('agents') ?? ''}` },
+        { name: 'firstname',   value: data.get('name') ?? '' },
+        { name: 'email',       value: data.get('email') ?? '' },
+        { name: 'company',     value: data.get('company') ?? '' },
+        { name: 'message',     value: `AI agents: ${data.get('agents') ?? ''}` },
+        { name: 'lead_source', value: 'website_demo_request' },
       ],
       context: {
         pageUri:  window.location.href,
