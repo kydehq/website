@@ -145,40 +145,24 @@ const HS_FORM_ID = "e3a293f4-1e97-4187-b0de-b7e8a5a725b2";
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    const portalId = form.dataset.hsPortal!;
-    const formId = form.dataset.hsForm!;
     const data = new FormData(form);
 
     const payload = {
-      fields: [
-        { name: 'firstname',   value: data.get('firstname') ?? '' },
-        { name: 'lastname',    value: data.get('lastname') ?? '' },
-        { name: 'email',       value: data.get('email') ?? '' },
-        { name: 'company',     value: data.get('company') ?? '' },
-        { name: 'message',     value: `AI agents: ${data.get('agents') ?? ''}` },
-        { name: 'lead_source', value: 'website_demo_request' },
-      ],
-      context: {
-        pageUri:  window.location.href,
-        pageName: document.title,
-      },
-      legalConsentOptions: {
-        consent: {
-          consentToProcess: true,
-          text: 'I agree to allow KYDE to store and process my personal data to handle this request.',
-        },
-      },
+      firstname:   data.get('firstname') ?? '',
+      lastname:    data.get('lastname') ?? '',
+      email:       data.get('email') ?? '',
+      company:     data.get('company') ?? '',
+      agents:      data.get('agents') ?? '',
+      lead_source: 'website_demo_request',
+      page_url:    window.location.href,
     };
 
     try {
-      const res = await fetch(
-        `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch('https://hook.eu1.make.com/7bxaa7nf0jpwlj8hmm00yribr77r8czk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
       if (res.ok) {
         form.classList.add('hidden');
         document.getElementById('demo-success')?.classList.remove('hidden');
