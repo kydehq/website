@@ -130,6 +130,127 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
+        <!-- ══════════ DASHBOARD ══════════ -->
+        <section class="relative border-t border-dotted border-[#0d0e10]/12 py-24 md:py-32 bg-[#f1f3f5]">
+            <div class="relative max-w-7xl mx-auto px-6">
+
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Audit Dashboard</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
+
+                <div class="mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-3">
+                        Full fleet visibility. One view.
+                    </h2>
+                    <p class="text-[#333] leading-relaxed max-w-2xl">
+                        Every agent, session, and action across your infrastructure — mapped, logged, and auditable from a single dashboard.
+                    </p>
+                </div>
+
+                <!-- Dashboard mock -->
+                <div class="border border-[#0d0e10]/12 bg-white overflow-hidden shadow-sm">
+                    <!-- Browser chrome -->
+                    <div class="flex items-center gap-2 border-b border-[#0d0e10]/10 px-4 py-2.5 bg-[#f8f8f8]">
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#c00000]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#fcb830]/60"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#0a7c4e]/40"></span>
+                        <span class="ml-3 font-mono text-[10px] text-[#0d0e10]/35 bg-white px-3 py-0.5 border border-[#0d0e10]/10 flex-1 max-w-xs">kyde.intranet/dashboard/topology</span>
+                    </div>
+                    <!-- App -->
+                    <div class="flex" style="min-height:420px">
+                        <!-- Sidebar -->
+                        <div class="w-44 shrink-0 border-r border-[#0d0e10]/8 bg-[#fafafa] p-4">
+                            <div class="mb-4">
+                                <img src="/LOGO.png" alt="KYDE" class="h-4 w-auto mb-4" />
+                                <span class="font-mono text-[9px] uppercase tracking-[0.12em] text-[#0a7c4e] border border-[#0a7c4e]/30 px-1.5 py-0.5">Data Integrity</span>
+                            </div>
+                            <p class="font-mono text-[10px] font-bold text-[#0d0e10] mt-4 mb-0.5">Audit Dashboard</p>
+                            <p class="font-mono text-[9px] text-[#0d0e10]/35 uppercase tracking-[0.08em] mb-5">Agent Behavioral Ledger</p>
+                            <ul class="space-y-0.5">
+                                {["Overview", "Data Integrity", "Entry Timeline", "Sessions", "Token Analysis"].map((item) => (
+                                    <li class="font-mono text-[10px] text-[#0d0e10]/45 py-1 px-2 rounded-sm">
+                                        {item}
+                                    </li>
+                                ))}
+                                <li class="font-mono text-[10px] text-[#4472c4] font-semibold py-1 px-2 bg-[#dae4e5]/50 rounded-sm">
+                                    Agent Topology
+                                </li>
+                                {["DLP Alerts", "DLP Rules", "Users", "Settings"].map((item) => (
+                                    <li class="font-mono text-[10px] text-[#0d0e10]/45 py-1 px-2 rounded-sm">
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <!-- Main -->
+                        <div class="flex-1 p-6">
+                            <div class="flex items-start justify-between mb-5">
+                                <div>
+                                    <h3 class="font-mono text-sm font-bold text-[#0d0e10]">192.168.68.0/24</h3>
+                                    <p class="font-mono text-[10px] text-[#0d0e10]/35 mt-0.5">RFC1918 (corporate private) — activity in the last 24 hours</p>
+                                </div>
+                                <span class="font-mono text-[10px] text-[#0d0e10]/40 border border-[#0d0e10]/15 px-2 py-1">Last 24 hours ↓</span>
+                            </div>
+
+                            <!-- Agents -->
+                            <div class="border border-[#0d0e10]/8 mb-3">
+                                <div class="px-4 py-2 bg-[#f8f8f8] border-b border-[#0d0e10]/8">
+                                    <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#0d0e10]/50">Agents (3)</p>
+                                </div>
+                                <div class="grid px-4 py-1.5 border-b border-[#0d0e10]/5" style="grid-template-columns: 2fr 1.2fr 1fr 60px 90px">
+                                    {["Agent", "Role", "Upstreams", "Req.", "Last seen"].map((h) => (
+                                        <p class="font-mono text-[9px] uppercase tracking-[0.1em] text-[#0d0e10]/35">{h}</p>
+                                    ))}
+                                </div>
+                                {[
+                                    { id: "agent:b6068d94edf0", role: "customer_facing", up: "anthropic", req: "6", time: "12:45:53" },
+                                    { id: "agent:a2f1c8b3d7e9", role: "infrastructure", up: "openai", req: "24", time: "12:44:11" },
+                                    { id: "agent:9e4d2c1f6a8b", role: "intern_sandbox", up: "openai", req: "3", time: "12:39:07" },
+                                ].map(({ id, role, up, req, time }) => (
+                                    <div class="grid px-4 py-2 border-b border-[#0d0e10]/5 hover:bg-[#f8f8f8]" style="grid-template-columns: 2fr 1.2fr 1fr 60px 90px">
+                                        <p class="font-mono text-[10px] text-[#0d0e10]">{id}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]/55">{role}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]/55">{up}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]">{req}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]/40">{time}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <!-- Sessions -->
+                            <div class="border border-[#0d0e10]/8">
+                                <div class="px-4 py-2 bg-[#f8f8f8] border-b border-[#0d0e10]/8">
+                                    <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#0d0e10]/50">Recent Sessions (3)</p>
+                                </div>
+                                <div class="grid px-4 py-1.5 border-b border-[#0d0e10]/5" style="grid-template-columns: 2fr 2fr 60px 90px">
+                                    {["Session", "Model", "Req.", "Last seen"].map((h) => (
+                                        <p class="font-mono text-[9px] uppercase tracking-[0.1em] text-[#0d0e10]/35">{h}</p>
+                                    ))}
+                                </div>
+                                {[
+                                    { id: "s-5944d14b2406", model: "claude-sonnet-4-6", req: "4", time: "12:45:53" },
+                                    { id: "s-3c1700ddb97e", model: "claude-haiku-4-5", req: "1", time: "12:45:34" },
+                                    { id: "session:b878a6801d9a9e68", model: "gpt-4o", req: "1", time: "12:39:07" },
+                                ].map(({ id, model, req, time }) => (
+                                    <div class="grid px-4 py-2 border-b border-[#0d0e10]/5 hover:bg-[#f8f8f8]" style="grid-template-columns: 2fr 2fr 60px 90px">
+                                        <p class="font-mono text-[10px] text-[#0d0e10]">{id}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]/55">{model}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]">{req}</p>
+                                        <p class="font-mono text-[10px] text-[#0d0e10]/40">{time}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- ══════════ WHAT GETS CAPTURED ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/12 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">

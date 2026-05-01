@@ -39,7 +39,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 </h1>
                 <!-- Subline — fades in after scramble completes -->
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    An Agent Governance Gateway enforcing policy, and audit across all AI actions.
+                    Control what your AI agents are allowed to do.
                 </p>
             </div>
         </section>
@@ -211,13 +211,10 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <div class="space-y-10">
                         <!-- Subline -->
                         <p class="text-xl md:text-2xl uppercase tracking-wide leading-relaxed text-[#0d0e10]">
-                            AI agents are calling APIs, moving money, making decisions - with no identity, no scope, no audit trail. When something goes wrong, no one knows who acted, why, or under what limits.
+                            AI agents are acting on your behalf across critical systems — with no identity, no policy enforcement, no audit trail.
                         </p>
                         <p class="text-xl md:text-2xl uppercase tracking-wide leading-relaxed text-[#0d0e10] font-bold">
-                            KYDE is the gateway between agents and the world. Agents will rewrite what they can access. KYDE sits where they can't.
-                        </p>
-                        <p class="text-xl md:text-2xl uppercase tracking-wide leading-relaxed text-[#0d0e10]">
-                            Every action is logged and checked against policy before it reaches critical systems - blocked when out of scope. Deployed via a single environment variable. No code changes required.
+                            KYDE is the governance layer that enforces what they're allowed to do — and proves it.
                         </p>
 
                         <!-- Terminal -->
@@ -572,6 +569,28 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                                 <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-[#333]'}`}>{deadline}</p>
                             </div>
                         ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ SOCIAL PROOF ══════════ -->
+        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-14 md:py-20">
+            <div class="relative max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+                    <div class="shrink-0">
+                        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#0d0e10]/60 mb-1">Design Partners</p>
+                        <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#0d0e10]/35">Early Access Program</p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
+                                <span class="font-mono text-xs uppercase tracking-[0.12em] text-[#0d0e10]/65 border border-dotted border-[#0d0e10]/20 px-3 py-1.5">{industry}</span>
+                            ))}
+                        </div>
+                        <p class="font-mono text-xs text-[#0d0e10]/40 uppercase tracking-[0.12em]">
+                            Active design partnerships across European regulated industries — built for NIS-2, DORA, EU AI Act, and GDPR from day one.
+                        </p>
                     </div>
                 </div>
             </div>
