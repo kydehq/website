@@ -37,6 +37,10 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <span id="hero-l1" style="display:block">The AI</span>
                     <span id="hero-l2" style="display:block">Control Plane.</span>
                 </h1>
+                <!-- Subline — fades in after scramble completes -->
+                <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white/65 uppercase tracking-[0.12em] leading-relaxed max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
+                    An Agent Governance Gateway enforcing policy, and audit across all AI actions.
+                </p>
             </div>
         </section>
 
@@ -50,7 +54,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   const SPEED = 0.22;
 
-  function scrambleLine(el: HTMLElement, target: string, delay: number) {
+  function scrambleLine(el: HTMLElement, target: string, delay: number, onDone?: () => void) {
     let frame = 0;
     setTimeout(() => {
       // Measure the height of the FINAL text first, then lock to it
@@ -79,6 +83,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
           el.innerText = target;
           el.style.height = "";
           el.style.overflow = "";
+          if (onDone) onDone();
         }
       }
       tick();
@@ -87,8 +92,11 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 
   const l1 = document.getElementById("hero-l1") as HTMLElement;
   const l2 = document.getElementById("hero-l2") as HTMLElement;
+  const sub = document.getElementById("hero-sub") as HTMLElement;
   if (l1) scrambleLine(l1, "THE AI", 200);
-  if (l2) scrambleLine(l2, "CONTROL PLANE.", 200);
+  if (l2) scrambleLine(l2, "CONTROL PLANE.", 200, () => {
+    if (sub) sub.style.opacity = "1";
+  });
 
   // Autoplay via JS to pass HTML validator (autoplay attr not allowed per spec)
   const vid = document.querySelector(".hero-video") as HTMLVideoElement;
