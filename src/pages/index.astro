@@ -34,8 +34,8 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 </div>
                 <!-- Headline — two separate lines so width changes never cause reflow -->
                 <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
-                    <span id="hero-l1" style="display:block">The AI</span>
-                    <span id="hero-l2" style="display:block">Control Plane.</span>
+                    <span id="hero-l1" style="display:block">The AI Control</span>
+                    <span id="hero-l2" style="display:block">Plane.</span>
                 </h1>
                 <!-- Subline — fades in after scramble completes -->
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
@@ -93,9 +93,11 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   const l1 = document.getElementById("hero-l1") as HTMLElement;
   const l2 = document.getElementById("hero-l2") as HTMLElement;
   const sub = document.getElementById("hero-sub") as HTMLElement;
-  if (l1) scrambleLine(l1, "THE AI", 200);
-  if (l2) scrambleLine(l2, "CONTROL PLANE.", 200, () => {
-    if (sub) sub.style.opacity = "1";
+  document.fonts.ready.then(() => {
+    if (l1) scrambleLine(l1, "THE AI CONTROL", 200);
+    if (l2) scrambleLine(l2, "PLANE.", 200, () => {
+      if (sub) sub.style.opacity = "1";
+    });
   });
 
   // Autoplay via JS to pass HTML validator (autoplay attr not allowed per spec)
