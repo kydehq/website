@@ -41,6 +41,23 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
                     Control what your AI agents are allowed to do.
                 </p>
+                <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
+                    One environment variable · Under 100ms · Any provider · Zero code changes
+                </p>
+                <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
+                    <button
+                        onclick="openModal()"
+                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                    >
+                        Book Demo →
+                    </button>
+                    <a
+                        href="/platform"
+                        class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
+                    >
+                        See Platform →
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -97,8 +114,12 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   // Show h1 only once scramble starts, so static text never flashes
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   if (l1) scrambleLine(l1, "THE AI CONTROL", 200);
+  const meta = document.getElementById("hero-meta") as HTMLElement;
+  const ctas = document.getElementById("hero-ctas") as HTMLElement;
   if (l2) scrambleLine(l2, "PLANE.", 200, () => {
     if (sub) sub.style.opacity = "1";
+    if (meta) meta.style.opacity = "1";
+    if (ctas) ctas.style.opacity = "1";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 180);
 
@@ -106,6 +127,28 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   const vid = document.querySelector(".hero-video") as HTMLVideoElement;
   if (vid) vid.play().catch(() => {});
 </script>
+
+        <!-- ══════════ PROBLEM ══════════ -->
+        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="max-w-3xl">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10] mb-8">
+                        Your agents act.<br />Nobody governs.
+                    </h2>
+                    <p class="text-lg text-[#333] leading-relaxed mb-6">
+                        AI agents are calling APIs, moving money, and making decisions across your critical systems — with no identity, no scope, no audit trail. Every governance tool on the market lives inside the agent. That's not governance. That's a suggestion.
+                    </p>
+                    <blockquote class="border-l-4 border-[#0d0e10] pl-6 my-8">
+                        <p class="text-xl md:text-2xl font-bold text-[#0d0e10]">
+                            If the agent can touch the lock, it can pick it.
+                        </p>
+                    </blockquote>
+                    <p class="text-lg font-semibold text-[#0d0e10]">
+                        KYDE enforces from outside — where the agent can't reach.
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <!-- ══════════ LAYERS DIAGRAM ══════════ -->
         <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
@@ -193,134 +236,37 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     </div>
                 </div>
 
-                <p class="mt-8 font-mono text-xs text-[#0d0e10]/50 uppercase tracking-[0.15em]">
-                    Deployed via a single environment variable — no code changes required.
-                </p>
+                <!-- Terminal -->
+                <div class="mt-10 border border-dotted border-[#0d0e10]/20 bg-white">
+                    <div class="flex items-center gap-2 border-b border-dotted border-[#0d0e10]/15 px-4 py-3">
+                        <span class="h-3 w-3 rounded-full bg-[#c00000]/40"></span>
+                        <span class="h-3 w-3 rounded-full bg-[#fcb830]/60"></span>
+                        <span class="h-3 w-3 rounded-full bg-[#0a7c4e]/40"></span>
+                        <span class="ml-2 text-xs text-[#888] font-mono">terminal</span>
+                    </div>
+                    <div class="p-5 font-mono text-sm leading-relaxed">
+                        <p class="text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
+                        <p class="mt-1 text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> kyde fleet init</span></p>
+                        <p class="mt-1 text-[#4472c4]">&#10003; Fleet proxy started on :8080</p>
+                        <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
+                        <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
+                        <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
+                        <p class="mt-2 text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> kyde fleet status</span></p>
+                        <p class="mt-1 text-[#0a7c4e]">&#10003; 12 agents active — all scoped, signed, accountable</p>
+                    </div>
+                </div>
+
+                <!-- Trust markers -->
+                <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#0d0e10]/40">
+                    <span>One ENV Variable</span>
+                    <span>Target &lt;100ms Latency</span>
+                    <span>Provider-Agnostic</span>
+                    <span>MCP-Ready</span>
+                    <span>Zero Code Changes</span>
+                </div>
 
             </div>
         </section>
-
-        <!-- ══════════ HERO INTRO ══════════ -->
-        <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid md:grid-cols-[200px_1fr] gap-8 items-start">
-                    <div>
-                        <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0d0e10]/60">
-                            Securing the Agentic Economy
-                        </p>
-                        <p class="mt-2 font-mono text-xs text-[#0d0e10]/40">[KYDE]</p>
-                    </div>
-                    <div class="space-y-10">
-                        <!-- Subline -->
-                        <p class="text-xl md:text-2xl tracking-wide leading-relaxed text-[#0d0e10]">
-                            AI agents are acting on your behalf across critical systems — with no identity, no policy enforcement, no audit trail.
-                        </p>
-                        <p class="text-xl md:text-2xl tracking-wide leading-relaxed text-[#0d0e10] font-bold">
-                            KYDE is the governance layer that enforces what they're allowed to do — and proves it.
-                        </p>
-
-                        <!-- Terminal -->
-                        <div class="border border-dotted border-[#0d0e10]/20 bg-white">
-                            <div class="flex items-center gap-2 border-b border-dotted border-[#0d0e10]/15 px-4 py-3">
-                                <span class="h-3 w-3 rounded-full bg-[#c00000]/40"></span>
-                                <span class="h-3 w-3 rounded-full bg-[#fcb830]/60"></span>
-                                <span class="h-3 w-3 rounded-full bg-[#0a7c4e]/40"></span>
-                                <span class="ml-2 text-xs text-[#888] font-mono">terminal</span>
-                            </div>
-                            <div class="p-5 font-mono text-sm leading-relaxed">
-                                <p class="text-[#555]">
-                                    <span class="text-[#0a7c4e]">$</span>
-                                    <span class="text-[#0d0e10]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span>
-                                </p>
-                                <p class="mt-1 text-[#555]">
-                                    <span class="text-[#0a7c4e]">$</span>
-                                    <span class="text-[#0d0e10]"> kyde fleet init</span>
-                                </p>
-                                <p class="mt-1 text-[#4472c4]">&#10003; Fleet proxy started on :8080</p>
-                                <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
-                                <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
-                                <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
-                                <p class="mt-2 text-[#555]">
-                                    <span class="text-[#0a7c4e]">$</span>
-                                    <span class="text-[#0d0e10]"> kyde fleet status</span>
-                                </p>
-                                <p class="mt-1 text-[#0a7c4e]">&#10003; 12 agents active — all scoped, signed, accountable</p>
-                            </div>
-                        </div>
-
-                        <!-- Trust markers -->
-                        <div class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#0d0e10]/40">
-                            <span>One ENV Variable</span>
-                            <span>Target &lt;100ms Latency</span>
-                            <span>Provider-Agnostic</span>
-                            <span>MCP-Ready</span>
-                            <span>Zero Code Changes</span>
-                        </div>
-
-                        <!-- CTAs -->
-                        <div class="flex flex-col sm:flex-row items-start gap-4">
-                            <a
-                                href="/platform"
-                                class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white hover:bg-[#fcb830] hover:text-[#0d0e10] transition-all"
-                            >
-                                See why this matters →
-                            </a>
-                            <button
-                                onclick="openModal()"
-                                class="inline-flex items-center gap-2 border border-[#0d0e10]/30 rounded-full px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all"
-                            >
-                                Book Demo
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ THE INSIGHT ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32 bg-[#1c1e24]">
-            <div class="relative max-w-7xl mx-auto px-6">
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="h-1.5 w-1.5 rounded-full bg-white/30 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The insight</span>
-                    </div>
-                </div>
-
-                <h2 class="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4" style="background: linear-gradient(120deg, #dae4e5 0%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                    Governance cannot live<br />inside the AI.
-                </h2>
-                <p class="text-white/50 leading-relaxed max-w-2xl mb-16">Security that lives inside the agent is a suggestion. KYDE enforces from outside — where the agent can't reach.</p>
-
-                <div class="grid md:grid-cols-3 gap-px bg-white/10">
-                    <div class="bg-[#1c1e24] px-8 py-8">
-                        <p class="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">The Status Quo</p>
-                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Control is applied at the endpoint</span> — System Prompts, SDKs, application logic.</p>
-                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Safeguards live inside</span> the agent's own code.</p>
-                        <p class="text-sm text-white/70 leading-relaxed"><span class="font-semibold text-white">Security is treated as a feature,</span> not a foundation.</p>
-                    </div>
-                    <div class="bg-[#1c1e24] px-8 py-8">
-                        <p class="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">The Structural Flaw</p>
-                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Capable agents can bypass</span> their own rules and rewrite their own logs.</p>
-                        <p class="text-sm text-white/70 leading-relaxed"><span class="font-semibold text-white">Human oversight does not scale</span> to machine speed.</p>
-                    </div>
-                    <div class="bg-[#1c1e24] px-8 py-8">
-                        <p class="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">The Necessity</p>
-                        <p class="text-sm text-white/70 leading-relaxed mb-3"><span class="font-semibold text-white">Governance must sit outside.</span> Security inside the agent is suggestion, not enforcement.</p>
-                        <p class="text-sm text-white/70 leading-relaxed"><span class="font-semibold text-white">If the agent can touch the lock,</span> it can pick it.</p>
-                    </div>
-                </div>
-
-                <div class="mt-16 border-t border-white/10 pt-16 text-center">
-                    <p class="text-lg md:text-xl font-semibold text-white/80 leading-relaxed">
-                        The only governance that holds is the kind
-                        <span class="underline decoration-white/40 ml-1">the agent cannot touch.</span>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-
 
         <!-- ══════════ PRODUCT ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
@@ -335,120 +281,37 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <div class="h-px w-full bg-[#e8e9eb]"></div>
                 </div>
 
-                <div class="mb-16 space-y-4">
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10]">
-                        The Zero-Trust<br />AI Stack.
-                    </h2>
-                    <p class="max-w-2xl text-[#333] leading-relaxed">
-                        Kyde is the <span class="font-semibold text-[#0d0e10]">zero-trust governance proxy</span> that sits between your agents and any LLM provider. It intercepts every call, enforces every policy, and signs every entry — before anything reaches the model.
-                    </p>
-                </div>
-
-                <!-- Architecture Diagram -->
-                <div class="mb-16">
-                    <ArchitectureDiagram />
-                </div>
-
-                <!-- Features intro -->
-                <div class="mb-16">
+                <div class="mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-4">
-                        Three guarantees. One stack.
+                        Three guarantees. One infrastructure layer.
                     </h2>
                     <p class="text-[#333] leading-relaxed max-w-2xl">
                         Not a roadmap. A complete infrastructure layer — deployed in minutes, covering every agent from day one.
                     </p>
                 </div>
 
-                <div class="mt-16 grid gap-8 lg:grid-cols-3">
-                    <!-- SCOPE -->
-                    <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
-                        <div class="mb-6">
-                            <span class="font-mono text-xs text-[#666]">01</span>
-                        </div>
-                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">SCOPE</h3>
-                        <p class="mb-2 text-sm font-medium text-[#333]">No agent acts without ID & clearance.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-[#333]">
-                            Every action is checked against policy before execution. Scope enforced at the proxy — not by trust.
-                        </p>
-                        <ul class="space-y-4">
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Agent Identity & Behavioral Scope</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Every agent gets a cryptographic identity and a defined role. No shared service accounts. No anonymous calls.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Token & Cost Budgets</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Hard limits per agent, per role, per day. Enforced before the call is made — not flagged after the bill arrives.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">API Allowlists & Circuit Breakers</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Define which endpoints each role can reach. Hard blocks before actions reach external systems.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Violation Alerts & Human-in-the-Loop</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">When an agent exceeds its scope — blocked instantly at the proxy. Alerts fire via Slack, Teams, or directly into the Kyde Triage Dashboard. Supervisors review full context, override, or terminate. No silent failures.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Zero-Friction Deployment</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">One environment variable or Group Policy push. No code changes. No SDK. Under 100ms latency.</p>
-                            </li>
-                        </ul>
+                <div class="grid gap-6 lg:grid-cols-3">
+                    <div class="border border-dotted border-[#0d0e10]/20 bg-white p-8">
+                        <p class="font-mono text-xs text-[#666] mb-5">01 — SCOPE</p>
+                        <h3 class="text-xl font-bold text-[#0d0e10] mb-2">No agent acts without identity and clearance.</h3>
+                        <p class="text-sm leading-relaxed text-[#333]">Every action checked against policy before execution — enforced at the proxy, not by trust.</p>
                     </div>
+                    <div class="border border-dotted border-[#0d0e10]/20 bg-white p-8">
+                        <p class="font-mono text-xs text-[#666] mb-5">02 — TRACE</p>
+                        <h3 class="text-xl font-bold text-[#0d0e10] mb-2">No incident without accountability.</h3>
+                        <p class="text-sm leading-relaxed text-[#333]">Every action traced to a single agent identity. Full causal chain: what happened, why, and what came before.</p>
+                    </div>
+                    <div class="border border-dotted border-[#0d0e10]/20 bg-white p-8">
+                        <p class="font-mono text-xs text-[#666] mb-5">03 — SEAL</p>
+                        <h3 class="text-xl font-bold text-[#0d0e10] mb-2">Cryptographic audit trail. Court-ready.</h3>
+                        <p class="text-sm leading-relaxed text-[#333]">Every entry Ed25519-signed and SHA-256 hash-chained. Tamper with any record — every subsequent link breaks. Independent of your LLM provider.</p>
+                    </div>
+                </div>
 
-                    <!-- TRACE -->
-                    <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
-                        <div class="mb-6">
-                            <span class="font-mono text-xs text-[#666]">02</span>
-                        </div>
-                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">TRACE</h3>
-                        <p class="mb-2 text-sm font-medium text-[#333]">No incident without accountability.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-[#333]">
-                            Every incident traced to a single agent identity. Full chain reconstruction: source, path, destination.
-                        </p>
-                        <ul class="space-y-4">
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Traceable Identity</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Every action traced to a specific agent — not a shared service account. Who acted is always answerable.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Causal Context</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Not just what happened, but why — capturing the last 5 messages before every tool call. Full decision chain reconstruction.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Anomaly Detection</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Behavioral baselines per agent role. Real-time alerts when an agent deviates from expected patterns.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">SOC Triage Dashboard</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">All behavioral anomalies and policy violations in one place — with full causal context. Built for SOC analysts who need to investigate and respond, not just get paged.</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- SEAL -->
-                    <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
-                        <div class="mb-6">
-                            <span class="font-mono text-xs text-[#666]">03</span>
-                        </div>
-                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">SEAL</h3>
-                        <p class="mb-2 text-sm font-medium text-[#333]">Cryptographic audit trail. Court-ready.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-[#333]">
-                            Every entry signed. Tamper with any record — every subsequent link breaks. Independent of your LLM provider.
-                        </p>
-                        <ul class="space-y-4">
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Ed25519-Signed Append-Only Ledger</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Every entry cryptographically signed at the point of capture. Not a log. A tamper-evident chain of evidence.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Provider-Independent Record</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">Your audit trail lives outside Anthropic's, OpenAI's, or any vendor's infrastructure. Yours to export, verify, and submit.</p>
-                            </li>
-                            <li>
-                                <h4 class="text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10]">Hardware Isolation — TPM/HSM</h4>
-                                <p class="mt-0.5 text-sm leading-relaxed text-[#333]">For maximum integrity: signing keys isolated in hardware, never exposed to the host OS. Military-grade for environments where software-only isn't enough.</p>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="mt-8">
+                    <a href="/platform" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
+                        See full platform →
+                    </a>
                 </div>
             </div>
         </section>
@@ -533,11 +396,8 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 <div class="mx-auto max-w-3xl text-center">
                     <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5 w-fit mx-auto">↳ Get started</p>
                     <div class="mb-12 h-px bg-[#0d0e10]/15"></div>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10] mb-4">
-                        Your agents are a workforce.
-                    </h2>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#333] mb-12">
-                        Your workforce is critical infrastructure.<br />Govern accordingly.
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10] mb-12">
+                        Your agents are a workforce.<br />Your workforce is critical infrastructure.<br />Govern accordingly.
                     </h2>
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <button
