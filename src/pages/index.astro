@@ -105,6 +105,94 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   if (vid) vid.play().catch(() => {});
 </script>
 
+        <!-- ══════════ LAYERS DIAGRAM ══════════ -->
+        <section class="bg-[#0d0e10] border-b border-dotted border-white/10 py-20 md:py-28">
+            <div class="max-w-4xl mx-auto px-6">
+
+                <div class="mb-12 md:mb-16">
+                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-white/40 mb-3">Architecture</p>
+                    <h2 class="text-2xl md:text-3xl text-white uppercase tracking-tighter">The Missing Layer</h2>
+                </div>
+
+                <!-- Layer 1: AI Agents -->
+                <div class="border border-dotted border-white/20 p-5 md:p-7">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">Incoming</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">Layer 01</span>
+                    </div>
+                    <p class="text-sm md:text-base text-white/75 uppercase tracking-wide font-bold mb-4">AI Agents</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">Claude</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">GPT-4o</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">Gemini</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">LangChain</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">Custom Agents</span>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="flex justify-center items-center h-10 relative">
+                    <div class="w-px h-full bg-white/10"></div>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/25 bg-[#0d0e10] px-2">all requests</span>
+                </div>
+
+                <!-- Layer 2: KYDE -->
+                <div class="p-5 md:p-8" style="border: 1px solid #fcb830; box-shadow: 0 0 50px rgba(252,184,48,0.10), inset 0 0 40px rgba(252,184,48,0.04);">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fcb830]/60">Control Plane</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fcb830]/60">Layer 02</span>
+                    </div>
+                    <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
+                    <p class="font-mono text-xs text-white/45 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="border border-dotted border-[#fcb830]/25 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#fcb830]/70 mb-1.5">Identity</p>
+                            <p class="text-xs text-white/45 leading-relaxed">Cryptographic agent identity per action</p>
+                        </div>
+                        <div class="border border-dotted border-[#fcb830]/25 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#fcb830]/70 mb-1.5">Policy</p>
+                            <p class="text-xs text-white/45 leading-relaxed">Role boundaries &amp; scope enforcement</p>
+                        </div>
+                        <div class="border border-dotted border-[#fcb830]/25 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#fcb830]/70 mb-1.5">Audit</p>
+                            <p class="text-xs text-white/45 leading-relaxed">Tamper-evident ledger of every action</p>
+                        </div>
+                        <div class="border border-dotted border-[#fcb830]/25 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#fcb830]/70 mb-1.5">Control</p>
+                            <p class="text-xs text-white/45 leading-relaxed">Block out-of-scope requests in real time</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="flex justify-center items-center h-10 relative">
+                    <div class="w-px h-full bg-white/10"></div>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/25 bg-[#0d0e10] px-2">verified &amp; logged</span>
+                </div>
+
+                <!-- Layer 3: Critical Systems -->
+                <div class="border border-dotted border-white/20 p-5 md:p-7">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">Protected</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">Layer 03</span>
+                    </div>
+                    <p class="text-sm md:text-base text-white/75 uppercase tracking-wide font-bold mb-4">Critical Systems</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">APIs</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">Databases</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">Financial Systems</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">SaaS Tools</span>
+                        <span class="font-mono text-xs text-white/45 border border-dotted border-white/15 px-2.5 py-1">Internal Services</span>
+                    </div>
+                </div>
+
+                <p class="mt-8 font-mono text-xs text-white/25 uppercase tracking-[0.15em]">
+                    Deployed via a single environment variable — no code changes required.
+                </p>
+
+            </div>
+        </section>
+
         <!-- ══════════ HERO INTRO ══════════ -->
         <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
             <div class="max-w-7xl mx-auto px-6">
