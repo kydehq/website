@@ -74,6 +74,80 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
+        <!-- ══════════ PROBLEM ══════════ -->
+        <section class="relative border-t border-dotted border-[#0d0e10]/12 py-24 md:py-32">
+            <div class="relative max-w-7xl mx-auto px-6">
+
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The operational gap</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
+
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10] uppercase mb-16">
+                    Questions most enterprises<br />can't answer.
+                </h2>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    {[
+                        {
+                            q: "Who acted?",
+                            body: "Agents share service accounts with broad permissions. No traceable identity. No role boundaries. A support agent scoped for €500 refunds issues €5,000 because nobody scoped its authority.",
+                            label: "Identity",
+                        },
+                        {
+                            q: "Why did it decide that?",
+                            body: "An HR agent retrieves a policy document from 2022 and uses it to guide a termination. The current policy says something different. Nobody logged which source it relied on.",
+                            label: "Causal Context",
+                        },
+                        {
+                            q: "What are the boundaries?",
+                            body: "Token budgets don't exist. API access is unrestricted. An intern's research agent burns through your entire monthly token allocation while your production agents queue.",
+                            label: "Scope & Budget",
+                        },
+                        {
+                            q: "What happened?",
+                            body: "A procurement agent posts confidential contract terms in Slack. Leadership needs the full evidence trail. The logs are vendor-provided, self-reported, software-only. A compromised host can rewrite them silently.",
+                            label: "Tamper-Evidence",
+                        },
+                    ].map(({ q, body, label }) => (
+                        <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
+                            <div class="mb-4 flex items-center justify-between">
+                                <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{label}</span>
+                                <span class="h-1.5 w-1.5 rounded-full bg-[#c00000]/50"></span>
+                            </div>
+                            <h3 class="mb-4 text-xl font-bold text-[#0d0e10]">{q}</h3>
+                            <p class="leading-relaxed text-[#333] text-sm">{body}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div class="flex items-center gap-4 my-6">
+                    <div class="flex-1 border-t border-dotted border-[#0d0e10]/20"></div>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">And the question nobody asks until it's too late</span>
+                    <div class="flex-1 border-t border-dotted border-[#0d0e10]/20"></div>
+                </div>
+
+                <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-white transition-all hover:border-[#0d0e10]/30">
+                    <div class="mb-4 flex items-center justify-between">
+                        <span class="font-mono text-xs uppercase tracking-widest text-[#333]">Cross-System Governance</span>
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#c00000]/50"></span>
+                    </div>
+                    <h3 class="mb-4 text-xl font-bold text-[#0d0e10]">Who governs the chain?</h3>
+                    <p class="leading-relaxed text-[#333] text-sm max-w-3xl">An agent raises a price in Salesforce, triggers a payment in Stripe, and updates inventory in SAP. Each vendor logs their own system. Nobody logs the complete workflow. When the chain breaks, you have fragmented logs across ten consoles — and zero cross-system governance.</p>
+                </div>
+
+                <div class="mt-12 px-6 py-16 text-center">
+                    <p class="font-mono text-xl md:text-2xl font-normal uppercase tracking-[0.05em] text-[#0d0e10] mx-auto leading-tight">
+                        Resilient organizations don't just detect these failures.<br />They architect systems that prevent them.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
         <!-- ══════════ HOW IT WORKS ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/12 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
