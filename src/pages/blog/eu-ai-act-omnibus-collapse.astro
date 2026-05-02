@@ -82,12 +82,23 @@ import Footer from '../../components/Footer.astro';
               The AI Act itself — Regulation 2024/1689 — is not affected by the Omnibus failure. As of 30 April 2026, no delay has been adopted. Until a revised Omnibus is agreed and published in the Official Journal, the original deadlines in Regulation 2024/1689 apply.
             </p>
             <p>That means the following obligations remain on the 2 August 2026 clock:</p>
-            <ul>
-              <li><strong>Annex III high-risk AI systems</strong> — the standalone category covering employment, credit scoring, critical infrastructure, biometrics, education, and essential services — are subject to full high-risk obligations from that date. This includes mandatory logging, human oversight requirements, technical documentation, post-market monitoring, and registration in the EU database.</li>
-              <li><strong>Article 50 transparency obligations</strong> apply from the same date. AI systems interacting with humans must disclose their AI nature. Emotion recognition and biometric categorization systems have specific disclosure requirements.</li>
-              <li><strong>Article 49 registration</strong> — high-risk systems must be registered in the EU public database before being placed on the market.</li>
-              <li><strong>Enforcement powers</strong> for national competent authorities become fully applicable. Market surveillance begins in earnest.</li>
-            </ul>
+            <div class="not-prose my-5 border border-dotted border-[#0d0e10]/15">
+              {[
+                { label: "Annex III", desc: "High-risk AI systems — the standalone category covering employment, credit scoring, critical infrastructure, biometrics, education, and essential services — are subject to full high-risk obligations from that date. This includes mandatory logging, human oversight requirements, technical documentation, post-market monitoring, and registration in the EU database." },
+                { label: "Art. 50", desc: "Transparency obligations apply from the same date. AI systems interacting with humans must disclose their AI nature. Emotion recognition and biometric categorization systems have specific disclosure requirements." },
+                { label: "Art. 49", desc: "Registration — high-risk systems must be registered in the EU public database before being placed on the market." },
+                { label: "Enforcement", desc: "Powers for national competent authorities become fully applicable. Market surveillance begins in earnest." },
+              ].map(({ label, desc }) => (
+                <div class="grid grid-cols-[80px_1fr] border-b border-dotted border-[#0d0e10]/15 last:border-b-0">
+                  <div class="px-4 py-3 font-mono text-[11px] font-bold text-[#0d0e10] uppercase tracking-wide border-r border-dotted border-[#0d0e10]/15 flex items-start pt-3.5">
+                    {label}
+                  </div>
+                  <div class="px-4 py-3 text-sm text-[#333] leading-relaxed">
+                    {desc}
+                  </div>
+                </div>
+              ))}
+            </div>
 
             <h2>The four scenarios between now and August</h2>
             <p>
