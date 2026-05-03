@@ -137,10 +137,19 @@ const HS_FORM_ID = "e3a293f4-1e97-4187-b0de-b7e8a5a725b2";
   document.getElementById('demo-modal-close')?.addEventListener('click', closeModal);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-  // Form submit → HubSpot Forms API
+  // Form submit → Make webhook
   const form = document.getElementById('demo-form') as HTMLFormElement | null;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const consent = form.querySelector<HTMLInputElement>('#demo-consent');
+    if (!consent?.checked) {
+      consent?.setCustomValidity('Please accept the privacy policy to continue.');
+      consent?.reportValidity();
+      return;
+    }
+    consent?.setCustomValidity('');
+
     const btn = document.getElementById('demo-submit') as HTMLButtonElement;
     btn.textContent = 'Sending…';
     btn.disabled = true;
