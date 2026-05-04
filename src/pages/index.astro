@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
 ---
 
 <Base
@@ -12,51 +11,62 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
     <Navbar />
 
     <main>
-        <!-- ══════════ HERO STAGE (viewport) ══════════ -->
+        <!-- ══════════ HERO STAGE ══════════ -->
         <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20">
-            <!-- Background video -->
             <video class="absolute inset-0 w-full h-full object-cover hero-video" muted loop playsinline poster="/stage-poster.jpg">
                 <source src="/stage-video.mp4" type="video/mp4" />
             </video>
-            <!-- Gradient overlay -->
             <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/30 via-[#0d0e10]/60 to-[#0d0e10]/90"></div>
-            <!-- Noise texture -->
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
             <div class="bg-grid absolute inset-0 pointer-events-none opacity-20"></div>
-            <!-- Corner vignette — covers bottom-right, looks cinematic -->
             <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 40% 35% at 100% 100%, #0d0e10 0%, transparent 100%);"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
-                <!-- compliance label -->
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
-                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
-                </div>
-                <!-- Headline — two separate lines so width changes never cause reflow -->
-                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
-                    <span id="hero-l1" style="display:block">The AI Control</span>
-                    <span id="hero-l2" style="display:block">Plane.</span>
-                </h1>
-                <!-- Subline — fades in after scramble completes -->
-                <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    Turn your company agentic — without losing control over data, actions, or outcomes.
-                </p>
-                <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
-                    One environment variable · Under 100ms · Any provider · Zero code changes
-                </p>
-                <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
-                    <button
-                        onclick="openModal()"
-                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
-                    >
-                        Book Demo →
-                    </button>
-                    <a
-                        href="/platform"
-                        class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
-                    >
-                        See Platform →
-                    </a>
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+                    <!-- Text -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
+                            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
+                        </div>
+                        <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
+                            <span id="hero-l1" style="display:block">The AI Control</span>
+                            <span id="hero-l2" style="display:block">Plane.</span>
+                        </h1>
+                        <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base text-white uppercase tracking-[0.12em] leading-snug max-w-md" style="opacity:0;transition:opacity 0.9s ease;">
+                            Turn your company agentic — without losing control over data, actions, or outcomes.
+                        </p>
+                        <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
+                            One environment variable · Under 100ms · Any provider · Zero code changes
+                        </p>
+                        <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
+                            <button
+                                onclick="openModal()"
+                                class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                            >
+                                Book Demo →
+                            </button>
+                            <a
+                                href="/platform"
+                                class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
+                            >
+                                See Platform →
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard screenshot -->
+                    <div class="hidden lg:flex flex-col" id="hero-img" style="opacity:0;transition:opacity 0.9s ease 0.7s;">
+                        <div class="border border-white/15 overflow-hidden shadow-2xl">
+                            <img src="/dashboard-overview.png" alt="KYDE Dashboard — Agent Fleet Overview" class="w-full block" />
+                        </div>
+                        <div class="mt-3 flex items-start justify-between gap-4">
+                            <p class="font-mono text-[10px] text-white/45 leading-relaxed">754 agent actions. 6 identities. Every entry signed.</p>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] whitespace-nowrap bg-[#0a7c4e]/20 text-[#0a7c4e] border border-[#0a7c4e]/30 px-2 py-0.5">Data Integrity: Verified</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -74,8 +84,6 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   function scrambleLine(el: HTMLElement, target: string, delay: number, onDone?: () => void) {
     let frame = 0;
     setTimeout(() => {
-      // Measure the height of the FINAL text first, then lock to it
-      // so the container never jumps when scramble resolves
       el.innerText = target;
       const finalH = el.offsetHeight;
       el.style.height = finalH + "px";
@@ -111,19 +119,19 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
   const l2 = document.getElementById("hero-l2") as HTMLElement;
   const sub = document.getElementById("hero-sub") as HTMLElement;
   const h1 = l1?.closest("h1") as HTMLElement;
-  // Show h1 only once scramble starts, so static text never flashes
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   if (l1) scrambleLine(l1, "THE AI CONTROL", 200);
   const meta = document.getElementById("hero-meta") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
+  const heroImg = document.getElementById("hero-img") as HTMLElement;
   if (l2) scrambleLine(l2, "PLANE.", 200, () => {
     if (sub) sub.style.opacity = "1";
     if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
+    if (heroImg) heroImg.style.opacity = "1";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 180);
 
-  // Autoplay via JS to pass HTML validator (autoplay attr not allowed per spec)
   const vid = document.querySelector(".hero-video") as HTMLVideoElement;
   if (vid) vid.play().catch(() => {});
 </script>
@@ -131,12 +139,19 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
         <!-- ══════════ PROBLEM ══════════ -->
         <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The Problem</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
                 <div class="max-w-3xl">
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0d0e10] mb-8">
-                        Your agents act.<br />Nobody governs.
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10] mb-8">
+                        Your Agents Have No Identity. No Scope. No Audit Trail.
                     </h2>
                     <p class="text-lg text-[#333] leading-relaxed mb-6">
-                        AI agents are calling APIs, moving money, and making decisions across your critical systems — with no identity, no scope, no audit trail. Every governance tool on the market lives inside the agent. That's not governance. That's a suggestion.
+                        AI agents are calling APIs, moving money, and making decisions across your critical systems — right now. Every governance tool on the market lives inside the agent.
                     </p>
                     <blockquote class="border-l-4 border-[#0d0e10] pl-6 my-8">
                         <p class="text-xl md:text-2xl font-bold text-[#0d0e10]">
@@ -144,13 +159,13 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                         </p>
                     </blockquote>
                     <p class="text-lg font-semibold text-[#0d0e10]">
-                        KYDE enforces from outside — where the agent can't reach.
+                        KYDE enforces from outside — where the agent cannot reach.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ LAYERS DIAGRAM ══════════ -->
+        <!-- ══════════ ARCHITECTURE ══════════ -->
         <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
             <div class="max-w-4xl mx-auto px-6">
 
@@ -256,7 +271,7 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     </div>
                 </div>
 
-                <!-- Trust markers -->
+                <!-- Badges -->
                 <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#0d0e10]/40">
                     <span>One ENV Variable</span>
                     <span>Target &lt;100ms Latency</span>
@@ -265,18 +280,148 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                     <span>Zero Code Changes</span>
                 </div>
 
+                <!-- Footnote -->
+                <div class="mt-6 flex items-center gap-3">
+                    <span class="h-px flex-1 bg-[#e8e9eb]"></span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/40">↳ Outside the agent. Cannot be overridden.</span>
+                </div>
+
             </div>
         </section>
 
-        <!-- ══════════ PRODUCT ══════════ -->
+        <!-- ══════════ USE CASES ══════════ -->
+        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="mb-16">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Use Cases</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb] mb-8"></div>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10]">Tackle Your Most Pressing AI Challenges</h2>
+                </div>
+
+                <!-- Block 1: Security — image left, content right -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center pb-16 md:pb-20 border-b border-dotted border-[#0d0e10]/15">
+                    <div class="flex flex-col">
+                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white">
+                            <img src="/dlp-alert-redacted.png" alt="DLP alert — PII detected and masked" class="w-full block" />
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
+                            PII detected. Email masked. Context redacted by role — before the auditor could see it.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-[#0d0e10] tracking-tight mb-4">Stop Agent Threats Before They Execute</h3>
+                        <p class="text-[#333] leading-relaxed mb-6">
+                            AI agents don't just leak data — they act. Prompt injections, scope violations, unauthorized tool calls: traditional DLP doesn't see agent traffic. KYDE intercepts every action at the network layer before it reaches your systems.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Block out-of-scope requests in real time",
+                                "Attribute every action to a verified agent identity",
+                                "Detect PII in prompts and completions — masked by role",
+                                "Full bidirectional audit trail, independent of your LLM provider",
+                            ].map(item => (
+                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
+                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
+                            Explore Security Use Cases →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Block 2: Visibility — content left, image right -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center py-16 md:py-20 border-b border-dotted border-[#0d0e10]/15">
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-[#0d0e10] tracking-tight mb-4">See Everything Your Agents Touch</h3>
+                        <p class="text-[#333] leading-relaxed mb-6">
+                            Shadow agents. Unregistered tool calls. Agents talking to external upstreams you never approved. KYDE maps your entire agent topology at the network layer — not from SDK instrumentation, not from trust.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Visualize every agent, upstream, and model in real time",
+                                "Detect shadow agents and unauthorized MCP server connections",
+                                "Drill from network segment to individual tool call",
+                                "Works across Claude, GPT-4o, Gemini, LangChain, custom agents",
+                            ].map(item => (
+                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
+                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="/platform" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
+                            Explore Platform →
+                        </a>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white">
+                            <img src="/agent-topology.png" alt="KYDE Agent Topology View" class="w-full block" />
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
+                            Network Segment → Tool → Upstream → Model. See every path. Every agent. Every call.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Block 3: Compliance — no image -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start pt-16 md:pt-20">
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-[#0d0e10] tracking-tight mb-4">Audit-Ready From Day One</h3>
+                        <p class="text-[#333] leading-relaxed mb-6">
+                            NIS-2, DORA, EU AI Act, GDPR Article 35 — regulators will ask for evidence. KYDE generates a tamper-evident, Ed25519-signed ledger of every agent action. Court-admissible. Independent. Immutable.
+                        </p>
+                        <ul class="space-y-2.5">
+                            {[
+                                "Every entry hash-chained — tamper with one, all subsequent links break",
+                                "Role-based access to audit logs per regulatory requirement",
+                                "Compliance reports generated automatically",
+                                "Secure single-tenant deployment with data sovereignty",
+                            ].map(item => (
+                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
+                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <div class="grid grid-cols-2 gap-3">
+                            {[
+                                { name: "NIS-2", status: "In force" },
+                                { name: "DORA", status: "In force: Jan 2025" },
+                                { name: "EU AI Act", status: "Phasing in 2026" },
+                                { name: "GDPR 35", status: "In force" },
+                            ].map(({ name, status }) => (
+                                <div class="border border-dotted border-[#0d0e10]/20 bg-[#dae4e5]/30 p-4">
+                                    <p class="font-mono text-xs font-bold text-[#0d0e10] uppercase tracking-wide mb-1">{name}</p>
+                                    <p class="font-mono text-[10px] text-[#0a7c4e]">{status}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all w-fit">
+                            Explore Compliance Use Cases →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ══════════ THREE GUARANTEES ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
 
-                <!-- Intro text -->
                 <div class="mb-12">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Outside the agent. Cannot be overridden.</span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Three Guarantees. One Infrastructure Layer.</span>
                     </div>
                     <div class="h-px w-full bg-[#e8e9eb]"></div>
                 </div>
@@ -316,14 +461,14 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
             </div>
         </section>
 
-        <!-- ══════════ URGENCY ══════════ -->
+        <!-- ══════════ LEGAL REALITY ══════════ -->
         <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
 
                 <div class="mb-12">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The legal reality</span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The Legal Reality</span>
                     </div>
                     <div class="h-px w-full bg-[#e8e9eb]"></div>
                 </div>
@@ -331,10 +476,13 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                 <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-6">
-                            Your agents act on your behalf.<br />Courts agree.
+                            Your Agents Act in Your Name. Courts Know It.
                         </h2>
+                        <p class="text-[#333] leading-relaxed mb-4">
+                            Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable — not the vendor, not the model.
+                        </p>
                         <p class="text-[#333] leading-relaxed mb-6">
-                            They negotiate, transact, and make commitments in your name. Regulators, auditors, and courts will hold you accountable for what they do — and the obligations are already in force.
+                            Your AI agents negotiate, transact, and make commitments in your name — right now. Regulators, auditors, and courts will hold you accountable for what they do.
                         </p>
                         <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-6 mb-6">
                             <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Moffatt v. Air Canada</p>
@@ -343,16 +491,16 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
                             </p>
                         </div>
                         <p class="text-sm text-[#666] leading-relaxed">
-                            The question isn't whether you need an evidence trail. It's whether yours can withstand scrutiny.
+                            The question isn't whether you need an evidence trail. It's whether yours would survive scrutiny.
                         </p>
                     </div>
 
                     <div class="grid gap-4 grid-cols-2">
                         {[
-                            { name: "NIS-2",     desc: "~160,000 companies in DE/EU. Critical + important sectors. AI systems included.", deadline: "In force · DE: NIS2UmsuCG", urgent: true },
-                            { name: "DORA",      desc: "Financial entity resilience",  deadline: "In force: Jan 2025",  urgent: false },
-                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements", deadline: "Phasing in 2026/2027", urgent: false },
-                            { name: "GDPR 35",   desc: "Automated processing DPIA",    deadline: "In force",            urgent: false },
+                            { name: "NIS-2",     desc: "~160,000 companies in DE/EU. Critical + important sectors.", deadline: "In force · DE: NIS2UmsuCG", urgent: true },
+                            { name: "DORA",      desc: "Financial entity resilience requirements.",  deadline: "In force: Jan 2025",  urgent: false },
+                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2026/2027", urgent: false },
+                            { name: "GDPR 35",   desc: "Automated processing DPIA obligations.",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
                             <div class={`border rounded-[14px] p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#dae4e5] bg-[#dae4e5]/20"}`}>
                                 <div class="flex items-start justify-between mb-2">
@@ -368,23 +516,37 @@ import ArchitectureDiagram from "../components/ArchitectureDiagram.astro";
             </div>
         </section>
 
-        <!-- ══════════ SOCIAL PROOF ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-14 md:py-20">
+        <!-- ══════════ DESIGN PARTNERS ══════════ -->
+        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
-                <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
-                    <div class="shrink-0">
-                        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#0d0e10]/60 mb-1">Design Partners</p>
-                        <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#0d0e10]/35">Early Access Program</p>
+
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Early Access Program</span>
                     </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
                     <div>
-                        <div class="flex flex-wrap gap-2 mb-5">
-                            {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
-                                <span class="font-mono text-xs uppercase tracking-[0.12em] text-[#0d0e10]/65 border border-dotted border-[#0d0e10]/20 px-3 py-1.5">{industry}</span>
-                            ))}
-                        </div>
-                        <p class="font-mono text-xs text-[#0d0e10]/40 uppercase tracking-[0.12em]">
-                            Active design partnerships across European regulated industries — built for NIS-2, DORA, EU AI Act, and GDPR from day one.
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#0d0e10] mb-4">
+                            Built With Regulated Industries — Not For Them.
+                        </h2>
+                        <p class="text-[#333] leading-relaxed mb-8">
+                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, and Critical Infrastructure in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
                         </p>
+                        <button
+                            onclick="openModal()"
+                            class="inline-flex items-center gap-2 bg-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                        >
+                            Apply for Design Partnership →
+                        </button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 content-start">
+                        {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
+                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-[#0d0e10]/65 border border-dotted border-[#0d0e10]/20 px-3 py-1.5">{industry}</span>
+                        ))}
                     </div>
                 </div>
             </div>
