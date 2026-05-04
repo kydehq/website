@@ -22,51 +22,33 @@ import Footer from "../components/Footer.astro";
             <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 40% 35% at 100% 100%, #0d0e10 0%, transparent 100%);"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-                    <!-- Text -->
-                    <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
-                            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
-                        </div>
-                        <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
-                            <span id="hero-l1" style="display:block">The AI Control</span>
-                            <span id="hero-l2" style="display:block">Plane.</span>
-                        </h1>
-                        <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base text-white uppercase tracking-[0.12em] leading-snug max-w-md" style="opacity:0;transition:opacity 0.9s ease;">
-                            Turn your company agentic — without losing control over data, actions, or outcomes.
-                        </p>
-                        <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
-                            One environment variable · Under 100ms · Any provider · Zero code changes
-                        </p>
-                        <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
-                            <button
-                                onclick="openModal()"
-                                class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
-                            >
-                                Book Demo →
-                            </button>
-                            <a
-                                href="/platform"
-                                class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
-                            >
-                                See Platform →
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Dashboard screenshot -->
-                    <div class="hidden lg:flex flex-col" id="hero-img" style="opacity:0;transition:opacity 0.9s ease 0.7s;">
-                        <div class="border border-white/15 overflow-hidden shadow-2xl">
-                            <img src="/dashboard-overview.png" alt="KYDE Dashboard — Agent Fleet Overview" class="w-full block" />
-                        </div>
-                        <div class="mt-3 flex items-start justify-between gap-4">
-                            <p class="font-mono text-[10px] text-white/45 leading-relaxed">754 agent actions. 6 identities. Every entry signed.</p>
-                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] whitespace-nowrap bg-[#0a7c4e]/20 text-[#0a7c4e] border border-[#0a7c4e]/30 px-2 py-0.5">Data Integrity: Verified</span>
-                        </div>
-                    </div>
-
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
+                </div>
+                <h1 class="hero-h1 text-6xl text-white uppercase tracking-tighter md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
+                    <span id="hero-l1" style="display:block">The AI Control</span>
+                    <span id="hero-l2" style="display:block">Plane.</span>
+                </h1>
+                <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
+                    Turn your company agentic — without losing control over data, actions, or outcomes.
+                </p>
+                <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
+                    One environment variable · Under 100ms · Any provider · Zero code changes
+                </p>
+                <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
+                    <button
+                        onclick="openModal()"
+                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                    >
+                        Book Demo →
+                    </button>
+                    <a
+                        href="/platform"
+                        class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
+                    >
+                        See Platform →
+                    </a>
                 </div>
             </div>
         </section>
@@ -123,12 +105,10 @@ import Footer from "../components/Footer.astro";
   if (l1) scrambleLine(l1, "THE AI CONTROL", 200);
   const meta = document.getElementById("hero-meta") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  const heroImg = document.getElementById("hero-img") as HTMLElement;
   if (l2) scrambleLine(l2, "PLANE.", 200, () => {
     if (sub) sub.style.opacity = "1";
     if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
-    if (heroImg) heroImg.style.opacity = "1";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 180);
 
@@ -146,21 +126,32 @@ import Footer from "../components/Footer.astro";
                     </div>
                     <div class="h-px w-full bg-[#e8e9eb]"></div>
                 </div>
-                <div class="max-w-3xl">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10] mb-8">
-                        Your Agents Have No Identity. No Scope. No Audit Trail.
-                    </h2>
-                    <p class="text-lg text-[#333] leading-relaxed mb-6">
-                        AI agents are calling APIs, moving money, and making decisions across your critical systems — right now. Every governance tool on the market lives inside the agent.
-                    </p>
-                    <blockquote class="border-l-4 border-[#0d0e10] pl-6 my-8">
-                        <p class="text-xl md:text-2xl font-bold text-[#0d0e10]">
-                            If the agent can touch the lock, it can pick it.
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0d0e10] mb-8">
+                            Your Agents Have No Identity. No Scope. No Audit Trail.
+                        </h2>
+                        <p class="text-lg text-[#333] leading-relaxed mb-6">
+                            AI agents are calling APIs, moving money, and making decisions across your critical systems — right now. Every governance tool on the market lives inside the agent.
                         </p>
-                    </blockquote>
-                    <p class="text-lg font-semibold text-[#0d0e10]">
-                        KYDE enforces from outside — where the agent cannot reach.
-                    </p>
+                        <blockquote class="border-l-4 border-[#0d0e10] pl-6 my-8">
+                            <p class="text-xl md:text-2xl font-bold text-[#0d0e10]">
+                                If the agent can touch the lock, it can pick it.
+                            </p>
+                        </blockquote>
+                        <p class="text-lg font-semibold text-[#0d0e10]">
+                            KYDE enforces from outside — where the agent cannot reach.
+                        </p>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white shadow-sm">
+                            <img src="/dashboard-overview.png" alt="KYDE Dashboard — Agent Fleet Overview" class="w-full block" />
+                        </div>
+                        <div class="mt-3 flex items-start justify-between gap-4">
+                            <p class="font-mono text-[10px] text-[#555] leading-relaxed">754 agent actions. 6 identities. Every entry signed.</p>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] whitespace-nowrap bg-[#0a7c4e]/10 text-[#0a7c4e] border border-[#0a7c4e]/25 px-2 py-0.5">Data Integrity: Verified</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
