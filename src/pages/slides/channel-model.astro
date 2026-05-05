@@ -106,7 +106,9 @@
     }
     .tag-direct   { border-color: var(--z6); color: var(--z6); }
     .tag-break    { border-color: var(--am); color: var(--am); }
+    .tag-loss     { border-color: var(--re); color: var(--re); }
     .tag-profit   { border-color: var(--em); color: var(--em); background: rgba(10,124,78,.06); }
+    .rm-ebitda    { font-family: monospace; font-size: 11px; font-weight: 700; margin-top: 10px; }
 
     /* KPI grid */
     .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--bg2); margin-bottom: 24px; }
@@ -283,7 +285,8 @@
         <p class="rm-arr" id="rm-arr-1">€323k</p>
         <p class="rm-cust" id="rm-cust-1">5 Customers</p>
         <span class="rm-tag tag-direct">Direct Only</span>
-        <p style="margin-top:10px;font-size:10.5px;color:var(--z5);line-height:1.5">
+        <p class="rm-ebitda" id="rm-ebitda-1">—</p>
+        <p style="margin-top:6px;font-size:10.5px;color:var(--z5);line-height:1.5">
           Signed pilots in regulated sectors. Prove product works, document compliance outcomes, build reference cases.
         </p>
       </div>
@@ -291,8 +294,9 @@
         <p class="rm-year">↳ Year 2 — Direct + First Channel</p>
         <p class="rm-arr" id="rm-arr-2">—</p>
         <p class="rm-cust" id="rm-cust-2">—</p>
-        <span class="rm-tag tag-break">Break-even</span>
-        <p style="margin-top:10px;font-size:10.5px;color:var(--z5);line-height:1.5">
+        <span class="rm-tag" id="rm-tag-2">—</span>
+        <p class="rm-ebitda" id="rm-ebitda-2">—</p>
+        <p style="margin-top:6px;font-size:10.5px;color:var(--z5);line-height:1.5">
           First T-Systems / BSH-type channel partnerships active. Channel customers add without proportional sales headcount.
         </p>
       </div>
@@ -300,8 +304,9 @@
         <p class="rm-year">↳ Year 3 — Scale via Channel</p>
         <p class="rm-arr" id="rm-arr-3">—</p>
         <p class="rm-cust" id="rm-cust-3">—</p>
-        <span class="rm-tag tag-profit" id="rm-tag-3">Profitable · No Follow-on</span>
-        <p style="margin-top:10px;font-size:10.5px;color:var(--z5);line-height:1.5">
+        <span class="rm-tag" id="rm-tag-3">—</span>
+        <p class="rm-ebitda" id="rm-ebitda-3">—</p>
+        <p style="margin-top:6px;font-size:10.5px;color:var(--z5);line-height:1.5">
           Channel accounts for majority of new logos. KYDE team stays lean — margin compresses slightly, volume compensates.
         </p>
       </div>
@@ -554,6 +559,25 @@
     document.getElementById('rm-arr-3').textContent = fmt(d.arr[2]);
     document.getElementById('rm-cust-2').textContent = d.cust[1] + ' Customers';
     document.getElementById('rm-cust-3').textContent = d.cust[2] + ' Customers';
+
+    // Roadmap — dynamic EBITDA per year
+    [0, 1, 2].forEach(i => {
+      const eb = d.ebitda[i];
+      const mgn = d.arr[i] > 0 ? (eb / d.arr[i] * 100) : 0;
+      const el = document.getElementById('rm-ebitda-' + (i + 1));
+      el.textContent = (eb >= 0 ? 'EBITDA ' : 'Loss ') + fmt(Math.abs(eb)) + ' (' + pct(Math.abs(mgn)) + ')';
+      el.style.color = eb >= 0 ? 'var(--em)' : 'var(--re)';
+    });
+
+    // Roadmap — dynamic tags
+    const tag2 = document.getElementById('rm-tag-2');
+    tag2.textContent = d.ebitda[1] >= 0 ? 'Break-even ✓' : 'Pre-Profit';
+    tag2.className = 'rm-tag ' + (d.ebitda[1] >= 0 ? 'tag-break' : 'tag-loss');
+
+    const tag3 = document.getElementById('rm-tag-3');
+    const cashPositive = d.cashEnd[2] > 0;
+    tag3.textContent = d.ebitda[2] >= 0 ? (cashPositive ? 'Profitable · No Follow-on' : 'Profitable') : 'Loss Y3';
+    tag3.className = 'rm-tag ' + (d.ebitda[2] >= 0 ? 'tag-profit' : 'tag-loss');
 
     // No-follow-on
     const cashY3 = d.cashEnd[2];
