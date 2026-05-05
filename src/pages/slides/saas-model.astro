@@ -352,7 +352,7 @@
 
     <div class="input-row">
       <div class="input-label"><span>Enterprise avg agents</span><span class="val" id="v-enterprise-agents">600</span></div>
-      <input type="range" id="enterprise-agents" min="100" max="5000" step="100" value="1000" />
+      <input type="range" id="enterprise-agents" min="100" max="5000" step="100" value="600" />
     </div>
   </div>
 
@@ -367,12 +367,12 @@
 
     <div class="input-row">
       <div class="input-label"><span>Customers Year 2</span><span class="val" id="v-c2">20</span></div>
-      <input type="range" id="c2" min="5" max="150" step="5" value="50" />
+      <input type="range" id="c2" min="5" max="150" step="5" value="20" />
     </div>
 
     <div class="input-row">
       <div class="input-label"><span>Customers Year 3</span><span class="val" id="v-c3">60</span></div>
-      <input type="range" id="c3" min="10" max="300" step="10" value="150" />
+      <input type="range" id="c3" min="10" max="300" step="10" value="60" />
     </div>
 
     <div class="input-row">
@@ -393,7 +393,7 @@
 
     <div class="input-row">
       <div class="input-label"><span>CAC (blended)</span><span class="val" id="v-cac">€15k</span></div>
-      <input type="range" id="cac" min="2000" max="80000" step="1000" value="40000" />
+      <input type="range" id="cac" min="2000" max="80000" step="1000" value="15000" />
       <p class="sub-note">Sales + onboarding per new logo</p>
     </div>
 
@@ -410,7 +410,7 @@
 
     <div class="input-row">
       <div class="input-label"><span>Team Growth / yr</span><span class="val" id="v-hc-growth">1.5×</span></div>
-      <input type="range" id="hc-growth" min="1.0" max="3.0" step="0.1" value="1.3" />
+      <input type="range" id="hc-growth" min="1.0" max="3.0" step="0.1" value="1.5" />
       <p class="sub-note">HC + marketing scale factor per year</p>
     </div>
 
@@ -421,7 +421,7 @@
 
     <div class="input-row">
       <div class="input-label"><span>Marketing / mo (Y1)</span><span class="val" id="v-mkt">€10k</span></div>
-      <input type="range" id="mkt" min="0" max="100000" step="2500" value="50000" />
+      <input type="range" id="mkt" min="0" max="100000" step="2500" value="10000" />
       <p class="sub-note">SEO, content, events, paid</p>
     </div>
   </div>
@@ -905,6 +905,7 @@
             <tbody id="tier-tbody"></tbody>
           </table>
         </div>
+        <div class="soundbite" style="margin-top:12px" id="sb-enterprise-acv"></div>
       </div>
     </div>
   </div>
@@ -1202,10 +1203,9 @@
     const mktAnnualY1     = p.mkt * 12;
     const headcountCost   = headcountCostY1; // alias for Y1 burn calc below
     const mktAnnual       = mktAnnualY1;
-    const opex = years.map((_, i) => {
-      const scale = Math.pow(p.hcGrowth, i);
-      return headcountCostY1 * scale + mktAnnualY1 * scale;
-    });
+    const headcountCostByYear = years.map((_, i) => headcountCostY1 * Math.pow(p.hcGrowth, i));
+    const mktAnnualByYear     = years.map((_, i) => mktAnnualY1     * Math.pow(p.hcGrowth, i));
+    const opex = years.map((_, i) => headcountCostByYear[i] + mktAnnualByYear[i]);
     // Derived: FTE count per year (for display)
     const hcY = years.map((_, i) => Math.round(p.hc * Math.pow(p.hcGrowth, i)));
 
@@ -1264,6 +1264,7 @@
       burnMultiple, magicNumber, arrPerFte, hcY,
       newArr, expansionArr, churnArr, monthlyRev36,
       headcountCost, mktAnnual,
+      headcountCostByYear, mktAnnualByYear,
     };
   }
 
@@ -1344,8 +1345,13 @@
       }
     });
     const entPct = d.enterpriseRev[2] / d.totalARR[2] * 100;
+    const growthAssumptionNote = p.agentGrowth >= 2.5
+      ? `⚠ ${p.agentGrowth.toFixed(1)}× agent growth is the Upside Case (Jensen 100:1 ratio, Sequoia $1T services thesis). Base Case ≈ 2×. Project A will probe this — have pilot data ready.`
+      : p.agentGrowth >= 1.8
+        ? `${p.agentGrowth.toFixed(1)}× agent growth — conservative-to-base range. Defensible with pilot data.`
+        : `${p.agentGrowth.toFixed(1)}× agent growth — conservative base case.`;
     document.getElementById('sb-arr').textContent =
-      `Year 3 ARR: ${fmt(d.totalARR[2])} across ${d.customers[2]} customers. Enterprise (${d.enterpriseC[2]} customers) contributes ${pct(entPct)} of revenue. Business tier: ${d.businessC[2]} customers.`;
+      `Year 3 ARR: ${fmt(d.totalARR[2])} across ${d.customers[2]} customers. Enterprise (${d.enterpriseC[2]} customers) contributes ${pct(entPct)} of revenue. ${growthAssumptionNote}`;
 
     // Waterfall Chart
     const wfData = [d.totalARR[1], d.newArr, d.expansionArr, -d.churnArr, d.totalARR[2]];
@@ -1566,6 +1572,15 @@
       </tr>`;
     }).join('');
 
+    // Enterprise ACV footnote
+    const entC3 = d.enterpriseC[2];
+    const entAgentsY3 = Math.round(d.enterpriseAgentsY[2]);
+    const entPlatformFeeAnnual = p.enterpriseBase * 12;
+    const entAgentFeeAnnual    = entAgentsY3 * p.enterprisePerAgent * 12;
+    const entAcvTotal          = entC3 > 0 ? d.enterpriseRev[2] / entC3 : 0;
+    const sbEntEl = document.getElementById('sb-enterprise-acv');
+    if (sbEntEl) sbEntEl.innerHTML = `<p>Enterprise ACV assumption (Y3 avg): <strong>${fmt(entAcvTotal)}</strong> = Platform €${(entPlatformFeeAnnual/1000).toFixed(0)}k/yr (€${(p.enterpriseBase/1000).toFixed(0)}k/mo) + Agent fees ${fmt(entAgentFeeAnnual)} (${entAgentsY3} agents × €${p.enterprisePerAgent} × 12). Pitch deck shows "€CUSTOM" — document this split explicitly before Project A.</p>`;
+
     // P&L Table
     const plbody = document.getElementById('pl-tbody');
     const plLines = [
@@ -1576,8 +1591,8 @@
       ['COGS (Infra, Signing, Storage)', d.cogs.map(v => -v),  're'],
       ['GROSS PROFIT',          d.grossProfit,                  'em'],
       ['Gross Margin %',        d.grossMargin.map(v => v*100),  null, true],
-      ['Headcount',             [d.headcountCost, d.headcountCost, d.headcountCost].map(v => -v), 're'],
-      ['Marketing',             [d.mktAnnual, d.mktAnnual, d.mktAnnual].map(v => -v), 're'],
+      [`Headcount (${d.hcY[0]}/${d.hcY[1]}/${d.hcY[2]} FTEs)`, d.headcountCostByYear.map(v => -v), 're'],
+      [`Marketing (×${p.hcGrowth.toFixed(1)}/yr)`,             d.mktAnnualByYear.map(v => -v), 're'],
       ['TOTAL OPEX',            d.opex.map(v => -v),            're'],
       ['EBITDA',                d.ebitda,                       null],
       ['EBITDA Margin %',       d.ebitdaMargin.map(v => v*100), null, true],
@@ -1634,6 +1649,7 @@
   Object.entries(inputs).forEach(([key, cfg]) => {
     const el = document.getElementById(cfg.el);
     if (!el) return;
+    document.getElementById(cfg.out).textContent = cfg.fmt(el.value);
     el.addEventListener('input', () => {
       document.getElementById(cfg.out).textContent = cfg.fmt(el.value);
       render();
