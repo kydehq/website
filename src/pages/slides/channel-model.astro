@@ -212,6 +212,11 @@
       <p class="sub-note">Compliance SW enterprise: typically 5–10%</p>
     </div>
     <div class="input-row">
+      <div class="input-label"><span>ACV Expansion /yr</span><span class="val" id="v-acv-exp">2.0×</span></div>
+      <input type="range" id="acv-exp" min="1.1" max="4.0" step="0.1" value="2.0" />
+      <p class="sub-note">Agent fleet 3× → revenue ~2× (volume discounts apply)</p>
+    </div>
+    <div class="input-row">
       <div class="input-label"><span>Direct CAC</span><span class="val" id="v-cac">€12k</span></div>
       <input type="range" id="cac" min="2000" max="60000" step="1000" value="12000" />
       <p class="sub-note">Channel CAC auto: 40% of direct (partner sells)</p>
@@ -250,17 +255,17 @@
     <div class="section-label">↳ SCENARIO</div>
     <div class="scen-bar">
       <button class="scen-btn active" id="scen-conservative" onclick="setScenario('conservative')">
-        Conservative
+        Base Case
         <span class="scen-arr">€6.6M</span>
         <span class="scen-cust">5 → 25 → 70 customers</span>
       </button>
       <button class="scen-btn" id="scen-base" onclick="setScenario('base')">
-        Base Case
+        Upside
         <span class="scen-arr">€8.1M</span>
         <span class="scen-cust">5 → 30 → 90 customers</span>
       </button>
       <button class="scen-btn" id="scen-upside" onclick="setScenario('upside')">
-        Upside
+        Bull Case
         <span class="scen-arr">€10.1M</span>
         <span class="scen-cust">5 → 35 → 120 customers</span>
       </button>
@@ -297,7 +302,7 @@
         <span class="rm-tag" id="rm-tag-2">—</span>
         <p class="rm-ebitda" id="rm-ebitda-2">—</p>
         <p style="margin-top:6px;font-size:10.5px;color:var(--z5);line-height:1.5">
-          First T-Systems / BSH-type channel partnerships active. Channel customers add without proportional sales headcount.
+          First T-Systems / Bechtle-type channel partnerships active. Channel customers add without proportional sales headcount.
         </p>
       </div>
       <div class="rm-card" style="border-top:3px solid var(--em)">
@@ -465,8 +470,9 @@
     chDisc:   { el: 'ch-disc',  fmt: v => v + '%',                            out: 'v-ch-disc' },
     cogs:     { el: 'cogs',     fmt: v => v + '%',                            out: 'v-cogs' },
     mkt:      { el: 'mkt',      fmt: v => '€' + Math.round(v / 1000) + 'k',  out: 'v-mkt' },
-    churn:    { el: 'churn',    fmt: v => v + '%',                            out: 'v-churn' },
-    cac:      { el: 'cac',      fmt: v => '€' + Math.round(v / 1000) + 'k',  out: 'v-cac' },
+    churn:    { el: 'churn',    fmt: v => v + '%',                                    out: 'v-churn' },
+    acvExp:   { el: 'acv-exp', fmt: v => parseFloat(v).toFixed(1) + '×',           out: 'v-acv-exp' },
+    cac:      { el: 'cac',      fmt: v => '€' + Math.round(v / 1000) + 'k',        out: 'v-cac' },
   };
 
   function getP() {
@@ -479,6 +485,7 @@
       cogs:     +document.getElementById('cogs').value / 100,
       mkt:      +document.getElementById('mkt').value,
       churn:    +document.getElementById('churn').value / 100,
+      acvExp:   +document.getElementById('acv-exp').value,
       cacDirect:+document.getElementById('cac').value,
     };
   }
@@ -518,10 +525,9 @@
     const acvY3 = acvByYear[2];
     const acvY1 = acvByYear[0];
 
-    // ACV expansion rate: compound annual growth Y1→Y3
-    const acvExpansion = acvByYear[0] > 0 ? Math.pow(acvByYear[2] / acvByYear[0], 0.5) - 1 : 0;
-    // NRR = (1 - churn) × (1 + acv_expansion) — >100% means base grows without new logos
-    const nrr = (1 - p.churn) * (1 + acvExpansion);
+    // NRR = retention × ACV expansion rate (expansion driven by agent fleet growth, set via slider)
+    // 3× agents → ~2× ACV (volume discounts); slider lets investor stress-test this assumption
+    const nrr = (1 - p.churn) * p.acvExp;
 
     // New logos needed per year after churn from prior cohort
     const newLogos = [
@@ -616,10 +622,8 @@
     // NRR
     const nrrPct = d.nrr * 100;
     document.getElementById('kpi-nrr').textContent = pct(nrrPct);
-    document.getElementById('kpi-nrr').className = 'kpi-value ' + (nrrPct >= 115 ? 'kpi-good' : nrrPct >= 100 ? 'kpi-warn' : 'kpi-bad');
-    document.getElementById('kpi-nrr-sub').textContent = nrrPct >= 100
-      ? `Expansion offsets churn — base self-grows (${pct(p.churn*100)} churn)`
-      : `Churn (${pct(p.churn*100)}) exceeds expansion — fix retention`;
+    document.getElementById('kpi-nrr').className = 'kpi-value ' + (nrrPct >= 150 ? 'kpi-good' : nrrPct >= 120 ? 'kpi-warn' : 'kpi-bad');
+    document.getElementById('kpi-nrr-sub').textContent = `${p.acvExp.toFixed(1)}× ACV expansion × ${pct((1 - p.churn) * 100)} retention`;
 
     // LTV / CAC (blended Y3)
     const ltvCacVal = d.ltvCac;
