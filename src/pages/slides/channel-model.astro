@@ -109,7 +109,7 @@
     .tag-profit   { border-color: var(--em); color: var(--em); background: rgba(10,124,78,.06); }
 
     /* KPI grid */
-    .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--bg2); margin-bottom: 24px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--bg2); margin-bottom: 24px; }
     .kpi { background: var(--bg1); padding: 14px 16px; }
     .kpi-label { font-family: monospace; font-size: 8px; letter-spacing: .22em; color: var(--z6); text-transform: uppercase; margin-bottom: 6px; }
     .kpi-value { font-size: 21px; font-weight: 800; letter-spacing: -.03em; line-height: 1; margin-bottom: 3px; }
@@ -199,6 +199,20 @@
     <div class="input-row">
       <div class="input-label"><span>Marketing Y1 /mo</span><span class="val" id="v-mkt">€15k</span></div>
       <input type="range" id="mkt" min="0" max="60000" step="2500" value="15000" />
+    </div>
+  </div>
+
+  <div class="sb-group">
+    <div class="sb-group-label">↳ Retention & Acquisition</div>
+    <div class="input-row">
+      <div class="input-label"><span>Annual Logo Churn</span><span class="val" id="v-churn">7%</span></div>
+      <input type="range" id="churn" min="0" max="25" step="1" value="7" />
+      <p class="sub-note">Compliance SW enterprise: typically 5–10%</p>
+    </div>
+    <div class="input-row">
+      <div class="input-label"><span>Direct CAC</span><span class="val" id="v-cac">€12k</span></div>
+      <input type="range" id="cac" min="2000" max="60000" step="1000" value="12000" />
+      <p class="sub-note">Channel CAC auto: 40% of direct (partner sells)</p>
     </div>
   </div>
 
@@ -297,12 +311,29 @@
   <!-- KPI ROW -->
   <div class="section">
     <div class="section-label">↳ KEY METRICS — YEAR 3</div>
-    <div class="kpi-grid">
+    <div class="kpi-grid" style="margin-bottom:1px">
       <div class="kpi">
         <p class="kpi-label">ARR Year 3</p>
         <p class="kpi-value kpi-neutral" id="kpi-arr">—</p>
         <p class="kpi-sub" id="kpi-arr-sub">—</p>
       </div>
+      <div class="kpi">
+        <p class="kpi-label">Avg ACV Y3</p>
+        <p class="kpi-value kpi-neutral" id="kpi-acv">—</p>
+        <p class="kpi-sub" id="kpi-acv-sub">Agent-fleet expansion drives growth</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Net Revenue Retention</p>
+        <p class="kpi-value" id="kpi-nrr">—</p>
+        <p class="kpi-sub" id="kpi-nrr-sub">Expansion − churn · &gt;100% = no-brainer</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">LTV / CAC</p>
+        <p class="kpi-value" id="kpi-ltvcac">—</p>
+        <p class="kpi-sub" id="kpi-ltvcac-sub">Blended · target &gt;5×</p>
+      </div>
+    </div>
+    <div class="kpi-grid">
       <div class="kpi">
         <p class="kpi-label">Blended Gross Margin</p>
         <p class="kpi-value" id="kpi-gm">—</p>
@@ -314,14 +345,14 @@
         <p class="kpi-sub" id="kpi-ebitda-sub">—</p>
       </div>
       <div class="kpi">
+        <p class="kpi-label">Monthly Burn Y1</p>
+        <p class="kpi-value kpi-warn" id="kpi-burn">—</p>
+        <p class="kpi-sub" id="kpi-runway-sub">— months of runway from raise</p>
+      </div>
+      <div class="kpi">
         <p class="kpi-label">Cash End Y3</p>
         <p class="kpi-value" id="kpi-cash">—</p>
         <p class="kpi-sub">Raise + cumulative EBITDA</p>
-      </div>
-      <div class="kpi">
-        <p class="kpi-label">Avg ACV Y3</p>
-        <p class="kpi-value kpi-neutral" id="kpi-acv">—</p>
-        <p class="kpi-sub" id="kpi-acv-sub">Per customer · growing via agents</p>
       </div>
     </div>
   </div>
@@ -368,21 +399,13 @@
     </div>
 
     <div>
-      <div class="section-label">↳ WHY CHANNEL WINS</div>
-      <div class="chart-card" style="padding:0;overflow:hidden">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th style="text-align:right">Year 1</th>
-              <th style="text-align:right">Year 2</th>
-              <th style="text-align:right">Year 3</th>
-            </tr>
-          </thead>
-          <tbody id="ch-tbody"></tbody>
-        </table>
+      <div class="section-label">↳ UNIT ECONOMICS</div>
+      <div class="chart-card">
+        <p class="chart-title">LTV vs. CAC — Direct & Channel</p>
+        <p class="chart-desc" id="ltvcac-desc">Customer Lifetime Value vs. acquisition cost per channel</p>
+        <div class="chart-wrap"><canvas id="chart-ltvcac"></canvas></div>
       </div>
-      <div class="soundbite"><p id="sb-channel">—</p></div>
+      <div class="soundbite"><p id="sb-ltvcac">—</p></div>
     </div>
   </div>
 
@@ -437,6 +460,8 @@
     chDisc:   { el: 'ch-disc',  fmt: v => v + '%',                            out: 'v-ch-disc' },
     cogs:     { el: 'cogs',     fmt: v => v + '%',                            out: 'v-cogs' },
     mkt:      { el: 'mkt',      fmt: v => '€' + Math.round(v / 1000) + 'k',  out: 'v-mkt' },
+    churn:    { el: 'churn',    fmt: v => v + '%',                            out: 'v-churn' },
+    cac:      { el: 'cac',      fmt: v => '€' + Math.round(v / 1000) + 'k',  out: 'v-cac' },
   };
 
   function getP() {
@@ -448,6 +473,8 @@
       chDisc:   +document.getElementById('ch-disc').value / 100,
       cogs:     +document.getElementById('cogs').value / 100,
       mkt:      +document.getElementById('mkt').value,
+      churn:    +document.getElementById('churn').value / 100,
+      cacDirect:+document.getElementById('cac').value,
     };
   }
 
@@ -482,10 +509,38 @@
     // Cumulative cash: raise invested at start, then add each year's EBITDA
     const cashEnd = YRS.map((_, i) => p.raise + ebitda.slice(0, i + 1).reduce((s, v) => s + v, 0));
 
-    const acvY3 = cust[2] > 0 ? arr[2] / cust[2] : 0;
-    const acvY1 = cust[0] > 0 ? arr[0] / cust[0] : 0;
+    const acvByYear = arr.map((a, i) => cust[i] > 0 ? a / cust[i] : 0);
+    const acvY3 = acvByYear[2];
+    const acvY1 = acvByYear[0];
 
-    return { arr, cust, cmix, dirRev, chRevGross, chFees, netRev, cogsCost, grossProfit, blendedGM, hcCost, mktCost, opex, hcFTE, ebitda, ebitdaMgn, cashEnd, acvY3, acvY1 };
+    // ACV expansion rate: compound annual growth Y1→Y3
+    const acvExpansion = acvByYear[0] > 0 ? Math.pow(acvByYear[2] / acvByYear[0], 0.5) - 1 : 0;
+    // NRR = (1 - churn) × (1 + acv_expansion) — >100% means base grows without new logos
+    const nrr = (1 - p.churn) * (1 + acvExpansion);
+
+    // New logos needed per year after churn from prior cohort
+    const newLogos = [
+      cust[0],
+      Math.max(0, cust[1] - Math.round(cust[0] * (1 - p.churn))),
+      Math.max(0, cust[2] - Math.round(cust[1] * (1 - p.churn))),
+    ];
+
+    // CAC by channel type
+    const cacChannel = p.cacDirect * 0.40;
+    // Blended CAC per year — channel mix shifts over time
+    const blendedCAC = YRS.map(i => (1 - cmix[i]) * p.cacDirect + cmix[i] * cacChannel);
+
+    // LTV using Y3 ACV and blended GM, divided by annual churn rate
+    const ltvDirect  = acvByYear[2] * (1 - p.cogs) / Math.max(p.churn, 0.01);
+    const ltvChannel = acvByYear[2] * Math.max(0, 1 - p.chDisc - p.cogs) / Math.max(p.churn, 0.01);
+    const ltv        = acvByYear[2] * blendedGM[2] / Math.max(p.churn, 0.01);
+    const ltvCac     = blendedCAC[2] > 0 ? ltv / blendedCAC[2] : 0;
+
+    // Monthly burn & runway
+    const monthlyBurnY1 = opex[0] / 12;
+    const runwayMonths  = monthlyBurnY1 > 0 ? Math.round(p.raise / monthlyBurnY1) : 99;
+
+    return { arr, cust, cmix, dirRev, chRevGross, chFees, netRev, cogsCost, grossProfit, blendedGM, hcCost, mktCost, opex, hcFTE, ebitda, ebitdaMgn, cashEnd, acvY3, acvY1, acvByYear, nrr, newLogos, cacChannel, blendedCAC, ltv, ltvDirect, ltvChannel, ltvCac, monthlyBurnY1, runwayMonths };
   }
 
   // ── RENDER ──
@@ -529,6 +584,24 @@
 
     document.getElementById('kpi-acv').textContent = fmt(d.acvY3);
     document.getElementById('kpi-acv-sub').textContent = `Y1: ${fmt(d.acvY1)} → Y3: ${fmt(d.acvY3)}`;
+
+    // NRR
+    const nrrPct = d.nrr * 100;
+    document.getElementById('kpi-nrr').textContent = pct(nrrPct);
+    document.getElementById('kpi-nrr').className = 'kpi-value ' + (nrrPct >= 115 ? 'kpi-good' : nrrPct >= 100 ? 'kpi-warn' : 'kpi-bad');
+    document.getElementById('kpi-nrr-sub').textContent = nrrPct >= 100
+      ? `Expansion offsets churn — base self-grows (${pct(p.churn*100)} churn)`
+      : `Churn (${pct(p.churn*100)}) exceeds expansion — fix retention`;
+
+    // LTV / CAC (blended Y3)
+    const ltvCacVal = d.ltvCac;
+    document.getElementById('kpi-ltvcac').textContent = ltvCacVal.toFixed(1) + '×';
+    document.getElementById('kpi-ltvcac').className = 'kpi-value ' + (ltvCacVal >= 7 ? 'kpi-good' : ltvCacVal >= 4 ? 'kpi-warn' : 'kpi-bad');
+    document.getElementById('kpi-ltvcac-sub').textContent = `LTV ${fmt(d.ltv)} ÷ CAC ${fmt(d.blendedCAC[2])} (blended Y3)`;
+
+    // Monthly burn Y1 + runway
+    document.getElementById('kpi-burn').textContent = fmt(d.monthlyBurnY1);
+    document.getElementById('kpi-runway-sub').textContent = d.runwayMonths + ' months runway from seed raise';
 
     // P&L
     const plLines = [
@@ -620,31 +693,33 @@
       },
     });
 
-    // Channel table
-    const chRows = [
-      { label: 'Total Customers',   vals: d.cust },
-      { label: 'Direct Customers',  vals: d.cust.map((c, i) => Math.round(c * (1 - d.cmix[i]))) },
-      { label: 'Channel Customers', vals: d.cust.map((c, i) => Math.round(c * d.cmix[i])) },
-      { label: 'Customers / FTE',   vals: d.cust.map((c, i) => (c / d.hcFTE[i]).toFixed(1)), noFmt: true },
-      { label: 'Channel Fees Paid', vals: d.chFees, isMoney: true },
-      { label: 'Blended Gross Margin', vals: d.blendedGM.map(v => v * 100), isPct: true },
-    ];
-    document.getElementById('ch-tbody').innerHTML = chRows.map(row => `
-      <tr>
-        <td style="color:var(--z5)">${row.label}</td>
-        ${row.vals.map((v, i) => {
-          let color = 'var(--z3)';
-          if (row.isPct) color = v > 83 ? 'var(--em)' : v > 70 ? 'var(--am)' : 'var(--re)';
-          if (row.isMoney && v > 0) color = 'var(--re)';
-          const display = row.isPct ? pct(v) : row.isMoney ? fmt(v) : row.noFmt ? v : v;
-          return `<td class="num" style="color:${color}">${display}</td>`;
-        }).join('')}
-      </tr>`).join('');
+    // LTV vs. CAC chart — direct and channel side by side
+    const ltvDirect  = d.ltvDirect;
+    const ltvChannel = d.ltvChannel;
+    const ltvCacDirect  = p.cacDirect > 0 ? ltvDirect / p.cacDirect : 0;
+    const ltvCacChannel = d.cacChannel > 0 ? ltvChannel / d.cacChannel : 0;
 
-    const custPerFTE3 = (d.cust[2] / d.hcFTE[2]).toFixed(1);
+    mkChart('chart-ltvcac', {
+      type: 'bar',
+      data: {
+        labels: ['Direct', 'Channel'],
+        datasets: [
+          { label: 'LTV',  data: [ltvDirect, ltvChannel], backgroundColor: EM },
+          { label: 'CAC',  data: [p.cacDirect, d.cacChannel], backgroundColor: Z5 },
+        ],
+      },
+      options: {
+        ...CHART_BASE,
+        plugins: {
+          ...CHART_BASE.plugins,
+          tooltip: { ...CHART_BASE.plugins.tooltip, callbacks: { label: c => ' ' + c.dataset.label + ': ' + fmt(c.raw) } },
+        },
+      },
+    });
+
     const chPctY3 = Math.round(d.cmix[2] * 100);
-    document.getElementById('sb-channel').textContent =
-      `${chPctY3}% of Y3 revenue via channel. Each FTE supports ${custPerFTE3} customers in Y3 vs. ${(d.cust[0] / d.hcFTE[0]).toFixed(1)} in Y1. Channel prevents 1:1 sales-headcount scaling — that's the structural advantage for Project A.`;
+    document.getElementById('sb-ltvcac').textContent =
+      `Direct: LTV/CAC ${ltvCacDirect.toFixed(1)}× (${fmt(ltvDirect)} ÷ ${fmt(p.cacDirect)}) · Channel: ${ltvCacChannel.toFixed(1)}× (${fmt(ltvChannel)} ÷ ${fmt(d.cacChannel)}) — channel CAC is 40% of direct, ${chPctY3}% of Y3 revenue via partner.`;
   }
 
   // ── SCENARIO SWITCHER ──
