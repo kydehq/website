@@ -318,14 +318,14 @@
     <div class="section-label">↳ KEY METRICS — YEAR 3</div>
     <div class="kpi-grid" style="margin-bottom:1px">
       <div class="kpi">
-        <p class="kpi-label">ARR Year 3</p>
+        <p class="kpi-label">Net Revenue Y3</p>
         <p class="kpi-value kpi-neutral" id="kpi-arr">—</p>
         <p class="kpi-sub" id="kpi-arr-sub">—</p>
       </div>
       <div class="kpi">
-        <p class="kpi-label">Avg ACV Y3</p>
+        <p class="kpi-label">Customers / FTE Y3</p>
         <p class="kpi-value kpi-neutral" id="kpi-acv">—</p>
-        <p class="kpi-sub" id="kpi-acv-sub">Agent-fleet expansion drives growth</p>
+        <p class="kpi-sub" id="kpi-acv-sub">—</p>
       </div>
       <div class="kpi">
         <p class="kpi-label">Net Revenue Retention</p>
@@ -590,8 +590,15 @@
     document.getElementById('sb-chmix-y3').textContent = Math.round(sc.channelMix[2] * 100) + '% Channel';
 
     // KPIs
-    document.getElementById('kpi-arr').textContent = fmt(d.arr[2]);
-    document.getElementById('kpi-arr-sub').textContent = d.cust[2] + ' customers · ' + Math.round(d.cmix[2] * 100) + '% via channel';
+    // Net Revenue Y3 (Gross ARR minus channel fees — reacts to partner margin slider)
+    const netRev3 = d.netRev[2];
+    document.getElementById('kpi-arr').textContent = fmt(netRev3);
+    document.getElementById('kpi-arr-sub').textContent = `Gross ARR ${fmt(d.arr[2])} − ${fmt(d.chFees[2])} channel fees`;
+
+    // Customers / FTE Y3 (shows scaling efficiency — reacts to hc + hcGrowth sliders)
+    const custPerFte3 = (d.cust[2] / d.hcFTE[2]);
+    document.getElementById('kpi-acv').textContent = custPerFte3.toFixed(1) + '×';
+    document.getElementById('kpi-acv-sub').textContent = `${d.cust[2]} customers · ${d.hcFTE[2]} FTEs · Y1: ${(d.cust[0]/d.hcFTE[0]).toFixed(1)}×`;
 
     const gm3 = d.blendedGM[2] * 100;
     document.getElementById('kpi-gm').textContent = pct(gm3);
@@ -605,9 +612,6 @@
 
     document.getElementById('kpi-cash').textContent = fmt(cashY3);
     document.getElementById('kpi-cash').className = 'kpi-value ' + (cashY3 > 3e6 ? 'kpi-good' : cashY3 > 0 ? 'kpi-warn' : 'kpi-bad');
-
-    document.getElementById('kpi-acv').textContent = fmt(d.acvY3);
-    document.getElementById('kpi-acv-sub').textContent = `Y1: ${fmt(d.acvY1)} → Y3: ${fmt(d.acvY3)}`;
 
     // NRR
     const nrrPct = d.nrr * 100;
