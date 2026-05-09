@@ -239,14 +239,15 @@ import Footer from "../components/Footer.astro";
                     <div class="flex flex-col gap-6">
                         <div class="grid grid-cols-2 gap-3">
                             {[
-                                { name: "NIS-2", status: "In force" },
-                                { name: "DORA", status: "In force: Jan 2025" },
-                                { name: "EU AI Act", status: "Phasing in 2026" },
-                                { name: "GDPR 35", status: "In force" },
-                            ].map(({ name, status }) => (
+                                { name: "NIS-2",     status: "In force",          desc: "~160,000 companies in DE/EU. Critical + important sectors." },
+                                { name: "DORA",      status: "In force: Jan 2025", desc: "Financial entity resilience requirements." },
+                                { name: "EU AI Act", status: "Phasing in 2026",   desc: "High-risk AI audit trail &amp; logging requirements." },
+                                { name: "GDPR 35",   status: "In force",          desc: "Automated processing DPIA obligations." },
+                            ].map(({ name, status, desc }) => (
                                 <div class="border border-dotted border-[#0d0e10]/20 bg-[#dae4e5]/30 p-4">
                                     <p class="font-mono text-xs font-bold text-[#0d0e10] uppercase tracking-wide mb-1">{name}</p>
-                                    <p class="font-mono text-[10px] text-[#0a7c4e]">{status}</p>
+                                    <p class="font-mono text-[10px] text-[#0a7c4e] mb-2">{status}</p>
+                                    <p class="text-xs text-[#555] leading-snug">{desc}</p>
                                 </div>
                             ))}
                         </div>
