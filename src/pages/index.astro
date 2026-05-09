@@ -26,7 +26,7 @@ import Footer from "../components/Footer.astro";
                     <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
                     <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
                 </div>
-                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
+                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">Make AI Agents</span>
                     <span id="hero-l2" style="display:block">Safe For</span>
                     <span id="hero-l3" style="display:block">Production.</span>
@@ -54,11 +54,6 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-<style>
-  @keyframes heroFadeIn {
-    to { opacity: 1; }
-  }
-</style>
 
 <script>
   const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -113,7 +108,7 @@ import Footer from "../components/Footer.astro";
     if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
   });
-  setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 180);
+  setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
 
   const vid = document.querySelector(".hero-video") as HTMLVideoElement;
   if (vid) vid.play().catch(() => {});
