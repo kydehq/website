@@ -154,6 +154,107 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
+        <!-- ══════════ ABSOLUTE CONTROL ══════════ -->
+        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Absolute Control</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <div class="flex flex-col">
+                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white shadow-sm">
+                            <img src="/dlp-alert-redacted.png" alt="DLP alert — PII detected and masked" class="w-full block saturate-75 brightness-90" />
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
+                            PII detected. Email masked. Context redacted by role — before the auditor could see it.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                            Stop Agent Threats<br />Before They Execute.
+                        </h2>
+                        <p class="text-lg text-[#333] leading-relaxed mb-6">
+                            AI agents don't just leak data — they act. Prompt injections, scope violations, unauthorized tool calls: traditional DLP doesn't see agent traffic. KYDE intercepts every action at the network layer before it reaches your systems.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Block out-of-scope requests in real time",
+                                "Attribute every action to a verified agent identity",
+                                "Detect PII in prompts and completions — masked by role",
+                                "Full bidirectional audit trail, independent of your LLM provider",
+                            ].map(item => (
+                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
+                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
+                            Explore Security Use Cases →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ AUDIT-READY ══════════ -->
+        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Audit-Ready</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                            Audit-Ready<br />From Day One.
+                        </h2>
+                        <p class="text-lg text-[#333] leading-relaxed mb-6">
+                            NIS-2, DORA, EU AI Act, GDPR Article 35 — regulators will ask for evidence. KYDE generates a tamper-evident, Ed25519-signed ledger of every agent action. Court-admissible. Independent. Immutable.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Every entry hash-chained — tamper with one, all subsequent links break",
+                                "Role-based access to audit logs per regulatory requirement",
+                                "Compliance reports generated automatically",
+                                "Secure single-tenant deployment with data sovereignty",
+                            ].map(item => (
+                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
+                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all w-fit">
+                            Explore Compliance Use Cases →
+                        </a>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <div class="grid grid-cols-2 gap-3">
+                            {[
+                                { name: "NIS-2", status: "In force" },
+                                { name: "DORA", status: "In force: Jan 2025" },
+                                { name: "EU AI Act", status: "Phasing in 2026" },
+                                { name: "GDPR 35", status: "In force" },
+                            ].map(({ name, status }) => (
+                                <div class="border border-dotted border-[#0d0e10]/20 bg-[#dae4e5]/30 p-4">
+                                    <p class="font-mono text-xs font-bold text-[#0d0e10] uppercase tracking-wide mb-1">{name}</p>
+                                    <p class="font-mono text-[10px] text-[#0a7c4e]">{status}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ══════════ ARCHITECTURE ══════════ -->
         <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
             <div class="max-w-4xl mx-auto px-6">
@@ -273,131 +374,6 @@ import Footer from "../components/Footer.astro";
                 <div class="mt-6 flex items-center gap-3">
                     <span class="h-px flex-1 bg-[#e8e9eb]"></span>
                     <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/40">↳ Outside the agent. Cannot be overridden.</span>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ══════════ USE CASES ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
-            <div class="max-w-7xl mx-auto px-6">
-
-                <div class="mb-16">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Use Cases</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb] mb-8"></div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10]">Tackle Your Most Pressing AI Challenges</h2>
-                </div>
-
-                <!-- Block 1: Security — image left, content right -->
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center pb-16 md:pb-20 border-b border-dotted border-[#0d0e10]/15">
-                    <div class="flex flex-col">
-                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white">
-                            <img src="/dlp-alert-redacted.png" alt="DLP alert — PII detected and masked" class="w-full block saturate-75 brightness-90" />
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
-                            PII detected. Email masked. Context redacted by role — before the auditor could see it.
-                        </p>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-[#0d0e10] tracking-tight mb-4">Stop Agent Threats Before They Execute</h3>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            AI agents don't just leak data — they act. Prompt injections, scope violations, unauthorized tool calls: traditional DLP doesn't see agent traffic. KYDE intercepts every action at the network layer before it reaches your systems.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Block out-of-scope requests in real time",
-                                "Attribute every action to a verified agent identity",
-                                "Detect PII in prompts and completions — masked by role",
-                                "Full bidirectional audit trail, independent of your LLM provider",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
-                            Explore Security Use Cases →
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Block 2: Visibility — content left, image right -->
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center py-16 md:py-20 border-b border-dotted border-[#0d0e10]/15">
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-[#0d0e10] tracking-tight mb-4">See Everything Your Agents Touch</h3>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            Shadow agents. Unregistered tool calls. Agents talking to external upstreams you never approved. KYDE maps your entire agent topology at the network layer — not from SDK instrumentation, not from trust.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Visualize every agent, upstream, and model in real time",
-                                "Detect shadow agents and unauthorized MCP server connections",
-                                "Drill from network segment to individual tool call",
-                                "Works across Claude, GPT-4o, Gemini, LangChain, custom agents",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="/platform" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
-                            Explore Platform →
-                        </a>
-                    </div>
-                    <div class="flex flex-col">
-                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white">
-                            <img src="/agent-topology.png" alt="KYDE Agent Topology View" class="w-full block saturate-75 brightness-90" />
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
-                            Network Segment → Tool → Upstream → Model. See every path. Every agent. Every call.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Block 3: Compliance — no image -->
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start pt-16 md:pt-20">
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-[#0d0e10] tracking-tight mb-4">Audit-Ready From Day One</h3>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            NIS-2, DORA, EU AI Act, GDPR Article 35 — regulators will ask for evidence. KYDE generates a tamper-evident, Ed25519-signed ledger of every agent action. Court-admissible. Independent. Immutable.
-                        </p>
-                        <ul class="space-y-2.5">
-                            {[
-                                "Every entry hash-chained — tamper with one, all subsequent links break",
-                                "Role-based access to audit logs per regulatory requirement",
-                                "Compliance reports generated automatically",
-                                "Secure single-tenant deployment with data sovereignty",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div class="flex flex-col gap-6">
-                        <div class="grid grid-cols-2 gap-3">
-                            {[
-                                { name: "NIS-2", status: "In force" },
-                                { name: "DORA", status: "In force: Jan 2025" },
-                                { name: "EU AI Act", status: "Phasing in 2026" },
-                                { name: "GDPR 35", status: "In force" },
-                            ].map(({ name, status }) => (
-                                <div class="border border-dotted border-[#0d0e10]/20 bg-[#dae4e5]/30 p-4">
-                                    <p class="font-mono text-xs font-bold text-[#0d0e10] uppercase tracking-wide mb-1">{name}</p>
-                                    <p class="font-mono text-[10px] text-[#0a7c4e]">{status}</p>
-                                </div>
-                            ))}
-                        </div>
-                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all w-fit">
-                            Explore Compliance Use Cases →
-                        </a>
-                    </div>
                 </div>
 
             </div>
