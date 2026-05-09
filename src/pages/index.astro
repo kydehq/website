@@ -27,8 +27,9 @@ import Footer from "../components/Footer.astro";
                     <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ NIS-2 · DORA · EU AI Act · GDPR — Audit-Ready from Day One</span>
                 </div>
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;animation:heroFadeIn 0.3s ease-out 0.1s forwards;">
-                    <span id="hero-l1" style="display:block">AI Runtime</span>
-                    <span id="hero-l2" style="display:block">Intelligence</span>
+                    <span id="hero-l1" style="display:block">Make AI Agents</span>
+                    <span id="hero-l2" style="display:block">Safe For</span>
+                    <span id="hero-l3" style="display:block">Production.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
                     Turn your company agentic — without losing control over data, actions, or outcomes.
@@ -99,13 +100,15 @@ import Footer from "../components/Footer.astro";
 
   const l1 = document.getElementById("hero-l1") as HTMLElement;
   const l2 = document.getElementById("hero-l2") as HTMLElement;
+  const l3 = document.getElementById("hero-l3") as HTMLElement;
   const sub = document.getElementById("hero-sub") as HTMLElement;
   const h1 = l1?.closest("h1") as HTMLElement;
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
-  if (l1) scrambleLine(l1, "AI RUNTIME", 200);
   const meta = document.getElementById("hero-meta") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l2) scrambleLine(l2, "INTELLIGENCE", 200, () => {
+  if (l1) scrambleLine(l1, "MAKE AI AGENTS", 200);
+  if (l2) scrambleLine(l2, "SAFE FOR", 200);
+  if (l3) scrambleLine(l3, "PRODUCTION.", 200, () => {
     if (sub) sub.style.opacity = "1";
     if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
