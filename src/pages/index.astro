@@ -137,12 +137,22 @@ import Footer from "../components/Footer.astro";
                         </p>
                     </div>
                     <div class="flex flex-col">
-                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white shadow-sm">
-                            <img src="/dashboard-overview.png" alt="KYDE Dashboard — Agent Fleet Overview" class="w-full block saturate-75 brightness-90" />
+                        <div class="relative border border-dotted border-[#0d0e10]/15 overflow-hidden bg-[#0d0e10] shadow-sm" style="aspect-ratio:16/9;">
+                            <video id="kyde-intro" class="w-full h-full object-cover" preload="none" playsinline>
+                                <source src="/KYDE.webm" type="video/webm" />
+                                <source src="/KYDE.mp4" type="video/mp4" />
+                            </video>
+                            <!-- Play overlay -->
+                            <div id="kyde-play-overlay" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group" onclick="document.getElementById('kyde-play-overlay').style.display='none';var v=document.getElementById('kyde-intro');v.controls=true;v.play();">
+                                <div class="w-14 h-14 rounded-full border border-dotted border-white/40 flex items-center justify-center bg-white/10 group-hover:bg-white/20 transition-all mb-3">
+                                    <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.841z"/></svg>
+                                </div>
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">KYDE in 40 seconds</span>
+                            </div>
                         </div>
                         <div class="mt-3 flex items-start justify-between gap-4">
-                            <p class="font-mono text-[10px] text-[#555] leading-relaxed">754 agent actions. 6 identities. Every entry signed.</p>
-                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] whitespace-nowrap bg-[#0a7c4e]/10 text-[#0a7c4e] border border-[#0a7c4e]/25 px-2 py-0.5">Data Integrity: Verified</span>
+                            <p class="font-mono text-[10px] text-[#555] leading-relaxed">Real product. Real data. No voiceover.</p>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] whitespace-nowrap bg-[#0a7c4e]/10 text-[#0a7c4e] border border-[#0a7c4e]/25 px-2 py-0.5">40 sec · No sound required</span>
                         </div>
                     </div>
                 </div>
