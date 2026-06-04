@@ -11,19 +11,19 @@ const cases = [
     scenario: 'A trading agent autonomously rebalances customer portfolios and accesses the trading API via an internal MCP server.',
     pillars: [
       {
-        label: 'CONTROL',
-        q: 'Who is cleared — and what is the hard limit?',
-        text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by the Zero-Trust AI Stack in under 100ms — before it reaches the exchange. Not rate-limited. Blocked.',
+        label: 'RECORD',
+        q: 'Signed 6D fingerprint. Immutable record.',
+        text: 'Every autonomous trade is Ed25519-signed at the point of capture as a 6D fingerprint — who, what, when, where, why, how. Tamper-proof audit trail stored outside the agent runtime. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof — not an editable server log.',
       },
       {
-        label: 'SEE',
+        label: 'DETECT',
         q: 'Full Chain Reconstruction.',
-        text: 'The agent sells 1,000 Tesla shares. KYDE logs the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. The path from signal to trade is immediately reconstructable — for the advisor, for BaFin, and for any court.',
+        text: 'The agent sells 1,000 Tesla shares. KYDE logs the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. Continuous baseline tracking flags if the agent deviates from established trading patterns or expands its request scope — catching a compromised agent before it causes damage.',
       },
       {
-        label: 'PROVE',
-        q: 'What is the cryptographic proof?',
-        text: 'Every autonomous trade is Ed25519-signed at the point of capture. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof — not an editable server log.',
+        label: 'ENFORCE',
+        q: 'What is blocked — and at what layer?',
+        text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by KYDE in under 100ms — before it reaches the exchange. Not rate-limited. Blocked.',
       },
     ],
     regs: ['DORA — Digital Operational Resilience Act', 'EU AI Act — Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35 — DPIA'],
@@ -35,19 +35,19 @@ const cases = [
     scenario: 'A procurement agent monitors global supply chains and autonomously reorders raw materials in the ERP system when shortages are detected.',
     pillars: [
       {
-        label: 'CONTROL',
-        q: 'Who is cleared — and what is the hard limit?',
-        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity scoped exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms — before it reaches the supplier API.',
+        label: 'RECORD',
+        q: 'Signed 6D fingerprint. Immutable record.',
+        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained as a 6D fingerprint. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof — not a filtered dashboard export.',
       },
       {
-        label: 'SEE',
+        label: 'DETECT',
         q: 'Full Chain Reconstruction.',
-        text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged the full chain: internal email about a threatened port strike received → procurement database read → order placed. The purchasing manager sees not just what was ordered but the exact reasoning path that triggered the decision.',
+        text: 'The agent suddenly orders triple the usual steel quantity. KYDE logged the full chain: internal email about a threatened port strike received → procurement database read → order placed. Continuous drift tracking flags if the agent deviates from normal order volumes or accesses suppliers outside its established scope — catching supply chain manipulation before it executes.',
       },
       {
-        label: 'PROVE',
-        q: 'What is the cryptographic proof?',
-        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof — not a filtered dashboard export.',
+        label: 'ENFORCE',
+        q: 'What is blocked — and at what layer?',
+        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity scoped exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms — before it reaches the supplier API.',
       },
     ],
     regs: ['EU AI Act — High-Risk AI for automated procurement', 'NIS-2 — Critical supply chain infrastructure', 'GDPR Art. 35 — DPIA for large-scale processing'],
@@ -59,19 +59,19 @@ const cases = [
     scenario: 'A medical billing agent scans patient records, assigns ICD-10 diagnosis codes, and submits reimbursement claims to health insurers.',
     pillars: [
       {
-        label: 'CONTROL',
-        q: 'Who is cleared — and what is the hard limit?',
-        text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy — the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Zero-Trust AI Stack on every API call.',
+        label: 'RECORD',
+        q: 'Signed 6D fingerprint. Immutable record.',
+        text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Zero-Trust AI Stack guarantees that hospitals can prove — in any audit — exactly which agent processed which patient data, when, and on what basis. Every entry signed as a 6D fingerprint at the point of capture. Unalterable.',
       },
       {
-        label: 'SEE',
+        label: 'DETECT',
         q: 'Full Chain Reconstruction.',
-        text: 'The agent bills for an expensive specialist treatment. KYDE records the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. The causal path from clinical input to billing decision is immediately verifiable in any audit or billing dispute.',
+        text: 'The agent bills for an expensive specialist treatment. KYDE records the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. Continuous baseline monitoring flags if the billing agent accesses clinical records outside its scope or submits atypical claim volumes — catching data leakage before it escalates.',
       },
       {
-        label: 'PROVE',
-        q: 'What is the cryptographic proof?',
-        text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Zero-Trust AI Stack guarantees that hospitals can prove — in any audit — exactly which agent processed which patient data, when, and on what basis. Signed at the point of capture. Unalterable.',
+        label: 'ENFORCE',
+        q: 'What is blocked — and at what layer?',
+        text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy — the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Zero-Trust AI Stack on every API call.',
       },
     ],
     regs: ['EU AI Act — Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9 — Special category health data', 'MDR / IVDR — AI-assisted diagnostics', 'NIS-2 — Critical health infrastructure'],
@@ -83,19 +83,19 @@ const cases = [
     scenario: 'A claims agent evaluates uploaded photos of water damage and scopes payouts to policyholders — autonomously.',
     pillars: [
       {
-        label: 'CONTROL',
-        q: 'Who is cleared — and what is the hard limit?',
-        text: 'Clear role boundaries enforced in hardware — not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop — not a configurable soft limit.',
+        label: 'RECORD',
+        q: 'Signed 6D fingerprint. Immutable record.',
+        text: 'When a fraud ring floods automated agents with fake images, the Zero-Trust AI Stack proves immutably — on what data basis, at what timestamp — the agent approved each payment. Every decision signed as a 6D fingerprint at the point of capture. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
       },
       {
-        label: 'SEE',
+        label: 'DETECT',
         q: 'Full Chain Reconstruction.',
-        text: 'The agent rejects a water damage claim. KYDE stores the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. The adjuster can explain the decision logic to the policyholder immediately — with the exact document and passage the agent used.',
+        text: 'The agent rejects a water damage claim. KYDE stores the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. Drift detection flags if the claims agent starts approving at abnormal rates or exhibits patterns consistent with adversarial manipulation — before further damage occurs.',
       },
       {
-        label: 'PROVE',
-        q: 'What is the cryptographic proof?',
-        text: 'When a fraud ring floods automated agents with fake images, the Zero-Trust AI Stack proves immutably — on what data basis, at what timestamp — the agent approved each payment. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
+        label: 'ENFORCE',
+        q: 'What is blocked — and at what layer?',
+        text: 'Clear role boundaries enforced in hardware — not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop — not a configurable soft limit.',
       },
     ],
     regs: ['EU AI Act — High-Risk AI Annex III §5 Insurance', 'Solvency II — Governance and risk management', 'GDPR Art. 22 — Automated decision-making rights', 'NIS-2 — Operational resilience'],
@@ -107,19 +107,19 @@ const cases = [
     scenario: 'A grid-balancing agent manages electricity procurement and activates local large-scale batteries to compensate for network fluctuations.',
     pillars: [
       {
-        label: 'CONTROL',
-        q: 'Who is cleared — and what is the hard limit?',
-        text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment — API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
-      },
-      {
-        label: 'SEE',
-        q: 'Full Chain Reconstruction.',
-        text: 'The agent ramps up a local power plant. The KYDE log reconstructs the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Every grid action is explainable — in real time and in retrospect.',
-      },
-      {
-        label: 'PROVE',
-        q: 'What is the cryptographic proof?',
+        label: 'RECORD',
+        q: 'Signed 6D fingerprint. Immutable record.',
         text: 'When an outage occurs, the Bundesnetzagentur demands a provenance-grade record. Vendor cloud logs do not qualify. For KRITIS-grade deployments, the Zero-Trust AI Stack provides military-grade hardware isolation (TPM/HSM) — signing keys never exposed to the host OS. What regulators receive is a cryptographic ledger with unbreakable chain of custody.',
+      },
+      {
+        label: 'DETECT',
+        q: 'Full Chain Reconstruction.',
+        text: 'The agent ramps up a local power plant. The KYDE log reconstructs the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Behavioral drift detection flags if the dispatch agent issues commands outside its assigned grid segments or deviates from established load balancing patterns — catching manipulation before it impacts grid stability.',
+      },
+      {
+        label: 'ENFORCE',
+        q: 'What is blocked — and at what layer?',
+        text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment — API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
       },
     ],
     regs: ['NIS-2 — Network and Information Security (in force December 2025)', 'EU AI Act — High-Risk AI for critical infrastructure', 'KRITIS — German critical infrastructure protection', 'Cyber Resilience Act'],
@@ -211,8 +211,8 @@ const cases = [
               {pillars.map(({ label, q, text }) => (
                 <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
                   <div class="shrink-0">
-                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 mb-1 ${label === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : label === 'SEE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{label}</span>
-                    {label === 'SEE'
+                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 mb-1 ${label === 'ENFORCE' ? 'text-[#c00000] bg-[#c00000]/8' : label === 'DETECT' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{label}</span>
+                    {label === 'DETECT'
                       ? <p class="font-mono text-xs mt-1 leading-relaxed"><span class="font-semibold text-[#0d0e10]">{q}</span></p>
                       : <p class="font-mono text-xs text-[#555] mt-1 leading-relaxed">{q}</p>
                     }
