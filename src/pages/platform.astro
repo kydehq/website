@@ -611,22 +611,21 @@ import Footer from "../components/Footer.astro";
                 <p class="text-[#333] leading-relaxed mb-16 max-w-2xl">Not a roadmap. A complete infrastructure layer that ships as a unit — covering every agent from day one.</p>
 
                 <div class="grid gap-8 lg:grid-cols-3">
-                    <!-- RECORD -->
+                    <!-- CONTROL -->
                     <div class="rounded-sm border border-dotted border-[#0d0e10]/15 bg-white p-8">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#666]">01</span>
                         </div>
-                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">RECORD</h3>
-                        <p class="mb-2 text-sm font-medium text-[#333]">No action without a signed identity trace.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-[#333]">Every agent action intercepted and recorded as a signed 6D fingerprint. Tamper-proof — stored outside the agent runtime.</p>
+                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">CONTROL</h3>
+                        <p class="mb-2 text-sm font-medium text-[#333]">No unauthorized action reaches the network.</p>
+                        <p class="mb-6 text-sm leading-relaxed text-[#333]">Real-time in-stream inspection at the proxy layer. Stops agents before they act outside policy or move sensitive data — not after.</p>
                         <ul class="space-y-2">
                             {[
-                                "Unique agent ID per session",
-                                "6D fingerprint — who / what / when / where / why / how",
-                                "Ed25519-signed append-only ledger",
-                                "Tamper-evident hash chain — alter any entry, every link breaks",
-                                "Independent of LLM provider infrastructure",
-                                "NIS-2, DORA, EU AI Act evidence trail",
+                                "Deterministic policy rules + ML-assisted scoring",
+                                "API allowlists per agent role",
+                                "Token & cost budgets enforced pre-call",
+                                "Hard circuit breakers before external systems",
+                                "Provider-agnostic — every model, every provider",
                             ].map((f) => (
                                 <li class="flex items-center gap-3 text-sm">
                                     <svg class="h-4 w-4 shrink-0 text-[#0a7c4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
@@ -636,14 +635,14 @@ import Footer from "../components/Footer.astro";
                         </ul>
                     </div>
 
-                    <!-- DETECT -->
+                    <!-- TRACE -->
                     <div class="rounded-sm border border-dotted border-[#0d0e10]/15 bg-white p-8">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#666]">02</span>
                         </div>
-                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">DETECT</h3>
+                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">TRACE</h3>
                         <p class="mb-2 text-sm font-medium text-[#333]">No drift without an alert.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-[#333]">Continuous baseline tracking across every agent. Anomaly detection catches compromised or misbehaving agents early.</p>
+                        <p class="mb-6 text-sm leading-relaxed text-[#333]">Continuous baseline tracking across every agent. Traces drift, anomalies, and compromised behavior before damage occurs.</p>
                         <ul class="space-y-2">
                             {[
                                 "Behavioral baseline per agent role",
@@ -661,21 +660,22 @@ import Footer from "../components/Footer.astro";
                         </ul>
                     </div>
 
-                    <!-- ENFORCE -->
+                    <!-- PROVE -->
                     <div class="rounded-sm border border-dotted border-[#0d0e10]/15 bg-white p-8">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#666]">03</span>
                         </div>
-                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">ENFORCE</h3>
-                        <p class="mb-2 text-sm font-medium text-[#333]">No unauthorized action reaches the network.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-[#333]">Real-time in-stream inspection at the proxy layer. Blocks policy violations and data leakage before they happen — not after.</p>
+                        <h3 class="mb-1 font-mono text-2xl font-bold text-[#0d0e10]">PROVE</h3>
+                        <p class="mb-2 text-sm font-medium text-[#333]">An independent source of truth for every action.</p>
+                        <p class="mb-6 text-sm leading-relaxed text-[#333]">Every agent action signed as a tamper-evident 6D fingerprint. Stored outside the runtime — independent of any LLM provider.</p>
                         <ul class="space-y-2">
                             {[
-                                "Deterministic policy rules + ML-assisted scoring",
-                                "API allowlists per agent role",
-                                "Token & cost budgets enforced pre-call",
-                                "Hard circuit breakers before external systems",
-                                "Provider-agnostic — every model, every provider",
+                                "Unique agent ID per session",
+                                "6D fingerprint — who / what / when / where / why / how",
+                                "Ed25519-signed append-only ledger",
+                                "Tamper-evident hash chain — alter any entry, every link breaks",
+                                "Independent of LLM provider infrastructure",
+                                "NIS-2, DORA, EU AI Act evidence trail",
                             ].map((f) => (
                                 <li class="flex items-center gap-3 text-sm">
                                     <svg class="h-4 w-4 shrink-0 text-[#0a7c4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
