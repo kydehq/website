@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 
 <Base
   title="Pricing — KYDE"
-  description="Per agent identity. Not per seat. Four tiers from developer sandbox to enterprise defense — one environment variable throughout."
+  description="Per agent identity. Not per seat. Three tiers from developer sandbox to enterprise defense — one environment variable throughout."
 >
   <Navbar />
 
@@ -71,7 +71,7 @@ import Footer from '../components/Footer.astro';
     <!-- ══════════ TIERS ══════════ -->
     <section class="border-t border-dotted border-[#0d0e10]/25 py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="grid gap-5 lg:grid-cols-4">
+        <div class="grid gap-5 lg:grid-cols-3">
 
           <!-- SANDBOX -->
           <div class="border border-[#e5e7eb] rounded-[22px] bg-white flex flex-col overflow-hidden">
@@ -88,9 +88,9 @@ import Footer from '../components/Footer.astro';
               <ul class="space-y-2.5">
                 {[
                   { text: "Agent identity registration", g: "CONTROL" },
-                  { text: "Ed25519 cryptographic signing", g: "PROVE" },
+                  { text: "Ed25519 cryptographic signing", g: "TRUTH" },
                   { text: "Provider-agnostic interception", g: null },
-                  { text: "Tamper-evident audit log", g: "SEE" },
+                  { text: "Tamper-evident audit log", g: "TRACE" },
                   { text: "One ENV variable deployment", g: null },
                   { text: "CLI verification tools", g: null },
                 ].map(({ text, g }) => (
@@ -98,7 +98,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'SEE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -107,45 +107,6 @@ import Footer from '../components/Footer.astro';
             <div class="px-7 py-5 border-t border-dotted border-[#0d0e10]/15">
               <button onclick="openModal()" class="w-full inline-flex items-center justify-center gap-2 border border-dotted border-[#0d0e10]/30 px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
                 Request Sandbox Access →
-              </button>
-            </div>
-          </div>
-
-          <!-- STARTER -->
-          <div class="border border-[#e5e7eb] rounded-[22px] bg-white flex flex-col overflow-hidden">
-            <div class="px-7 py-7 border-b border-dotted border-[#0d0e10]/15">
-              <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#666] mb-4">Starter</p>
-              <div class="mb-3">
-                <span class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Pilot Pricing</span>
-              </div>
-              <p class="font-mono text-xs text-[#333] mb-1">Available on request · Early Access</p>
-              <p class="text-xs text-[#666]">Standard policy set</p>
-            </div>
-            <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-[#333] leading-relaxed mb-4">For small teams deploying AI with accountability. Role boundaries and logging for your first production agents.</p>
-              <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Sandbox, plus:</p>
-              <ul class="space-y-2.5">
-                {[
-                  { text: "Role-based identity & access control", g: "CONTROL" },
-                  { text: "API allowlists & blocklists per role", g: "CONTROL" },
-                  { text: "7-day audit log retention", g: "SEE" },
-                  { text: "Causal context capture", g: "SEE" },
-                  { text: "Behavioral anomaly detection", g: "SEE" },
-                  { text: "SSO / Okta / Azure AD", g: null },
-                ].map(({ text, g }) => (
-                  <li class="flex gap-2.5 text-xs text-[#333] leading-relaxed">
-                    <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
-                    <span>
-                      {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : 'text-[#555] bg-[#0d0e10]/6'}`}>{g}</span>}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="px-7 py-5 border-t border-dotted border-[#0d0e10]/15">
-              <button onclick="openModal()" class="w-full inline-flex items-center justify-center gap-2 bg-[#0d0e10] px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all">
-                Apply for Pilot Program →
               </button>
             </div>
           </div>
@@ -166,22 +127,22 @@ import Footer from '../components/Footer.astro';
             </div>
             <div class="px-7 py-7 flex-1">
               <p class="text-xs text-[#333] leading-relaxed mb-4">For scaling AI workforces. Full compliance export, custom policy engine, and 30-day audit trail. Court-ready evidence by default.</p>
-              <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Starter, plus:</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Sandbox, plus:</p>
               <ul class="space-y-2.5">
                 {[
                   { text: "Token & cost budgets per agent / role / team", g: "CONTROL" },
                   { text: "Policy Enforcement Point (hard circuit breakers)", g: "CONTROL" },
-                  { text: "30-day audit log retention", g: "SEE" },
-                  { text: "Continuous data integrity verification", g: "SEE" },
-                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "PROVE" },
-                  { text: "Court-ready cryptographic audit trail", g: "PROVE" },
-                  { text: "Machine-readable Proof of Authority", g: "PROVE" },
+                  { text: "30-day audit log retention", g: "TRACE" },
+                  { text: "Continuous data integrity verification", g: "TRACE" },
+                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "TRUTH" },
+                  { text: "Court-ready cryptographic audit trail", g: "TRUTH" },
+                  { text: "Machine-readable Proof of Authority", g: "TRUTH" },
                 ].map(({ text, g }) => (
                   <li class="flex gap-2.5 text-xs text-[#333] leading-relaxed">
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'SEE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -210,11 +171,11 @@ import Footer from '../components/Footer.astro';
               <ul class="space-y-2.5">
                 {[
                   { text: "Agent-to-agent trust delegation", g: "CONTROL" },
-                  { text: "Unlimited log retention", g: "SEE" },
-                  { text: "SIEM / SOC integration", g: "SEE" },
-                  { text: "Silicon Leash — TPM/HSM hardware signing", g: "PROVE" },
-                  { text: "TEE attestation (TDX/SEV-SNP)", g: "PROVE" },
-                  { text: "FIPS 140-3 validated crypto modules", g: "PROVE" },
+                  { text: "Unlimited log retention", g: "TRACE" },
+                  { text: "SIEM / SOC integration", g: "TRACE" },
+                  { text: "Silicon Leash — TPM/HSM hardware signing", g: "TRUTH" },
+                  { text: "TEE attestation (TDX/SEV-SNP)", g: "TRUTH" },
+                  { text: "FIPS 140-3 validated crypto modules", g: "TRUTH" },
                   { text: "Air-gapped deployment option", g: null },
                   { text: "EU data residency", g: null },
                   { text: "ISO 27001 / BSI procurement track", g: null },
@@ -224,7 +185,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'SEE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -259,24 +220,23 @@ import Footer from '../components/Footer.astro';
               <tr class="border-b border-dotted border-[#0d0e10]/15 bg-[#f1f3f5]">
                 <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-[#666] w-40"></th>
                 <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-[#666]">Sandbox</th>
-                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-[#666]">Starter</th>
                 <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-[#0d0e10] bg-[#0d0e10]/5">Business</th>
                 <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-[#666]">Enterprise</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-dotted divide-[#0d0e10]/10">
               {[
-                { label: "Pricing",                vals: ["Free",      "Pilot pricing on request",  "Pilot pricing on request",   "Custom"]      },
-                { label: "Scale",                  vals: ["Dev / Testing", "Small teams", "Scaling fleets", "Unlimited"]   },
-                { label: "Policies",               vals: ["Basic",     "Standard",   "Custom",        "Custom + Air-Gapped"] },
-                { label: "Log retention",          vals: ["—",         "7 days",     "30 days",       "Unlimited"]   },
-                { label: "Compliance export",      vals: ["—",         "—",          "✓",             "✓"]           },
-                { label: "Silicon Leash (TPM/HSM)",vals: ["—",         "—",          "—",             "✓"]           },
+                { label: "Pricing",                vals: ["Free",          "Pilot pricing on request",   "Custom"]      },
+                { label: "Scale",                  vals: ["Dev / Testing", "Scaling fleets",             "Unlimited"]   },
+                { label: "Policies",               vals: ["Basic",         "Custom",                     "Custom + Air-Gapped"] },
+                { label: "Log retention",          vals: ["—",             "30 days",                    "Unlimited"]   },
+                { label: "Compliance export",      vals: ["—",             "✓",                          "✓"]           },
+                { label: "Silicon Leash (TPM/HSM)",vals: ["—",             "—",                          "✓"]           },
               ].map(({ label, vals }) => (
                 <tr>
                   <td class="px-5 py-3.5 font-mono text-xs text-[#555] uppercase tracking-wider">{label}</td>
                   {vals.map((v, i) => (
-                    <td class={`px-5 py-3.5 text-sm ${i === 2 ? 'bg-[#0d0e10]/3 font-medium text-[#0d0e10]' : 'text-[#0d0e10]'}`}>{v}</td>
+                    <td class={`px-5 py-3.5 text-sm ${i === 1 ? 'bg-[#0d0e10]/3 font-medium text-[#0d0e10]' : 'text-[#0d0e10]'}`}>{v}</td>
                   ))}
                 </tr>
               ))}
@@ -322,7 +282,7 @@ import Footer from '../components/Footer.astro';
             <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Not sure which tier fits?</p>
             <div class="mb-8 h-px bg-[#0d0e10]/20"></div>
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-4">
-              Most teams start with Starter and scale to Business within 90 days.
+              Most teams start in Sandbox and move to Business within 90 days.
             </h2>
             <p class="text-lg text-[#333] mb-10">
               Book a 30-minute call — we'll tell you exactly where you are and what you need.
