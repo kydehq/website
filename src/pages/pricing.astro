@@ -87,10 +87,10 @@ import Footer from '../components/Footer.astro';
               <p class="text-xs text-[#333] leading-relaxed mb-6">For developers and testing. Full behavioral firewall protection from day one — no credit card required.</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Agent identity registration", g: "CONTROL" },
-                  { text: "Ed25519 cryptographic signing", g: "TRUTH" },
+                  { text: "Agent identity registration", g: "ENFORCE" },
+                  { text: "Ed25519 cryptographic signing", g: "PROVE" },
                   { text: "Provider-agnostic interception", g: null },
-                  { text: "Tamper-evident audit log", g: "TRACE" },
+                  { text: "Tamper-evident audit log", g: "OBSERVE" },
                   { text: "One ENV variable deployment", g: null },
                   { text: "CLI verification tools", g: null },
                 ].map(({ text, g }) => (
@@ -98,7 +98,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'ENFORCE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'OBSERVE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -130,19 +130,19 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Sandbox, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Token & cost budgets per agent / role / team", g: "CONTROL" },
-                  { text: "Policy Enforcement Point (hard circuit breakers)", g: "CONTROL" },
-                  { text: "30-day audit log retention", g: "TRACE" },
-                  { text: "Continuous data integrity verification", g: "TRACE" },
-                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "TRUTH" },
-                  { text: "Court-ready cryptographic audit trail", g: "TRUTH" },
-                  { text: "Machine-readable Proof of Authority", g: "TRUTH" },
+                  { text: "Token & cost budgets per agent / role / team", g: "ENFORCE" },
+                  { text: "Policy Enforcement Point (hard circuit breakers)", g: "ENFORCE" },
+                  { text: "30-day audit log retention", g: "OBSERVE" },
+                  { text: "Continuous data integrity verification", g: "OBSERVE" },
+                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "PROVE" },
+                  { text: "Court-ready cryptographic audit trail", g: "PROVE" },
+                  { text: "Machine-readable Proof of Authority", g: "PROVE" },
                 ].map(({ text, g }) => (
                   <li class="flex gap-2.5 text-xs text-[#333] leading-relaxed">
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'ENFORCE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'OBSERVE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -170,12 +170,12 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#999] mb-3">Everything in Business, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Agent-to-agent trust delegation", g: "CONTROL" },
-                  { text: "Unlimited log retention", g: "TRACE" },
-                  { text: "SIEM / SOC integration", g: "TRACE" },
-                  { text: "Silicon Leash — TPM/HSM hardware signing", g: "TRUTH" },
-                  { text: "TEE attestation (TDX/SEV-SNP)", g: "TRUTH" },
-                  { text: "FIPS 140-3 validated crypto modules", g: "TRUTH" },
+                  { text: "Agent-to-agent trust delegation", g: "ENFORCE" },
+                  { text: "Unlimited log retention", g: "OBSERVE" },
+                  { text: "SIEM / SOC integration", g: "OBSERVE" },
+                  { text: "Silicon Leash — TPM/HSM hardware signing", g: "PROVE" },
+                  { text: "TEE attestation (TDX/SEV-SNP)", g: "PROVE" },
+                  { text: "FIPS 140-3 validated crypto modules", g: "PROVE" },
                   { text: "Air-gapped deployment option", g: null },
                   { text: "EU data residency", g: null },
                   { text: "ISO 27001 / BSI procurement track", g: null },
@@ -185,7 +185,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#333]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'CONTROL' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'TRACE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'ENFORCE' ? 'text-[#c00000] bg-[#c00000]/8' : g === 'OBSERVE' ? 'text-[#555] bg-[#0d0e10]/6' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
