@@ -1,0 +1,528 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base
+  title="EU AI Act Compliance for AI Agents: The Complete Guide — KYDE"
+  description="Everything enterprises need to know about EU AI Act compliance for AI agents. Annex III classification, Articles 12, 14, 26 obligations, the December 2027 deadline, and how to build a compliant audit infrastructure."
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#333] hover:text-[#0d0e10] transition-colors">↑ Resources</a>
+            <span class="text-[#333]">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">Regulatory · Compliance</span>
+          </div>
+          <div class="h-px w-full bg-[#e8e9eb]"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-flex items-center border border-dotted border-[#0d0e10]/20 bg-white px-3 py-1 text-xs font-mono text-[#333]">Complete Guide</span>
+            <span class="inline-flex items-center border border-dotted border-[#fcb830]/60 bg-[#fcb830]/5 px-3 py-1 text-xs font-mono text-[#0d0e10]">Deadline: Dec 2, 2027</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0d0e10] tracking-tight leading-tight mb-6">
+            EU AI Act Compliance for AI Agents
+          </h1>
+          <p class="text-base text-[#333] leading-relaxed max-w-2xl">
+            The EU AI Act is the most consequential AI regulation in force. For enterprises deploying AI agents in regulated verticals, compliance is not optional — and the audit requirements go far beyond what most organizations currently have in place.
+          </p>
+          <div class="mt-6 flex items-center gap-4 text-xs font-mono text-[#666]">
+            <span>Regulatory · Compliance</span>
+            <span>·</span>
+            <span>15 min read</span>
+            <span>·</span>
+            <span>Updated June 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ BODY ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-[1fr_300px] gap-6 md:gap-16 items-start">
+
+          <!-- Article -->
+          <article class="prose-kyde min-w-0">
+
+            <!-- TOC -->
+            <div class="not-prose mb-10 border border-dotted border-[#0d0e10]/20 bg-white p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10] mb-4">On this page</p>
+              <ol class="space-y-2">
+                {[
+                  ["#what-is-eu-ai-act", "What is the EU AI Act?"],
+                  ["#deadlines", "Enforcement deadlines"],
+                  ["#annex-iii", "Annex III: the 10 high-risk categories"],
+                  ["#what-it-requires", "What the Act requires: Art. 12, 14, 26, 49"],
+                  ["#where-enterprises-fail", "Where enterprises fall short"],
+                  ["#compliance-plan", "How to build a compliant infrastructure"],
+                  ["#faq", "FAQ"],
+                  ["#resources", "Related resources"],
+                ].map(([href, label]) => (
+                  <li>
+                    <a href={href} class="group flex items-start gap-2 text-sm text-[#333] hover:text-[#0d0e10] transition-colors leading-snug">
+                      <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                      <span>{label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <!-- Section 1 -->
+            <h2 id="what-is-eu-ai-act">What is the EU AI Act?</h2>
+            <p>
+              The EU AI Act (Regulation 2024/1689) is the world's first comprehensive legal framework for artificial intelligence. It establishes binding rules for AI systems placed on the market or put into service in the European Union — regardless of where the provider is based.
+            </p>
+            <p>
+              Unlike sector-specific regulations (DORA for financial resilience, GDPR for personal data), the AI Act governs AI systems directly. Its risk-based architecture divides AI systems into four tiers: unacceptable risk (prohibited), high-risk (full compliance obligations), limited risk (transparency requirements only), and minimal risk (no specific obligations).
+            </p>
+            <p>
+              For most enterprises deploying AI agents in regulated verticals, the operative category is <strong>High-Risk</strong>. The obligations attached to that classification are substantial — and they are now on an active enforcement clock.
+            </p>
+
+            <!-- Section 2 -->
+            <h2 id="deadlines">Enforcement deadlines</h2>
+            <p>
+              The AI Act entered into force on August 1, 2024. Obligations have been rolling in since then, with the most consequential deadline approaching for enterprise AI deployments:
+            </p>
+
+            <div class="not-prose my-5 border border-dotted border-[#0d0e10]/15">
+              {[
+                { date: "Feb 2025", label: "GPAI rules apply", desc: "General-Purpose AI model obligations (Art. 51–56) came into force. Providers of foundation models with systemic risk face specific safety and transparency requirements." },
+                { date: "Aug 2026", label: "GPAI codes of practice", desc: "Full applicability of GPAI governance codes. Art. 50 transparency obligations (AI disclosure to users, emotion recognition, biometric categorization) take full effect." },
+                { date: "Dec 2, 2027", label: "Annex III enforcement", desc: "High-Risk AI systems in standalone categories (employment, credit, insurance, education, critical infrastructure, essential services) face full compliance obligations. This is the deadline that matters most for enterprises deploying AI agents." },
+                { date: "Aug 2028", label: "Annex I enforcement", desc: "AI embedded in regulated products (machinery, medical devices, in-vitro diagnostics) faces combined AI Act and sectoral assessment requirements." },
+              ].map(({ date, label, desc }) => (
+                <div class="grid grid-cols-[96px_1fr] border-b border-dotted border-[#0d0e10]/15 last:border-b-0">
+                  <div class="px-4 py-3 font-mono text-[11px] font-bold text-[#0d0e10] uppercase tracking-wide border-r border-dotted border-[#0d0e10]/15 flex flex-col pt-3.5 gap-0.5">
+                    <span class="text-[#fcb830]">{date}</span>
+                    <span class="text-[10px] text-[#666] normal-case font-normal">{label}</span>
+                  </div>
+                  <div class="px-4 py-3 text-sm text-[#333] leading-relaxed">
+                    {desc}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p>
+              The December 2, 2027 deadline is the result of the Digital Omnibus agreement (preliminary agreement May 7, 2026), which extended the original August 2026 Annex III deadline. <a href="/blog/eu-ai-act-omnibus-collapse">The path to that agreement was not straightforward</a> — and the obligations themselves were not softened, only delayed.
+            </p>
+            <p>
+              December 2027 sounds distant. It is not. Building compliant audit infrastructure, classifying systems, completing technical documentation, and registering in the EU database requires six to eighteen months of preparation for most enterprises. The organizations that start in 2027 will be building under enforcement pressure.
+            </p>
+
+            <!-- Section 3 -->
+            <h2 id="annex-iii">Annex III: the 10 high-risk categories</h2>
+            <p>
+              Annex III of the EU AI Act lists the categories of AI systems classified as High-Risk. If your organization deploys AI agents in any of these areas, full compliance obligations apply from December 2, 2027. <a href="/guides/classify-ai-systems">Use our classification guide</a> to determine where your systems land.
+            </p>
+
+            <div class="not-prose my-5 border border-dotted border-[#0d0e10]/15">
+              {[
+                { n: "01", area: "Biometric identification", examples: "Real-time or post-hoc remote biometric identification. Emotion recognition in professional contexts." },
+                { n: "02", area: "Critical infrastructure", examples: "Safety components in energy grids, water systems, transportation networks. AI agents managing operational decisions in these environments." },
+                { n: "03", area: "Education & vocational training", examples: "AI determining access to education, evaluating learning outcomes, assessing students during exams." },
+                { n: "04", area: "Employment", examples: "Recruitment and screening. CV filtering. Performance evaluation. Task allocation. Monitoring, promotion, and termination decisions. This is the category most enterprises underestimate." },
+                { n: "05", area: "Essential services", examples: "Creditworthiness assessment for private individuals. Risk scoring for credit and insurance decisions. Life insurance and health insurance risk classification." },
+                { n: "06", area: "Law enforcement", examples: "Predictive policing. Polygraph-equivalent systems. Evidence reliability assessment." },
+                { n: "07", area: "Migration & border control", examples: "Risk assessment for visa and asylum applications. Identity verification at borders." },
+                { n: "08", area: "Justice & democratic processes", examples: "AI assisting courts in fact-finding or applying law. Influencing elections." },
+                { n: "09", area: "AI in regulated products", examples: "Safety components in machinery, medical devices, vehicles, toys. Covered by Annex I timeline (August 2028)." },
+                { n: "10", area: "Critical digital infrastructure", examples: "AI systems operating as safety components in networks and information systems subject to NIS-2 obligations." },
+              ].map(({ n, area, examples }) => (
+                <div class="grid grid-cols-[48px_1fr] border-b border-dotted border-[#0d0e10]/15 last:border-b-0">
+                  <div class="px-3 py-3 font-mono text-[11px] text-[#666] border-r border-dotted border-[#0d0e10]/15 flex items-start pt-3.5">
+                    {n}
+                  </div>
+                  <div class="px-4 py-3">
+                    <p class="text-sm font-semibold text-[#0d0e10] mb-1">{area}</p>
+                    <p class="text-xs text-[#666] leading-relaxed">{examples}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p>
+              Category 04 (Employment) and Category 05 (Essential services — credit and insurance) are the categories where AI agent deployments are most common today, and compliance readiness is lowest. An AI agent that screens CVs, allocates tasks based on performance data, or prices insurance risk is almost certainly Annex III — regardless of whether the procurement team described it as an "AI assistant" or an "intelligent workflow tool."
+            </p>
+
+            <!-- Section 4 -->
+            <h2 id="what-it-requires">What the Act requires: Art. 12, 14, 26, 49</h2>
+            <p>
+              For High-Risk AI systems, the EU AI Act imposes concrete technical and organizational obligations. The four articles that matter most for enterprises deploying AI agents are these:
+            </p>
+
+            <h3 class="text-base font-bold text-[#0d0e10] mt-6 mb-3 uppercase tracking-wide">Article 12 — Logging</h3>
+            <p>
+              High-Risk AI systems must automatically log events throughout the system lifecycle. The requirements are not vague:
+            </p>
+            <ul>
+              <li>Logging must be automatic — not manually triggered or opt-in</li>
+              <li>Logs must enable post-hoc verification of system behavior</li>
+              <li>Retention: minimum six months; longer where sectoral law requires it (DORA Article 30 requires two years for financial entities)</li>
+              <li>For credit, insurance, and employment decisions: the log must capture sufficient context to reconstruct the decision chain</li>
+            </ul>
+            <p>
+              <a href="/blog/eu-ai-act-audit-trails">What most enterprises are missing</a>: Article 12 does not prescribe a specific technical implementation — but a log that can be altered after the fact does not satisfy the regulation's intent. Tamper-evidence is a structural requirement, not a feature you can configure later.
+            </p>
+
+            <h3 class="text-base font-bold text-[#0d0e10] mt-6 mb-3 uppercase tracking-wide">Article 14 — Human oversight</h3>
+            <p>
+              High-Risk AI systems must be designed and built so that human operators can effectively monitor the system's operation, detect anomalies, and intervene or override decisions when necessary.
+            </p>
+            <p>
+              For AI agents — systems that autonomously call tools, retrieve data, and execute multi-step tasks — this requirement has a specific implication: you must be able to reconstruct the full causal chain of any challenged decision. What did the agent retrieve? What was it shown? What did it return, and in what sequence? A log that records only inputs and outputs does not satisfy Article 14.
+            </p>
+
+            <h3 class="text-base font-bold text-[#0d0e10] mt-6 mb-3 uppercase tracking-wide">Article 26 — Deployer obligations</h3>
+            <p>
+              This is the article most enterprises have not read carefully enough. Article 26 places obligations on the <em>deployer</em> — the organization putting the AI system into service — not just the provider who built it. Deployers must:
+            </p>
+            <ul>
+              <li>Implement appropriate technical and organizational measures to ensure use is consistent with the instructions for use</li>
+              <li>Designate a point of contact for competent authorities</li>
+              <li>Maintain logs generated by the AI system for the duration of operation — including logs they did not generate themselves</li>
+              <li>Conduct a fundamental rights impact assessment where required</li>
+            </ul>
+            <p>
+              The key implication: you cannot outsource Article 26 compliance to your LLM provider. The obligation sits with the deploying organization. A log that lives on Anthropic's or OpenAI's infrastructure, signed by their keys, and retrievable only through their console is a vendor report — not an independent audit trail under Article 26.
+            </p>
+
+            <h3 class="text-base font-bold text-[#0d0e10] mt-6 mb-3 uppercase tracking-wide">Article 49 — Registration</h3>
+            <p>
+              Before deploying a High-Risk AI system, providers (and in some cases deployers) must register the system in the EU public database. Registration requires technical documentation demonstrating compliance — which means the compliance infrastructure must exist before deployment begins, not after the first audit notice arrives.
+            </p>
+
+            <!-- Section 5 -->
+            <h2 id="where-enterprises-fail">Where enterprises fall short</h2>
+            <p>
+              Most enterprises deploying AI agents today have compliance gaps across three structural areas. None of them are hard to understand. All of them are hard to fix retroactively.
+            </p>
+
+            <p>
+              <strong>Gap 1: Provider-native logs are not an independent audit trail.</strong> OpenAI, Anthropic, Azure AI, and Google Vertex all offer usage logging. These logs are useful for operational debugging. They are not what the EU AI Act requires. A log that lives on the provider's infrastructure, signed by the provider's keys, and accessible only through the provider's console is a vendor report. Regulators and courts treat them differently from an independent, cryptographically integrity-verified audit trail captured at the deployer's governance layer.
+            </p>
+
+            <p>
+              <strong>Gap 2: Application-layer logs can be silently altered.</strong> Many teams log at the application level — capturing inputs and outputs in their own database. This is better than nothing. It is not enough. Software-layer logs can be modified by a compromised host, a rogue admin, or an incident response process that cleans up before anyone checks. Without cryptographic integrity at the point of capture, a log cannot prove it has not been altered — which is precisely what a competent authority will ask.
+            </p>
+
+            <p>
+              <strong>Gap 3: Missing causal context for agent decisions.</strong> Article 14's human oversight requirement means you must be able to reconstruct not just what the agent did, but why — the retrieval context, tool calls, intermediate reasoning, and decision sequence that produced a given output. Most logging captures the outer envelope (input prompt, final response) and misses everything in between. For AI agents running multi-step tasks with tool use and retrieval, the middle is where the liability is.
+            </p>
+
+            <p>
+              <a href="/blog/eu-ai-act-audit-trails">A full breakdown of what enterprises are currently missing — and what compliant audit infrastructure actually looks like.</a>
+            </p>
+
+            <!-- Section 6 -->
+            <h2 id="compliance-plan">How to build a compliant infrastructure</h2>
+            <p>
+              Achieving EU AI Act compliance for AI agent deployments is a six-step process. The first three can be started immediately, without procuring any new technology.
+            </p>
+
+            <p>
+              <strong>Step 1 — Classify your AI systems against Annex III.</strong> Do not assume your AI tools are low-risk because they feel like internal productivity tools. An AI agent that participates in employment decisions, credit processing, insurance pricing, or critical infrastructure operations is almost certainly Annex III. <a href="/guides/classify-ai-systems">Use the classification guide</a> — and involve legal counsel, not just IT.
+            </p>
+
+            <p>
+              <strong>Step 2 — Audit your current logging infrastructure.</strong> For each Annex III system, map your current logging against Articles 12, 14, and 26. The key questions: Is logging automatic, or manually triggered? Is the audit trail cryptographically integrity-verified? Is it architecturally independent of your LLM provider? Does it capture causal context — not just inputs and outputs? Does it cover all providers and all agents, or only some?
+            </p>
+
+            <p>
+              <strong>Step 3 — Assess your shadow AI surface.</strong> The agents you know about are not the only agents running on your infrastructure. <a href="/guides/detect-shadow-ai">Shadow AI</a> — models and agents deployed without IT visibility — creates compliance exposure you cannot audit. Any shadow AI system in an Annex III use case is an unregistered, non-compliant High-Risk AI system. Quantifying this exposure is a prerequisite for compliance planning.
+            </p>
+
+            <p>
+              <strong>Step 4 — Implement an independent governance layer.</strong> The structural fix for Gaps 1 and 2 is an out-of-band governance proxy — a layer that sits between your agents and every LLM provider, captures tamper-evident logs at the point of every inference call, and does so independently of the providers being logged. This layer needs to be provider-agnostic: your agents use OpenAI today, Anthropic tomorrow, and local models on air-gapped infrastructure next year.
+            </p>
+
+            <p>
+              <strong>Step 5 — Capture causal context, not just I/O.</strong> For Article 14 compliance, configure your governance layer to capture the full decision chain: system prompt, retrieval context, tool calls and their results, intermediate model turns, and final response — all as a single, hash-chained record per inference event. This is the causal context a competent authority will request.
+            </p>
+
+            <p>
+              <strong>Step 6 — Complete technical documentation and register.</strong> Article 49 requires registration before deployment. The registration package requires technical documentation demonstrating that your logging, oversight, and human intervention capabilities satisfy the regulation. Build the documentation in parallel with the infrastructure — not after it.
+            </p>
+
+            <p>
+              December 2, 2027 is 18 months away. Steps 1–3 take weeks. Steps 4–6 take months. The enterprises that start now will have compliant infrastructure before enforcement begins. The ones that wait for regulatory certainty will still be retrofitting when competent authorities begin their first market surveillance reviews.
+            </p>
+
+            <!-- FAQ -->
+            <h2 id="faq">Frequently asked questions</h2>
+
+            <div class="not-prose space-y-4">
+              {[
+                {
+                  q: "Does the EU AI Act apply to non-EU companies?",
+                  a: "Yes. The AI Act applies to providers placing AI systems on the EU market and to deployers using AI systems in the EU — regardless of where those organizations are based. A US company deploying an AI agent for an EU-based employee or customer is subject to the regulation."
+                },
+                {
+                  q: "Is an AI agent automatically High-Risk under Annex III?",
+                  a: "Not automatically — but the use case determines classification, not the technology label. An AI agent performing HR screening, credit scoring, or insurance risk classification is Annex III even if it is marketed as a 'copilot' or 'assistant.' Classification must be assessed against the actual function the system performs, not its product category."
+                },
+                {
+                  q: "Does my LLM provider's logging satisfy Article 12?",
+                  a: "No. Provider-native logs (OpenAI usage logs, Anthropic audit console) are vendor reports — logs that live on the provider's infrastructure, signed by the provider's keys, and accessible only through the provider's interface. The EU AI Act requires the deployer to maintain an independent audit trail with tamper-evident integrity. Independence from the logged system is a structural requirement."
+                },
+                {
+                  q: "What is the fine for non-compliance?",
+                  a: "Violations related to High-Risk AI obligations can attract fines up to €15 million or 3% of global annual turnover (whichever is higher). For GPAI model violations, the ceiling is €30 million or 6% of turnover. Prohibited AI system violations reach €35 million or 7% of turnover."
+                },
+                {
+                  q: "What is the difference between the EU AI Act and DORA for AI agents?",
+                  a: "DORA (Digital Operational Resilience Act) applies to financial entities specifically and focuses on ICT risk management and resilience. The EU AI Act applies to AI systems broadly, across all regulated verticals. An AI agent deployed in a financial context must satisfy both: DORA Article 30 (ICT-related incident logs, two-year retention) and EU AI Act Articles 12 and 26. The requirements overlap but are not identical."
+                },
+                {
+                  q: "Does the AI Act apply to open-source AI models?",
+                  a: "Open-source models receive some exemptions under the GPAI provisions, but the deployer obligations under Annex III apply regardless of whether the underlying model is open or closed source. An enterprise running an open-source model (Llama, Mistral, etc.) for HR or credit decisions is still a deployer of a High-Risk AI system."
+                },
+                {
+                  q: "What does 'tamper-evident' mean in practice?",
+                  a: "A tamper-evident audit trail uses cryptographic signing at the point of capture — each log entry is signed with a private key, and entries are hash-chained so that any modification to any entry is detectable by verifying the chain. This is an architectural property, not a software feature. A database log that can be altered by a DBA with the right access credentials is not tamper-evident."
+                },
+              ].map(({ q, a }) => (
+                <details class="border border-dotted border-[#0d0e10]/15 bg-white group">
+                  <summary class="px-6 py-4 text-sm font-semibold text-[#0d0e10] cursor-pointer list-none flex items-center justify-between gap-4">
+                    <span>{q}</span>
+                    <span class="font-mono text-[#fcb830] shrink-0 text-base group-open:rotate-45 transition-transform">+</span>
+                  </summary>
+                  <div class="px-6 pb-5 pt-2 text-sm text-[#333] leading-relaxed border-t border-dotted border-[#0d0e10]/10">
+                    {a}
+                  </div>
+                </details>
+              ))}
+            </div>
+
+            <!-- Related resources -->
+            <h2 id="resources">Related resources</h2>
+            <p>
+              These articles and guides go deeper on specific aspects of EU AI Act compliance for AI agent deployments:
+            </p>
+
+            <div class="not-prose space-y-3">
+              {[
+                {
+                  label: "Guide",
+                  title: "How to Classify AI Systems Under EU AI Act",
+                  desc: "Step-by-step framework for determining if your AI systems are High-Risk under Annex III. With decision tree and worked examples per vertical.",
+                  href: "/guides/classify-ai-systems",
+                },
+                {
+                  label: "Article",
+                  title: "What the EU AI Act Actually Requires for Audit Trails",
+                  desc: "Why provider-native logs fail, what tamper-evidence means structurally, and what the causal context requirement forces you to capture.",
+                  href: "/blog/eu-ai-act-audit-trails",
+                },
+                {
+                  label: "Article",
+                  title: "The EU AI Act Is Coming. Regardless of What Brussels Decides.",
+                  desc: "The timeline from the Digital Omnibus process, the four scenarios, and why planning against postponement is the wrong posture.",
+                  href: "/blog/eu-ai-act-omnibus-collapse",
+                },
+                {
+                  label: "Article",
+                  title: "DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30",
+                  desc: "For financial entities: how DORA Article 30 intersects with EU AI Act obligations, and why the requirements are additive, not overlapping.",
+                  href: "/blog/dora-ai-agents",
+                },
+                {
+                  label: "Guide",
+                  title: "AI Governance Checklist: What to Have Before an Audit",
+                  desc: "The documentation, technical controls, and organizational measures you need in place before a competent authority requests them.",
+                  href: "/guides/governance-checklist",
+                },
+                {
+                  label: "Guide",
+                  title: "How to Detect Shadow AI in Your Organization",
+                  desc: "Identifying unauthorized AI agent deployments — the Annex III compliance exposure you cannot audit if you cannot see.",
+                  href: "/guides/detect-shadow-ai",
+                },
+                {
+                  label: "Article",
+                  title: "NIST and EU AI Act: Converging on the Same Requirements",
+                  desc: "NIST AI RMF and the EU AI Act were developed independently. They are converging on identical requirements for traceable identity and tamper-evident records.",
+                  href: "/blog/nist-critical-infrastructure-ai-convergence",
+                },
+              ].map(({ label, title, desc, href }) => (
+                <a href={href} class="group flex items-start gap-4 border border-dotted border-[#0d0e10]/15 bg-white p-5 hover:border-[#0d0e10]/30 transition-colors">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-[#666] border border-dotted border-[#0d0e10]/15 px-2 py-1 shrink-0 mt-0.5">{label}</span>
+                  <div class="min-w-0">
+                    <p class="text-sm font-semibold text-[#0d0e10] group-hover:text-[#333] transition-colors leading-snug mb-1">{title}</p>
+                    <p class="text-xs text-[#666] leading-relaxed">{desc}</p>
+                  </div>
+                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                </a>
+              ))}
+            </div>
+
+            <!-- KYDE CTA -->
+            <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
+              <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3 inline-block">↳ KYDE Gateway</p>
+              <p class="text-base font-semibold text-[#0d0e10] mb-2">The fastest path to EU AI Act–compliant agent infrastructure.</p>
+              <p class="text-sm text-[#333] leading-relaxed mb-6">
+                KYDE is a model-agnostic governance proxy that sits between your agents and every LLM provider. It produces tamper-evident, cryptographically signed audit trails for every agent action — capturing causal context, not just inputs and outputs — without touching a single line of agent code. One environment variable. Any provider. Day one.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <button
+                  onclick="openModal()"
+                  class="inline-flex items-center gap-2 bg-[#0d0e10] text-white px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#333] transition-all"
+                >
+                  Book a Demo →
+                </button>
+                <a
+                  href="/platform"
+                  class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/40 text-[#0d0e10] px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] hover:border-[#0d0e10] transition-all"
+                >
+                  See the Platform →
+                </a>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-5 sticky top-28">
+
+            <div class="border border-dotted border-[#fcb830]/50 bg-[#fcb830]/5 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10] mb-3">Key deadline</p>
+              <p class="font-mono text-xl font-bold text-[#0d0e10]">Dec 2, 2027</p>
+              <p class="text-xs text-[#666] mt-1">Annex III High-Risk AI enforcement</p>
+              <p class="font-mono text-xs text-[#666] mt-3">Aug 2028 — Annex I (embedded)</p>
+            </div>
+
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Articles covered</p>
+              <div class="space-y-1.5">
+                {[
+                  "Art. 12 — Automatic logging",
+                  "Art. 14 — Human oversight",
+                  "Art. 26 — Deployer obligations",
+                  "Art. 49 — Registration",
+                  "Art. 50 — Transparency",
+                  "Annex III — High-Risk categories",
+                  "Annex I — Regulated products",
+                ].map((r) => (
+                  <p class="font-mono text-xs text-[#333]">{r}</p>
+                ))}
+              </div>
+            </div>
+
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Also relevant</p>
+              <div class="space-y-2">
+                {[
+                  "DORA Art. 30",
+                  "GDPR Art. 22, 35",
+                  "NIS-2 Directive",
+                  "BaFin AI Guidance",
+                ].map((r) => (
+                  <p class="font-mono text-xs text-[#666]">{r}</p>
+                ))}
+              </div>
+            </div>
+
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Spoke pages</p>
+              <div class="space-y-3">
+                {[
+                  { href: "/guides/classify-ai-systems", label: "Classify AI Systems" },
+                  { href: "/blog/eu-ai-act-audit-trails", label: "Audit Trail Requirements" },
+                  { href: "/blog/eu-ai-act-omnibus-collapse", label: "Omnibus Timeline" },
+                  { href: "/blog/dora-ai-agents", label: "DORA + AI Agents" },
+                  { href: "/guides/governance-checklist", label: "Governance Checklist" },
+                  { href: "/guides/detect-shadow-ai", label: "Detect Shadow AI" },
+                ].map(({ href, label }) => (
+                  <a href={href} class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#0d0e10] transition-colors leading-snug">
+                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                    <span>{label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Fines at stake</p>
+              <div class="space-y-2">
+                <div>
+                  <p class="font-mono text-sm font-bold text-[#0d0e10]">€15M / 3%</p>
+                  <p class="text-xs text-[#666]">High-Risk AI violations</p>
+                </div>
+                <div>
+                  <p class="font-mono text-sm font-bold text-[#0d0e10]">€35M / 7%</p>
+                  <p class="text-xs text-[#666]">Prohibited AI violations</p>
+                </div>
+                <p class="font-mono text-[10px] text-[#999] mt-2">(whichever is higher)</p>
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: #333;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 68ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: #0d0e10;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dotted rgba(13,14,16,0.15);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: ui-monospace, monospace;
+    color: #fcb830;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: #0d0e10; font-weight: 600; }
+  .prose-kyde em { font-style: italic; color: #555; }
+  .prose-kyde a { color: #0d0e10; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(13,14,16,0.3); }
+  .prose-kyde a:hover { text-decoration-color: #fcb830; }
+  details summary::-webkit-details-marker { display: none; }
+</style>
