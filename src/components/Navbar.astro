@@ -37,8 +37,9 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <!-- CTAs (desktop) -->
+    <!-- CTAs (desktop) — Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
     <div class="hidden md:flex items-center gap-3">
+      <!--
       <button
         onclick="openModal()"
         class="inline-flex items-center gap-2 rounded-full border border-dotted border-[#0d0e10]/30 px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] transition-colors hover:border-[#0d0e10]"
@@ -51,6 +52,13 @@ const currentPath = Astro.url.pathname;
       >
         Deploy Sandbox →
       </a>
+      -->
+      <button
+        onclick="openModal()"
+        class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] transition-colors hover:bg-[#333]"
+      >
+        Talk to Us →
+      </button>
     </div>
 
     <!-- Mobile menu button -->
@@ -88,18 +96,21 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
+    <!-- Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
     <div class="space-y-3">
+      <!--
       <a
         href="/sandbox"
         class="block w-full text-center bg-[#0d0e10] rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
       >
         Deploy Sandbox →
       </a>
+      -->
       <button
         onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
-        class="w-full border border-dotted border-[#0d0e10]/30 rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all"
+        class="w-full bg-[#0d0e10] rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
       >
-        Talk to Us
+        Talk to Us →
       </button>
     </div>
   </div>
