@@ -386,6 +386,83 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
+        <!-- ══════════ BOUNDARY POSITION ══════════ -->
+        <section class="relative border-t border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+            <div class="relative max-w-7xl mx-auto px-6">
+
+                <div class="mb-12">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Structural Position</span>
+                    </div>
+                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                            We Didn't Bet on a Horse in the AI Race.<br />We Built the Racetrack.
+                        </h2>
+                        <p class="text-[#333] leading-relaxed mb-4">
+                            OpenAI ships a new model. Anthropic responds. An enterprise switches providers. Vendors compete. Intelligence migrates to clouds.
+                        </p>
+                        <p class="text-[#333] leading-relaxed mb-4">
+                            One thing is invariant: every agent — regardless of which model, which runtime, which vendor — must cross the boundary between the AI world and your systems. Through your infrastructure. Under your liability.
+                        </p>
+                        <p class="text-[#333] leading-relaxed mb-10">
+                            That boundary doesn't belong to any vendor. It belongs to you. Governance at the boundary gets more valuable with every model migration, not less.
+                        </p>
+                        <p class="font-mono text-sm text-[#0d0e10] border-l-2 border-[#0d0e10]/30 pl-4 leading-relaxed">
+                            We're not competing in the model race. We operate the only neutral layer between every model and every enterprise system — regardless of who wins.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 mb-8">
+                            <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5]">
+                                <div class="px-6 py-3">
+                                    <p class="font-mono text-xs uppercase tracking-widest text-[#888]">Changes constantly</p>
+                                </div>
+                                <div class="px-6 py-3">
+                                    <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Invariant</p>
+                                </div>
+                            </div>
+                            {[
+                                { left: "Models & frontier capabilities", right: "Your systems, data, and APIs" },
+                                { left: "Agent runtimes & frameworks", right: "The boundary every agent must cross" },
+                                { left: "LLM pricing & context windows", right: "Your compliance obligations" },
+                                { left: "Which vendor wins the model race", right: "Your liability for what agents do" },
+                                { left: "Provider infrastructure", right: "KYDE — at the invariant chokepoint" },
+                            ].map(({ left, right }) => (
+                                <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15">
+                                    <div class="px-6 py-4">
+                                        <p class="text-sm text-[#aaa] line-through">{left}</p>
+                                    </div>
+                                    <div class="px-6 py-4">
+                                        <p class="text-sm text-[#0d0e10] font-medium">{right}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div class="grid gap-3 grid-cols-3">
+                            {[
+                                { n: "01", label: "Model intelligence migrates to vendor clouds" },
+                                { n: "02", label: "The boundary stays with your infrastructure" },
+                                { n: "03", label: "Our position strengthens with every migration" },
+                            ].map(({ n, label }) => (
+                                <div class="border border-dotted border-[#0d0e10]/15 bg-white p-4">
+                                    <p class="font-mono text-[10px] text-[#888] mb-2">{n}</p>
+                                    <p class="text-xs text-[#333] leading-relaxed">{label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- ══════════ THREE GUARANTEES ══════════ -->
         <section class="relative bg-[#1e2228] py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
