@@ -3,44 +3,49 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-type ExampleLine = { text: string; cls: string };
-type Input = { num: string; label: string; desc: string; example: ExampleLine[] | null };
+type ScoreEvent = { label: string; ok: boolean };
+const scoreEvents: ScoreEvent[] = [
+  { label: "Identity verified · Ed25519",       ok: true  },
+  { label: "Within approved scope",             ok: true  },
+  { label: "Blocked: unauthorized data export", ok: false },
+];
 
-const inputs: Input[] = [
+type Dimension = { key: string; label: string; question: string; desc: string; example?: string[] };
+const dimensions: Dimension[] = [
   {
-    num: "01",
-    label: "Identity",
-    desc: "Is this a known agent, attributable, operating under a defined role? Self-hosted agents get a cryptographic identity per instance. Cloud-executed agents bind to credentials and connector authorizations the enterprise actually issued — enforceable and revocable.",
-    example: null,
+    key:      "WHO",
+    label:    "Identity",
+    question: "Which agent is acting?",
+    desc:     "Cryptographic agent identity per instance — not shared service accounts. Cloud-executed agents bind to credentials the enterprise actually issued.",
   },
   {
-    num: "02",
-    label: "Mandate",
-    desc: "Every agent has a declared purpose. The firewall scores actions against it. A support connector that initiates a bulk export has violated its mandate — a fact, established at the boundary, requiring no interpretation of inner state.",
-    example: [
-      { text: "Declared purpose:  customer_support · read:tickets, send:messages", cls: "text-[#0a7c4e]" },
-      { text: "Attempted action:  export:all_contacts",                           cls: "text-[#c00000]" },
-      { text: "→ Mandate violation · Blocked · Score updated to 72",             cls: "text-[#666]"    },
+    key:      "WHY",
+    label:    "Mandate",
+    question: "Was this action allowed?",
+    desc:     "Every agent has a declared purpose. The firewall scores actions against it. No interpretation of inner state required.",
+    example:  [
+      "Declared:  customer_support · read:tickets, send:messages",
+      "Attempted: export:all_contacts  ← Mandate violation → Blocked",
     ],
   },
   {
-    num: "03",
-    label: "Baseline",
-    desc: "How does current activity compare with this agent's own established pattern — call volumes, endpoint sequences, cost profiles, timing? Drift is the earliest observable signal of compromise or goal hijacking, visible before any single action looks wrong.",
-    example: null,
+    key:      "NORMAL",
+    label:    "Baseline",
+    question: "Is this behavior unusual for this agent?",
+    desc:     "Continuous comparison against the agent's own established pattern — call volumes, endpoint sequences, timing. Drift is the earliest observable signal of compromise.",
   },
   {
-    num: "04",
-    label: "Benchmark",
-    desc: "How does this agent compare with anonymized peers in the same role class across the network? An outlier among hundreds of comparable agents deserves scrutiny even when its own history is clean. Role classes matter: CRM agents and coding agents have structurally different baselines.",
-    example: null,
+    key:      "COMPARED",
+    label:    "Benchmark",
+    question: "How does this agent compare to peers?",
+    desc:     "Anonymized role-class comparison across the network. An outlier among hundreds of comparable agents deserves scrutiny even when its own history is clean.",
   },
 ];
 ---
 
 <Base
-  title="KYDE Trust Score™ — The Independence Rating for Autonomous AI"
-  description="Behavioral scoring for AI agents computed at the boundary — the only metric that exists identically across every provider, because it's computed from what agents do, not what vendors report."
+  title="KYDE Trust Score™ — Trust Infrastructure for AI Agents"
+  description="A behavioral trust score for every autonomous AI agent. Measured at the boundary across four signals: identity, mandate, baseline, and benchmark. Always published with its coverage figure."
 >
   <Navbar />
   <main>
@@ -59,80 +64,58 @@ const inputs: Input[] = [
               <span class="font-mono text-[10px] uppercase tracking-widest text-[#fcb830]/80 border border-dotted border-[#fcb830]/30 px-3 py-1">Trust Score™</span>
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-6">
-              The Independence Rating for Autonomous AI.
+              Trust infrastructure for AI agents.
             </h1>
-            <p class="text-lg text-white/55 leading-relaxed max-w-lg mb-10">
-              Behavioral scoring computed at the boundary — the only point where every agent from every provider is measurable in the same currency.
+            <p class="text-xl text-white/55 leading-relaxed max-w-lg mb-4">
+              AI agents are becoming autonomous. KYDE measures whether they can be trusted — by scoring what they do, not what they claim.
             </p>
-            <div class="flex flex-col sm:flex-row gap-3 mb-8">
+            <p class="text-base text-white/35 leading-relaxed max-w-lg mb-10">
+              Deployed via one environment variable. No SDK. No model dependency.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3">
               <button
                 onclick="openModal()"
                 class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#dae4e5] transition-all"
               >
-                Start Enterprise Sandbox →
+                Deploy the Gateway →
               </button>
               <a
-                href="mailto:hello@kyde.com"
+                href="/platform"
                 class="inline-flex items-center gap-2 border border-dotted border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all"
               >
-                Partner as Underwriter →
+                See how it works →
               </a>
             </div>
-            <p class="font-mono text-xs text-white/20 uppercase tracking-widest">EU AI Act · NIS-2 · DORA · Insurance-ready</p>
           </div>
 
-          <!-- Score mockup -->
-          <div class="border border-white/10 bg-white/[0.03] p-6 md:p-8">
-            <div class="flex items-start justify-between mb-5 pb-5 border-b border-white/8">
+          <!-- Score mockup — simplified, Apple-style -->
+          <div class="border border-white/10 bg-white/[0.03] p-8 md:p-10">
+            <div class="mb-6 pb-5 border-b border-white/8">
+              <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30 mb-1">KYDE Trust Score™</p>
+              <p class="font-mono text-xs text-white/20">CRM Sales Agent · Acme Corp</p>
+            </div>
+
+            <div class="flex items-end gap-4 mb-3">
+              <p class="font-mono text-8xl font-bold text-white leading-none tracking-tighter">84</p>
+              <p class="font-mono text-sm text-white/20 pb-2">/100</p>
+            </div>
+            <p class="font-mono text-xs text-[#fcb830] mb-8">Trusted above comparable agents</p>
+
+            <div class="space-y-3 mb-8">
+              {scoreEvents.map(({ label, ok }) => (
+                <div class="flex items-center gap-3">
+                  <span class={`font-mono text-base leading-none shrink-0 ${ok ? 'text-[#0a7c4e]' : 'text-[#c00000]'}`}>{ok ? '✓' : '⚠'}</span>
+                  <span class={`text-sm ${ok ? 'text-white/50' : 'text-white/70'}`}>{label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="border-t border-white/8 pt-5 flex items-center justify-between">
               <div>
-                <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30 mb-1">KYDE Trust Score™</p>
-                <p class="font-mono text-[10px] text-white/20">agent:CRM-Sales-04 · Acme Corp</p>
+                <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25 mb-1">Coverage</p>
+                <p class="font-mono text-2xl font-bold text-[#0a7c4e]">92%</p>
               </div>
-              <div class="text-right">
-                <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30 mb-1">Coverage</p>
-                <p class="font-mono text-xl font-bold text-[#0a7c4e]">92%</p>
-              </div>
-            </div>
-
-            <div class="flex items-end gap-4 mb-8">
-              <p class="font-mono text-7xl md:text-8xl font-bold text-white leading-none tracking-tighter">84</p>
-              <div class="pb-2">
-                <p class="font-mono text-sm text-white/20">/100</p>
-                <p class="font-mono text-[10px] text-[#fcb830] uppercase tracking-widest mt-1">Above median</p>
-              </div>
-            </div>
-
-            <div class="space-y-3.5 mb-6">
-              {[
-                { label: "Identity",   pct: 95, note: "Verified · Ed25519"       },
-                { label: "Mandate",    pct: 72, note: "1 boundary deviation"     },
-                { label: "Baseline",   pct: 88, note: "Within normal range"      },
-                { label: "Benchmark",  pct: 91, note: "Above role-class median"  },
-              ].map(({ label, pct, note }) => (
-                <div>
-                  <div class="flex items-center justify-between mb-1.5">
-                    <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">{label}</span>
-                    <span class="font-mono text-[10px] text-white/25">{note}</span>
-                  </div>
-                  <div class="h-1 bg-white/8 rounded-full overflow-hidden">
-                    <div class="h-full rounded-full bg-[#0a7c4e]/70" style={`width:${pct}%`}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div class="border-t border-white/8 pt-4 space-y-2.5">
-              <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/20 mb-3">Live activity</p>
-              {[
-                { action: "bulk_export initiated",   result: "Blocked · mandate violation",  warn: true  },
-                { action: "crm.query completed",     result: "Signed · score stable",        warn: false },
-                { action: "slack.send completed",    result: "Signed · within scope",        warn: false },
-              ].map(({ action, result, warn }) => (
-                <div class="flex items-center justify-between gap-4">
-                  <span class="font-mono text-[10px] text-white/30 truncate">{action}</span>
-                  <span class={`font-mono text-[9px] shrink-0 ${warn ? 'text-[#c00000]' : 'text-[#0a7c4e]'}`}>{result}</span>
-                </div>
-              ))}
+              <p class="text-xs text-white/20 text-right max-w-[140px] leading-snug">94% of agent traffic observed and scored</p>
             </div>
           </div>
 
@@ -140,73 +123,134 @@ const inputs: Input[] = [
       </div>
     </section>
 
-    <!-- ══════════ THE PATTERN ══════════ -->
+    <!-- ══════════ THE PROBLEM ══════════ -->
     <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
       <div class="max-w-7xl mx-auto px-6">
-        <p class="font-mono text-xs uppercase tracking-widest text-[#999] mb-12">The pattern that keeps repeating</p>
-
-        <div class="relative">
-          <div class="absolute top-5 left-5 right-5 h-px bg-[#0d0e10]/8 hidden md:block"></div>
-          <div class="grid md:grid-cols-4 gap-8 md:gap-6">
-            {[
-              { era: "1860s", name: "Steam Boilers",  signal: "Inspection records", outcome: "Insurance made industrialization safe"        },
-              { era: "1950s", name: "Credit Scores",  signal: "Payment history",    outcome: "Lending scaled beyond personal acquaintance" },
-              { era: "2000s", name: "Telematics",     signal: "Driving behavior",   outcome: "Risk priced from data, not proxies"           },
-              { era: "Now",   name: "AI Agents",      signal: "Boundary behavior",  outcome: "Trust Score™ — the denominator"              },
-            ].map(({ era, name, signal, outcome }, i) => (
-              <div class="relative">
-                <div class={`w-10 h-10 rounded-full border-2 flex items-center justify-center mb-5 bg-white z-10 relative ${i === 3 ? 'border-[#0d0e10]' : 'border-[#0d0e10]/20'}`}>
-                  <span class="font-mono text-[9px] font-bold text-[#0d0e10]">{`0${i+1}`}</span>
-                </div>
-                <p class="font-mono text-[10px] text-[#bbb] uppercase tracking-widest mb-2">{era}</p>
-                <p class={`font-bold text-sm mb-2 ${i === 3 ? 'text-[#0d0e10]' : 'text-[#444]'}`}>{name}</p>
-                <p class="text-xs text-[#999] mb-2">Signal: {signal}</p>
-                <p class="text-xs text-[#666] leading-snug">{outcome}</p>
-              </div>
-            ))}
+        <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-widest text-[#999] mb-6">The problem</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight">
+              AI agents don't fail because we can't understand their intentions.
+            </h2>
           </div>
-        </div>
-
-        <div class="mt-12 border-l-2 border-[#0d0e10]/15 pl-6 max-w-3xl">
-          <p class="text-base text-[#444] leading-relaxed">
-            Behavior has never been the fallback for when intentions are unavailable. It is the only thing that has ever been scored. No credit score reads a borrower's intentions. The telematics box doesn't know what the driver was thinking. It doesn't need to.
-          </p>
+          <div class="md:pt-12">
+            <p class="text-lg text-[#444] leading-relaxed mb-6">
+              They fail because we can't measure their behavior.
+            </p>
+            <p class="text-base text-[#666] leading-relaxed">
+              Every provider ships a governance console. Every console governs only its own stack. When an agent crosses providers, connects to your systems, or acts on your data — nothing is scored. The liability is yours. The visibility is theirs.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ FOUR INPUTS ══════════ -->
+    <!-- ══════════ COVERAGE — "the denominator" ══════════ -->
     <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-[#f1f3f5]">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="mb-12">
           <div class="flex items-center gap-3 mb-3">
             <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ What the score is computed from</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The denominator</span>
           </div>
           <div class="h-px w-full bg-[#e8e9eb]"></div>
         </div>
 
-        <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight mb-4 max-w-2xl">
-          Four inputs. All behavioral. All verifiable at the boundary.
-        </h2>
-        <p class="text-[#555] leading-relaxed mb-14 max-w-2xl">
-          No access to the agent's reasoning required. No reliance on any provider's word.
-        </p>
+        <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center mb-16">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight mb-6">
+              A score without a denominator is a claim, not a fact.
+            </h2>
+            <p class="text-base text-[#555] leading-relaxed mb-4">
+              Every KYDE Trust Score ships with a coverage figure: the share of observable activity that flowed through governed paths.
+            </p>
+            <p class="text-base text-[#555] leading-relaxed">
+              Coverage 89% and Coverage 42% are different facts wearing the same number. We publish both — because the gap is the risk.
+            </p>
+          </div>
+          <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6 md:p-8">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-[#999] mb-6">Coverage Report · Acme Corp · Q3 2026</p>
+            <div class="space-y-4">
+              {[
+                { label: "Governed",    pct: 92, note: "Intercepted, scored, signed",  color: "#0a7c4e" },
+                { label: "Governable",  pct:  6, note: "Identified, not yet routed",   color: "#fcb830" },
+                { label: "Dark",        pct:  2, note: "Unobserved — vendor-internal", color: "#999"    },
+              ].map(({ label, pct, note, color }) => (
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-[#333]">{label}</span>
+                    <span class="font-mono text-xs font-bold" style={`color:${color}`}>{pct}%</span>
+                  </div>
+                  <div class="h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden mb-1">
+                    <div class="h-full rounded-full" style={`width:${pct}%;background-color:${color};opacity:0.8`}></div>
+                  </div>
+                  <p class="text-[10px] text-[#aaa]">{note}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Architecture diagram -->
+        <div class="grid md:grid-cols-[1fr_36px_1fr_36px_1fr] items-stretch gap-0">
+          <div class="border border-dotted border-[#0d0e10]/12 bg-white p-6">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-[#ccc] mb-3">Dark</p>
+            <p class="text-sm font-semibold text-[#aaa] mb-3">Vendor-internal</p>
+            <p class="text-xs text-[#bbb] leading-relaxed">Intra-cloud reasoning, sub-agent delegation, vendor-native connectors. Quantified in the Coverage Report.</p>
+          </div>
+          <div class="hidden md:flex items-center justify-center text-[#ccc] font-mono">→</div>
+          <div class="border-2 border-[#4472c4] bg-white p-6 md:-my-2">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-[#4472c4] mb-3">KYDE Gateway</p>
+            <p class="text-sm font-semibold text-[#0d0e10] mb-3">The boundary</p>
+            <p class="text-xs text-[#555] leading-relaxed">Intercepts every inference call. Verifies identity. Scores against mandate. Signs to ledger. Enforces or blocks.</p>
+          </div>
+          <div class="hidden md:flex items-center justify-center text-[#ccc] font-mono">→</div>
+          <div class="border border-dotted border-[#0a7c4e]/30 bg-white p-6">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-[#0a7c4e] mb-3">Governed</p>
+            <p class="text-sm font-semibold text-[#333] mb-3">Your systems</p>
+            <p class="text-xs text-[#555] leading-relaxed">APIs, databases, MCP servers, SaaS endpoints. Every call scored, every action signed.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FOUR DIMENSIONS ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="h-1.5 w-1.5 rounded-full bg-zinc-400 shrink-0"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ How the score is computed</span>
+          </div>
+          <div class="h-px w-full bg-[#e8e9eb]"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 items-start mb-8">
+          <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight">
+            Four signals. All behavioral. No vendor input required.
+          </h2>
+          <p class="md:pt-2 text-base text-[#555] leading-relaxed">
+            No access to the agent's reasoning. No reliance on any provider's word. Everything computed from what happens at the boundary.
+          </p>
+        </div>
 
         <div class="space-y-px">
-          {inputs.map(({ num, label, desc, example }) => (
-            <div class="grid md:grid-cols-[220px_1fr] divide-y md:divide-y-0 md:divide-x divide-dotted divide-[#0d0e10]/12 border border-dotted border-[#0d0e10]/12 bg-white">
+          {dimensions.map(({ key, label, question, desc, example }) => (
+            <div class="grid md:grid-cols-[200px_1fr] divide-y md:divide-y-0 md:divide-x divide-dotted divide-[#0d0e10]/10 border border-dotted border-[#0d0e10]/10 bg-white hover:bg-[#fafafa] transition-colors">
               <div class="p-6 md:p-8 flex flex-col justify-center">
-                <span class="font-mono text-xs text-[#fcb830] bg-[#fcb830]/10 px-2 py-0.5 mb-3 inline-block w-fit">{num}</span>
-                <p class="text-xl font-bold text-[#0d0e10]">{label}</p>
+                <span class="font-mono text-[10px] text-[#fcb830] bg-[#fcb830]/8 px-2 py-0.5 mb-3 inline-block w-fit uppercase tracking-widest">{key}</span>
+                <p class="text-lg font-bold text-[#0d0e10] mb-1">{label}</p>
+                <p class="text-sm text-[#888] italic">"{question}"</p>
               </div>
               <div class="p-6 md:p-8">
                 <p class="text-sm text-[#444] leading-relaxed">{desc}</p>
                 {example && (
-                  <div class="mt-5 border border-dotted border-[#0d0e10]/12 bg-[#f9fafb] p-4 font-mono text-xs space-y-1">
-                    {example.map(({ text, cls }) => (
-                      <p class={cls}>{text}</p>
+                  <div class="mt-4 border border-dotted border-[#0d0e10]/10 bg-[#f9fafb] p-4 font-mono text-xs space-y-1.5">
+                    {example.map((line) => (
+                      <p class={line.includes('←') ? 'text-[#c00000]' : 'text-[#0a7c4e]'}>{line}</p>
                     ))}
                   </div>
                 )}
@@ -214,106 +258,61 @@ const inputs: Input[] = [
             </div>
           ))}
         </div>
+
       </div>
     </section>
 
-    <!-- ══════════ COVERAGE ARCHITECTURE ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-white">
+    <!-- ══════════ WHY INDEPENDENT ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-[#0d0e10]">
       <div class="max-w-7xl mx-auto px-6">
-
-        <div class="mb-12">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-zinc-400 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Coverage — the number behind the number</span>
+        <div class="grid md:grid-cols-[1fr_1fr] gap-12 md:gap-20 items-center">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-6">Why independence matters</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-6">
+              Vendors grade their own homework.
+            </h2>
+            <p class="text-base text-white/50 leading-relaxed">
+              OpenAI, Anthropic, and Google can observe their own agents. None can objectively score the ecosystem. No bank rates its own bonds. The only independent measurement point is the boundary where agent actions meet your world — and that boundary is ours.
+            </p>
           </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
-        </div>
-
-        <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight mb-4 max-w-2xl">
-          A score without a denominator is a claim, not a fact.
-        </h2>
-        <p class="text-[#555] leading-relaxed mb-14 max-w-2xl">
-          Every KYDE Trust Score ships with a coverage figure. Coverage 89% and Coverage 42% are different facts wearing the same number.
-        </p>
-
-        <!-- Architecture flow -->
-        <div class="grid md:grid-cols-[1fr_40px_1fr_40px_1fr] gap-0 items-stretch mb-12">
-          <div class="border border-dotted border-[#0d0e10]/12 bg-[#f9fafb] p-6 md:p-8">
-            <p class="font-mono text-[10px] uppercase tracking-widest text-[#bbb] mb-4">Dark</p>
-            <p class="font-semibold text-[#666] mb-5">Vendor-internal</p>
-            <ul class="space-y-2.5 mb-6">
-              {["Intra-cloud reasoning", "Sub-agent delegation", "Vendor-native connectors"].map(item => (
-                <li class="text-xs text-[#999] flex items-center gap-2">
-                  <span class="h-px w-3 bg-[#ccc] shrink-0"></span>{item}
-                </li>
-              ))}
-            </ul>
-            <span class="font-mono text-[10px] text-[#bbb] border border-dotted border-[#0d0e10]/10 px-2 py-1 inline-block">Quantified in Coverage Report</span>
-          </div>
-
-          <div class="hidden md:flex items-center justify-center text-[#ccc] font-mono text-base">→</div>
-
-          <div class="border-2 border-[#4472c4] bg-white p-6 md:p-8 md:-my-2">
-            <p class="font-mono text-[10px] uppercase tracking-widest text-[#4472c4] mb-4">KYDE Gateway · Boundary</p>
-            <p class="font-semibold text-[#0d0e10] mb-5">The interception layer</p>
-            <ul class="space-y-2.5 mb-6">
-              {["Intercept · verify identity", "Score against mandate", "Sign & chain to ledger", "Enforce or block"].map(item => (
-                <li class="text-xs text-[#444] flex items-center gap-2">
-                  <svg class="h-3 w-3 shrink-0 text-[#4472c4]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7" /></svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <span class="font-mono text-[10px] text-[#4472c4] border border-dotted border-[#4472c4]/40 px-2 py-1 inline-block">Full telemetry · Full enforcement</span>
-          </div>
-
-          <div class="hidden md:flex items-center justify-center text-[#ccc] font-mono text-base">→</div>
-
-          <div class="border border-dotted border-[#0a7c4e]/30 bg-[#0a7c4e]/5 p-6 md:p-8">
-            <p class="font-mono text-[10px] uppercase tracking-widest text-[#0a7c4e] mb-4">Governed</p>
-            <p class="font-semibold text-[#333] mb-5">Your systems</p>
-            <ul class="space-y-2.5 mb-6">
-              {["APIs & databases", "MCP servers", "Internal services", "SaaS endpoints"].map(item => (
-                <li class="text-xs text-[#555] flex items-center gap-2">
-                  <svg class="h-3 w-3 shrink-0 text-[#0a7c4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7" /></svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <span class="font-mono text-[10px] text-[#0a7c4e] border border-dotted border-[#0a7c4e]/30 px-2 py-1 inline-block">Protected · Score-contributing</span>
+          <div class="space-y-4">
+            {[
+              { who: "Model providers",   note: "See their own models only. Cannot score competitors." },
+              { who: "Single enterprises", note: "See their own fleet only. Cannot benchmark against peers." },
+              { who: "Vendor consortia",   note: "Aggregate logs, but different schemas — each grades itself." },
+              { who: "KYDE",              note: "Measures every agent at the boundary. One currency.", highlight: true },
+            ].map(({ who, note, highlight }) => (
+              <div class={`p-4 border border-dotted flex items-start gap-4 ${highlight ? 'border-[#fcb830]/40 bg-[#fcb830]/5' : 'border-white/10 bg-white/[0.02]'}`}>
+                <span class={`font-mono text-[10px] uppercase tracking-widest shrink-0 mt-0.5 ${highlight ? 'text-[#fcb830]' : 'text-white/30'}`}>{who}</span>
+                <p class={`text-sm ${highlight ? 'text-white/80' : 'text-white/40'}`}>{note}</p>
+              </div>
+            ))}
           </div>
         </div>
-
-        <div class="border-l-2 border-[#0d0e10]/15 pl-6 max-w-3xl">
-          <p class="text-sm text-[#444] leading-relaxed">
-            The EU AI Act and NIS-2 demand traceability of actions with effect — not thought protocols. The action layer carries the liability. That layer is ours, completely.
-          </p>
-        </div>
-
       </div>
     </section>
 
     <!-- ══════════ DEPLOY ══════════ -->
-    <section class="bg-[#0d0e10] border-t border-white/5 py-16 md:py-20">
+    <section class="border-t border-white/5 bg-[#0d0e10] py-16 md:py-20">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
           <div>
-            <p class="font-mono text-xs uppercase tracking-widest text-white/35 mb-4">↳ Deployment</p>
+            <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-6">Deployment</p>
             <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-6">
               One variable.<br />Everything governed.
             </h2>
             <p class="text-white/50 leading-relaxed mb-8">
-              Point any agent at the proxy. No SDK. No code changes. No framework dependency. The Behavioral Firewall intercepts every inference call — and starts computing the Trust Score — from that moment forward.
+              No SDK. No code changes. No framework dependency. Point any agent at the proxy — scoring and signing start immediately.
             </p>
             <ul class="space-y-2.5">
               {[
+                "All providers: OpenAI, Anthropic, Gemini, local models",
                 "Under 100ms target latency",
-                "Every provider — OpenAI, Anthropic, Gemini, local models",
                 "MCP-ready",
-                "Group Policy for enterprise-wide rollout without developer action",
+                "Group Policy for zero-developer fleet rollout",
               ].map(item => (
-                <li class="flex items-start gap-3 text-sm text-white/50">
+                <li class="flex items-start gap-3 text-sm text-white/40">
                   <svg class="h-4 w-4 shrink-0 text-[#0a7c4e] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                   {item}
                 </li>
@@ -343,130 +342,44 @@ const inputs: Input[] = [
       </div>
     </section>
 
-    <!-- ══════════ NETWORK MOAT ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-white">
+    <!-- ══════════ CONTEXT (brief historical note, not a full section) ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-12 md:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
-
-        <div class="mb-12">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-zinc-400 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Why the network makes the score</span>
-          </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
-        </div>
-
-        <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight mb-14 max-w-2xl">
-          Vendors grade their own homework.<br />We grade behavior.
-        </h2>
-
-        <div class="grid md:grid-cols-3 gap-6 mb-8">
-          {[
-            {
-              who: "Model providers",
-              can: "See agents on their own models only.",
-              cannot: "Be the neutral scorer of their own outputs. No bank rates its own bonds.",
-            },
-            {
-              who: "Single enterprises",
-              can: "See their own fleet only.",
-              cannot: "Benchmark against peers or establish role-class baselines at scale.",
-            },
-            {
-              who: "Vendor consortia",
-              can: "Aggregate logs.",
-              cannot: "Normalize them. Anthropic, Microsoft, and Google have different schemas, different definitions — each grades itself.",
-            },
-          ].map(({ who, can, cannot }) => (
-            <div class="border border-dotted border-[#0d0e10]/15 p-8 bg-white">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10] mb-6">{who}</p>
-              <p class="text-sm text-[#555] mb-4 flex items-start gap-2">
-                <span class="font-mono text-[9px] text-[#0a7c4e] bg-[#0a7c4e]/8 px-1.5 py-0.5 shrink-0 mt-0.5 uppercase tracking-widest">Can</span>
-                {can}
-              </p>
-              <p class="text-sm text-[#555] flex items-start gap-2">
-                <span class="font-mono text-[9px] text-[#c00000] bg-[#c00000]/6 px-1.5 py-0.5 shrink-0 mt-0.5 uppercase tracking-widest">Cannot</span>
-                {cannot}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div class="border border-dotted border-[#fcb830]/50 bg-[#fcb830]/5 p-8">
-          <p class="text-lg font-semibold text-[#0d0e10] leading-snug max-w-3xl">
-            The one point where every agent from every provider is measurable in the same currency is the boundary where actions meet the world. We provide the only independent measurement that exists identically across all of them.
+        <div class="max-w-3xl">
+          <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-5">Context</p>
+          <p class="text-base text-[#555] leading-relaxed">
+            From credit scores to telematics to AI: every scalable system of trust eventually found a measurable behavioral signal. No credit score has ever read a borrower's intentions. The telematics box doesn't know what the driver was thinking. It doesn't need to. Behavior at the moment of action is the only thing that has ever been scored at scale — and the only thing that can be.
           </p>
         </div>
-
       </div>
     </section>
 
-    <!-- ══════════ TRAJECTORY ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-[#f1f3f5]">
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-[#f1f3f5]">
       <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
 
-        <div class="mb-12">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Where the score goes</span>
-          </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="bg-white border border-dotted border-[#0d0e10]/15 p-8 md:p-10">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#999] mb-6">Today · Operational instrument</p>
-            <ul class="space-y-4">
-              {[
-                "Drift detection for security teams",
-                "Quantitative basis for every allow / block / quarantine decision",
-                "Board-level answer: how much of our autonomous activity can we account for?",
-                "Coverage Report: which connections are governed, which run past governance",
-              ].map(item => (
-                <li class="flex items-start gap-3 text-sm text-[#333]">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class="bg-white border border-dotted border-[#0d0e10]/15 p-8 md:p-10">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#999] mb-6">Tomorrow · Insurance underwriting input</p>
-            <p class="text-sm text-[#555] leading-relaxed mb-4">
-              The credit score began as a signal a few lenders found more predictive than interviews. The institutional weight came after the predictive power was proven. For agents, the next institution is insurance.
-            </p>
-            <p class="text-sm text-[#555] leading-relaxed">
-              We won't promise premium reductions before loss data exists to calibrate against. We're building the denominator now — so that when insurers arrive, the question is already answered.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ══════════ DUAL CTA ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-6">
-
-          <div class="bg-[#0d0e10] p-8 md:p-12">
-            <p class="font-mono text-xs uppercase tracking-widest text-white/35 mb-4">For enterprises</p>
-            <h3 class="text-2xl font-bold text-white mb-4">See the Trust Score in action.</h3>
+          <!-- Primary: Enterprise -->
+          <div class="bg-[#0d0e10] p-8 md:p-10">
+            <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-4">For enterprises</p>
+            <h3 class="text-2xl font-bold text-white mb-4">See the score in action.</h3>
             <p class="text-sm text-white/50 leading-relaxed mb-8">
-              Kyde Gateway Sandbox is free. Deploy via one environment variable — see your agent traffic scored, signed, and covered from day one. No SLA, no commitment.
+              Kyde Gateway Sandbox is free. One environment variable, cryptographically signed records from day one. No SLA, no commitment.
             </p>
             <button
               onclick="openModal()"
               class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#dae4e5] transition-all"
             >
-              Start Enterprise Sandbox →
+              Deploy the Sandbox →
             </button>
           </div>
 
-          <div class="border-2 border-dotted border-[#0d0e10]/15 p-8 md:p-12">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#999] mb-4">For insurers, auditors &amp; certification bodies</p>
+          <!-- Secondary: Insurers -->
+          <div class="p-8 md:p-10 border border-dotted border-[#0d0e10]/15 bg-white">
+            <p class="font-mono text-xs uppercase tracking-widest text-[#999] mb-4">For insurers &amp; auditors</p>
             <h3 class="text-2xl font-bold text-[#0d0e10] mb-4">Building AI confidence infrastructure?</h3>
             <p class="text-sm text-[#555] leading-relaxed mb-8">
-              The Trust Score is the underwriting input the AI insurance market needs. We're building the denominator. If you're pricing AI agent risk or certifying AI systems, we'd like to talk.
+              The Trust Score is the underwriting input the AI insurance market needs. We're building the denominator. If you're pricing AI agent risk or certifying AI systems, let's talk.
             </p>
             <a
               href="mailto:hello@kyde.com"
@@ -478,11 +391,10 @@ const inputs: Input[] = [
 
         </div>
 
-        <div class="mt-8 flex flex-wrap gap-4 text-xs text-[#888]">
-          <a href="/blog/trust-is-a-number" class="font-mono hover:text-[#0d0e10] transition-colors underline underline-offset-4 decoration-[#0d0e10]/20">Read the announcement →</a>
+        <div class="mt-8 flex flex-wrap gap-4 text-xs text-[#999]">
+          <a href="/blog/trust-is-a-number" class="font-mono hover:text-[#0d0e10] transition-colors underline underline-offset-4 decoration-[#0d0e10]/20">Trust Is a Number — announcement →</a>
           <a href="/ai-agent-insurance" class="font-mono hover:text-[#0d0e10] transition-colors underline underline-offset-4 decoration-[#0d0e10]/20">AI Agent Insurance Guide →</a>
           <a href="/blog/confidence-infrastructure-part-3" class="font-mono hover:text-[#0d0e10] transition-colors underline underline-offset-4 decoration-[#0d0e10]/20">Technical Architecture →</a>
-          <a href="/ai-agent-governance" class="font-mono hover:text-[#0d0e10] transition-colors underline underline-offset-4 decoration-[#0d0e10]/20">Governance Guide →</a>
         </div>
       </div>
     </section>
