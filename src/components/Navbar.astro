@@ -37,13 +37,21 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <!-- CTA (desktop) -->
-    <button
-      onclick="openModal()"
-      class="hidden md:inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] transition-colors hover:bg-[#333]"
-    >
-      Talk to Us →
-    </button>
+    <!-- CTAs (desktop) -->
+    <div class="hidden md:flex items-center gap-3">
+      <button
+        onclick="openModal()"
+        class="inline-flex items-center gap-2 rounded-full border border-dotted border-[#0d0e10]/30 px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] transition-colors hover:border-[#0d0e10]"
+      >
+        Talk to Us
+      </button>
+      <a
+        href="/sandbox"
+        class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] transition-colors hover:bg-[#333]"
+      >
+        Deploy Sandbox →
+      </a>
+    </div>
 
     <!-- Mobile menu button -->
     <button
@@ -80,12 +88,20 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
-    <button
-      onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
-      class="w-full bg-[#0d0e10] rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
-    >
-      Talk to Us →
-    </button>
+    <div class="space-y-3">
+      <a
+        href="/sandbox"
+        class="block w-full text-center bg-[#0d0e10] rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+      >
+        Deploy Sandbox →
+      </a>
+      <button
+        onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
+        class="w-full border border-dotted border-[#0d0e10]/30 rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all"
+      >
+        Talk to Us
+      </button>
+    </div>
   </div>
 </header>
 
