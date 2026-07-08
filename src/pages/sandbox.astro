@@ -1,0 +1,294 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import DemoModal from '../components/DemoModal.astro';
+---
+
+<Base
+  title="KYDE Gateway Sandbox — Deploy in Minutes, See Your Agents for the First Time"
+  description="Deploy the KYDE Gateway Sandbox via Docker Compose and one environment variable. No license required. See your agent traffic on a dashboard within minutes."
+>
+  <Navbar />
+  <DemoModal />
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative bg-[#0d0e10] overflow-hidden pt-32 pb-20">
+      <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-2 mb-8">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-dotted border-white/15 px-3 py-1">Free</span>
+            <span class="font-mono text-[10px] text-white/20">·</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#0a7c4e]/80 border border-dotted border-[#0a7c4e]/30 px-3 py-1">Kyde Gateway Sandbox</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-6">
+            Your agents are acting.<br />See what they're doing.
+          </h1>
+          <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
+            Deploy the KYDE Gateway via Docker Compose and one environment variable. Within minutes, every agent call in your environment appears on a dashboard — signed, attributed, and observable.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="#deploy"
+              class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#dae4e5] transition-all"
+            >
+              Deploy now →
+            </a>
+            <button
+              onclick="openModal()"
+              class="inline-flex items-center gap-2 border border-dotted border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all"
+            >
+              Talk to Us →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT YOU'LL SEE ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-6">What you'll see</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight mb-6">
+              The dashboard shows everything your agents are doing — in real time.
+            </h2>
+            <p class="text-base text-[#555] leading-relaxed mb-4">
+              Most organizations deploying AI agents have no consolidated view of what those agents actually do. Which endpoints they call. How often. With what data.
+            </p>
+            <p class="text-base text-[#555] leading-relaxed">
+              The Sandbox makes that visible. Every call intercepted by the Gateway appears in the dashboard — attributed to an agent, signed, and timestamped.
+            </p>
+          </div>
+          <div class="space-y-4">
+            {[
+              { label: "Agent activity feed",    desc: "Every call, tool use and API interaction, in real time."              },
+              { label: "Agent identity",         desc: "Which agent or service account performed each action."                },
+              { label: "Provider breakdown",     desc: "Calls across OpenAI, Anthropic, Gemini, and local models in one view." },
+              { label: "Coverage indicator",     desc: "Share of observable agent traffic passing through the Gateway."       },
+              { label: "DLP alerts",             desc: "Post-hoc detection when sensitive data patterns appear in responses." },
+              { label: "Signed ledger",          desc: "Ed25519-signed, append-only record of every intercepted event."      },
+            ].map(({ label, desc }) => (
+              <div class="flex items-start gap-4 border border-dotted border-[#0d0e10]/10 bg-[#f9fafb] p-4">
+                <svg class="h-4 w-4 shrink-0 text-[#0a7c4e] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                <div>
+                  <p class="text-sm font-semibold text-[#0d0e10] mb-0.5">{label}</p>
+                  <p class="text-xs text-[#666]">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DEPLOY ══════════ -->
+    <section id="deploy" class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-[#f1f3f5]">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Deploy</span>
+          </div>
+          <div class="h-px w-full bg-[#e8e9eb]"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          {[
+            {
+              step: "01",
+              title: "Start the Gateway",
+              desc:  "Run the Docker Compose stack. The Gateway, ledger, and dashboard start together.",
+            },
+            {
+              step: "02",
+              title: "Set one environment variable",
+              desc:  "Point any agent or LLM client at the Gateway. No code changes in your agents.",
+            },
+            {
+              step: "03",
+              title: "Open the dashboard",
+              desc:  "Agent calls appear immediately. Coverage, identity, and signed events — visible from the first request.",
+            },
+          ].map(({ step, title, desc }) => (
+            <div class="border border-dotted border-[#0d0e10]/12 bg-white p-6 md:p-8">
+              <span class="font-mono text-xs text-[#fcb830] bg-[#fcb830]/8 px-2 py-0.5 mb-4 inline-block uppercase tracking-widest">{step}</span>
+              <p class="text-lg font-bold text-[#0d0e10] mb-2">{title}</p>
+              <p class="text-sm text-[#666] leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Terminal -->
+        <div class="border border-[#0d0e10]/15 bg-[#0d0e10] max-w-3xl">
+          <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
+            <span class="h-2.5 w-2.5 rounded-full bg-[#c00000]/40"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#fcb830]/40"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#0a7c4e]/40"></span>
+            <span class="ml-2 font-mono text-[10px] text-white/20">terminal</span>
+          </div>
+          <div class="p-6 font-mono text-sm leading-loose">
+            <p class="text-white/25 text-xs mb-3"># Step 1 — start the Gateway</p>
+            <p class="text-white/40"><span class="text-[#0a7c4e]">$</span> docker compose up</p>
+            <p class="text-[#4472c4]">✓ Gateway started · Dashboard at http://localhost:4000</p>
+            <p class="text-[#4472c4]">✓ Ledger initialized</p>
+
+            <p class="text-white/25 text-xs mt-5 mb-3"># Step 2 — point your agent at the Gateway</p>
+            <p class="text-white/40"><span class="text-[#0a7c4e]">$</span> export OPENAI_BASE_URL=http://localhost:4001/v1</p>
+            <p class="text-white/25 text-xs mt-1"># Works with Anthropic, Gemini, and local models too</p>
+
+            <p class="text-white/25 text-xs mt-5 mb-3"># Step 3 — run your agent as usual</p>
+            <p class="text-white/40"><span class="text-[#0a7c4e]">$</span> python run_agent.py</p>
+            <p class="text-[#0a7c4e] mt-1">✓ 1 new event · agent:default · crm.query · signed</p>
+            <p class="text-[#0a7c4e]">✓ 2 new events · agent:default · slack.send · signed</p>
+            <p class="text-white/25 text-xs mt-1"># Open http://localhost:4000 to see the dashboard</p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-4 text-xs text-[#999]">
+          <p class="font-mono">Requires: Docker · Docker Compose · An agent that calls an LLM API</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ SANDBOX VS ENTERPRISE ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-10">Sandbox vs. Enterprise</p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="border border-dotted border-[#0d0e10]/12 p-6 md:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Kyde Gateway Sandbox</p>
+              <span class="font-mono text-[10px] text-[#0a7c4e] bg-[#0a7c4e]/8 px-2 py-0.5 uppercase tracking-widest">Free</span>
+            </div>
+            <ul class="space-y-3">
+              {[
+                "Dashboard — agent activity in real time",
+                "Ed25519-signed ledger",
+                "Coverage indicator",
+                "DLP alerts (post-hoc, detect only)",
+                "Compliance PDF exports",
+                "All LLM providers",
+                "Self-hosted, no data leaves your network",
+                "No SLA · No support commitment",
+              ].map(item => (
+                <li class="flex items-start gap-3 text-sm text-[#444]">
+                  <svg class="h-4 w-4 shrink-0 text-[#0a7c4e] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="border border-dotted border-[#0d0e10]/12 bg-[#f9fafb] p-6 md:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Kyde Gateway Enterprise</p>
+              <span class="font-mono text-[10px] text-[#4472c4] bg-[#4472c4]/8 px-2 py-0.5 uppercase tracking-widest">Paid</span>
+            </div>
+            <p class="text-sm text-[#555] leading-relaxed mb-6">Everything in Sandbox, plus:</p>
+            <ul class="space-y-3">
+              {[
+                "Inline enforcement — block out-of-policy actions before execution",
+                "Agent identity and role scoping (deny-by-default)",
+                "MCP per-tool policy",
+                "RBAC across agents and teams",
+                "Trust Score™ with Coverage Report",
+                "Managed signing infrastructure and key management",
+                "SLA and support",
+                "Air-gapped deployment option",
+              ].map(item => (
+                <li class="flex items-start gap-3 text-sm text-[#444]">
+                  <svg class="h-4 w-4 shrink-0 text-[#4472c4] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div class="mt-8">
+              <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-[#0d0e10] text-[#f1f3f5] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#333] transition-all"
+              >
+                Talk to Us →
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-[#f1f3f5]">
+      <div class="max-w-4xl mx-auto px-6">
+        <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-10">Common questions</p>
+        <div class="space-y-px">
+          {[
+            {
+              q: "Does the Sandbox send any data to KYDE?",
+              a: "No. The Sandbox runs entirely on your own infrastructure. Agent traffic is intercepted locally and stored in the local ledger. No data is transmitted to KYDE systems.",
+            },
+            {
+              q: "Does it work with any LLM provider?",
+              a: "Yes. The Gateway intercepts standard OpenAI-compatible API calls, which covers OpenAI, Anthropic, Gemini, Azure OpenAI, Mistral, and local models via Ollama, vLLM, or LMStudio. MCP-routed calls are also supported.",
+            },
+            {
+              q: "Do my agents need to be modified?",
+              a: "No. Set one environment variable pointing the agent's base URL to the Gateway. The agent continues to operate as before — the Gateway intercepts transparently.",
+            },
+            {
+              q: "Is the Sandbox the same Gateway as Enterprise?",
+              a: "The underlying Gateway is the same. The Sandbox runs the observe layer only — it records and signs, but does not block. Enforcement (blocking out-of-policy actions) requires the Enterprise tier.",
+            },
+            {
+              q: "What happens when the Sandbox is not enough?",
+              a: "Contact us. We'll discuss your use case and can provision an Enterprise trial with enforcement enabled.",
+            },
+          ].map(({ q, a }) => (
+            <details class="group border border-dotted border-[#0d0e10]/10 bg-white">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-[#0d0e10] pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-[#999] group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-[#555] leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] mb-4">Ready to deploy?</h2>
+        <p class="text-base text-[#555] mb-10 max-w-xl mx-auto">
+          No license. No account. Docker Compose and one environment variable.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="#deploy"
+            class="inline-flex items-center gap-2 bg-[#0d0e10] text-[#f1f3f5] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#333] transition-all"
+          >
+            See the instructions →
+          </a>
+          <button
+            onclick="openModal()"
+            class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 text-[#0d0e10] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:border-[#0d0e10] transition-all"
+          >
+            Talk to Us →
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>
