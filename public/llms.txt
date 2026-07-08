@@ -1,6 +1,6 @@
 # KYDE
 
-> KYDE is the behavioral firewall for enterprise AI agents — cryptographic agent identity, real-time behavioral scope enforcement, tamper-evident audit trails, and out-of-policy blocking. Deployed via a single environment variable. No agent code changes required. Any LLM provider.
+> KYDE is the behavioral firewall between AI agents and the real world. Three functions: **Prevent** what must not happen (deterministic guardrails, deny-by-default enforcement at the boundary). **Prove** what did (cryptographically signed, vendor-independent audit trail — the suspect can't write the police report). **Rate** agent behavior (KYDE Trust Score™ across every provider, in one currency). Deployed via a single environment variable. No agent code changes. Any LLM provider.
 
 ## Product
 
@@ -22,27 +22,28 @@ Enterprises deploying AI agents face four unanswered questions:
 
 The structural reason governance fails when built inside agents: capable agents can bypass their own rules. KYDE sits outside the agent, in the data path, and cannot be overridden by agent logic.
 
-## Three guarantees
+## Three functions: Prevent · Prove · Rate
 
-**CONTROL** — Real-time enforcement, not post-hoc detection.
-- Cryptographic agent identity per agent and role
+**PREVENT** — Deterministic guardrails at the boundary. Deny-by-default.
+- Cryptographic agent identity and role scoping — no shared service accounts
 - Behavioral scope enforcement: blocks out-of-policy actions before execution
 - API allowlists, DLP prevention, MCP per-tool policy, circuit breakers per role
 - Agent blocking and RBAC
-- Human-in-the-loop alerts on policy violations
+- The buy reason today: NIS-2 board liability. DORA.
 
-**TRACE** — Every action attributed, every decision reconstructable.
-- Every action traced to a specific cryptographic agent identity
-- Causal context capture: full retrieval context, tool calls, intermediate reasoning, response — as a single record per inference event
-- Full decision chain reconstruction for human oversight (EU AI Act Article 14)
-- Behavioral anomaly detection
-
-**TRUTH** — Cryptographic audit trail. Court-ready. Regulator-ready.
+**PROVE** — The suspect can't write the police report.
+- Every action signed as a tamper-evident 6D fingerprint (who / what / when / where / why / how)
+- Architecturally independent of LLM provider infrastructure — captured outside the agent runtime
 - Ed25519-signed, SHA-256 hash-chained append-only ledger
 - Tamper-evident: alter any entry, every subsequent link breaks
-- Architecturally independent of LLM provider infrastructure
-- Compliance PDF exports
-- Designed for EU AI Act Articles 12, 14, 26 — DORA Article 30 — GDPR Article 35
+- Compliance PDF exports. EU AI Act Articles 12, 14, 26 — DORA Article 30 — GDPR Article 35
+
+**RATE** — Behavior scored across every provider, in one currency.
+- KYDE Trust Score™ — behavioral rating normalized across all providers
+- Behavioral baseline per agent role; continuous drift & anomaly detection
+- Industry-benchmarked scoring model
+- Foundation for insurance underwriting signals and compliance rating
+- Vendors grade their own homework. We grade behavior.
 
 ## Deployment
 
