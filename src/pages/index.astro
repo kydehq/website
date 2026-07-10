@@ -167,6 +167,11 @@ for (let lat = -80; lat <= 80; lat += 8) {
     };
     let parts: P[] = [];
 
+    // occasional bloom when a particle crosses the gate
+    type Flare = { x: number; y: number; t0: number };
+    let flares: Flare[] = [];
+    let lastFlare = 0;
+
     function spawn(p: P, i: number, initial = false) {
       p.x = initial ? hash(i * 7 + 1) * GATE : -10 - hash(i * 13) * 60;
       p.y = 40 + hash(i * 31 + performance.now() % 9973) * (H - 80);
@@ -230,6 +235,11 @@ for (let lat = -80; lat <= 80; lat += 8) {
               p.pulse = hash(p.seed + 9) > 0.7 ? 1 : 0;
               p.rowY = Math.round(p.y / ROW) * ROW;
               p.vx = 26 + hash(p.seed + 3) * 18;
+              // every few seconds, one crossing blooms
+              if (t - lastFlare > 2600 && hash(p.seed + 11) > 0.5) {
+                flares.push({ x: GATE, y: p.rowY, t0: t });
+                lastFlare = t;
+              }
             }
           }
           ctx.fillStyle = "rgba(242,242,242,0.22)";
@@ -263,6 +273,39 @@ for (let lat = -80; lat <= 80; lat += 8) {
             spawn(p, Math.floor(p.seed / 7919));
           }
         }
+      }
+
+      // flares — soft light bloom at the gate, expanding and fading
+      flares = flares.filter((f) => t - f.t0 < 1600);
+      for (const f of flares) {
+        const age = (t - f.t0) / 1600; // 0 → 1
+        const ease = 1 - Math.pow(1 - age, 2);
+        const r = 14 + ease * 90;
+        const a = (1 - age) * 0.55;
+
+        const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r);
+        g.addColorStop(0, `rgba(242,242,242,${a})`);
+        g.addColorStop(0.25, `rgba(242,242,242,${a * 0.35})`);
+        g.addColorStop(0.6, `rgba(61,220,132,${a * 0.12})`);
+        g.addColorStop(1, "rgba(61,220,132,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // bright core that snuffs out quickly
+        if (age < 0.35) {
+          ctx.fillStyle = `rgba(255,255,255,${(1 - age / 0.35) * 0.9})`;
+          ctx.fillRect(f.x - 1.5, f.y - 1.5, 3, 3);
+        }
+
+        // brief brightening of the gate line around the bloom
+        const gl = ctx.createLinearGradient(f.x, f.y - r, f.x, f.y + r);
+        gl.addColorStop(0, "rgba(242,242,242,0)");
+        gl.addColorStop(0.5, `rgba(242,242,242,${a * 0.8})`);
+        gl.addColorStop(1, "rgba(242,242,242,0)");
+        ctx.fillStyle = gl;
+        ctx.fillRect(GATE, f.y - r, 1, r * 2);
       }
     }
 
