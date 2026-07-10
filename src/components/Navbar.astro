@@ -11,24 +11,24 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-dotted border-[#0d0e10]/15 bg-[#f1f3f5]/95 backdrop-blur-md">
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0d0e10]/95 backdrop-blur-md">
   <nav aria-label="Main" class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
     <!-- Logo -->
     <a href="/" class="inline-flex items-center shrink-0">
-      <img src="/LOGO.png" alt="KYDE" class="h-7 w-auto" />
+      <img src="/LOGO.png" alt="KYDE" class="h-7 w-auto invert" />
     </a>
 
     <!-- Nav links (desktop) -->
-    <ul class="hidden md:flex items-center gap-8">
+    <ul class="hidden md:flex items-center gap-7">
       {navLinks.map(({ label, href }) => (
         <li>
           <a
             href={href}
             class={[
-              'text-sm font-medium transition-colors',
+              'font-mono text-[11px] uppercase tracking-[0.12em] transition-colors',
               currentPath.startsWith(href)
-                ? 'text-[#0d0e10]'
-                : 'text-[#0d0e10]/50 hover:text-[#0d0e10]',
+                ? 'text-white'
+                : 'text-white/40 hover:text-white',
             ].join(' ')}
           >
             {label}
@@ -37,27 +37,27 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <!-- CTAs (desktop) — Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
+    <!-- CTAs (desktop) — Sandbox CTA hidden until distribution is public (SBX-001) -->
     <div class="hidden md:flex items-center gap-3">
       <!--
       <button
         onclick="openModal()"
-        class="inline-flex items-center gap-2 rounded-full border border-dotted border-[#0d0e10]/30 px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] transition-colors hover:border-[#0d0e10]"
+        class="inline-flex items-center gap-2 border border-white/25 px-5 py-2 text-[11px] font-mono uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white"
       >
         Talk to Us
       </button>
       <a
         href="/sandbox"
-        class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] transition-colors hover:bg-[#333]"
+        class="inline-flex items-center gap-2 bg-white px-5 py-2 text-[11px] font-mono uppercase tracking-[0.1em] text-[#0d0e10] transition-colors hover:bg-[#dae4e5]"
       >
-        Deploy Sandbox →
+        Deploy Sandbox &gt;
       </a>
       -->
       <button
         onclick="openModal()"
-        class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-5 py-2 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] transition-colors hover:bg-[#333]"
+        class="inline-flex items-center gap-2 bg-white px-5 py-2 text-[11px] font-mono uppercase tracking-[0.1em] text-[#0d0e10] transition-colors hover:bg-[#dae4e5]"
       >
-        Talk to Us →
+        Talk to Us &gt;
       </button>
     </div>
 
@@ -68,16 +68,16 @@ const currentPath = Astro.url.pathname;
       aria-label="Open menu"
       aria-expanded="false"
     >
-      <span class="block h-px w-6 bg-[#0d0e10] transition-all duration-200" id="burger-1"></span>
-      <span class="block h-px w-6 bg-[#0d0e10] transition-all duration-200" id="burger-2"></span>
-      <span class="block h-px w-6 bg-[#0d0e10] transition-all duration-200" id="burger-3"></span>
+      <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-1"></span>
+      <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-2"></span>
+      <span class="block h-px w-6 bg-white transition-all duration-200" id="burger-3"></span>
     </button>
   </nav>
 
   <!-- Mobile menu -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden border-t border-dotted border-[#0d0e10]/15 bg-[#f1f3f5] px-6 py-6"
+    class="hidden md:hidden border-t border-white/10 bg-[#0d0e10] px-6 py-6"
   >
     <ul class="flex flex-col gap-6 mb-8">
       {navLinks.map(({ label, href }) => (
@@ -87,8 +87,8 @@ const currentPath = Astro.url.pathname;
             class={[
               'font-mono text-sm uppercase tracking-widest transition-colors',
               currentPath.startsWith(href)
-                ? 'text-[#0d0e10]'
-                : 'text-[#0d0e10]/50 hover:text-[#0d0e10]',
+                ? 'text-white'
+                : 'text-white/40 hover:text-white',
             ].join(' ')}
           >
             {label}
@@ -96,21 +96,21 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
-    <!-- Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
+    <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
     <div class="space-y-3">
       <!--
       <a
         href="/sandbox"
-        class="block w-full text-center bg-[#0d0e10] rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+        class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
       >
-        Deploy Sandbox →
+        Deploy Sandbox &gt;
       </a>
       -->
       <button
         onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
-        class="w-full bg-[#0d0e10] rounded-full px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+        class="w-full bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
       >
-        Talk to Us →
+        Talk to Us &gt;
       </button>
     </div>
   </div>

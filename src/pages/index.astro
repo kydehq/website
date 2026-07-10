@@ -24,7 +24,7 @@ import Footer from "../components/Footer.astro";
             <div class="relative max-w-7xl mx-auto px-6 w-full">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
-                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] border border-white/20 text-white/60 px-2 py-0.5">Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
                 </div>
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">The Behavioral</span>
@@ -40,7 +40,7 @@ import Footer from "../components/Footer.astro";
                 <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
                     One environment variable · Under 100ms · Any provider · Zero code changes
                 </p>
-                <!-- Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
+                <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
                     <!--
                     <a
@@ -63,6 +63,9 @@ import Footer from "../components/Footer.astro";
                         See Platform →
                     </a>
                 </div>
+                <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
+                    <span class="text-[#0a7c4e]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span>
+                </p>
             </div>
         </section>
 
@@ -121,6 +124,8 @@ import Footer from "../components/Footer.astro";
     if (explainer) explainer.style.opacity = "1";
     if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
+    const term = document.getElementById("hero-terminal");
+    if (term) term.style.opacity = "1";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
 
@@ -128,37 +133,34 @@ import Footer from "../components/Footer.astro";
   if (vid) vid.play().catch(() => {});
 </script>
 
-        <!-- ══════════ PROBLEM ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+        <!-- ══════════ 01 PROBLEM ══════════ -->
+        <section class="border-b border-white/10 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Total Visibility</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="mb-10 flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">01 · Total Visibility</span>
+                    <span class="fig-label">FIG.1</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             Shadow Agents Are Already Running.<br />Do You Know What They're Doing?
                         </h2>
-                        <p class="text-lg text-[#333] leading-relaxed mb-6">
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
                             Shadow AI was employees using unauthorized tools. Shadow Agents are autonomous systems calling APIs, processing data, and making decisions — outside IT and security oversight entirely.
                         </p>
-                        <p class="text-lg text-[#333] leading-relaxed">
+                        <p class="text-lg text-white/55 leading-relaxed">
                             KYDE gives you the complete picture - every agent identity, every action, every upstream provider - logged, signed, and cryptographically verified. From the moment you deploy.
                         </p>
                     </div>
                     <div class="flex flex-col">
-                        <div class="relative border border-dotted border-[#0d0e10]/15 overflow-hidden bg-[#0d0e10] shadow-sm" style="aspect-ratio:16/9;">
+                        <div class="relative border border-white/10 overflow-hidden bg-[#0d0e10]" style="aspect-ratio:16/9;">
                             <video id="kyde-intro" class="w-full h-full object-cover" preload="none" playsinline poster="/videoposter.png">
                                 <source src="/KYDE.webm" type="video/webm" />
                                 <source src="/KYDE.mp4" type="video/mp4" />
                             </video>
                             <!-- Play overlay -->
                             <div id="kyde-play-overlay" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group" onclick="document.getElementById('kyde-play-overlay').style.display='none';var v=document.getElementById('kyde-intro');v.controls=true;v.play();">
-                                <div class="w-14 h-14 rounded-full border border-dotted border-white/40 flex items-center justify-center bg-white/10 group-hover:bg-white/20 transition-all mb-3">
+                                <div class="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center bg-white/10 group-hover:bg-white/20 transition-all mb-3">
                                     <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.841z"/></svg>
                                 </div>
                                 <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">KYDE in 40 seconds</span>
@@ -169,30 +171,27 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ ABSOLUTE CONTROL ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+        <!-- ══════════ 02 PREVENT ══════════ -->
+        <section class="border-b border-white/10 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Prevent</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="mb-10 flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">02 · Prevent</span>
+                    <span class="fig-label">FIG.2</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div class="flex flex-col">
-                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white shadow-sm">
+                        <div class="border border-white/10 overflow-hidden bg-white">
                             <img src="/dlp-alert-redacted.png" alt="DLP alert — PII detected and masked" class="w-full block saturate-75 brightness-90" />
                         </div>
-                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
                             PII detected. Email masked. Context redacted by role — before the auditor could see it.
                         </p>
                     </div>
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             Prevent What Must<br />Not Happen.
                         </h2>
-                        <p class="text-lg text-[#333] leading-relaxed mb-6">
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
                             Deterministic guardrails on a probabilistic technology. Deny-by-default at the boundary — the damage doesn't happen first and get explained later. This is the buy reason today: NIS-2 board liability, DORA. AI agents don't just leak data — they act.
                         </p>
                         <ul class="space-y-2.5 mb-8">
@@ -201,14 +200,14 @@ import Footer from "../components/Footer.astro";
                                 "Attribute every action to a verified agent identity",
                                 "BERT-based PII classification in prompts and completions — masked by role, blocked in real time",
                                 "Full bidirectional intercept log — independent of your LLM provider, undeletable by any agent",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-white/25 shrink-0 mt-1">2.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
                         </ul>
-                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all">
                             Explore Security Use Cases →
                         </a>
                     </div>
@@ -216,22 +215,18 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ AUDIT-READY ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+        <!-- ══════════ 03 PROVE ══════════ -->
+        <section class="border-b border-white/10 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Prove</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="mb-10 flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">03 · Prove</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             Prove What Happened.<br />The Suspect Can't Write<br />the Police Report.
                         </h2>
-                        <p class="text-lg text-[#333] leading-relaxed mb-6">
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
                             Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent — Ed25519-signed, hash-chained, captured before the action reaches any provider.
                         </p>
                         <ul class="space-y-2.5 mb-8">
@@ -240,29 +235,29 @@ import Footer from "../components/Footer.astro";
                                 "Every entry Ed25519-signed and hash-chained — tamper with one, every subsequent link breaks",
                                 "NIS-2, DORA, EU AI Act, GDPR 35 — regulatory evidence on day one",
                                 "Compliance reports generated automatically",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-white/25 shrink-0 mt-1">3.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
                         </ul>
-                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all w-fit">
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
                             Explore Compliance Use Cases →
                         </a>
                     </div>
                     <div class="flex flex-col gap-6">
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-px">
                             {[
                                 { name: "NIS-2",     status: "In force",          desc: "~160,000 companies in DE/EU. Critical + important sectors." },
                                 { name: "DORA",      status: "In force: Jan 2025", desc: "Financial entity resilience requirements." },
                                 { name: "EU AI Act", status: "Phasing in 2026",   desc: "High-risk AI audit trail &amp; logging requirements." },
                                 { name: "GDPR 35",   status: "In force",          desc: "Automated processing DPIA obligations." },
                             ].map(({ name, status, desc }) => (
-                                <div class="border border-dotted border-[#0d0e10]/20 bg-[#dae4e5]/30 p-4">
-                                    <p class="font-mono text-xs font-bold text-[#0d0e10] uppercase tracking-wide mb-1">{name}</p>
+                                <div class="border border-white/10 bg-white/[0.02] p-5">
+                                    <p class="font-mono text-xs font-bold text-white uppercase tracking-wide mb-1">{name}</p>
                                     <p class="font-mono text-[10px] text-[#0a7c4e] mb-2">{status}</p>
-                                    <p class="text-xs text-[#555] leading-snug">{desc}</p>
+                                    <p class="text-xs text-white/40 leading-snug">{desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -271,114 +266,113 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ ARCHITECTURE ══════════ -->
-        <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
+        <!-- ══════════ 04 ARCHITECTURE ══════════ -->
+        <section class="border-b border-white/10 py-20 md:py-28">
             <div class="max-w-4xl mx-auto px-6">
 
                 <div class="mb-12 md:mb-16">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Architecture</span>
+                    <div class="mb-8 flex items-end justify-between border-b border-white/10 pb-3">
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">04 · Architecture</span>
+                        <span class="fig-label">FIG.3</span>
                     </div>
-                    <div class="h-px w-full bg-[#e8e9eb] mb-8"></div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-4">Legacy systems were designed for humans. The agent era will overwhelm them.</h2>
-                    <p class="text-[#333] leading-relaxed max-w-2xl">KYDE sits between your AI agents and every system they can reach - intercepting, scoping, and signing every action before it executes.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">Legacy systems were designed for humans. The agent era will overwhelm them.</h2>
+                    <p class="text-white/55 leading-relaxed max-w-2xl">KYDE sits between your AI agents and every system they can reach - intercepting, scoping, and signing every action before it executes.</p>
                 </div>
 
                 <!-- Layer 1: AI Agents -->
-                <div class="border border-[#0d0e10]/40 bg-white p-5 md:p-7">
+                <div class="border border-white/20 bg-white/[0.02] p-5 md:p-7">
                     <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Incoming</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Layer 01</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Incoming</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 01</span>
                     </div>
-                    <p class="text-sm md:text-base text-[#0d0e10] uppercase tracking-wide font-bold mb-4">AI Agents</p>
+                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">AI Agents</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Claude</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">GPT-4o</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Gemini</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">LangChain</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Custom Agents</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Claude</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">GPT-4o</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Gemini</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">LangChain</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Custom Agents</span>
                     </div>
                 </div>
 
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-[#0d0e10]/35"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-[#0d0e10]/60 bg-[#f1f3f5] px-2">all requests</span>
+                    <div class="w-px h-full bg-white/25"></div>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0d0e10] px-2">all requests</span>
                 </div>
 
                 <!-- Layer 2: KYDE -->
-                <div class="p-5 md:p-8 bg-white border-2 border-[#4472c4]">
+                <div class="p-5 md:p-8 bg-white/[0.03] border-2 border-[#4472c4]">
                     <div class="flex items-center justify-between mb-4">
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4472c4]">Control Plane</span>
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4472c4]">Layer 02</span>
                     </div>
-                    <p class="text-3xl md:text-4xl text-[#0d0e10] uppercase tracking-tighter font-bold mb-1">KYDE</p>
-                    <p class="font-mono text-xs text-[#0d0e10]/70 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
+                    <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
+                    <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="border border-[#4472c4]/60 p-3">
                             <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Identity</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Cryptographic agent identity per action</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Cryptographic agent identity per action</p>
                         </div>
                         <div class="border border-[#4472c4]/60 p-3">
                             <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Policy</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Role boundaries &amp; scope enforcement</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Role boundaries &amp; scope enforcement</p>
                         </div>
                         <div class="border border-[#4472c4]/60 p-3">
                             <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Audit</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Tamper-evident ledger of every action</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Tamper-evident ledger of every action</p>
                         </div>
                         <div class="border border-[#4472c4]/60 p-3">
                             <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Control</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Block out-of-scope requests in real time</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Block out-of-scope requests in real time</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-[#0d0e10]/35"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-[#0d0e10]/60 bg-[#f1f3f5] px-2">verified &amp; logged</span>
+                    <div class="w-px h-full bg-white/25"></div>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0d0e10] px-2">verified &amp; logged</span>
                 </div>
 
                 <!-- Layer 3: Critical Systems -->
-                <div class="border border-[#0d0e10]/40 bg-white p-5 md:p-7">
+                <div class="border border-white/20 bg-white/[0.02] p-5 md:p-7">
                     <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Protected</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Layer 03</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Protected</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 03</span>
                     </div>
-                    <p class="text-sm md:text-base text-[#0d0e10] uppercase tracking-wide font-bold mb-4">Critical Systems</p>
+                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">Critical Systems</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">APIs</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Databases</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Financial Systems</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">SaaS Tools</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Internal Services</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">APIs</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Databases</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Financial Systems</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">SaaS Tools</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Internal Services</span>
                     </div>
                 </div>
 
                 <!-- Terminal -->
-                <div class="mt-10 border border-dotted border-[#0d0e10]/20 bg-white">
-                    <div class="flex items-center gap-2 border-b border-dotted border-[#0d0e10]/15 px-4 py-3">
-                        <span class="h-3 w-3 rounded-full bg-[#c00000]/40"></span>
-                        <span class="h-3 w-3 rounded-full bg-[#fcb830]/60"></span>
-                        <span class="h-3 w-3 rounded-full bg-[#0a7c4e]/40"></span>
-                        <span class="ml-2 text-xs text-[#888] font-mono">terminal</span>
+                <div class="mt-10 border border-white/10">
+                    <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#c00000]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#fcb830]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#0a7c4e]/40"></span>
+                        <span class="ml-2 text-[10px] text-white/20 font-mono">terminal</span>
                     </div>
                     <div class="p-5 font-mono text-sm leading-relaxed">
-                        <p class="text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
-                        <p class="mt-1 text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> kyde fleet init</span></p>
+                        <p class="text-white/40"><span class="text-[#0a7c4e]">$</span><span class="text-white/70"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
+                        <p class="mt-1 text-white/40"><span class="text-[#0a7c4e]">$</span><span class="text-white/70"> kyde fleet init</span></p>
                         <p class="mt-1 text-[#4472c4]">&#10003; Fleet proxy started on :8080</p>
                         <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
                         <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
                         <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
-                        <p class="mt-2 text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> kyde fleet status</span></p>
+                        <p class="mt-2 text-white/40"><span class="text-[#0a7c4e]">$</span><span class="text-white/70"> kyde fleet status</span></p>
                         <p class="mt-1 text-[#0a7c4e]">&#10003; 12 agents active — all scoped, signed, accountable</p>
                     </div>
                 </div>
 
                 <!-- Badges -->
-                <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#0d0e10]/40">
+                <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-white/30">
                     <span>One ENV Variable</span>
                     <span>Target &lt;100ms Latency</span>
                     <span>Provider-Agnostic</span>
@@ -388,52 +382,49 @@ import Footer from "../components/Footer.astro";
 
                 <!-- Footnote -->
                 <div class="mt-6 flex items-center gap-3">
-                    <span class="h-px flex-1 bg-[#e8e9eb]"></span>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/40">↳ Outside the agent. Cannot be overridden.</span>
+                    <span class="h-px flex-1 bg-white/10"></span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Outside the agent. Cannot be overridden.</span>
                 </div>
 
             </div>
         </section>
 
-        <!-- ══════════ BOUNDARY POSITION ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/15 py-24 md:py-32">
+        <!-- ══════════ 05 BOUNDARY POSITION ══════════ -->
+        <section class="relative border-b border-white/10 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
 
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Structural Position</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="mb-12 flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">05 · Structural Position</span>
+                    <span class="fig-label">FIG.4</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-16 items-start">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             The Racetrack,<br />Not the Horse.
                         </h2>
-                        <p class="text-[#333] leading-relaxed mb-4">
+                        <p class="text-white/55 leading-relaxed mb-4">
                             OpenAI ships a new model. Anthropic responds. An enterprise switches providers. Vendors compete. Intelligence migrates to clouds.
                         </p>
-                        <p class="text-[#333] leading-relaxed mb-4">
+                        <p class="text-white/55 leading-relaxed mb-4">
                             One thing is invariant: every agent — regardless of which model, which runtime, which vendor — must cross the boundary between the AI world and your systems. Through your infrastructure. Under your liability.
                         </p>
-                        <p class="text-[#333] leading-relaxed mb-10">
+                        <p class="text-white/55 leading-relaxed mb-10">
                             That boundary doesn't belong to any vendor. It belongs to you. Governance at the boundary gets more valuable with every model migration, not less.
                         </p>
-                        <p class="font-mono text-sm text-[#0d0e10] border-l-2 border-[#0d0e10]/30 pl-4 leading-relaxed">
+                        <p class="font-mono text-sm text-white/80 border-l-2 border-white/30 pl-4 leading-relaxed">
                             We're not competing in the model race. We operate the only neutral layer between every model and every enterprise system — regardless of who wins.
                         </p>
                     </div>
 
                     <div>
-                        <div class="border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 mb-8">
-                            <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5]">
+                        <div class="border border-white/10 divide-y divide-white/10 mb-8">
+                            <div class="grid grid-cols-2 divide-x divide-white/10 bg-white/[0.04]">
                                 <div class="px-6 py-3">
-                                    <p class="font-mono text-xs uppercase tracking-widest text-[#888]">Changes constantly</p>
+                                    <p class="font-mono text-xs uppercase tracking-widest text-white/35">Changes constantly</p>
                                 </div>
                                 <div class="px-6 py-3">
-                                    <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Invariant</p>
+                                    <p class="font-mono text-xs uppercase tracking-widest text-white">Invariant</p>
                                 </div>
                             </div>
                             {[
@@ -443,26 +434,26 @@ import Footer from "../components/Footer.astro";
                                 { left: "Which vendor wins the model race", right: "Your liability for what agents do" },
                                 { left: "Provider infrastructure", right: "KYDE — at the invariant chokepoint" },
                             ].map(({ left, right }) => (
-                                <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15">
+                                <div class="grid grid-cols-2 divide-x divide-white/10">
                                     <div class="px-6 py-4">
-                                        <p class="text-sm text-[#aaa] line-through">{left}</p>
+                                        <p class="text-sm text-white/25 line-through">{left}</p>
                                     </div>
                                     <div class="px-6 py-4">
-                                        <p class="text-sm text-[#0d0e10] font-medium">{right}</p>
+                                        <p class="text-sm text-white font-medium">{right}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        <div class="grid gap-3 grid-cols-3">
+                        <div class="grid gap-px grid-cols-3">
                             {[
-                                { n: "01", label: "Model intelligence migrates to vendor clouds" },
-                                { n: "02", label: "The boundary stays with your infrastructure" },
-                                { n: "03", label: "Our position strengthens with every migration" },
+                                { n: "5.1", label: "Model intelligence migrates to vendor clouds" },
+                                { n: "5.2", label: "The boundary stays with your infrastructure" },
+                                { n: "5.3", label: "Our position strengthens with every migration" },
                             ].map(({ n, label }) => (
-                                <div class="border border-dotted border-[#0d0e10]/15 bg-white p-4">
-                                    <p class="font-mono text-[10px] text-[#888] mb-2">{n}</p>
-                                    <p class="text-xs text-[#333] leading-relaxed">{label}</p>
+                                <div class="border border-white/10 bg-white/[0.02] p-4">
+                                    <p class="font-mono text-[10px] text-white/30 mb-2">{n}</p>
+                                    <p class="text-xs text-white/55 leading-relaxed">{label}</p>
                                 </div>
                             ))}
                         </div>
@@ -472,16 +463,14 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ THREE GUARANTEES ══════════ -->
-        <section class="relative bg-[#1e2228] py-24 md:py-32">
+        <!-- ══════════ 06 THREE GUARANTEES ══════════ -->
+        <section class="relative border-b border-white/10 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
 
                 <div class="mb-16">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-white/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-white/10 text-white/70 px-1.5 py-0.5">↳ Prevent · Prove · Rate</span>
+                    <div class="mb-8 flex items-end justify-between border-b border-white/10 pb-3">
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">06 · Prevent · Prove · Rate</span>
                     </div>
-                    <div class="h-px w-full bg-white/10 mb-8"></div>
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
                         Three layers. One trust infrastructure.
                     </h2>
@@ -490,20 +479,20 @@ import Footer from "../components/Footer.astro";
                     </p>
                 </div>
 
-                <div class="grid xl:grid-cols-3 gap-0">
-                    <div class="py-10 xl:py-0 xl:pr-12 border-b xl:border-b-0 xl:border-r border-white/10">
+                <div class="grid xl:grid-cols-3 gap-0 border border-white/10 divide-y xl:divide-y-0 xl:divide-x divide-white/10">
+                    <div class="p-10">
                         <p class="font-mono text-xs text-white/25 mb-5">01</p>
                         <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">PREVENT</p>
                         <h3 class="text-base font-bold text-white mb-3">Before the damage.</h3>
                         <p class="text-sm leading-relaxed text-white/50">Deterministic guardrails at the boundary. Deny-by-default — the catastrophic action can't execute if it never reaches the system. The buy reason today: NIS-2 board liability, DORA.</p>
                     </div>
-                    <div class="py-10 xl:py-0 xl:px-12 border-b xl:border-b-0 xl:border-r border-white/10">
+                    <div class="p-10">
                         <p class="font-mono text-xs text-white/25 mb-5">02</p>
                         <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">PROVE</p>
                         <h3 class="text-base font-bold text-white mb-3">After the action.</h3>
                         <p class="text-sm leading-relaxed text-white/50">Cryptographically signed, vendor-independent audit trail of every agent action. The suspect can't write the police report — which is why our record exists outside every provider's infrastructure.</p>
                     </div>
-                    <div class="py-10 xl:py-0 xl:pl-12">
+                    <div class="p-10">
                         <p class="font-mono text-xs text-white/25 mb-5">03</p>
                         <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">RATE</p>
                         <h3 class="text-base font-bold text-white mb-3">Across the network.</h3>
@@ -511,62 +500,58 @@ import Footer from "../components/Footer.astro";
                     </div>
                 </div>
 
-                <div class="mt-16 pt-12 border-t border-dotted border-white/10">
-                    <a href="/platform" class="inline-flex items-center gap-2 border border-dotted border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all">
+                <div class="mt-16">
+                    <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all">
                         See full platform →
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ LEGAL REALITY ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
+        <!-- ══════════ 07 LEGAL REALITY ══════════ -->
+        <section class="relative border-b border-white/10 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
 
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The Legal Reality</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="mb-12 flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">07 · The Legal Reality</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-6">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
                             Your Agents Act in Your Name. Courts Know It.
                         </h2>
-                        <p class="text-[#333] leading-relaxed mb-4">
+                        <p class="text-white/55 leading-relaxed mb-4">
                             Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable — not the vendor, not the model.
                         </p>
-                        <p class="text-[#333] leading-relaxed mb-6">
+                        <p class="text-white/55 leading-relaxed mb-6">
                             Your AI agents negotiate, transact, and make commitments in your name — right now. Regulators, auditors, and courts will hold you accountable for what they do.
                         </p>
-                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-6 mb-6">
-                            <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Moffatt v. Air Canada</p>
-                            <p class="font-mono text-sm text-[#333] leading-relaxed border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
+                        <div class="border border-white/10 bg-white/[0.02] p-6 mb-6">
+                            <p class="font-mono text-xs uppercase tracking-widest text-white/50 mb-3">Moffatt v. Air Canada</p>
+                            <p class="font-mono text-sm text-white/70 leading-relaxed border-l-2 border-white/25 pl-4">
                                 "Air Canada cannot avoid responsibility for information provided by its agent."
                             </p>
                         </div>
-                        <p class="text-sm text-[#666] leading-relaxed">
+                        <p class="text-sm text-white/40 leading-relaxed">
                             The question isn't whether you need an evidence trail. It's whether yours would survive scrutiny.
                         </p>
                     </div>
 
-                    <div class="grid gap-4 grid-cols-2">
+                    <div class="grid gap-px grid-cols-2">
                         {[
                             { name: "NIS-2",     desc: "~160,000 companies in DE/EU. Critical + important sectors.", deadline: "In force · DE: NIS2UmsuCG", urgent: true },
                             { name: "DORA",      desc: "Financial entity resilience requirements.",  deadline: "In force: Jan 2025",  urgent: false },
                             { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2026/2027", urgent: false },
                             { name: "GDPR 35",   desc: "Automated processing DPIA obligations.",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
-                            <div class={`border rounded-[14px] p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#dae4e5] bg-[#dae4e5]/20"}`}>
+                            <div class={`border p-5 ${urgent ? "border-[#c00000]/40 bg-[#c00000]/5" : "border-white/10 bg-white/[0.02]"}`}>
                                 <div class="flex items-start justify-between mb-2">
-                                    <h3 class="font-mono text-sm font-bold text-[#0d0e10]">{name}</h3>
-                                    {urgent && <span class="font-mono text-[9px] border border-dotted border-[#c00000]/50 px-1.5 py-0.5 text-[#c00000]">Urgent</span>}
+                                    <h3 class="font-mono text-sm font-bold text-white">{name}</h3>
+                                    {urgent && <span class="font-mono text-[9px] border border-[#c00000]/50 px-1.5 py-0.5 text-[#c00000]">Urgent</span>}
                                 </div>
-                                <p class="text-xs text-[#555] mb-2">{desc}</p>
-                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-[#333]'}`}>{deadline}</p>
+                                <p class="text-xs text-white/45 mb-2">{desc}</p>
+                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-white/50'}`}>{deadline}</p>
                             </div>
                         ))}
                     </div>
@@ -574,36 +559,32 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ DESIGN PARTNERS ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
+        <!-- ══════════ 08 DESIGN PARTNERS ══════════ -->
+        <section class="relative border-b border-white/10 py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
 
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Early Access Program</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="mb-12 flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">08 · Early Access Program</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-16 items-start">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-4">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
                             Built With Regulated Industries — Not For Them.
                         </h2>
-                        <p class="text-[#333] leading-relaxed mb-8">
+                        <p class="text-white/55 leading-relaxed mb-8">
                             Active design partnerships across Finance, Insurance, Healthcare, Public Sector, and Critical Infrastructure in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
                         </p>
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
                         >
                             Apply for Design Partnership →
                         </button>
                     </div>
                     <div class="flex flex-wrap gap-2 content-start">
                         {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
-                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-[#0d0e10]/65 border border-dotted border-[#0d0e10]/20 px-3 py-1.5">{industry}</span>
+                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50 border border-white/15 px-3 py-1.5">{industry}</span>
                         ))}
                     </div>
                 </div>
@@ -611,27 +592,27 @@ import Footer from "../components/Footer.astro";
         </section>
 
         <!-- ══════════ CLOSING CTA ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
+        <section class="relative py-24 md:py-32">
             <div class="relative max-w-7xl mx-auto px-6">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5 w-fit mx-auto">↳ Get started</p>
-                    <div class="mb-12 h-px bg-[#0d0e10]/15"></div>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-12">
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Get started</p>
+                    <div class="mb-12 h-px bg-white/10"></div>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-12">
                         Your agents are a workforce.<br />Your workforce is critical infrastructure.<br />Govern accordingly.
                     </h2>
-                    <!-- Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
+                    <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <!--
                         <a
                             href="/sandbox"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
                         >
                             Deploy Sandbox →
                         </a>
                         -->
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
                         >
                             Talk to Us →
                         </button>
