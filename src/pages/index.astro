@@ -210,10 +210,17 @@ for (let lat = -80; lat <= 80; lat += 8) {
         for (let y = ROW; y < H; y += ROW)
           ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
 
-      // gate line with tick marks
-      ctx.fillStyle = "rgba(242,242,242,0.22)";
+      // gate line — nearly invisible at the ends, a faint shimmer mid-height;
+      // it reveals itself through interaction (blooms, blocks), not presence
+      const gateGrad = ctx.createLinearGradient(0, 0, 0, H);
+      gateGrad.addColorStop(0, "rgba(242,242,242,0)");
+      gateGrad.addColorStop(0.5, "rgba(242,242,242,0.13)");
+      gateGrad.addColorStop(1, "rgba(242,242,242,0)");
+      ctx.fillStyle = gateGrad;
       ctx.fillRect(GATE, 0, 1, H);
       for (let y = 0; y < H; y += ROW * 2) {
+        const env = Math.sin((Math.PI * y) / H);
+        ctx.fillStyle = `rgba(242,242,242,${0.16 * env * env})`;
         ctx.fillRect(GATE - 3, y, 7, 1);
       }
 
