@@ -2,6 +2,21 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+
+// Orthographic dot-sphere for the closing ornament
+const SPHERE_R = 290;
+const sphereDots: { x: number; y: number; a: number }[] = [];
+for (let lat = -80; lat <= 80; lat += 8) {
+    for (let lon = -80; lon <= 80; lon += 8) {
+        const la = (lat * Math.PI) / 180;
+        const lo = (lon * Math.PI) / 180;
+        sphereDots.push({
+            x: 320 + SPHERE_R * Math.sin(lo) * Math.cos(la),
+            y: 320 + SPHERE_R * Math.sin(la),
+            a: 0.04 + 0.16 * Math.cos(lo) * Math.cos(la),
+        });
+    }
+}
 ---
 
 <Base
@@ -617,6 +632,81 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
+        <!-- ══════════ GLITCH WALL DIVIDER ══════════ -->
+        <section class="relative border-b border-white/10 h-[280px] md:h-[380px] overflow-hidden" aria-hidden="true">
+            <canvas id="glitch-wall" class="absolute inset-0 w-full h-full"></canvas>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-transparent to-[#050505]/60"></div>
+        </section>
+        <script>
+            // Diagonal data-wall divider — flowing dash field, green-dominant
+            const gw = document.getElementById("glitch-wall") as HTMLCanvasElement | null;
+            const gwReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (gw) {
+                const gctx = gw.getContext("2d")!;
+                let gW = 0, gH = 0;
+
+                function ghash(n: number): number {
+                    let t = (n + 0x6d2b79f5) | 0;
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                }
+
+                function gResize() {
+                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    gW = gw.clientWidth;
+                    gH = gw.clientHeight;
+                    gw.width = gW * dpr;
+                    gw.height = gH * dpr;
+                    gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                }
+
+                const CX = 6, CY = 8; // cell size
+                function gDraw(t: number) {
+                    gctx.clearRect(0, 0, gW, gH);
+                    const flow = t / 40;
+                    for (let y = 0; y < gH; y += CY) {
+                        const row = Math.floor(y / CY);
+                        const rowSpeed = 0.4 + ghash(row * 71) * 1.2;
+                        for (let x = 0; x < gW; x += CX) {
+                            const col = Math.floor((x + flow * rowSpeed * 10) / CX);
+                            // diagonal density band, sweeping slowly
+                            const diag = (x / gW) * 0.6 + (1 - y / gH) * 0.4;
+                            const bandC = 0.5 + 0.28 * Math.sin(t / 9000);
+                            const band = Math.max(0, 1 - Math.abs(diag - bandC) * 3.2);
+                            const r = ghash(col * 733 + row * 131);
+                            if (r > band * 0.75 + 0.04) continue;
+                            const r2 = ghash(col * 31 + row * 977);
+                            const flick = 0.4 + 0.6 * ghash(col + row + Math.floor(t / 240));
+                            const a = (0.06 + r2 * 0.5) * band * flick;
+                            gctx.fillStyle = r2 > 0.55
+                                ? `rgba(61,220,132,${a})`
+                                : `rgba(242,242,242,${a * 0.7})`;
+                            gctx.fillRect(x, y, 1.5 + r2 * 2.5, 1.5);
+                        }
+                    }
+                }
+
+                gResize();
+                window.addEventListener("resize", gResize);
+
+                if (gwReduced) {
+                    gDraw(4000);
+                } else {
+                    let visible = false;
+                    const gio = new IntersectionObserver((es) => {
+                        visible = es[0].isIntersecting;
+                    });
+                    gio.observe(gw);
+                    const gLoop = (t: number) => {
+                        if (visible) gDraw(t);
+                        requestAnimationFrame(gLoop);
+                    };
+                    requestAnimationFrame(gLoop);
+                }
+            }
+        </script>
+
         <!-- ══════════ 06 THREE GUARANTEES ══════════ -->
         <section class="relative border-b border-white/10 py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-6">
@@ -792,7 +882,19 @@ import Footer from "../components/Footer.astro";
         </section>
 
         <!-- ══════════ CLOSING CTA ══════════ -->
-        <section class="relative py-24 md:py-32">
+        <section class="relative py-24 md:py-32 overflow-hidden">
+            <!-- dot-sphere ornament -->
+            <div class="absolute -right-48 md:-right-24 top-1/2 -translate-y-1/2 w-[520px] md:w-[640px] pointer-events-none" aria-hidden="true">
+                <svg viewBox="0 0 640 640" class="w-full h-auto">
+                    {sphereDots.map(({ x, y, a }) => (
+                        <circle cx={x} cy={y} r="1.5" fill={`rgba(242,242,242,${a})`} />
+                    ))}
+                    <circle cx="424" cy="238" r="2.5" fill="#F2F2F2" />
+                    <path d="M424 238 L500 200" stroke="rgba(242,242,242,0.3)" stroke-width="1" fill="none" />
+                    <text x="506" y="196" text-anchor="start" fill="rgba(242,242,242,0.45)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">gateway.kyde.com</text>
+                    <text x="506" y="212" text-anchor="start" fill="rgba(242,242,242,0.25)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">52.52° N · 13.40° E</text>
+                </svg>
+            </div>
             <div class="relative max-w-7xl mx-auto px-6">
                 <div class="mx-auto max-w-3xl text-center">
                     <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Get started</p>

@@ -363,24 +363,24 @@ const comingSoon = [
                     </p>
                 </div>
 
-                <!-- Published articles -->
-                <div class="space-y-4 mb-12">
+                <!-- Published articles — hub-card pattern -->
+                <div class="grid md:grid-cols-2 gap-px mb-12">
                     {articles.map(({ category, title, summary, href, readTime }) => (
                         <a
                             href={href}
-                            class="group block border-b border-[#2E2E2E] transition-all hover:bg-[#0C0C0C]/[0.02] p-8"
+                            class="group flex flex-col border border-[#1F1F1F] bg-[#0C0C0C] hover:bg-[#141414] hover:border-[#2E2E2E] transition-all p-6"
                         >
-                            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <span class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">{category}</span>
-                                        <span class="text-[#A8A8A8]">·</span>
-                                        <span class="font-mono text-xs text-[#A8A8A8]">{readTime}</span>
-                                    </div>
-                                    <h3 class="text-lg font-bold text-[#F2F2F2] mb-2 group-hover:text-[#F2F2F2] leading-snug">{title}</h3>
-                                    <p class="text-sm text-[#A8A8A8] leading-relaxed">{summary}</p>
-                                </div>
-                                <span class="font-mono text-[#A8A8A8] text-sm shrink-0 mt-1 group-hover:translate-x-1 transition-transform">→</span>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-mono text-[10px] text-[#6B6B6B]">◆ kyde/blog</span>
+                                <span class="font-mono text-[10px] text-[#6B6B6B]">{readTime}</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-[#F2F2F2] mb-2 leading-snug">{title}</h3>
+                            <p class="text-sm text-[#A8A8A8] leading-relaxed line-clamp-2 mb-5">{summary}</p>
+                            <div class="mt-auto flex items-center justify-between border-t border-[#1F1F1F] pt-3">
+                                <span class="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">
+                                    <span class="text-[#3DDC84]">&#10003;</span>{category}
+                                </span>
+                                <span class="font-mono text-[#6B6B6B] text-sm group-hover:translate-x-1 group-hover:text-[#F2F2F2] transition-all">→</span>
                             </div>
                         </a>
                     ))}

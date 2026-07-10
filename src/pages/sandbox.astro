@@ -80,6 +80,56 @@ import Footer from '../components/Footer.astro';
             ))}
           </div>
         </div>
+
+        <!-- FIG.1 — fleet view -->
+        <div class="relative mt-16 border border-[#1F1F1F] bg-[#050505] h-[420px] md:h-[460px] overflow-hidden">
+          <span class="fig-label absolute top-4 left-5 z-10">FIG.1 · Fleet view</span>
+          <!-- dot field -->
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(242,242,242,0.09) 1px, transparent 1px); background-size: 26px 26px;"></div>
+
+          <!-- agent pins -->
+          {[
+            { x: 12, y: 30 }, { x: 22, y: 62 }, { x: 30, y: 18 },
+            { x: 41, y: 74 }, { x: 47, y: 38 }, { x: 63, y: 80 },
+            { x: 71, y: 22 }, { x: 84, y: 55 }, { x: 90, y: 30 },
+          ].map(({ x, y }) => (
+            <span
+              class="absolute h-2 w-2 border border-white/40 bg-[#0C0C0C]"
+              style={`left:${x}%;top:${y}%`}
+            ></span>
+          ))}
+          <!-- active pin -->
+          <span class="absolute h-2.5 w-2.5 bg-[#FF5C5C] animate-pulse" style="left:34%;top:48%"></span>
+          <span class="absolute font-mono text-[10px] text-white/50 tracking-widest" style="left:36.5%;top:47%">crm-sales-04</span>
+
+          <!-- floating detail card -->
+          <div class="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-[min(320px,80%)] border border-[#2E2E2E] bg-[#141414]/95 backdrop-blur-sm">
+            <div class="flex items-center justify-between border-b border-[#1F1F1F] px-4 py-3">
+              <span class="flex items-center gap-2 font-mono text-xs text-[#F2F2F2]">
+                <span class="h-1.5 w-1.5 rounded-full bg-[#FF5C5C]"></span>
+                agent:crm-sales-04
+              </span>
+              <span class="font-mono text-[9px] uppercase tracking-widest text-[#FF5C5C] border border-[#FF5C5C]/40 px-1.5 py-0.5">Blocked</span>
+            </div>
+            <div class="px-4 py-4 space-y-2.5 font-mono text-xs">
+              <div class="grid grid-cols-[88px_1fr] gap-2">
+                <span class="text-[#6B6B6B]">Action</span>
+                <span class="text-[#A8A8A8]">export:all_contacts</span>
+              </div>
+              <div class="grid grid-cols-[88px_1fr] gap-2">
+                <span class="text-[#6B6B6B]">Policy</span>
+                <span class="text-[#A8A8A8]">dlp-standard · deny</span>
+              </div>
+              <div class="grid grid-cols-[88px_1fr] gap-2">
+                <span class="text-[#6B6B6B]">Ledger</span>
+                <span class="text-[#A8A8A8]">#a4d1…9f2c · <span class="text-[#3DDC84]">signed</span></span>
+              </div>
+            </div>
+            <div class="border-t border-[#1F1F1F] px-4 py-3">
+              <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-white/50">View in ledger →</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
