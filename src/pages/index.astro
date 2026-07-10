@@ -725,10 +725,10 @@ for (let lat = -80; lat <= 80; lat += 8) {
 
                 <div class="grid lg:grid-cols-[1fr_1.1fr] gap-0 border border-white/10 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
 
-                    <!-- FIG.5 — the V·P·R loop -->
+                    <!-- FIG.5 — the V·P·R loop (vertices float, edges stay connected) -->
                     <div class="relative p-10 md:p-14 flex items-center justify-center min-h-[380px]">
                         <span class="fig-label absolute top-5 left-6">FIG.5</span>
-                        <svg viewBox="0 0 520 470" class="w-full max-w-md h-auto" aria-hidden="true">
+                        <svg id="vpr-fig" viewBox="0 0 520 470" class="w-full max-w-md h-auto" aria-hidden="true">
                             <defs>
                                 <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
                                     <circle cx="2" cy="2" r="1.1" fill="rgba(242,242,242,0.16)" />
@@ -736,28 +736,99 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             </defs>
 
                             <!-- outer cycle -->
-                            <path d="M260 70 L440 390 L80 390 Z" fill="none" stroke="rgba(242,242,242,0.32)" stroke-width="1" />
+                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="rgba(242,242,242,0.32)" stroke-width="1" />
 
                             <!-- direction arrows on the edges -->
-                            <polygon points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(355,235) rotate(60.6)" />
-                            <polygon points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(260,390) rotate(180)" />
-                            <polygon points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(165,235) rotate(-60.6)" />
+                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(355,235) rotate(60.6)" />
+                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(260,390) rotate(180)" />
+                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(165,235) rotate(-60.6)" />
 
                             <!-- inner dot-grid triangle -->
-                            <path d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="rgba(242,242,242,0.25)" stroke-width="1" />
-                            <text x="260" y="310" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
+                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="rgba(242,242,242,0.25)" stroke-width="1" />
+                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
 
                             <!-- vertex nodes + labels -->
-                            <rect x="256.5" y="66.5" width="7" height="7" fill="#F2F2F2" />
-                            <text x="260" y="48" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
+                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="#F2F2F2" />
+                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
 
-                            <rect x="436.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
-                            <text x="452" y="424" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
+                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
+                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
 
-                            <rect x="76.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
-                            <text x="72" y="424" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
+                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
+                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
                         </svg>
                     </div>
+
+                    <script>
+                        // FIG.5 — vertices drift on slow Lissajous paths; edges,
+                        // arrows, labels and the inner triangle follow every frame.
+                        const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const fig = document.getElementById("vpr-fig");
+
+                        if (fig && !vprReduced) {
+                            const $ = (id: string) => document.getElementById(id)!;
+                            const outer = $("vpr-outer");
+                            const inner = $("vpr-inner");
+                            const center = $("vpr-center");
+                            const nodes = [0, 1, 2].map((i) => $(`vpr-node-${i}`));
+                            const labels = [0, 1, 2].map((i) => $(`vpr-label-${i}`));
+                            const arrows = [0, 1, 2].map((i) => $(`vpr-arrow-${i}`));
+
+                            const anchors = [
+                                { x: 260, y: 70 },
+                                { x: 440, y: 390 },
+                                { x: 80, y: 390 },
+                            ];
+                            const labelOff = [
+                                { x: 0, y: -22 },
+                                { x: 12, y: 34 },
+                                { x: -8, y: 34 },
+                            ];
+                            // per-vertex drift frequencies/phases — incommensurate,
+                            // so the constellation never repeats
+                            const F = [
+                                { fx: 0.00021, fy: 0.00017, px: 0.0, py: 1.7, a: 24 },
+                                { fx: 0.00016, fy: 0.00023, px: 2.1, py: 0.6, a: 26 },
+                                { fx: 0.00019, fy: 0.00014, px: 4.0, py: 3.2, a: 22 },
+                            ];
+
+                            let visible = true;
+                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
+
+                            function frame(t: number) {
+                                if (visible) {
+                                    const v = anchors.map((aP, i) => ({
+                                        x: aP.x + Math.sin(t * F[i].fx + F[i].px) * F[i].a,
+                                        y: aP.y + Math.cos(t * F[i].fy + F[i].py) * F[i].a,
+                                    }));
+                                    const cx = (v[0].x + v[1].x + v[2].x) / 3;
+                                    const cy = (v[0].y + v[1].y + v[2].y) / 3;
+
+                                    outer.setAttribute("d", `M${v[0].x} ${v[0].y} L${v[1].x} ${v[1].y} L${v[2].x} ${v[2].y} Z`);
+
+                                    const inV = v.map((p) => ({ x: cx + (p.x - cx) * 0.52, y: cy + (p.y - cy) * 0.52 }));
+                                    inner.setAttribute("d", `M${inV[0].x} ${inV[0].y} L${inV[1].x} ${inV[1].y} L${inV[2].x} ${inV[2].y} Z`);
+
+                                    center.setAttribute("x", String(cx));
+                                    center.setAttribute("y", String(cy + 40));
+
+                                    for (let i = 0; i < 3; i++) {
+                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
+                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
+                                        labels[i].setAttribute("x", String(v[i].x + labelOff[i].x));
+                                        labels[i].setAttribute("y", String(v[i].y + labelOff[i].y));
+
+                                        const a = v[i], b = v[(i + 1) % 3];
+                                        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+                                        const ang = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
+                                        arrows[i].setAttribute("transform", `translate(${mx},${my}) rotate(${ang})`);
+                                    }
+                                }
+                                requestAnimationFrame(frame);
+                            }
+                            requestAnimationFrame(frame);
+                        }
+                    </script>
 
                     <!-- the three layers -->
                     <div class="divide-y divide-white/10">

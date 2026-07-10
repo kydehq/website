@@ -111,24 +111,24 @@ const dimensions: Dimension[] = [
             </div>
 
             <div class="flex items-end gap-4 mb-3">
-              <p class="font-mono text-8xl font-bold text-white leading-none tracking-tighter">84</p>
+              <p id="ts-score" class="font-mono text-8xl font-bold text-white leading-none tracking-tighter">84</p>
               <p class="font-mono text-sm text-white/20 pb-2">/100</p>
             </div>
-            <p class="text-sm text-white/35 mb-8 leading-snug">Within the expected range for comparable enterprise agents.</p>
+            <p class="text-sm text-white/35 mb-8 leading-snug row-in" style="animation-delay:1.1s">Within the expected range for comparable enterprise agents.</p>
 
             <div class="space-y-3.5 mb-8">
-              {scoreEvents.map(({ label, ok }) => (
-                <div class="flex items-start gap-3">
+              {scoreEvents.map(({ label, ok }, i) => (
+                <div class="flex items-start gap-3 row-in" style={`animation-delay:${1.3 + i * 0.25}s`}>
                   <span class={`font-mono text-base leading-none shrink-0 mt-0.5 ${ok ? 'text-[#3DDC84]' : 'text-[#FF5C5C]'}`}>{ok ? '✓' : '⚠'}</span>
                   <span class={`text-sm leading-snug ${ok ? 'text-white/45' : 'text-white/65'}`}>{label}</span>
                 </div>
               ))}
             </div>
 
-            <div class="border-t border-white/8 pt-5">
+            <div class="border-t border-white/8 pt-5 row-in" style="animation-delay:2.1s">
               <div class="flex items-center justify-between mb-2">
                 <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">Coverage</p>
-                <p class="font-mono text-xl font-bold text-[#3DDC84]">92%</p>
+                <p id="ts-coverage" class="font-mono text-xl font-bold text-[#3DDC84]">92%</p>
               </div>
               <p class="text-xs text-white/20 leading-snug">92% of observable agent activity contributed to the score.</p>
             </div>
@@ -137,6 +137,26 @@ const dimensions: Dimension[] = [
         </div>
       </div>
     </section>
+
+    <script>
+      // Score + coverage count up on load, mono-stable via easing
+      const rmTs = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scoreEl = document.getElementById("ts-score");
+      const covEl = document.getElementById("ts-coverage");
+      if (scoreEl && covEl && !rmTs) {
+        const T = 1400;
+        const start = performance.now();
+        const ease = (x: number) => 1 - Math.pow(1 - x, 3);
+        function tick(now: number) {
+          const p = Math.min((now - start) / T, 1);
+          const e = ease(p);
+          scoreEl!.textContent = String(Math.round(84 * e));
+          covEl!.textContent = `${Math.round(92 * e)}%`;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+    </script>
 
     <!-- ══════════ INDEPENDENT MEASUREMENT ══════════ -->
     <section class="border-t border-[#1F1F1F] py-16 md:py-20 bg-[#0C0C0C]">
@@ -197,7 +217,7 @@ const dimensions: Dimension[] = [
                     <span class="font-mono text-sm font-bold" style={`color:${color}`}>{pct}%</span>
                   </div>
                   <div class="h-1 bg-[#1C1C1C] rounded-full overflow-hidden mb-2">
-                    <div class="h-full rounded-full" style={`width:${pct}%;background-color:${color};opacity:0.75`}></div>
+                    <div class="h-full rounded-full bar-fill" style={`width:${pct}%;background-color:${color};opacity:0.75`}></div>
                   </div>
                   <p class="text-xs text-[#6B6B6B] leading-snug">{desc}</p>
                 </div>
@@ -280,9 +300,9 @@ const dimensions: Dimension[] = [
               ))}
 
               <!-- isometric cube -->
-              <path d="M330 80 L420 125 L420 235 L330 280 L240 235 L240 125 Z" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
-              <path d="M240 125 L330 170 L420 125" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
-              <path d="M330 170 L330 280" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
+              <path class="draw" pathLength="1" d="M330 80 L420 125 L420 235 L330 280 L240 235 L240 125 Z" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
+              <path class="draw" pathLength="1" d="M240 125 L330 170 L420 125" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
+              <path class="draw" pathLength="1" d="M330 170 L330 280" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
               <path d="M330 80 L420 125 L330 170 L240 125 Z" fill="url(#cube-dots)" />
 
               <!-- output callout -->
