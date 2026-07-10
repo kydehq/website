@@ -74,5 +74,28 @@ const ogImage = new URL(image, Astro.site).href;
         <DemoModal />
         <slot />
         <CookieBanner />
+        <script>
+            // Scroll reveal (design doc §6) — staggered, once, JS-progressive
+            const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!rm) {
+                const sections = document.querySelectorAll("main section");
+                const io = new IntersectionObserver(
+                    (entries) => {
+                        for (const e of entries) {
+                            if (e.isIntersecting) {
+                                (e.target as HTMLElement).classList.add("revealed");
+                                io.unobserve(e.target);
+                            }
+                        }
+                    },
+                    { threshold: 0.08 },
+                );
+                sections.forEach((el, i) => {
+                    if (i === 0) return; // hero is visible immediately
+                    el.classList.add("reveal");
+                    io.observe(el);
+                });
+            }
+        </script>
     </body>
 </html>

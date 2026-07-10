@@ -105,7 +105,7 @@ import Footer from "../components/Footer.astro";
                             label: "Tamper-Evidence",
                         },
                     ].map(({ q, body, label }) => (
-                        <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-[#0C0C0C] transition-all hover:border-[#2E2E2E]">
+                        <div class="border border-[#1F1F1F] p-8 bg-[#0C0C0C] transition-all hover:border-[#2E2E2E]">
                             <div class="mb-4 flex items-center justify-between">
                                 <span class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">{label}</span>
                                 <span class="h-1.5 w-1.5 rounded-full bg-[#FF5C5C]/50"></span>
@@ -122,7 +122,7 @@ import Footer from "../components/Footer.astro";
                     <div class="flex-1 border-t border-[#1F1F1F]"></div>
                 </div>
 
-                <div class="border border-[#e5e7eb] rounded-[22px] p-8 bg-[#0C0C0C] transition-all hover:border-[#2E2E2E]">
+                <div class="border border-[#1F1F1F] p-8 bg-[#0C0C0C] transition-all hover:border-[#2E2E2E]">
                     <div class="mb-4 flex items-center justify-between">
                         <span class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">Cross-System Governance</span>
                         <span class="h-1.5 w-1.5 rounded-full bg-[#FF5C5C]/50"></span>
@@ -156,7 +156,7 @@ import Footer from "../components/Footer.astro";
                         <p class="text-[#A8A8A8] leading-relaxed mb-8">
                             KYDE runs as a local or hosted HTTP proxy, fully compatible with the OpenAI API schema. Any agent that can be pointed at a base URL can be governed.
                         </p>
-                        <div class="border border-[#1F1F1F] bg-[#0C0C0C] rounded-sm mb-8">
+                        <div class="border border-[#1F1F1F] bg-[#0C0C0C] mb-8">
                             <div class="flex items-center gap-2 border-b border-[#1F1F1F] px-4 py-3">
                                 <span class="h-3 w-3 rounded-full bg-red-400/60"></span>
                                 <span class="h-3 w-3 rounded-full bg-[#FFB84D]"></span>
@@ -230,15 +230,15 @@ import Footer from "../components/Footer.astro";
                             <p class="font-mono text-[9px] text-[#F2F2F2]/35 uppercase tracking-[0.08em] mb-5">Agent Behavioral Ledger</p>
                             <ul class="space-y-0.5">
                                 {["Overview", "Data Integrity", "Entry Timeline", "Sessions", "Token Analysis"].map((item) => (
-                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2 rounded-sm">
+                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2">
                                         {item}
                                     </li>
                                 ))}
-                                <li class="font-mono text-[10px] text-[#4472c4] font-semibold py-1 px-2 bg-[#1C1C1C]/50 rounded-sm">
+                                <li class="font-mono text-[10px] text-[#F2F2F2] font-semibold py-1 px-2 bg-[#1C1C1C]/50">
                                     Agent Topology
                                 </li>
                                 {["DLP Alerts", "DLP Rules", "Users", "Settings"].map((item) => (
-                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2 rounded-sm">
+                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2">
                                         {item}
                                     </li>
                                 ))}
@@ -344,7 +344,7 @@ import Footer from "../components/Footer.astro";
                     </div>
 
                     <!-- JSON entry -->
-                    <div class="rounded-sm border border-[#1F1F1F] bg-[#0C0C0C]">
+                    <div class="border border-[#1F1F1F] bg-[#0C0C0C]">
                         <div class="flex items-center gap-2 border-b border-[#1F1F1F] px-4 py-3">
                             <span class="h-2 w-2 rounded-full bg-[#0C0C0C]/20"></span>
                             <span class="h-2 w-2 rounded-full bg-[#0C0C0C]/20"></span>
@@ -414,7 +414,7 @@ import Footer from "../components/Footer.astro";
                             tag: "Coming Soon",
                         },
                     ].map(({ title, body, tag }) => (
-                        <div class="rounded-sm border border-[#1F1F1F] bg-[#0C0C0C] p-6 hover:bg-[#eee] transition-all">
+                        <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 hover:bg-[#1C1C1C] transition-all">
                             <div class="mb-4 flex items-center justify-between">
                                 <span class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">{tag}</span>
                             </div>
@@ -552,7 +552,7 @@ import Footer from "../components/Footer.astro";
                                 <div class="px-4 py-4"><p class="font-mono text-sm text-[#F2F2F2]">{level}</p></div>
                                 <div class="px-4 py-4"><p class="text-sm text-[#A8A8A8]">{desc}</p></div>
                                 <div class="px-4 py-4">
-                                    <span class={`font-mono text-[10px] tracking-widest ${live ? "text-[#3DDC84]" : available ? "text-[#4472c4]" : "text-[#A8A8A8]"}`}>{status}</span>
+                                    <span class={`font-mono text-[10px] tracking-widest ${live ? "text-[#3DDC84]" : available ? "text-[#F2F2F2]/70" : "text-[#A8A8A8]"}`}>{status}</span>
                                 </div>
                             </div>
                         ))}
@@ -576,7 +576,7 @@ import Footer from "../components/Footer.astro";
 
                 <div class="grid gap-8 lg:grid-cols-3">
                     <!-- PREVENT -->
-                    <div class="rounded-sm border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+                    <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-8">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#A8A8A8]">01</span>
                         </div>
@@ -601,7 +601,7 @@ import Footer from "../components/Footer.astro";
                     </div>
 
                     <!-- PROVE -->
-                    <div class="rounded-sm border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+                    <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-8">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#A8A8A8]">02</span>
                         </div>
@@ -624,13 +624,13 @@ import Footer from "../components/Footer.astro";
                             ))}
                         </ul>
                         <div class="mt-6 border-t border-[#1F1F1F] pt-4">
-                            <p class="font-mono text-xs text-[#4472c4] uppercase tracking-widest mb-1">Optional High-Security Layer</p>
+                            <p class="font-mono text-xs text-[#F2F2F2]/60 uppercase tracking-widest mb-1">Optional High-Security Layer</p>
                             <p class="text-xs text-[#A8A8A8] leading-relaxed">Military-grade hardware isolation via TPM/HSM — signing keys never exposed to the host OS. For regulated environments where software-only signing isn't enough.</p>
                         </div>
                     </div>
 
                     <!-- RATE -->
-                    <div class="rounded-sm border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+                    <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-8">
                         <div class="mb-6">
                             <span class="font-mono text-xs text-[#A8A8A8]">03</span>
                         </div>
@@ -653,7 +653,7 @@ import Footer from "../components/Footer.astro";
                             ))}
                         </ul>
                         <div class="mt-6 border-t border-[#1F1F1F] pt-4">
-                            <a href="/trust-score" class="font-mono text-xs text-[#4472c4] uppercase tracking-widest hover:underline">→ KYDE Trust Score™</a>
+                            <a href="/trust-score" class="font-mono text-xs text-[#F2F2F2]/60 uppercase tracking-widest hover:underline">→ KYDE Trust Score™</a>
                         </div>
                     </div>
                 </div>
@@ -740,7 +740,7 @@ import Footer from "../components/Footer.astro";
                             body: "Managed deployment. Traffic routes through Kyde's infrastructure. Data-residency options available for EU-regulated environments.",
                         },
                     ].map(({ n, title, label, code, body }) => (
-                        <div class="rounded-sm border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+                        <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-8">
                             <div class="mb-6 flex items-center justify-between">
                                 <span class="font-mono text-2xl font-bold text-[#A8A8A8]">{n}</span>
                                 <span class="font-mono text-xs text-[#A8A8A8] uppercase tracking-widest">{label}</span>
@@ -829,7 +829,7 @@ import Footer from "../components/Footer.astro";
                                     <p class="text-xs text-[#A8A8A8]">{desc}</p>
                                 </div>
                                 <div class="px-5 py-4 flex items-center">
-                                    <span class="font-mono text-xs text-[#3DDC84]">✓ Yes</span>
+                                    <span class="font-mono text-xs text-[#3DDC84]">&#10003; Yes</span>
                                 </div>
                             </div>
                         ))}

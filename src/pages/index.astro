@@ -20,7 +20,7 @@ import Footer from "../components/Footer.astro";
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
                 <div class="flex items-center gap-3 mb-6">
-                    <span class="h-1.5 w-1.5 rounded-full bg-[#FFB84D] shrink-0"></span>
+                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] shrink-0 animate-pulse"></span>
                     <span class="font-mono text-[11px] uppercase tracking-[0.2em] border border-white/20 text-white/60 px-2 py-0.5">Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
                 </div>
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;">
@@ -61,7 +61,7 @@ import Footer from "../components/Footer.astro";
                     </a>
                 </div>
                 <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-                    <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span>
+                    <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span><span class="cursor-blink" aria-hidden="true"></span>
                 </p>
             </div>
         </section>
@@ -126,16 +126,17 @@ import Footer from "../components/Footer.astro";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
 
-  // ── Generative data-stream canvas ──────────────────────────────
-  // Vertical event columns flowing through the boundary: mostly
-  // faint white (observed), green (signed), blue (verified),
-  // rare red (blocked). Occasional horizontal glitch displacement.
+  // ── Boundary-gate figure ────────────────────────────────────────
+  // Geometric, not "rain": unordered agents drift on the left,
+  // cross the vertical gate line, and snap into a strict lattice —
+  // ungoverned chaos becomes governed order. Rare green pulse at
+  // crossing (signed), rare red flash bouncing off (blocked).
   const canvas = document.getElementById("hero-datastream") as HTMLCanvasElement | null;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (canvas) {
     const ctx = canvas.getContext("2d")!;
-    let W = 0, H = 0;
+    let W = 0, H = 0, GATE = 0, ROW = 26;
 
     function hash(n: number): number {
       let t = (n + 0x6d2b79f5) | 0;
@@ -144,8 +145,21 @@ import Footer from "../components/Footer.astro";
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     }
 
-    type Col = { x: number; w: number; speed: number; seed: number; density: number };
-    let cols: Col[] = [];
+    type P = {
+      x: number; y: number; vx: number; seed: number;
+      state: "wild" | "signed" | "blocked";
+      rowY: number; pulse: number;
+    };
+    let parts: P[] = [];
+
+    function spawn(p: P, i: number, initial = false) {
+      p.x = initial ? hash(i * 7 + 1) * GATE : -10 - hash(i * 13) * 60;
+      p.y = 40 + hash(i * 31 + performance.now() % 9973) * (H - 80);
+      p.vx = 12 + hash(i * 17) * 22;
+      p.seed = i * 7919 + Math.floor(performance.now());
+      p.state = "wild";
+      p.pulse = 0;
+    }
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -154,49 +168,85 @@ import Footer from "../components/Footer.astro";
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      cols = [];
-      const n = Math.floor(W / 14);
+      GATE = W * 0.62;
+      parts = [];
+      const n = Math.max(40, Math.floor(W / 16));
       for (let i = 0; i < n; i++) {
-        const r = hash(i * 131);
-        // cluster columns toward the right half — the boundary funnel
-        const xNorm = Math.pow(hash(i * 977), 0.6);
-        cols.push({
-          x: W * (0.25 + xNorm * 0.75) + (r - 0.5) * 10,
-          w: r > 0.85 ? 3 : 2,
-          speed: 14 + hash(i * 389) * 70,
-          seed: i * 7919,
-          density: 0.25 + hash(i * 557) * 0.5,
-        });
+        const p = {} as P;
+        spawn(p, i, true);
+        parts.push(p);
       }
     }
 
-    const CELL = 7;
-
+    let last = 0;
     function draw(t: number) {
+      const dt = Math.min((t - last) / 1000, 0.05) || 0.016;
+      last = t;
       ctx.clearRect(0, 0, W, H);
-      for (const c of cols) {
-        const offset = (t / 1000) * c.speed;
-        const glitchNow = hash(c.seed + Math.floor(t / 120)) > 0.985;
-        const glitchShift = glitchNow ? (hash(c.seed + 1 + Math.floor(t / 120)) - 0.5) * 16 : 0;
 
-        for (let y = -CELL; y < H + CELL; y += CELL) {
-          const k = Math.floor((y + offset) / CELL);
-          const r = hash(c.seed + k);
-          if (r > c.density) continue;
+      // lattice on the governed side — faint, strict
+      ctx.fillStyle = "rgba(242,242,242,0.05)";
+      for (let x = GATE + ROW; x < W; x += ROW)
+        for (let y = ROW; y < H; y += ROW)
+          ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
 
-          const r2 = hash(c.seed + k * 31 + 7);
-          const flicker = 0.5 + 0.5 * hash(c.seed + k + Math.floor(t / 260));
+      // gate line with tick marks
+      ctx.fillStyle = "rgba(242,242,242,0.14)";
+      ctx.fillRect(GATE, 0, 1, H);
+      for (let y = 0; y < H; y += ROW * 2) {
+        ctx.fillRect(GATE - 3, y, 7, 1);
+      }
 
-          let fill: string;
-          if (r2 > 0.995)      fill = `rgba(255,92,92,${0.55 * flicker})`;        // blocked
-          else if (r2 > 0.955) fill = `rgba(61,220,132,${0.6 * flicker})`;       // signed
-          else if (r2 > 0.92)  fill = `rgba(68,114,196,${0.45 * flicker})`;     // verified
-          else                 fill = `rgba(242,242,242,${(0.04 + r2 * 0.09) * flicker})`; // observed
+      for (const p of parts) {
+        const jitterSeed = p.seed + Math.floor(t / 300);
 
-          ctx.fillStyle = fill;
-          const cellH = 2 + Math.floor(r * 4);
-          ctx.fillRect(c.x + glitchShift, y - (offset % CELL), c.w, cellH);
+        if (p.state === "wild") {
+          // brownian drift with slow right bias
+          p.x += p.vx * dt;
+          p.y += (hash(jitterSeed) - 0.5) * 34 * dt * 2.2;
+
+          if (p.x >= GATE) {
+            if (hash(p.seed + 5) > 0.93) {
+              p.state = "blocked";
+              p.pulse = 1;
+              p.vx = -18;
+            } else {
+              p.state = "signed";
+              p.pulse = hash(p.seed + 9) > 0.7 ? 1 : 0;
+              p.rowY = Math.round(p.y / ROW) * ROW;
+              p.vx = 26 + hash(p.seed + 3) * 18;
+            }
+          }
+          ctx.fillStyle = "rgba(242,242,242,0.22)";
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+        } else if (p.state === "signed") {
+          p.x += p.vx * dt;
+          p.y += (p.rowY - p.y) * Math.min(dt * 6, 1); // snap to lattice row
+
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(61,220,132,${p.pulse * 0.7})`;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(p.x - 4, p.y - 4, 8, 8);
+            p.pulse -= dt * 1.4;
+          }
+          ctx.fillStyle = "rgba(242,242,242,0.5)";
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+
+          if (p.x > W + 10) spawn(p, Math.floor(p.seed / 7919));
+        } else {
+          // blocked: red flash at the gate, drift back, fade
+          p.x += p.vx * dt;
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(255,92,92,${p.pulse * 0.8})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x + 4, p.y - 4); ctx.lineTo(p.x - 4, p.y + 4);
+            ctx.moveTo(p.x - 4, p.y - 4); ctx.lineTo(p.x + 4, p.y + 4);
+            ctx.stroke();
+            p.pulse -= dt * 0.9;
+          } else {
+            spawn(p, Math.floor(p.seed / 7919));
+          }
         }
       }
     }
@@ -278,7 +328,7 @@ import Footer from "../components/Footer.astro";
                                     <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
                                 </div>
                                 <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
-                                    <span class="text-[#3DDC84]">✓ Forwarded · masked by role</span>
+                                    <span class="text-[#3DDC84]">&#10003; Forwarded · masked by role</span>
                                     <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
                                 </div>
                             </div>
@@ -402,28 +452,28 @@ import Footer from "../components/Footer.astro";
                 </div>
 
                 <!-- Layer 2: KYDE -->
-                <div class="p-5 md:p-8 bg-white/[0.03] border-2 border-[#4472c4]">
+                <div class="p-5 md:p-8 bg-white/[0.03] border border-[#F2F2F2]/60">
                     <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4472c4]">Control Plane</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4472c4]">Layer 02</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F2F2F2]/60">Control Plane</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F2F2F2]/60">Layer 02</span>
                     </div>
                     <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
                     <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Identity</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Identity</p>
                             <p class="text-xs text-white/60 leading-relaxed">Cryptographic agent identity per action</p>
                         </div>
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Policy</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Policy</p>
                             <p class="text-xs text-white/60 leading-relaxed">Role boundaries &amp; scope enforcement</p>
                         </div>
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Audit</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Audit</p>
                             <p class="text-xs text-white/60 leading-relaxed">Tamper-evident ledger of every action</p>
                         </div>
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Control</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Control</p>
                             <p class="text-xs text-white/60 leading-relaxed">Block out-of-scope requests in real time</p>
                         </div>
                     </div>
@@ -462,10 +512,10 @@ import Footer from "../components/Footer.astro";
                     <div class="p-5 font-mono text-sm leading-relaxed">
                         <p class="text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
                         <p class="mt-1 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet init</span></p>
-                        <p class="mt-1 text-[#4472c4]">&#10003; Fleet proxy started on :8080</p>
-                        <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
-                        <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
-                        <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
+                        <p class="mt-1 text-[#3DDC84]">&#10003; Fleet proxy started on :8080</p>
+                        <p class="text-[#3DDC84]">&#10003; Agent identities provisioned</p>
+                        <p class="text-[#3DDC84]">&#10003; Role boundaries enforced</p>
+                        <p class="text-[#3DDC84]">&#10003; Tamper-evident ledger initialized</p>
                         <p class="mt-2 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet status</span></p>
                         <p class="mt-1 text-[#3DDC84]">&#10003; 12 agents active — all scoped, signed, accountable</p>
                     </div>
@@ -579,25 +629,70 @@ import Footer from "../components/Footer.astro";
                     </p>
                 </div>
 
-                <div class="grid xl:grid-cols-3 gap-0 border border-white/10 divide-y xl:divide-y-0 xl:divide-x divide-white/10">
-                    <div class="p-10">
-                        <p class="font-mono text-xs text-white/25 mb-5">01</p>
-                        <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">PREVENT</p>
-                        <h3 class="text-base font-bold text-white mb-3">Before the damage.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">Deterministic guardrails at the boundary. Deny-by-default — the catastrophic action can't execute if it never reaches the system. The buy reason today: NIS-2 board liability, DORA.</p>
+                <div class="grid lg:grid-cols-[1fr_1.1fr] gap-0 border border-white/10 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
+
+                    <!-- FIG.5 — the V·P·R loop -->
+                    <div class="relative p-10 md:p-14 flex items-center justify-center min-h-[380px]">
+                        <span class="fig-label absolute top-5 left-6">FIG.5</span>
+                        <svg viewBox="0 0 520 470" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <defs>
+                                <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
+                                    <circle cx="2" cy="2" r="1.1" fill="rgba(242,242,242,0.16)" />
+                                </pattern>
+                            </defs>
+
+                            <!-- outer cycle -->
+                            <path d="M260 70 L440 390 L80 390 Z" fill="none" stroke="rgba(242,242,242,0.32)" stroke-width="1" />
+
+                            <!-- direction arrows on the edges -->
+                            <polygon points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(355,235) rotate(60.6)" />
+                            <polygon points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(260,390) rotate(180)" />
+                            <polygon points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.55)" transform="translate(165,235) rotate(-60.6)" />
+
+                            <!-- inner dot-grid triangle -->
+                            <path d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="rgba(242,242,242,0.25)" stroke-width="1" />
+                            <text x="260" y="310" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
+
+                            <!-- vertex nodes + labels -->
+                            <rect x="256.5" y="66.5" width="7" height="7" fill="#F2F2F2" />
+                            <text x="260" y="48" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
+
+                            <rect x="436.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
+                            <text x="452" y="424" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
+
+                            <rect x="76.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
+                            <text x="72" y="424" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
+                        </svg>
                     </div>
-                    <div class="p-10">
-                        <p class="font-mono text-xs text-white/25 mb-5">02</p>
-                        <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">PROVE</p>
-                        <h3 class="text-base font-bold text-white mb-3">After the action.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">Cryptographically signed, vendor-independent audit trail of every agent action. The suspect can't write the police report — which is why our record exists outside every provider's infrastructure.</p>
+
+                    <!-- the three layers -->
+                    <div class="divide-y divide-white/10">
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-baseline gap-4 mb-4">
+                                <p class="font-mono text-xs text-white/25">01</p>
+                                <p class="text-3xl md:text-4xl font-bold text-white tracking-tighter">PREVENT</p>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-3">Before the damage.</h3>
+                            <p class="text-sm leading-relaxed text-white/50">Deterministic guardrails at the boundary. Deny-by-default — the catastrophic action can't execute if it never reaches the system. The buy reason today: NIS-2 board liability, DORA.</p>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-baseline gap-4 mb-4">
+                                <p class="font-mono text-xs text-white/25">02</p>
+                                <p class="text-3xl md:text-4xl font-bold text-white tracking-tighter">PROVE</p>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-3">After the action.</h3>
+                            <p class="text-sm leading-relaxed text-white/50">Cryptographically signed, vendor-independent audit trail of every agent action. The suspect can't write the police report — which is why our record exists outside every provider's infrastructure.</p>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-baseline gap-4 mb-4">
+                                <p class="font-mono text-xs text-white/25">03</p>
+                                <p class="text-3xl md:text-4xl font-bold text-white tracking-tighter">RATE</p>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-3">Across the network.</h3>
+                            <p class="text-sm leading-relaxed text-white/50">The KYDE Trust Score&trade; — behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. <a href="/trust-score" class="text-[#FFB84D] hover:text-white transition-colors">Trust Score →</a></p>
+                        </div>
                     </div>
-                    <div class="p-10">
-                        <p class="font-mono text-xs text-white/25 mb-5">03</p>
-                        <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">RATE</p>
-                        <h3 class="text-base font-bold text-white mb-3">Across the network.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">The KYDE Trust Score&trade; — behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. <a href="/trust-score" class="text-[#FFB84D] hover:text-white transition-colors">Trust Score →</a></p>
-                    </div>
+
                 </div>
 
                 <div class="mt-16">
