@@ -12,14 +12,14 @@ import Footer from '../components/Footer.astro';
   <main>
 
     <!-- ══════════ HERO ══════════ -->
-    <section class="relative bg-[#0d0e10] overflow-hidden pt-32 pb-20">
+    <section class="relative bg-[#0C0C0C] overflow-hidden pt-32 pb-20">
       <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
       <div class="relative max-w-7xl mx-auto px-6">
         <div class="max-w-3xl">
           <div class="flex items-center gap-2 mb-8">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-dotted border-white/15 px-3 py-1">Free</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-white/15 px-3 py-1">Free</span>
             <span class="font-mono text-[10px] text-white/20">·</span>
-            <span class="font-mono text-[10px] uppercase tracking-widest text-[#0a7c4e]/80 border border-dotted border-[#0a7c4e]/30 px-3 py-1">Kyde Gateway Sandbox</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#3DDC84]/80 border border-[#3DDC84]/30 px-3 py-1">Kyde Gateway Sandbox</span>
           </div>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-6">
             Your agents are acting.<br />See what they're doing.
@@ -30,13 +30,13 @@ import Footer from '../components/Footer.astro';
           <div class="flex flex-col sm:flex-row gap-3">
             <a
               href="#deploy"
-              class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#dae4e5] transition-all"
+              class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all"
             >
               Deploy now →
             </a>
             <button
               onclick="openModal()"
-              class="inline-flex items-center gap-2 border border-dotted border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all"
+              class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all"
             >
               Talk to Us →
             </button>
@@ -46,18 +46,18 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ══════════ WHAT YOU'LL SEE ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-20 bg-[#0C0C0C]">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
           <div>
-            <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-6">What you'll see</p>
-            <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] leading-tight mb-6">
+            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-6">What you'll see</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-6">
               The dashboard shows everything your agents are doing — in real time.
             </h2>
-            <p class="text-base text-[#555] leading-relaxed mb-4">
+            <p class="text-base text-[#A8A8A8] leading-relaxed mb-4">
               Most organizations deploying AI agents have no consolidated view of what those agents actually do. Which endpoints they call. How often. With what data.
             </p>
-            <p class="text-base text-[#555] leading-relaxed">
+            <p class="text-base text-[#A8A8A8] leading-relaxed">
               The Sandbox makes that visible. Every call intercepted by the Gateway appears in the dashboard — attributed to an agent, signed, and timestamped.
             </p>
           </div>
@@ -70,11 +70,11 @@ import Footer from '../components/Footer.astro';
               { label: "DLP alerts",             desc: "Post-hoc detection when sensitive data patterns appear in responses." },
               { label: "Signed ledger",          desc: "Ed25519-signed, append-only record of every intercepted event."      },
             ].map(({ label, desc }) => (
-              <div class="flex items-start gap-4 border border-dotted border-[#0d0e10]/10 bg-[#f9fafb] p-4">
-                <svg class="h-4 w-4 shrink-0 text-[#0a7c4e] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+              <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-4">
+                <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                 <div>
-                  <p class="text-sm font-semibold text-[#0d0e10] mb-0.5">{label}</p>
-                  <p class="text-xs text-[#666]">{desc}</p>
+                  <p class="text-sm font-semibold text-[#F2F2F2] mb-0.5">{label}</p>
+                  <p class="text-xs text-[#A8A8A8]">{desc}</p>
                 </div>
               </div>
             ))}
@@ -84,15 +84,11 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ══════════ DEPLOY ══════════ -->
-    <section id="deploy" class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24 bg-[#f1f3f5]">
+    <section id="deploy" class="border-t border-[#1F1F1F] py-16 md:py-24 bg-[#050505]">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="mb-12">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Deploy</span>
-          </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
+          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6B6B6B]">01 · Deploy</span></div>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8 mb-16">
@@ -113,41 +109,41 @@ import Footer from '../components/Footer.astro';
               desc:  "Agent calls appear immediately. Coverage, identity, and signed events — visible from the first request.",
             },
           ].map(({ step, title, desc }) => (
-            <div class="border border-dotted border-[#0d0e10]/12 bg-white p-6 md:p-8">
-              <span class="font-mono text-xs text-[#fcb830] bg-[#fcb830]/8 px-2 py-0.5 mb-4 inline-block uppercase tracking-widest">{step}</span>
-              <p class="text-lg font-bold text-[#0d0e10] mb-2">{title}</p>
-              <p class="text-sm text-[#666] leading-relaxed">{desc}</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-8">
+              <span class="font-mono text-xs text-[#FFB84D] bg-[#FFB84D]/8 px-2 py-0.5 mb-4 inline-block uppercase tracking-widest">{step}</span>
+              <p class="text-lg font-bold text-[#F2F2F2] mb-2">{title}</p>
+              <p class="text-sm text-[#A8A8A8] leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
 
         <!-- Terminal -->
-        <div class="border border-[#0d0e10]/15 bg-[#0d0e10] max-w-3xl">
+        <div class="border border-[#1F1F1F] bg-[#0C0C0C] max-w-3xl">
           <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
-            <span class="h-2.5 w-2.5 rounded-full bg-[#c00000]/40"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-[#fcb830]/40"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-[#0a7c4e]/40"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
             <span class="ml-2 font-mono text-[10px] text-white/20">terminal</span>
           </div>
           <div class="p-6 font-mono text-sm leading-loose">
             <p class="text-white/25 text-xs mb-3"># Step 1 — start the Gateway</p>
-            <p class="text-white/40"><span class="text-[#0a7c4e]">$</span> docker compose up</p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> docker compose up</p>
             <p class="text-[#4472c4]">✓ Gateway started · Dashboard at http://localhost:4000</p>
             <p class="text-[#4472c4]">✓ Ledger initialized</p>
 
             <p class="text-white/25 text-xs mt-5 mb-3"># Step 2 — point your agent at the Gateway</p>
-            <p class="text-white/40"><span class="text-[#0a7c4e]">$</span> export OPENAI_BASE_URL=http://localhost:4001/v1</p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> export OPENAI_BASE_URL=http://localhost:4001/v1</p>
             <p class="text-white/25 text-xs mt-1"># Works with Anthropic, Gemini, and local models too</p>
 
             <p class="text-white/25 text-xs mt-5 mb-3"># Step 3 — run your agent as usual</p>
-            <p class="text-white/40"><span class="text-[#0a7c4e]">$</span> python run_agent.py</p>
-            <p class="text-[#0a7c4e] mt-1">✓ 1 new event · agent:default · crm.query · signed</p>
-            <p class="text-[#0a7c4e]">✓ 2 new events · agent:default · slack.send · signed</p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> python run_agent.py</p>
+            <p class="text-[#3DDC84] mt-1">✓ 1 new event · agent:default · crm.query · signed</p>
+            <p class="text-[#3DDC84]">✓ 2 new events · agent:default · slack.send · signed</p>
             <p class="text-white/25 text-xs mt-1"># Open http://localhost:4000 to see the dashboard</p>
           </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap gap-4 text-xs text-[#999]">
+        <div class="mt-6 flex flex-wrap gap-4 text-xs text-[#6B6B6B]">
           <p class="font-mono">Requires: Docker · Docker Compose · An agent that calls an LLM API</p>
         </div>
 
@@ -155,16 +151,16 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ══════════ SANDBOX VS ENTERPRISE ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-20 bg-[#0C0C0C]">
       <div class="max-w-7xl mx-auto px-6">
 
-        <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-10">Sandbox vs. Enterprise</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-10">Sandbox vs. Enterprise</p>
 
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="border border-dotted border-[#0d0e10]/12 p-6 md:p-8">
+          <div class="border border-[#1F1F1F] p-6 md:p-8">
             <div class="flex items-center justify-between mb-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Kyde Gateway Sandbox</p>
-              <span class="font-mono text-[10px] text-[#0a7c4e] bg-[#0a7c4e]/8 px-2 py-0.5 uppercase tracking-widest">Free</span>
+              <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Sandbox</p>
+              <span class="font-mono text-[10px] text-[#3DDC84] bg-[#3DDC84]/8 px-2 py-0.5 uppercase tracking-widest">Free</span>
             </div>
             <ul class="space-y-3">
               {[
@@ -177,20 +173,20 @@ import Footer from '../components/Footer.astro';
                 "Self-hosted — prompts and payloads stay in your network",
                 "No SLA · No support commitment",
               ].map(item => (
-                <li class="flex items-start gap-3 text-sm text-[#444]">
-                  <svg class="h-4 w-4 shrink-0 text-[#0a7c4e] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                <li class="flex items-start gap-3 text-sm text-[#A8A8A8]">
+                  <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div class="border border-dotted border-[#0d0e10]/12 bg-[#f9fafb] p-6 md:p-8">
+          <div class="border border-[#1F1F1F] bg-[#141414] p-6 md:p-8">
             <div class="flex items-center justify-between mb-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Kyde Gateway Enterprise</p>
+              <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Enterprise</p>
               <span class="font-mono text-[10px] text-[#4472c4] bg-[#4472c4]/8 px-2 py-0.5 uppercase tracking-widest">Paid</span>
             </div>
-            <p class="text-sm text-[#555] leading-relaxed mb-6">Everything in Sandbox, plus:</p>
+            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">Everything in Sandbox, plus:</p>
             <ul class="space-y-3">
               {[
                 "Inline enforcement — block out-of-policy actions before execution",
@@ -202,7 +198,7 @@ import Footer from '../components/Footer.astro';
                 "SLA and support",
                 "Air-gapped deployment option",
               ].map(item => (
-                <li class="flex items-start gap-3 text-sm text-[#444]">
+                <li class="flex items-start gap-3 text-sm text-[#A8A8A8]">
                   <svg class="h-4 w-4 shrink-0 text-[#4472c4] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
                   {item}
                 </li>
@@ -211,7 +207,7 @@ import Footer from '../components/Footer.astro';
             <div class="mt-8">
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-[#0d0e10] text-[#f1f3f5] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#333] transition-all"
+                class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all"
               >
                 Talk to Us →
               </button>
@@ -223,9 +219,9 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ══════════ FAQ ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-[#f1f3f5]">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-20 bg-[#050505]">
       <div class="max-w-4xl mx-auto px-6">
-        <p class="font-mono text-xs uppercase tracking-widest text-[#bbb] mb-10">Common questions</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-10">Common questions</p>
         <div class="space-y-px">
           {[
             {
@@ -249,13 +245,13 @@ import Footer from '../components/Footer.astro';
               a: "Contact us. We'll discuss your use case and can provision an Enterprise trial with enforcement enabled.",
             },
           ].map(({ q, a }) => (
-            <details class="group border border-dotted border-[#0d0e10]/10 bg-white">
+            <details class="group border border-[#1F1F1F] bg-[#0C0C0C]">
               <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
-                <span class="text-sm font-semibold text-[#0d0e10] pr-4">{q}</span>
-                <svg class="h-4 w-4 shrink-0 text-[#999] group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+                <span class="text-sm font-semibold text-[#F2F2F2] pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-[#6B6B6B] group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
               </summary>
               <div class="px-5 pb-5">
-                <p class="text-sm text-[#555] leading-relaxed">{a}</p>
+                <p class="text-sm text-[#A8A8A8] leading-relaxed">{a}</p>
               </div>
             </details>
           ))}
@@ -264,22 +260,22 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ══════════ CTA ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-20 bg-white">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-20 bg-[#0C0C0C]">
       <div class="max-w-7xl mx-auto px-6 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-[#0d0e10] mb-4">Questions? Ready for Enterprise?</h2>
-        <p class="text-base text-[#555] mb-10 max-w-xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] mb-4">Questions? Ready for Enterprise?</h2>
+        <p class="text-base text-[#A8A8A8] mb-10 max-w-xl mx-auto">
           Whether something didn't work, you need enforcement, or you want to discuss a production deployment — we're one message away.
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onclick="openModal()"
-            class="inline-flex items-center gap-2 bg-[#0d0e10] text-[#f1f3f5] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#333] transition-all"
+            class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all"
           >
             Talk to Us →
           </button>
           <a
             href="mailto:hello@kyde.com"
-            class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 text-[#0d0e10] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:border-[#0d0e10] transition-all"
+            class="inline-flex items-center gap-2 border border-[#2E2E2E] text-[#F2F2F2] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:border-[#2E2E2E] transition-all"
           >
             hello@kyde.com →
           </a>

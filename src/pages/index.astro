@@ -15,12 +15,12 @@ import Footer from "../components/Footer.astro";
         <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-white/10">
             <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#0d0e10] via-[#0d0e10]/70 to-transparent"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#0d0e10]"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-[#050505]/70 to-transparent"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
                 <div class="flex items-center gap-3 mb-6">
-                    <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
+                    <span class="h-1.5 w-1.5 rounded-full bg-[#FFB84D] shrink-0"></span>
                     <span class="font-mono text-[11px] uppercase tracking-[0.2em] border border-white/20 text-white/60 px-2 py-0.5">Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
                 </div>
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;">
@@ -42,14 +42,14 @@ import Footer from "../components/Footer.astro";
                     <!--
                     <a
                         href="/sandbox"
-                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                        class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#E5E5E5] transition-all"
                     >
                         Deploy Sandbox →
                     </a>
                     -->
                     <button
                         onclick="openModal()"
-                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                        class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#E5E5E5] transition-all"
                     >
                         Talk to Us →
                     </button>
@@ -61,7 +61,7 @@ import Footer from "../components/Footer.astro";
                     </a>
                 </div>
                 <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-                    <span class="text-[#0a7c4e]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span>
+                    <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span>
                 </p>
             </div>
         </section>
@@ -189,10 +189,10 @@ import Footer from "../components/Footer.astro";
           const flicker = 0.5 + 0.5 * hash(c.seed + k + Math.floor(t / 260));
 
           let fill: string;
-          if (r2 > 0.995)      fill = `rgba(192,0,0,${0.55 * flicker})`;        // blocked
-          else if (r2 > 0.955) fill = `rgba(10,124,78,${0.6 * flicker})`;       // signed
+          if (r2 > 0.995)      fill = `rgba(255,92,92,${0.55 * flicker})`;        // blocked
+          else if (r2 > 0.955) fill = `rgba(61,220,132,${0.6 * flicker})`;       // signed
           else if (r2 > 0.92)  fill = `rgba(68,114,196,${0.45 * flicker})`;     // verified
-          else                 fill = `rgba(241,243,245,${(0.04 + r2 * 0.09) * flicker})`; // observed
+          else                 fill = `rgba(242,242,242,${(0.04 + r2 * 0.09) * flicker})`; // observed
 
           ctx.fillStyle = fill;
           const cellH = 2 + Math.floor(r * 4);
@@ -233,7 +233,7 @@ import Footer from "../components/Footer.astro";
                         </p>
                     </div>
                     <div class="flex flex-col">
-                        <div class="relative border border-white/10 overflow-hidden bg-[#0d0e10]" style="aspect-ratio:16/9;">
+                        <div class="relative border border-white/10 overflow-hidden bg-[#0C0C0C]" style="aspect-ratio:16/9;">
                             <video id="kyde-intro" class="w-full h-full object-cover" preload="none" playsinline poster="/videoposter.png">
                                 <source src="/KYDE.webm" type="video/webm" />
                                 <source src="/KYDE.mp4" type="video/mp4" />
@@ -263,22 +263,22 @@ import Footer from "../components/Footer.astro";
                         <div class="border border-white/10 bg-white/[0.02]">
                             <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
                                 <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Gateway · DLP Intercept</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#0a7c4e]">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-[#0a7c4e] animate-pulse"></span>Live
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#3DDC84]">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] animate-pulse"></span>Live
                                 </span>
                             </div>
                             <div class="p-5 font-mono text-xs space-y-4">
                                 <div>
                                     <p class="text-white/25 mb-1.5">// incoming · agent:support-02 → openai/gpt-4o</p>
-                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-[#c00000]/15 text-[#c00000] px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-[#c00000]/15 text-[#c00000] px-1">€1.2M</span> …"</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-[#FF5C5C]/15 text-[#FF5C5C] px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-[#FF5C5C]/15 text-[#FF5C5C] px-1">€1.2M</span> …"</p>
                                 </div>
                                 <div class="border-t border-white/8 pt-4">
                                     <p class="text-white/25 mb-1.5">// decision · policy:dlp-standard · 12ms</p>
-                                    <p class="text-[#fcb830] mb-2">⚠ PII detected — 2 entities · role:auditor → mask</p>
+                                    <p class="text-[#FFB84D] mb-2">⚠ PII detected — 2 entities · role:auditor → mask</p>
                                     <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
                                 </div>
                                 <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
-                                    <span class="text-[#0a7c4e]">✓ Forwarded · masked by role</span>
+                                    <span class="text-[#3DDC84]">✓ Forwarded · masked by role</span>
                                     <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@ import Footer from "../components/Footer.astro";
                             ].map(({ name, status, desc }) => (
                                 <div class="border border-white/10 bg-white/[0.02] p-5">
                                     <p class="font-mono text-xs font-bold text-white uppercase tracking-wide mb-1">{name}</p>
-                                    <p class="font-mono text-[10px] text-[#0a7c4e] mb-2">{status}</p>
+                                    <p class="font-mono text-[10px] text-[#3DDC84] mb-2">{status}</p>
                                     <p class="text-xs text-white/40 leading-snug">{desc}</p>
                                 </div>
                             ))}
@@ -398,7 +398,7 @@ import Footer from "../components/Footer.astro";
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
                     <div class="w-px h-full bg-white/25"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0d0e10] px-2">all requests</span>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0C0C0C] px-2">all requests</span>
                 </div>
 
                 <!-- Layer 2: KYDE -->
@@ -432,7 +432,7 @@ import Footer from "../components/Footer.astro";
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
                     <div class="w-px h-full bg-white/25"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0d0e10] px-2">verified &amp; logged</span>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0C0C0C] px-2">verified &amp; logged</span>
                 </div>
 
                 <!-- Layer 3: Critical Systems -->
@@ -454,20 +454,20 @@ import Footer from "../components/Footer.astro";
                 <!-- Terminal -->
                 <div class="mt-10 border border-white/10">
                     <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#c00000]/40"></span>
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#fcb830]/40"></span>
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#0a7c4e]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
                         <span class="ml-2 text-[10px] text-white/20 font-mono">terminal</span>
                     </div>
                     <div class="p-5 font-mono text-sm leading-relaxed">
-                        <p class="text-white/40"><span class="text-[#0a7c4e]">$</span><span class="text-white/70"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
-                        <p class="mt-1 text-white/40"><span class="text-[#0a7c4e]">$</span><span class="text-white/70"> kyde fleet init</span></p>
+                        <p class="text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
+                        <p class="mt-1 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet init</span></p>
                         <p class="mt-1 text-[#4472c4]">&#10003; Fleet proxy started on :8080</p>
                         <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
                         <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
                         <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
-                        <p class="mt-2 text-white/40"><span class="text-[#0a7c4e]">$</span><span class="text-white/70"> kyde fleet status</span></p>
-                        <p class="mt-1 text-[#0a7c4e]">&#10003; 12 agents active — all scoped, signed, accountable</p>
+                        <p class="mt-2 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet status</span></p>
+                        <p class="mt-1 text-[#3DDC84]">&#10003; 12 agents active — all scoped, signed, accountable</p>
                     </div>
                 </div>
 
@@ -596,7 +596,7 @@ import Footer from "../components/Footer.astro";
                         <p class="font-mono text-xs text-white/25 mb-5">03</p>
                         <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">RATE</p>
                         <h3 class="text-base font-bold text-white mb-3">Across the network.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">The KYDE Trust Score&trade; — behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. <a href="/trust-score" class="text-[#fcb830] hover:text-white transition-colors">Trust Score →</a></p>
+                        <p class="text-sm leading-relaxed text-white/50">The KYDE Trust Score&trade; — behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. <a href="/trust-score" class="text-[#FFB84D] hover:text-white transition-colors">Trust Score →</a></p>
                     </div>
                 </div>
 
@@ -645,13 +645,13 @@ import Footer from "../components/Footer.astro";
                             { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2026/2027", urgent: false },
                             { name: "GDPR 35",   desc: "Automated processing DPIA obligations.",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
-                            <div class={`border p-5 ${urgent ? "border-[#c00000]/40 bg-[#c00000]/5" : "border-white/10 bg-white/[0.02]"}`}>
+                            <div class={`border p-5 ${urgent ? "border-[#FF5C5C]/40 bg-[#FF5C5C]/5" : "border-white/10 bg-white/[0.02]"}`}>
                                 <div class="flex items-start justify-between mb-2">
                                     <h3 class="font-mono text-sm font-bold text-white">{name}</h3>
-                                    {urgent && <span class="font-mono text-[9px] border border-[#c00000]/50 px-1.5 py-0.5 text-[#c00000]">Urgent</span>}
+                                    {urgent && <span class="font-mono text-[9px] border border-[#FF5C5C]/50 px-1.5 py-0.5 text-[#FF5C5C]">Urgent</span>}
                                 </div>
                                 <p class="text-xs text-white/45 mb-2">{desc}</p>
-                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-white/50'}`}>{deadline}</p>
+                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#3DDC84]' : 'text-white/50'}`}>{deadline}</p>
                             </div>
                         ))}
                     </div>
@@ -677,7 +677,7 @@ import Footer from "../components/Footer.astro";
                         </p>
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
                         >
                             Apply for Design Partnership →
                         </button>
@@ -705,14 +705,14 @@ import Footer from "../components/Footer.astro";
                         <!--
                         <a
                             href="/sandbox"
-                            class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
                         >
                             Deploy Sandbox →
                         </a>
                         -->
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:bg-[#dae4e5] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
                         >
                             Talk to Us →
                         </button>

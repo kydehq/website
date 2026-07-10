@@ -19,18 +19,18 @@ import Footer from '../../components/Footer.astro';
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#333] hover:text-[#333] transition-colors">↑ Resources</a>
-            <span class="text-[#333]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">Reference</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
+            <span class="text-[#A8A8A8]">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Reference</span>
           </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
+          <div class="h-px w-full bg-[#1F1F1F]"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0d0e10] tracking-tight leading-[1.15] mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-[1.15] mb-6">
             AI Agent Security, AI Governance, and Agent Enforcement: Three Categories Enterprises Are Confusing. And Why It Matters
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#666]">
+          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
             <span>Reference</span>
             <span>·</span>
             <span>6 min read</span>
@@ -43,7 +43,7 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
@@ -104,12 +104,12 @@ import Footer from '../../components/Footer.astro';
             <h2>Comparison table</h2>
 
             <!-- Comparison table -->
-            <div class="not-prose my-8 border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 overflow-x-auto">
-              <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5] min-w-[600px]">
+            <div class="not-prose my-8 border border-[#1F1F1F] divide-y divide-[#1F1F1F] overflow-x-auto">
+              <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-[#1F1F1F] bg-[#050505] min-w-[600px]">
                 <div class="px-4 py-3"></div>
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Security &amp; Detection</p></div>
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Risk &amp; Compliance</p></div>
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">Agent Enforcement Layer</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] leading-tight">AI Security &amp; Detection</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] leading-tight">AI Risk &amp; Compliance</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] leading-tight">Agent Enforcement Layer</p></div>
               </div>
               {[
                 { label: "Primary layer",               a: "Model / Input",      b: "Org / Portfolio",     c: "Infra / Data path" },
@@ -124,11 +124,11 @@ import Footer from '../../components/Footer.astro';
                 { label: "DORA independent audit trail",a: "No",                 b: "No",                  c: "Yes" },
                 { label: "NIS-2 forensic evidence",     a: "No",                 b: "No",                  c: "Yes" },
               ].map(({ label, a, b, c }) => (
-                <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 min-w-[600px]">
-                  <div class="px-4 py-3"><p class="text-xs font-semibold text-[#333]">{label}</p></div>
-                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{a}</p></div>
-                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{b}</p></div>
-                  <div class="px-4 py-3"><p class={`text-xs font-semibold ${c === "Yes" ? "text-[#0a7c4e]" : "text-[#666]"}`}>{c}</p></div>
+                <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-[#1F1F1F] min-w-[600px]">
+                  <div class="px-4 py-3"><p class="text-xs font-semibold text-[#A8A8A8]">{label}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#A8A8A8]">{a}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#A8A8A8]">{b}</p></div>
+                  <div class="px-4 py-3"><p class={`text-xs font-semibold ${c === "Yes" ? "text-[#3DDC84]" : "text-[#A8A8A8]"}`}>{c}</p></div>
                 </div>
               ))}
             </div>
@@ -163,12 +163,12 @@ import Footer from '../../components/Footer.astro';
             <h2>Regulatory mapping</h2>
 
             <!-- Regulatory mapping table -->
-            <div class="not-prose my-8 border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 overflow-x-auto">
-              <div class="grid grid-cols-[2fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5] min-w-[600px]">
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333]">Requirement</p></div>
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Security</p></div>
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">AI Risk &amp; Compliance</p></div>
-                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#333] leading-tight">Agent Enforcement</p></div>
+            <div class="not-prose my-8 border border-[#1F1F1F] divide-y divide-[#1F1F1F] overflow-x-auto">
+              <div class="grid grid-cols-[2fr_1fr_1fr_1fr] divide-x divide-[#1F1F1F] bg-[#050505] min-w-[600px]">
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">Requirement</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] leading-tight">AI Security</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] leading-tight">AI Risk &amp; Compliance</p></div>
+                <div class="px-4 py-3"><p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] leading-tight">Agent Enforcement</p></div>
               </div>
               {[
                 { label: "EU AI Act Art. 12 — Automatic logging of high-risk AI events",      a: "Partial",  b: "Partial", c: "✓" },
@@ -180,11 +180,11 @@ import Footer from '../../components/Footer.astro';
                 { label: "GDPR Art. 22 — Automated decision-making documentation",            a: "No",       b: "Partial", c: "✓" },
                 { label: "GDPR Art. 35 — DPIA for high-risk automated processing",            a: "No",       b: "✓",       c: "Partial" },
               ].map(({ label, a, b, c }) => (
-                <div class="grid grid-cols-[2fr_1fr_1fr_1fr] divide-x divide-dotted divide-[#0d0e10]/15 min-w-[600px]">
-                  <div class="px-4 py-3"><p class="text-xs text-[#333]">{label}</p></div>
-                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{a}</p></div>
-                  <div class="px-4 py-3"><p class="text-xs text-[#666]">{b}</p></div>
-                  <div class="px-4 py-3"><p class={`text-xs font-semibold ${c === "✓" ? "text-[#0a7c4e]" : "text-[#666]"}`}>{c}</p></div>
+                <div class="grid grid-cols-[2fr_1fr_1fr_1fr] divide-x divide-[#1F1F1F] min-w-[600px]">
+                  <div class="px-4 py-3"><p class="text-xs text-[#A8A8A8]">{label}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#A8A8A8]">{a}</p></div>
+                  <div class="px-4 py-3"><p class="text-xs text-[#A8A8A8]">{b}</p></div>
+                  <div class="px-4 py-3"><p class={`text-xs font-semibold ${c === "✓" ? "text-[#3DDC84]" : "text-[#A8A8A8]"}`}>{c}</p></div>
                 </div>
               ))}
             </div>
@@ -232,14 +232,14 @@ import Footer from '../../components/Footer.astro';
             </p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
-              <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3">↳ KYDE</p>
-              <p class="text-sm text-[#333] leading-relaxed mb-6">
+            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+              <p class="font-mono text-xs uppercase tracking-widest bg-[#FFB84D] text-[#F2F2F2] px-1.5 py-0.5 mb-3">↳ KYDE</p>
+              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
                 Kyde is an Agent Enforcement Layer — a model-agnostic governance proxy that sits between your AI agents and every system they act on. Every agent gets an identity. Every action is policy-checked. Every event is cryptographically signed and hash-chained into a tamper-evident audit trail. No code changes required.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
               >
                 Talk to Us →
               </button>
@@ -249,42 +249,42 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Three categories</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Three categories</p>
               <div class="space-y-3">
                 {[
                   { num: "01", label: "AI Security & Detection" },
                   { num: "02", label: "AI Risk & Compliance Management" },
                   { num: "03", label: "Agent Enforcement Layer" },
                 ].map(({ num, label }) => (
-                  <p class="flex gap-2 text-xs text-[#333]">
-                    <span class="font-mono text-[#fcb830] shrink-0">{num}</span>
+                  <p class="flex gap-2 text-xs text-[#A8A8A8]">
+                    <span class="font-mono text-[#FFB84D] shrink-0">{num}</span>
                     {label}
                   </p>
                 ))}
               </div>
             </div>
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Regulatory coverage</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulatory coverage</p>
               <div class="space-y-2">
                 {["EU AI Act Art. 12, 14, 26", "DORA Art. 23, 30", "NIS-2 Art. 23", "GDPR Art. 22, 35"].map((r) => (
-                  <p class="font-mono text-xs text-[#333]">{r}</p>
+                  <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Related</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/ai-agent-governance" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/ai-agent-governance" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>AI Agent Governance: The Complete Guide</span>
                 </a>
-                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>What the EU AI Act Actually Requires for Audit Trails</span>
                 </a>
-                <a href="/blog/nobody-governs-the-chain" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/nobody-governs-the-chain" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Every Vendor Governs Their Stack. Nobody Governs the Chain.</span>
                 </a>
               </div>
@@ -302,7 +302,7 @@ import Footer from '../../components/Footer.astro';
 
 <style>
   .prose-kyde {
-    color: #333;
+    color: #A8A8A8;
     font-size: 0.9375rem;
     line-height: 1.75;
     max-width: 68ch;
@@ -311,7 +311,7 @@ import Footer from '../../components/Footer.astro';
   }
   .prose-kyde p { margin-bottom: 1.25rem; }
   .prose-kyde h2 {
-    color: #0d0e10;
+    color: #F2F2F2;
     font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -319,10 +319,10 @@ import Footer from '../../components/Footer.astro';
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px dotted rgba(13,14,16,0.15);
+    border-bottom: 1px solid rgba(242,242,242,0.15);
   }
   .prose-kyde h3 {
-    color: #0d0e10;
+    color: #F2F2F2;
     font-size: 1rem;
     font-weight: 700;
     margin-top: 2rem;
@@ -340,13 +340,13 @@ import Footer from '../../components/Footer.astro';
   }
   .prose-kyde ul li::before {
     content: "→";
-    font-family: ui-monospace, monospace;
-    color: #fcb830;
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    color: #FFB84D;
     flex-shrink: 0;
     margin-top: 0.1rem;
   }
-  .prose-kyde strong { color: #333; font-weight: 600; }
-  .prose-kyde em { color: #333; font-style: italic; }
-  .prose-kyde a { color: #fcb830; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde strong { color: #A8A8A8; font-weight: 600; }
+  .prose-kyde em { color: #A8A8A8; font-style: italic; }
+  .prose-kyde a { color: #FFB84D; text-decoration: underline; text-underline-offset: 3px; }
   .prose-kyde a:hover { color: #fde68a; }
 </style>

@@ -1,9 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Dark-first base tokens */
-  --color-black: #0d0e10;
-  --color-white: #f1f3f5;
+  /* ── Dark-only design tokens (design doc §2) ─────────────── */
+  /* Backgrounds */
+  --color-bg-0: #050505;   /* page canvas */
+  --color-bg-1: #0C0C0C;   /* section panels */
+  --color-bg-2: #141414;   /* cards, code blocks */
+  --color-bg-3: #1C1C1C;   /* hover states, chips */
+
+  /* Lines */
+  --color-line-0: #1F1F1F; /* standard 1px dividers */
+  --color-line-1: #2E2E2E; /* emphasized borders */
+
+  /* Text */
+  --color-ink-0: #F2F2F2;  /* headlines, primary */
+  --color-ink-1: #A8A8A8;  /* body, sub-headlines */
+  --color-ink-2: #6B6B6B;  /* metadata, labels */
+  --color-ink-3: #3D3D3D;  /* decorative only */
+
+  /* Accents */
+  --color-acid: #DFF250;   /* surface highlights only — never buttons/links */
+  --color-live: #3DDC84;   /* living data: status, terminal, metrics */
+  --color-alert: #FF5C5C;
+  --color-warn: #FFB84D;
+
+  --color-black: #050505;
+  --color-white: #F2F2F2;
 
   --color-blue-400: #4472c4;
   --color-blue-500: #2f5fab;
@@ -11,6 +33,7 @@
   --color-cyan-400: #4472c4;
   --color-cyan-500: #4472c4;
 
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', monospace;
 }
 
@@ -25,45 +48,42 @@
   }
 
   body {
-    background-color: #0d0e10;
-    color: #f1f3f5;
-    font-family: 'Montserrat', sans-serif;
+    background-color: #050505;
+    color: #F2F2F2;
+    font-family: 'Inter Variable', system-ui, sans-serif;
     line-height: 1.4;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.05;
+    letter-spacing: -0.02em;
   }
 
   button, [role="button"] {
     cursor: pointer;
     font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   ::selection {
-    background-color: #fcb830;
-    color: #0d0e10;
+    background-color: #DFF250;
+    color: #0A0A0A;
+  }
+
+  :focus-visible {
+    outline: 1px solid #F2F2F2;
+    outline-offset: 2px;
   }
 }
 
 /* Dotted grid — subtle, techie (dark canvas) */
 .bg-grid {
-  background-image: radial-gradient(circle, rgba(241,243,245,0.14) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(242,242,242,0.13) 1px, transparent 1px);
   background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
-}
-
-/* Hairline panel system — PI-style blueprint cells */
-.panel {
-  border: 1px solid rgba(241,243,245,0.10);
-}
-.panel-grid > * {
-  border: 1px solid rgba(241,243,245,0.10);
-  margin: -0.5px;
 }
 
 /* FIG. label — engineering-document register */
@@ -72,19 +92,19 @@
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(241,243,245,0.25);
+  color: #6B6B6B;
 }
 
 /* Display / Hero headline */
 .hero-h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter Variable', system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.022em;
   line-height: 0.92;
 }
 
 .gradient-text {
-  color: #0d0e10;
+  color: #F2F2F2;
 }
 
 /* Prose mobile fixes */

@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import "@fontsource-variable/montserrat";
+import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import DemoModal from "../components/DemoModal.astro";
 import CookieBanner from "../components/CookieBanner.astro";
@@ -28,6 +28,8 @@ const ogImage = new URL(image, Astro.site).href;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#050505" />
         <meta name="description" content={description} />
         <title>{title}</title>
         {noindex ? (
@@ -68,7 +70,7 @@ const ogImage = new URL(image, Astro.site).href;
             plausible.init()
         </script>
     </head>
-    <body class="min-h-screen font-[Montserrat,sans-serif]">
+    <body class="min-h-screen">
         <DemoModal />
         <slot />
         <CookieBanner />

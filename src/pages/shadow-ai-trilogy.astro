@@ -50,29 +50,29 @@ const guides = [
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
             <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5">↳ Technical Guides</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#FFB84D] text-[#F2F2F2] px-1.5 py-0.5">↳ Technical Guides</span>
           </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
+          <div class="h-px w-full bg-[#1F1F1F]"></div>
         </div>
 
         <div class="max-w-4xl mb-12">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0d0e10] tracking-tight leading-tight mb-6">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
             The Shadow AI Trilogy
           </h1>
-          <p class="text-lg text-[#333] leading-relaxed max-w-2xl">
+          <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl">
             Three interconnected guides that form the complete playbook for discovering, classifying, and governing unscoped AI systems in enterprise environments.
           </p>
         </div>
 
         <div class="flex items-center gap-6 max-w-2xl">
           <div class="flex items-center gap-3">
-            <span class="font-mono text-sm text-[#333]">Total reading time</span>
-            <span class="font-mono text-lg font-bold text-[#333]">90 minutes</span>
+            <span class="font-mono text-sm text-[#A8A8A8]">Total reading time</span>
+            <span class="font-mono text-lg font-bold text-[#A8A8A8]">90 minutes</span>
           </div>
           <div class="h-10 w-px bg-[#555]"></div>
           <div class="flex items-center gap-3">
-            <span class="font-mono text-sm text-[#333]">Implementation timeline</span>
-            <span class="font-mono text-lg font-bold text-[#333]">4-6 months</span>
+            <span class="font-mono text-sm text-[#A8A8A8]">Implementation timeline</span>
+            <span class="font-mono text-lg font-bold text-[#A8A8A8]">4-6 months</span>
           </div>
         </div>
 
@@ -80,14 +80,14 @@ const guides = [
     </section>
 
     <!-- ══════════ GUIDES CARDS ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="space-y-6">
           {guides.map(({ title, description, readTime, category, href, status, tags }, index) => (
             <a
               href={href}
-              class="group block border border-dotted border-[#0d0e10]/15 bg-[#0d0e10] hover:border-dotted border-[#0d0e10]/20 hover:bg-[#0d0e10] transition-all p-8 md:p-10"
+              class="group block border border-[#1F1F1F] bg-[#0C0C0C] hover:border border-[#1F1F1F] hover:bg-[#0C0C0C] transition-all p-8 md:p-10"
             >
               <div class="flex flex-col gap-6">
 
@@ -96,24 +96,24 @@ const guides = [
                   <div class="flex-1">
                     <div class="flex items-center gap-3 mb-4">
                       <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center justify-center h-6 w-6 rounded-full border border-dotted border-[#0d0e10]/20 bg-[#e8e9eb]/60 font-mono text-xs font-bold text-[#333]">
+                        <span class="inline-flex items-center justify-center h-6 w-6 rounded-full border border-[#1F1F1F] bg-[#1F1F1F]/60 font-mono text-xs font-bold text-[#A8A8A8]">
                           {index + 1}
                         </span>
                       </div>
-                      <span class="font-mono text-xs uppercase tracking-widest text-[#333]">{category}</span>
-                      <span class="text-[#333]">·</span>
-                      <span class="font-mono text-xs text-[#666]">{readTime} read</span>
+                      <span class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">{category}</span>
+                      <span class="text-[#A8A8A8]">·</span>
+                      <span class="font-mono text-xs text-[#A8A8A8]">{readTime} read</span>
                     </div>
-                    <h2 class="text-2xl font-bold text-[#0d0e10] mb-3 group-hover:text-[#0d0e10] leading-snug">{title}</h2>
-                    <p class="text-[#333] leading-relaxed">{description}</p>
+                    <h2 class="text-2xl font-bold text-[#F2F2F2] mb-3 group-hover:text-[#F2F2F2] leading-snug">{title}</h2>
+                    <p class="text-[#A8A8A8] leading-relaxed">{description}</p>
                   </div>
-                  <span class="font-mono text-[#333] text-lg shrink-0 mt-2 group-hover:translate-x-1 transition-transform">→</span>
+                  <span class="font-mono text-[#A8A8A8] text-lg shrink-0 mt-2 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
 
                 <!-- Tags -->
                 <div class="flex flex-wrap gap-2">
                   {tags.map((tag) => (
-                    <span class="inline-flex items-center border border-dotted border-[#0d0e10]/20 bg-[#0d0e10] px-3 py-1 text-xs font-mono text-[#333]">
+                    <span class="inline-flex items-center border border-[#1F1F1F] bg-[#0C0C0C] px-3 py-1 text-xs font-mono text-[#A8A8A8]">
                       {tag}
                     </span>
                   ))}
@@ -128,12 +128,12 @@ const guides = [
     </section>
 
     <!-- ══════════ FLOW DIAGRAM ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold text-[#0d0e10] uppercase tracking-tight mb-3">How It Works</h2>
-          <p class="text-[#333] text-sm max-w-2xl">
+          <h2 class="text-2xl md:text-3xl font-bold text-[#F2F2F2] uppercase tracking-tight mb-3">How It Works</h2>
+          <p class="text-[#A8A8A8] text-sm max-w-2xl">
             The trilogy is designed as a progressive workflow. Start with detection, move to classification, and implement governance. Each guide builds on the previous one.
           </p>
         </div>
@@ -144,24 +144,24 @@ const guides = [
             <div key={index} class="relative">
               <a
                 href={href}
-                class="block border border-dotted border-[#0d0e10]/20 bg-[#0d0e10] p-8 h-full group hover:border-[#0d0e10]/40 transition-colors"
+                class="block border border-[#1F1F1F] bg-[#0C0C0C] p-8 h-full group hover:border-[#2E2E2E] transition-colors"
               >
                 <div class="flex items-center gap-3 mb-6">
-                  <div class="flex items-center justify-center h-10 w-10 rounded-full border-2 border-dotted border-[#0d0e10]/20 font-mono text-sm font-bold text-[#333]">
+                  <div class="flex items-center justify-center h-10 w-10 rounded-full border-2 border-[#1F1F1F] font-mono text-sm font-bold text-[#A8A8A8]">
                     {index + 1}
                   </div>
-                  <span class="font-mono text-xs uppercase tracking-widest text-[#333]">
+                  <span class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">
                     {index === 0 ? "Discover" : index === 1 ? "Assess" : "Implement"}
                   </span>
                 </div>
-                <p class="text-[#0d0e10] font-semibold text-sm leading-snug group-hover:text-[#333] transition-colors">
+                <p class="text-[#F2F2F2] font-semibold text-sm leading-snug group-hover:text-[#A8A8A8] transition-colors">
                   {title}
                 </p>
               </a>
 
               {index < 2 && (
                 <div class="hidden md:flex absolute top-1/2 -right-3 z-10 translate-y-1/2">
-                  <div class="text-[#333] font-mono text-xl">→</div>
+                  <div class="text-[#A8A8A8] font-mono text-xl">→</div>
                 </div>
               )}
             </div>
@@ -172,12 +172,12 @@ const guides = [
     </section>
 
     <!-- ══════════ TIMELINE ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold text-[#0d0e10] uppercase tracking-tight mb-3">Implementation Timeline</h2>
-          <p class="text-[#333] text-sm max-w-2xl">
+          <h2 class="text-2xl md:text-3xl font-bold text-[#F2F2F2] uppercase tracking-tight mb-3">Implementation Timeline</h2>
+          <p class="text-[#A8A8A8] text-sm max-w-2xl">
             From discovery to regulatory compliance readiness typically takes 4-6 months.
           </p>
         </div>
@@ -186,52 +186,52 @@ const guides = [
           <div class="space-y-4">
             <div class="flex gap-4">
               <div class="flex-shrink-0 w-24">
-                <p class="font-mono text-xs uppercase tracking-widest text-[#333]">Month 1-2</p>
+                <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">Month 1-2</p>
               </div>
-              <div class="flex-1 border-l border-dotted border-[#0d0e10]/20 pl-6 pb-8">
-                <p class="font-semibold text-[#333] mb-2">Detection & Discovery</p>
-                <p class="text-sm text-[#333]">Implement SIEM rules, identify shadow AI systems, document findings</p>
-              </div>
-            </div>
-
-            <div class="flex gap-4">
-              <div class="flex-shrink-0 w-24">
-                <p class="font-mono text-xs uppercase tracking-widest text-[#333]">Month 2-3</p>
-              </div>
-              <div class="flex-1 border-l border-dotted border-[#0d0e10]/20 pl-6 pb-8">
-                <p class="font-semibold text-[#333] mb-2">Classification & Assessment</p>
-                <p class="text-sm text-[#333]">Determine risk level, identify High-Risk systems, legal review</p>
+              <div class="flex-1 border-l border-[#1F1F1F] pl-6 pb-8">
+                <p class="font-semibold text-[#A8A8A8] mb-2">Detection & Discovery</p>
+                <p class="text-sm text-[#A8A8A8]">Implement SIEM rules, identify shadow AI systems, document findings</p>
               </div>
             </div>
 
             <div class="flex gap-4">
               <div class="flex-shrink-0 w-24">
-                <p class="font-mono text-xs uppercase tracking-widest text-[#333]">Month 3-5</p>
+                <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">Month 2-3</p>
               </div>
-              <div class="flex-1 border-l border-dotted border-[#0d0e10]/20 pl-6 pb-8">
-                <p class="font-semibold text-[#333] mb-2">Governance Implementation</p>
-                <p class="text-sm text-[#333]">Audit trail, policy enforcement, monitoring setup, bias testing</p>
+              <div class="flex-1 border-l border-[#1F1F1F] pl-6 pb-8">
+                <p class="font-semibold text-[#A8A8A8] mb-2">Classification & Assessment</p>
+                <p class="text-sm text-[#A8A8A8]">Determine risk level, identify High-Risk systems, legal review</p>
               </div>
             </div>
 
             <div class="flex gap-4">
               <div class="flex-shrink-0 w-24">
-                <p class="font-mono text-xs uppercase tracking-widest text-[#333]">Month 5-6</p>
+                <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">Month 3-5</p>
               </div>
-              <div class="flex-1 border-l border-dotted border-[#0d0e10]/20 pl-6">
-                <p class="font-semibold text-[#333] mb-2">Readiness & Sign-Off</p>
-                <p class="text-sm text-[#333]">Documentation complete, compliance sign-off, incident response ready</p>
+              <div class="flex-1 border-l border-[#1F1F1F] pl-6 pb-8">
+                <p class="font-semibold text-[#A8A8A8] mb-2">Governance Implementation</p>
+                <p class="text-sm text-[#A8A8A8]">Audit trail, policy enforcement, monitoring setup, bias testing</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-24">
+                <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8]">Month 5-6</p>
+              </div>
+              <div class="flex-1 border-l border-[#1F1F1F] pl-6">
+                <p class="font-semibold text-[#A8A8A8] mb-2">Readiness & Sign-Off</p>
+                <p class="text-sm text-[#A8A8A8]">Documentation complete, compliance sign-off, incident response ready</p>
               </div>
             </div>
           </div>
 
-          <div class="mt-8 border-t border-dotted border-[#0d0e10]/20 pt-8">
+          <div class="mt-8 border-t border-[#1F1F1F] pt-8">
             <div class="flex items-center gap-3">
-              <span class="inline-flex items-center border border-dotted border-[#c00000]/40 bg-[#fff0f0] px-3 py-1 font-mono text-xs text-[#c00000]">
+              <span class="inline-flex items-center border border-[#FF5C5C]/40 bg-[#fff0f0] px-3 py-1 font-mono text-xs text-[#FF5C5C]">
                 Urgent
               </span>
-              <span class="text-sm text-[#333]">
-                EU AI Act High-Risk enforcement: <strong class="text-[#c00000]">August 2, 2026</strong>
+              <span class="text-sm text-[#A8A8A8]">
+                EU AI Act High-Risk enforcement: <strong class="text-[#FF5C5C]">August 2, 2026</strong>
               </span>
             </div>
           </div>
@@ -242,68 +242,68 @@ const guides = [
     </section>
 
     <!-- ══════════ QUICK START ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="grid md:grid-cols-2 gap-8">
 
           <!-- Left: Next Steps -->
           <div>
-            <h2 class="text-2xl font-bold text-[#0d0e10] uppercase tracking-tight mb-6">Get Started Now</h2>
+            <h2 class="text-2xl font-bold text-[#F2F2F2] uppercase tracking-tight mb-6">Get Started Now</h2>
 
             <div class="space-y-4">
               <a
                 href="/guides/detect-shadow-ai"
-                class="group flex items-start gap-4 p-4 border border-dotted border-[#0d0e10]/15 bg-[#0d0e10] hover:border-dotted border-[#0d0e10]/20 hover:bg-[#0d0e10] transition-all"
+                class="group flex items-start gap-4 p-4 border border-[#1F1F1F] bg-[#0C0C0C] hover:border border-[#1F1F1F] hover:bg-[#0C0C0C] transition-all"
               >
-                <span class="font-mono text-[#333] text-lg mt-0.5">→</span>
+                <span class="font-mono text-[#A8A8A8] text-lg mt-0.5">→</span>
                 <div class="flex-1">
-                  <p class="font-semibold text-[#0d0e10] text-sm group-hover:text-[#0d0e10]">Detection Guide</p>
-                  <p class="text-xs text-[#333] mt-1">Start finding shadow AI in your network today</p>
+                  <p class="font-semibold text-[#F2F2F2] text-sm group-hover:text-[#F2F2F2]">Detection Guide</p>
+                  <p class="text-xs text-[#A8A8A8] mt-1">Start finding shadow AI in your network today</p>
                 </div>
               </a>
 
               <a
                 href="/guides/classify-ai-systems"
-                class="group flex items-start gap-4 p-4 border border-dotted border-[#0d0e10]/15 bg-[#0d0e10] hover:border-dotted border-[#0d0e10]/20 hover:bg-[#0d0e10] transition-all"
+                class="group flex items-start gap-4 p-4 border border-[#1F1F1F] bg-[#0C0C0C] hover:border border-[#1F1F1F] hover:bg-[#0C0C0C] transition-all"
               >
-                <span class="font-mono text-[#333] text-lg mt-0.5">→</span>
+                <span class="font-mono text-[#A8A8A8] text-lg mt-0.5">→</span>
                 <div class="flex-1">
-                  <p class="font-semibold text-[#0d0e10] text-sm group-hover:text-[#0d0e10]">Classification Guide</p>
-                  <p class="text-xs text-[#333] mt-1">Understand what you've found and your obligations</p>
+                  <p class="font-semibold text-[#F2F2F2] text-sm group-hover:text-[#F2F2F2]">Classification Guide</p>
+                  <p class="text-xs text-[#A8A8A8] mt-1">Understand what you've found and your obligations</p>
                 </div>
               </a>
 
               <a
                 href="/guides/governance-checklist"
-                class="group flex items-start gap-4 p-4 border border-dotted border-[#0d0e10]/15 bg-[#0d0e10] hover:border-dotted border-[#0d0e10]/20 hover:bg-[#0d0e10] transition-all"
+                class="group flex items-start gap-4 p-4 border border-[#1F1F1F] bg-[#0C0C0C] hover:border border-[#1F1F1F] hover:bg-[#0C0C0C] transition-all"
               >
-                <span class="font-mono text-[#333] text-lg mt-0.5">→</span>
+                <span class="font-mono text-[#A8A8A8] text-lg mt-0.5">→</span>
                 <div class="flex-1">
-                  <p class="font-semibold text-[#0d0e10] text-sm group-hover:text-[#0d0e10]">Governance Checklist</p>
-                  <p class="text-xs text-[#333] mt-1">Implement governance and compliance controls</p>
+                  <p class="font-semibold text-[#F2F2F2] text-sm group-hover:text-[#F2F2F2]">Governance Checklist</p>
+                  <p class="text-xs text-[#A8A8A8] mt-1">Implement governance and compliance controls</p>
                 </div>
               </a>
             </div>
           </div>
 
           <!-- Right: CTA -->
-          <div class="border border-dotted border-[#0d0e10]/20 p-8 md:p-10 bg-[#0d0e10]">
-            <p class="font-mono text-xs uppercase tracking-[0.2em] bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-4">↳ Ready to Govern?</p>
-            <h3 class="text-xl font-bold text-[#0d0e10] mb-3">Need Implementation Support?</h3>
-            <p class="text-sm text-[#333] mb-6 leading-relaxed">
+          <div class="border border-[#1F1F1F] p-8 md:p-10 bg-[#0C0C0C]">
+            <p class="font-mono text-xs uppercase tracking-[0.2em] bg-[#FFB84D] text-[#F2F2F2] px-1.5 py-0.5 mb-4">↳ Ready to Govern?</p>
+            <h3 class="text-xl font-bold text-[#F2F2F2] mb-3">Need Implementation Support?</h3>
+            <p class="text-sm text-[#A8A8A8] mb-6 leading-relaxed">
               Kyde provides end-to-end AI governance infrastructure. We automate the audit trail, policy enforcement, and compliance monitoring across all three phases.
             </p>
             <div class="space-y-3">
               <button
                 onclick="openModal()"
-                class="w-full inline-flex items-center justify-center gap-2 bg-[#0d0e10] px-6 py-3 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
+                class="w-full inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
               >
                 Schedule Discovery Call →
               </button>
               <a
                 href="/"
-                class="w-full inline-flex items-center justify-center gap-2 border border-dotted border-[#0d0e10]/20 px-6 py-3 text-sm font-semibold text-[#333] hover:border-[#0d0e10]/40 transition-all"
+                class="w-full inline-flex items-center justify-center gap-2 border border-[#1F1F1F] px-6 py-3 text-sm font-semibold text-[#A8A8A8] hover:border-[#2E2E2E] transition-all"
               >
                 Learn About Kyde →
               </a>
@@ -316,37 +316,37 @@ const guides = [
     </section>
 
     <!-- ══════════ FAQ ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
+    <section class="border-t border-[#1F1F1F] py-16 md:py-24">
       <div class="max-w-3xl mx-auto px-6">
 
-        <h2 class="text-2xl md:text-3xl font-bold text-[#0d0e10] uppercase tracking-tight mb-12">Frequently Asked Questions</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#F2F2F2] uppercase tracking-tight mb-12">Frequently Asked Questions</h2>
 
         <div class="space-y-6">
 
           <div>
-            <h3 class="font-semibold text-[#0d0e10] text-sm mb-2">How long does it take to read all three guides?</h3>
-            <p class="text-sm text-[#333]">
+            <h3 class="font-semibold text-[#F2F2F2] text-sm mb-2">How long does it take to read all three guides?</h3>
+            <p class="text-sm text-[#A8A8A8]">
               Approximately 90 minutes combined. Detection (25 min), Classification (30 min), Governance (35 min). You can read them sequentially or focus on specific guides based on your current phase.
             </p>
           </div>
 
-          <div class="border-t border-dotted border-[#0d0e10]/15 pt-6">
-            <h3 class="font-semibold text-[#0d0e10] text-sm mb-2">Do I need to follow all three in order?</h3>
-            <p class="text-sm text-[#333]">
+          <div class="border-t border-[#1F1F1F] pt-6">
+            <h3 class="font-semibold text-[#F2F2F2] text-sm mb-2">Do I need to follow all three in order?</h3>
+            <p class="text-sm text-[#A8A8A8]">
               Yes, conceptually. Detection → Classification → Governance is the natural workflow. However, if you already know you have High-Risk AI systems, you can start with classification and governance.
             </p>
           </div>
 
-          <div class="border-t border-dotted border-[#0d0e10]/15 pt-6">
-            <h3 class="font-semibold text-[#0d0e10] text-sm mb-2">What if I'm already using AI systems?</h3>
-            <p class="text-sm text-[#333]">
+          <div class="border-t border-[#1F1F1F] pt-6">
+            <h3 class="font-semibold text-[#F2F2F2] text-sm mb-2">What if I'm already using AI systems?</h3>
+            <p class="text-sm text-[#A8A8A8]">
               Start with classification. Determine which systems are High-Risk under EU AI Act. Then use the governance checklist to implement compliance controls retroactively.
             </p>
           </div>
 
-          <div class="border-t border-dotted border-[#0d0e10]/15 pt-6">
-            <h3 class="font-semibold text-[#0d0e10] text-sm mb-2">Are these guides applicable outside the EU?</h3>
-            <p class="text-sm text-[#333]">
+          <div class="border-t border-[#1F1F1F] pt-6">
+            <h3 class="font-semibold text-[#F2F2F2] text-sm mb-2">Are these guides applicable outside the EU?</h3>
+            <p class="text-sm text-[#A8A8A8]">
               The guides focus on EU AI Act, but the principles apply to similar regulations (DORA, NIS2, GDPR). Many principles also align with regulatory frameworks in other jurisdictions.
             </p>
           </div>
