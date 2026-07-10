@@ -12,14 +12,11 @@ import Footer from "../components/Footer.astro";
 
     <main>
         <!-- ══════════ HERO STAGE ══════════ -->
-        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20">
-            <video class="absolute inset-0 w-full h-full object-cover hero-video" muted loop playsinline poster="/stage-poster.jpg">
-                <source src="/stage-video.mp4" type="video/mp4" />
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/30 via-[#0d0e10]/60 to-[#0d0e10]/90"></div>
+        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-white/10">
+            <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-            <div class="bg-grid absolute inset-0 pointer-events-none opacity-20"></div>
-            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 40% 35% at 100% 100%, #0d0e10 0%, transparent 100%);"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#0d0e10] via-[#0d0e10]/70 to-transparent"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#0d0e10]"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
                 <div class="flex items-center gap-3 mb-6">
@@ -129,8 +126,91 @@ import Footer from "../components/Footer.astro";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
 
-  const vid = document.querySelector(".hero-video") as HTMLVideoElement;
-  if (vid) vid.play().catch(() => {});
+  // ── Generative data-stream canvas ──────────────────────────────
+  // Vertical event columns flowing through the boundary: mostly
+  // faint white (observed), green (signed), blue (verified),
+  // rare red (blocked). Occasional horizontal glitch displacement.
+  const canvas = document.getElementById("hero-datastream") as HTMLCanvasElement | null;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (canvas) {
+    const ctx = canvas.getContext("2d")!;
+    let W = 0, H = 0;
+
+    function hash(n: number): number {
+      let t = (n + 0x6d2b79f5) | 0;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+
+    type Col = { x: number; w: number; speed: number; seed: number; density: number };
+    let cols: Col[] = [];
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth;
+      H = canvas.clientHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      cols = [];
+      const n = Math.floor(W / 14);
+      for (let i = 0; i < n; i++) {
+        const r = hash(i * 131);
+        // cluster columns toward the right half — the boundary funnel
+        const xNorm = Math.pow(hash(i * 977), 0.6);
+        cols.push({
+          x: W * (0.25 + xNorm * 0.75) + (r - 0.5) * 10,
+          w: r > 0.85 ? 3 : 2,
+          speed: 14 + hash(i * 389) * 70,
+          seed: i * 7919,
+          density: 0.25 + hash(i * 557) * 0.5,
+        });
+      }
+    }
+
+    const CELL = 7;
+
+    function draw(t: number) {
+      ctx.clearRect(0, 0, W, H);
+      for (const c of cols) {
+        const offset = (t / 1000) * c.speed;
+        const glitchNow = hash(c.seed + Math.floor(t / 120)) > 0.985;
+        const glitchShift = glitchNow ? (hash(c.seed + 1 + Math.floor(t / 120)) - 0.5) * 16 : 0;
+
+        for (let y = -CELL; y < H + CELL; y += CELL) {
+          const k = Math.floor((y + offset) / CELL);
+          const r = hash(c.seed + k);
+          if (r > c.density) continue;
+
+          const r2 = hash(c.seed + k * 31 + 7);
+          const flicker = 0.5 + 0.5 * hash(c.seed + k + Math.floor(t / 260));
+
+          let fill: string;
+          if (r2 > 0.995)      fill = `rgba(192,0,0,${0.55 * flicker})`;        // blocked
+          else if (r2 > 0.955) fill = `rgba(10,124,78,${0.6 * flicker})`;       // signed
+          else if (r2 > 0.92)  fill = `rgba(68,114,196,${0.45 * flicker})`;     // verified
+          else                 fill = `rgba(241,243,245,${(0.04 + r2 * 0.09) * flicker})`; // observed
+
+          ctx.fillStyle = fill;
+          const cellH = 2 + Math.floor(r * 4);
+          ctx.fillRect(c.x + glitchShift, y - (offset % CELL), c.w, cellH);
+        }
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    if (reduced) {
+      draw(1);
+    } else {
+      const loop = (t: number) => { draw(t); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    }
+  }
 </script>
 
         <!-- ══════════ 01 PROBLEM ══════════ -->
@@ -180,11 +260,31 @@ import Footer from "../components/Footer.astro";
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div class="flex flex-col">
-                        <div class="border border-white/10 overflow-hidden bg-white">
-                            <img src="/dlp-alert-redacted.png" alt="DLP alert — PII detected and masked" class="w-full block saturate-75 brightness-90" />
+                        <div class="border border-white/10 bg-white/[0.02]">
+                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Gateway · DLP Intercept</span>
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#0a7c4e]">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-[#0a7c4e] animate-pulse"></span>Live
+                                </span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-4">
+                                <div>
+                                    <p class="text-white/25 mb-1.5">// incoming · agent:support-02 → openai/gpt-4o</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-[#c00000]/15 text-[#c00000] px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-[#c00000]/15 text-[#c00000] px-1">€1.2M</span> …"</p>
+                                </div>
+                                <div class="border-t border-white/8 pt-4">
+                                    <p class="text-white/25 mb-1.5">// decision · policy:dlp-standard · 12ms</p>
+                                    <p class="text-[#fcb830] mb-2">⚠ PII detected — 2 entities · role:auditor → mask</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
+                                </div>
+                                <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
+                                    <span class="text-[#0a7c4e]">✓ Forwarded · masked by role</span>
+                                    <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
+                                </div>
+                            </div>
                         </div>
                         <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            PII detected. Email masked. Context redacted by role — before the auditor could see it.
+                            FIG.2 — PII detected. Email masked. Context redacted by role — before the auditor could see it.
                         </p>
                     </div>
                     <div>
