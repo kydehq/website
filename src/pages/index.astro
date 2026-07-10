@@ -30,7 +30,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
         <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-white/10">
             <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-[#050505]/70 to-transparent"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-[#050505]/45 to-transparent"></div>
             <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
@@ -38,7 +38,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] shrink-0 animate-pulse"></span>
                     <span class="font-mono text-[11px] uppercase tracking-[0.2em] border border-white/20 text-white/60 px-2 py-0.5">Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
                 </div>
-                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;">
+                <h1 class="hero-h1 text-3xl text-white uppercase tracking-tighter leading-none sm:text-4xl md:text-5xl lg:text-6xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">The Behavioral</span>
                     <span id="hero-l2" style="display:block">Firewall</span>
                     <span id="hero-l3" style="display:block">For AI Agents.</span>
@@ -188,7 +188,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      GATE = W * 0.62;
+      GATE = W * 0.68;
       parts = [];
       const n = Math.max(40, Math.floor(W / 16));
       for (let i = 0; i < n; i++) {
@@ -205,13 +205,13 @@ for (let lat = -80; lat <= 80; lat += 8) {
       ctx.clearRect(0, 0, W, H);
 
       // lattice on the governed side — faint, strict
-      ctx.fillStyle = "rgba(242,242,242,0.05)";
+      ctx.fillStyle = "rgba(242,242,242,0.08)";
       for (let x = GATE + ROW; x < W; x += ROW)
         for (let y = ROW; y < H; y += ROW)
           ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
 
       // gate line with tick marks
-      ctx.fillStyle = "rgba(242,242,242,0.14)";
+      ctx.fillStyle = "rgba(242,242,242,0.22)";
       ctx.fillRect(GATE, 0, 1, H);
       for (let y = 0; y < H; y += ROW * 2) {
         ctx.fillRect(GATE - 3, y, 7, 1);
@@ -236,13 +236,13 @@ for (let lat = -80; lat <= 80; lat += 8) {
               p.rowY = Math.round(p.y / ROW) * ROW;
               p.vx = 26 + hash(p.seed + 3) * 18;
               // every few seconds, one crossing blooms
-              if (t - lastFlare > 2600 && hash(p.seed + 11) > 0.5) {
+              if (t - lastFlare > 2100 && hash(p.seed + 11) > 0.4) {
                 flares.push({ x: GATE, y: p.rowY, t0: t });
                 lastFlare = t;
               }
             }
           }
-          ctx.fillStyle = "rgba(242,242,242,0.22)";
+          ctx.fillStyle = "rgba(242,242,242,0.32)";
           ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
         } else if (p.state === "signed") {
           p.x += p.vx * dt;
@@ -254,7 +254,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
             ctx.strokeRect(p.x - 4, p.y - 4, 8, 8);
             p.pulse -= dt * 1.4;
           }
-          ctx.fillStyle = "rgba(242,242,242,0.5)";
+          ctx.fillStyle = "rgba(242,242,242,0.68)";
           ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
 
           if (p.x > W + 10) spawn(p, Math.floor(p.seed / 7919));
@@ -280,13 +280,13 @@ for (let lat = -80; lat <= 80; lat += 8) {
       for (const f of flares) {
         const age = (t - f.t0) / 1600; // 0 → 1
         const ease = 1 - Math.pow(1 - age, 2);
-        const r = 14 + ease * 90;
-        const a = (1 - age) * 0.55;
+        const r = 16 + ease * 130;
+        const a = (1 - age) * 0.85;
 
         const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r);
         g.addColorStop(0, `rgba(242,242,242,${a})`);
         g.addColorStop(0.25, `rgba(242,242,242,${a * 0.35})`);
-        g.addColorStop(0.6, `rgba(61,220,132,${a * 0.12})`);
+        g.addColorStop(0.6, `rgba(61,220,132,${a * 0.22})`);
         g.addColorStop(1, "rgba(61,220,132,0)");
         ctx.fillStyle = g;
         ctx.beginPath();
@@ -296,7 +296,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
         // bright core that snuffs out quickly
         if (age < 0.35) {
           ctx.fillStyle = `rgba(255,255,255,${(1 - age / 0.35) * 0.9})`;
-          ctx.fillRect(f.x - 1.5, f.y - 1.5, 3, 3);
+          ctx.fillRect(f.x - 2, f.y - 2, 4, 4);
         }
 
         // brief brightening of the gate line around the bloom
