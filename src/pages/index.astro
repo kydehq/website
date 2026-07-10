@@ -273,7 +273,7 @@ import Footer from "../components/Footer.astro";
                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            Shadow Agents Are Already Running.<br />Do You Know What They're Doing?
+                            <span class="text-white">Shadow Agents Are Already Running.</span><br /><span class="text-white/40">Do You Know What They're Doing?</span>
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
                             Shadow AI was employees using unauthorized tools. Shadow Agents are autonomous systems calling APIs, processing data, and making decisions — outside IT and security oversight entirely.
@@ -374,7 +374,7 @@ import Footer from "../components/Footer.astro";
                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            Prove What Happened.<br />The Suspect Can't Write<br />the Police Report.
+                            <span class="text-white">Prove What Happened.</span><br /><span class="text-white/40">The Suspect Can't Write<br />the Police Report.</span>
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
                             Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent — Ed25519-signed, hash-chained, captured before the action reaches any provider.
@@ -425,7 +425,7 @@ import Footer from "../components/Footer.astro";
                         <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">04 · Architecture</span>
                         <span class="fig-label">FIG.3</span>
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">Legacy systems were designed for humans. The agent era will overwhelm them.</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">Legacy systems were designed for humans.</span> <span class="text-white/40">The agent era will overwhelm them.</span></h2>
                     <p class="text-white/55 leading-relaxed max-w-2xl">KYDE sits between your AI agents and every system they can reach - intercepting, scoping, and signing every action before it executes.</p>
                 </div>
 
@@ -508,6 +508,10 @@ import Footer from "../components/Footer.astro";
                         <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
                         <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
                         <span class="ml-2 text-[10px] text-white/20 font-mono">terminal</span>
+                        <button
+                            class="ml-auto font-mono text-[10px] tracking-[0.15em] text-white/25 hover:text-white transition-colors"
+                            onclick="navigator.clipboard.writeText('export OPENAI_BASE_URL=https://kyde.intranet/v1\nkyde fleet init');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
+                        >COPY</button>
                     </div>
                     <div class="p-5 font-mono text-sm leading-relaxed">
                         <p class="text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
@@ -622,7 +626,7 @@ import Footer from "../components/Footer.astro";
                         <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">06 · Prevent · Prove · Rate</span>
                     </div>
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                        Three layers. One trust infrastructure.
+                        <span class="text-white">Three layers.</span> <span class="text-white/40">One trust infrastructure.</span>
                     </h2>
                     <p class="text-white/50 leading-relaxed max-w-2xl">
                         Not a roadmap. A complete infrastructure layer - deployed in minutes, covering every agent from day one.
@@ -714,7 +718,7 @@ import Footer from "../components/Footer.astro";
                 <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
-                            Your Agents Act in Your Name. Courts Know It.
+                            <span class="text-white">Your Agents Act in Your Name.</span> <span class="text-white/40">Courts Know It.</span>
                         </h2>
                         <p class="text-white/55 leading-relaxed mb-4">
                             Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable — not the vendor, not the model.
@@ -755,7 +759,8 @@ import Footer from "../components/Footer.astro";
         </section>
 
         <!-- ══════════ 08 DESIGN PARTNERS ══════════ -->
-        <section class="relative border-b border-white/10 py-24 md:py-32">
+        <section class="relative border-b border-white/10 py-24 md:py-32 overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, rgba(242,242,242,0.07) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
             <div class="relative max-w-7xl mx-auto px-6">
 
                 <div class="mb-12 flex items-end justify-between border-b border-white/10 pb-3">

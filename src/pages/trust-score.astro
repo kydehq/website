@@ -18,6 +18,14 @@ const mandateExample: MandateLine[] = [
   { label: "Result",        value: "Mandate deviation · Action blocked · Trust Score updated", cls: "text-[#A8A8A8]" },
 ];
 
+type PeerRow = { name: string; score: number; cls: string; note?: string };
+const benchmarkExample: PeerRow[] = [
+  { name: "this agent",        score: 84, cls: "text-[#3DDC84]", note: "above median" },
+  { name: "peer median",       score: 78, cls: "text-[#F2F2F2]" },
+  { name: "peer p10",          score: 61, cls: "text-[#FFB84D]" },
+  { name: "flagged threshold", score: 40, cls: "text-[#FF5C5C]" },
+];
+
 type Dimension = { label: string; question: string; desc: string; hasExample: boolean };
 const dimensions: Dimension[] = [
   {
@@ -265,6 +273,21 @@ const dimensions: Dimension[] = [
                         <div class="grid grid-cols-[100px_1fr] gap-3">
                           <span class="text-[#6B6B6B]">{l}</span>
                           <span class={cls}>{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {label === "Benchmark" && (
+                  <div class="mt-5 border border-[#1F1F1F] bg-[#141414] p-5">
+                    <p class="font-mono text-[9px] uppercase tracking-widest text-[#6B6B6B] mb-4">role class: crm-agents · anonymized · n=214</p>
+                    <div class="space-y-2.5 font-mono text-xs">
+                      {benchmarkExample.map(({ name, score, cls, note }) => (
+                        <div class="flex items-baseline gap-2">
+                          <span class="text-[#6B6B6B] shrink-0">{name}</span>
+                          <span class="flex-1 border-b border-dashed border-[#2E2E2E] translate-y-[-3px]"></span>
+                          <span class={`font-bold ${cls}`}>{score}</span>
+                          {note && <span class="text-[#6B6B6B] text-[10px]">· {note}</span>}
                         </div>
                       ))}
                     </div>

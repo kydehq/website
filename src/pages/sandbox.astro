@@ -22,7 +22,7 @@ import Footer from '../components/Footer.astro';
             <span class="font-mono text-[10px] uppercase tracking-widest text-[#3DDC84]/80 border border-[#3DDC84]/30 px-3 py-1">Kyde Gateway Sandbox</span>
           </div>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-6">
-            Your agents are acting.<br />See what they're doing.
+            <span class="text-white">Your agents are acting.</span><br /><span class="text-white/40">See what they're doing.</span>
           </h1>
           <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
             Deploy the KYDE Gateway via Docker Compose and one environment variable. Within minutes, every agent call in your environment appears on a dashboard — signed, attributed, and observable.
@@ -124,6 +124,10 @@ import Footer from '../components/Footer.astro';
             <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
             <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
             <span class="ml-2 font-mono text-[10px] text-white/20">terminal</span>
+            <button
+              class="ml-auto font-mono text-[10px] tracking-[0.15em] text-white/25 hover:text-white transition-colors"
+              onclick="navigator.clipboard.writeText('docker compose up\nexport OPENAI_BASE_URL=http://localhost:4001/v1');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
+            >COPY</button>
           </div>
           <div class="p-6 font-mono text-sm leading-loose">
             <p class="text-white/25 text-xs mb-3"># Step 1 — start the Gateway</p>

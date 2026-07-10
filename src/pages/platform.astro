@@ -148,20 +148,24 @@ import Footer from "../components/Footer.astro";
                     <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6B6B6B]">03 · How it works</span></div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="grid md:grid-cols-2 gap-16 items-center mb-16">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#F2F2F2] mb-6">
-                            The proxy intercepts. Signs. Chains. Forwards.
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-6">
+                            <span class="text-[#F2F2F2]">The proxy intercepts.</span> <span class="text-[#6B6B6B]">Signs. Chains. Forwards.</span>
                         </h2>
                         <p class="text-[#A8A8A8] leading-relaxed mb-8">
                             KYDE runs as a local or hosted HTTP proxy, fully compatible with the OpenAI API schema. Any agent that can be pointed at a base URL can be governed.
                         </p>
                         <div class="border border-[#1F1F1F] bg-[#0C0C0C] mb-8">
                             <div class="flex items-center gap-2 border-b border-[#1F1F1F] px-4 py-3">
-                                <span class="h-3 w-3 rounded-full bg-red-400/60"></span>
-                                <span class="h-3 w-3 rounded-full bg-[#FFB84D]"></span>
-                                <span class="h-3 w-3 rounded-full bg-emerald-400/60"></span>
-                                <span class="ml-2 text-xs text-[#A8A8A8] font-mono">terminal</span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+                                <span class="ml-2 text-xs text-[#6B6B6B] font-mono">terminal</span>
+                                <button
+                                    class="ml-auto font-mono text-[10px] tracking-[0.15em] text-[#6B6B6B] hover:text-[#F2F2F2] transition-colors"
+                                    onclick="navigator.clipboard.writeText('export OPENAI_BASE_URL=https://kyde.intranet/v1');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
+                                >COPY</button>
                             </div>
                             <div class="p-5 font-mono text-sm">
                                 <p class="text-[#A8A8A8]"><span class="text-[#3DDC84]">$</span><span class="text-[#A8A8A8]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
@@ -170,24 +174,55 @@ import Footer from "../components/Footer.astro";
                         <p class="font-mono text-sm text-[#A8A8A8]">Target deployment: one environment variable. Designed for zero code changes.</p>
                     </div>
 
-                    <div class="space-y-px border border-[#1F1F1F]">
-                        {[
-                            { n: "01", title: "Intercept", body: "Every request from every agent routes through the proxy. The agent sees no difference." },
-                            { n: "02", title: "Register", body: "The request is matched to an agent identity and role. Budget and policy checks run before the call is forwarded." },
-                            { n: "03", title: "Sign & Chain", body: "An Ed25519-signed, SHA-256 hash-chained entry is written. Alter any record — every subsequent link breaks." },
-                            { n: "04", title: "Forward", body: "The original request continues to the LLM provider. Target added latency: under 100ms." },
-                        ].map(({ n, title, body }) => (
-                            <div class="grid grid-cols-[48px_1fr] bg-[#0C0C0C] hover:bg-[#050505] transition-all">
-                                <div class="flex items-start justify-center pt-6 border-r border-[#1F1F1F]">
-                                    <span class="font-mono text-xs text-[#A8A8A8]">{n}</span>
-                                </div>
-                                <div class="p-6">
-                                    <h3 class="font-mono text-sm font-bold text-[#F2F2F2] uppercase tracking-widest mb-2">{title}</h3>
-                                    <p class="text-sm text-[#A8A8A8] leading-relaxed">{body}</p>
-                                </div>
-                            </div>
-                        ))}
+                    <!-- FIG.2 — the interception cycle -->
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <span class="fig-label absolute top-0 right-0">FIG.2</span>
+                        <svg viewBox="0 0 560 560" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <circle cx="280" cy="110" r="88" fill="none" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+                            <circle cx="450" cy="280" r="88" fill="none" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+                            <circle cx="280" cy="450" r="88" fill="none" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+                            <circle cx="110" cy="280" r="88" fill="none" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+
+                            <path d="M280 110 L450 280 L280 450 L110 280 Z" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
+
+                            <path d="M262 262 L298 298 M298 262 L262 298" stroke="rgba(242,242,242,0.3)" stroke-width="1" stroke-dasharray="2 3" />
+
+                            <circle cx="280" cy="110" r="8" fill="#050505" stroke="#F2F2F2" stroke-width="1.25" />
+                            <circle cx="450" cy="280" r="8" fill="#050505" stroke="#F2F2F2" stroke-width="1.25" />
+                            <circle cx="280" cy="450" r="8" fill="#050505" stroke="#F2F2F2" stroke-width="1.25" />
+                            <circle cx="110" cy="280" r="8" fill="#050505" stroke="#F2F2F2" stroke-width="1.25" />
+
+                            <text x="280" y="72" text-anchor="middle" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">INTERCEPT</text>
+                            <text x="280" y="92" text-anchor="middle" fill="rgba(61,220,132,0.8)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">$ all agent traffic</text>
+
+                            <text x="472" y="270" text-anchor="start" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">REGISTER</text>
+                            <text x="472" y="290" text-anchor="start" fill="rgba(242,242,242,0.45)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">identity · role · budget</text>
+
+                            <text x="280" y="492" text-anchor="middle" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">SIGN &amp; CHAIN</text>
+                            <text x="280" y="512" text-anchor="middle" fill="rgba(242,242,242,0.45)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">ed25519 · sha-256</text>
+
+                            <text x="88" y="270" text-anchor="end" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">FORWARD</text>
+                            <text x="88" y="290" text-anchor="end" fill="rgba(242,242,242,0.45)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">&lt;100ms to provider</text>
+                        </svg>
                     </div>
+                </div>
+
+                <!-- the four steps, datasheet register -->
+                <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-0 border border-[#1F1F1F] divide-y xl:divide-y-0 xl:divide-x divide-[#1F1F1F]">
+                    {[
+                        { n: "3.1", title: "Intercept", body: "Every request from every agent routes through the proxy. The agent sees no difference." },
+                        { n: "3.2", title: "Register", body: "The request is matched to an agent identity and role. Budget and policy checks run before the call is forwarded." },
+                        { n: "3.3", title: "Sign & Chain", body: "An Ed25519-signed, SHA-256 hash-chained entry is written. Alter any record — every subsequent link breaks." },
+                        { n: "3.4", title: "Forward", body: "The original request continues to the LLM provider. Target added latency: under 100ms." },
+                    ].map(({ n, title, body }) => (
+                        <div class="p-6 bg-[#0C0C0C] hover:bg-[#141414] transition-colors">
+                            <div class="flex items-baseline gap-3 mb-3">
+                                <span class="font-mono text-[10px] text-[#6B6B6B]">{n}</span>
+                                <h3 class="font-mono text-sm font-bold text-[#F2F2F2] uppercase tracking-widest">{title}</h3>
+                            </div>
+                            <p class="text-sm text-[#A8A8A8] leading-relaxed">{body}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
