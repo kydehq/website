@@ -25,10 +25,10 @@ const currentPath = Astro.url.pathname;
           <a
             href={href}
             class={[
-              'font-mono text-[11px] uppercase tracking-[0.12em] transition-colors',
+              'font-mono text-xs uppercase tracking-[0.12em] transition-colors',
               currentPath.startsWith(href)
                 ? 'text-white'
-                : 'text-white/40 hover:text-white',
+                : 'text-white/75 hover:text-white',
             ].join(' ')}
           >
             {label}
@@ -88,7 +88,7 @@ const currentPath = Astro.url.pathname;
               'font-mono text-sm uppercase tracking-widest transition-colors',
               currentPath.startsWith(href)
                 ? 'text-white'
-                : 'text-white/40 hover:text-white',
+                : 'text-white/75 hover:text-white',
             ].join(' ')}
           >
             {label}
