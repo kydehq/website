@@ -796,6 +796,9 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 </pattern>
                             </defs>
 
+                            <!-- tick pulse from the center -->
+                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="#FEC106" stroke-width="1" opacity="0" />
+
                             <!-- outer cycle -->
                             <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="rgba(242,242,242,0.55)" stroke-width="1" />
 
@@ -821,11 +824,9 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     </div>
 
                     <script>
-                        // FIG.5 · spring-physics constellation. Vertices drift
-                        // slowly; every few seconds one gets an impulse and the
-                        // triangle snaps, wobbles, and settles (underdamped
-                        // springs). Fast vertices glow gold. A faint mouse
-                        // attraction makes the figure react to the visitor.
+                        // FIG.5 · the cycle ticks. The triangle is rigid; every
+                        // ~10s it rotates one step like a slow clock, and a
+                        // pulse breathes out of the center as it moves.
                         const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                         const fig = document.getElementById("vpr-fig");
 
@@ -834,6 +835,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             const outer = $("vpr-outer");
                             const inner = $("vpr-inner");
                             const center = $("vpr-center");
+                            const pulse = $("vpr-pulse");
                             const nodes = [0, 1, 2].map((i) => $(`vpr-node-${i}`));
                             const labels = [0, 1, 2].map((i) => $(`vpr-label-${i}`));
                             const arrows = [0, 1, 2].map((i) => $(`vpr-arrow-${i}`));
@@ -843,102 +845,77 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 { x: 440, y: 390 },
                                 { x: 80, y: 390 },
                             ];
-                            const labelOff = [
-                                { x: 0, y: -22 },
-                                { x: 12, y: 34 },
-                                { x: -8, y: 34 },
-                            ];
-                            const F = [
-                                { fx: 0.00021, fy: 0.00017, px: 0.0, py: 1.7, a: 22 },
-                                { fx: 0.00016, fy: 0.00023, px: 2.1, py: 0.6, a: 24 },
-                                { fx: 0.00019, fy: 0.00014, px: 4.0, py: 3.2, a: 20 },
-                            ];
+                            const C = {
+                                x: (anchors[0].x + anchors[1].x + anchors[2].x) / 3,
+                                y: (anchors[0].y + anchors[1].y + anchors[2].y) / 3,
+                            };
+                            const base = anchors.map((a) => ({
+                                r: Math.hypot(a.x - C.x, a.y - C.y),
+                                ang: Math.atan2(a.y - C.y, a.x - C.x),
+                            }));
 
-                            // spring state
-                            const P = anchors.map((a) => ({ x: a.x, y: a.y, vx: 0, vy: 0 }));
-                            const K = 14;      // spring stiffness
-                            const DAMP = 3.6;  // underdamped → visible wobble
-                            let nextKick = performance.now() + 1800;
+                            const TICK_EVERY = 10000; // ms between ticks
+                            const TICK_DUR = 1100;    // rotation ease duration
+                            const PULSE_DUR = 1800;   // center pulse duration
+                            const STEP = Math.PI / 6; // 30° per tick, like minute marks
 
-                            // faint mouse attraction in viewBox coords
-                            const mouse = { x: -9999, y: -9999, on: false };
-                            fig.addEventListener("pointermove", (e: PointerEvent) => {
-                                const r = fig.getBoundingClientRect();
-                                mouse.x = ((e.clientX - r.left) / r.width) * 520;
-                                mouse.y = ((e.clientY - r.top) / r.height) * 470;
-                                mouse.on = true;
-                            });
-                            fig.addEventListener("pointerleave", () => { mouse.on = false; });
+                            let angleFrom = 0, angleTo = 0, angle = 0;
+                            let tickStart = -1e9;
+                            let nextTick = performance.now() + 2500;
+
+                            const easeInOut = (x: number) =>
+                                x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
                             let visible = true;
                             new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
 
-                            let last = 0;
+                            center.setAttribute("x", String(C.x));
+                            center.setAttribute("y", String(C.y + 4));
+                            pulse.setAttribute("cx", String(C.x));
+                            pulse.setAttribute("cy", String(C.y));
+
                             function frame(t: number) {
-                                const dt = Math.min((t - last) / 1000, 0.04) || 0.016;
-                                last = t;
                                 if (visible) {
-                                    // impulse: one vertex gets kicked, sometimes two
-                                    if (t > nextKick) {
-                                        const hits = Math.random() > 0.75 ? [0, 1, 2].sort(() => Math.random() - 0.5).slice(0, 2) : [Math.floor(Math.random() * 3)];
-                                        for (const i of hits) {
-                                            const ang = Math.random() * Math.PI * 2;
-                                            const mag = 260 + Math.random() * 260;
-                                            P[i].vx += Math.cos(ang) * mag;
-                                            P[i].vy += Math.sin(ang) * mag;
-                                        }
-                                        nextKick = t + 2400 + Math.random() * 3200;
+                                    if (t >= nextTick) {
+                                        angleFrom = angleTo;
+                                        angleTo += STEP;
+                                        tickStart = t;
+                                        nextTick = t + TICK_EVERY;
                                     }
 
-                                    const v = P.map((p, i) => {
-                                        // ambient drift target
-                                        const tx = anchors[i].x + Math.sin(t * F[i].fx + F[i].px) * F[i].a;
-                                        const ty = anchors[i].y + Math.cos(t * F[i].fy + F[i].py) * F[i].a;
-                                        // spring toward target
-                                        p.vx += (tx - p.x) * K * dt;
-                                        p.vy += (ty - p.y) * K * dt;
-                                        // faint pull toward the cursor
-                                        if (mouse.on) {
-                                            const dx = mouse.x - p.x, dy = mouse.y - p.y;
-                                            const d = Math.hypot(dx, dy);
-                                            if (d > 1 && d < 260) {
-                                                const w = (1 - d / 260) * 46;
-                                                p.vx += (dx / d) * w * dt * 10;
-                                                p.vy += (dy / d) * w * dt * 10;
-                                            }
-                                        }
-                                        // damping
-                                        p.vx -= p.vx * DAMP * dt;
-                                        p.vy -= p.vy * DAMP * dt;
-                                        p.x += p.vx * dt;
-                                        p.y += p.vy * dt;
-                                        return p;
-                                    });
+                                    const rp = Math.min((t - tickStart) / TICK_DUR, 1);
+                                    angle = angleFrom + (angleTo - angleFrom) * easeInOut(rp);
 
-                                    const cx = (v[0].x + v[1].x + v[2].x) / 3;
-                                    const cy = (v[0].y + v[1].y + v[2].y) / 3;
+                                    // pulse breathing out of the center during the tick
+                                    const pp = (t - tickStart) / PULSE_DUR;
+                                    if (pp >= 0 && pp <= 1) {
+                                        pulse.setAttribute("r", String(16 + pp * 150));
+                                        pulse.setAttribute("opacity", String((1 - pp) * 0.55));
+                                    } else {
+                                        pulse.setAttribute("opacity", "0");
+                                    }
+                                    const breath = pp >= 0 && pp <= 1 ? Math.sin(pp * Math.PI) * 0.05 : 0;
+
+                                    const v = base.map((b) => ({
+                                        x: C.x + b.r * Math.cos(b.ang + angle),
+                                        y: C.y + b.r * Math.sin(b.ang + angle),
+                                    }));
 
                                     outer.setAttribute("d", `M${v[0].x} ${v[0].y} L${v[1].x} ${v[1].y} L${v[2].x} ${v[2].y} Z`);
 
-                                    const inV = v.map((p) => ({ x: cx + (p.x - cx) * 0.52, y: cy + (p.y - cy) * 0.52 }));
+                                    const s = 0.52 + breath;
+                                    const inV = v.map((p) => ({ x: C.x + (p.x - C.x) * s, y: C.y + (p.y - C.y) * s }));
                                     inner.setAttribute("d", `M${inV[0].x} ${inV[0].y} L${inV[1].x} ${inV[1].y} L${inV[2].x} ${inV[2].y} Z`);
 
-                                    center.setAttribute("x", String(cx));
-                                    center.setAttribute("y", String(cy + 40));
-
                                     for (let i = 0; i < 3; i++) {
-                                        // fast vertices run hot: gold while moving, white at rest
-                                        const speed = Math.hypot(v[i].vx, v[i].vy);
-                                        const hot = Math.min(speed / 220, 1);
-                                        const size = 7 + hot * 5;
-                                        nodes[i].setAttribute("x", String(v[i].x - size / 2));
-                                        nodes[i].setAttribute("y", String(v[i].y - size / 2));
-                                        nodes[i].setAttribute("width", String(size));
-                                        nodes[i].setAttribute("height", String(size));
-                                        nodes[i].setAttribute("fill", hot > 0.35 ? "#FEC106" : "#F2F2F2");
+                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
+                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
 
-                                        labels[i].setAttribute("x", String(v[i].x + labelOff[i].x));
-                                        labels[i].setAttribute("y", String(v[i].y + labelOff[i].y));
+                                        // labels sit outward from the center, always upright
+                                        const dx = v[i].x - C.x, dy = v[i].y - C.y;
+                                        const d = Math.hypot(dx, dy);
+                                        labels[i].setAttribute("x", String(v[i].x + (dx / d) * 30));
+                                        labels[i].setAttribute("y", String(v[i].y + (dy / d) * 30 + 4));
 
                                         const a = v[i], b = v[(i + 1) % 3];
                                         const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
