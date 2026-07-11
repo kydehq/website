@@ -322,7 +322,9 @@ for (let lat = -80; lat <= 80; lat += 8) {
     if (reduced) {
       draw(1);
     } else {
-      const loop = (t: number) => { draw(t); requestAnimationFrame(loop); };
+      let heroVisible = true;
+      new IntersectionObserver((es) => { heroVisible = es[0].isIntersecting; }).observe(canvas);
+      const loop = (t: number) => { if (heroVisible) draw(t); requestAnimationFrame(loop); };
       requestAnimationFrame(loop);
     }
   }
@@ -494,7 +496,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         <span class="ml-3 font-mono text-[10px] text-[#F2F2F2]/35 bg-[#0C0C0C] px-3 py-0.5 border border-[#1F1F1F] flex-1 max-w-xs">kyde.intranet/dashboard/topology</span>
                     </div>
                     <!-- App -->
-                    <div class="flex" style="min-height:420px">
+                    <div class="flex overflow-x-auto" style="min-height:420px">
                         <!-- Sidebar -->
                         <div class="w-44 shrink-0 border-r border-[#1F1F1F] bg-[#141414] p-4">
                             <div class="mb-4">
@@ -520,7 +522,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             </ul>
                         </div>
                         <!-- Main -->
-                        <div class="flex-1 p-6">
+                        <div class="flex-1 min-w-[480px] p-6">
                             <div class="flex items-start justify-between mb-5">
                                 <div>
                                     <h3 class="font-mono text-sm font-bold text-[#F2F2F2]">192.168.68.0/24</h3>
