@@ -2,31 +2,39 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+
+// Orthographic dot-sphere for the closing ornament
+const SPHERE_R = 290;
+const sphereDots: { x: number; y: number; a: number }[] = [];
+for (let lat = -80; lat <= 80; lat += 8) {
+    for (let lon = -80; lon <= 80; lon += 8) {
+        const la = (lat * Math.PI) / 180;
+        const lo = (lon * Math.PI) / 180;
+        sphereDots.push({
+            x: 320 + SPHERE_R * Math.sin(lo) * Math.cos(la),
+            y: 320 + SPHERE_R * Math.sin(la),
+            a: 0.04 + 0.16 * Math.cos(lo) * Math.cos(la),
+        });
+    }
+}
 ---
 
 <Base
-    title="KYDE — Prevent · Prove · Rate."
+    title="KYDE, Prevent · Prove · Rate."
     description="KYDE is the behavioral firewall between AI agents and the real world: we prevent what must not happen, prove what did, and rate agent behavior across every provider. The suspect can't write the police report."
 >
     <Navbar />
 
     <main>
         <!-- ══════════ HERO STAGE ══════════ -->
-        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20">
-            <video class="absolute inset-0 w-full h-full object-cover hero-video" muted loop playsinline poster="/stage-poster.jpg">
-                <source src="/stage-video.mp4" type="video/mp4" />
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0d0e10]/30 via-[#0d0e10]/60 to-[#0d0e10]/90"></div>
+        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-white/10">
+            <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-            <div class="bg-grid absolute inset-0 pointer-events-none opacity-20"></div>
-            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 40% 35% at 100% 100%, #0d0e10 0%, transparent 100%);"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-[#050505]/45 to-transparent"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="h-1.5 w-1.5 rounded-full bg-[#fcb830] shrink-0"></span>
-                    <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
-                </div>
-                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tighter leading-none sm:text-6xl md:text-7xl lg:text-8xl" style="opacity:0;">
+                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">The Behavioral</span>
                     <span id="hero-l2" style="display:block">Firewall</span>
                     <span id="hero-l3" style="display:block">For AI Agents.</span>
@@ -37,22 +45,19 @@ import Footer from "../components/Footer.astro";
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
                     KYDE verifies identity, enforces policy, and stops unsafe actions before they reach critical systems.
                 </p>
-                <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
-                    One environment variable · Under 100ms · Any provider · Zero code changes
-                </p>
-                <!-- Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
+                <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
                     <!--
                     <a
                         href="/sandbox"
-                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                        class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#E5E5E5] transition-all"
                     >
                         Deploy Sandbox →
                     </a>
                     -->
                     <button
                         onclick="openModal()"
-                        class="inline-flex items-center gap-2 bg-white text-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#dae4e5] transition-all"
+                        class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#E5E5E5] transition-all"
                     >
                         Talk to Us →
                     </button>
@@ -63,7 +68,11 @@ import Footer from "../components/Footer.astro";
                         See Platform →
                     </a>
                 </div>
+                <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
+                    <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span><span class="cursor-blink" aria-hidden="true"></span>
+                </p>
             </div>
+
         </section>
 
 
@@ -112,103 +121,541 @@ import Footer from "../components/Footer.astro";
   const h1 = l1?.closest("h1") as HTMLElement;
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
-  const meta = document.getElementById("hero-meta") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
   if (l1) scrambleLine(l1, "THE BEHAVIORAL", 200);
   if (l2) scrambleLine(l2, "FIREWALL", 200);
   if (l3) scrambleLine(l3, "FOR AI AGENTS.", 200, () => {
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
-    if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
+    const term = document.getElementById("hero-terminal");
+    if (term) term.style.opacity = "1";
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
 
-  const vid = document.querySelector(".hero-video") as HTMLVideoElement;
-  if (vid) vid.play().catch(() => {});
+  // ── Boundary-gate figure ────────────────────────────────────────
+  // Geometric, not "rain": unordered agents drift on the left,
+  // cross the vertical gate line, and snap into a strict lattice , 
+  // ungoverned chaos becomes governed order. Rare green pulse at
+  // crossing (signed), rare red flash bouncing off (blocked).
+  const canvas = document.getElementById("hero-datastream") as HTMLCanvasElement | null;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (canvas) {
+    const ctx = canvas.getContext("2d")!;
+    let W = 0, H = 0, GATE = 0, ROW = 26;
+
+    function hash(n: number): number {
+      let t = (n + 0x6d2b79f5) | 0;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+
+    type P = {
+      x: number; y: number; vx: number; seed: number;
+      state: "wild" | "signed" | "blocked";
+      rowY: number; pulse: number;
+    };
+    let parts: P[] = [];
+
+    // occasional bloom when a particle crosses the gate
+    type Flare = { x: number; y: number; t0: number };
+    let flares: Flare[] = [];
+    let lastFlare = 0;
+
+    function spawn(p: P, i: number, initial = false) {
+      p.x = initial ? hash(i * 7 + 1) * GATE : -10 - hash(i * 13) * 60;
+      p.y = 40 + hash(i * 31 + performance.now() % 9973) * (H - 80);
+      p.vx = 12 + hash(i * 17) * 22;
+      p.seed = i * 7919 + Math.floor(performance.now());
+      p.state = "wild";
+      p.pulse = 0;
+    }
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth;
+      H = canvas.clientHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      GATE = W * 0.68;
+      parts = [];
+      const n = Math.max(40, Math.floor(W / 16));
+      for (let i = 0; i < n; i++) {
+        const p = {} as P;
+        spawn(p, i, true);
+        parts.push(p);
+      }
+    }
+
+    let last = 0;
+    function draw(t: number) {
+      const dt = Math.min((t - last) / 1000, 0.05) || 0.016;
+      last = t;
+      ctx.clearRect(0, 0, W, H);
+
+      // lattice on the governed side, faint, strict
+      ctx.fillStyle = "rgba(242,242,242,0.08)";
+      for (let x = GATE + ROW; x < W; x += ROW)
+        for (let y = ROW; y < H; y += ROW)
+          ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
+
+      // gate line, nearly invisible at the ends, a faint shimmer mid-height;
+      // it reveals itself through interaction (blooms, blocks), not presence
+      const gateGrad = ctx.createLinearGradient(0, 0, 0, H);
+      gateGrad.addColorStop(0, "rgba(242,242,242,0)");
+      gateGrad.addColorStop(0.5, "rgba(242,242,242,0.13)");
+      gateGrad.addColorStop(1, "rgba(242,242,242,0)");
+      ctx.fillStyle = gateGrad;
+      ctx.fillRect(GATE, 0, 1, H);
+      for (let y = 0; y < H; y += ROW * 2) {
+        const env = Math.sin((Math.PI * y) / H);
+        ctx.fillStyle = `rgba(242,242,242,${0.16 * env * env})`;
+        ctx.fillRect(GATE - 3, y, 7, 1);
+      }
+
+      for (const p of parts) {
+        const jitterSeed = p.seed + Math.floor(t / 300);
+
+        if (p.state === "wild") {
+          // brownian drift with slow right bias
+          p.x += p.vx * dt;
+          p.y += (hash(jitterSeed) - 0.5) * 34 * dt * 2.2;
+
+          if (p.x >= GATE) {
+            if (hash(p.seed + 5) > 0.93) {
+              p.state = "blocked";
+              p.pulse = 1;
+              p.vx = -18;
+            } else {
+              p.state = "signed";
+              p.pulse = hash(p.seed + 9) > 0.7 ? 1 : 0;
+              p.rowY = Math.round(p.y / ROW) * ROW;
+              p.vx = 26 + hash(p.seed + 3) * 18;
+              // every few seconds, one crossing blooms
+              if (t - lastFlare > 2100 && hash(p.seed + 11) > 0.4) {
+                flares.push({ x: GATE, y: p.rowY, t0: t });
+                lastFlare = t;
+              }
+            }
+          }
+          ctx.fillStyle = "rgba(242,242,242,0.32)";
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+        } else if (p.state === "signed") {
+          p.x += p.vx * dt;
+          p.y += (p.rowY - p.y) * Math.min(dt * 6, 1); // snap to lattice row
+
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(61,220,132,${p.pulse * 0.7})`;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(p.x - 4, p.y - 4, 8, 8);
+            p.pulse -= dt * 1.4;
+          }
+          ctx.fillStyle = "rgba(242,242,242,0.68)";
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+
+          if (p.x > W + 10) spawn(p, Math.floor(p.seed / 7919));
+        } else {
+          // blocked: red flash at the gate, drift back, fade
+          p.x += p.vx * dt;
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(255,92,92,${p.pulse * 0.8})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x + 4, p.y - 4); ctx.lineTo(p.x - 4, p.y + 4);
+            ctx.moveTo(p.x - 4, p.y - 4); ctx.lineTo(p.x + 4, p.y + 4);
+            ctx.stroke();
+            p.pulse -= dt * 0.9;
+          } else {
+            spawn(p, Math.floor(p.seed / 7919));
+          }
+        }
+      }
+
+      // flares, soft light bloom at the gate, expanding and fading
+      flares = flares.filter((f) => t - f.t0 < 1600);
+      for (const f of flares) {
+        const age = (t - f.t0) / 1600; // 0 → 1
+        const ease = 1 - Math.pow(1 - age, 2);
+        const r = 16 + ease * 130;
+        const a = (1 - age) * 0.85;
+
+        const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r);
+        g.addColorStop(0, `rgba(242,242,242,${a})`);
+        g.addColorStop(0.25, `rgba(242,242,242,${a * 0.35})`);
+        g.addColorStop(0.6, `rgba(61,220,132,${a * 0.22})`);
+        g.addColorStop(1, "rgba(61,220,132,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // bright core that snuffs out quickly
+        if (age < 0.35) {
+          ctx.fillStyle = `rgba(255,255,255,${(1 - age / 0.35) * 0.9})`;
+          ctx.fillRect(f.x - 2, f.y - 2, 4, 4);
+        }
+
+        // brief brightening of the gate line around the bloom
+        const gl = ctx.createLinearGradient(f.x, f.y - r, f.x, f.y + r);
+        gl.addColorStop(0, "rgba(242,242,242,0)");
+        gl.addColorStop(0.5, `rgba(242,242,242,${a * 0.8})`);
+        gl.addColorStop(1, "rgba(242,242,242,0)");
+        ctx.fillStyle = gl;
+        ctx.fillRect(GATE, f.y - r, 1, r * 2);
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    if (reduced) {
+      draw(1);
+    } else {
+      let heroVisible = true;
+      new IntersectionObserver((es) => { heroVisible = es[0].isIntersecting; }).observe(canvas);
+      const loop = (t: number) => { if (heroVisible) draw(t); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    }
+  }
 </script>
 
-        <!-- ══════════ PROBLEM ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Total Visibility</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+        <!-- ══════════ 01 PROBLEM ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · Total Visibility</span>
+                    <span class="fig-label">FIG.1</span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-14 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
-                            Shadow Agents Are Already Running.<br />Do You Know What They're Doing?
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            <span class="text-white">Shadow Agents Are Already Running.</span><br /><span class="text-white/40">Do You Know What They're Doing?</span>
                         </h2>
-                        <p class="text-lg text-[#333] leading-relaxed mb-6">
-                            Shadow AI was employees using unauthorized tools. Shadow Agents are autonomous systems calling APIs, processing data, and making decisions — outside IT and security oversight entirely.
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Shadow AI was employees using unauthorized tools. Shadow Agents are autonomous systems calling APIs, processing data, and making decisions, outside IT and security oversight entirely.
                         </p>
-                        <p class="text-lg text-[#333] leading-relaxed">
+                        <p class="text-lg text-white/55 leading-relaxed">
                             KYDE gives you the complete picture - every agent identity, every action, every upstream provider - logged, signed, and cryptographically verified. From the moment you deploy.
                         </p>
                     </div>
-                    <div class="flex flex-col">
-                        <div class="relative border border-dotted border-[#0d0e10]/15 overflow-hidden bg-[#0d0e10] shadow-sm" style="aspect-ratio:16/9;">
-                            <video id="kyde-intro" class="w-full h-full object-cover" preload="none" playsinline poster="/videoposter.png">
-                                <source src="/KYDE.webm" type="video/webm" />
-                                <source src="/KYDE.mp4" type="video/mp4" />
-                            </video>
-                            <!-- Play overlay -->
-                            <div id="kyde-play-overlay" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group" onclick="document.getElementById('kyde-play-overlay').style.display='none';var v=document.getElementById('kyde-intro');v.controls=true;v.play();">
-                                <div class="w-14 h-14 rounded-full border border-dotted border-white/40 flex items-center justify-center bg-white/10 group-hover:bg-white/20 transition-all mb-3">
-                                    <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.841z"/></svg>
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <!-- corner register marks -->
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+
+                            <!-- concentric rings + crosshair -->
+                            <circle cx="240" cy="240" r="228" fill="none" stroke="rgba(242,242,242,0.05)" stroke-width="1" />
+                            <circle cx="240" cy="240" r="210" fill="none" stroke="rgba(242,242,242,0.14)" stroke-width="1" />
+                            <circle cx="240" cy="240" r="150" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="90" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="68" fill="none" stroke="rgba(242,242,242,0.13)" stroke-width="1" />
+                            <line x1="240" y1="26" x2="240" y2="454" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+                            <line x1="26" y1="240" x2="454" y2="240" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+
+                            <!-- degree ticks -->
+                            {Array.from({ length: 24 }, (_, i) => {
+                                const a = (i * 15 * Math.PI) / 180;
+                                return (
+                                    <line
+                                        x1={240 + Math.cos(a) * 204}
+                                        y1={240 + Math.sin(a) * 204}
+                                        x2={240 + Math.cos(a) * 210}
+                                        y2={240 + Math.sin(a) * 210}
+                                        stroke="rgba(242,242,242,0.3)"
+                                        stroke-width="1"
+                                    />
+                                );
+                            })}
+
+                            <!-- sweep trail + line (rotated in JS) -->
+                            <g id="radar-sweep">
+                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="rgba(242,242,242,0.04)" />
+                                <line x1="240" y1="240" x2="240" y2="30" stroke="rgba(242,242,242,0.3)" stroke-width="1" />
+                            </g>
+
+                            <!-- blips + labels (lit by the sweep, from JS) -->
+                            <g id="radar-blips"></g>
+
+                            <!-- the observer at the center -->
+                            <circle cx="240" cy="240" r="4.5" fill="#F2F2F2" />
+                            <text x="240" y="262" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
+                        </svg>
+                    </div>
+
+                    <script>
+                        // FIG.1 · radar. Shadow agents sit almost invisible in
+                        // the field; the sweep reveals them: blip flashes, the
+                        // identity label appears, a green "signed" confirms the
+                        // record, then the afterglow fades until the next pass.
+                        const radarReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const radar = document.getElementById("radar-fig");
+
+                        if (radar) {
+                            const NS = "http://www.w3.org/2000/svg";
+                            const sweep = document.getElementById("radar-sweep")!;
+                            const blipsG = document.getElementById("radar-blips")!;
+                            const CX = 240, CY = 240;
+
+                            const AGENTS = [
+                                { id: "agent:crm-04",    r: 178, a: 0.4 },
+                                { id: "agent:hr-11",     r: 120, a: 1.3 },
+                                { id: "ci-runner",       r: 195, a: 2.2 },
+                                { id: "agent:support-2", r: 68,  a: 2.9 },
+                                { id: "etl-worker",      r: 150, a: 3.8 },
+                                { id: "agent:proc-7",    r: 104, a: 4.6 },
+                                { id: "mail-drafter",    r: 186, a: 5.4 },
+                            ];
+
+                            const blips = AGENTS.map((ag) => {
+                                const x = CX + Math.cos(ag.a) * ag.r;
+                                const y = CY + Math.sin(ag.a) * ag.r;
+                                const dot = document.createElementNS(NS, "rect");
+                                dot.setAttribute("x", String(x - 2));
+                                dot.setAttribute("y", String(y - 2));
+                                dot.setAttribute("width", "4");
+                                dot.setAttribute("height", "4");
+                                const label = document.createElementNS(NS, "text");
+                                label.setAttribute("x", String(x + 9));
+                                label.setAttribute("y", String(y - 7));
+                                label.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;");
+                                label.textContent = ag.id;
+                                const sig = document.createElementNS(NS, "text");
+                                sig.setAttribute("x", String(x + 9));
+                                sig.setAttribute("y", String(y + 6));
+                                sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
+                                sig.setAttribute("fill", "#3DDC84");
+                                sig.textContent = "✓ signed";
+                                blipsG.append(dot, label, sig);
+                                return { ...ag, dot, label, sig, lastLit: -1e9 };
+                            });
+
+                            if (radarReduced) {
+                                // static frame: everything mid-bright
+                                for (const b of blips) {
+                                    b.dot.setAttribute("fill", "rgba(242,242,242,0.7)");
+                                    b.label.setAttribute("fill", "rgba(242,242,242,0.55)");
+                                    b.sig.setAttribute("fill", "rgba(61,220,132,0.6)");
+                                }
+                            } else {
+                                const PERIOD = 32000; // one revolution
+                                let visible = true;
+                                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(radar);
+
+                                function frame(t: number) {
+                                    if (visible) {
+                                        const ang = ((t % PERIOD) / PERIOD) * Math.PI * 2 - Math.PI / 2;
+                                        sweep.setAttribute("transform", `rotate(${(ang * 180) / Math.PI + 90} ${CX} ${CY})`);
+
+                                        for (const b of blips) {
+                                            // sweep just passed this blip?
+                                            let diff = (ang - b.a) % (Math.PI * 2);
+                                            if (diff < 0) diff += Math.PI * 2;
+                                            if (diff < 0.06) b.lastLit = t;
+
+                                            const glow = Math.exp(-(t - b.lastLit) / 2400);
+                                            b.dot.setAttribute("fill", `rgba(242,242,242,${0.12 + glow * 0.88})`);
+                                            b.label.setAttribute("fill", `rgba(242,242,242,${glow * 0.8})`);
+                                            b.sig.setAttribute("fill", `rgba(61,220,132,${Math.max(glow - 0.25, 0)})`);
+                                        }
+                                    }
+                                    requestAnimationFrame(frame);
+                                }
+                                requestAnimationFrame(frame);
+                            }
+                        }
+                    </script>
+                </div>
+
+                <!-- FIG.1b · the actual view -->
+                <div class="border-t border-white/10 pt-10 pb-24 md:pb-28">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="fig-label">FIG.1b · Audit Dashboard</span>
+                        <a href="/platform" class="font-mono text-[10px] uppercase tracking-[0.15em] text-white/50 hover:text-white transition-colors">Full platform →</a>
+                    </div>
+                    <!-- Dashboard mock -->
+                <div class="border border-[#1F1F1F] bg-[#0C0C0C] overflow-hidden">
+                    <!-- Browser chrome -->
+                    <div class="flex items-center gap-2 border-b border-[#1F1F1F] px-4 py-2.5 bg-[#141414]">
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/60"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+                        <span class="ml-3 font-mono text-[10px] text-[#F2F2F2]/35 bg-[#0C0C0C] px-3 py-0.5 border border-[#1F1F1F] flex-1 max-w-xs">kyde.intranet/dashboard/topology</span>
+                    </div>
+                    <!-- App -->
+                    <div class="flex overflow-x-auto" style="min-height:420px">
+                        <!-- Sidebar (hidden on mobile so the Fleet panel gets the full width) -->
+                        <div class="hidden md:block w-44 shrink-0 border-r border-[#1F1F1F] bg-[#141414] p-4">
+                            <div class="mb-4">
+                                <img src="/kyde-logo.svg" alt="KYDE" class="h-3 w-auto mb-4" />
+                                <span class="font-mono text-[9px] uppercase tracking-[0.12em] text-[#3DDC84] border border-[#3DDC84]/30 px-1.5 py-0.5">Data Integrity</span>
+                            </div>
+                            <p class="font-mono text-[10px] font-bold text-[#F2F2F2] mt-4 mb-0.5">Audit Dashboard</p>
+                            <p class="font-mono text-[9px] text-[#F2F2F2]/35 uppercase tracking-[0.08em] mb-5">Agent Behavioral Ledger</p>
+                            <ul class="space-y-0.5">
+                                <li class="font-mono text-[10px] text-[#F2F2F2] font-semibold py-1 px-2 bg-[#1C1C1C]/50">
+                                    Fleet Status
+                                </li>
+                                {["Agents", "Threats & Alerts", "Agent Chains", "Network Map", "Hosts", "Usage & Cost", "MCP Servers", "AI Providers", "Policies", "Settings"].map((item) => (
+                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2">
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <!-- Main -->
+                        <div class="flex-1 min-w-0 md:min-w-[480px] p-4 md:p-6">
+                            <div class="flex items-start justify-between mb-5">
+                                <div>
+                                    <h3 class="font-mono text-sm font-bold text-[#F2F2F2]">Fleet Status</h3>
+                                    <p class="font-mono text-[10px] text-[#F2F2F2]/35 mt-0.5">System health and active threat overview</p>
                                 </div>
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">KYDE in 40 seconds</span>
+                                <span class="font-mono text-[10px] text-[#F2F2F2]/40 border border-[#1F1F1F] px-2 py-1">Last 24 hours ↓</span>
+                            </div>
+
+                            <!-- Fleet Health Score -->
+                            <div class="border border-[#1F1F1F] p-4 mb-3">
+                                <p class="font-mono text-[9px] uppercase tracking-[0.15em] text-[#6B6B6B] mb-3">Fleet Health Score</p>
+                                <div class="flex flex-wrap items-end gap-x-8 gap-y-4">
+                                    <div>
+                                        <div class="flex items-end gap-2">
+                                            <p class="font-mono text-5xl font-bold text-[#F2F2F2] leading-none">78</p>
+                                            <p class="font-mono text-xs text-[#F2F2F2]/30 pb-1">/100</p>
+                                        </div>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="font-mono text-[9px] uppercase tracking-widest text-[#3DDC84] border border-[#3DDC84]/30 px-1.5 py-0.5">Stable</span>
+                                            <span class="font-mono text-[9px] text-[#F2F2F2]/35">across 12 active agents</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 min-w-[200px] pb-1.5">
+                                        <div class="flex justify-between mb-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-[#6B6B6B]">
+                                            <span>Critical</span>
+                                            <span>At risk</span>
+                                            <span>Healthy</span>
+                                        </div>
+                                        <div class="relative h-1 rounded-full" style="background:linear-gradient(to right,rgba(242,242,242,0.12),rgba(242,242,242,0.55))">
+                                            <span class="absolute -top-[3px] h-[10px] w-[2px] bg-[#F2F2F2]" style="left:78%"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-4 gap-y-3 mt-4 pt-3 border-t border-[#1F1F1F]">
+                                    {[
+                                        { k: "Security",    v: 84 },
+                                        { k: "Integrity",   v: 74 },
+                                        { k: "Reliability", v: 80 },
+                                        { k: "Economics",   v: 87 },
+                                        { k: "Compliance",  v: 76 },
+                                    ].map(({ k, v }) => (
+                                        <div>
+                                            <div class="flex items-baseline justify-between">
+                                                <span class="font-mono text-[8px] uppercase tracking-[0.12em] text-[#6B6B6B]">{k}</span>
+                                                <span class="font-mono text-[10px] text-[#F2F2F2]">{v}</span>
+                                            </div>
+                                            <div class="h-0.5 bg-[#1C1C1C] mt-1.5 overflow-hidden">
+                                                <div class="h-full bar-fill bg-[#3DDC84]/60" style={`width:${v}%`}></div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <!-- Breach -->
+                            <div class="border border-[#FF5C5C]/30 bg-[#FF5C5C]/5 px-4 py-2.5 mb-3 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-[#FF5C5C] animate-pulse shrink-0"></span>
+                                    <span class="font-mono text-[9px] uppercase tracking-widest text-[#FF5C5C] shrink-0">Breach</span>
+                                    <span class="font-mono text-[10px] text-[#F2F2F2] truncate">1 critical incident in progress</span>
+                                    <span class="font-mono text-[9px] text-[#F2F2F2]/35 hidden lg:inline shrink-0">detected 3 min ago</span>
+                                </div>
+                                <span class="font-mono text-[9px] uppercase tracking-widest text-[#F2F2F2]/60 border border-[#2E2E2E] px-2 py-1 shrink-0">View incident →</span>
+                            </div>
+
+                            <!-- Stat tiles -->
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                                {[
+                                    { k: "Active Agents",        v: "12" },
+                                    { k: "Open Alerts",          v: "34" },
+                                    { k: "Blocked Chains (24h)", v: "1"  },
+                                ].map(({ k, v }) => (
+                                    <div class="border border-[#1F1F1F] p-3">
+                                        <p class="font-mono text-[8px] uppercase tracking-[0.12em] text-[#6B6B6B] mb-1.5">{k}</p>
+                                        <p class="font-mono text-xl font-bold text-[#F2F2F2]">{v}</p>
+                                    </div>
+                                ))}
+                                <div class="border border-[#1F1F1F] p-3">
+                                    <p class="font-mono text-[8px] uppercase tracking-[0.12em] text-[#6B6B6B] mb-1.5">Data Integrity</p>
+                                    <p class="font-mono text-xl font-bold text-[#F2F2F2]">&#10003; Verified</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
-        <!-- ══════════ ABSOLUTE CONTROL ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Prevent</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+        <!-- ══════════ 02 PREVENT ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · Prevent</span>
+                    <span class="fig-label">FIG.2</span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div class="flex flex-col">
-                        <div class="border border-dotted border-[#0d0e10]/15 overflow-hidden bg-white shadow-sm">
-                            <img src="/dlp-alert-redacted.png" alt="DLP alert — PII detected and masked" class="w-full block saturate-75 brightness-90" />
+                        <div class="border border-white/10 bg-white/[0.02]">
+                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Gateway · DLP Intercept</span>
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#3DDC84]">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] animate-pulse"></span>Live
+                                </span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-4">
+                                <div>
+                                    <p class="text-white/25 mb-1.5">// incoming · agent:support-02 → openai/gpt-4o</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-[#FF5C5C]/15 text-[#FF5C5C] px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-[#FF5C5C]/15 text-[#FF5C5C] px-1">€1.2M</span> …"</p>
+                                </div>
+                                <div class="border-t border-white/8 pt-4">
+                                    <p class="text-white/25 mb-1.5">// decision · policy:dlp-standard · 12ms</p>
+                                    <p class="text-[#FFB84D] mb-2">⚠ PII detected, 2 entities · role:auditor → mask</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
+                                </div>
+                                <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
+                                    <span class="text-[#3DDC84]">&#10003; Forwarded · masked by role</span>
+                                    <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="mt-3 font-mono text-[10px] text-[#555] leading-relaxed">
-                            PII detected. Email masked. Context redacted by role — before the auditor could see it.
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.2 · PII detected. Email masked. Context redacted by role · before the auditor could see it.
                         </p>
                     </div>
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             Prevent What Must<br />Not Happen.
                         </h2>
-                        <p class="text-lg text-[#333] leading-relaxed mb-6">
-                            Deterministic guardrails on a probabilistic technology. Deny-by-default at the boundary — the damage doesn't happen first and get explained later. This is the buy reason today: NIS-2 board liability, DORA. AI agents don't just leak data — they act.
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Deterministic guardrails on a probabilistic technology. Deny-by-default at the boundary: the damage doesn't happen first and get explained later. This is the buy reason today: NIS-2 board liability, DORA. AI agents don't just leak data, they act.
                         </p>
                         <ul class="space-y-2.5 mb-8">
                             {[
                                 "Block out-of-scope requests in real time",
                                 "Attribute every action to a verified agent identity",
-                                "BERT-based PII classification in prompts and completions — masked by role, blocked in real time",
-                                "Full bidirectional intercept log — independent of your LLM provider, undeletable by any agent",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                                "BERT-based PII classification in prompts and completions, masked by role, blocked in real time",
+                                "Full bidirectional intercept log, independent of your LLM provider, undeletable by any agent",
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-[#FEC106] shrink-0 mt-1">2.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
                         </ul>
-                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all">
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all">
                             Explore Security Use Cases →
                         </a>
                     </div>
@@ -216,53 +663,49 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ AUDIT-READY ══════════ -->
-        <section class="border-b border-dotted border-[#0d0e10]/15 py-24 md:py-32">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Prove</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+        <!-- ══════════ 03 PROVE ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Prove</span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
-                            Prove What Happened.<br />The Suspect Can't Write<br />the Police Report.
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            <span class="text-white">Prove What Happened.</span><br /><span class="text-white/40">The Suspect Can't Write<br />the Police Report.</span>
                         </h2>
-                        <p class="text-lg text-[#333] leading-relaxed mb-6">
-                            Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent — Ed25519-signed, hash-chained, captured before the action reaches any provider.
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent, Ed25519-signed, hash-chained, captured before the action reaches any provider.
                         </p>
                         <ul class="space-y-2.5 mb-8">
                             {[
-                                "Architecturally independent of every LLM provider — captured before it reaches them",
-                                "Every entry Ed25519-signed and hash-chained — tamper with one, every subsequent link breaks",
-                                "NIS-2, DORA, EU AI Act, GDPR 35 — regulatory evidence on day one",
+                                "Architecturally independent of every LLM provider, captured before it reaches them",
+                                "Every entry Ed25519-signed and hash-chained: tamper with one, every subsequent link breaks",
+                                "NIS-2, DORA, EU AI Act, GDPR 35, regulatory evidence on day one",
                                 "Compliance reports generated automatically",
-                            ].map(item => (
-                                <li class="flex items-start gap-2.5 text-sm text-[#333]">
-                                    <span class="font-mono text-[#fcb830] shrink-0 mt-0.5">→</span>
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-[#FEC106] shrink-0 mt-1">3.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
                         </ul>
-                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-dotted border-[#0d0e10]/30 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0d0e10] hover:border-[#0d0e10] transition-all w-fit">
+                        <a href="/use-cases" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
                             Explore Compliance Use Cases →
                         </a>
                     </div>
                     <div class="flex flex-col gap-6">
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-px">
                             {[
                                 { name: "NIS-2",     status: "In force",          desc: "~160,000 companies in DE/EU. Critical + important sectors." },
                                 { name: "DORA",      status: "In force: Jan 2025", desc: "Financial entity resilience requirements." },
-                                { name: "EU AI Act", status: "Phasing in 2026",   desc: "High-risk AI audit trail &amp; logging requirements." },
+                                { name: "EU AI Act", status: "Phasing in 2027",   desc: "High-risk AI audit trail & logging requirements." },
                                 { name: "GDPR 35",   status: "In force",          desc: "Automated processing DPIA obligations." },
                             ].map(({ name, status, desc }) => (
-                                <div class="border border-dotted border-[#0d0e10]/20 bg-[#dae4e5]/30 p-4">
-                                    <p class="font-mono text-xs font-bold text-[#0d0e10] uppercase tracking-wide mb-1">{name}</p>
-                                    <p class="font-mono text-[10px] text-[#0a7c4e] mb-2">{status}</p>
-                                    <p class="text-xs text-[#555] leading-snug">{desc}</p>
+                                <div class="border border-white/10 bg-white/[0.02] p-5">
+                                    <p class="font-mono text-xs font-bold text-white uppercase tracking-wide mb-1">{name}</p>
+                                    <p class="font-mono text-[10px] text-[#3DDC84] mb-2">{status}</p>
+                                    <p class="text-xs text-white/40 leading-snug">{desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -271,114 +714,123 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ ARCHITECTURE ══════════ -->
-        <section class="bg-[#f1f3f5] border-b border-dotted border-[#0d0e10]/15 py-20 md:py-28">
-            <div class="max-w-4xl mx-auto px-6">
+        <!-- ══════════ 04 ARCHITECTURE ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+            <div class="max-w-4xl mx-auto">
 
                 <div class="mb-12 md:mb-16">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Architecture</span>
+                    <div class="mb-8 flex items-end justify-between border-b border-white/10 pb-3">
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Architecture</span>
+                        <span class="fig-label">FIG.3</span>
                     </div>
-                    <div class="h-px w-full bg-[#e8e9eb] mb-8"></div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-4">Legacy systems were designed for humans. The agent era will overwhelm them.</h2>
-                    <p class="text-[#333] leading-relaxed max-w-2xl">KYDE sits between your AI agents and every system they can reach - intercepting, scoping, and signing every action before it executes.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">If an agent can touch the lock, it can pick it.</span> <span class="text-white/40">KYDE is out of reach by design.</span></h2>
+                    <p class="text-white/55 leading-relaxed max-w-2xl">Not on the machine. Not in the agent. KYDE sits outside, in the path itself: every action passes through it, intercepted, scoped, and signed before it executes.</p>
                 </div>
 
                 <!-- Layer 1: AI Agents -->
-                <div class="border border-[#0d0e10]/40 bg-white p-5 md:p-7">
+                <div class="border border-white/20 bg-white/[0.02] p-5 md:p-7">
                     <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Incoming</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Layer 01</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Incoming</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 01</span>
                     </div>
-                    <p class="text-sm md:text-base text-[#0d0e10] uppercase tracking-wide font-bold mb-4">AI Agents</p>
+                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">AI Agents</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Claude</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">GPT-4o</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Gemini</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">LangChain</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Custom Agents</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Claude</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">GPT-4o</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Gemini</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">LangChain</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Custom Agents</span>
                     </div>
                 </div>
 
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-[#0d0e10]/35"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-[#0d0e10]/60 bg-[#f1f3f5] px-2">all requests</span>
+                    <div class="w-px h-full bg-white/25"></div>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0C0C0C] px-2">all requests</span>
                 </div>
 
                 <!-- Layer 2: KYDE -->
-                <div class="p-5 md:p-8 bg-white border-2 border-[#4472c4]">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4472c4]">Control Plane</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4472c4]">Layer 02</span>
+                <div class="relative p-5 md:p-8 border border-[#F2F2F2]/25" style="background-image: radial-gradient(circle, rgba(242,242,242,0.05) 1px, transparent 1px); background-size: 14px 14px;">
+                    <span class="absolute -top-px -left-px h-3 w-3 border-t border-l border-[#F2F2F2]" aria-hidden="true"></span>
+                    <span class="absolute -top-px -right-px h-3 w-3 border-t border-r border-[#F2F2F2]" aria-hidden="true"></span>
+                    <span class="absolute -bottom-px -left-px h-3 w-3 border-b border-l border-[#F2F2F2]" aria-hidden="true"></span>
+                    <span class="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-[#F2F2F2]" aria-hidden="true"></span>
+                    <div class="arch-glow pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 55% 90% at 50% 50%, rgba(61,220,132,0.12), transparent 70%);" aria-hidden="true"></div>
+                    <div class="relative flex items-center justify-between mb-4">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FEC106]">Control Plane</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F2F2F2]/60">Layer 02</span>
                     </div>
-                    <p class="text-3xl md:text-4xl text-[#0d0e10] uppercase tracking-tighter font-bold mb-1">KYDE</p>
-                    <p class="font-mono text-xs text-[#0d0e10]/70 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
+                    <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
+                    <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Identity</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Cryptographic agent identity per action</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Identity</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Cryptographic agent identity per action</p>
                         </div>
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Policy</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Role boundaries &amp; scope enforcement</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Policy</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Role boundaries &amp; scope enforcement</p>
                         </div>
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Audit</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Tamper-evident ledger of every action</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Audit</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Tamper-evident ledger of every action</p>
                         </div>
-                        <div class="border border-[#4472c4]/60 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4472c4] mb-1.5">Control</p>
-                            <p class="text-xs text-[#0d0e10]/80 leading-relaxed">Block out-of-scope requests in real time</p>
+                        <div class="border border-[#2E2E2E] p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Control</p>
+                            <p class="text-xs text-white/60 leading-relaxed">Block out-of-scope requests in real time</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-[#0d0e10]/35"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-[#0d0e10]/60 bg-[#f1f3f5] px-2">verified &amp; logged</span>
+                    <div class="w-px h-full bg-white/25"></div>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0C0C0C] px-2">verified &amp; logged</span>
                 </div>
 
                 <!-- Layer 3: Critical Systems -->
-                <div class="border border-[#0d0e10]/40 bg-white p-5 md:p-7">
+                <div class="border border-white/20 bg-white/[0.02] p-5 md:p-7">
                     <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Protected</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/70">Layer 03</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Protected</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 03</span>
                     </div>
-                    <p class="text-sm md:text-base text-[#0d0e10] uppercase tracking-wide font-bold mb-4">Critical Systems</p>
+                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">Critical Systems</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">APIs</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Databases</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Financial Systems</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">SaaS Tools</span>
-                        <span class="font-mono text-xs text-[#0d0e10] border border-[#0d0e10]/40 px-2.5 py-1">Internal Services</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">APIs</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Databases</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Financial Systems</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">SaaS Tools</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Internal Services</span>
                     </div>
                 </div>
 
                 <!-- Terminal -->
-                <div class="mt-10 border border-dotted border-[#0d0e10]/20 bg-white">
-                    <div class="flex items-center gap-2 border-b border-dotted border-[#0d0e10]/15 px-4 py-3">
-                        <span class="h-3 w-3 rounded-full bg-[#c00000]/40"></span>
-                        <span class="h-3 w-3 rounded-full bg-[#fcb830]/60"></span>
-                        <span class="h-3 w-3 rounded-full bg-[#0a7c4e]/40"></span>
-                        <span class="ml-2 text-xs text-[#888] font-mono">terminal</span>
+                <div class="mt-10 border border-white/10">
+                    <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+                        <span class="ml-2 text-[10px] text-white/20 font-mono">terminal</span>
+                        <button
+                            class="ml-auto font-mono text-[10px] tracking-[0.15em] text-white/25 hover:text-white transition-colors"
+                            onclick="navigator.clipboard.writeText('export OPENAI_BASE_URL=https://kyde.intranet/v1\nkyde fleet init');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
+                        >COPY</button>
                     </div>
                     <div class="p-5 font-mono text-sm leading-relaxed">
-                        <p class="text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
-                        <p class="mt-1 text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> kyde fleet init</span></p>
-                        <p class="mt-1 text-[#4472c4]">&#10003; Fleet proxy started on :8080</p>
-                        <p class="text-[#4472c4]">&#10003; Agent identities provisioned</p>
-                        <p class="text-[#4472c4]">&#10003; Role boundaries enforced</p>
-                        <p class="text-[#4472c4]">&#10003; Tamper-evident ledger initialized</p>
-                        <p class="mt-2 text-[#555]"><span class="text-[#0a7c4e]">$</span><span class="text-[#0d0e10]"> kyde fleet status</span></p>
-                        <p class="mt-1 text-[#0a7c4e]">&#10003; 12 agents active — all scoped, signed, accountable</p>
+                        <p class="text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> export OPENAI_BASE_URL=https://kyde.intranet/v1</span></p>
+                        <p class="mt-1 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet init</span></p>
+                        <p class="mt-1 text-[#3DDC84]">&#10003; Fleet proxy started on :8080</p>
+                        <p class="text-[#3DDC84]">&#10003; Agent identities provisioned</p>
+                        <p class="text-[#3DDC84]">&#10003; Role boundaries enforced</p>
+                        <p class="text-[#3DDC84]">&#10003; Tamper-evident ledger initialized</p>
+                        <p class="mt-2 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet status</span></p>
+                        <p class="mt-1 text-[#3DDC84]">&#10003; 12 agents active, all scoped, signed, accountable</p>
                     </div>
                 </div>
 
                 <!-- Badges -->
-                <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-[#0d0e10]/40">
+                <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-white/30">
                     <span>One ENV Variable</span>
                     <span>Target &lt;100ms Latency</span>
                     <span>Provider-Agnostic</span>
@@ -388,52 +840,50 @@ import Footer from "../components/Footer.astro";
 
                 <!-- Footnote -->
                 <div class="mt-6 flex items-center gap-3">
-                    <span class="h-px flex-1 bg-[#e8e9eb]"></span>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0d0e10]/40">↳ Outside the agent. Cannot be overridden.</span>
+                    <span class="h-px flex-1 bg-white/10"></span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Outside the agent. Cannot be overridden.</span>
                 </div>
 
             </div>
+            </div>
         </section>
 
-        <!-- ══════════ BOUNDARY POSITION ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/15 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
+        <!-- ══════════ 05 BOUNDARY POSITION ══════════ -->
+        <section class="relative border-b border-white/10">
+            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Structural Position</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Structural Position</span>
+                    <span class="fig-label">FIG.4</span>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             The Racetrack,<br />Not the Horse.
                         </h2>
-                        <p class="text-[#333] leading-relaxed mb-4">
+                        <p class="text-white/55 leading-relaxed mb-4">
                             OpenAI ships a new model. Anthropic responds. An enterprise switches providers. Vendors compete. Intelligence migrates to clouds.
                         </p>
-                        <p class="text-[#333] leading-relaxed mb-4">
-                            One thing is invariant: every agent — regardless of which model, which runtime, which vendor — must cross the boundary between the AI world and your systems. Through your infrastructure. Under your liability.
+                        <p class="text-white/55 leading-relaxed mb-4">
+                            One thing is invariant: every agent, regardless of which model, which runtime, which vendor, must cross the boundary between the AI world and your systems. Through your infrastructure. Under your liability.
                         </p>
-                        <p class="text-[#333] leading-relaxed mb-10">
+                        <p class="text-white/55 leading-relaxed mb-10">
                             That boundary doesn't belong to any vendor. It belongs to you. Governance at the boundary gets more valuable with every model migration, not less.
                         </p>
-                        <p class="font-mono text-sm text-[#0d0e10] border-l-2 border-[#0d0e10]/30 pl-4 leading-relaxed">
-                            We're not competing in the model race. We operate the only neutral layer between every model and every enterprise system — regardless of who wins.
+                        <p class="font-mono text-sm text-[#F2F2F2] border-l-2 border-white/30 pl-4 leading-relaxed">
+                            We're not competing in the model race. We operate the only neutral layer between every model and every enterprise system, regardless of who wins.
                         </p>
                     </div>
 
                     <div>
-                        <div class="border border-dotted border-[#0d0e10]/15 divide-y divide-dotted divide-[#0d0e10]/15 mb-8">
-                            <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15 bg-[#f1f3f5]">
+                        <div class="border border-white/10 divide-y divide-white/10 mb-8">
+                            <div class="grid grid-cols-2 divide-x divide-white/10 bg-white/[0.04]">
                                 <div class="px-6 py-3">
-                                    <p class="font-mono text-xs uppercase tracking-widest text-[#888]">Changes constantly</p>
+                                    <p class="font-mono text-xs uppercase tracking-widest text-white/35">Changes constantly</p>
                                 </div>
                                 <div class="px-6 py-3">
-                                    <p class="font-mono text-xs uppercase tracking-widest text-[#0d0e10]">Invariant</p>
+                                    <p class="font-mono text-xs uppercase tracking-widest text-white">Invariant</p>
                                 </div>
                             </div>
                             {[
@@ -441,28 +891,28 @@ import Footer from "../components/Footer.astro";
                                 { left: "Agent runtimes & frameworks", right: "The boundary every agent must cross" },
                                 { left: "LLM pricing & context windows", right: "Your compliance obligations" },
                                 { left: "Which vendor wins the model race", right: "Your liability for what agents do" },
-                                { left: "Provider infrastructure", right: "KYDE — at the invariant chokepoint" },
+                                { left: "Provider infrastructure", right: "KYDE, at the invariant chokepoint" },
                             ].map(({ left, right }) => (
-                                <div class="grid grid-cols-2 divide-x divide-dotted divide-[#0d0e10]/15">
+                                <div class="grid grid-cols-2 divide-x divide-white/10">
                                     <div class="px-6 py-4">
-                                        <p class="text-sm text-[#aaa] line-through">{left}</p>
+                                        <p class="text-sm text-white/25 line-through">{left}</p>
                                     </div>
                                     <div class="px-6 py-4">
-                                        <p class="text-sm text-[#0d0e10] font-medium">{right}</p>
+                                        <p class="text-sm text-white font-medium">{right}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        <div class="grid gap-3 grid-cols-3">
+                        <div class="grid gap-px grid-cols-3">
                             {[
-                                { n: "01", label: "Model intelligence migrates to vendor clouds" },
-                                { n: "02", label: "The boundary stays with your infrastructure" },
-                                { n: "03", label: "Our position strengthens with every migration" },
+                                { n: "5.1", label: "Model intelligence migrates to vendor clouds" },
+                                { n: "5.2", label: "The boundary stays with your infrastructure" },
+                                { n: "5.3", label: "Our position strengthens with every migration" },
                             ].map(({ n, label }) => (
-                                <div class="border border-dotted border-[#0d0e10]/15 bg-white p-4">
-                                    <p class="font-mono text-[10px] text-[#888] mb-2">{n}</p>
-                                    <p class="text-xs text-[#333] leading-relaxed">{label}</p>
+                                <div class="border border-white/10 bg-white/[0.02] p-4">
+                                    <p class="font-mono text-[10px] text-[#FEC106] mb-2">{n}</p>
+                                    <p class="text-xs text-white/55 leading-relaxed">{label}</p>
                                 </div>
                             ))}
                         </div>
@@ -472,101 +922,328 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ THREE GUARANTEES ══════════ -->
-        <section class="relative bg-[#1e2228] py-24 md:py-32">
-            <div class="max-w-7xl mx-auto px-6">
+        <!-- ══════════ GLITCH WALL DIVIDER ══════════ -->
+        <section class="relative border-b border-white/10 h-[280px] md:h-[380px] overflow-hidden" aria-hidden="true">
+            <canvas id="glitch-wall" class="absolute inset-0 w-full h-full"></canvas>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-transparent to-[#050505]/60"></div>
+            <!-- grid rails continue through the divider -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="max-w-7xl mx-auto h-full md:border-x md:border-white/10"></div>
+            </div>
+        </section>
+        <script>
+            // Diagonal data-wall divider, flowing dash field, green-dominant
+            const gw = document.getElementById("glitch-wall") as HTMLCanvasElement | null;
+            const gwReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (gw) {
+                const gctx = gw.getContext("2d")!;
+                let gW = 0, gH = 0;
+
+                function ghash(n: number): number {
+                    let t = (n + 0x6d2b79f5) | 0;
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                }
+
+                function gResize() {
+                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    gW = gw.clientWidth;
+                    gH = gw.clientHeight;
+                    gw.width = gW * dpr;
+                    gw.height = gH * dpr;
+                    gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                }
+
+                const CX = 6, CY = 8; // cell size
+                function gDraw(t: number) {
+                    gctx.clearRect(0, 0, gW, gH);
+                    const flow = t / 40;
+                    for (let y = 0; y < gH; y += CY) {
+                        const row = Math.floor(y / CY);
+                        const rowSpeed = 0.4 + ghash(row * 71) * 1.2;
+                        for (let x = 0; x < gW; x += CX) {
+                            const col = Math.floor((x + flow * rowSpeed * 10) / CX);
+                            // diagonal density band, sweeping slowly
+                            const diag = (x / gW) * 0.6 + (1 - y / gH) * 0.4;
+                            const bandC = 0.5 + 0.28 * Math.sin(t / 9000);
+                            const band = Math.max(0, 1 - Math.abs(diag - bandC) * 3.2);
+                            const r = ghash(col * 733 + row * 131);
+                            if (r > band * 0.75 + 0.04) continue;
+                            const r2 = ghash(col * 31 + row * 977);
+                            const flick = 0.4 + 0.6 * ghash(col + row + Math.floor(t / 240));
+                            const a = (0.06 + r2 * 0.5) * band * flick;
+                            gctx.fillStyle = r2 > 0.55
+                                ? `rgba(61,220,132,${a})`
+                                : `rgba(242,242,242,${a * 0.7})`;
+                            gctx.fillRect(x, y, 1.5 + r2 * 2.5, 1.5);
+                        }
+                    }
+                }
+
+                gResize();
+                window.addEventListener("resize", gResize);
+
+                if (gwReduced) {
+                    gDraw(4000);
+                } else {
+                    let visible = false;
+                    const gio = new IntersectionObserver((es) => {
+                        visible = es[0].isIntersecting;
+                    });
+                    gio.observe(gw);
+                    const gLoop = (t: number) => {
+                        if (visible) gDraw(t);
+                        requestAnimationFrame(gLoop);
+                    };
+                    requestAnimationFrame(gLoop);
+                }
+            }
+        </script>
+
+        <!-- ══════════ 06 THREE GUARANTEES ══════════ -->
+        <section class="relative border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
 
                 <div class="mb-16">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-white/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-white/10 text-white/70 px-1.5 py-0.5">↳ Prevent · Prove · Rate</span>
+                    <div class="mb-8 flex items-end justify-between border-b border-white/10 pb-3">
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Prevent · Prove · Rate</span>
                     </div>
-                    <div class="h-px w-full bg-white/10 mb-8"></div>
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                        Three layers. One trust infrastructure.
+                        <span class="text-white">Three layers.</span> <span class="text-white/40">One trust infrastructure.</span>
                     </h2>
                     <p class="text-white/50 leading-relaxed max-w-2xl">
                         Not a roadmap. A complete infrastructure layer - deployed in minutes, covering every agent from day one.
                     </p>
                 </div>
 
-                <div class="grid xl:grid-cols-3 gap-0">
-                    <div class="py-10 xl:py-0 xl:pr-12 border-b xl:border-b-0 xl:border-r border-white/10">
-                        <p class="font-mono text-xs text-white/25 mb-5">01</p>
-                        <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">PREVENT</p>
-                        <h3 class="text-base font-bold text-white mb-3">Before the damage.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">Deterministic guardrails at the boundary. Deny-by-default — the catastrophic action can't execute if it never reaches the system. The buy reason today: NIS-2 board liability, DORA.</p>
+                <div class="grid lg:grid-cols-[1fr_1.1fr] gap-0 border border-white/10 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
+
+                    <!-- FIG.5 · the V·P·R loop (vertices float, edges stay connected) -->
+                    <div class="relative p-10 md:p-14 flex items-center justify-center min-h-[380px]">
+                        <span class="fig-label absolute top-5 left-6">FIG.5</span>
+                        <svg id="vpr-fig" viewBox="-45 5 610 545" class="w-full max-w-lg h-auto" aria-hidden="true">
+                            <defs>
+                                <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
+                                    <circle cx="2" cy="2" r="1.1" fill="rgba(242,242,242,0.3)" />
+                                </pattern>
+                            </defs>
+
+                            <!-- tick pulse from the center -->
+                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="#FEC106" stroke-width="1" opacity="0" />
+
+                            <!-- outer cycle -->
+                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="rgba(242,242,242,0.55)" stroke-width="1" />
+
+                            <!-- direction arrows on the edges -->
+                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.85)" transform="translate(355,235) rotate(60.6)" />
+                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.85)" transform="translate(260,390) rotate(180)" />
+                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.85)" transform="translate(165,235) rotate(-60.6)" />
+
+                            <!-- inner dot-grid triangle -->
+                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="rgba(242,242,242,0.45)" stroke-width="1" />
+                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
+
+                            <!-- vertex nodes + labels -->
+                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="#F2F2F2" />
+                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
+
+                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
+                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
+
+                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
+                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
+                        </svg>
                     </div>
-                    <div class="py-10 xl:py-0 xl:px-12 border-b xl:border-b-0 xl:border-r border-white/10">
-                        <p class="font-mono text-xs text-white/25 mb-5">02</p>
-                        <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">PROVE</p>
-                        <h3 class="text-base font-bold text-white mb-3">After the action.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">Cryptographically signed, vendor-independent audit trail of every agent action. The suspect can't write the police report — which is why our record exists outside every provider's infrastructure.</p>
+
+                    <script>
+                        // FIG.5 · the cycle ticks. The triangle is rigid; every
+                        // ~10s it rotates one step like a slow clock, and a
+                        // pulse breathes out of the center as it moves.
+                        const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const fig = document.getElementById("vpr-fig");
+
+                        if (fig && !vprReduced) {
+                            const $ = (id: string) => document.getElementById(id)!;
+                            const outer = $("vpr-outer");
+                            const inner = $("vpr-inner");
+                            const center = $("vpr-center");
+                            const pulse = $("vpr-pulse");
+                            const nodes = [0, 1, 2].map((i) => $(`vpr-node-${i}`));
+                            const labels = [0, 1, 2].map((i) => $(`vpr-label-${i}`));
+                            const arrows = [0, 1, 2].map((i) => $(`vpr-arrow-${i}`));
+
+                            const anchors = [
+                                { x: 260, y: 70 },
+                                { x: 440, y: 390 },
+                                { x: 80, y: 390 },
+                            ];
+                            const C = {
+                                x: (anchors[0].x + anchors[1].x + anchors[2].x) / 3,
+                                y: (anchors[0].y + anchors[1].y + anchors[2].y) / 3,
+                            };
+                            const base = anchors.map((a) => ({
+                                r: Math.hypot(a.x - C.x, a.y - C.y),
+                                ang: Math.atan2(a.y - C.y, a.x - C.x),
+                            }));
+
+                            const TICK_EVERY = 4000;  // ms between ticks
+                            const TICK_DUR = 1100;    // rotation ease duration
+                            const PULSE_DUR = 1800;   // center pulse duration
+                            const STEP = Math.PI / 6; // 30° per tick, like minute marks
+
+                            let angleFrom = 0, angleTo = 0, angle = 0;
+                            let tickStart = -1e9;
+                            let nextTick = performance.now() + 2500;
+
+                            const easeInOut = (x: number) =>
+                                x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+
+                            let visible = true;
+                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
+
+                            center.setAttribute("x", String(C.x));
+                            center.setAttribute("y", String(C.y + 4));
+                            pulse.setAttribute("cx", String(C.x));
+                            pulse.setAttribute("cy", String(C.y));
+
+                            function frame(t: number) {
+                                if (visible) {
+                                    if (t >= nextTick) {
+                                        angleFrom = angleTo;
+                                        angleTo += STEP;
+                                        tickStart = t;
+                                        nextTick = t + TICK_EVERY;
+                                    }
+
+                                    const rp = Math.min((t - tickStart) / TICK_DUR, 1);
+                                    angle = angleFrom + (angleTo - angleFrom) * easeInOut(rp);
+
+                                    // pulse breathing out of the center during the tick
+                                    const pp = (t - tickStart) / PULSE_DUR;
+                                    if (pp >= 0 && pp <= 1) {
+                                        pulse.setAttribute("r", String(16 + pp * 150));
+                                        pulse.setAttribute("opacity", String((1 - pp) * 0.55));
+                                    } else {
+                                        pulse.setAttribute("opacity", "0");
+                                    }
+                                    const breath = pp >= 0 && pp <= 1 ? Math.sin(pp * Math.PI) * 0.05 : 0;
+
+                                    const v = base.map((b) => ({
+                                        x: C.x + b.r * Math.cos(b.ang + angle),
+                                        y: C.y + b.r * Math.sin(b.ang + angle),
+                                    }));
+
+                                    outer.setAttribute("d", `M${v[0].x} ${v[0].y} L${v[1].x} ${v[1].y} L${v[2].x} ${v[2].y} Z`);
+
+                                    const s = 0.52 + breath;
+                                    const inV = v.map((p) => ({ x: C.x + (p.x - C.x) * s, y: C.y + (p.y - C.y) * s }));
+                                    inner.setAttribute("d", `M${inV[0].x} ${inV[0].y} L${inV[1].x} ${inV[1].y} L${inV[2].x} ${inV[2].y} Z`);
+
+                                    for (let i = 0; i < 3; i++) {
+                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
+                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
+
+                                        // labels sit outward from the center, always upright
+                                        const dx = v[i].x - C.x, dy = v[i].y - C.y;
+                                        const d = Math.hypot(dx, dy);
+                                        labels[i].setAttribute("x", String(v[i].x + (dx / d) * 30));
+                                        labels[i].setAttribute("y", String(v[i].y + (dy / d) * 30 + 4));
+
+                                        const a = v[i], b = v[(i + 1) % 3];
+                                        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+                                        const ang = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
+                                        arrows[i].setAttribute("transform", `translate(${mx},${my}) rotate(${ang})`);
+                                    }
+                                }
+                                requestAnimationFrame(frame);
+                            }
+                            requestAnimationFrame(frame);
+                        }
+                    </script>
+
+                    <!-- the three layers -->
+                    <div class="divide-y divide-white/10">
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-baseline gap-4 mb-4">
+                                <p class="font-mono text-xs text-[#FEC106]">01</p>
+                                <p class="text-3xl md:text-4xl font-bold text-white tracking-tighter">PREVENT</p>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-3">Before the damage.</h3>
+                            <p class="text-sm leading-relaxed text-white/50">Deterministic guardrails at the boundary. Deny-by-default: the catastrophic action can't execute if it never reaches the system. The buy reason today: NIS-2 board liability, DORA.</p>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-baseline gap-4 mb-4">
+                                <p class="font-mono text-xs text-[#FEC106]">02</p>
+                                <p class="text-3xl md:text-4xl font-bold text-white tracking-tighter">PROVE</p>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-3">After the action.</h3>
+                            <p class="text-sm leading-relaxed text-white/50">Cryptographically signed, vendor-independent audit trail of every agent action. The suspect can't write the police report, which is why our record exists outside every provider's infrastructure.</p>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-baseline gap-4 mb-4">
+                                <p class="font-mono text-xs text-[#FEC106]">03</p>
+                                <p class="text-3xl md:text-4xl font-bold text-white tracking-tighter">RATE</p>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-3">Across the network.</h3>
+                            <p class="text-sm leading-relaxed text-white/50">The KYDE Trust Score&trade;, behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. <a href="/trust-score" class="text-[#FFB84D] hover:text-white transition-colors">Trust Score →</a></p>
+                        </div>
                     </div>
-                    <div class="py-10 xl:py-0 xl:pl-12">
-                        <p class="font-mono text-xs text-white/25 mb-5">03</p>
-                        <p class="text-6xl md:text-7xl font-bold text-white tracking-tighter mb-8">RATE</p>
-                        <h3 class="text-base font-bold text-white mb-3">Across the network.</h3>
-                        <p class="text-sm leading-relaxed text-white/50">The KYDE Trust Score&trade; — behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. <a href="/trust-score" class="text-[#fcb830] hover:text-white transition-colors">Trust Score →</a></p>
-                    </div>
+
                 </div>
 
-                <div class="mt-16 pt-12 border-t border-dotted border-white/10">
-                    <a href="/platform" class="inline-flex items-center gap-2 border border-dotted border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all">
+                <div class="mt-16">
+                    <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all">
                         See full platform →
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ LEGAL REALITY ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
+        <!-- ══════════ 07 LEGAL REALITY ══════════ -->
+        <section class="relative border-b border-white/10">
+            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ The Legal Reality</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · The Legal Reality</span>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start mb-16">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-6">
-                            Your Agents Act in Your Name. Courts Know It.
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
+                            <span class="text-white">Your Agents Act in Your Name.</span> <span class="text-white/40">Courts Know It.</span>
                         </h2>
-                        <p class="text-[#333] leading-relaxed mb-4">
-                            Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable — not the vendor, not the model.
+                        <p class="text-white/55 leading-relaxed mb-4">
+                            Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable, not the vendor, not the model.
                         </p>
-                        <p class="text-[#333] leading-relaxed mb-6">
-                            Your AI agents negotiate, transact, and make commitments in your name — right now. Regulators, auditors, and courts will hold you accountable for what they do.
+                        <p class="text-white/55 leading-relaxed mb-6">
+                            Your AI agents negotiate, transact, and make commitments in your name, right now. Regulators, auditors, and courts will hold you accountable for what they do.
                         </p>
-                        <div class="border-t border-b border-dotted border-[#0d0e10]/20 p-6 mb-6">
-                            <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Moffatt v. Air Canada</p>
-                            <p class="font-mono text-sm text-[#333] leading-relaxed border-l-2 border-dotted border-[#0d0e10]/25 pl-4">
+                        <div class="border border-white/10 bg-white/[0.02] p-6 mb-6">
+                            <p class="font-mono text-xs uppercase tracking-widest text-white/50 mb-3">Moffatt v. Air Canada</p>
+                            <p class="font-mono text-sm text-white/70 leading-relaxed border-l-2 border-white/25 pl-4">
                                 "Air Canada cannot avoid responsibility for information provided by its agent."
                             </p>
                         </div>
-                        <p class="text-sm text-[#666] leading-relaxed">
+                        <p class="text-sm text-white/40 leading-relaxed">
                             The question isn't whether you need an evidence trail. It's whether yours would survive scrutiny.
                         </p>
                     </div>
 
-                    <div class="grid gap-4 grid-cols-2">
+                    <div class="grid gap-px grid-cols-2">
                         {[
                             { name: "NIS-2",     desc: "~160,000 companies in DE/EU. Critical + important sectors.", deadline: "In force · DE: NIS2UmsuCG", urgent: true },
                             { name: "DORA",      desc: "Financial entity resilience requirements.",  deadline: "In force: Jan 2025",  urgent: false },
-                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2026/2027", urgent: false },
+                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2027", urgent: false },
                             { name: "GDPR 35",   desc: "Automated processing DPIA obligations.",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
-                            <div class={`border rounded-[14px] p-5 ${urgent ? "border-[#c00000]/30 bg-[#fff8f8]" : "border-[#dae4e5] bg-[#dae4e5]/20"}`}>
+                            <div class={`border p-5 ${urgent ? "border-[#FF5C5C]/40 bg-[#FF5C5C]/5" : "border-white/10 bg-white/[0.02]"}`}>
                                 <div class="flex items-start justify-between mb-2">
-                                    <h3 class="font-mono text-sm font-bold text-[#0d0e10]">{name}</h3>
-                                    {urgent && <span class="font-mono text-[9px] border border-dotted border-[#c00000]/50 px-1.5 py-0.5 text-[#c00000]">Urgent</span>}
+                                    <h3 class="font-mono text-sm font-bold text-white">{name}</h3>
+                                    {urgent && <span class="font-mono text-[9px] border border-[#FF5C5C]/50 px-1.5 py-0.5 text-[#FF5C5C]">Urgent</span>}
                                 </div>
-                                <p class="text-xs text-[#555] mb-2">{desc}</p>
-                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#0a7c4e]' : 'text-[#333]'}`}>{deadline}</p>
+                                <p class="text-xs text-white/45 mb-2">{desc}</p>
+                                <p class={`font-mono text-[10px] ${deadline.includes('In force') ? 'text-[#3DDC84]' : 'text-white/50'}`}>{deadline}</p>
                             </div>
                         ))}
                     </div>
@@ -574,36 +1251,33 @@ import Footer from "../components/Footer.astro";
             </div>
         </section>
 
-        <!-- ══════════ DESIGN PARTNERS ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
+        <!-- ══════════ 08 DESIGN PARTNERS ══════════ -->
+        <section class="relative border-b border-white/10 overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, rgba(242,242,242,0.07) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
+            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
-                <div class="mb-12">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="h-1.5 w-1.5 rounded-full bg-[#0d0e10]/20 shrink-0"></span>
-                        <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Early Access Program</span>
-                    </div>
-                    <div class="h-px w-full bg-[#e8e9eb]"></div>
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">08 · Early Access Program</span>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-4">
-                            Built With Regulated Industries — Not For Them.
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            Built With Regulated Industries, Not For Them.
                         </h2>
-                        <p class="text-[#333] leading-relaxed mb-8">
+                        <p class="text-white/55 leading-relaxed mb-8">
                             Active design partnerships across Finance, Insurance, Healthcare, Public Sector, and Critical Infrastructure in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
                         </p>
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
                         >
                             Apply for Design Partnership →
                         </button>
                     </div>
                     <div class="flex flex-wrap gap-2 content-start">
                         {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
-                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-[#0d0e10]/65 border border-dotted border-[#0d0e10]/20 px-3 py-1.5">{industry}</span>
+                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50 border border-white/15 px-3 py-1.5">{industry}</span>
                         ))}
                     </div>
                 </div>
@@ -611,27 +1285,39 @@ import Footer from "../components/Footer.astro";
         </section>
 
         <!-- ══════════ CLOSING CTA ══════════ -->
-        <section class="relative border-t border-dotted border-[#0d0e10]/20 py-24 md:py-32">
-            <div class="relative max-w-7xl mx-auto px-6">
+        <section class="relative overflow-hidden">
+            <!-- dot-sphere ornament -->
+            <div class="absolute -right-48 md:-right-24 top-1/2 -translate-y-1/2 w-[520px] md:w-[640px] pointer-events-none" aria-hidden="true">
+                <svg viewBox="0 0 640 640" class="w-full h-auto">
+                    {sphereDots.map(({ x, y, a }) => (
+                        <circle cx={x} cy={y} r="1.5" fill={`rgba(242,242,242,${a})`} />
+                    ))}
+                    <circle cx="424" cy="238" r="2.5" fill="#F2F2F2" />
+                    <path d="M424 238 L500 200" stroke="rgba(242,242,242,0.3)" stroke-width="1" fill="none" />
+                    <text x="506" y="196" text-anchor="start" fill="rgba(242,242,242,0.45)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">gateway.kyde.com</text>
+                    <text x="506" y="212" text-anchor="start" fill="rgba(242,242,242,0.25)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">52.52° N · 13.40° E</text>
+                </svg>
+            </div>
+            <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5 w-fit mx-auto">↳ Get started</p>
-                    <div class="mb-12 h-px bg-[#0d0e10]/15"></div>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-12">
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Get started</p>
+                    <div class="mb-12 h-px bg-white/10"></div>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-12">
                         Your agents are a workforce.<br />Your workforce is critical infrastructure.<br />Govern accordingly.
                     </h2>
-                    <!-- Sandbox-CTA temporär ausgeblendet bis Distribution public ist (SBX-001) -->
+                    <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <!--
                         <a
                             href="/sandbox"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
                         >
                             Deploy Sandbox →
                         </a>
                         -->
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0d0e10] rounded-full px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
                         >
                             Talk to Us →
                         </button>

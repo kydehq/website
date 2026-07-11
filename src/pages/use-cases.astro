@@ -12,21 +12,21 @@ const cases = [
     pillars: [
       {
         label: 'PREVENT',
-        q: 'What is blocked — and at what layer?',
-        text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by KYDE in under 100ms — before it reaches the exchange. Not rate-limited. Blocked.',
+        q: 'What is blocked, and at what layer?',
+        text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by KYDE in under 100ms, before it reaches the exchange. Not rate-limited. Blocked.',
       },
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'Every autonomous trade is Ed25519-signed at the point of capture as a 6D fingerprint — who, what, when, where, why, how. Tamper-proof audit trail stored outside the agent runtime. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof — not an editable server log.',
+        text: 'Every autonomous trade is Ed25519-signed at the point of capture as a 6D fingerprint, who, what, when, where, why, how. Tamper-proof audit trail stored outside the agent runtime. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof, not an editable server log.',
       },
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. Continuous health scoring flags if the agent deviates from established trading patterns or expands its request scope — catching a compromised agent before it causes damage.',
+        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. Continuous health scoring flags if the agent deviates from established trading patterns or expands its request scope, catching a compromised agent before it causes damage.',
       },
     ],
-    regs: ['DORA — Digital Operational Resilience Act', 'EU AI Act — Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35 — DPIA'],
+    regs: ['DORA, Digital Operational Resilience Act', 'EU AI Act, Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35, DPIA'],
   },
   {
     n: '02',
@@ -36,21 +36,21 @@ const cases = [
     pillars: [
       {
         label: 'PREVENT',
-        q: 'What is blocked — and at what layer?',
-        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity scoped exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms — before it reaches the supplier API.',
+        q: 'What is blocked, and at what layer?',
+        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity scoped exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms, before it reaches the supplier API.',
       },
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained as a 6D fingerprint. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof — not a filtered dashboard export.',
+        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained as a 6D fingerprint. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof, not a filtered dashboard export.',
       },
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. Continuous health scoring flags if the agent deviates from normal order volumes or accesses suppliers outside its established scope — catching supply chain manipulation before it executes.',
+        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. Continuous health scoring flags if the agent deviates from normal order volumes or accesses suppliers outside its established scope, catching supply chain manipulation before it executes.',
       },
     ],
-    regs: ['EU AI Act — High-Risk AI for automated procurement', 'NIS-2 — Critical supply chain infrastructure', 'GDPR Art. 35 — DPIA for large-scale processing'],
+    regs: ['EU AI Act, High-Risk AI for automated procurement', 'NIS-2, Critical supply chain infrastructure', 'GDPR Art. 35, DPIA for large-scale processing'],
   },
   {
     n: '03',
@@ -60,45 +60,45 @@ const cases = [
     pillars: [
       {
         label: 'PREVENT',
-        q: 'What is blocked — and at what layer?',
-        text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy — the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Behavioral Firewall on every API call.',
+        q: 'What is blocked, and at what layer?',
+        text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy, the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Behavioral Firewall on every API call.',
       },
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Behavioral Firewall guarantees that hospitals can prove — in any audit — exactly which agent processed which patient data, when, and on what basis. Every entry signed as a 6D fingerprint at the point of capture. Unalterable.',
+        text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Behavioral Firewall guarantees that hospitals can prove, in any audit, exactly which agent processed which patient data, when, and on what basis. Every entry signed as a 6D fingerprint at the point of capture. Unalterable.',
       },
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. Continuous health scoring flags if the billing agent accesses clinical records outside its scope or submits atypical claim volumes — catching data leakage before it escalates.',
+        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. Continuous health scoring flags if the billing agent accesses clinical records outside its scope or submits atypical claim volumes, catching data leakage before it escalates.',
       },
     ],
-    regs: ['EU AI Act — Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9 — Special category health data', 'MDR / IVDR — AI-assisted diagnostics', 'NIS-2 — Critical health infrastructure'],
+    regs: ['EU AI Act, Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9, Special category health data', 'MDR / IVDR, AI-assisted diagnostics', 'NIS-2, Critical health infrastructure'],
   },
   {
     n: '04',
     sector: 'Insurance & Claims Automation',
     tag: 'EU AI Act · Solvency II · GDPR',
-    scenario: 'A claims agent evaluates uploaded photos of water damage and scopes payouts to policyholders — autonomously.',
+    scenario: 'A claims agent evaluates uploaded photos of water damage and scopes payouts to policyholders, autonomously.',
     pillars: [
       {
         label: 'PREVENT',
-        q: 'What is blocked — and at what layer?',
-        text: 'Clear role boundaries enforced in hardware — not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop — not a configurable soft limit.',
+        q: 'What is blocked, and at what layer?',
+        text: 'Clear role boundaries enforced in hardware, not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop, not a configurable soft limit.',
       },
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'When a fraud ring floods automated agents with fake images, the Behavioral Firewall proves immutably — on what data basis, at what timestamp — the agent approved each payment. Every decision signed as a 6D fingerprint at the point of capture. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
+        text: 'When a fraud ring floods automated agents with fake images, the Behavioral Firewall proves immutably, on what data basis, at what timestamp, the agent approved each payment. Every decision signed as a 6D fingerprint at the point of capture. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
       },
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. Continuous health scoring flags if the claims agent starts approving at abnormal rates or exhibits patterns consistent with adversarial manipulation — before further damage occurs.',
+        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. Continuous health scoring flags if the claims agent starts approving at abnormal rates or exhibits patterns consistent with adversarial manipulation, before further damage occurs.',
       },
     ],
-    regs: ['EU AI Act — High-Risk AI Annex III §5 Insurance', 'Solvency II — Governance and risk management', 'GDPR Art. 22 — Automated decision-making rights', 'NIS-2 — Operational resilience'],
+    regs: ['EU AI Act, High-Risk AI Annex III §5 Insurance', 'Solvency II, Governance and risk management', 'GDPR Art. 22, Automated decision-making rights', 'NIS-2, Operational resilience'],
   },
   {
     n: '05',
@@ -108,62 +108,58 @@ const cases = [
     pillars: [
       {
         label: 'PREVENT',
-        q: 'What is blocked — and at what layer?',
-        text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment — API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
+        q: 'What is blocked, and at what layer?',
+        text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment, API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
       },
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'When an outage occurs, the Bundesnetzagentur demands a provenance-grade record. Vendor cloud logs do not qualify. For KRITIS-grade deployments, the Behavioral Firewall provides military-grade hardware isolation (TPM/HSM) — signing keys never exposed to the host OS. What regulators receive is a cryptographic ledger with unbreakable chain of custody.',
+        text: 'When an outage occurs, the Bundesnetzagentur demands a provenance-grade record. Vendor cloud logs do not qualify. For KRITIS-grade deployments, the Behavioral Firewall provides military-grade hardware isolation (TPM/HSM), signing keys never exposed to the host OS. What regulators receive is a cryptographic ledger with unbreakable chain of custody.',
       },
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Continuous health scoring flags if the dispatch agent issues commands outside its assigned grid segments or deviates from established load balancing patterns — catching manipulation before it impacts grid stability.',
+        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Continuous health scoring flags if the dispatch agent issues commands outside its assigned grid segments or deviates from established load balancing patterns, catching manipulation before it impacts grid stability.',
       },
     ],
-    regs: ['NIS-2 — Network and Information Security (in force December 2025)', 'EU AI Act — High-Risk AI for critical infrastructure', 'KRITIS — German critical infrastructure protection', 'Cyber Resilience Act'],
+    regs: ['NIS-2, Network and Information Security (in force December 2025)', 'EU AI Act, High-Risk AI for critical infrastructure', 'KRITIS, German critical infrastructure protection', 'Cyber Resilience Act'],
   },
 ];
 ---
 
 <Base
-  title="Use Cases — KYDE"
-  description="The Behavioral Firewall. Infrastructure-grade governance for any organization running AI agents in production — regardless of sector, provider, or use case."
+  title="Use Cases, KYDE"
+  description="The Behavioral Firewall. Infrastructure-grade governance for any organization running AI agents in production, regardless of sector, provider, or use case."
 >
   <Navbar />
 
   <main>
 
     <!-- ══════════ HERO ══════════ -->
-    <section class="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-36">
+    <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-24 md:pt-48 md:pb-36 md:border-x md:border-[#1F1F1F]">
 
         <div class="mb-10">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="h-1.5 w-1.5 rounded-full bg-zinc-500 shrink-0"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Use Cases</span>
-          </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
+          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">01 · Use Cases</span></div>
         </div>
 
-        <h1 class="hero-h1 max-w-5xl text-5xl text-[#0d0e10] uppercase tracking-tight md:text-6xl lg:text-7xl">
+        <h1 class="hero-h1 max-w-5xl text-5xl text-[#F2F2F2] uppercase tracking-tight md:text-6xl lg:text-7xl">
           Every regulated industry deploys AI agents.<br />
           <span class="gradient-text">None of them are optional to govern.</span>
         </h1>
 
-        <div class="mt-16 border-t border-dotted border-[#0d0e10]/25 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
+        <div class="mt-16 border-t border-[#2E2E2E] pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
           <div>
-            <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0d0e10]">Coverage</p>
-            <p class="mt-2 font-mono text-xs text-[#666]">[ALL SECTORS]</p>
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#F2F2F2]">Coverage</p>
+            <p class="mt-2 font-mono text-xs text-[#A8A8A8]">[ALL SECTORS]</p>
           </div>
           <div class="space-y-6">
-            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
-              The Behavioral Firewall provides infrastructure-grade governance for any organization running AI agents in production — regardless of sector, provider, or use case.
+            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#A8A8A8]">
+              The Behavioral Firewall provides infrastructure-grade governance for any organization running AI agents in production, regardless of sector, provider, or use case.
             </p>
-            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#333]">
-              The <span class="font-mono text-[#333]">EU AI Act</span>, <span class="font-mono text-[#333]">NIS-2</span>, <span class="font-mono text-[#333]">DORA</span>, and <span class="font-mono text-[#333]">GDPR</span> don't care which LLM vendor you chose. They care whether you can prove what your agents did, explain why, and demonstrate that the record can't be tampered with.
+            <p class="text-sm uppercase tracking-wide leading-relaxed text-[#A8A8A8]">
+              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span>, <span class="font-mono text-[#A8A8A8]">NIS-2</span>, <span class="font-mono text-[#A8A8A8]">DORA</span>, and <span class="font-mono text-[#A8A8A8]">GDPR</span> don't care which LLM vendor you chose. They care whether you can prove what your agents did, explain why, and demonstrate that the record can't be tampered with.
             </p>
           </div>
         </div>
@@ -172,20 +168,20 @@ const cases = [
     </section>
 
     <!-- ══════════ USE CASES ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/25 py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-6">
+    <section class="border-t border-[#2E2E2E]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
 
         <!-- Toggle -->
-        <div class="flex gap-1 mb-10 border-b border-dotted border-[#0d0e10]/25 p-0 pb-0 w-fit gap-0">
+        <div class="flex gap-1 mb-10 border-b border-[#2E2E2E] p-0 pb-0 w-fit gap-0">
           <button
             id="btn-industry"
             onclick="showTab('industry')"
-            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all bg-[#0d0e10] text-[#f1f3f5]"
+            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all bg-white text-[#0A0A0A]"
           >By Industry</button>
           <button
             id="btn-role"
             onclick="showTab('role')"
-            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-[#333] hover:text-[#0d0e10]"
+            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-[#A8A8A8] hover:text-[#F2F2F2]"
           >By Role</button>
         </div>
 
@@ -196,28 +192,28 @@ const cases = [
 
             <!-- Header -->
             <div class="flex flex-col sm:flex-row sm:items-start gap-4 px-6 sm:px-8 py-6">
-              <span class="font-mono text-2xl font-bold text-[#333] shrink-0">{n}</span>
+              <span class="font-mono text-2xl font-bold text-[#A8A8A8] shrink-0">{n}</span>
               <div class="flex-1">
-                <h2 class="text-xl font-bold text-[#0d0e10] mb-2">{sector}</h2>
-                <p class="text-sm text-[#333] leading-relaxed">{scenario}</p>
+                <h2 class="text-xl font-bold text-[#F2F2F2] mb-2">{sector}</h2>
+                <p class="text-sm text-[#A8A8A8] leading-relaxed">{scenario}</p>
               </div>
-              <span class="shrink-0 inline-flex items-center border border-dotted border-[#0d0e10]/20 bg-transparent px-3 py-1 text-xs font-mono text-[#333] self-start">
+              <span class="shrink-0 inline-flex items-center border border-[#1F1F1F] bg-transparent px-3 py-1 text-xs font-mono text-[#A8A8A8] self-start">
                 {tag}
               </span>
             </div>
 
             <!-- 3 Guarantees -->
-            <div class="divide-y divide-dotted divide-[#0d0e10]/15">
+            <div class="divide-y divide-[#1F1F1F]">
               {pillars.map(({ label, q, text }) => (
                 <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
                   <div class="shrink-0">
-                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 mb-1 ${label === 'PREVENT' ? 'text-[#c00000] bg-[#c00000]/8' : label === 'RATE' ? 'text-[#0a7c4e] bg-[#0a7c4e]/8' : 'text-[#4472c4] bg-[#4472c4]/8'}`}>{label}</span>
+                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest mb-1 ${label === 'PREVENT' ? 'text-[#D77657]' : label === 'RATE' ? 'text-[#3DDC84]' : 'text-[#F2F2F2]/70'}`}>{label}</span>
                     {label === 'OBSERVE'
-                      ? <p class="font-mono text-xs mt-1 leading-relaxed"><span class="font-semibold text-[#0d0e10]">{q}</span></p>
-                      : <p class="font-mono text-xs text-[#555] mt-1 leading-relaxed">{q}</p>
+                      ? <p class="font-mono text-xs mt-1 leading-relaxed"><span class="font-semibold text-[#F2F2F2]">{q}</span></p>
+                      : <p class="font-mono text-xs text-[#A8A8A8] mt-1 leading-relaxed">{q}</p>
                     }
                   </div>
-                  <p class="text-sm leading-relaxed text-[#333]">{text}</p>
+                  <p class="text-sm leading-relaxed text-[#A8A8A8]">{text}</p>
                 </div>
               ))}
             </div>
@@ -225,7 +221,7 @@ const cases = [
             <!-- Regs -->
             <div class="px-6 sm:px-8 py-5 flex flex-wrap gap-2">
               {regs.map((r: string) => (
-                <span class="border border-dotted border-[#0d0e10]/15 px-3 py-1 text-xs font-mono text-[#333]">{r}</span>
+                <span class="border border-[#1F1F1F] px-3 py-1 text-xs font-mono text-[#A8A8A8]">{r}</span>
               ))}
             </div>
 
@@ -241,9 +237,9 @@ const cases = [
               label: "Chief Information Security Officer",
               quote: "Your vendor's log isn't an independent record.",
               bullets: [
-                "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure — is a vendor report. A compromised host can rewrite it silently. Kyde's records are cryptographically signed at the point of capture. Alter any entry — every subsequent link breaks.",
+                "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure, is a vendor report. A compromised host can rewrite it silently. Kyde's records are cryptographically signed at the point of capture. Alter any entry, every subsequent link breaks.",
                 "Your audit trail is yours. Not locked to a provider console, not dependent on vendor uptime, not subject to vendor retention policies.",
-                "Audit standing that satisfies regulators, courts, and your own InfoSec review — built before an incident, not assembled after one.",
+                "Audit standing that satisfies regulators, courts, and your own InfoSec review, built before an incident, not assembled after one.",
               ],
             },
             {
@@ -251,9 +247,9 @@ const cases = [
               label: "Chief Technology Officer",
               quote: "Your governance layer shouldn't depend on your LLM choice.",
               bullets: [
-                "One environment variable. No SDK dependency. No code changes. Full fleet coverage in minutes — your agents see no difference.",
+                "One environment variable. No SDK dependency. No code changes. Full fleet coverage in minutes, your agents see no difference.",
                 "Models change monthly. Add a local model for sensitive data, route cheap tasks to a cheaper provider, switch frontier models entirely. Governance follows automatically. No re-integration required.",
-                "No per-agent installation. No framework lock-in. Architecture that outlasts your current LLM stack — by design.",
+                "No per-agent installation. No framework lock-in. Architecture that outlasts your current LLM stack, by design.",
               ],
             },
             {
@@ -261,8 +257,8 @@ const cases = [
               label: "GC · DPO · CCO",
               quote: "One framework won't be enough. One evidence trail has to cover all of them.",
               bullets: [
-                "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35 — regulators don't coordinate their requirements around your roadmap. Kyde's tamper-evident trail satisfies all of them from day one.",
-                "Verifiable audit exports on demand — complete, machine-generated, cryptographically signed. Not a screenshot. Not a filtered vendor report.",
+                "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35, regulators don't coordinate their requirements around your roadmap. Kyde's tamper-evident trail satisfies all of them from day one.",
+                "Verifiable audit exports on demand, complete, machine-generated, cryptographically signed. Not a screenshot. Not a filtered vendor report.",
                 "Every challenged decision is reconstructable: what the agent was shown, what it decided, which sources it relied on. The record exists before the challenge arrives.",
               ],
             },
@@ -271,22 +267,22 @@ const cases = [
               label: "Chief Financial Officer · Operations",
               quote: "An agent with no budget ceiling is a liability with no ceiling.",
               bullets: [
-                "Hard token and cost limits per agent, per role, per day. Enforced before the call is made — not flagged after the bill arrives.",
+                "Hard token and cost limits per agent, per role, per day. Enforced before the call is made, not flagged after the bill arrives.",
                 "Governance shouldn't force you onto expensive frontier models for every task. Route classification and low-stakes workloads to cheap local models. Reserve frontier capacity for decisions that justify it.",
                 "Priority assignment means your production agents never queue behind an intern's research bot. Fleet efficiency is a governance decision.",
               ],
             },
           ].map(({ role, label, quote, bullets }) => (
             <div class="p-8">
-              <div class="mb-6 pb-6 border-b border-dotted border-[#0d0e10]/25">
-                <h2 class="font-mono text-2xl font-bold text-[#0d0e10]">{role}</h2>
-                <p class="mt-1 text-xs text-[#333] uppercase tracking-widest">{label}</p>
+              <div class="mb-6 pb-6 border-b border-[#2E2E2E]">
+                <h2 class="font-mono text-2xl font-bold text-[#F2F2F2]">{role}</h2>
+                <p class="mt-1 text-xs text-[#A8A8A8] uppercase tracking-widest">{label}</p>
               </div>
-              <p class="mb-6 font-mono text-sm text-[#333] border-l-2 border-dotted border-[#0d0e10]/20 pl-4 leading-relaxed">"{quote}"</p>
+              <p class="mb-6 font-mono text-sm text-[#A8A8A8] border-l-2 border-[#1F1F1F] pl-4 leading-relaxed">"{quote}"</p>
               <ul class="space-y-4">
                 {bullets.map((b: string) => (
-                  <li class="flex gap-4 text-sm leading-relaxed text-[#333]">
-                    <span class="font-mono text-[#333] shrink-0 mt-0.5">→</span>
+                  <li class="flex gap-4 text-sm leading-relaxed text-[#A8A8A8]">
+                    <span class="font-mono text-[#A8A8A8] shrink-0 mt-0.5">→</span>
                     <span>{b}</span>
                   </li>
                 ))}
@@ -307,37 +303,37 @@ const cases = [
         if (tab === 'industry') {
           industry?.classList.remove('hidden');
           role?.classList.add('hidden');
-          btnIndustry?.classList.add('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnIndustry?.classList.remove('text-[#333]');
-          btnRole?.classList.remove('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnRole?.classList.add('text-[#333]');
+          btnIndustry?.classList.add('bg-white', 'text-[#0A0A0A]');
+          btnIndustry?.classList.remove('text-[#A8A8A8]');
+          btnRole?.classList.remove('bg-white', 'text-[#0A0A0A]');
+          btnRole?.classList.add('text-[#A8A8A8]');
         } else {
           role?.classList.remove('hidden');
           industry?.classList.add('hidden');
-          btnRole?.classList.add('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnRole?.classList.remove('text-[#333]');
-          btnIndustry?.classList.remove('bg-[#0d0e10]', 'text-[#f1f3f5]');
-          btnIndustry?.classList.add('text-[#333]');
+          btnRole?.classList.add('bg-white', 'text-[#0A0A0A]');
+          btnRole?.classList.remove('text-[#A8A8A8]');
+          btnIndustry?.classList.remove('bg-white', 'text-[#0A0A0A]');
+          btnIndustry?.classList.add('text-[#A8A8A8]');
         }
       }
     </script>
 
     <!-- ══════════ CLOSING CTA ══════════ -->
-    <section class="py-24 md:py-32">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="border-b border-dotted border-[#0d0e10]/25 p-12 md:p-20">
+    <section class="">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-[#1F1F1F]">
+        <div class="border-b border-[#2E2E2E] p-12 md:p-20">
           <div class="max-w-3xl">
-            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] bg-[#dae4e5] text-[#0d0e10] px-1.5 py-0.5">↳ Get started</p>
-            <div class="mb-8 h-px bg-[#0d0e10]/40"></div>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#0d0e10] mb-4">
+            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Get started</p>
+            <div class="mb-8 h-px bg-[#0C0C0C]/40"></div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#F2F2F2] mb-4">
               Your industry. Your agents.<br />Your critical infrastructure.
             </h2>
-            <p class="text-lg text-[#333] mb-10">
+            <p class="text-lg text-[#A8A8A8] mb-10">
               The Behavioral Firewall works across every sector, every provider, every framework. Governance isn't the brake. It's what lets you accelerate.
             </p>
             <button
               onclick="openModal()"
-              class="inline-flex items-center gap-2 bg-[#0d0e10] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#f1f3f5] hover:bg-[#333] transition-all"
+              class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
             >
               Talk to Us →
             </button>

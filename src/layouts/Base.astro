@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import "@fontsource-variable/montserrat";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
 import DemoModal from "../components/DemoModal.astro";
 import CookieBanner from "../components/CookieBanner.astro";
 
@@ -14,7 +15,7 @@ interface Props {
 const {
     title = "KYDE — AI Agent Governance Plane",
     description = "Cryptographic identity, roles, and tamper-evident audit for every AI agent. EU AI Act · NIS-2 · DORA · GDPR — audit-ready.",
-    image = "/stage-poster.jpg",
+    image = "/og-image.png",
     noindex = false,
 } = Astro.props;
 
@@ -27,6 +28,8 @@ const ogImage = new URL(image, Astro.site).href;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#050505" />
         <meta name="description" content={description} />
         <title>{title}</title>
         {noindex ? (
@@ -67,9 +70,32 @@ const ogImage = new URL(image, Astro.site).href;
             plausible.init()
         </script>
     </head>
-    <body class="min-h-screen font-[Montserrat,sans-serif]">
+    <body class="min-h-screen">
         <DemoModal />
         <slot />
         <CookieBanner />
+        <script>
+            // Scroll reveal (design doc §6) — staggered, once, JS-progressive
+            const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!rm) {
+                const sections = document.querySelectorAll("main section");
+                const io = new IntersectionObserver(
+                    (entries) => {
+                        for (const e of entries) {
+                            if (e.isIntersecting) {
+                                (e.target as HTMLElement).classList.add("revealed");
+                                io.unobserve(e.target);
+                            }
+                        }
+                    },
+                    { threshold: 0.08 },
+                );
+                sections.forEach((el, i) => {
+                    if (i === 0) return; // hero is visible immediately
+                    el.classList.add("reveal");
+                    io.observe(el);
+                });
+            }
+        </script>
     </body>
 </html>

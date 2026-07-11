@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 ---
 
 <Base
-  title="DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30 — KYDE"
+  title="DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30, KYDE"
   description="DORA is already in force. Financial entities using AI agents have a specific problem: vendor-provided logs don't constitute an independent audit trail under Article 30."
 >
   <Navbar />
@@ -13,24 +13,24 @@ import Footer from '../../components/Footer.astro';
   <main>
 
     <!-- ══════════ HEADER ══════════ -->
-    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+    <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#333] hover:text-[#333] transition-colors">↑ Resources</a>
-            <span class="text-[#333]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">Regulatory</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
+            <span class="text-[#A8A8A8]">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Regulatory</span>
           </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
+          <div class="h-px w-full bg-[#1F1F1F]"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0d0e10] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
             DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#666]">
+          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
             <span>Regulatory</span>
             <span>·</span>
             <span>4 min read</span>
@@ -43,21 +43,21 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-6">
+    <section class="border-t border-[#1F1F1F]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
           <article class="prose-kyde min-w-0">
 
             <p>
-              <span class="font-mono text-[#333]">DORA</span> — the Digital Operational Resilience Act — has been in force since January 2025. Financial entities subject to DORA have had time to assess their ICT risk management frameworks. Most have not yet assessed what DORA means specifically for AI agents.
+              <span class="font-mono text-[#A8A8A8]">DORA</span> · the Digital Operational Resilience Act · has been in force since January 2025. Financial entities subject to DORA have had time to assess their ICT risk management frameworks. Most have not yet assessed what DORA means specifically for AI agents.
             </p>
             <p>They should. The gap is significant.</p>
 
             <h2>What DORA Article 30 requires</h2>
             <p>
-              DORA Article 30 governs contractual arrangements with ICT third-party service providers. LLM providers — OpenAI, Anthropic, Azure OpenAI, and others — are ICT third-party providers under DORA's definition. The regulation requires financial entities to maintain audit trails of third-party ICT provider interactions that are independent of the provider itself.
+              DORA Article 30 governs contractual arrangements with ICT third-party service providers. LLM providers, OpenAI, Anthropic, Azure OpenAI, and others, are ICT third-party providers under DORA's definition. The regulation requires financial entities to maintain audit trails of third-party ICT provider interactions that are independent of the provider itself.
             </p>
             <p>
               The logic is straightforward: an audit trail that depends on the provider's infrastructure and cooperation cannot serve as an independent record during an incident investigation or regulatory review. This is the same principle that prevents an audited company from writing its own audit report.
@@ -68,15 +68,15 @@ import Footer from '../../components/Footer.astro';
               When a financial institution uses OpenAI or Anthropic for AI agent operations, those providers offer logging capabilities. The logs are real. The problem is structural.
             </p>
             <p>
-              Provider-native logs live on infrastructure the provider controls. They are signed — if at all — by the provider's own keys. They are accessible through the provider's console, subject to the provider's retention policies, and dependent on the provider's continued cooperation. In a dispute involving the provider, or in an incident where the provider's infrastructure is compromised, those logs offer limited evidentiary value.
+              Provider-native logs live on infrastructure the provider controls. They are signed, if at all, by the provider's own keys. They are accessible through the provider's console, subject to the provider's retention policies, and dependent on the provider's continued cooperation. In a dispute involving the provider, or in an incident where the provider's infrastructure is compromised, those logs offer limited evidentiary value.
             </p>
             <p>
-              DORA's independent audit trail requirement means exactly what it says: the trail must be independent. That requires a governance layer that sits outside the provider relationship — capturing, signing, and preserving records before they reach the provider's infrastructure.
+              DORA's independent audit trail requirement means exactly what it says: the trail must be independent. That requires a governance layer that sits outside the provider relationship, capturing, signing, and preserving records before they reach the provider's infrastructure.
             </p>
 
             <h2>The 72-hour incident reporting problem</h2>
             <p>
-              DORA Article 23 requires financial entities to report major ICT incidents within 72 hours. For AI agent incidents — an agent that accessed unscoped data, executed an unscoped transaction, or produced a decision that caused financial harm — that 72-hour window requires immediate access to a complete, forensically usable evidence record.
+              DORA Article 23 requires financial entities to report major ICT incidents within 72 hours. For AI agent incidents, an agent that accessed unscoped data, executed an unscoped transaction, or produced a decision that caused financial harm, that 72-hour window requires immediate access to a complete, forensically usable evidence record.
             </p>
             <p>
               "We're waiting for logs from our LLM provider" is not a viable response to a regulator within a 72-hour window. The evidence needs to exist, independently, before the incident occurs.
@@ -91,7 +91,7 @@ import Footer from '../../components/Footer.astro';
               <strong>Integrity.</strong> The trail must be cryptographically signed at the point of capture. Any modification must be detectable.
             </p>
             <p>
-              <strong>Completeness.</strong> Every agent action — every model call, every tool invocation, every data retrieval — must be captured. Partial logs do not satisfy incident investigation requirements.
+              <strong>Completeness.</strong> Every agent action, every model call, every tool invocation, every data retrieval, must be captured. Partial logs do not satisfy incident investigation requirements.
             </p>
             <p>
               <strong>Availability.</strong> The trail must be immediately exportable in a machine-readable format for regulatory submission.
@@ -99,21 +99,21 @@ import Footer from '../../components/Footer.astro';
 
             <h2>The practical implication</h2>
             <p>
-              Financial entities deploying AI agents for operational functions — credit decisions, customer interactions, fraud detection, claims processing — need a governance layer that satisfies all four properties above. That layer cannot be the LLM provider. It must sit between the agent fleet and the provider, capturing and signing every action independently.
+              Financial entities deploying AI agents for operational functions, credit decisions, customer interactions, fraud detection, claims processing, need a governance layer that satisfies all four properties above. That layer cannot be the LLM provider. It must sit between the agent fleet and the provider, capturing and signing every action independently.
             </p>
             <p>
-              <span class="font-mono text-[#333]">DORA</span> is already in force. The question is not whether you need this infrastructure. It is whether you have it.
+              <span class="font-mono text-[#A8A8A8]">DORA</span> is already in force. The question is not whether you need this infrastructure. It is whether you have it.
             </p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
-              <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3">↳ KYDE</p>
-              <p class="text-sm text-[#333] leading-relaxed mb-6">
-                Kyde sits between your agent fleet and any LLM provider — capturing, signing, and chaining every action into a tamper-evident, provider-independent audit trail that satisfies DORA Article 30 from day one.
+            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
+              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+                Kyde sits between your agent fleet and any LLM provider, capturing, signing, and chaining every action into a tamper-evident, provider-independent audit trail that satisfies DORA Article 30 from day one.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
               >
                 Book a Demo →
               </button>
@@ -123,29 +123,29 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Regulations covered</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulations covered</p>
               <div class="space-y-2">
-                {["DORA — Art. 23, Art. 30", "NIS-2 — Operational resilience", "GDPR Art. 22"].map((r) => (
-                  <p class="font-mono text-xs text-[#333]">{r}</p>
+                {["DORA, Art. 23, Art. 30", "NIS-2, Operational resilience", "GDPR Art. 22"].map((r) => (
+                  <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Status</p>
-              <p class="font-mono text-sm text-[#0a7c4e]">In Force</p>
-              <p class="text-xs text-[#666] mt-1">Since January 2025</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Status</p>
+              <p class="font-mono text-sm text-[#3DDC84]">In Force</p>
+              <p class="text-xs text-[#A8A8A8] mt-1">Since January 2025</p>
             </div>
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Related</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>EU AI Act Compliance for AI Agents: The Complete Guide</span>
                 </a>
-                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
-                  <span>What the EU AI Act Actually Requires for Audit Trails — And What Most Enterprises Are Missing</span>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What the EU AI Act Actually Requires for Audit Trails, And What Most Enterprises Are Missing</span>
                 </a>
               </div>
             </div>
@@ -162,7 +162,7 @@ import Footer from '../../components/Footer.astro';
 
 <style>
   .prose-kyde {
-    color: #333;
+    color: #A8A8A8;
     font-size: 0.9375rem;
     line-height: 1.75;
     max-width: 68ch;
@@ -171,7 +171,7 @@ import Footer from '../../components/Footer.astro';
   }
   .prose-kyde p { margin-bottom: 1.25rem; }
   .prose-kyde h2 {
-    color: #0d0e10;
+    color: #F2F2F2;
     font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -179,7 +179,7 @@ import Footer from '../../components/Footer.astro';
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px dotted rgba(13,14,16,0.15);
+    border-bottom: 1px solid rgba(242,242,242,0.15);
   }
   .prose-kyde ul {
     list-style: none;
@@ -193,12 +193,12 @@ import Footer from '../../components/Footer.astro';
   }
   .prose-kyde ul li::before {
     content: "→";
-    font-family: ui-monospace, monospace;
-    color: #fcb830;
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    color: #FFB84D;
     flex-shrink: 0;
     margin-top: 0.1rem;
   }
-  .prose-kyde strong { color: #333; font-weight: 600; }
-  .prose-kyde a { color: #fcb830; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde strong { color: #A8A8A8; font-weight: 600; }
+  .prose-kyde a { color: #FFB84D; text-decoration: underline; text-underline-offset: 3px; }
   .prose-kyde a:hover { color: #fde68a; }
 </style>

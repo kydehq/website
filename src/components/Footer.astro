@@ -20,17 +20,52 @@ const footerLinks = {
 };
 
 const year = new Date().getFullYear();
+
+// Dot-matrix wordmark, 5×7 grid per letter
+const GLYPHS: Record<string, string[]> = {
+    K: ["X...X", "X..X.", "X.X..", "XX...", "X.X..", "X..X.", "X...X"],
+    Y: ["X...X", "X...X", ".X.X.", "..X..", "..X..", "..X..", "..X.."],
+    D: ["XXXX.", "X...X", "X...X", "X...X", "X...X", "X...X", "XXXX."],
+    E: ["XXXXX", "X....", "X....", "XXXX.", "X....", "X....", "XXXXX"],
+};
+
+const CELL = 12;
+const R = 3.2;
+const LETTER_GAP = 2; // cols
+
+function wordmarkDots(word: string) {
+    const dots: { cx: number; cy: number }[] = [];
+    let colOffset = 0;
+    for (const ch of word) {
+        const glyph = GLYPHS[ch];
+        if (!glyph) continue;
+        glyph.forEach((row, y) => {
+            row.split("").forEach((cell, x) => {
+                if (cell === "X") {
+                    dots.push({
+                        cx: (colOffset + x) * CELL + CELL / 2,
+                        cy: y * CELL + CELL / 2,
+                    });
+                }
+            });
+        });
+        colOffset += 5 + LETTER_GAP;
+    }
+    return { dots, width: (colOffset - LETTER_GAP) * CELL, height: 7 * CELL };
+}
+
+const wm = wordmarkDots("KYDE");
 ---
 
-<footer class="border-t border-dotted border-[#0d0e10]/15 bg-[#f1f3f5]">
+<footer class="border-t border-white/10 bg-[#050505]">
     <div class="mx-auto max-w-7xl px-6 py-16">
-        <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div class="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-5">
             <!-- Brand -->
-            <div class="col-span-2 md:col-span-1">
+            <div class="col-span-2">
                 <a href="/" class="inline-flex items-center">
-                    <img src="/LOGO.png" alt="KYDE" class="h-6 w-auto" />
+                    <img src="/kyde-logo.svg" alt="KYDE" class="h-5 w-auto" />
                 </a>
-                <p class="mt-3 text-sm text-[#0d0e10]/60 leading-relaxed">
+                <p class="mt-4 text-sm text-white/40 leading-relaxed">
                     Prevent · Prove · Rate.<br />Trust infrastructure for the Agentic Economy.
                 </p>
             </div>
@@ -39,7 +74,7 @@ const year = new Date().getFullYear();
             {
                 Object.entries(footerLinks).map(([group, links]) => (
                     <div>
-                        <p class="font-mono text-xs font-semibold uppercase tracking-widest text-[#0d0e10]/50 mb-4">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-5">
                             {group}
                         </p>
                         <ul class="space-y-3">
@@ -47,7 +82,7 @@ const year = new Date().getFullYear();
                                 <li>
                                     <a
                                         href={href}
-                                        class="text-sm text-[#0d0e10]/60 hover:text-[#0d0e10] transition-colors"
+                                        class="font-mono text-xs uppercase tracking-[0.08em] text-white/50 hover:text-white transition-colors"
                                     >
                                         {label}
                                     </a>
@@ -59,16 +94,32 @@ const year = new Date().getFullYear();
             }
         </div>
 
+        <!-- Dot-matrix wordmark -->
+        <div class="mt-20 mb-4">
+            <svg
+                viewBox={`0 0 ${wm.width} ${wm.height}`}
+                class="w-full max-w-md h-auto"
+                aria-hidden="true"
+            >
+                {wm.dots.map(({ cx, cy }) => (
+                    <circle cx={cx} cy={cy} r={R} fill="rgba(242,242,242,0.13)" />
+                ))}
+            </svg>
+        </div>
+
         <!-- Bottom bar -->
         <div
-            class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-dotted border-[#0d0e10]/15 pt-8 md:flex-row md:items-center"
+            class="mt-8 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center"
         >
-            <p class="font-mono text-xs text-[#0d0e10]/40">
+            <p class="font-mono text-[11px] uppercase tracking-[0.1em] text-white/25">
                 &copy; {year} KYDE. All rights reserved.
             </p>
-            <p class="font-mono text-xs text-[#0d0e10]/40">
-                Built with Astro &amp; Tailwind CSS
-            </p>
+            <button
+                onclick="openModal()"
+                class="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.12em] text-white/50 hover:border-white hover:text-white transition-all"
+            >
+                Talk to Us &gt;
+            </button>
         </div>
     </div>
 </footer>

@@ -7,7 +7,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
 ---
 
 <Base
-  title="The Missing Layer in Every Agent Architecture — KYDE"
+  title="The Missing Layer in Every Agent Architecture, KYDE"
   description="The distinction between agent core and agent harness cuts to the heart of what most enterprise deployments get wrong. The harness isn't an add-on. For enterprise deployments, it's the product."
 >
   <Navbar />
@@ -15,24 +15,24 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
   <main>
 
     <!-- ══════════ HEADER ══════════ -->
-    <section class="relative overflow-hidden pt-36 pb-16 md:pt-48 md:pb-20">
+    <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#333] hover:text-[#333] transition-colors">↑ Resources</a>
-            <span class="text-[#333]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#333]">Technical</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
+            <span class="text-[#A8A8A8]">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Technical</span>
           </div>
-          <div class="h-px w-full bg-[#e8e9eb]"></div>
+          <div class="h-px w-full bg-[#1F1F1F]"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0d0e10] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
             The Missing Layer in Every Agent Architecture
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#666]">
+          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
             <span>Technical</span>
             <span>·</span>
             <span>5 min read</span>
@@ -45,28 +45,28 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-dotted border-[#0d0e10]/12 py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-6">
+    <section class="border-t border-[#1F1F1F]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
           <article class="prose-kyde min-w-0">
 
             <!-- Source callout -->
-            <div class="not-prose mb-10 border border-dotted border-[#0d0e10]/15 bg-white px-6 py-5 flex items-start gap-4">
-              <span class="font-mono text-xs text-[#666] shrink-0 mt-0.5">Source</span>
+            <div class="not-prose mb-10 border border-[#1F1F1F] bg-[#0C0C0C] px-6 py-5 flex items-start gap-4">
+              <span class="font-mono text-xs text-[#A8A8A8] shrink-0 mt-0.5">Source</span>
               <a
                 href={samVideoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-sm text-[#333] hover:text-[#333] transition-colors leading-relaxed underline underline-offset-4"
+                class="text-sm text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed underline underline-offset-4"
               >
-                "Single User Agent vs Multi User Agent" — Sam Witteveen ↗
+                "Single User Agent vs Multi User Agent", Sam Witteveen ↗
               </a>
             </div>
 
             <p>
-              Sam Witteveen, one of the sharper practitioners in the agent space, recently published a video breaking down the difference between single-user and multi-user agent systems. It's worth watching. One concept he introduces — the distinction between <strong>agent core</strong> and <strong>agent harness</strong> — cuts to the heart of what most enterprise deployments get wrong.
+              Sam Witteveen, one of the sharper practitioners in the agent space, recently published a video breaking down the difference between single-user and multi-user agent systems. It's worth watching. One concept he introduces, the distinction between <strong>agent core</strong> and <strong>agent harness</strong>, cuts to the heart of what most enterprise deployments get wrong.
             </p>
             <p>
               The core is what most frameworks focus on: planning, reasoning, tool calling, memory. The harness is everything that makes it survive real users: identity, isolation, cost controls, observability, policy enforcement.
@@ -81,31 +81,31 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
               Every impressive agent demo runs in a controlled environment. One user. Clean data. One set of API keys. The agent reasons well, the tools execute, the output looks right.
             </p>
             <p>
-              None of that tells you what happens at scale. And the gap between demo and production isn't a performance problem — it's an architecture problem.
+              None of that tells you what happens at scale. And the gap between demo and production isn't a performance problem, it's an architecture problem.
             </p>
             <p>Here's what actually breaks when you move from one user to many:</p>
             <p>
-              <strong>State and isolation.</strong> A single-user system can store state in a markdown file. Memory is personal and deep. In a multi-user system, that same approach means sessions contaminate each other — one user's context leaks into another's retrieval, one user's learned preferences surface in another's responses. This is not an edge case. It's the default failure mode of single-user architecture deployed at scale.
+              <strong>State and isolation.</strong> A single-user system can store state in a markdown file. Memory is personal and deep. In a multi-user system, that same approach means sessions contaminate each other, one user's context leaks into another's retrieval, one user's learned preferences surface in another's responses. This is not an edge case. It's the default failure mode of single-user architecture deployed at scale.
             </p>
             <p>
               <strong>Cost attribution.</strong> A single user tolerates inefficiency. They know when they prompted wrong, when a tool chain took three attempts, when the agent over-ran. In a multi-user system, one user who triggers expensive chains affects every other user on the platform. Without hard budget limits per agent and per role, cost becomes structurally unpredictable.
             </p>
             <p>
-              <strong>Observability.</strong> In a single-user system, nobody needs traces. The user is the operator. They know what they asked for. In enterprise deployments, observability isn't a feature you add later — it's table stakes. When something goes wrong across a fleet of agents, you need a complete, attributable record: which agent, which identity, which action, which cost, in what sequence. Without it, post-incident review is guesswork.
+              <strong>Observability.</strong> In a single-user system, nobody needs traces. The user is the operator. They know what they asked for. In enterprise deployments, observability isn't a feature you add later, it's table stakes. When something goes wrong across a fleet of agents, you need a complete, attributable record: which agent, which identity, which action, which cost, in what sequence. Without it, post-incident review is guesswork.
             </p>
             <p>
-              <strong>Authentication surface.</strong> Single-user systems handle auth informally. One service account, broadly scoped. In multi-user deployments, every tool access needs to be traceable to a specific identity. Not because it's best practice — because when something goes wrong, the investigation demands it.
+              <strong>Authentication surface.</strong> Single-user systems handle auth informally. One service account, broadly scoped. In multi-user deployments, every tool access needs to be traceable to a specific identity. Not because it's best practice, because when something goes wrong, the investigation demands it.
             </p>
 
             <h2>The enterprise version of this problem</h2>
             <p>
-              Witteveen is describing what happens when developers move from personal agent projects to production systems. In enterprise environments, the same dynamic plays out at a different scale — and with regulatory consequences.
+              Witteveen is describing what happens when developers move from personal agent projects to production systems. In enterprise environments, the same dynamic plays out at a different scale, and with regulatory consequences.
             </p>
             <p>
-              Enterprise deployments are multi-user by definition. Multiple agents, multiple roles, multiple teams, multiple compliance frameworks — all running concurrently, all subject to audit. The harness isn't optional. The only question is whether you build it yourself, as a custom engineering project that needs rebuilding every time you add an agent or change a provider — or whether you deploy it as infrastructure.
+              Enterprise deployments are multi-user by definition. Multiple agents, multiple roles, multiple teams, multiple compliance frameworks, all running concurrently, all subject to audit. The harness isn't optional. The only question is whether you build it yourself, as a custom engineering project that needs rebuilding every time you add an agent or change a provider, or whether you deploy it as infrastructure.
             </p>
             <p>
-              Infrastructure that sits outside the agent. That covers every agent automatically. That doesn't require code changes. That produces a tamper-evident record of every action, every identity, every cost attribution — before you need it.
+              Infrastructure that sits outside the agent. That covers every agent automatically. That doesn't require code changes. That produces a tamper-evident record of every action, every identity, every cost attribution, before you need it.
             </p>
             <p>
               The demo works without the harness. Production doesn't. And in regulated industries, neither does your compliance posture.
@@ -113,28 +113,28 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
 
             <!-- Video link -->
             <div class="not-prose my-10 border-l-2 border-amber-400/60 pl-6 py-1">
-              <p class="text-sm text-[#333] leading-relaxed mb-3">
+              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-3">
                 Watch Sam's original breakdown of single-user vs. multi-user agent architecture:
               </p>
               <a
                 href={samVideoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="font-mono text-sm text-[#fcb830] hover:text-[#333] transition-colors underline underline-offset-4"
+                class="font-mono text-sm text-[#FFB84D] hover:text-[#A8A8A8] transition-colors underline underline-offset-4"
               >
                 Single User Agent vs Multi User Agent ↗
               </a>
             </div>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-dotted border-[#0d0e10]/20 bg-white p-8">
-              <p class="font-mono text-xs uppercase tracking-widest bg-[#fcb830] text-[#0d0e10] px-1.5 py-0.5 mb-3">↳ KYDE</p>
-              <p class="text-sm text-[#333] leading-relaxed mb-6">
-                Kyde is the governance harness for enterprise agent fleets — identity, cost controls, policy enforcement, and tamper-evident audit trails across every agent, every provider, without touching agent code.
+            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
+              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+                Kyde is the governance harness for enterprise agent fleets, identity, cost controls, policy enforcement, and tamper-evident audit trails across every agent, every provider, without touching agent code.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#f1f3f5] hover:bg-[#333] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
               >
                 Talk to Us →
               </button>
@@ -144,44 +144,44 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-4">Core vs. Harness</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Core vs. Harness</p>
               <div class="space-y-3">
                 <div>
-                  <p class="font-mono text-xs text-[#333] mb-1">Core</p>
-                  <p class="text-xs text-[#333] leading-relaxed">Planning · Reasoning · Tool calling · Memory</p>
+                  <p class="font-mono text-xs text-[#A8A8A8] mb-1">Core</p>
+                  <p class="text-xs text-[#A8A8A8] leading-relaxed">Planning · Reasoning · Tool calling · Memory</p>
                 </div>
-                <div class="h-px bg-[#e8e9eb]"></div>
+                <div class="h-px bg-[#1F1F1F]"></div>
                 <div>
-                  <p class="font-mono text-xs text-[#333] mb-1">Harness</p>
-                  <p class="text-xs text-[#333] leading-relaxed">Identity · Isolation · Cost controls · Observability · Policy enforcement</p>
+                  <p class="font-mono text-xs text-[#A8A8A8] mb-1">Harness</p>
+                  <p class="text-xs text-[#A8A8A8] leading-relaxed">Identity · Isolation · Cost controls · Observability · Policy enforcement</p>
                 </div>
               </div>
             </div>
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Original source</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Original source</p>
               <a
                 href={samVideoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs text-[#fcb830] hover:text-[#333] transition-colors leading-relaxed underline underline-offset-4"
+                class="text-xs text-[#FFB84D] hover:text-[#A8A8A8] transition-colors leading-relaxed underline underline-offset-4"
               >
-                Sam Witteveen — YouTube ↗
+                Sam Witteveen, YouTube ↗
               </a>
             </div>
-            <div class="border border-dotted border-[#0d0e10]/15 bg-white p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#333] mb-3">Related</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/ai-agent-governance" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/ai-agent-governance" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>AI Agent Governance: The Complete Guide</span>
                 </a>
-                <a href="/blog/hbr-ai-agents-infrastructure" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/hbr-ai-agents-infrastructure" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>HBR Just Described the Problem. Here's the Infrastructure That Solves It.</span>
                 </a>
-                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#333] hover:text-[#333] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#fcb830] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
+                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>What the EU AI Act Actually Requires for Audit Trails</span>
                 </a>
               </div>
@@ -199,7 +199,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
 
 <style>
   .prose-kyde {
-    color: #333;
+    color: #A8A8A8;
     font-size: 0.9375rem;
     line-height: 1.75;
     max-width: 68ch;
@@ -208,7 +208,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
   }
   .prose-kyde p { margin-bottom: 1.25rem; }
   .prose-kyde h2 {
-    color: #0d0e10;
+    color: #F2F2F2;
     font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -216,9 +216,9 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px dotted rgba(13,14,16,0.15);
+    border-bottom: 1px solid rgba(242,242,242,0.15);
   }
-  .prose-kyde strong { color: #333; font-weight: 600; }
-  .prose-kyde a { color: #fcb830; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde strong { color: #A8A8A8; font-weight: 600; }
+  .prose-kyde a { color: #FFB84D; text-decoration: underline; text-underline-offset: 3px; }
   .prose-kyde a:hover { color: #fde68a; }
 </style>
