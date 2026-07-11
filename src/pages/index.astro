@@ -349,6 +349,12 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     </div>
                     <div class="relative flex items-center justify-center min-h-[380px]">
                         <svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <!-- corner register marks -->
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+
                             <!-- concentric rings + crosshair -->
                             <circle cx="240" cy="240" r="228" fill="none" stroke="rgba(242,242,242,0.05)" stroke-width="1" />
                             <circle cx="240" cy="240" r="210" fill="none" stroke="rgba(242,242,242,0.14)" stroke-width="1" />
@@ -382,7 +388,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             <g id="radar-blips"></g>
 
                             <!-- the observer at the center -->
-                            <rect x="236.5" y="236.5" width="7" height="7" fill="#F2F2F2" />
+                            <circle cx="240" cy="240" r="4.5" fill="#F2F2F2" />
                             <text x="240" y="262" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
                         </svg>
                     </div>
