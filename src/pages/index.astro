@@ -347,21 +347,127 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             KYDE gives you the complete picture - every agent identity, every action, every upstream provider - logged, signed, and cryptographically verified. From the moment you deploy.
                         </p>
                     </div>
-                    <div class="flex flex-col">
-                        <div class="relative border border-white/10 overflow-hidden bg-[#0C0C0C]" style="aspect-ratio:16/9;">
-                            <video id="kyde-intro" class="w-full h-full object-cover" preload="none" playsinline poster="/videoposter.png">
-                                <source src="/KYDE.webm" type="video/webm" />
-                                <source src="/KYDE.mp4" type="video/mp4" />
-                            </video>
-                            <!-- Play overlay -->
-                            <div id="kyde-play-overlay" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group" onclick="document.getElementById('kyde-play-overlay').style.display='none';var v=document.getElementById('kyde-intro');v.controls=true;v.play();">
-                                <div class="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center bg-white/10 group-hover:bg-white/20 transition-all mb-3">
-                                    <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.841z"/></svg>
-                                </div>
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">KYDE in 40 seconds</span>
-                            </div>
-                        </div>
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <!-- concentric rings + crosshair -->
+                            <circle cx="240" cy="240" r="210" fill="none" stroke="rgba(242,242,242,0.14)" stroke-width="1" />
+                            <circle cx="240" cy="240" r="150" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="90" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
+                            <line x1="240" y1="26" x2="240" y2="454" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+                            <line x1="26" y1="240" x2="454" y2="240" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+
+                            <!-- degree ticks -->
+                            {Array.from({ length: 24 }, (_, i) => {
+                                const a = (i * 15 * Math.PI) / 180;
+                                return (
+                                    <line
+                                        x1={240 + Math.cos(a) * 204}
+                                        y1={240 + Math.sin(a) * 204}
+                                        x2={240 + Math.cos(a) * 210}
+                                        y2={240 + Math.sin(a) * 210}
+                                        stroke="rgba(242,242,242,0.3)"
+                                        stroke-width="1"
+                                    />
+                                );
+                            })}
+
+                            <!-- sweep trail + line (rotated in JS) -->
+                            <g id="radar-sweep">
+                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="rgba(61,220,132,0.05)" />
+                                <line x1="240" y1="240" x2="240" y2="30" stroke="rgba(61,220,132,0.55)" stroke-width="1" />
+                            </g>
+
+                            <!-- blips + labels (lit by the sweep, from JS) -->
+                            <g id="radar-blips"></g>
+
+                            <!-- the observer at the center -->
+                            <rect x="236.5" y="236.5" width="7" height="7" fill="#F2F2F2" />
+                            <text x="240" y="262" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
+                        </svg>
                     </div>
+
+                    <script>
+                        // FIG.1 · radar. Shadow agents sit almost invisible in
+                        // the field; the sweep reveals them: blip flashes, the
+                        // identity label appears, a green "signed" confirms the
+                        // record, then the afterglow fades until the next pass.
+                        const radarReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const radar = document.getElementById("radar-fig");
+
+                        if (radar) {
+                            const NS = "http://www.w3.org/2000/svg";
+                            const sweep = document.getElementById("radar-sweep")!;
+                            const blipsG = document.getElementById("radar-blips")!;
+                            const CX = 240, CY = 240;
+
+                            const AGENTS = [
+                                { id: "agent:crm-04",    r: 178, a: 0.4 },
+                                { id: "agent:hr-11",     r: 120, a: 1.3 },
+                                { id: "ci-runner",       r: 195, a: 2.2 },
+                                { id: "agent:support-2", r: 68,  a: 2.9 },
+                                { id: "etl-worker",      r: 150, a: 3.8 },
+                                { id: "agent:proc-7",    r: 104, a: 4.6 },
+                                { id: "mail-drafter",    r: 186, a: 5.4 },
+                            ];
+
+                            const blips = AGENTS.map((ag) => {
+                                const x = CX + Math.cos(ag.a) * ag.r;
+                                const y = CY + Math.sin(ag.a) * ag.r;
+                                const dot = document.createElementNS(NS, "rect");
+                                dot.setAttribute("x", String(x - 2));
+                                dot.setAttribute("y", String(y - 2));
+                                dot.setAttribute("width", "4");
+                                dot.setAttribute("height", "4");
+                                const label = document.createElementNS(NS, "text");
+                                label.setAttribute("x", String(x + 9));
+                                label.setAttribute("y", String(y - 7));
+                                label.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;");
+                                label.textContent = ag.id;
+                                const sig = document.createElementNS(NS, "text");
+                                sig.setAttribute("x", String(x + 9));
+                                sig.setAttribute("y", String(y + 6));
+                                sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
+                                sig.setAttribute("fill", "#3DDC84");
+                                sig.textContent = "✓ signed";
+                                blipsG.append(dot, label, sig);
+                                return { ...ag, dot, label, sig, lastLit: -1e9 };
+                            });
+
+                            if (radarReduced) {
+                                // static frame: everything mid-bright
+                                for (const b of blips) {
+                                    b.dot.setAttribute("fill", "rgba(242,242,242,0.7)");
+                                    b.label.setAttribute("fill", "rgba(242,242,242,0.55)");
+                                    b.sig.setAttribute("fill", "rgba(61,220,132,0.6)");
+                                }
+                            } else {
+                                const PERIOD = 9000; // one revolution
+                                let visible = true;
+                                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(radar);
+
+                                function frame(t: number) {
+                                    if (visible) {
+                                        const ang = ((t % PERIOD) / PERIOD) * Math.PI * 2 - Math.PI / 2;
+                                        sweep.setAttribute("transform", `rotate(${(ang * 180) / Math.PI + 90} ${CX} ${CY})`);
+
+                                        for (const b of blips) {
+                                            // sweep just passed this blip?
+                                            let diff = (ang - b.a) % (Math.PI * 2);
+                                            if (diff < 0) diff += Math.PI * 2;
+                                            if (diff < 0.06) b.lastLit = t;
+
+                                            const glow = Math.exp(-(t - b.lastLit) / 1600);
+                                            b.dot.setAttribute("fill", `rgba(242,242,242,${0.12 + glow * 0.88})`);
+                                            b.label.setAttribute("fill", `rgba(242,242,242,${glow * 0.8})`);
+                                            b.sig.setAttribute("fill", `rgba(61,220,132,${Math.max(glow - 0.25, 0)})`);
+                                        }
+                                    }
+                                    requestAnimationFrame(frame);
+                                }
+                                requestAnimationFrame(frame);
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </section>
