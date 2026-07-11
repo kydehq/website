@@ -821,8 +821,11 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     </div>
 
                     <script>
-                        // FIG.5 · vertices drift on slow Lissajous paths; edges,
-                        // arrows, labels and the inner triangle follow every frame.
+                        // FIG.5 · spring-physics constellation. Vertices drift
+                        // slowly; every few seconds one gets an impulse and the
+                        // triangle snaps, wobbles, and settles (underdamped
+                        // springs). Fast vertices glow gold. A faint mouse
+                        // attraction makes the figure react to the visitor.
                         const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                         const fig = document.getElementById("vpr-fig");
 
@@ -845,23 +848,73 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 { x: 12, y: 34 },
                                 { x: -8, y: 34 },
                             ];
-                            // per-vertex drift frequencies/phases, incommensurate,
-                            // so the constellation never repeats
                             const F = [
-                                { fx: 0.00021, fy: 0.00017, px: 0.0, py: 1.7, a: 24 },
-                                { fx: 0.00016, fy: 0.00023, px: 2.1, py: 0.6, a: 26 },
-                                { fx: 0.00019, fy: 0.00014, px: 4.0, py: 3.2, a: 22 },
+                                { fx: 0.00021, fy: 0.00017, px: 0.0, py: 1.7, a: 22 },
+                                { fx: 0.00016, fy: 0.00023, px: 2.1, py: 0.6, a: 24 },
+                                { fx: 0.00019, fy: 0.00014, px: 4.0, py: 3.2, a: 20 },
                             ];
+
+                            // spring state
+                            const P = anchors.map((a) => ({ x: a.x, y: a.y, vx: 0, vy: 0 }));
+                            const K = 14;      // spring stiffness
+                            const DAMP = 3.6;  // underdamped → visible wobble
+                            let nextKick = performance.now() + 1800;
+
+                            // faint mouse attraction in viewBox coords
+                            const mouse = { x: -9999, y: -9999, on: false };
+                            fig.addEventListener("pointermove", (e: PointerEvent) => {
+                                const r = fig.getBoundingClientRect();
+                                mouse.x = ((e.clientX - r.left) / r.width) * 520;
+                                mouse.y = ((e.clientY - r.top) / r.height) * 470;
+                                mouse.on = true;
+                            });
+                            fig.addEventListener("pointerleave", () => { mouse.on = false; });
 
                             let visible = true;
                             new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
 
+                            let last = 0;
                             function frame(t: number) {
+                                const dt = Math.min((t - last) / 1000, 0.04) || 0.016;
+                                last = t;
                                 if (visible) {
-                                    const v = anchors.map((aP, i) => ({
-                                        x: aP.x + Math.sin(t * F[i].fx + F[i].px) * F[i].a,
-                                        y: aP.y + Math.cos(t * F[i].fy + F[i].py) * F[i].a,
-                                    }));
+                                    // impulse: one vertex gets kicked, sometimes two
+                                    if (t > nextKick) {
+                                        const hits = Math.random() > 0.75 ? [0, 1, 2].sort(() => Math.random() - 0.5).slice(0, 2) : [Math.floor(Math.random() * 3)];
+                                        for (const i of hits) {
+                                            const ang = Math.random() * Math.PI * 2;
+                                            const mag = 260 + Math.random() * 260;
+                                            P[i].vx += Math.cos(ang) * mag;
+                                            P[i].vy += Math.sin(ang) * mag;
+                                        }
+                                        nextKick = t + 2400 + Math.random() * 3200;
+                                    }
+
+                                    const v = P.map((p, i) => {
+                                        // ambient drift target
+                                        const tx = anchors[i].x + Math.sin(t * F[i].fx + F[i].px) * F[i].a;
+                                        const ty = anchors[i].y + Math.cos(t * F[i].fy + F[i].py) * F[i].a;
+                                        // spring toward target
+                                        p.vx += (tx - p.x) * K * dt;
+                                        p.vy += (ty - p.y) * K * dt;
+                                        // faint pull toward the cursor
+                                        if (mouse.on) {
+                                            const dx = mouse.x - p.x, dy = mouse.y - p.y;
+                                            const d = Math.hypot(dx, dy);
+                                            if (d > 1 && d < 260) {
+                                                const w = (1 - d / 260) * 46;
+                                                p.vx += (dx / d) * w * dt * 10;
+                                                p.vy += (dy / d) * w * dt * 10;
+                                            }
+                                        }
+                                        // damping
+                                        p.vx -= p.vx * DAMP * dt;
+                                        p.vy -= p.vy * DAMP * dt;
+                                        p.x += p.vx * dt;
+                                        p.y += p.vy * dt;
+                                        return p;
+                                    });
+
                                     const cx = (v[0].x + v[1].x + v[2].x) / 3;
                                     const cy = (v[0].y + v[1].y + v[2].y) / 3;
 
@@ -874,8 +927,16 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                     center.setAttribute("y", String(cy + 40));
 
                                     for (let i = 0; i < 3; i++) {
-                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
-                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
+                                        // fast vertices run hot: gold while moving, white at rest
+                                        const speed = Math.hypot(v[i].vx, v[i].vy);
+                                        const hot = Math.min(speed / 220, 1);
+                                        const size = 7 + hot * 5;
+                                        nodes[i].setAttribute("x", String(v[i].x - size / 2));
+                                        nodes[i].setAttribute("y", String(v[i].y - size / 2));
+                                        nodes[i].setAttribute("width", String(size));
+                                        nodes[i].setAttribute("height", String(size));
+                                        nodes[i].setAttribute("fill", hot > 0.35 ? "#FEC106" : "#F2F2F2");
+
                                         labels[i].setAttribute("x", String(v[i].x + labelOff[i].x));
                                         labels[i].setAttribute("y", String(v[i].y + labelOff[i].y));
 
