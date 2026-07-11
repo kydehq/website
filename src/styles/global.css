@@ -20,6 +20,7 @@
 
   /* Accents */
   --color-acid: #DFF250;   /* surface highlights only — never buttons/links */
+  --color-gold: #FEC106;   /* text accent: numbering, manifest lines */
   --color-live: #3DDC84;   /* living data: status, terminal, metrics */
   --color-alert: #FF5C5C;
   --color-warn: #FFB84D;
@@ -68,7 +69,7 @@
   }
 
   ::selection {
-    background-color: #DFF250;
+    background-color: #FEC106;
     color: #0A0A0A;
   }
 
@@ -135,6 +136,35 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
 }
 .row-in { opacity: 0; animation: row-in 0.5s ease-out forwards; }
 @media (prefers-reduced-motion: reduce) { .row-in { opacity: 1; animation: none; } }
+
+/* Architecture flow — a request travels through the layers (5s cycle) */
+@keyframes arch-pulse-a {
+  0% { transform: translate(-50%, -6px); opacity: 0; }
+  3% { opacity: 1; }
+  15% { transform: translate(-50%, 40px); opacity: 1; }
+  18% { opacity: 0; }
+  100% { transform: translate(-50%, 40px); opacity: 0; }
+}
+@keyframes arch-pulse-b {
+  0%, 40% { transform: translate(-50%, -6px); opacity: 0; }
+  43% { opacity: 1; }
+  55% { transform: translate(-50%, 40px); opacity: 1; }
+  58% { opacity: 0; }
+  100% { transform: translate(-50%, 40px); opacity: 0; }
+}
+@keyframes arch-glow {
+  0%, 15% { opacity: 0; }
+  24% { opacity: 1; }
+  42% { opacity: 0; }
+  100% { opacity: 0; }
+}
+.arch-pulse-a { animation: arch-pulse-a 5s linear infinite; }
+.arch-pulse-b { animation: arch-pulse-b 5s linear infinite; }
+.arch-glow { opacity: 0; animation: arch-glow 5s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .arch-pulse-a, .arch-pulse-b { display: none; }
+  .arch-glow { animation: none; opacity: 0; }
+}
 
 /* Terminal cursor */
 .cursor-blink {
