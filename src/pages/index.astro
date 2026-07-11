@@ -350,6 +350,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     <div class="relative flex items-center justify-center min-h-[380px]">
                         <svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
                             <!-- concentric rings + crosshair -->
+                            <circle cx="240" cy="240" r="228" fill="none" stroke="rgba(242,242,242,0.05)" stroke-width="1" />
                             <circle cx="240" cy="240" r="210" fill="none" stroke="rgba(242,242,242,0.14)" stroke-width="1" />
                             <circle cx="240" cy="240" r="150" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
                             <circle cx="240" cy="240" r="90" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
@@ -373,8 +374,8 @@ for (let lat = -80; lat <= 80; lat += 8) {
 
                             <!-- sweep trail + line (rotated in JS) -->
                             <g id="radar-sweep">
-                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="rgba(61,220,132,0.05)" />
-                                <line x1="240" y1="240" x2="240" y2="30" stroke="rgba(61,220,132,0.55)" stroke-width="1" />
+                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="rgba(242,242,242,0.04)" />
+                                <line x1="240" y1="240" x2="240" y2="30" stroke="rgba(242,242,242,0.3)" stroke-width="1" />
                             </g>
 
                             <!-- blips + labels (lit by the sweep, from JS) -->
