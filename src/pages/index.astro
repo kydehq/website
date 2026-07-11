@@ -34,7 +34,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
             <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
-                <h1 class="hero-h1 text-3xl text-white uppercase tracking-tighter leading-none sm:text-4xl md:text-5xl lg:text-6xl" style="opacity:0;">
+                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">The Behavioral</span>
                     <span id="hero-l2" style="display:block">Firewall</span>
                     <span id="hero-l3" style="display:block">For AI Agents.</span>
@@ -489,8 +489,8 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     </div>
                     <!-- App -->
                     <div class="flex overflow-x-auto" style="min-height:420px">
-                        <!-- Sidebar -->
-                        <div class="w-44 shrink-0 border-r border-[#1F1F1F] bg-[#141414] p-4">
+                        <!-- Sidebar (hidden on mobile so the Fleet panel gets the full width) -->
+                        <div class="hidden md:block w-44 shrink-0 border-r border-[#1F1F1F] bg-[#141414] p-4">
                             <div class="mb-4">
                                 <img src="/kyde-logo.svg" alt="KYDE" class="h-3 w-auto mb-4" />
                                 <span class="font-mono text-[9px] uppercase tracking-[0.12em] text-[#3DDC84] border border-[#3DDC84]/30 px-1.5 py-0.5">Data Integrity</span>
@@ -509,7 +509,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             </ul>
                         </div>
                         <!-- Main -->
-                        <div class="flex-1 min-w-[480px] p-6">
+                        <div class="flex-1 min-w-0 md:min-w-[480px] p-4 md:p-6">
                             <div class="flex items-start justify-between mb-5">
                                 <div>
                                     <h3 class="font-mono text-sm font-bold text-[#F2F2F2]">Fleet Status</h3>
@@ -538,7 +538,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                             <span>At risk</span>
                                             <span>Healthy</span>
                                         </div>
-                                        <div class="relative h-1 rounded-full" style="background:linear-gradient(to right,#5B7BD5,#9B6BD6,#D77657);opacity:0.8">
+                                        <div class="relative h-1 rounded-full" style="background:linear-gradient(to right,rgba(242,242,242,0.12),rgba(242,242,242,0.55))">
                                             <span class="absolute -top-[3px] h-[10px] w-[2px] bg-[#F2F2F2]" style="left:78%"></span>
                                         </div>
                                     </div>
@@ -699,7 +699,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             {[
                                 { name: "NIS-2",     status: "In force",          desc: "~160,000 companies in DE/EU. Critical + important sectors." },
                                 { name: "DORA",      status: "In force: Jan 2025", desc: "Financial entity resilience requirements." },
-                                { name: "EU AI Act", status: "Phasing in 2026",   desc: "High-risk AI audit trail &amp; logging requirements." },
+                                { name: "EU AI Act", status: "Phasing in 2027",   desc: "High-risk AI audit trail & logging requirements." },
                                 { name: "GDPR 35",   status: "In force",          desc: "Automated processing DPIA obligations." },
                             ].map(({ name, status, desc }) => (
                                 <div class="border border-white/10 bg-white/[0.02] p-5">
@@ -1234,7 +1234,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         {[
                             { name: "NIS-2",     desc: "~160,000 companies in DE/EU. Critical + important sectors.", deadline: "In force · DE: NIS2UmsuCG", urgent: true },
                             { name: "DORA",      desc: "Financial entity resilience requirements.",  deadline: "In force: Jan 2025",  urgent: false },
-                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2026/2027", urgent: false },
+                            { name: "EU AI Act", desc: "High-risk AI system audit trail & logging requirements.", deadline: "Phasing in 2027", urgent: false },
                             { name: "GDPR 35",   desc: "Automated processing DPIA obligations.",    deadline: "In force",            urgent: false },
                         ].map(({ name, desc, deadline, urgent }) => (
                             <div class={`border p-5 ${urgent ? "border-[#FF5C5C]/40 bg-[#FF5C5C]/5" : "border-white/10 bg-white/[0.02]"}`}>

@@ -78,6 +78,10 @@
     outline: 1px solid #F2F2F2;
     outline-offset: 2px;
   }
+
+  /* Grid items may shrink below their content width so wide code blocks
+     and tables scroll inside their box instead of stretching the page. */
+  main .grid > * { min-width: 0; }
 }
 
 /* ── Micro-interactions (design doc §6) ─────────────────────── */
