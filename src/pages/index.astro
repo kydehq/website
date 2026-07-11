@@ -121,14 +121,12 @@ for (let lat = -80; lat <= 80; lat += 8) {
   const h1 = l1?.closest("h1") as HTMLElement;
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
-  const meta = document.getElementById("hero-meta") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
   if (l1) scrambleLine(l1, "THE BEHAVIORAL", 200);
   if (l2) scrambleLine(l2, "FIREWALL", 200);
   if (l3) scrambleLine(l3, "FOR AI AGENTS.", 200, () => {
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
-    if (meta) meta.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
     const term = document.getElementById("hero-terminal");
     if (term) term.style.opacity = "1";
