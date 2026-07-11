@@ -448,7 +448,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                     b.sig.setAttribute("fill", "rgba(61,220,132,0.6)");
                                 }
                             } else {
-                                const PERIOD = 18000; // one revolution
+                                const PERIOD = 32000; // one revolution
                                 let visible = true;
                                 new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(radar);
 
@@ -463,7 +463,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                             if (diff < 0) diff += Math.PI * 2;
                                             if (diff < 0.06) b.lastLit = t;
 
-                                            const glow = Math.exp(-(t - b.lastLit) / 1600);
+                                            const glow = Math.exp(-(t - b.lastLit) / 2400);
                                             b.dot.setAttribute("fill", `rgba(242,242,242,${0.12 + glow * 0.88})`);
                                             b.label.setAttribute("fill", `rgba(242,242,242,${glow * 0.8})`);
                                             b.sig.setAttribute("fill", `rgba(61,220,132,${Math.max(glow - 0.25, 0)})`);
