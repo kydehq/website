@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 ---
 
 <Base
-  title="The Law Has Assigned Liability. Nobody Can Yet Prove What Happened. — KYDE"
+  title="The Law Has Assigned Liability. Nobody Can Yet Prove What Happened., KYDE"
   description="Three regulatory frameworks are now in force across the EU that directly govern AI agents. Each, examined carefully, points to the same unresolved problem: the law has assigned liability, but the infrastructure to prove what happened does not yet exist."
 >
   <Navbar />
@@ -56,7 +56,7 @@ import Footer from '../../components/Footer.astro';
             <!-- Series intro -->
             <div class="not-prose mb-8 border-l-2 border-[#FFB84D]/60 pl-5 py-1">
               <p class="text-sm text-[#A8A8A8] leading-relaxed">
-                <a href="/blog/confidence-infrastructure-part-1" class="text-[#A8A8A8] underline underline-offset-4 decoration-[#F2F2F2]/20 hover:decoration-[#FFB84D] transition-colors">Part I</a> traced the historical pattern by which transformative technologies achieve scale: not through engineering alone, but through the confidence infrastructure — standards, inspection, insurance — that grows up around them. This essay examines the legal architecture that is now forming around autonomous AI, and the gap at its center.
+                <a href="/blog/confidence-infrastructure-part-1" class="text-[#A8A8A8] underline underline-offset-4 decoration-[#F2F2F2]/20 hover:decoration-[#FFB84D] transition-colors">Part I</a> traced the historical pattern by which transformative technologies achieve scale: not through engineering alone, but through the confidence infrastructure, standards, inspection, insurance, that grows up around them. This essay examines the legal architecture that is now forming around autonomous AI, and the gap at its center.
               </p>
             </div>
 
@@ -67,13 +67,13 @@ import Footer from '../../components/Footer.astro';
               The EU AI Act, whose high-risk enforcement provisions take effect December 2, 2027, requires automatic logging of events throughout a high-risk AI system's lifecycle, log retention for a minimum of six months, causal reconstructability sufficient to enable human oversight, and technical documentation demonstrating compliance before deployment. It does not specify how logs must be structured, who must hold them, or what makes a record credible rather than merely present.
             </p>
             <p>
-              The Product Liability Directive 2024/2853, published in the Official Journal in November 2024 and entering national transposition by December 2026, extends strict liability to software and AI systems. It introduces rebuttable presumptions: where a claimant faces excessive difficulty establishing a causal link between an AI system's behavior and a harm, courts may presume both defect and causation. It establishes joint and several liability across the supply chain — developers, importers, substantial modifiers, platform operators. The defendant who cannot produce contrary evidence bears the loss.
+              The Product Liability Directive 2024/2853, published in the Official Journal in November 2024 and entering national transposition by December 2026, extends strict liability to software and AI systems. It introduces rebuttable presumptions: where a claimant faces excessive difficulty establishing a causal link between an AI system's behavior and a harm, courts may presume both defect and causation. It establishes joint and several liability across the supply chain, developers, importers, substantial modifiers, platform operators. The defendant who cannot produce contrary evidence bears the loss.
             </p>
             <p>
-              DORA, the Digital Operational Resilience Act, has been in force since January 2025. It requires financial entities to maintain audit trails of third-party ICT provider interactions that are independent of the provider — not stored on their infrastructure, not dependent on their cooperation for retrieval, not subject to their retention policies. It mandates forensic evidence production within 72 hours of a significant incident. For banks, insurers, and investment firms using AI agents built on LLM providers, every model call is an interaction with a third-party ICT provider. The independent audit trail requirement is not optional.
+              DORA, the Digital Operational Resilience Act, has been in force since January 2025. It requires financial entities to maintain audit trails of third-party ICT provider interactions that are independent of the provider, not stored on their infrastructure, not dependent on their cooperation for retrieval, not subject to their retention policies. It mandates forensic evidence production within 72 hours of a significant incident. For banks, insurers, and investment firms using AI agents built on LLM providers, every model call is an interaction with a third-party ICT provider. The independent audit trail requirement is not optional.
             </p>
             <p>
-              Read together, these three frameworks establish something important: the law has already assigned liability for AI agent failures. What the law has not yet established — because it cannot establish it by fiat — is the information infrastructure that makes liability adjudicable.
+              Read together, these three frameworks establish something important: the law has already assigned liability for AI agent failures. What the law has not yet established, because it cannot establish it by fiat, is the information infrastructure that makes liability adjudicable.
             </p>
 
             <h2>The proof problem</h2>
@@ -81,24 +81,24 @@ import Footer from '../../components/Footer.astro';
               When a steam boiler exploded in 1867, establishing what happened was difficult. But it was not conceptually impossible. The physical evidence existed. Metallurgical analysis could establish whether the steel was defective. Inspection records could establish whether maintenance had been performed. Witness testimony could establish the sequence of events. The causal chain, once investigated, could be reconstructed.
             </p>
             <p>
-              When an AI agent causes harm — when it approves a fraudulent transaction, when it retrieves a deprecated policy document and uses it to guide a consequential decision, when it is manipulated through prompt injection to exfiltrate sensitive data — the proof problem is fundamentally different.
+              When an AI agent causes harm, when it approves a fraudulent transaction, when it retrieves a deprecated policy document and uses it to guide a consequential decision, when it is manipulated through prompt injection to exfiltrate sensitive data, the proof problem is fundamentally different.
             </p>
             <p>
-              The agent's behavior emerges from the interaction of a model, a context, a set of retrieved documents, a sequence of tool calls, and an input that may itself have been adversarially crafted. The model that produced the output may have been updated since the incident occurred. The context that shaped the decision may not have been logged. The tool calls that executed the harmful action may be recorded only in the logs of individual downstream systems — each of which captures its own slice of the event but none of which captures the complete decision chain.
+              The agent's behavior emerges from the interaction of a model, a context, a set of retrieved documents, a sequence of tool calls, and an input that may itself have been adversarially crafted. The model that produced the output may have been updated since the incident occurred. The context that shaped the decision may not have been logged. The tool calls that executed the harmful action may be recorded only in the logs of individual downstream systems, each of which captures its own slice of the event but none of which captures the complete decision chain.
             </p>
             <p>
-              In Moffatt v. Air Canada, the tribunal held the airline liable for incorrect information its chatbot provided, rejecting the argument that the bot was a separate legal entity. The precedent is clear: the organization that deploys an agent is responsible for what it does. What the case did not establish — because the facts did not require it — is what happens when the organization cannot reconstruct what the agent actually did.
+              In Moffatt v. Air Canada, the tribunal held the airline liable for incorrect information its chatbot provided, rejecting the argument that the bot was a separate legal entity. The precedent is clear: the organization that deploys an agent is responsible for what it does. What the case did not establish, because the facts did not require it, is what happens when the organization cannot reconstruct what the agent actually did.
             </p>
             <p>
               Under the PLD's rebuttable presumptions, that inability is not neutral. If a claimant can establish that they suffered harm, and that an AI system was involved, and that the defendant cannot produce evidence demonstrating what the system did and why, courts may presume causation. The defendant who lacks the evidence trail does not simply face uncertainty. They face a legal presumption that works against them.
             </p>
             <p>
-              This is the liability gap. Not a gap in the law — the law is reasonably clear. A gap in the infrastructure that makes compliance with the law demonstrable.
+              This is the liability gap. Not a gap in the law, the law is reasonably clear. A gap in the infrastructure that makes compliance with the law demonstrable.
             </p>
 
             <h2>What the DRCF called the "Many Hands" problem</h2>
             <p>
-              In March 2026, four UK regulators — the Competition and Markets Authority, the Financial Conduct Authority, the Information Commissioner's Office, and Ofcom — jointly published a foresight paper on agentic AI. Among its most precise observations was what it called the "Many Hands" problem.
+              In March 2026, four UK regulators, the Competition and Markets Authority, the Financial Conduct Authority, the Information Commissioner's Office, and Ofcom, jointly published a foresight paper on agentic AI. Among its most precise observations was what it called the "Many Hands" problem.
             </p>
             <p>
               When multiple model providers, system integrators, platform operators, and deploying organizations all contribute to an agent's behavior, attributing responsibility for a specific outcome becomes extremely difficult. The deploying organization may have configured the agent correctly. The model provider may have updated the model in ways that changed its behavior. The tool provider may have modified an API. The data source the agent retrieved from may have been compromised.
@@ -107,15 +107,15 @@ import Footer from '../../components/Footer.astro';
               Each party bears some responsibility. None bears it clearly. The DRCF's conclusion was equally precise: when something goes wrong, regulators expect to see who authorized what, when, against which data. Most organizations currently cannot produce that record for AI agent activity at the level of detail enforcement will demand.
             </p>
             <p>
-              The "Many Hands" problem is not primarily a governance design problem. It is an evidence architecture problem. The record that would allow responsibility to be attributed — and that would allow the PLD's rebuttable presumptions to be rebutted — does not currently exist as a standard infrastructure component.
+              The "Many Hands" problem is not primarily a governance design problem. It is an evidence architecture problem. The record that would allow responsibility to be attributed, and that would allow the PLD's rebuttable presumptions to be rebutted, does not currently exist as a standard infrastructure component.
             </p>
 
             <h2>The certification layer and its limits</h2>
             <p>
-              The emergence of AIUC-1 — the SOC 2 equivalent for AI agents — represents the most significant step so far toward building the certification layer of the confidence infrastructure.
+              The emergence of AIUC-1, the SOC 2 equivalent for AI agents, represents the most significant step so far toward building the certification layer of the confidence infrastructure.
             </p>
             <p>
-              AIUC-1's 51 requirements across six domains cover data and privacy, security, safety, reliability, accountability, and societal impact. The standard is updated quarterly, with the Q2 2026 revision introducing mandatory controls for MCP and A2A protocol security, runtime containment, and agent identity and access management. ElevenLabs' February 2026 certification — the first AIUC-1-backed insurance policy — demonstrates that the model works in practice.
+              AIUC-1's 51 requirements across six domains cover data and privacy, security, safety, reliability, accountability, and societal impact. The standard is updated quarterly, with the Q2 2026 revision introducing mandatory controls for MCP and A2A protocol security, runtime containment, and agent identity and access management. ElevenLabs' February 2026 certification, the first AIUC-1-backed insurance policy, demonstrates that the model works in practice.
             </p>
             <p>
               Certification answers the question: did this system meet the standard at the time it was tested?
@@ -124,10 +124,10 @@ import Footer from '../../components/Footer.astro';
               This is genuinely valuable. Enterprise procurement teams have a concrete signal. Insurers have an actuarial basis for initial underwriting. Regulators have documented evidence of due diligence.
             </p>
             <p>
-              But certification has an inherent temporal limitation that becomes acute when applied to probabilistic, non-deterministic systems. A SOC 2 report attests to the state of an organization's security controls at the time of the audit. For traditional software systems, the interval between audits is manageable — systems change on defined release cycles, and the gap between certification and current state is bounded.
+              But certification has an inherent temporal limitation that becomes acute when applied to probabilistic, non-deterministic systems. A SOC 2 report attests to the state of an organization's security controls at the time of the audit. For traditional software systems, the interval between audits is manageable, systems change on defined release cycles, and the gap between certification and current state is bounded.
             </p>
             <p>
-              AI agents are different. The model version changes. Behavioral drift accumulates. New attack patterns emerge. The agent that was certified in February may present a meaningfully different risk profile in June — not because of any discrete failure, but because of the compounding effect of continuous change.
+              AI agents are different. The model version changes. Behavioral drift accumulates. New attack patterns emerge. The agent that was certified in February may present a meaningfully different risk profile in June, not because of any discrete failure, but because of the compounding effect of continuous change.
             </p>
             <p>
               AIUC-1 itself acknowledges this: its quarterly retesting requirement exists precisely because the threat surface moves faster than annual certification can track. But quarterly retesting is still point-in-time assessment of a system that operates continuously. The retesting tells you what the system looked like on the day it was tested. It does not tell you what it was doing on the day of the incident.
@@ -135,10 +135,10 @@ import Footer from '../../components/Footer.astro';
 
             <h2>What liability adjudication actually requires</h2>
             <p>
-              For the legal frameworks to function as designed — for the PLD's presumptions to be rebutted, for DORA's 72-hour reporting obligation to be met, for the EU AI Act's human oversight requirements to be meaningful — a specific category of evidence must exist for every high-risk AI agent deployment.
+              For the legal frameworks to function as designed, for the PLD's presumptions to be rebutted, for DORA's 72-hour reporting obligation to be met, for the EU AI Act's human oversight requirements to be meaningful, a specific category of evidence must exist for every high-risk AI agent deployment.
             </p>
             <p>
-              <strong>It must be complete.</strong> Every agent action — every model call, every tool invocation, every data retrieval, every decision point — must be captured. Partial logs do not satisfy forensic requirements. An investigation that must reconstruct the decision chain from fragmented records across ten vendor consoles will not produce the evidence that liability adjudication requires.
+              <strong>It must be complete.</strong> Every agent action, every model call, every tool invocation, every data retrieval, every decision point, must be captured. Partial logs do not satisfy forensic requirements. An investigation that must reconstruct the decision chain from fragmented records across ten vendor consoles will not produce the evidence that liability adjudication requires.
             </p>
             <p>
               <strong>It must be continuous.</strong> The record must exist from the moment of deployment, not assembled retrospectively when an incident surfaces. Evidence that is gathered after the fact, in response to a claim, does not satisfy the regulators' expectation that controls were active between audit cycles.
@@ -147,10 +147,10 @@ import Footer from '../../components/Footer.astro';
               <strong>It must be independent.</strong> An audit trail that lives on the model provider's infrastructure, is signed by the provider's keys, and is accessible only through the provider's console does not satisfy DORA's independence requirement. In a dispute involving the provider, its evidentiary value is compromised.
             </p>
             <p>
-              <strong>It must be tamper-evident.</strong> Software logs on a host that the defendant controls can be modified. The PLD's rebuttable presumptions cannot be rebutted by evidence whose integrity depends on the word of the party producing it. Tamper-evidence requires cryptographic integrity — every record signed at the point of capture, every record chained to the previous one so that any modification is detectable.
+              <strong>It must be tamper-evident.</strong> Software logs on a host that the defendant controls can be modified. The PLD's rebuttable presumptions cannot be rebutted by evidence whose integrity depends on the word of the party producing it. Tamper-evidence requires cryptographic integrity, every record signed at the point of capture, every record chained to the previous one so that any modification is detectable.
             </p>
             <p>
-              These four requirements — completeness, continuity, independence, tamper-evidence — define the behavioral data layer that the confidence infrastructure for autonomous AI requires. Certification bodies like AIUC establish what safe behavior looks like. Insurers price the residual risk. But both depend on this layer to function accurately.
+              These four requirements, completeness, continuity, independence, tamper-evidence, define the behavioral data layer that the confidence infrastructure for autonomous AI requires. Certification bodies like AIUC establish what safe behavior looks like. Insurers price the residual risk. But both depend on this layer to function accurately.
             </p>
             <p>
               It is the layer that, as of today, does not exist as standard infrastructure in most enterprise AI deployments.
@@ -161,10 +161,10 @@ import Footer from '../../components/Footer.astro';
               The historical pattern from Part I suggests how this resolves. The technology exists. The regulatory frameworks have been written. The legal consequences of inadequate governance have been established. What remains is for the infrastructure to catch up to the obligations.
             </p>
             <p>
-              Hartford Steam Boiler didn't wait for Congress to mandate boiler inspections. It built the inspection infrastructure because it had financial exposure to the outcome of every boiler failure. The insurers who are now writing AI agent policies will face the same pressure — as claim complexity increases, as adjudication reveals the evidentiary gaps, as the difference between insurable and uninsurable deployments becomes concrete.
+              Hartford Steam Boiler didn't wait for Congress to mandate boiler inspections. It built the inspection infrastructure because it had financial exposure to the outcome of every boiler failure. The insurers who are now writing AI agent policies will face the same pressure, as claim complexity increases, as adjudication reveals the evidentiary gaps, as the difference between insurable and uninsurable deployments becomes concrete.
             </p>
             <p>
-              The behavioral data layer — continuous, independent, tamper-evident — is what the market will require. Not as a regulatory checkbox. As the precondition for the legal and insurance ecosystem to function as designed.
+              The behavioral data layer, continuous, independent, tamper-evident, is what the market will require. Not as a regulatory checkbox. As the precondition for the legal and insurance ecosystem to function as designed.
             </p>
 
             <!-- Series nav -->
@@ -239,7 +239,7 @@ import Footer from '../../components/Footer.astro';
             <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Frameworks covered</p>
               <div class="space-y-1.5">
-                {["EU AI Act — Art. 12, 14, 26", "PLD 2024/2853", "DORA — Art. 30", "UK DRCF Foresight Paper"].map((f) => (
+                {["EU AI Act, Art. 12, 14, 26", "PLD 2024/2853", "DORA, Art. 30", "UK DRCF Foresight Paper"].map((f) => (
                   <p class="font-mono text-xs text-[#A8A8A8]">{f}</p>
                 ))}
               </div>

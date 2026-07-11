@@ -5,8 +5,8 @@ import Footer from '../../components/Footer.astro';
 ---
 
 <Base
-  title="The End of the App Layer: Why MCP Changes Everything About AI Governance — KYDE"
-  description="MCP lets AI agents connect directly to enterprise systems — bypassing the application layer that was always the implicit governance control point. Most enterprises haven't noticed yet."
+  title="The End of the App Layer: Why MCP Changes Everything About AI Governance, KYDE"
+  description="MCP lets AI agents connect directly to enterprise systems, bypassing the application layer that was always the implicit governance control point. Most enterprises haven't noticed yet."
 >
   <Navbar />
 
@@ -51,13 +51,13 @@ import Footer from '../../components/Footer.astro';
           <article class="prose-kyde min-w-0">
 
             <p>
-              For thirty years, enterprise software followed the same pattern. A system of record sits in the backend — a core banking system, a CRM, an ERP. An application sits in the middle — handling business logic, access control, validation. A user sits at the front — interacting through the interface the application provides.
+              For thirty years, enterprise software followed the same pattern. A system of record sits in the backend, a core banking system, a CRM, an ERP. An application sits in the middle, handling business logic, access control, validation. A user sits at the front, interacting through the interface the application provides.
             </p>
             <p>
               The application layer was never just a UI. It was a control point. It validated inputs, enforced permissions, logged actions, and prevented the backend from being accessed in ways it wasn't designed to handle. The app was where governance lived.
             </p>
             <p>
-              MCP — the Model Context Protocol — is systematically removing that control point. And most enterprises haven't noticed yet.
+              MCP, the Model Context Protocol, is systematically removing that control point. And most enterprises haven't noticed yet.
             </p>
 
             <h2>What MCP actually is</h2>
@@ -74,10 +74,10 @@ import Footer from '../../components/Footer.astro';
 
             <h2>Why banks are building MCP servers</h2>
             <p>
-              Financial institutions are among the earliest serious adopters of MCP infrastructure — and for understandable reasons. Banks operate some of the most complex, fragmented system landscapes in any industry. Core banking systems, risk engines, compliance databases, trading infrastructure, customer data platforms — each built in a different era, each with its own integration pattern.
+              Financial institutions are among the earliest serious adopters of MCP infrastructure, and for understandable reasons. Banks operate some of the most complex, fragmented system landscapes in any industry. Core banking systems, risk engines, compliance databases, trading infrastructure, customer data platforms, each built in a different era, each with its own integration pattern.
             </p>
             <p>
-              AI agents that can navigate this landscape directly — retrieving account data, checking compliance rules, executing transactions, generating regulatory reports — represent an enormous operational efficiency gain. MCP makes that possible without rebuilding the underlying systems.
+              AI agents that can navigate this landscape directly, retrieving account data, checking compliance rules, executing transactions, generating regulatory reports, represent an enormous operational efficiency gain. MCP makes that possible without rebuilding the underlying systems.
             </p>
             <p>
               The vision is straightforward: expose your core systems as MCP servers. Deploy agents with the right capabilities. Let the agents handle the workflows that currently require human navigation across a dozen different interfaces.
@@ -90,25 +90,25 @@ import Footer from '../../components/Footer.astro';
               Traditional enterprise applications weren't just interfaces. They were implicit governance infrastructure. When a relationship manager opened a customer record in the CRM, the application enforced their access level, logged the access, validated any updates they made, and prevented them from doing things outside their permitted scope. The application was the policy enforcement point.
             </p>
             <p>
-              When an AI agent accesses the same customer record through an MCP server, none of that implicit governance applies — unless it has been explicitly built into the MCP server itself, or unless a governance layer sits between the agent and the server.
+              When an AI agent accesses the same customer record through an MCP server, none of that implicit governance applies, unless it has been explicitly built into the MCP server itself, or unless a governance layer sits between the agent and the server.
             </p>
             <p>
               Most MCP servers being built today are not being built with that governance layer. They're being built for capability and speed. The governance question is being deferred.
             </p>
             <p>
-              That deferral is a significant risk. Every MCP call an agent makes is an action taken in the name of the organization — against real systems, with real consequences. A customer record updated. A transaction scoped. A compliance check triggered. A document retrieved and summarized.
+              That deferral is a significant risk. Every MCP call an agent makes is an action taken in the name of the organization, against real systems, with real consequences. A customer record updated. A transaction scoped. A compliance check triggered. A document retrieved and summarized.
             </p>
             <p>The application layer that used to validate, log, and scope these actions is gone. Something needs to replace it.</p>
 
             <h2>Every MCP call is a legal event</h2>
             <p>
-              In <em>Moffatt v. Air Canada</em>, a tribunal held the airline liable for incorrect information its chatbot provided — rejecting the argument that the bot was a separate entity with its own policies. The principle established is clear: your agents act on your behalf. You are accountable for what they do.
+              In <em>Moffatt v. Air Canada</em>, a tribunal held the airline liable for incorrect information its chatbot provided, rejecting the argument that the bot was a separate entity with its own policies. The principle established is clear: your agents act on your behalf. You are accountable for what they do.
             </p>
             <p>
               That principle applies with full force to MCP-mediated actions. When an agent calls a core banking system through an MCP server and scopes a payment, that authorization is legally attributable to the organization that deployed the agent. When an agent retrieves personnel data through an HR system MCP server and uses it to make a recommendation, that retrieval and that recommendation are subject to <span class="font-mono text-[#A8A8A8]">GDPR</span>, to <span class="font-mono text-[#A8A8A8]">EU AI Act</span> obligations, to whatever regulatory framework governs that data.
             </p>
             <p>
-              The absence of a human in the loop — the fact that no application interface was involved, no employee clicked a button — does not create a legal shield. It removes one.
+              The absence of a human in the loop, the fact that no application interface was involved, no employee clicked a button, does not create a legal shield. It removes one.
             </p>
             <p>
               Regulators don't ask whether a human approved each action. They ask whether the organization had governance infrastructure in place. Whether actions were logged. Whether the record can be verified. Whether the organization can demonstrate what its agents did, why, and under what authority.
@@ -123,31 +123,31 @@ import Footer from '../../components/Footer.astro';
               Each of these systems is now directly accessible to any agent that has been granted access. Each call is a potential audit event under <span class="font-mono text-[#A8A8A8]">DORA</span>, under the <span class="font-mono text-[#A8A8A8]">EU AI Act</span>, under <span class="font-mono text-[#A8A8A8]">GDPR</span>. Each call needs:
             </p>
             <ul>
-              <li>An identity — which agent made it</li>
-              <li>A scope — was this agent scoped to call this server with these parameters</li>
-              <li>A record — what exactly was called, what was returned, in what context</li>
-              <li>A tamper-evident trail — proof that the record hasn't been modified since the call was made</li>
+              <li>An identity, which agent made it</li>
+              <li>A scope, was this agent scoped to call this server with these parameters</li>
+              <li>A record, what exactly was called, what was returned, in what context</li>
+              <li>A tamper-evident trail, proof that the record hasn't been modified since the call was made</li>
             </ul>
             <p>That's not a logging configuration. That's a governance architecture.</p>
 
             <h2>Where the governance layer needs to sit</h2>
             <p>
-              The lesson from the application layer's disappearance is that governance cannot be embedded in the thing being governed. Apps worked as control points because they sat between the user and the system. When the app goes away, the control point needs to move — not disappear.
+              The lesson from the application layer's disappearance is that governance cannot be embedded in the thing being governed. Apps worked as control points because they sat between the user and the system. When the app goes away, the control point needs to move, not disappear.
             </p>
             <p>
               A governance proxy that sits between agent and MCP server occupies exactly that position. Every call from every agent to every MCP server routes through it. Identity is verified. Scope is enforced. The call is signed and chained into a tamper-evident record before it reaches the target system.
             </p>
-            <p>The MCP server doesn't need to be rebuilt. The agent doesn't need to be modified. The governance layer intercepts, governs, and forwards — invisibly, at under 100ms.</p>
+            <p>The MCP server doesn't need to be rebuilt. The agent doesn't need to be modified. The governance layer intercepts, governs, and forwards, invisibly, at under 100ms.</p>
 
             <h2>The window before this becomes a crisis</h2>
             <p>
-              MCP adoption is accelerating. The enterprises building MCP infrastructure today are mostly focused on capability — what their agents can do, how fast they can move, how many systems they can connect. Governance is a secondary consideration.
+              MCP adoption is accelerating. The enterprises building MCP infrastructure today are mostly focused on capability, what their agents can do, how fast they can move, how many systems they can connect. Governance is a secondary consideration.
             </p>
             <p>
-              That will change. It always does. The question is whether it changes proactively — as enterprises design their MCP infrastructure with a governance layer from the start — or reactively, after an incident that makes the absence of governance undeniable.
+              That will change. It always does. The question is whether it changes proactively, as enterprises design their MCP infrastructure with a governance layer from the start, or reactively, after an incident that makes the absence of governance undeniable.
             </p>
             <p>
-              Banks that are building MCP servers today are building the critical infrastructure of their next operating model. The governance layer that protects that infrastructure needs to be designed alongside it — not retrofitted after the first agent does something it shouldn't have.
+              Banks that are building MCP servers today are building the critical infrastructure of their next operating model. The governance layer that protects that infrastructure needs to be designed alongside it, not retrofitted after the first agent does something it shouldn't have.
             </p>
             <p>The app layer is going away. The control point it represented is not optional. It just needs to live somewhere else.</p>
 
@@ -155,7 +155,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
               <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
-                Kyde governs not just LLM calls but every tool your agents invoke — including MCP servers. Every call is intercepted, traced to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. The app layer disappears. The governance layer doesn't.
+                Kyde governs not just LLM calls but every tool your agents invoke, including MCP servers. Every call is intercepted, traced to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. The app layer disappears. The governance layer doesn't.
               </p>
               <button
                 onclick="openModal()"
@@ -180,7 +180,7 @@ import Footer from '../../components/Footer.astro';
             <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulatory exposure</p>
               <div class="space-y-2">
-                {["DORA — Art. 23, 30", "EU AI Act — Art. 12, 14", "GDPR Art. 22, 35"].map((r) => (
+                {["DORA, Art. 23, 30", "EU AI Act, Art. 12, 14", "GDPR Art. 22, 35"].map((r) => (
                   <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
                 ))}
               </div>

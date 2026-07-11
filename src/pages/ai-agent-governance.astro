@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 ---
 
 <Base
-  title="AI Agent Governance: The Complete Enterprise Guide — KYDE"
+  title="AI Agent Governance: The Complete Enterprise Guide, KYDE"
   description="AI agent governance is the infrastructure that lets enterprises give AI agents real decision-making authority without losing control. This guide covers what it is, why existing approaches fail, and what compliant agent governance actually looks like."
 >
   <Navbar />
@@ -35,7 +35,7 @@ import Footer from "../components/Footer.astro";
             AI Agent Governance: The Complete Enterprise Guide
           </h1>
           <p class="text-base text-[#A8A8A8] leading-relaxed max-w-2xl">
-            AI agents are no longer prototypes. They are executing real tasks, calling real APIs, and making decisions that affect real outcomes. Governance is not an optional layer you add later — it is the infrastructure that makes autonomous agents viable in a regulated enterprise environment.
+            AI agents are no longer prototypes. They are executing real tasks, calling real APIs, and making decisions that affect real outcomes. Governance is not an optional layer you add later, it is the infrastructure that makes autonomous agents viable in a regulated enterprise environment.
           </p>
           <div class="mt-6 flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
             <span>Governance · Strategy</span>
@@ -86,10 +86,10 @@ import Footer from "../components/Footer.astro";
               AI agent governance is the set of technical controls and organizational policies that determine what AI agents are permitted to do, verify that they stay within those permissions, and produce an auditable record of everything they did.
             </p>
             <p>
-              It is distinct from AI ethics frameworks, model safety research, and application-level feature controls. Governance, as used here, is operational infrastructure — the layer between an agent and the systems it acts on that enforces policy in real time and creates an unalterable record that proves it did so.
+              It is distinct from AI ethics frameworks, model safety research, and application-level feature controls. Governance, as used here, is operational infrastructure, the layer between an agent and the systems it acts on that enforces policy in real time and creates an unalterable record that proves it did so.
             </p>
             <p>
-              The governance question is not "is this AI system safe?" — that is a model evaluation question. The governance question is: "can we prove, to a regulator or a court, what this agent did, under what authority, and that it did not exceed its mandate?" Those are different questions, and they require different infrastructure.
+              The governance question is not "is this AI system safe?", that is a model evaluation question. The governance question is: "can we prove, to a regulator or a court, what this agent did, under what authority, and that it did not exceed its mandate?" Those are different questions, and they require different infrastructure.
             </p>
             <p>
               Harvard Business Review identified four frictions that derail enterprise AI agent deployments at scale: identity (agents have no verifiable identity), context (agents cannot prove what they were shown), control (there is no enforcement layer that can intervene before an action executes), and accountability (there is no record that survives legal scrutiny). <a href="/blog/hbr-ai-agents-infrastructure">Governance infrastructure is the answer to all four.</a>
@@ -101,19 +101,19 @@ import Footer from "../components/Footer.astro";
             </p>
 
             <p>
-              <strong>LLM provider native controls.</strong> OpenAI, Anthropic, and other providers offer usage dashboards, rate limits, content policies, and some logging. These are useful for billing and abuse detection. They are not governance infrastructure. A log on a provider's server, signed by the provider's keys, controlled by the provider's retention policy, and accessible only through the provider's console is a vendor report — not an independent audit trail. Provider controls also cover only one provider at a time: the typical enterprise agent fleet uses multiple providers simultaneously.
+              <strong>LLM provider native controls.</strong> OpenAI, Anthropic, and other providers offer usage dashboards, rate limits, content policies, and some logging. These are useful for billing and abuse detection. They are not governance infrastructure. A log on a provider's server, signed by the provider's keys, controlled by the provider's retention policy, and accessible only through the provider's console is a vendor report, not an independent audit trail. Provider controls also cover only one provider at a time: the typical enterprise agent fleet uses multiple providers simultaneously.
             </p>
 
             <p>
-              <strong>Application-layer guardrails.</strong> Prompt engineering, output filters, and application-level validation (checking outputs before they're acted on) are valuable safety measures. They are not governance infrastructure. Application-layer controls can be bypassed by prompt injection, model updates, or context manipulation. They also produce no independent evidence of what happened — the evidence lives in the same application stack as the agent itself, which means it can be altered by anyone with access to that stack.
+              <strong>Application-layer guardrails.</strong> Prompt engineering, output filters, and application-level validation (checking outputs before they're acted on) are valuable safety measures. They are not governance infrastructure. Application-layer controls can be bypassed by prompt injection, model updates, or context manipulation. They also produce no independent evidence of what happened, the evidence lives in the same application stack as the agent itself, which means it can be altered by anyone with access to that stack.
             </p>
 
             <p>
-              <strong>Agent framework observability tools.</strong> LangChain, CrewAI, AutoGen, and similar frameworks have observability features — trace logging, step visualization, token counting. These are valuable for development. They are not governance infrastructure. Framework observability requires agents to be built on that specific framework, produces developer-facing debug output rather than court-admissible audit records, and has no enforcement capability — it watches, but cannot intervene.
+              <strong>Agent framework observability tools.</strong> LangChain, CrewAI, AutoGen, and similar frameworks have observability features, trace logging, step visualization, token counting. These are valuable for development. They are not governance infrastructure. Framework observability requires agents to be built on that specific framework, produces developer-facing debug output rather than court-admissible audit records, and has no enforcement capability, it watches, but cannot intervene.
             </p>
 
             <p>
-              The pattern across all three: they address visibility or safety at the component level, not at the governance layer. <a href="/blog/missing-layer-agent-architecture">The missing layer is not another component inside the agent — it is an independent layer outside it.</a>
+              The pattern across all three: they address visibility or safety at the component level, not at the governance layer. <a href="/blog/missing-layer-agent-architecture">The missing layer is not another component inside the agent, it is an independent layer outside it.</a>
             </p>
 
             <h2 id="the-four-requirements">The four requirements: identity, scope, enforcement, ledger</h2>
@@ -126,22 +126,22 @@ import Footer from "../components/Footer.astro";
                 {
                   n: "01",
                   label: "Identity",
-                  body: "Every agent must have a verifiable, cryptographic identity that is independent of the agent's own code or configuration. An agent cannot assert its own identity — that assertion can be forged. Identity must be assigned externally and verified at the governance layer. Without agent identity, there is no attribution: when something goes wrong, you cannot determine which agent did it, under whose authority, and with whose credentials."
+                  body: "Every agent must have a verifiable, cryptographic identity that is independent of the agent's own code or configuration. An agent cannot assert its own identity, that assertion can be forged. Identity must be assigned externally and verified at the governance layer. Without agent identity, there is no attribution: when something goes wrong, you cannot determine which agent did it, under whose authority, and with whose credentials."
                 },
                 {
                   n: "02",
                   label: "Scope",
-                  body: "Every agent must operate within defined behavioral boundaries — what data it can access, what actions it can take, what providers it can call, and in what context. Scope is a policy, not a software setting. It must be machine-readable, externally enforced, and capable of being updated without modifying the agent. Scope that lives inside the agent's own code is not governance — it is a feature the agent can circumvent."
+                  body: "Every agent must operate within defined behavioral boundaries, what data it can access, what actions it can take, what providers it can call, and in what context. Scope is a policy, not a software setting. It must be machine-readable, externally enforced, and capable of being updated without modifying the agent. Scope that lives inside the agent's own code is not governance, it is a feature the agent can circumvent."
                 },
                 {
                   n: "03",
                   label: "Enforcement",
-                  body: "Policy must be enforced before actions execute, not audited after the fact. A governance layer that only records what agents did is an audit tool, not a control tool. Enforcement means that an out-of-policy action — an agent attempting to access a restricted data source, call a disallowed tool, or operate outside its defined context — is blocked before it reaches the target system. Post-hoc detection of policy violations is not sufficient for regulated environments."
+                  body: "Policy must be enforced before actions execute, not audited after the fact. A governance layer that only records what agents did is an audit tool, not a control tool. Enforcement means that an out-of-policy action, an agent attempting to access a restricted data source, call a disallowed tool, or operate outside its defined context, is blocked before it reaches the target system. Post-hoc detection of policy violations is not sufficient for regulated environments."
                 },
                 {
                   n: "04",
                   label: "Ledger",
-                  body: "Every agent action must be recorded in a tamper-evident, hash-chained ledger that is architecturally independent of the agents it governs. The ledger must capture causal context — not just inputs and outputs, but the full decision chain: retrieval context, tool calls, intermediate reasoning steps, and the policy state at the time of execution. A log that can be altered after the fact, or that lives in the same system as the agent, does not satisfy regulatory requirements for an independent audit trail."
+                  body: "Every agent action must be recorded in a tamper-evident, hash-chained ledger that is architecturally independent of the agents it governs. The ledger must capture causal context, not just inputs and outputs, but the full decision chain: retrieval context, tool calls, intermediate reasoning steps, and the policy state at the time of execution. A log that can be altered after the fact, or that lives in the same system as the agent, does not satisfy regulatory requirements for an independent audit trail."
                 },
               ].map(({ n, label, body }) => (
                 <div class="grid grid-cols-[48px_1fr] border-b border-[#1F1F1F] last:border-b-0">
@@ -157,7 +157,7 @@ import Footer from "../components/Footer.astro";
             </div>
 
             <p>
-              These four properties are not a product checklist — they are architectural requirements. A system that has three of them and lacks the fourth is not a governance system. Identity without enforcement is attribution with no control. Enforcement without a ledger is control with no accountability. A ledger without independence is a record that cannot be trusted.
+              These four properties are not a product checklist, they are architectural requirements. A system that has three of them and lacks the fourth is not a governance system. Identity without enforcement is attribution with no control. Enforcement without a ledger is control with no accountability. A ledger without independence is a record that cannot be trusted.
             </p>
 
             <h2 id="regulatory-context">The regulatory context</h2>
@@ -165,13 +165,13 @@ import Footer from "../components/Footer.astro";
               AI agent governance is now a regulatory requirement in several jurisdictions, not a best practice.
             </p>
             <p>
-              <strong>EU AI Act (Regulation 2024/1689).</strong> High-Risk AI systems — those used in employment, credit, insurance, education, critical infrastructure, and essential services — must have automatic logging (Article 12), human oversight capability (Article 14), and deployer-maintained audit trails (Article 26). The enforcement deadline for Annex III standalone systems is December 2, 2027. <a href="/eu-ai-act-compliance">Full compliance guide →</a>
+              <strong>EU AI Act (Regulation 2024/1689).</strong> High-Risk AI systems, those used in employment, credit, insurance, education, critical infrastructure, and essential services, must have automatic logging (Article 12), human oversight capability (Article 14), and deployer-maintained audit trails (Article 26). The enforcement deadline for Annex III standalone systems is December 2, 2027. <a href="/eu-ai-act-compliance">Full compliance guide →</a>
             </p>
             <p>
               <strong>DORA (Digital Operational Resilience Act).</strong> In force since January 2025, DORA requires financial entities to maintain detailed ICT-related incident logs including AI agent activity. Article 30 mandates log retention of up to two years. Provider-native logs do not satisfy the independence requirement. <a href="/blog/dora-ai-agents">DORA and AI agents explained →</a>
             </p>
             <p>
-              <strong>UK regulatory convergence.</strong> The UK's Digital Regulation Cooperation Forum — CMA, FCA, ICO, and Ofcom — published a joint foresight paper on agentic AI establishing that organizational accountability is unchanged regardless of agent autonomy. "My agent did it" is not a defense. <a href="/blog/drcf-agentic-ai-foresight">What the DRCF paper means for enterprises →</a>
+              <strong>UK regulatory convergence.</strong> The UK's Digital Regulation Cooperation Forum, CMA, FCA, ICO, and Ofcom, published a joint foresight paper on agentic AI establishing that organizational accountability is unchanged regardless of agent autonomy. "My agent did it" is not a defense. <a href="/blog/drcf-agentic-ai-foresight">What the DRCF paper means for enterprises →</a>
             </p>
             <p>
               <strong>NIST AI RMF.</strong> The US National Institute of Standards and Technology's AI Risk Management Framework converges on the same technical requirements as the EU AI Act: traceable identity, causal context capture, and tamper-evident records in a governance layer independent of the agents it governs. <a href="/blog/nist-critical-infrastructure-ai-convergence">US–EU regulatory convergence →</a>
@@ -186,19 +186,19 @@ import Footer from "../components/Footer.astro";
             </p>
 
             <p>
-              <strong>Out-of-band from the agents it governs.</strong> The governance layer must be architecturally independent of the agent fleet. It cannot rely on the agents to log themselves, enforce their own scope, or assert their own identity. The moment governance depends on the governed system's cooperation, it is not governance — it is a policy the system can choose to follow. The governance layer must sit between the agents and the systems they act on, processing every action independently.
+              <strong>Out-of-band from the agents it governs.</strong> The governance layer must be architecturally independent of the agent fleet. It cannot rely on the agents to log themselves, enforce their own scope, or assert their own identity. The moment governance depends on the governed system's cooperation, it is not governance, it is a policy the system can choose to follow. The governance layer must sit between the agents and the systems they act on, processing every action independently.
             </p>
 
             <p>
-              <strong>Provider-agnostic.</strong> Most enterprise agent fleets use multiple LLM providers simultaneously — OpenAI for some tasks, Anthropic for others, local models for air-gapped environments, specialized models for specific verticals. A governance layer that only covers one provider leaves the rest ungoverned. The governance layer must intercept and process all AI inference traffic, regardless of provider, without requiring changes to the agents themselves.
+              <strong>Provider-agnostic.</strong> Most enterprise agent fleets use multiple LLM providers simultaneously, OpenAI for some tasks, Anthropic for others, local models for air-gapped environments, specialized models for specific verticals. A governance layer that only covers one provider leaves the rest ungoverned. The governance layer must intercept and process all AI inference traffic, regardless of provider, without requiring changes to the agents themselves.
             </p>
 
             <p>
-              <strong>Enforcement-first, not observation-only.</strong> The distinction between observability and governance is enforcement capability. An observability system records what happened. A governance system decides what is permitted to happen — and blocks what is not — before the action reaches the target. For regulated environments, post-hoc detection of policy violations is insufficient. The governance layer must have the ability to block an action in real time, before it executes, when that action violates policy.
+              <strong>Enforcement-first, not observation-only.</strong> The distinction between observability and governance is enforcement capability. An observability system records what happened. A governance system decides what is permitted to happen, and blocks what is not, before the action reaches the target. For regulated environments, post-hoc detection of policy violations is insufficient. The governance layer must have the ability to block an action in real time, before it executes, when that action violates policy.
             </p>
 
             <p>
-              <a href="/blog/missing-layer-agent-architecture">Why the agent harness — not the agent core — is where enterprise governance lives →</a>
+              <a href="/blog/missing-layer-agent-architecture">Why the agent harness, not the agent core, is where enterprise governance lives →</a>
             </p>
             <p>
               <a href="/guides/governance-checklist">The documentation and technical controls checklist for pre-audit readiness →</a>
@@ -206,12 +206,12 @@ import Footer from "../components/Footer.astro";
 
             <h2 id="vendor-landscape">Navigating the vendor landscape</h2>
             <p>
-              The market for AI agent oversight tools is growing faster than the terminology is stabilizing. Three categories of product describe themselves as "AI governance" — but they address different problems, at different layers, with different regulatory applicability.
+              The market for AI agent oversight tools is growing faster than the terminology is stabilizing. Three categories of product describe themselves as "AI governance", but they address different problems, at different layers, with different regulatory applicability.
             </p>
             <ul>
-              <li><strong>AI Security tools (e.g., Zenity, Lakera, Prompt Security)</strong> — Inspect inputs and outputs for prompt injection, data exfiltration attempts, and malicious content. These are security tools. They catch adversarial attacks. They do not produce compliance-grade audit trails, enforce behavioral scope, or provide agent identity. Think: antivirus for AI agents.</li>
-              <li><strong>Observability and monitoring tools (e.g., LangSmith, Langfuse, Arize)</strong> — Capture traces of agent execution for debugging and performance analysis. These are development tools. They require framework-specific instrumentation, produce developer-facing output, and have no enforcement capability. Think: APM for AI agents.</li>
-              <li><strong>Governance infrastructure (e.g., KYDE)</strong> — Enforce behavioral policy in real time, produce cryptographically signed audit trails, and operate out-of-band from the governed agents. These are the tools that satisfy regulatory requirements. Think: Corporate Law for AI agents — the infrastructure that makes real economic authority governable.</li>
+              <li><strong>AI Security tools (e.g., Zenity, Lakera, Prompt Security)</strong>, Inspect inputs and outputs for prompt injection, data exfiltration attempts, and malicious content. These are security tools. They catch adversarial attacks. They do not produce compliance-grade audit trails, enforce behavioral scope, or provide agent identity. Think: antivirus for AI agents.</li>
+              <li><strong>Observability and monitoring tools (e.g., LangSmith, Langfuse, Arize)</strong>, Capture traces of agent execution for debugging and performance analysis. These are development tools. They require framework-specific instrumentation, produce developer-facing output, and have no enforcement capability. Think: APM for AI agents.</li>
+              <li><strong>Governance infrastructure (e.g., KYDE)</strong>, Enforce behavioral policy in real time, produce cryptographically signed audit trails, and operate out-of-band from the governed agents. These are the tools that satisfy regulatory requirements. Think: Corporate Law for AI agents, the infrastructure that makes real economic authority governable.</li>
             </ul>
             <p>
               The three categories are not substitutes for each other. Security tools do not replace governance infrastructure. Observability tools do not replace compliance audit trails. Understanding which problem each tool solves is the prerequisite for building a governance stack that is actually complete.
@@ -226,27 +226,27 @@ import Footer from "../components/Footer.astro";
               {[
                 {
                   q: "What is the difference between AI safety and AI governance?",
-                  a: "AI safety is concerned with the properties of the model itself — whether it behaves predictably, avoids harmful outputs, and responds to instructions reliably. AI governance is concerned with what the deployed system is permitted to do, who authorized it, and whether that is provable. Safety is a property of the model. Governance is a property of the deployment. A perfectly safe model deployed without governance is still a compliance risk. A well-governed deployment of an imperfect model is controllable and auditable."
+                  a: "AI safety is concerned with the properties of the model itself, whether it behaves predictably, avoids harmful outputs, and responds to instructions reliably. AI governance is concerned with what the deployed system is permitted to do, who authorized it, and whether that is provable. Safety is a property of the model. Governance is a property of the deployment. A perfectly safe model deployed without governance is still a compliance risk. A well-governed deployment of an imperfect model is controllable and auditable."
                 },
                 {
                   q: "Does AI governance require changes to existing agents?",
-                  a: "No — at least, not for out-of-band governance infrastructure. A governance proxy that intercepts all AI inference traffic at the network layer requires no modifications to agents, frameworks, or application code. Configuration is typically a single environment variable change (pointing the agent's LLM calls to the governance proxy endpoint) or a network routing rule. The agent does not need to know the governance layer exists."
+                  a: "No, at least, not for out-of-band governance infrastructure. A governance proxy that intercepts all AI inference traffic at the network layer requires no modifications to agents, frameworks, or application code. Configuration is typically a single environment variable change (pointing the agent's LLM calls to the governance proxy endpoint) or a network routing rule. The agent does not need to know the governance layer exists."
                 },
                 {
-                  q: "Can't I just govern agents through the application layer — prompt templates, output validation, guardrails?",
+                  q: "Can't I just govern agents through the application layer, prompt templates, output validation, guardrails?",
                   a: "Application-layer controls are valuable safety measures. They are not governance infrastructure for several reasons: they can be bypassed through prompt injection or model updates; they produce no independent evidence of what the agent did; and they live in the same system as the agent, so they can be modified or disabled by anyone with application access. For regulatory purposes, the audit trail must be architecturally independent of the system being audited. Application-layer controls do not satisfy that requirement."
                 },
                 {
                   q: "What is a behavioral firewall for AI agents?",
-                  a: "A behavioral firewall (the architecture KYDE implements) is a governance proxy that intercepts all AI inference calls between agent and provider. It enforces a behavioral policy — permitting requests that are within scope, blocking requests that violate scope — before they reach the LLM. It captures a tamper-evident record of every permitted and blocked action, signed at the moment of capture. It assigns cryptographic identity to each agent so every action is attributable. The term 'behavioral' distinguishes it from input/output security filters (which inspect content) — a behavioral firewall governs what the agent is permitted to do, not just what it outputs."
+                  a: "A behavioral firewall (the architecture KYDE implements) is a governance proxy that intercepts all AI inference calls between agent and provider. It enforces a behavioral policy, permitting requests that are within scope, blocking requests that violate scope, before they reach the LLM. It captures a tamper-evident record of every permitted and blocked action, signed at the moment of capture. It assigns cryptographic identity to each agent so every action is attributable. The term 'behavioral' distinguishes it from input/output security filters (which inspect content), a behavioral firewall governs what the agent is permitted to do, not just what it outputs."
                 },
                 {
                   q: "How does MCP (Model Context Protocol) affect AI agent governance?",
-                  a: "MCP allows AI agents to connect directly to enterprise systems — databases, APIs, file systems, SaaS tools — through a standardized protocol. This dramatically expands the action surface of AI agents and removes the application layer that previously served as an implicit control point. Governance infrastructure must be MCP-aware: it needs to see and enforce policy on MCP tool calls, not just LLM inference calls. A governance layer that only monitors LLM traffic misses everything the agent does through MCP connections."
+                  a: "MCP allows AI agents to connect directly to enterprise systems, databases, APIs, file systems, SaaS tools, through a standardized protocol. This dramatically expands the action surface of AI agents and removes the application layer that previously served as an implicit control point. Governance infrastructure must be MCP-aware: it needs to see and enforce policy on MCP tool calls, not just LLM inference calls. A governance layer that only monitors LLM traffic misses everything the agent does through MCP connections."
                 },
                 {
                   q: "Who in the enterprise owns AI agent governance?",
-                  a: "Ownership is typically shared between CISO (security and risk), CCO/Legal (regulatory compliance and liability), and the AI/IT team (technical implementation). The regulatory driver — EU AI Act, DORA, GDPR — determines which function leads. In most regulated enterprises, the CISO or CCO initiates governance infrastructure procurement because the regulatory risk is their mandate. The AI team implements. This is why enterprise AI governance tools are evaluated and purchased by security and compliance functions, not by AI teams."
+                  a: "Ownership is typically shared between CISO (security and risk), CCO/Legal (regulatory compliance and liability), and the AI/IT team (technical implementation). The regulatory driver, EU AI Act, DORA, GDPR, determines which function leads. In most regulated enterprises, the CISO or CCO initiates governance infrastructure procurement because the regulatory risk is their mandate. The AI team implements. This is why enterprise AI governance tools are evaluated and purchased by security and compliance functions, not by AI teams."
                 },
               ].map(({ q, a }) => (
                 <details class="border border-[#1F1F1F] bg-[#0C0C0C] group">
@@ -274,25 +274,25 @@ import Footer from "../components/Footer.astro";
                 {
                   label: "Article",
                   title: "The Missing Layer in Every Agent Architecture",
-                  desc: "Why the agent harness — not the agent core — is where enterprise governance must live.",
+                  desc: "Why the agent harness, not the agent core, is where enterprise governance must live.",
                   href: "/blog/missing-layer-agent-architecture",
                 },
                 {
                   label: "Article",
                   title: "HBR Described the Problem. Here's the Infrastructure That Solves It.",
-                  desc: "Identity, context, control, accountability — the four enterprise frictions and the governance layer that addresses all four.",
+                  desc: "Identity, context, control, accountability, the four enterprise frictions and the governance layer that addresses all four.",
                   href: "/blog/hbr-ai-agents-infrastructure",
                 },
                 {
                   label: "Article",
                   title: "Every Vendor Governs Their Stack. Nobody Governs the Chain.",
-                  desc: "Why platform-native governance (Microsoft, Google, Salesforce) leaves the inter-stack gaps ungoverned — and why that's where the risk lives.",
+                  desc: "Why platform-native governance (Microsoft, Google, Salesforce) leaves the inter-stack gaps ungoverned, and why that's where the risk lives.",
                   href: "/blog/nobody-governs-the-chain",
                 },
                 {
                   label: "Article",
                   title: "Three Categories Enterprises Are Confusing",
-                  desc: "AI security vs. observability vs. governance infrastructure — what each solves, what each doesn't, and which you need for regulatory compliance.",
+                  desc: "AI security vs. observability vs. governance infrastructure, what each solves, what each doesn't, and which you need for regulatory compliance.",
                   href: "/blog/ai-governance-three-categories",
                 },
                 {
@@ -330,7 +330,7 @@ import Footer from "../components/Footer.astro";
               <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3 inline-block">KYDE Gateway</p>
               <p class="text-base font-semibold text-[#F2F2F2] mb-2">The behavioral firewall for AI agents.</p>
               <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
-                KYDE is the governance infrastructure layer that enterprises use to deploy AI agents with real decision-making authority — and prove, to regulators and stakeholders, that those agents operated within their mandate. Identity enforcement, behavioral scope, real-time blocking, and a tamper-evident ledger. Out-of-band, provider-agnostic, zero code changes required.
+                KYDE is the governance infrastructure layer that enterprises use to deploy AI agents with real decision-making authority, and prove, to regulators and stakeholders, that those agents operated within their mandate. Identity enforcement, behavioral scope, real-time blocking, and a tamper-evident ledger. Out-of-band, provider-agnostic, zero code changes required.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
@@ -377,9 +377,9 @@ import Footer from "../components/Footer.astro";
               <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Regulatory drivers</p>
               <div class="space-y-1.5">
                 {[
-                  "EU AI Act — Art. 12, 14, 26",
-                  "DORA — Art. 30",
-                  "GDPR — Art. 22, 35",
+                  "EU AI Act, Art. 12, 14, 26",
+                  "DORA, Art. 30",
+                  "GDPR, Art. 22, 35",
                   "UK DRCF Foresight Paper",
                   "NIST AI RMF",
                 ].map((r) => (

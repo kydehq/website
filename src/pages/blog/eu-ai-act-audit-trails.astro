@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 ---
 
 <Base
-  title="What the EU AI Act Actually Requires for Audit Trails — KYDE"
+  title="What the EU AI Act Actually Requires for Audit Trails, KYDE"
   description="The EU AI Act enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises believe their LLM provider's logs will be sufficient. They won't be."
 >
   <Navbar />
@@ -28,7 +28,7 @@ import Footer from '../../components/Footer.astro';
 
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
-            What the EU AI Act Actually Requires for Audit Trails — And What Most Enterprises Are Missing
+            What the EU AI Act Actually Requires for Audit Trails, And What Most Enterprises Are Missing
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
             <span>Regulatory</span>
@@ -51,7 +51,7 @@ import Footer from '../../components/Footer.astro';
           <article class="prose-kyde min-w-0">
 
             <p>
-              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span> enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises deploying AI agents in regulated environments believe they have time. They also believe their existing logging infrastructure — or their LLM provider's audit console — will be sufficient when that deadline arrives.
+              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span> enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises deploying AI agents in regulated environments believe they have time. They also believe their existing logging infrastructure · or their LLM provider's audit console · will be sufficient when that deadline arrives.
             </p>
             <p>Both assumptions are wrong.</p>
 
@@ -66,18 +66,18 @@ import Footer from '../../components/Footer.astro';
               <li>For credit, insurance, and employment decisions: the log must capture enough context to explain the decision</li>
             </ul>
             <p>
-              Article 14 adds a human oversight requirement that has teeth: enterprises must be able to meaningfully intervene in or override AI decisions. That's impossible without a complete causal record — not just what the agent did, but what it was shown, what it retrieved, and why it decided what it decided.
+              Article 14 adds a human oversight requirement that has teeth: enterprises must be able to meaningfully intervene in or override AI decisions. That's impossible without a complete causal record, not just what the agent did, but what it was shown, what it retrieved, and why it decided what it decided.
             </p>
 
             <h2>Where most enterprises currently stand</h2>
             <p>
-              Most AI deployments today rely on one of three logging approaches — all of which fall short:
+              Most AI deployments today rely on one of three logging approaches, all of which fall short:
             </p>
             <p>
               <strong>Provider-native logs.</strong> OpenAI, Anthropic, and Azure all offer some form of request logging. The problem is structural: a log that lives on the provider's infrastructure, signed by the provider's keys, and accessible only through the provider's console is not an independent audit trail. It is a vendor report. Regulators and courts treat them differently.
             </p>
             <p>
-              <strong>Application-layer logging.</strong> Many teams log at the application level — capturing inputs and outputs in their own database. This is better than nothing, but software-layer logs can be altered. A compromised host OS can rewrite them silently. They have no cryptographic integrity guarantee.
+              <strong>Application-layer logging.</strong> Many teams log at the application level, capturing inputs and outputs in their own database. This is better than nothing, but software-layer logs can be altered. A compromised host OS can rewrite them silently. They have no cryptographic integrity guarantee.
             </p>
             <p>
               <strong>No logging.</strong> A significant portion of enterprise AI deployments have no structured audit trail at all. Agents run on shared service accounts with no traceable identity.
@@ -85,10 +85,10 @@ import Footer from '../../components/Footer.astro';
 
             <h2>What "tamper-evident" actually means</h2>
             <p>
-              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span> doesn't use the phrase "tamper-evident" directly — but the requirement is implicit. A log that can be altered after the fact does not satisfy the regulation's intent. When BaFin or the European Commission asks for the audit trail from a challenged automated decision, "we had logs but they may have been modified" is not an acceptable answer.
+              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span> doesn't use the phrase "tamper-evident" directly · but the requirement is implicit. A log that can be altered after the fact does not satisfy the regulation's intent. When BaFin or the European Commission asks for the audit trail from a challenged automated decision, "we had logs but they may have been modified" is not an acceptable answer.
             </p>
             <p>
-              Tamper-evidence requires cryptographic integrity at the point of capture. Every entry must be signed at the moment it is written — and each entry must be chained to the previous one, so that any alteration is detectable. This is not a software configuration. It is an architectural property.
+              Tamper-evidence requires cryptographic integrity at the point of capture. Every entry must be signed at the moment it is written, and each entry must be chained to the previous one, so that any alteration is detectable. This is not a software configuration. It is an architectural property.
             </p>
 
             <h2>The causal context requirement</h2>
@@ -96,7 +96,7 @@ import Footer from '../../components/Footer.astro';
               This is the gap most enterprises underestimate. Article 14's human oversight requirement means that for every challenged AI decision, you need to reconstruct the full decision chain: what documents or data the agent retrieved, what the model was shown, what it returned, and in what sequence.
             </p>
             <p>
-              A log that records inputs and outputs is not sufficient. You need causal context — the state of the conversation and retrieval context at the moment of every tool call and decision.
+              A log that records inputs and outputs is not sufficient. You need causal context, the state of the conversation and retrieval context at the moment of every tool call and decision.
             </p>
 
             <h2>What to do before 2027</h2>
@@ -105,7 +105,7 @@ import Footer from '../../components/Footer.astro';
               <strong>First,</strong> audit your current logging infrastructure against the specific requirements of Articles 12, 14, and 26. Most will find gaps.
             </p>
             <p>
-              <strong>Second,</strong> ensure your audit trail is architecturally independent of your LLM provider. Independence is not a feature you can request from your provider — it requires a separate governance layer.
+              <strong>Second,</strong> ensure your audit trail is architecturally independent of your LLM provider. Independence is not a feature you can request from your provider, it requires a separate governance layer.
             </p>
             <p>
               <strong>Third,</strong> verify cryptographic integrity. If your logs can be modified without detection, they will not withstand regulatory scrutiny.
@@ -118,7 +118,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
               <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
-                Kyde is a model-agnostic governance proxy that produces tamper-evident, cryptographically signed audit trails for every AI agent action — across every provider, from day one.
+                Kyde is a model-agnostic governance proxy that produces tamper-evident, cryptographically signed audit trails for every AI agent action, across every provider, from day one.
               </p>
               <button
                 onclick="openModal()"
@@ -135,7 +135,7 @@ import Footer from '../../components/Footer.astro';
             <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulations covered</p>
               <div class="space-y-2">
-                {["EU AI Act — Art. 12, 14, 26", "GDPR Art. 35 — DPIA", "BaFin AI Guidance"].map((r) => (
+                {["EU AI Act, Art. 12, 14, 26", "GDPR Art. 35, DPIA", "BaFin AI Guidance"].map((r) => (
                   <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
                 ))}
               </div>

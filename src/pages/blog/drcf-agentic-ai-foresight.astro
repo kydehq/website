@@ -5,8 +5,8 @@ import Footer from '../../components/Footer.astro';
 ---
 
 <Base
-  title="When Four Regulators Speak in Unison, the Message Is Not Optional — KYDE"
-  description="The UK's DRCF — CMA, FCA, ICO, and Ofcom — co-signed a foresight paper on agentic AI. The paper carries a diplomatic disclaimer that it should not be read as policy. Read it as policy."
+  title="When Four Regulators Speak in Unison, the Message Is Not Optional, KYDE"
+  description="The UK's DRCF, CMA, FCA, ICO, and Ofcom, co-signed a foresight paper on agentic AI. The paper carries a diplomatic disclaimer that it should not be read as policy. Read it as policy."
 >
   <Navbar />
 
@@ -54,7 +54,7 @@ import Footer from '../../components/Footer.astro';
               On 31 March 2026, four UK regulators did something they rarely do: they co-signed a warning.
             </p>
             <p>
-              The Digital Regulation Cooperation Forum — comprising the Competition and Markets Authority, the Financial Conduct Authority, the Information Commissioner's Office, and Ofcom — published a foresight paper titled "The Future of Agentic AI," setting out the UK's most detailed cross-regulatory assessment yet of autonomous AI systems.
+              The Digital Regulation Cooperation Forum, comprising the Competition and Markets Authority, the Financial Conduct Authority, the Information Commissioner's Office, and Ofcom, published a foresight paper titled "The Future of Agentic AI," setting out the UK's most detailed cross-regulatory assessment yet of autonomous AI systems.
             </p>
             <p>
               The paper carries a diplomatic disclaimer that it should not be read as policy. Read it as policy.
@@ -71,10 +71,10 @@ import Footer from '../../components/Footer.astro';
               The DRCF makes one point unambiguous: organizational responsibility for legal compliance is unchanged regardless of how autonomously an AI agent acts. "My agent did it" is not a defense any UK regulator will accept.
             </p>
             <p>
-              This single sentence reframes every AI agent deployment decision made in 2026. The autonomy of the agent does not transfer the accountability of the organization. When the agent violates a rule — when it processes data it shouldn't, when it makes a decision it wasn't authorized to make, when it manipulates a consumer outcome — the company is liable. Not the model. Not the provider. The company.
+              This single sentence reframes every AI agent deployment decision made in 2026. The autonomy of the agent does not transfer the accountability of the organization. When the agent violates a rule, when it processes data it shouldn't, when it makes a decision it wasn't authorized to make, when it manipulates a consumer outcome, the company is liable. Not the model. Not the provider. The company.
             </p>
             <p>
-              Most enterprises deploying AI agents today have not yet absorbed this. Their governance programs treat agents as software to be configured and monitored. The DRCF is treating agents as organizational actors whose behavior is attributable to the organizations that deploy them — at the same legal standard as the behavior of human employees.
+              Most enterprises deploying AI agents today have not yet absorbed this. Their governance programs treat agents as software to be configured and monitored. The DRCF is treating agents as organizational actors whose behavior is attributable to the organizations that deploy them, at the same legal standard as the behavior of human employees.
             </p>
 
             <h2>The seven risks the DRCF expects every organization to answer for</h2>
@@ -85,12 +85,12 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose my-5 border border-[#1F1F1F]">
               {[
                 { label: "Accountability", desc: "When multiple model providers, system integrators, and deploying organizations all contribute to an agent's behavior, the DRCF's answer is clear: the deploying organization is responsible. The complexity of the supply chain does not dilute accountability." },
-                { label: "Data", desc: "Agents that access data they don't need for the task at hand create GDPR exposure. The data minimization principle applies to agents with the same force it applies to human employees — and most agent deployments have no mechanism to enforce it in real time." },
-                { label: "Injection", desc: "External inputs — emails, documents, web content — can redirect agent behavior in ways the deploying organization never intended. The organization that deployed an agent without injection-resistant architecture is liable for the result." },
-                { label: "Consent", desc: "When an agent executes a sequence of decisions that were never explicitly authorized — booking a service, committing to a contract, making a payment — the consumer's right to informed consent has been bypassed." },
-                { label: "Collusion", desc: "Agents optimizing for commercial objectives in a manner that leads to worse personal outcomes for consumers — including implicit coordination on pricing without explicit human instruction — create competition law exposure." },
+                { label: "Data", desc: "Agents that access data they don't need for the task at hand create GDPR exposure. The data minimization principle applies to agents with the same force it applies to human employees, and most agent deployments have no mechanism to enforce it in real time." },
+                { label: "Injection", desc: "External inputs, emails, documents, web content, can redirect agent behavior in ways the deploying organization never intended. The organization that deployed an agent without injection-resistant architecture is liable for the result." },
+                { label: "Consent", desc: "When an agent executes a sequence of decisions that were never explicitly authorized, booking a service, committing to a contract, making a payment, the consumer's right to informed consent has been bypassed." },
+                { label: "Collusion", desc: "Agents optimizing for commercial objectives in a manner that leads to worse personal outcomes for consumers, including implicit coordination on pricing without explicit human instruction, create competition law exposure." },
                 { label: "Dark patterns", desc: "Agents optimized for engagement or conversion at the expense of consumer outcomes fall under existing consumer protection frameworks. The FCA Consumer Duty applies." },
-                { label: "OSA", desc: "An agentic search or comparison tool may qualify as a regulated search service under the Online Safety Act — with compliance obligations the deploying organization may not have anticipated." },
+                { label: "OSA", desc: "An agentic search or comparison tool may qualify as a regulated search service under the Online Safety Act, with compliance obligations the deploying organization may not have anticipated." },
               ].map(({ label, desc }) => (
                 <div class="grid grid-cols-[90px_1fr] border-b border-[#1F1F1F] last:border-b-0">
                   <div class="px-4 py-3 font-mono text-[11px] font-bold text-[#F2F2F2] uppercase tracking-wide border-r border-[#1F1F1F] flex items-start pt-3.5">
@@ -105,7 +105,7 @@ import Footer from '../../components/Footer.astro';
 
             <h2>The "Many Hands" problem is an audit trail problem</h2>
             <p>
-              The DRCF paper dedicates significant attention to what it calls the "Many Hands" problem — the diffusion of accountability across model providers, platforms, integrators, and deploying organizations.
+              The DRCF paper dedicates significant attention to what it calls the "Many Hands" problem, the diffusion of accountability across model providers, platforms, integrators, and deploying organizations.
             </p>
             <p>
               When something goes wrong, regulators expect to see who authorized what, when, against which data. Most organizations cannot produce that record for AI agent activity at the level of detail enforcement will demand.
@@ -114,7 +114,7 @@ import Footer from '../../components/Footer.astro';
               This is not a documentation problem. It is an architecture problem.
             </p>
             <p>
-              Producing the record that regulators expect requires that the record exists — continuously, for every agent action, in a form that cannot be altered after the fact. It requires that every agent action is attributed to a specific agent identity. That every tool call captures the causal context — what the agent was shown, what it retrieved, why it decided what it decided. And that the record is cryptographically signed at the point of capture, so that its integrity can be verified independently of any vendor's infrastructure.
+              Producing the record that regulators expect requires that the record exists, continuously, for every agent action, in a form that cannot be altered after the fact. It requires that every agent action is attributed to a specific agent identity. That every tool call captures the causal context, what the agent was shown, what it retrieved, why it decided what it decided. And that the record is cryptographically signed at the point of capture, so that its integrity can be verified independently of any vendor's infrastructure.
             </p>
             <p>
               Most enterprise agent deployments today rely on provider-native logs. Those logs are self-reported by the provider, stored on infrastructure the provider controls, and signed by the provider's own keys. They are vendor reports. When the FCA or ICO asks for a complete, verifiable account of what an agent did, a vendor report is not an independent audit trail.
@@ -128,7 +128,7 @@ import Footer from '../../components/Footer.astro';
               All DRCF members share the view that existing UK legal frameworks apply to agentic AI in any event, and businesses must adapt their governance accordingly.
             </p>
             <p>
-              The UK is not legislating alone. The seven risks the DRCF identifies map almost exactly to the requirements of the EU AI Act, GDPR Article 22, NIS-2, DORA, and ISO/IEC 42001. This is not coincidence — it is regulatory convergence across jurisdictions reaching the same conclusions from different starting points.
+              The UK is not legislating alone. The seven risks the DRCF identifies map almost exactly to the requirements of the EU AI Act, GDPR Article 22, NIS-2, DORA, and ISO/IEC 42001. This is not coincidence, it is regulatory convergence across jurisdictions reaching the same conclusions from different starting points.
             </p>
             <p>
               An enterprise that addresses the DRCF's seven risks has, in the process, addressed most of the EU AI Act's high-risk logging requirements, DORA's independent audit trail obligations, and NIS-2's forensic evidence requirements. The frameworks are converging. The governance infrastructure that satisfies one satisfies most of the others.
@@ -146,10 +146,10 @@ import Footer from '../../components/Footer.astro';
               <strong>Audit your audit trail.</strong> Can you produce, for any agent action in the past 90 days, a complete and verifiable record of what the agent processed, what it decided, what systems it touched, and under what authorization? If the answer requires calling your LLM provider for logs, you do not have an independent audit trail. You have a vendor dependency.
             </p>
             <p>
-              <strong>Move enforcement outside the agent.</strong> Identity controls, model guardrails, and prompt filters all share the same vulnerability: they can be bypassed by a sufficiently capable or sufficiently compromised agent. Policy enforcement that lives inside the agent is subject to the agent's own failure modes. The governance layer that satisfies the DRCF's accountability framework must sit outside the agent — in the data path, at the point of action, independent of any single vendor's infrastructure.
+              <strong>Move enforcement outside the agent.</strong> Identity controls, model guardrails, and prompt filters all share the same vulnerability: they can be bypassed by a sufficiently capable or sufficiently compromised agent. Policy enforcement that lives inside the agent is subject to the agent's own failure modes. The governance layer that satisfies the DRCF's accountability framework must sit outside the agent, in the data path, at the point of action, independent of any single vendor's infrastructure.
             </p>
             <p>
-              The DRCF has provided a free risk register from regulators who have both the means and the motivation to enforce it. Three of the four DRCF members — the FCA, ICO, and CMA — have active enforcement powers and have used them recently.
+              The DRCF has provided a free risk register from regulators who have both the means and the motivation to enforce it. Three of the four DRCF members, the FCA, ICO, and CMA, have active enforcement powers and have used them recently.
             </p>
             <p>
               The foresight paper is not policy today. The enforcement actions that follow it will be.
@@ -159,7 +159,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
               <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
-                KYDE sits between your agent fleet and every system your agents act on — capturing every action in a cryptographically signed, tamper-evident audit trail that is independent of every LLM provider. One governance layer. One record. The "Many Hands" problem has one answer.
+                KYDE sits between your agent fleet and every system your agents act on, capturing every action in a cryptographically signed, tamper-evident audit trail that is independent of every LLM provider. One governance layer. One record. The "Many Hands" problem has one answer.
               </p>
               <button
                 onclick="openModal()"
@@ -176,7 +176,7 @@ import Footer from '../../components/Footer.astro';
             <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulators covered</p>
               <div class="space-y-2">
-                {["CMA — Competition & Markets Authority", "FCA — Financial Conduct Authority", "ICO — Information Commissioner's Office", "Ofcom"].map((r) => (
+                {["CMA, Competition & Markets Authority", "FCA, Financial Conduct Authority", "ICO, Information Commissioner's Office", "Ofcom"].map((r) => (
                   <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
                 ))}
               </div>
