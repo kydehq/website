@@ -477,6 +477,110 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         }
                     </script>
                 </div>
+
+                <!-- FIG.1b · the actual view -->
+                <div class="pt-14 pb-24 md:pb-32">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="fig-label">FIG.1b · Audit Dashboard</span>
+                        <a href="/platform" class="font-mono text-[10px] uppercase tracking-[0.15em] text-white/50 hover:text-white transition-colors">Full platform →</a>
+                    </div>
+                    <!-- Dashboard mock -->
+                <div class="border border-[#1F1F1F] bg-[#0C0C0C] overflow-hidden">
+                    <!-- Browser chrome -->
+                    <div class="flex items-center gap-2 border-b border-[#1F1F1F] px-4 py-2.5 bg-[#141414]">
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/60"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+                        <span class="ml-3 font-mono text-[10px] text-[#F2F2F2]/35 bg-[#0C0C0C] px-3 py-0.5 border border-[#1F1F1F] flex-1 max-w-xs">kyde.intranet/dashboard/topology</span>
+                    </div>
+                    <!-- App -->
+                    <div class="flex" style="min-height:420px">
+                        <!-- Sidebar -->
+                        <div class="w-44 shrink-0 border-r border-[#1F1F1F] bg-[#141414] p-4">
+                            <div class="mb-4">
+                                <img src="/kyde-logo.svg" alt="KYDE" class="h-3 w-auto mb-4" />
+                                <span class="font-mono text-[9px] uppercase tracking-[0.12em] text-[#3DDC84] border border-[#3DDC84]/30 px-1.5 py-0.5">Data Integrity</span>
+                            </div>
+                            <p class="font-mono text-[10px] font-bold text-[#F2F2F2] mt-4 mb-0.5">Audit Dashboard</p>
+                            <p class="font-mono text-[9px] text-[#F2F2F2]/35 uppercase tracking-[0.08em] mb-5">Agent Behavioral Ledger</p>
+                            <ul class="space-y-0.5">
+                                {["Overview", "Data Integrity", "Entry Timeline", "Sessions", "Token Analysis"].map((item) => (
+                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2">
+                                        {item}
+                                    </li>
+                                ))}
+                                <li class="font-mono text-[10px] text-[#F2F2F2] font-semibold py-1 px-2 bg-[#1C1C1C]/50">
+                                    Agent Topology
+                                </li>
+                                {["DLP Alerts", "DLP Rules", "Users", "Settings"].map((item) => (
+                                    <li class="font-mono text-[10px] text-[#F2F2F2]/45 py-1 px-2">
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <!-- Main -->
+                        <div class="flex-1 p-6">
+                            <div class="flex items-start justify-between mb-5">
+                                <div>
+                                    <h3 class="font-mono text-sm font-bold text-[#F2F2F2]">192.168.68.0/24</h3>
+                                    <p class="font-mono text-[10px] text-[#F2F2F2]/35 mt-0.5">RFC1918 (corporate private) · activity in the last 24 hours</p>
+                                </div>
+                                <span class="font-mono text-[10px] text-[#F2F2F2]/40 border border-[#1F1F1F] px-2 py-1">Last 24 hours ↓</span>
+                            </div>
+
+                            <!-- Agents -->
+                            <div class="border border-[#1F1F1F] mb-3">
+                                <div class="px-4 py-2 bg-[#141414] border-b border-[#1F1F1F]">
+                                    <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/50">Agents (3)</p>
+                                </div>
+                                <div class="grid px-4 py-1.5 border-b border-[#1F1F1F]" style="grid-template-columns: 2fr 1.2fr 1fr 60px 90px">
+                                    {["Agent", "Role", "Upstreams", "Req.", "Last seen"].map((h) => (
+                                        <p class="font-mono text-[9px] uppercase tracking-[0.1em] text-[#F2F2F2]/35">{h}</p>
+                                    ))}
+                                </div>
+                                {[
+                                    { id: "agent:b6068d94edf0", role: "customer_facing", up: "anthropic", req: "6", time: "12:45:53" },
+                                    { id: "agent:a2f1c8b3d7e9", role: "infrastructure", up: "openai", req: "24", time: "12:44:11" },
+                                    { id: "agent:9e4d2c1f6a8b", role: "intern_sandbox", up: "openai", req: "3", time: "12:39:07" },
+                                ].map(({ id, role, up, req, time }) => (
+                                    <div class="grid px-4 py-2 border-b border-[#1F1F1F] hover:bg-[#1C1C1C]" style="grid-template-columns: 2fr 1.2fr 1fr 60px 90px">
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]">{id}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]/55">{role}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]/55">{up}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]">{req}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]/40">{time}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <!-- Sessions -->
+                            <div class="border border-[#1F1F1F]">
+                                <div class="px-4 py-2 bg-[#141414] border-b border-[#1F1F1F]">
+                                    <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/50">Recent Sessions (3)</p>
+                                </div>
+                                <div class="grid px-4 py-1.5 border-b border-[#1F1F1F]" style="grid-template-columns: 2fr 2fr 60px 90px">
+                                    {["Session", "Model", "Req.", "Last seen"].map((h) => (
+                                        <p class="font-mono text-[9px] uppercase tracking-[0.1em] text-[#F2F2F2]/35">{h}</p>
+                                    ))}
+                                </div>
+                                {[
+                                    { id: "s-5944d14b2406", model: "claude-sonnet-4-6", req: "4", time: "12:45:53" },
+                                    { id: "s-3c1700ddb97e", model: "claude-haiku-4-5", req: "1", time: "12:45:34" },
+                                    { id: "session:b878a6801d9a9e68", model: "gpt-4o", req: "1", time: "12:39:07" },
+                                ].map(({ id, model, req, time }) => (
+                                    <div class="grid px-4 py-2 border-b border-[#1F1F1F] hover:bg-[#1C1C1C]" style="grid-template-columns: 2fr 2fr 60px 90px">
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]">{id}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]/55">{model}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]">{req}</p>
+                                        <p class="font-mono text-[10px] text-[#F2F2F2]/40">{time}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </section>
 
