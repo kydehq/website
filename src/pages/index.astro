@@ -34,10 +34,6 @@ for (let lat = -80; lat <= 80; lat += 8) {
             <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] shrink-0 animate-pulse"></span>
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] border border-white/20 text-white/60 px-2 py-0.5">Real-Time Blocking · Identity Enforcement · Out-of-Band Governance</span>
-                </div>
                 <h1 class="hero-h1 text-3xl text-white uppercase tracking-tighter leading-none sm:text-4xl md:text-5xl lg:text-6xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">The Behavioral</span>
                     <span id="hero-l2" style="display:block">Firewall</span>
@@ -48,9 +44,6 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
                     KYDE verifies identity, enforces policy, and stops unsafe actions before they reach critical systems.
-                </p>
-                <p id="hero-meta" class="mt-3 font-mono text-xs text-white/45 uppercase tracking-[0.15em]" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
-                    One environment variable · Under 100ms · Any provider · Zero code changes
                 </p>
                 <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -78,6 +71,19 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
                     <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span><span class="cursor-blink" aria-hidden="true"></span>
                 </p>
+            </div>
+
+            <!-- spec strip on the hero's bottom edge -->
+            <div id="hero-meta" class="absolute bottom-0 inset-x-0" style="opacity:0;transition:opacity 0.9s ease 0.4s;">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="border-t border-white/10 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                        <span class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] shrink-0 animate-pulse"></span>
+                            Real-Time Blocking · Identity Enforcement · Out-of-Band Governance
+                        </span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">One environment variable · Under 100ms · Any provider · Zero code changes</span>
+                    </div>
+                </div>
             </div>
         </section>
 
