@@ -1000,6 +1000,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
                     <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Prove</span>
+                    <span class="fig-label">FIG.5</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
@@ -1026,21 +1027,35 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             Explore Compliance Use Cases →
                         </a>
                     </div>
-                    <div class="flex flex-col gap-6">
-                        <div class="grid grid-cols-2 gap-px">
-                            {[
-                                { name: "NIS-2",     status: "In force",          desc: "~160,000 companies in DE/EU. Critical + important sectors." },
-                                { name: "DORA",      status: "In force: Jan 2025", desc: "Financial entity resilience requirements." },
-                                { name: "EU AI Act", status: "High-risk: Dec 2027",   desc: "High-risk AI audit trail & logging requirements." },
-                                { name: "GDPR 35",   status: "In force",          desc: "Automated processing DPIA obligations." },
-                            ].map(({ name, status, desc }) => (
-                                <div class="border border-white/10 bg-white/[0.02] p-5">
-                                    <p class="font-mono text-xs font-bold text-white uppercase tracking-wide mb-1">{name}</p>
-                                    <p class="font-mono text-[10px] text-[#3DDC84] mb-2">{status}</p>
-                                    <p class="text-xs text-white/40 leading-snug">{desc}</p>
+                    <div class="flex flex-col justify-center">
+                        <div class="border border-white/10 bg-white/[0.02]">
+                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Ledger · Signed Action Log</span>
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#3DDC84]">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84]"></span>Chain intact
+                                </span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-3">
+                                <div class="flex items-center justify-between gap-4">
+                                    <span class="text-white/60 truncate">#a4cf · agent:etl-worker · db.write → allowed</span>
+                                    <span class="text-white/25 shrink-0">prev #a4ce · <span class="text-[#3DDC84]">&#10003;</span></span>
                                 </div>
-                            ))}
+                                <div class="flex items-center justify-between gap-4">
+                                    <span class="text-white/60 truncate">#a4d0 · agent:hr-11 · mail.send → <span class="text-[#FF5C5C]">blocked</span></span>
+                                    <span class="text-white/25 shrink-0">prev #a4cf · <span class="text-[#3DDC84]">&#10003;</span></span>
+                                </div>
+                                <div class="flex items-center justify-between gap-4">
+                                    <span class="text-white/60 truncate">#a4d1 · agent:support-02 · dlp.mask → forwarded</span>
+                                    <span class="text-white/25 shrink-0">prev #a4d0 · <span class="text-[#3DDC84]">&#10003;</span></span>
+                                </div>
+                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
+                                    ed25519-signed · sha-256 hash chain · captured at the boundary, before any provider
+                                </div>
+                            </div>
                         </div>
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.5 · Every action becomes a signed ledger entry. #a4d1 references #a4d0 — history can't be rewritten, only extended.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1176,87 +1191,13 @@ for (let lat = -80; lat <= 80; lat += 8) {
             }
         </script>
 
-        <!-- ══════════ 07 BOUNDARY POSITION ══════════ -->
-        <section class="relative border-b border-white/10">
-            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Structural Position</span>
-                    <span class="fig-label">FIG.5</span>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            The Racetrack,<br />Not the Horse.
-                        </h2>
-                        <p class="text-white/55 leading-relaxed mb-4">
-                            OpenAI ships a new model. Anthropic responds. An enterprise switches providers. Vendors compete. Intelligence migrates to clouds.
-                        </p>
-                        <p class="text-white/55 leading-relaxed mb-4">
-                            One thing is invariant: every agent, regardless of which model, which runtime, which vendor, must cross the boundary between the AI world and your systems. Through your infrastructure. Under your liability.
-                        </p>
-                        <p class="text-white/55 leading-relaxed mb-10">
-                            That boundary doesn't belong to any vendor. It belongs to you. Governance at the boundary gets more valuable with every model migration, not less.
-                        </p>
-                        <p class="font-mono text-sm text-[#F2F2F2] border-l-2 border-white/30 pl-4 leading-relaxed">
-                            We're not competing in the model race. We operate the only neutral layer between every model and every enterprise system, regardless of who wins.
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="border border-white/10 divide-y divide-white/10 mb-8">
-                            <div class="grid grid-cols-2 divide-x divide-white/10 bg-white/[0.04]">
-                                <div class="px-6 py-3">
-                                    <p class="font-mono text-xs uppercase tracking-widest text-white/35">Changes constantly</p>
-                                </div>
-                                <div class="px-6 py-3">
-                                    <p class="font-mono text-xs uppercase tracking-widest text-white">Invariant</p>
-                                </div>
-                            </div>
-                            {[
-                                { left: "Models & frontier capabilities", right: "Your systems, data, and APIs" },
-                                { left: "Agent runtimes & frameworks", right: "The boundary every agent must cross" },
-                                { left: "LLM pricing & context windows", right: "Your compliance obligations" },
-                                { left: "Which vendor wins the model race", right: "Your liability for what agents do" },
-                                { left: "Provider infrastructure", right: "KYDE, at the invariant chokepoint" },
-                            ].map(({ left, right }) => (
-                                <div class="grid grid-cols-2 divide-x divide-white/10">
-                                    <div class="px-6 py-4">
-                                        <p class="text-sm text-white/25 line-through">{left}</p>
-                                    </div>
-                                    <div class="px-6 py-4">
-                                        <p class="text-sm text-white font-medium">{right}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div class="grid gap-px grid-cols-3">
-                            {[
-                                { n: "7.1", label: "Model intelligence migrates to vendor clouds" },
-                                { n: "7.2", label: "The boundary stays with your infrastructure" },
-                                { n: "7.3", label: "Our position strengthens with every migration" },
-                            ].map(({ n, label }) => (
-                                <div class="border border-white/10 bg-white/[0.02] p-4">
-                                    <p class="font-mono text-[10px] text-[#FEC106] mb-2">{n}</p>
-                                    <p class="text-xs text-white/55 leading-relaxed">{label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ══════════ 08 DESIGN PARTNERS ══════════ -->
+        <!-- ══════════ 07 DESIGN PARTNERS ══════════ -->
         <section class="relative border-b border-white/10 overflow-hidden">
             <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, rgba(242,242,242,0.07) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">08 · Early Access Program</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Early Access Program</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
