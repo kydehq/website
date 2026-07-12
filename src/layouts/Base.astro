@@ -13,8 +13,8 @@ interface Props {
 }
 
 const {
-    title = "KYDE — AI Agent Governance Plane",
-    description = "Cryptographic identity, roles, and tamper-evident audit for every AI agent. EU AI Act · NIS-2 · DORA · GDPR — audit-ready.",
+    title = "KYDE · AI Agent Governance Plane",
+    description = "Cryptographic identity, roles, and tamper-evident audit for every AI agent. EU AI Act · NIS-2 · DORA · GDPR. Audit-ready.",
     image = "/og-image.png",
     noindex = false,
 } = Astro.props;
@@ -75,7 +75,7 @@ const ogImage = new URL(image, Astro.site).href;
         <slot />
         <CookieBanner />
         <script>
-            // Scroll reveal (design doc §6) — staggered, once, JS-progressive
+            // Scroll reveal (design doc §6) · staggered, once, JS-progressive
             const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             if (!rm) {
                 const sections = document.querySelectorAll("main section");
