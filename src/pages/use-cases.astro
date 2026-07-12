@@ -23,7 +23,7 @@ const cases = [
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. Continuous health scoring flags if the agent deviates from established trading patterns or expands its request scope, catching a compromised agent before it causes damage.',
+        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. Continuous behavioral scoring flags if the agent deviates from established trading patterns or expands its request scope, catching a compromised agent before it causes damage.',
       },
     ],
     regs: ['DORA, Digital Operational Resilience Act', 'EU AI Act, Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35, DPIA'],
@@ -47,7 +47,7 @@ const cases = [
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. Continuous health scoring flags if the agent deviates from normal order volumes or accesses suppliers outside its established scope, catching supply chain manipulation before it executes.',
+        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. Continuous behavioral scoring flags if the agent deviates from normal order volumes or accesses suppliers outside its established scope, catching supply chain manipulation before it executes.',
       },
     ],
     regs: ['EU AI Act, High-Risk AI for automated procurement', 'NIS-2, Critical supply chain infrastructure', 'GDPR Art. 35, DPIA for large-scale processing'],
@@ -71,7 +71,7 @@ const cases = [
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. Continuous health scoring flags if the billing agent accesses clinical records outside its scope or submits atypical claim volumes, catching data leakage before it escalates.',
+        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. Continuous behavioral scoring flags if the billing agent accesses clinical records outside its scope or submits atypical claim volumes, catching data leakage before it escalates.',
       },
     ],
     regs: ['EU AI Act, Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9, Special category health data', 'MDR / IVDR, AI-assisted diagnostics', 'NIS-2, Critical health infrastructure'],
@@ -85,7 +85,7 @@ const cases = [
       {
         label: 'PREVENT',
         q: 'What is blocked, and at what layer?',
-        text: 'Clear role boundaries enforced in hardware, not policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop, not a configurable soft limit.',
+        text: 'Clear role boundaries enforced at the proxy, not in policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop, not a configurable soft limit.',
       },
       {
         label: 'PROVE',
@@ -95,7 +95,7 @@ const cases = [
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. Continuous health scoring flags if the claims agent starts approving at abnormal rates or exhibits patterns consistent with adversarial manipulation, before further damage occurs.',
+        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. Continuous behavioral scoring flags if the claims agent starts approving at abnormal rates or exhibits patterns consistent with adversarial manipulation, before further damage occurs.',
       },
     ],
     regs: ['EU AI Act, High-Risk AI Annex III §5 Insurance', 'Solvency II, Governance and risk management', 'GDPR Art. 22, Automated decision-making rights', 'NIS-2, Operational resilience'],
@@ -119,10 +119,10 @@ const cases = [
       {
         label: 'RATE',
         q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Continuous health scoring flags if the dispatch agent issues commands outside its assigned grid segments or deviates from established load balancing patterns, catching manipulation before it impacts grid stability.',
+        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Continuous behavioral scoring flags if the dispatch agent issues commands outside its assigned grid segments or deviates from established load balancing patterns, catching manipulation before it impacts grid stability.',
       },
     ],
-    regs: ['NIS-2, Network and Information Security (in force December 2025)', 'EU AI Act, High-Risk AI for critical infrastructure', 'KRITIS, German critical infrastructure protection', 'Cyber Resilience Act'],
+    regs: ['NIS-2, Network and Information Security (in force · DE: NIS2UmsuCG)', 'EU AI Act, High-Risk AI for critical infrastructure', 'KRITIS, German critical infrastructure protection', 'Cyber Resilience Act'],
   },
 ];
 ---

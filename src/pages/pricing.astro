@@ -80,13 +80,13 @@ import Footer from '../components/Footer.astro';
               <p class="text-xs text-[#A8A8A8]">Basic policies</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-[#A8A8A8] leading-relaxed mb-6">For developers and testing. Full behavioral firewall protection from day one, no credit card required.</p>
+              <p class="text-xs text-[#A8A8A8] leading-relaxed mb-6">For developers and testing. Full visibility into everything your agents do, signed and tamper-evident, from day one. No credit card required.</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Agent identity registration", g: "ENFORCE" },
+                  { text: "Agent identity registration" },
                   { text: "Ed25519 cryptographic signing", g: "PROVE" },
                   { text: "Provider-agnostic interception", g: null },
-                  { text: "Tamper-evident audit log", g: "OBSERVE" },
+                  { text: "Tamper-evident audit log", g: "PROVE" },
                   { text: "One ENV variable deployment", g: null },
                   { text: "CLI verification tools", g: null },
                 ].map(({ text, g }) => (
@@ -94,7 +94,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#A8A8A8]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'ENFORCE' ? 'text-[#D77657] bg-[#D77657]/8' : g === 'OBSERVE' ? 'text-[#A8A8A8] bg-[#0C0C0C]/6' : 'text-[#F2F2F2]/70 bg-[#F2F2F2]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'PREVENT' ? 'text-[#D77657] bg-[#D77657]/8' : g === 'RATE' ? 'text-[#3DDC84] bg-[#3DDC84]/8' : 'text-[#F2F2F2]/70 bg-[#F2F2F2]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -126,10 +126,10 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#6B6B6B] mb-3">Everything in Sandbox, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Token & cost budgets per agent / role / team", g: "ENFORCE" },
-                  { text: "Policy Enforcement Point (hard circuit breakers)", g: "ENFORCE" },
-                  { text: "30-day audit log retention", g: "OBSERVE" },
-                  { text: "Continuous data integrity verification", g: "OBSERVE" },
+                  { text: "Token & cost budgets per agent / role / team", g: "PREVENT" },
+                  { text: "Policy Enforcement Point (hard circuit breakers)", g: "PREVENT" },
+                  { text: "30-day audit log retention", g: "PROVE" },
+                  { text: "Continuous data integrity verification", g: "PROVE" },
                   { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "PROVE" },
                   { text: "Court-ready cryptographic audit trail", g: "PROVE" },
                   { text: "Machine-readable Proof of Authority", g: "PROVE" },
@@ -138,7 +138,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#A8A8A8]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'ENFORCE' ? 'text-[#D77657] bg-[#D77657]/8' : g === 'OBSERVE' ? 'text-[#A8A8A8] bg-[#0C0C0C]/6' : 'text-[#F2F2F2]/70 bg-[#F2F2F2]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'PREVENT' ? 'text-[#D77657] bg-[#D77657]/8' : g === 'RATE' ? 'text-[#3DDC84] bg-[#3DDC84]/8' : 'text-[#F2F2F2]/70 bg-[#F2F2F2]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -166,9 +166,9 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-[9px] uppercase tracking-widest text-[#6B6B6B] mb-3">Everything in Business, plus:</p>
               <ul class="space-y-2.5">
                 {[
-                  { text: "Agent-to-agent trust delegation", g: "ENFORCE" },
-                  { text: "Unlimited log retention", g: "OBSERVE" },
-                  { text: "SIEM / SOC integration", g: "OBSERVE" },
+                  { text: "Agent-to-agent trust delegation", g: "PREVENT" },
+                  { text: "Unlimited log retention", g: "PROVE" },
+                  { text: "SIEM / SOC integration", g: "PROVE" },
                   { text: "Silicon Leash, TPM/HSM hardware signing", g: "PROVE" },
                   { text: "TEE attestation (TDX/SEV-SNP)", g: "PROVE" },
                   { text: "FIPS 140-3 validated crypto modules", g: "PROVE" },
@@ -181,7 +181,7 @@ import Footer from '../components/Footer.astro';
                     <span class="font-mono shrink-0 mt-0.5 text-[#A8A8A8]">→</span>
                     <span>
                       {text}
-                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'ENFORCE' ? 'text-[#D77657] bg-[#D77657]/8' : g === 'OBSERVE' ? 'text-[#A8A8A8] bg-[#0C0C0C]/6' : 'text-[#F2F2F2]/70 bg-[#F2F2F2]/8'}`}>{g}</span>}
+                      {g && <span class={`ml-1.5 font-mono text-[8px] tracking-widest px-1 py-0.5 ${g === 'PREVENT' ? 'text-[#D77657] bg-[#D77657]/8' : g === 'RATE' ? 'text-[#3DDC84] bg-[#3DDC84]/8' : 'text-[#F2F2F2]/70 bg-[#F2F2F2]/8'}`}>{g}</span>}
                     </span>
                   </li>
                 ))}
@@ -274,7 +274,7 @@ import Footer from '../components/Footer.astro';
             <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Not sure which tier fits?</p>
             <div class="mb-8 h-px bg-[#0C0C0C]/20"></div>
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-[#F2F2F2] mb-4">
-              Most teams start in Sandbox and move to Business within 90 days.
+              Start in Sandbox. Move to Business when you need enforcement.
             </h2>
             <p class="text-lg text-[#A8A8A8] mb-10">
               Book a 30-minute call, we'll tell you exactly where you are and what you need.
