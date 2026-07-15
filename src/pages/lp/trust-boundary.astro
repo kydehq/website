@@ -14,24 +14,27 @@ import Footer from '../../components/Footer.astro';
   <Navbar />
   <main>
 
-    <!-- ══════════ HERO ══════════ -->
-    <section class="relative bg-[#050505] overflow-hidden">
-      <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-32 pb-20 md:border-x md:border-[#1F1F1F]">
+    <!-- ══════════ HERO · exhaust capture loop ══════════ -->
+    <section class="relative overflow-hidden min-h-[92vh] flex flex-col justify-center pt-20 border-b border-white/10 bg-[#050505]">
+      <canvas id="lp-exhaust" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-[#050505]/50 to-transparent"></div>
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
+
+      <div class="relative max-w-7xl mx-auto px-6 w-full py-24">
         <div class="max-w-3xl">
-          <h1 class="hero-h1 text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05] mb-6">
+          <h1 class="hero-h1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase tracking-tight leading-[1.02] mb-8">
             Stop paying for<br />intelligence twice.
           </h1>
-          <p class="text-base md:text-lg text-white uppercase tracking-[0.12em] leading-snug mb-5">
+          <p class="text-base md:text-lg text-white uppercase tracking-[0.12em] leading-snug mb-6">
             The Trust Boundary &amp; Learning Infrastructure for Enterprise AI.
           </p>
-          <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-8">
+          <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
             KYDE is the single gateway that intercepts your agentic learning exhaust, secures your institutional alpha, and enforces strict behavioral guardrails, with zero code changes.
           </p>
-          <p class="mb-10 font-mono text-sm">
+          <p class="mb-12 font-mono text-sm">
             <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://gateway.kyde.intranet/v1</span>
           </p>
-          <div class="flex flex-col sm:flex-row gap-3">
+          <div class="flex flex-col sm:flex-row gap-4">
             <button
               onclick="openModal()"
               class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white hover:bg-white/10 transition-all"
@@ -51,31 +54,56 @@ import Footer from '../../components/Footer.astro';
 
     <!-- ══════════ 01 · REVERSE INFORMATION PARADOX ══════════ -->
     <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="mb-12">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-16">
           <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">01 · The Reverse Information Paradox</span></div>
         </div>
 
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-8 max-w-4xl">
+          You are paying to train someone else's asset.
+        </h2>
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl mb-20">
+          When you buy AI, you pay for it twice: once in subscription fees, and again with the proprietary knowledge your employees and agents reveal to make the AI useful. Every prompt, every tool execution, and, most importantly, <strong class="text-[#F2F2F2]">every manual correction your team makes when an agent fails</strong> is "learning exhaust." Right now, this exhaust flows upstream to train your vendor's next model.
+        </p>
+
+        <!-- FIG.1 · the paradox, quantified -->
+        <div class="relative border border-[#1F1F1F] bg-[#050505] p-8 md:p-14 mb-20">
+          <span class="fig-label absolute top-4 left-5">FIG.1 · The paradox, quantified</span>
+          <div id="lp-meters" class="grid md:grid-cols-2 gap-12 md:gap-20 pt-8">
+            <div>
+              <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6B6B6B] mb-4">What they learn about your business</p>
+              <div class="flex items-baseline gap-2 mb-4">
+                <span id="lp-meter-a" class="font-mono text-6xl md:text-7xl font-bold text-[#FF5C5C] leading-none">0</span>
+                <span class="font-mono text-lg text-white/30">%</span>
+              </div>
+              <div class="h-1 bg-[#1C1C1C] overflow-hidden">
+                <div id="lp-bar-a" class="h-full bg-[#FF5C5C]/70" style="width:0%;transition:width 2.4s cubic-bezier(0.2,0.7,0.3,1)"></div>
+              </div>
+              <p class="mt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-white/30">Prompts · corrections · tool traces · workflows</p>
+            </div>
+            <div>
+              <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6B6B6B] mb-4">What you learn about their model</p>
+              <div class="flex items-baseline gap-2 mb-4">
+                <span id="lp-meter-b" class="font-mono text-6xl md:text-7xl font-bold text-[#F2F2F2]/40 leading-none">0</span>
+                <span class="font-mono text-lg text-white/30">%</span>
+              </div>
+              <div class="h-1 bg-[#1C1C1C] overflow-hidden">
+                <div id="lp-bar-b" class="h-full bg-[#F2F2F2]/40" style="width:0%;transition:width 2.4s cubic-bezier(0.2,0.7,0.3,1)"></div>
+              </div>
+              <p class="mt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-white/30">Weights · training data · decision paths: <span class="text-[#FF5C5C]">opaque</span></p>
+            </div>
+          </div>
+        </div>
+
         <div class="grid md:grid-cols-2 gap-12 items-start">
-          <div>
-            <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-6">
-              When you consume intelligence, you create it. Who owns the output?
-            </h2>
-            <p class="text-base text-[#A8A8A8] leading-relaxed mb-4">
-              When you buy AI, you pay for it twice: once in subscription fees, and again with the proprietary knowledge your employees and agents reveal to make the AI useful.
-            </p>
-            <p class="text-base text-[#A8A8A8] leading-relaxed">
-              Every prompt, every tool execution, and, most importantly, <strong class="text-[#F2F2F2]">every manual correction your team makes when an agent fails</strong> is "learning exhaust." Right now, this exhaust flows upstream to train your vendor's next model. You are paying to privatize your own competitive advantage into someone else's infrastructure.
+          <div class="border border-[#1F1F1F] bg-[#141414] p-8 md:p-10">
+            <p class="font-mono text-xs uppercase tracking-widest text-[#FEC106] mb-5">The Reverse Information Paradox</p>
+            <p class="text-lg text-[#A8A8A8] leading-relaxed">
+              The better you want a model to perform, the more of your unique institutional knowledge you must feed it. Over time, the model provider learns everything about how your business runs, while you learn nothing about how their model makes decisions.
             </p>
           </div>
-          <div>
-            <div class="border border-[#1F1F1F] bg-[#141414] p-6 md:p-8 mb-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#FEC106] mb-4">The Reverse Information Paradox</p>
-              <p class="text-base text-[#A8A8A8] leading-relaxed">
-                The better you want a model to perform, the more of your unique institutional knowledge you must feed it. Over time, the model provider learns everything about how your business runs, while you learn nothing about how their model makes decisions.
-              </p>
-            </div>
-            <p class="text-base text-[#A8A8A8] leading-relaxed">
+          <div class="md:pt-10">
+            <p class="text-lg text-[#A8A8A8] leading-relaxed">
               KYDE establishes a <strong class="text-[#F2F2F2]">hard trust boundary</strong> at your network edge. We capture this learning exhaust, keep it in your own tenant, and use it to compound <em>your</em> organization's intelligence, not your vendors'.
             </p>
           </div>
@@ -85,44 +113,69 @@ import Footer from '../../components/Footer.astro';
 
     <!-- ══════════ 02 · ARCHITECTURE ══════════ -->
     <section class="border-t border-[#1F1F1F] bg-[#050505]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="mb-12">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-16">
           <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">02 · Architecture</span></div>
         </div>
 
-        <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-6 max-w-2xl">
-          One gateway. Every agent. Zero code changes.
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-8 max-w-4xl">
+          One gateway. Every agent.<br />Zero code changes.
         </h2>
-        <p class="text-base text-[#A8A8A8] leading-relaxed max-w-2xl mb-10">
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl mb-20">
           KYDE does not run inside the agent or on the host machine. It sits in the critical path as an active gateway. Every action, API call, and output passes through KYDE, where it is inspected, scoped, and signed <em>before</em> it executes.
         </p>
 
-        <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-8 mb-10 overflow-x-auto">
-          <pre class="font-mono text-xs md:text-sm text-[#A8A8A8] leading-relaxed">{`              [ YOUR AGENT FLEET ]
- (Claude, GPT-5, LangChain, Custom Bots, MCP Tools)
-                       │
-                       ▼
-                ================
-                █  KYDE GATEWAY █ ◄── Policy, Identity & Audit
-                ================
-                       │
-     ┌─────────────────┼─────────────────┐
-     ▼                 ▼                 ▼
-[ THE PAST ]     [ THE PRESENT ]   [ THE FUTURE ]
-Audit Ledger     Active Firewall   Learning Loop
-(Tamper-proof)   (DLP & Block)     (IP & FinOps)`}</pre>
+        <!-- FIG.2 · the critical path, live -->
+        <div class="relative border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-10 mb-20">
+          <span class="fig-label absolute top-4 left-5 z-10">FIG.2 · The critical path, live</span>
+          <svg id="lp-flow" viewBox="0 0 800 440" class="w-full h-auto pt-6" aria-hidden="true">
+            <!-- agent nodes -->
+            {[
+              { x: 100, label: "claude" },
+              { x: 250, label: "gpt-5" },
+              { x: 400, label: "langchain" },
+              { x: 550, label: "custom" },
+              { x: 700, label: "mcp-tools" },
+            ].map(({ x, label }) => (
+              <g>
+                <rect x={x - 34} y={30} width={68} height={30} fill="none" stroke="#2E2E2E" stroke-width="1" />
+                <text x={x} y={49} text-anchor="middle" fill="rgba(242,242,242,0.55)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.08em;">{label}</text>
+                <line x1={x} y1={60} x2={400} y2={190} stroke="#1F1F1F" stroke-width="1" />
+              </g>
+            ))}
+            <!-- gateway -->
+            <rect x="290" y="190" width="220" height="56" fill="#0C0C0C" stroke="#F2F2F2" stroke-opacity="0.5" stroke-width="1.5" />
+            <rect x="296" y="196" width="208" height="44" fill="none" stroke="#1F1F1F" stroke-width="1" />
+            <text x="400" y="215" text-anchor="middle" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.2em;">KYDE GATEWAY</text>
+            <text x="400" y="232" text-anchor="middle" fill="rgba(242,242,242,0.35)" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.15em;">POLICY · IDENTITY · AUDIT</text>
+            <!-- output lanes -->
+            {[
+              { x: 140, t: "THE PAST",    n: "Audit Ledger",    d: "Tamper-proof logs" },
+              { x: 400, t: "THE PRESENT", n: "Active Firewall", d: "DLP & block" },
+              { x: 660, t: "THE FUTURE",  n: "Learning Loop",   d: "IP & FinOps" },
+            ].map(({ x, t, n, d }) => (
+              <g>
+                <line x1={400} y1={246} x2={x} y2={330} stroke="#1F1F1F" stroke-width="1" />
+                <rect x={x - 90} y={330} width={180} height={72} fill="none" stroke="#2E2E2E" stroke-width="1" />
+                <text x={x} y={352} text-anchor="middle" fill="rgba(242,242,242,0.35)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.2em;">{t}</text>
+                <text x={x} y={372} text-anchor="middle" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;">{n}</text>
+                <text x={x} y={390} text-anchor="middle" fill="rgba(242,242,242,0.35)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">{d}</text>
+              </g>
+            ))}
+            <g id="lp-flow-dots"></g>
+          </svg>
         </div>
 
-        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-6">The Gateway spec</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-8">The Gateway spec</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { k: "Zero code changes",    v: "Just point your SDKs to the KYDE proxy." },
+            { k: "Zero code changes",     v: "Just point your SDKs to the KYDE proxy." },
             { k: "Target <100ms latency", v: "A highly optimized interception pipeline in the critical path." },
-            { k: "Provider-agnostic",    v: "Works with OpenAI, Anthropic, Google, and local open-source models." },
-            { k: "MCP-ready",            v: "Native support for the Model Context Protocol." },
+            { k: "Provider-agnostic",     v: "Works with OpenAI, Anthropic, Google, and local open-source models." },
+            { k: "MCP-ready",             v: "Native support for the Model Context Protocol." },
           ].map(({ k, v }) => (
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-5">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2] mb-2">{k}</p>
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2] mb-3">{k}</p>
               <p class="text-sm text-[#A8A8A8] leading-relaxed">{v}</p>
             </div>
           ))}
@@ -132,214 +185,254 @@ Audit Ledger     Active Firewall   Learning Loop
 
     <!-- ══════════ 03 · ONE DATA STREAM ══════════ -->
     <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="mb-12">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-16">
           <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">03 · One data stream. Three dimensions.</span></div>
         </div>
 
-        <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-6 max-w-2xl">
-          Why build a wall when you can build a compound engine?
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-8 max-w-4xl">
+          Don't build a wall.<br />Build a compound engine.
         </h2>
-        <p class="text-base text-[#A8A8A8] leading-relaxed max-w-2xl mb-10">
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl mb-16">
           Because KYDE sits in the critical path, every agent transaction leaves a cryptographically signed entry. We read this single data stream in three directions to serve your Security, Legal, and Financial teams.
         </p>
 
-        <div class="grid md:grid-cols-3 gap-4 mb-16">
+        <div class="grid md:grid-cols-3 gap-4">
           {[
             { t: "Past",    n: "Audit Ledger",     q: "Prove what happened" },
             { t: "Present", n: "Active Firewall",  q: "Prevent the damage" },
             { t: "Future",  n: "Metric Scorecard", q: "Compound your learning" },
           ].map(({ t, n, q }) => (
-            <div class="border border-[#1F1F1F] bg-[#050505] p-5 text-center">
-              <p class="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-2">{t}</p>
-              <p class="font-mono text-sm text-[#F2F2F2] mb-1">{n}</p>
-              <p class="text-xs text-[#A8A8A8]">"{q}"</p>
+            <div class="border border-[#1F1F1F] bg-[#050505] p-8 text-center">
+              <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6B6B6B] mb-3">{t}</p>
+              <p class="font-mono text-base text-[#F2F2F2] mb-2">{n}</p>
+              <p class="text-sm text-[#A8A8A8]">"{q}"</p>
             </div>
           ))}
         </div>
+      </div>
+    </section>
 
-        <!-- 03.1 PROVE -->
-        <div class="border-t border-[#1F1F1F] pt-12 mb-16">
-          <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-4">03.1 · The Past: Prove</p>
-          <div class="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h3 class="text-2xl md:text-3xl font-bold text-[#F2F2F2] leading-tight mb-5">
-                The suspect can't write the police report.
-              </h3>
-              <p class="text-base text-[#A8A8A8] leading-relaxed">
-                Your LLM provider's log lives on their servers, signed with their keys. In a legal or compliance dispute, it holds no independent weight. KYDE's audit trail is architecturally independent, <strong class="text-[#F2F2F2]">Ed25519-signed</strong>, and <strong class="text-[#F2F2F2]">hash-chained</strong> before any token leaves your network.
-              </p>
-            </div>
-            <div class="space-y-4">
-              {[
-                { label: "Immutable forensics",  desc: "Every action is cryptographically linked to the previous one (#a4d1 references #a4d0). If an agent attempts to alter its history, the chain breaks." },
-                { label: "Undeletable by design", desc: "No agent, not even one with admin access, can modify or delete its own trajectory logs." },
-                { label: "Instant compliance",   desc: "Automatically generate audit-ready reports for GDPR, DORA, and NIS-2 auditors." },
-              ].map(({ label, desc }) => (
-                <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-4">
-                  <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
-                  <div>
-                    <p class="text-sm font-semibold text-[#F2F2F2] mb-0.5">{label}</p>
-                    <p class="text-xs text-[#A8A8A8]">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+    <!-- ══════════ 03.1 · PROVE ══════════ -->
+    <section class="border-t border-[#1F1F1F] bg-[#050505]">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#6B6B6B] mb-8">03.1 · The Past: Prove</p>
+        <h2 class="text-4xl md:text-5xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-8 max-w-3xl">
+          The suspect can't write the police report.
+        </h2>
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl mb-20">
+          Your LLM provider's log lives on their servers, signed with their keys. In a legal or compliance dispute, it holds no independent weight. KYDE's audit trail is architecturally independent, <strong class="text-[#F2F2F2]">Ed25519-signed</strong>, and <strong class="text-[#F2F2F2]">hash-chained</strong> before any token leaves your network.
+        </p>
+
+        <!-- FIG.3 · the chain defends itself -->
+        <div class="relative border border-[#1F1F1F] bg-[#0C0C0C] p-8 md:p-12 mb-20 overflow-hidden">
+          <span class="fig-label absolute top-4 left-5">FIG.3 · The chain defends itself</span>
+          <div id="lp-chain" class="flex items-center gap-0 pt-8 pb-2 font-mono text-xs overflow-hidden whitespace-nowrap"></div>
+          <p id="lp-chain-status" class="mt-6 font-mono text-[10px] uppercase tracking-[0.15em] text-white/30">Appending entries…</p>
         </div>
 
-        <!-- 03.2 PREVENT -->
-        <div class="border-t border-[#1F1F1F] pt-12 mb-16">
-          <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-4">03.2 · The Present: Prevent</p>
-          <div class="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h3 class="text-2xl md:text-3xl font-bold text-[#F2F2F2] leading-tight mb-5">
-                Deterministic guardrails on probabilistic tech.
-              </h3>
-              <p class="text-base text-[#A8A8A8] leading-relaxed mb-8">
-                An audit log tells you <em>why</em> you crashed. A firewall prevents the crash. KYDE intercepts data in real time, executing deny-by-default policies at the boundary before the model provider ever sees the payload.
-              </p>
-              <div class="space-y-4">
+        <div class="grid md:grid-cols-3 gap-4">
+          {[
+            { label: "Immutable forensics",   desc: "Every action is cryptographically linked to the previous one. If an agent attempts to alter its history, the chain breaks." },
+            { label: "Undeletable by design", desc: "No agent, not even one with admin access, can modify or delete its own trajectory logs." },
+            { label: "Instant compliance",    desc: "Automatically generate audit-ready reports for GDPR, DORA, and NIS-2 auditors." },
+          ].map(({ label, desc }) => (
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <div class="flex items-start gap-3">
+                <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                <div>
+                  <p class="text-sm font-semibold text-[#F2F2F2] mb-1.5">{label}</p>
+                  <p class="text-xs text-[#A8A8A8] leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 03.2 · PREVENT ══════════ -->
+    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#6B6B6B] mb-8">03.2 · The Present: Prevent</p>
+        <h2 class="text-4xl md:text-5xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-8 max-w-3xl">
+          The vendor never sees what it must not see.
+        </h2>
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl mb-20">
+          An audit log tells you <em>why</em> you crashed. A firewall prevents the crash. KYDE intercepts data in real time, executing deny-by-default policies at the boundary before the model provider ever sees the payload.
+        </p>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+          <!-- FIG.4 · live intercept -->
+          <div class="relative border border-[#1F1F1F] bg-[#050505]">
+            <span class="fig-label absolute -top-7 left-0">FIG.4 · Live intercept</span>
+            <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+              <span class="ml-2 font-mono text-[10px] text-white/20">gateway · intercept feed</span>
+              <span id="lp-intercept-policy" class="ml-auto font-mono text-[9px] uppercase tracking-widest text-white/30 border border-[#1F1F1F] px-2 py-0.5">deny-by-default</span>
+            </div>
+            <div id="lp-intercept" class="p-6 font-mono text-xs leading-loose h-[340px] overflow-hidden"></div>
+          </div>
+
+          <div class="space-y-4 lg:pt-2">
+            {[
+              { label: "Active DLP",         desc: "Automatically redact personally identifiable information (PII) and corporate intellectual property before it leaves your tenant." },
+              { label: "Behavioral scoping", desc: "Limit what tools an agent can call based on its cryptographic identity. If a customer-service bot attempts to query the payroll database, KYDE drops the connection." },
+              { label: "Loop interdiction",  desc: "Detect and kill recursive token-spend loops (agents talking to agents in infinite, expensive retries) before they drain your API budget." },
+            ].map(({ label, desc }) => (
+              <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-6">
+                <svg class="h-4 w-4 shrink-0 text-[#FF5C5C] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728" /></svg>
+                <div>
+                  <p class="text-sm font-semibold text-[#F2F2F2] mb-1.5">{label}</p>
+                  <p class="text-sm text-[#A8A8A8] leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 03.3 · COMPOUND ══════════ -->
+    <section class="border-t border-[#1F1F1F] bg-[#050505]">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#6B6B6B] mb-8">03.3 · The Future: Compound</p>
+        <h2 class="text-4xl md:text-5xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-8 max-w-3xl">
+          Your corrections are gold.<br />Stop shipping them upstream.
+        </h2>
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl mb-20">
+          Instead of letting your "learning exhaust" go to waste, KYDE aggregates your agentic telemetry into a structured, private repository. This is where your organization's unique intelligence compounds.
+        </p>
+
+        <!-- FIG.5 · rented vs. owned -->
+        <div class="relative border border-[#1F1F1F] bg-[#0C0C0C] p-8 md:p-12 mb-16">
+          <span class="fig-label absolute top-4 left-5">FIG.5 · Rented vs. owned intelligence</span>
+          <svg id="lp-curve" viewBox="0 0 760 300" class="w-full h-auto pt-8" aria-hidden="true">
+            <line x1="40" y1="260" x2="740" y2="260" stroke="#1F1F1F" stroke-width="1" />
+            <line x1="40" y1="20" x2="40" y2="260" stroke="#1F1F1F" stroke-width="1" />
+            <text x="740" y="278" text-anchor="end" fill="rgba(242,242,242,0.3)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.15em;">TIME →</text>
+            <text x="30" y="24" text-anchor="end" fill="rgba(242,242,242,0.3)" transform="rotate(-90 30 24)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.15em;">INSTITUTIONAL INTELLIGENCE</text>
+            <!-- rented: flat, resets at every contract switch -->
+            <path id="lp-curve-rented" d="M40 236 L200 232 L200 244 L380 240 L380 250 L560 246 L560 254 L740 251" fill="none" stroke="rgba(242,242,242,0.3)" stroke-width="1.5" stroke-dasharray="4 4" />
+            <text x="450" y="225" fill="rgba(242,242,242,0.35)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">RENTED · resets with every vendor switch</text>
+            <!-- owned: compounding curve -->
+            <path id="lp-curve-owned" d="M40 256 C 220 252, 380 240, 500 190 C 590 152, 660 96, 740 40" fill="none" stroke="#3DDC84" stroke-width="2" />
+            <text x="500" y="120" fill="#3DDC84" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">OWNED · your ledger compounds</text>
+          </svg>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-start mb-4">
+          <!-- scorecard -->
+          <div class="border border-[#1F1F1F] bg-[#0C0C0C] overflow-x-auto">
+            <div class="border-b border-[#1F1F1F] px-5 py-3.5 flex items-center justify-between">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#A8A8A8]">KYDE Scores · last 30 days</span>
+              <span class="font-mono text-[9px] uppercase tracking-widest text-[#3DDC84] border border-[#3DDC84]/30 px-1.5 py-0.5">Live</span>
+            </div>
+            <table class="w-full font-mono text-xs">
+              <thead>
+                <tr class="border-b border-[#1F1F1F] text-[#6B6B6B] uppercase tracking-widest text-[10px]">
+                  <th class="text-left px-5 py-3">Agent</th>
+                  <th class="text-left px-5 py-3">Provider</th>
+                  <th class="text-left px-5 py-3">Cost/Task</th>
+                  <th class="text-left px-5 py-3 w-32">Success</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#1F1F1F] text-[#A8A8A8]">
                 {[
-                  { label: "Active DLP",         desc: "Automatically redact personally identifiable information (PII) and corporate intellectual property before it leaves your tenant." },
-                  { label: "Behavioral scoping", desc: "Limit what tools an agent can call based on its cryptographic identity. If a customer-service bot attempts to query the payroll database, KYDE drops the connection." },
-                  { label: "Loop interdiction",  desc: "Detect and kill recursive token-spend loops (agents talking to agents in infinite, expensive retries) before they drain your API budget." },
-                ].map(({ label, desc }) => (
-                  <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-4">
-                    <svg class="h-4 w-4 shrink-0 text-[#FF5C5C] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728" /></svg>
-                    <div>
-                      <p class="text-sm font-semibold text-[#F2F2F2] mb-0.5">{label}</p>
-                      <p class="text-xs text-[#A8A8A8]">{desc}</p>
-                    </div>
-                  </div>
+                  { a: "agent:support-02", p: "OpenAI",      c: "$0.12", s: 87 },
+                  { a: "agent:proc-7",     p: "Anthropic",   c: "$0.41", s: 64 },
+                  { a: "agent:hr-11",      p: "Local/Llama", c: "$0.02", s: 91 },
+                ].map(({ a, p, c, s }) => (
+                  <tr>
+                    <td class="px-5 py-3.5">{a}</td>
+                    <td class="px-5 py-3.5">{p}</td>
+                    <td class="px-5 py-3.5">{c}</td>
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2">
+                        <div class="h-0.5 flex-1 bg-[#1C1C1C] overflow-hidden"><div class="h-full bar-fill bg-[#3DDC84]/60" style={`width:${s}%`}></div></div>
+                        <span class="text-[#F2F2F2] w-8 text-right">{s}%</span>
+                      </div>
+                    </td>
+                  </tr>
                 ))}
-              </div>
-            </div>
-            <div class="border border-[#1F1F1F] bg-[#050505]">
-              <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
-                <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
-                <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
-                <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
-                <span class="ml-2 font-mono text-[10px] text-white/20">intercept</span>
-              </div>
-              <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto">
-                <p class="text-white/25 mb-2">// Incoming trace: agent:support-02 ──&gt; api.openai.com</p>
-                <p class="text-white/40">&#123;</p>
-                <p class="text-white/40 pl-4">"prompt": "Confirm contract value of €1.2M with j.mueller@acme.com..."</p>
-                <p class="text-white/40 mb-4">&#125;</p>
-                <p class="text-white/25 mb-2">// KYDE intercept: policy [dlp-standard] active (12ms)</p>
-                <p class="text-white/40">&#123;</p>
-                <p class="pl-4"><span class="text-white/40">"action": </span><span class="text-[#FF5C5C]">"MASK"</span><span class="text-white/40">,</span></p>
-                <p class="text-white/40 pl-4">"reason": "PII &amp; financial data detected",</p>
-                <p class="pl-4"><span class="text-white/40">"payload": "Confirm contract value of </span><span class="text-[#3DDC84]">[REDACTED_FIN]</span><span class="text-white/40"> with </span><span class="text-[#3DDC84]">[REDACTED_EMAIL]</span><span class="text-white/40">..."</span></p>
-                <p class="text-white/40">&#125;</p>
-              </div>
-            </div>
+              </tbody>
+            </table>
           </div>
-        </div>
 
-        <!-- 03.3 COMPOUND -->
-        <div class="border-t border-[#1F1F1F] pt-12">
-          <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-4">03.3 · The Future: Compound</p>
-          <div class="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h3 class="text-2xl md:text-3xl font-bold text-[#F2F2F2] leading-tight mb-5">
-                Keep your alpha. Control your costs.
-              </h3>
-              <p class="text-base text-[#A8A8A8] leading-relaxed mb-8">
-                Instead of letting your "learning exhaust" go to waste, KYDE aggregates your agentic telemetry into a structured, private repository. This is where your organization's unique intelligence compounds.
-              </p>
-              <div class="border border-[#1F1F1F] bg-[#050505] overflow-x-auto">
-                <table class="w-full font-mono text-xs">
-                  <thead>
-                    <tr class="border-b border-[#1F1F1F] text-[#6B6B6B] uppercase tracking-widest text-[10px]">
-                      <th class="text-left px-4 py-3">Agent</th>
-                      <th class="text-left px-4 py-3">Provider</th>
-                      <th class="text-left px-4 py-3">Cost/Task</th>
-                      <th class="text-left px-4 py-3">Success</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-[#1F1F1F] text-[#A8A8A8]">
-                    <tr><td class="px-4 py-2.5">agent:support-02</td><td class="px-4 py-2.5">OpenAI</td><td class="px-4 py-2.5">$0.12</td><td class="px-4 py-2.5">87%</td></tr>
-                    <tr><td class="px-4 py-2.5">agent:proc-7</td><td class="px-4 py-2.5">Anthropic</td><td class="px-4 py-2.5">$0.41</td><td class="px-4 py-2.5">64%</td></tr>
-                    <tr><td class="px-4 py-2.5">agent:hr-11</td><td class="px-4 py-2.5">Local/Llama</td><td class="px-4 py-2.5">$0.02</td><td class="px-4 py-2.5">91%</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="space-y-4">
-              {[
-                { label: "Vendor scorecards", desc: "Stop grading bots on marketing hype. KYDE tracks task completion rates, retry chains, and actual costs per transaction. Go to negotiation tables with hard data: “Your bot only solves 38% of our procurement tasks; we are renegotiating our contract.”" },
-                { label: "Build your own learning loop", desc: "Collect your employees' corrections and successful trajectories to fine-tune small, hyper-efficient, local models. You get 10x cheaper task execution on models that you own entirely." },
-                { label: "Decoupled orchestration", desc: "Keep your policies, memory, and evals on KYDE. If you switch from OpenAI to Anthropic tomorrow, your safety guards and learned behaviors remain perfectly intact." },
-              ].map(({ label, desc }) => (
-                <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-4">
-                  <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
-                  <div>
-                    <p class="text-sm font-semibold text-[#F2F2F2] mb-0.5">{label}</p>
-                    <p class="text-xs text-[#A8A8A8]">{desc}</p>
-                  </div>
+          <div class="space-y-4">
+            {[
+              { label: "Vendor scorecards", desc: "Stop grading bots on marketing hype. KYDE tracks task completion rates, retry chains, and actual costs per transaction. Go to negotiation tables with hard data: “Your bot only solves 38% of our procurement tasks; we are renegotiating our contract.”" },
+              { label: "Build your own learning loop", desc: "Collect your employees' corrections and successful trajectories to fine-tune small, hyper-efficient, local models. You get 10x cheaper task execution on models that you own entirely." },
+              { label: "Decoupled orchestration", desc: "Keep your policies, memory, and evals on KYDE. If you switch from OpenAI to Anthropic tomorrow, your safety guards and learned behaviors remain perfectly intact." },
+            ].map(({ label, desc }) => (
+              <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-6">
+                <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
+                <div>
+                  <p class="text-sm font-semibold text-[#F2F2F2] mb-1.5">{label}</p>
+                  <p class="text-sm text-[#A8A8A8] leading-relaxed">{desc}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
     <!-- ══════════ 04 · WHY NOW ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#050505]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="mb-12">
+    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-16">
           <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">04 · Why now?</span></div>
         </div>
 
-        <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-10 max-w-2xl">
-          The marketplace is demanding accountability.
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-16 max-w-4xl">
+          Accountability is no longer optional.
         </h2>
 
-        <div class="grid md:grid-cols-2 gap-6 mb-10">
-          <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-8">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-5">Defensive triggers</p>
-            <ul class="space-y-3">
+        <div class="grid md:grid-cols-2 gap-6 mb-16">
+          <div class="border border-[#1F1F1F] bg-[#050505] p-8 md:p-10">
+            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-6">Defensive triggers</p>
+            <ul class="space-y-4">
               {[
                 "NIS-2 (C-suite liability)",
                 "DORA (financial resiliency)",
                 "EU AI Act (audit trail duties)",
               ].map(item => (
-                <li class="flex items-start gap-3 text-sm text-[#A8A8A8]"><span class="font-mono shrink-0 mt-0.5">→</span>{item}</li>
+                <li class="flex items-start gap-3 text-base text-[#A8A8A8]"><span class="font-mono shrink-0 mt-0.5 text-[#FF5C5C]">→</span>{item}</li>
               ))}
             </ul>
           </div>
-          <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-8">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-5">Offensive triggers</p>
-            <ul class="space-y-3">
+          <div class="border border-[#1F1F1F] bg-[#050505] p-8 md:p-10">
+            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-6">Offensive triggers</p>
+            <ul class="space-y-4">
               {[
                 "Stopping token waste before it compounds",
                 "Retaining proprietary IP, avoiding leakage",
                 "Breaking vendor lock-in and monopoly pricing power",
               ].map(item => (
-                <li class="flex items-start gap-3 text-sm text-[#A8A8A8]"><span class="font-mono shrink-0 mt-0.5">→</span>{item}</li>
+                <li class="flex items-start gap-3 text-base text-[#A8A8A8]"><span class="font-mono shrink-0 mt-0.5 text-[#3DDC84]">→</span>{item}</li>
               ))}
             </ul>
           </div>
         </div>
 
-        <p class="text-base text-[#A8A8A8] leading-relaxed max-w-2xl">
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-2xl">
           Whether you are motivated by protecting your balance sheet from AI waste or protecting your board from regulatory liability, the answer is the same: <strong class="text-[#F2F2F2]">you must own your infrastructure.</strong>
         </p>
       </div>
     </section>
 
     <!-- ══════════ 05 · DESIGN PARTNERSHIP ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 text-center py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-4">05 · Design Partnership Program</p>
-        <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] mb-4">Secure your boundary today.</h2>
-        <p class="text-base text-[#A8A8A8] mb-10 max-w-xl mx-auto">
+    <section class="border-t border-[#1F1F1F] bg-[#050505]">
+      <div class="max-w-7xl mx-auto px-6 text-center py-24 md:py-36 md:border-x md:border-[#1F1F1F]">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#6B6B6B] mb-6">05 · Design Partnership Program</p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F2F2F2] leading-[1.05] tracking-tight mb-6">Own your boundary. Today.</h2>
+        <p class="text-lg text-[#A8A8A8] mb-14 max-w-xl mx-auto leading-relaxed">
           KYDE is built in partnership with leading, highly regulated enterprises in Europe and North America. We ensure your agentic workforce complies with NIS-2, DORA, GDPR, and the EU AI Act from day one.
         </p>
-        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onclick="openModal()"
             class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-8 py-4 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all"
@@ -358,4 +451,415 @@ Audit Ledger     Active Firewall   Learning Loop
 
   </main>
   <Footer />
+
+<script>
+  // ── HERO · exhaust capture loop ─────────────────────────────────────
+  // Learning-exhaust particles drift toward the vendor; at the trust
+  // boundary they are captured (green pulse) and arc back into your
+  // tenant's ledger, which visibly grows. A few are blocked (red X).
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canvas = document.getElementById("lp-exhaust") as HTMLCanvasElement | null;
+
+  if (canvas) {
+    const ctx = canvas.getContext("2d")!;
+    let W = 0, H = 0, GATE = 0;
+    let vault = { x: 0, y: 0, fill: 0 };
+
+    function hash(n: number): number {
+      let t = (n + 0x6d2b79f5) | 0;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+
+    type P = {
+      x: number; y: number; vx: number; seed: number;
+      state: "out" | "captured" | "blocked";
+      cx: number; cy: number; sx: number; sy: number; t: number; pulse: number;
+    };
+    let parts: P[] = [];
+
+    function spawn(p: P, i: number, initial = false) {
+      p.x = initial ? hash(i * 7 + 1) * GATE * 0.9 : -10 - hash(i * 13) * 60;
+      p.y = 60 + hash(i * 31 + performance.now() % 9973) * (H - 140);
+      p.vx = 14 + hash(i * 17) * 22;
+      p.seed = i * 7919 + Math.floor(performance.now());
+      p.state = "out";
+      p.t = 0; p.pulse = 0;
+    }
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      GATE = W * 0.72;
+      vault = { x: W * 0.42, y: H * 0.84, fill: vault.fill };
+      parts = [];
+      const n = Math.max(36, Math.floor(W / 20));
+      for (let i = 0; i < n; i++) { const p = {} as P; spawn(p, i, true); parts.push(p); }
+    }
+
+    let last = 0;
+    function draw(t: number) {
+      const dt = Math.min((t - last) / 1000, 0.05) || 0.016;
+      last = t;
+      ctx.clearRect(0, 0, W, H);
+
+      // trust boundary line, shimmering mid-height
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, "rgba(242,242,242,0)");
+      grad.addColorStop(0.5, "rgba(242,242,242,0.14)");
+      grad.addColorStop(1, "rgba(242,242,242,0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(GATE, 0, 1, H);
+      for (let y = 0; y < H; y += 52) {
+        const env = Math.sin((Math.PI * y) / H);
+        ctx.fillStyle = `rgba(242,242,242,${0.14 * env * env})`;
+        ctx.fillRect(GATE - 3, y, 7, 1);
+      }
+      ctx.save();
+      ctx.translate(GATE + 14, H * 0.5);
+      ctx.rotate(Math.PI / 2);
+      ctx.font = "9px 'JetBrains Mono Variable', monospace";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(242,242,242,0.22)";
+      ctx.fillText("T R U S T   B O U N D A R Y", 0, 0);
+      ctx.restore();
+
+      // the vendor side: faint void beyond the boundary
+      ctx.font = "9px 'JetBrains Mono Variable', monospace";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(242,242,242,0.14)";
+      ctx.fillText("VENDOR MODELS", (GATE + W) / 2, H * 0.5);
+
+      // your tenant vault: grows as exhaust is captured
+      const vr = 14 + Math.min(vault.fill, 60) * 0.22;
+      ctx.strokeStyle = "rgba(61,220,132,0.5)";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(vault.x - vr, vault.y - vr, vr * 2, vr * 2);
+      ctx.fillStyle = "rgba(61,220,132,0.08)";
+      const inner = vr * Math.min(1, vault.fill / 60);
+      ctx.fillRect(vault.x - inner, vault.y - inner, inner * 2, inner * 2);
+      ctx.fillStyle = "rgba(242,242,242,0.3)";
+      ctx.fillText("YOUR LEDGER", vault.x, vault.y + vr + 16);
+
+      for (const p of parts) {
+        const jitterSeed = p.seed + Math.floor(t / 300);
+        if (p.state === "out") {
+          p.x += p.vx * dt;
+          p.y += (hash(jitterSeed) - 0.5) * 30 * dt * 2;
+          if (p.x >= GATE) {
+            if (hash(p.seed + 5) > 0.94) {
+              p.state = "blocked"; p.pulse = 1; p.vx = -20;
+            } else {
+              p.state = "captured"; p.t = 0; p.pulse = 1;
+              p.sx = GATE; p.sy = p.y;
+              p.cx = GATE - (GATE - vault.x) * 0.35;
+              p.cy = p.y - H * 0.3 * (hash(p.seed + 3) * 0.8 + 0.2);
+            }
+          }
+          ctx.fillStyle = "rgba(242,242,242,0.35)";
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+        } else if (p.state === "captured") {
+          p.t += dt / (2.2 + hash(p.seed + 7));
+          const u = Math.min(p.t, 1), v = 1 - u;
+          const x = v * v * p.sx + 2 * v * u * p.cx + u * u * vault.x;
+          const y = v * v * p.sy + 2 * v * u * p.cy + u * u * vault.y;
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(61,220,132,${p.pulse * 0.7})`;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x - 4, y - 4, 8, 8);
+            p.pulse -= dt * 1.6;
+          }
+          ctx.fillStyle = "rgba(61,220,132,0.75)";
+          ctx.fillRect(x - 1, y - 1, 2, 2);
+          if (p.t >= 1) { vault.fill += 1; spawn(p, Math.floor(p.seed / 7919)); }
+        } else {
+          p.x += p.vx * dt;
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(255,92,92,${p.pulse * 0.8})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x + 4, p.y - 4); ctx.lineTo(p.x - 4, p.y + 4);
+            ctx.moveTo(p.x - 4, p.y - 4); ctx.lineTo(p.x + 4, p.y + 4);
+            ctx.stroke();
+            p.pulse -= dt * 0.9;
+          } else spawn(p, Math.floor(p.seed / 7919));
+        }
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    if (reduced) { vault.fill = 40; draw(1); }
+    else {
+      let visible = true;
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(canvas);
+      const loop = (t: number) => { if (visible) draw(t); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    }
+  }
+</script>
+
+<script>
+  // ── FIG.1 · paradox meters count up on reveal ───────────────────────
+  const reducedM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const meters = document.getElementById("lp-meters");
+  if (meters) {
+    const a = document.getElementById("lp-meter-a")!;
+    const b = document.getElementById("lp-meter-b")!;
+    const barA = document.getElementById("lp-bar-a")!;
+    const barB = document.getElementById("lp-bar-b")!;
+    const run = () => {
+      barA.style.width = "92%"; barB.style.width = "2%";
+      if (reducedM) { a.textContent = "92"; b.textContent = "2"; return; }
+      const t0 = performance.now();
+      const tick = (t: number) => {
+        const u = Math.min((t - t0) / 2400, 1);
+        const e = 1 - Math.pow(1 - u, 3);
+        a.textContent = String(Math.round(e * 92));
+        b.textContent = String(Math.round(e * 2));
+        if (u < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if (reducedM) run();
+    else new IntersectionObserver((es, io) => {
+      if (es[0].isIntersecting) { run(); io.disconnect(); }
+    }, { threshold: 0.4 }).observe(meters);
+  }
+</script>
+
+<script>
+  // ── FIG.2 · packets travel the critical path, signed at the gateway ─
+  const reducedF = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const flow = document.getElementById("lp-flow");
+  const dotLayer = document.getElementById("lp-flow-dots");
+  if (flow && dotLayer && !reducedF) {
+    const NS = "http://www.w3.org/2000/svg";
+    const agents = [100, 250, 400, 550, 700];
+    const outs = [140, 400, 660];
+    type D = { el: SVGCircleElement; ring: SVGRectElement | null; phase: number; t: number; from: number; to: number };
+    const dots: D[] = [];
+    let lastSpawn = 0;
+
+    function lerp(a: number, b: number, u: number) { return a + (b - a) * u; }
+
+    function spawnDot() {
+      const el = document.createElementNS(NS, "circle");
+      el.setAttribute("r", "2.5");
+      el.setAttribute("fill", "rgba(242,242,242,0.7)");
+      dotLayer.appendChild(el);
+      dots.push({ el, ring: null, phase: 0, t: 0, from: agents[Math.floor(Math.random() * agents.length)], to: outs[Math.floor(Math.random() * outs.length)] });
+    }
+
+    let visible = true;
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(flow);
+
+    let last = 0;
+    const loop = (t: number) => {
+      requestAnimationFrame(loop);
+      if (!visible) { last = t; return; }
+      const dt = Math.min((t - last) / 1000, 0.05) || 0.016;
+      last = t;
+      if (t - lastSpawn > 650 && dots.length < 9) { spawnDot(); lastSpawn = t; }
+
+      for (let i = dots.length - 1; i >= 0; i--) {
+        const d = dots[i];
+        if (d.phase === 0) {
+          d.t += dt / 1.1;
+          const u = Math.min(d.t, 1);
+          d.el.setAttribute("cx", String(lerp(d.from, 400, u)));
+          d.el.setAttribute("cy", String(lerp(60, 190, u)));
+          if (u >= 1) {
+            d.phase = 1; d.t = 0;
+            const ring = document.createElementNS(NS, "rect");
+            ring.setAttribute("x", "396"); ring.setAttribute("y", "214");
+            ring.setAttribute("width", "8"); ring.setAttribute("height", "8");
+            ring.setAttribute("fill", "none");
+            ring.setAttribute("stroke", "#3DDC84");
+            dotLayer.appendChild(ring);
+            d.ring = ring;
+            d.el.setAttribute("fill", "rgba(61,220,132,0.9)");
+          }
+        } else if (d.phase === 1) {
+          d.t += dt / 0.35;
+          d.el.setAttribute("cx", "400"); d.el.setAttribute("cy", "218");
+          if (d.ring) d.ring.setAttribute("stroke-opacity", String(Math.max(0, 1 - d.t)));
+          if (d.t >= 1) { d.phase = 2; d.t = 0; if (d.ring) { d.ring.remove(); d.ring = null; } }
+        } else {
+          d.t += dt / 0.9;
+          const u = Math.min(d.t, 1);
+          d.el.setAttribute("cx", String(lerp(400, d.to, u)));
+          d.el.setAttribute("cy", String(lerp(246, 330, u)));
+          d.el.setAttribute("fill-opacity", String(1 - u * 0.5));
+          if (u >= 1) { d.el.remove(); dots.splice(i, 1); }
+        }
+      }
+    };
+    requestAnimationFrame(loop);
+  }
+</script>
+
+<script>
+  // ── FIG.3 · hash chain grows; tamper attempts break it, get rejected ─
+  const reducedC = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const chainEl = document.getElementById("lp-chain");
+  const statusEl = document.getElementById("lp-chain-status");
+  if (chainEl && statusEl) {
+    let head = 0xa4cb;
+    const SLOTS = 7;
+    let blocks: number[] = [];
+    for (let i = 0; i < SLOTS; i++) blocks.push(head++);
+
+    const cell = (id: number, cls: string, mark: string) =>
+      `<span class="inline-flex items-center gap-1.5 border px-3 py-2 shrink-0 ${cls}">#${id.toString(16)}<span>${mark}</span></span>`;
+    const link = (ok: boolean) =>
+      `<span class="px-1 ${ok ? "text-[#2E2E2E]" : "text-[#FF5C5C]"}">${ok ? "──" : "─╳─"}</span>`;
+
+    function render(tamperIdx = -1, freshLast = false) {
+      let html = "";
+      blocks.forEach((b, i) => {
+        const broken = tamperIdx >= 0 && i >= tamperIdx;
+        if (i > 0) html += link(!(tamperIdx >= 0 && i === tamperIdx));
+        if (tamperIdx === i)
+          html += cell(b, "border-[#FF5C5C] text-[#FF5C5C] bg-[#FF5C5C]/5", "✕");
+        else if (broken)
+          html += cell(b, "border-[#FF5C5C]/40 text-[#FF5C5C]/60", "?");
+        else if (freshLast && i === blocks.length - 1)
+          html += cell(b, "border-[#3DDC84] text-[#3DDC84] bg-[#3DDC84]/5", "✓");
+        else
+          html += cell(b, "border-[#1F1F1F] text-[#A8A8A8]", `<span class="text-[#3DDC84]/70">✓</span>`);
+      });
+      chainEl.innerHTML = html;
+    }
+
+    render();
+    if (!reducedC) {
+      let visible = true;
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainEl);
+      let n = 0;
+      setInterval(() => {
+        if (!visible) return;
+        n++;
+        if (n % 5 === 0) {
+          // tamper attempt on a mid-chain block
+          const idx = 2 + Math.floor(Math.random() * 2);
+          render(idx);
+          statusEl.innerHTML = `<span class="text-[#FF5C5C]">Tamper attempt on #${blocks[idx].toString(16)} · every hash after it breaks · entry rejected</span>`;
+          setTimeout(() => {
+            if (!visible) return;
+            render();
+            statusEl.innerHTML = `<span class="text-white/30">Chain verified · appending entries…</span>`;
+          }, 1900);
+        } else {
+          blocks.push(head++);
+          if (blocks.length > SLOTS) blocks.shift();
+          render(-1, true);
+          statusEl.innerHTML = `<span class="text-white/30">Entry <span class="text-[#3DDC84]">#${blocks[blocks.length - 1].toString(16)}</span> hash-chained to <span class="text-white/50">#${blocks[blocks.length - 2].toString(16)}</span> · signed</span>`;
+        }
+      }, 2100);
+    }
+  }
+</script>
+
+<script>
+  // ── FIG.4 · live intercept feed: MASK / BLOCK / KILL scenarios ──────
+  const reducedI = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const feed = document.getElementById("lp-intercept");
+  if (feed) {
+    type Line = { html: string; type?: "type" };
+    const scenarios: { policy: string; lines: Line[] }[] = [
+      {
+        policy: "dlp-standard",
+        lines: [
+          { html: `<span class="text-white/25">// agent:support-02 ──&gt; api.openai.com</span>` },
+          { html: `<span class="text-white/40">"prompt": "Confirm contract value of €1.2M with j.mueller@acme.com…"</span>`, type: "type" },
+          { html: `<span class="text-white/25">// policy [dlp-standard] · 12ms</span>` },
+          { html: `<span class="text-white/40">"action": </span><span class="text-[#FEC106]">"MASK"</span><span class="text-white/40"> · PII &amp; financial data detected</span>` },
+          { html: `<span class="text-white/40">"payload": "Confirm contract value of </span><span class="text-[#3DDC84]">[REDACTED_FIN]</span><span class="text-white/40"> with </span><span class="text-[#3DDC84]">[REDACTED_EMAIL]</span><span class="text-white/40">…"</span>` },
+        ],
+      },
+      {
+        policy: "role-scope",
+        lines: [
+          { html: `<span class="text-white/25">// agent:support-02 ──&gt; tool:payroll.query</span>` },
+          { html: `<span class="text-white/40">"args": { "table": "salaries", "scope": "all_employees" }</span>`, type: "type" },
+          { html: `<span class="text-white/25">// identity check · role: customer_support · 4ms</span>` },
+          { html: `<span class="text-white/40">"action": </span><span class="text-[#FF5C5C]">"BLOCK 403"</span><span class="text-white/40"> · tool out of scope for this identity</span>` },
+          { html: `<span class="text-white/40">"ledger": #b81f · </span><span class="text-[#3DDC84]">chained</span><span class="text-white/40"> · connection dropped</span>` },
+        ],
+      },
+      {
+        policy: "loop-guard",
+        lines: [
+          { html: `<span class="text-white/25">// agent:proc-7 ⇄ agent:proc-9 · retry #14</span>` },
+          { html: `<span class="text-white/40">"pattern": recursive delegation · token spend $41.20 and climbing</span>`, type: "type" },
+          { html: `<span class="text-white/25">// loop interdiction · window 90s</span>` },
+          { html: `<span class="text-white/40">"action": </span><span class="text-[#FF5C5C]">"KILL"</span><span class="text-white/40"> · runaway chain terminated</span>` },
+          { html: `<span class="text-white/40">"saved": est. </span><span class="text-[#3DDC84]">$310/h</span><span class="text-white/40"> in dead retries</span>` },
+        ],
+      },
+    ];
+    const policyBadge = document.getElementById("lp-intercept-policy");
+
+    if (reducedI) {
+      feed.innerHTML = scenarios[0].lines.map((l) => `<p>${l.html}</p>`).join("");
+    } else {
+      let visible = true;
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(feed);
+      let si = 0;
+      const strip = (h: string) => { const d = document.createElement("div"); d.innerHTML = h; return d.textContent || ""; };
+
+      async function wait(ms: number) { return new Promise((r) => setTimeout(r, ms)); }
+      async function playScenario() {
+        const sc = scenarios[si % scenarios.length];
+        si++;
+        if (policyBadge) policyBadge.textContent = sc.policy;
+        feed.innerHTML = "";
+        for (const l of sc.lines) {
+          const p = document.createElement("p");
+          feed.appendChild(p);
+          if (l.type === "type") {
+            const text = strip(l.html);
+            for (let i = 1; i <= text.length; i++) {
+              p.textContent = text.slice(0, i);
+              p.className = "text-white/40";
+              if (i % 3 === 0) await wait(16);
+            }
+            p.className = ""; p.innerHTML = l.html;
+          } else {
+            p.innerHTML = l.html;
+            await wait(420);
+          }
+        }
+        await wait(3200);
+        if (visible) playScenario();
+        else {
+          const again = setInterval(() => { if (visible) { clearInterval(again); playScenario(); } }, 500);
+        }
+      }
+      playScenario();
+    }
+  }
+</script>
+
+<script>
+  // ── FIG.5 · owned curve draws itself on reveal ──────────────────────
+  const reducedK = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const curve = document.getElementById("lp-curve-owned") as unknown as SVGPathElement | null;
+  if (curve && !reducedK) {
+    const len = curve.getTotalLength();
+    curve.style.strokeDasharray = String(len);
+    curve.style.strokeDashoffset = String(len);
+    new IntersectionObserver((es, io) => {
+      if (es[0].isIntersecting) {
+        curve.style.transition = "stroke-dashoffset 2.6s cubic-bezier(0.2,0.7,0.3,1)";
+        curve.style.strokeDashoffset = "0";
+        io.disconnect();
+      }
+    }, { threshold: 0.4 }).observe(curve);
+  }
+</script>
 </Base>
