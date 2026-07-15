@@ -67,9 +67,10 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile menu -->
+  <!-- Mobile menu · full-height overlay so page content can't show through -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden border-t border-white/10 bg-[#050505] px-6 py-6"
+    class="hidden lg:hidden border-t border-white/10 bg-[#050505] px-6 py-6 min-h-[calc(100dvh-66px)] overflow-y-auto"
   >
     <ul class="flex flex-col gap-6 mb-8">
       {navLinks.map(({ label, href }) => (
@@ -96,7 +97,7 @@ const currentPath = Astro.url.pathname;
         Deploy Sandbox &gt;
       </a>
       <button
-        onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
+        onclick="openModal(); window.closeMobileMenu();"
         class="w-full border border-white/25 px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all"
       >
         Talk to Us &gt;
@@ -112,9 +113,10 @@ const currentPath = Astro.url.pathname;
   const b2 = document.getElementById('burger-2');
   const b3 = document.getElementById('burger-3');
 
-  btn?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
-    btn.setAttribute('aria-expanded', String(isOpen));
+  const setOpen = (isOpen: boolean) => {
+    menu?.classList.toggle('hidden', !isOpen);
+    btn?.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     if (isOpen) {
       b1?.classList.add('translate-y-[7.5px]', 'rotate-45');
       b2?.classList.add('opacity-0');
@@ -124,5 +126,9 @@ const currentPath = Astro.url.pathname;
       b2?.classList.remove('opacity-0');
       b3?.classList.remove('-translate-y-[7.5px]', '-rotate-45');
     }
-  });
+  };
+
+  btn?.addEventListener('click', () => setOpen(menu?.classList.contains('hidden') === true));
+
+  (window as any).closeMobileMenu = () => setOpen(false);
 </script>
