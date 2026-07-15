@@ -5,8 +5,8 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Base
-  title="KYDE Gateway Sandbox, Deploy in Minutes, See Your Agents for the First Time"
-  description="Deploy the KYDE Gateway Sandbox via Docker Compose and one environment variable. No license required. See your agent traffic on a dashboard within minutes."
+  title="KYDE Gateway Starter, Deploy in Minutes, See Your Agents for the First Time"
+  description="Deploy the free KYDE Gateway Starter edition via Docker Compose and one environment variable. No license required. See your agent traffic on a dashboard within minutes."
 >
   <Navbar />
   <main>
@@ -19,7 +19,7 @@ import Footer from '../components/Footer.astro';
           <div class="flex items-center gap-2 mb-8">
             <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-white/15 px-3 py-1">Free</span>
             <span class="font-mono text-[10px] text-white/20">·</span>
-            <span class="font-mono text-[10px] uppercase tracking-widest text-[#3DDC84]/80 border border-[#3DDC84]/30 px-3 py-1">Kyde Gateway Sandbox</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#3DDC84]/80 border border-[#3DDC84]/30 px-3 py-1">Kyde Gateway Starter</span>
           </div>
           <h1 class="hero-h1 text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05] mb-6">
             <span class="text-white">Your agents are acting.</span><br /><span class="text-white/40">See what they're doing.</span>
@@ -60,7 +60,7 @@ import Footer from '../components/Footer.astro';
               Most organizations deploying AI agents have no consolidated view of what those agents actually do. Which endpoints they call. How often. With what data.
             </p>
             <p class="text-base text-[#A8A8A8] leading-relaxed">
-              The Sandbox makes that visible. Every call intercepted by the Gateway appears in the dashboard, attributed to an agent, hash-chained, and timestamped.
+              The Starter edition makes that visible. Every call intercepted by the Gateway appears in the dashboard, attributed to an agent, hash-chained, and timestamped.
             </p>
           </div>
           <div class="space-y-4">
@@ -217,16 +217,16 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- ══════════ SANDBOX VS ENTERPRISE ══════════ -->
+    <!-- ══════════ STARTER VS ENTERPRISE ══════════ -->
     <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-[#1F1F1F]">
 
-        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-10">Sandbox vs. Enterprise</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-10">Starter vs. Enterprise</p>
 
         <div class="grid md:grid-cols-2 gap-6">
           <div class="border border-[#1F1F1F] p-6 md:p-8">
             <div class="flex items-center justify-between mb-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Sandbox</p>
+              <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Starter</p>
               <span class="font-mono text-[10px] text-[#3DDC84] bg-[#3DDC84]/8 px-2 py-0.5 uppercase tracking-widest">Free</span>
             </div>
             <ul class="space-y-3">
@@ -253,7 +253,7 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Enterprise</p>
               <span class="font-mono text-[10px] text-[#F2F2F2]/70 bg-[#F2F2F2]/8 px-2 py-0.5 uppercase tracking-widest">Paid</span>
             </div>
-            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">Everything in Sandbox, plus:</p>
+            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">Everything in Starter, plus:</p>
             <ul class="space-y-3">
               {[
                 "Inline enforcement, block out-of-policy actions before execution",
@@ -293,7 +293,7 @@ import Footer from '../components/Footer.astro';
         <div class="space-y-px">
           {[
             {
-              q: "Does the Sandbox send any data to KYDE?",
+              q: "Does the Starter edition send any data to KYDE?",
               a: "No, not unless you turn it on. Prompts, responses and payload content always remain on your infrastructure, stored in your local ledger. Telemetry is opt-in and disabled by default; when enabled, it transmits only pseudonymized aggregate counts (event volumes, model and endpoint categories), never message content. A fully air-gapped deployment is available in the Enterprise tier.",
             },
             {
@@ -305,11 +305,11 @@ import Footer from '../components/Footer.astro';
               a: "No. Set one environment variable pointing the agent's base URL to the Gateway. The agent continues to operate as before, the Gateway intercepts transparently.",
             },
             {
-              q: "Is the Sandbox the same Gateway as Enterprise?",
-              a: "The underlying Gateway is the same. The Sandbox runs the observe layer only, it records every event into a hash-chained ledger, but does not block. Ed25519 signing and enforcement (blocking out-of-policy actions) require the Enterprise tier.",
+              q: "Is Starter the same Gateway as Enterprise?",
+              a: "The underlying Gateway is the same. The Starter edition runs the observe layer only, it records every event into a hash-chained ledger, but does not block. Ed25519 signing and enforcement (blocking out-of-policy actions) require the Enterprise tier.",
             },
             {
-              q: "What happens when the Sandbox is not enough?",
+              q: "What happens when Starter is not enough?",
               a: "Contact us. We'll discuss your use case and can provision an Enterprise trial with enforcement enabled.",
             },
           ].map(({ q, a }) => (
