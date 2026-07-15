@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import FleetStatusMock from '../components/FleetStatusMock.astro';
 ---
 
 <Base
@@ -52,20 +53,11 @@ import Footer from '../components/Footer.astro';
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-[#1F1F1F]">
         <div class="flex flex-wrap items-baseline justify-between gap-2 mb-6">
           <span class="fig-label">FIG.0 · What you download</span>
-          <span class="font-mono text-[10px] uppercase tracking-widest text-white/30">Live capture · Starter edition</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-white/30">The dashboard · Fleet Status view</span>
         </div>
-        <div class="border border-[#1F1F1F] bg-[#050505] p-2 md:p-3">
-          <img
-            src="/starter-dashboard.png"
-            alt="KYDE Gateway dashboard, Workforce Status view: fleet trust score of 86 across five active agents, with security, compliance, integrity, reliability and economics scores, agent activity and top active agents"
-            class="w-full h-auto"
-            loading="lazy"
-            width="2880"
-            height="1720"
-          />
-        </div>
+        <FleetStatusMock />
         <p class="mt-4 text-sm text-[#A8A8A8] max-w-2xl">
-          The Workforce Status view, minutes after the first agent calls pass through the Gateway. Five agents, one fleet trust score, every action in the ledger.
+          The Fleet Status view of the dashboard that ships in the box: one health score across your fleet, every agent, alert, and incident in one place.
         </p>
       </div>
     </section>
