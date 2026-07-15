@@ -76,17 +76,17 @@ import Footer from '../components/Footer.astro';
               <div class="mb-3">
                 <span class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Free</span>
               </div>
-              <p class="font-mono text-xs text-[#A8A8A8] mb-1">Developer access · Early Access</p>
+              <p class="font-mono text-xs text-[#A8A8A8] mb-1">Developer access · Self-hosted</p>
               <p class="text-xs text-[#A8A8A8]">Basic policies</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-[#A8A8A8] leading-relaxed mb-6">For developers and testing. Full visibility into everything your agents do, signed and tamper-evident, from day one. No credit card required.</p>
+              <p class="text-xs text-[#A8A8A8] leading-relaxed mb-6">For developers and testing. Full visibility into everything your agents do, hash-chained and tamper-evident, from day one. No credit card required.</p>
               <ul class="space-y-2.5">
                 {[
                   { text: "Agent identity registration" },
-                  { text: "Ed25519 cryptographic signing", g: "PROVE" },
+                  { text: "Hash-chained, tamper-evident ledger", g: "PROVE" },
                   { text: "Provider-agnostic interception", g: null },
-                  { text: "Tamper-evident audit log", g: "PROVE" },
+                  { text: "Source-available on GitHub", g: null },
                   { text: "One ENV variable deployment", g: null },
                   { text: "CLI verification tools", g: null },
                 ].map(({ text, g }) => (
@@ -101,9 +101,9 @@ import Footer from '../components/Footer.astro';
               </ul>
             </div>
             <div class="px-7 py-5 border-t border-[#1F1F1F]">
-              <button onclick="openModal()" class="w-full inline-flex items-center justify-center gap-2 border border-[#2E2E2E] px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:border-[#2E2E2E] transition-all">
-                Request Sandbox Access →
-              </button>
+              <a href="/sandbox" class="w-full inline-flex items-center justify-center gap-2 border border-[#2E2E2E] px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:border-white/40 transition-all">
+                Deploy Sandbox →
+              </a>
             </div>
           </div>
 
@@ -222,7 +222,7 @@ import Footer from '../components/Footer.astro';
                 { label: "Scale",                  vals: ["Dev / Testing", "Scaling fleets",             "Unlimited"]   },
                 { label: "Policies",               vals: ["Basic",         "Custom",                     "Custom + Air-Gapped"] },
                 { label: "Log retention",          vals: ["—",             "30 days",                    "Unlimited"]   },
-                { label: "Compliance export",      vals: ["—",             "✓",                          "✓"]           },
+                { label: "Compliance export",      vals: ["✓ (unsigned)",  "✓ (signed)",                 "✓ (signed)"]  },
                 { label: "Silicon Leash (TPM/HSM)",vals: ["—",             "—",                          "✓"]           },
               ].map(({ label, vals }) => (
                 <tr>

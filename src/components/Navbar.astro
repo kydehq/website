@@ -37,9 +37,8 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <!-- CTAs (desktop) · Sandbox CTA hidden until distribution is public (SBX-001) -->
+    <!-- CTAs (desktop) -->
     <div class="hidden md:flex items-center gap-3">
-      <!--
       <button
         onclick="openModal()"
         class="inline-flex h-[33px] items-center gap-2 border border-white/25 px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white"
@@ -52,13 +51,6 @@ const currentPath = Astro.url.pathname;
       >
         Deploy Sandbox &gt;
       </a>
-      -->
-      <button
-        onclick="openModal()"
-        class="inline-flex h-[33px] items-center gap-2 bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-[#0A0A0A] transition-colors hover:bg-[#E5E5E5]"
-      >
-        Talk to Us &gt;
-      </button>
     </div>
 
     <!-- Mobile menu button -->
@@ -96,19 +88,16 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
-    <!-- Sandbox CTA hidden until distribution is public (SBX-001) -->
     <div class="space-y-3">
-      <!--
       <a
         href="/sandbox"
         class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
       >
         Deploy Sandbox &gt;
       </a>
-      -->
       <button
         onclick="openModal(); document.getElementById('mobile-menu').classList.add('hidden');"
-        class="w-full bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+        class="w-full border border-white/25 px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all"
       >
         Talk to Us &gt;
       </button>

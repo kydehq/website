@@ -25,7 +25,7 @@ import Footer from '../components/Footer.astro';
             <span class="text-white">Your agents are acting.</span><br /><span class="text-white/40">See what they're doing.</span>
           </h1>
           <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
-            Deploy the KYDE Gateway via Docker Compose and one environment variable. Within minutes, every agent call in your environment appears on a dashboard, signed, attributed, and observable.
+            Deploy the KYDE Gateway via Docker Compose, then point your agent at it with one environment variable. Within minutes, every agent call in your environment appears on a dashboard, attributed, hash-chained, and observable.
           </p>
           <div class="flex flex-col sm:flex-row gap-3">
             <a
@@ -34,12 +34,14 @@ import Footer from '../components/Footer.astro';
             >
               Deploy now →
             </a>
-            <button
-              onclick="openModal()"
+            <a
+              href="https://github.com/kydehq/gateway"
+              target="_blank"
+              rel="noopener"
               class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all"
             >
-              Talk to Us →
-            </button>
+              View on GitHub →
+            </a>
           </div>
         </div>
       </div>
@@ -58,7 +60,7 @@ import Footer from '../components/Footer.astro';
               Most organizations deploying AI agents have no consolidated view of what those agents actually do. Which endpoints they call. How often. With what data.
             </p>
             <p class="text-base text-[#A8A8A8] leading-relaxed">
-              The Sandbox makes that visible. Every call intercepted by the Gateway appears in the dashboard, attributed to an agent, signed, and timestamped.
+              The Sandbox makes that visible. Every call intercepted by the Gateway appears in the dashboard, attributed to an agent, hash-chained, and timestamped.
             </p>
           </div>
           <div class="space-y-4">
@@ -68,7 +70,7 @@ import Footer from '../components/Footer.astro';
               { label: "Provider breakdown",     desc: "Calls across OpenAI, Anthropic, Gemini, and local models in one view." },
               { label: "Coverage indicator",     desc: "Share of observable agent traffic passing through the Gateway."       },
               { label: "DLP alerts",             desc: "Post-hoc detection when sensitive data patterns appear in responses." },
-              { label: "Signed ledger",          desc: "Ed25519-signed, append-only record of every intercepted event."      },
+              { label: "Hash-chained ledger",    desc: "Append-only record; tampering with any entry breaks every hash after it." },
             ].map(({ label, desc }) => (
               <div class="flex items-start gap-4 border border-[#1F1F1F] bg-[#141414] p-4">
                 <svg class="h-4 w-4 shrink-0 text-[#3DDC84] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
@@ -109,7 +111,7 @@ import Footer from '../components/Footer.astro';
                 <span class="h-1.5 w-1.5 rounded-full bg-[#FF5C5C]"></span>
                 agent:crm-sales-04
               </span>
-              <span class="font-mono text-[9px] uppercase tracking-widest text-[#FF5C5C] border border-[#FF5C5C]/40 px-1.5 py-0.5">Blocked</span>
+              <span class="font-mono text-[9px] uppercase tracking-widest text-[#FF5C5C] border border-[#FF5C5C]/40 px-1.5 py-0.5">Flagged</span>
             </div>
             <div class="px-4 py-4 space-y-2.5 font-mono text-xs">
               <div class="grid grid-cols-[88px_1fr] gap-2">
@@ -118,11 +120,11 @@ import Footer from '../components/Footer.astro';
               </div>
               <div class="grid grid-cols-[88px_1fr] gap-2">
                 <span class="text-[#6B6B6B]">Policy</span>
-                <span class="text-[#A8A8A8]">dlp-standard · deny</span>
+                <span class="text-[#A8A8A8]">dlp-standard · detect</span>
               </div>
               <div class="grid grid-cols-[88px_1fr] gap-2">
                 <span class="text-[#6B6B6B]">Ledger</span>
-                <span class="text-[#A8A8A8]">#a4d1…9f2c · <span class="text-[#3DDC84]">signed</span></span>
+                <span class="text-[#A8A8A8]">#a4d1…9f2c · <span class="text-[#3DDC84]">chained</span></span>
               </div>
             </div>
             <div class="border-t border-[#1F1F1F] px-4 py-3">
@@ -145,18 +147,18 @@ import Footer from '../components/Footer.astro';
           {[
             {
               step: "01",
-              title: "Start the Gateway",
-              desc:  "Run the Docker Compose stack. The Gateway, ledger, and dashboard start together.",
+              title: "Clone and start the Gateway",
+              desc:  "Clone the repo, set one password, run Docker Compose. The Gateway, ledger, and dashboard start together.",
             },
             {
               step: "02",
               title: "Set one environment variable",
-              desc:  "Point any agent or LLM client at the Gateway. No code changes in your agents.",
+              desc:  "Point any agent or LLM client at the Gateway. Works with OpenAI- and Anthropic-style clients. No code changes in your agents.",
             },
             {
               step: "03",
               title: "Open the dashboard",
-              desc:  "Agent calls appear immediately. Coverage, identity, and signed events, visible from the first request.",
+              desc:  "Agent calls appear immediately. Coverage, identity, and hash-chained events, visible from the first request.",
             },
           ].map(({ step, title, desc }) => (
             <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-8">
@@ -176,29 +178,40 @@ import Footer from '../components/Footer.astro';
             <span class="ml-2 font-mono text-[10px] text-white/20">terminal</span>
             <button
               class="ml-auto font-mono text-[10px] tracking-[0.15em] text-white/25 hover:text-white transition-colors"
-              onclick="navigator.clipboard.writeText('docker compose up\nexport OPENAI_BASE_URL=http://localhost:4001/v1');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
+              onclick="navigator.clipboard.writeText('git clone https://github.com/kydehq/gateway.git && cd gateway\ncp .env.sandbox.example .env.sandbox\ndocker compose --env-file .env.sandbox -f docker-compose.yml -f docker-compose.prod.yml up -d\nexport OPENAI_BASE_URL=http://localhost:4000/v1');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
             >COPY</button>
           </div>
           <div class="p-6 font-mono text-sm leading-loose">
-            <p class="text-white/25 text-xs mb-3"># Step 1, start the Gateway</p>
-            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> docker compose up</p>
-            <p class="text-[#3DDC84]">&#10003; Gateway started · Dashboard at http://localhost:4000</p>
-            <p class="text-[#3DDC84]">&#10003; Ledger initialized</p>
+            <p class="text-white/25 text-xs mb-3"># Step 1, clone and start the Gateway</p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> git clone https://github.com/kydehq/gateway.git &amp;&amp; cd gateway</p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> cp .env.sandbox.example .env.sandbox <span class="text-white/25"># set POSTGRES_PASSWORD</span></p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> docker compose --env-file .env.sandbox \</p>
+            <p class="text-white/40 pl-6">-f docker-compose.yml -f docker-compose.prod.yml up -d</p>
+            <p class="text-[#3DDC84]">&#10003; Gateway healthy · Proxy at http://localhost:4000</p>
+            <p class="text-[#3DDC84]">&#10003; Ledger initialized · Dashboard at http://localhost:8080</p>
 
             <p class="text-white/25 text-xs mt-5 mb-3"># Step 2, point your agent at the Gateway</p>
-            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> export OPENAI_BASE_URL=http://localhost:4001/v1</p>
-            <p class="text-white/25 text-xs mt-1"># Works with Anthropic, Gemini, and local models too</p>
+            <p class="text-white/40"><span class="text-[#3DDC84]">$</span> export OPENAI_BASE_URL=http://localhost:4000/v1</p>
+            <p class="text-white/25 text-xs mt-1"># Anthropic-style clients: export ANTHROPIC_BASE_URL=http://localhost:4000</p>
 
             <p class="text-white/25 text-xs mt-5 mb-3"># Step 3, run your agent as usual</p>
             <p class="text-white/40"><span class="text-[#3DDC84]">$</span> python run_agent.py</p>
-            <p class="text-[#3DDC84] mt-1">&#10003; 1 new event · agent:default · crm.query · signed</p>
-            <p class="text-[#3DDC84]">&#10003; 2 new events · agent:default · slack.send · signed</p>
-            <p class="text-white/25 text-xs mt-1"># Open http://localhost:4000 to see the dashboard</p>
+            <p class="text-[#3DDC84] mt-1">&#10003; 1 new event · agent:default · crm.query · chained</p>
+            <p class="text-[#3DDC84]">&#10003; 2 new events · agent:default · slack.send · chained</p>
+            <p class="text-white/25 text-xs mt-1"># Open http://localhost:8080 to see the dashboard</p>
           </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap gap-4 text-xs text-[#6B6B6B]">
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[#6B6B6B]">
           <p class="font-mono">Requires: Docker · Docker Compose · An agent that calls an LLM API</p>
+          <a
+            href="https://github.com/kydehq/gateway"
+            target="_blank"
+            rel="noopener"
+            class="font-mono uppercase tracking-[0.12em] text-white/50 hover:text-white transition-colors"
+          >
+            Full quickstart and docs on GitHub →
+          </a>
         </div>
 
       </div>
@@ -219,7 +232,7 @@ import Footer from '../components/Footer.astro';
             <ul class="space-y-3">
               {[
                 "Dashboard, agent activity in real time",
-                "Ed25519-signed ledger",
+                "Hash-chained, append-only ledger",
                 "Coverage indicator",
                 "DLP alerts (post-hoc, detect only)",
                 "Compliance PDF exports",
@@ -244,6 +257,7 @@ import Footer from '../components/Footer.astro';
             <ul class="space-y-3">
               {[
                 "Inline enforcement, block out-of-policy actions before execution",
+                "Ed25519-signed ledger, hardware-rootable keys (PKCS#11 / HSM)",
                 "Agent identity and role scoping (deny-by-default)",
                 "MCP per-tool policy",
                 "RBAC across agents and teams",
@@ -280,11 +294,11 @@ import Footer from '../components/Footer.astro';
           {[
             {
               q: "Does the Sandbox send any data to KYDE?",
-              a: "Prompts, responses and payload content remain on your infrastructure and are stored in your local ledger. The Sandbox transmits anonymized operational metadata, event types, volumes, model and endpoint identifiers, which contributes to cross-customer benchmarks and improves detection quality. A fully air-gapped deployment without telemetry is available in the Enterprise tier.",
+              a: "No, not unless you turn it on. Prompts, responses and payload content always remain on your infrastructure, stored in your local ledger. Telemetry is opt-in and disabled by default; when enabled, it transmits only pseudonymized aggregate counts (event volumes, model and endpoint categories), never message content. A fully air-gapped deployment is available in the Enterprise tier.",
             },
             {
               q: "Does it work with any LLM provider?",
-              a: "Yes. The Gateway intercepts standard OpenAI-compatible API calls, which covers OpenAI, Anthropic, Gemini, Azure OpenAI, Mistral, and local models via Ollama, vLLM, or LMStudio. MCP-routed calls are also supported.",
+              a: "Yes. One Gateway instance proxies all supported providers simultaneously: OpenAI, Anthropic, Gemini, Copilot, Azure OpenAI, Mistral, and local models via Ollama, vLLM, or LMStudio. The upstream is auto-detected from the request path; auth headers pass through untouched. MCP-routed calls are also supported.",
             },
             {
               q: "Do my agents need to be modified?",
@@ -292,7 +306,7 @@ import Footer from '../components/Footer.astro';
             },
             {
               q: "Is the Sandbox the same Gateway as Enterprise?",
-              a: "The underlying Gateway is the same. The Sandbox runs the observe layer only, it records and signs, but does not block. Enforcement (blocking out-of-policy actions) requires the Enterprise tier.",
+              a: "The underlying Gateway is the same. The Sandbox runs the observe layer only, it records every event into a hash-chained ledger, but does not block. Ed25519 signing and enforcement (blocking out-of-policy actions) require the Enterprise tier.",
             },
             {
               q: "What happens when the Sandbox is not enough?",
