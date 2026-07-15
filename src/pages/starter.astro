@@ -25,7 +25,7 @@ import Footer from '../components/Footer.astro';
             <span class="text-white">Your agents are acting.</span><br /><span class="text-white/40">See what they're doing.</span>
           </h1>
           <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
-            Deploy the KYDE Gateway via Docker Compose, then point your agent at it with one environment variable. Within minutes, every agent call in your environment appears on a dashboard, attributed, hash-chained, and observable.
+            Deploy the KYDE Gateway via Docker Compose, then point your agent at it with one environment variable. Within minutes, every agent call in your environment appears on a dashboard, attributed, hash-chained, and observable. An independent witness for every agent action.
           </p>
           <div class="flex flex-col sm:flex-row gap-3">
             <a
@@ -44,6 +44,29 @@ import Footer from '../components/Footer.astro';
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DASHBOARD PREVIEW ══════════ -->
+    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-[#1F1F1F]">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-6">
+          <span class="fig-label">FIG.0 · What you download</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-white/30">Live capture · Starter edition</span>
+        </div>
+        <div class="border border-[#1F1F1F] bg-[#050505] p-2 md:p-3">
+          <img
+            src="/starter-dashboard.png"
+            alt="KYDE Gateway dashboard, Workforce Status view: fleet trust score of 86 across five active agents, with security, compliance, integrity, reliability and economics scores, agent activity and top active agents"
+            class="w-full h-auto"
+            loading="lazy"
+            width="2880"
+            height="1720"
+          />
+        </div>
+        <p class="mt-4 text-sm text-[#A8A8A8] max-w-2xl">
+          The Workforce Status view, minutes after the first agent calls pass through the Gateway. Five agents, one fleet trust score, every action in the ledger.
+        </p>
       </div>
     </section>
 
@@ -229,6 +252,7 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Starter</p>
               <span class="font-mono text-[10px] text-[#3DDC84] bg-[#3DDC84]/8 px-2 py-0.5 uppercase tracking-widest">Free</span>
             </div>
+            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">An independent witness for every agent action:</p>
             <ul class="space-y-3">
               {[
                 "Dashboard, agent activity in real time",
@@ -253,7 +277,7 @@ import Footer from '../components/Footer.astro';
               <p class="font-mono text-xs uppercase tracking-widest text-[#F2F2F2]">Kyde Gateway Enterprise</p>
               <span class="font-mono text-[10px] text-[#F2F2F2]/70 bg-[#F2F2F2]/8 px-2 py-0.5 uppercase tracking-widest">Paid</span>
             </div>
-            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">Everything in Starter, plus:</p>
+            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">Everything in Starter, plus the guard that blocks what must not happen:</p>
             <ul class="space-y-3">
               {[
                 "Inline enforcement, block out-of-policy actions before execution",
