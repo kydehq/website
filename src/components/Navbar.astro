@@ -19,13 +19,13 @@ const currentPath = Astro.url.pathname;
     </a>
 
     <!-- Nav links (desktop) -->
-    <ul class="hidden md:flex items-center gap-7">
+    <ul class="hidden lg:flex items-center gap-5 xl:gap-7">
       {navLinks.map(({ label, href }) => (
         <li>
           <a
             href={href}
             class={[
-              'font-mono text-xs uppercase tracking-[0.12em] transition-colors',
+              'font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors',
               currentPath.startsWith(href)
                 ? 'text-white'
                 : 'text-white/75 hover:text-white',
@@ -37,17 +37,17 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <!-- CTAs (desktop) -->
-    <div class="hidden md:flex items-center gap-3">
+    <!-- CTAs (desktop) · secondary CTA joins at xl where space allows -->
+    <div class="hidden lg:flex items-center gap-3">
       <button
         onclick="openModal()"
-        class="inline-flex h-[33px] items-center gap-2 border border-white/25 px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white"
+        class="hidden xl:inline-flex h-[33px] items-center gap-2 whitespace-nowrap border border-white/25 px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white"
       >
         Talk to Us
       </button>
       <a
         href="/sandbox"
-        class="inline-flex h-[33px] items-center gap-2 bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-[#0A0A0A] transition-colors hover:bg-[#E5E5E5]"
+        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-[#0A0A0A] transition-colors hover:bg-[#E5E5E5]"
       >
         Deploy Sandbox &gt;
       </a>
@@ -56,7 +56,7 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden flex flex-col gap-1.5 p-1"
+      class="lg:hidden flex flex-col gap-1.5 p-1"
       aria-label="Open menu"
       aria-expanded="false"
     >
@@ -69,7 +69,7 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile menu -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden border-t border-white/10 bg-[#050505] px-6 py-6"
+    class="hidden lg:hidden border-t border-white/10 bg-[#050505] px-6 py-6"
   >
     <ul class="flex flex-col gap-6 mb-8">
       {navLinks.map(({ label, href }) => (
