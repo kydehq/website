@@ -2,12 +2,42 @@
 import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const costAnchors = [
+  { k: "NIS-2",        v: "Fines up to €10M or 2% of global turnover. Management is personally liable." },
+  { k: "DORA",         v: "Gives financial supervisors direct enforcement power over operational resilience failures." },
+  { k: "EU AI Act",    v: "High-risk violations reach €35M or 7% of turnover once enforcement begins, December 2, 2027." },
+  { k: "A failed audit", v: "Consumes more senior time than a year of governance infrastructure." },
+];
+
+const pricingFaqs = [
+  { q: "Can we start free and upgrade later?", a: "Yes. That is the intended path. Deploy Starter, see your agent landscape, then turn on enforcement where liability lives. Your ledger history carries over." },
+  { q: "Does the gateway add latency?", a: "The gateway performs deterministic policy checks, not model calls. There is no LLM in the enforcement path. Ask us for current benchmark figures for your deployment pattern." },
+  { q: "What happens if the gateway goes down?", a: "You choose the failure mode per policy: fail-closed for regulated workloads, fail-open for lower-risk traffic. Either way, the decision is documented policy, not an accident." },
+  { q: "Do you see our data?", a: "No, not unless you turn it on. Enforcement and the ledger run at your edge, inside your perimeter. Telemetry is opt-in and off by default. Air-gapped operation is available on Enterprise." },
+  { q: "Does routing traffic through Kyde make us a “provider” under the EU AI Act?", a: "Kyde is an external proxy. It does not modify your models or pipelines, which is why it avoids the substantial-modification trap under Article 25. You remain the deployer. Ask us for the legal memo." },
+  { q: "Is there a proof of concept option?", a: "Yes. Starter is the PoC, on your infrastructure, with your real traffic. For Enterprise evaluations we scope a pilot with success criteria in writing." },
+  { q: "We are not in the EU. Is this relevant?", a: "The evidence problem is universal. If your customers, insurers or regulators can ask what your agents did, you need an answer that holds. EU rules are simply the first with dates attached." },
+];
+
+const pricingFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: pricingFaqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <Base
   title="Pricing, KYDE"
   description="Per agent identity. Not per seat. Three tiers from free starter to enterprise defense, one environment variable throughout."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(pricingFaqSchema)} />
+  </Fragment>
   <Navbar />
 
   <main>
@@ -236,6 +266,63 @@ import Footer from '../components/Footer.astro';
           </table>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ══════════ HOW PRICING WORKS ══════════ -->
+    <section class="border-t border-[#2E2E2E]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">03 · How pricing works</span></div>
+        </div>
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-3xl">
+          Governance is infrastructure. Infrastructure pricing should be predictable. Kyde is priced per agent identity, not per seat and not per token. Every agent gets an identity, every identity gets a price, and coverage scales with your fleet, not your org chart or how busy your agents got this month.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ COST ANCHOR ══════════ -->
+    <section class="border-t border-[#2E2E2E]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">04 · The comparison that actually matters</span></div>
+        </div>
+        <p class="text-lg text-[#A8A8A8] leading-relaxed max-w-3xl mb-10">
+          The honest benchmark for this budget line is not another tool. It is the cost of not being able to prove what your agents did.
+        </p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {costAnchors.map(({ k, v }) => (
+            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-[#FF5C5C] mb-2">{k}</p>
+              <p class="text-sm text-[#F2F2F2] leading-relaxed">{v}</p>
+            </div>
+          ))}
+        </div>
+        <p class="text-sm text-[#6B6B6B] max-w-3xl">
+          Against a single incident where you cannot produce evidence, every tier on this page is a rounding error.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ PRICING FAQ ══════════ -->
+    <section class="border-t border-[#2E2E2E]">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">05 · Pricing FAQ</span></div>
+        </div>
+        <div class="max-w-3xl space-y-px">
+          {pricingFaqs.map(({ q, a }) => (
+            <details class="group border border-[#1F1F1F] bg-[#0C0C0C]">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-[#F2F2F2] pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-[#6B6B6B] group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-[#A8A8A8] leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
 
