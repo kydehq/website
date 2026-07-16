@@ -1,0 +1,215 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const rows = [
+  { axis: "Architecture",                                   x: "In-process SDK (agent security kernel)",                                  kyde: "External gateway at the network boundary" },
+  { axis: "No-code deployment, shadow-agent coverage",      x: "No: each agent must load the SDK or connector. Uninstrumented agents are invisible", kyde: "Yes: network egress enforcement, one environment variable, covers agents that never asked permission" },
+  { axis: "Blocks before execution",                        x: "Yes, deterministic, sub-millisecond in-process",                           kyde: "Yes, deterministic deny-by-default at the boundary" },
+  { axis: "Path-aware, stateful enforcement",               x: "Yes, evaluates the full task path. A genuine strength",                    kyde: "Ledger state at the boundary, history-informed policy on the roadmap" },
+  { axis: "Cryptographic audit trail",                      x: "Hash-chained, tamper-evident",                                             kyde: "Hash-chained, tamper-evident, vendor-independent ledger (Ed25519 signing on Enterprise)" },
+  { axis: "Independence of enforcement",                    x: "Runs in the same process as the agent it polices",                         kyde: "Runs outside the agent trust boundary" },
+  { axis: "EU sovereignty",                                 x: "Netherlands, data stays in your perimeter",                                kyde: "Edge enforcement in your perimeter, air-gapped available" },
+];
+
+const faqs = [
+  {
+    q: "Does Kyde require an SDK or code changes?",
+    a: "No. One environment variable or a group policy rollout. That is the point: coverage must not depend on developer adoption.",
+  },
+  {
+    q: "Is in-process enforcement faster?",
+    a: "An in-process check avoids a network hop, and Kyvvu is fast. Kyde's boundary check is deterministic with no LLM in the path, and it is the same hop your provider traffic already takes. Ask us for benchmark figures for your pattern.",
+  },
+  {
+    q: "Which one covers shadow agents?",
+    a: "Kyde. That is the structural difference, not a feature gap. An agent that never loads the SDK does not exist for in-process governance. It cannot avoid the network boundary.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+---
+
+<Base
+  title="Kyde vs Kyvvu: SDK or Network Boundary? | Kyde"
+  description="Kyvvu governs agents from inside the process via SDK. Kyde enforces at the network boundary, covering agents that never opted in. An honest 2026 comparison."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ HERO / VERDICT ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Compare · Last verified July 2026</span></div>
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
+          Kyde vs <span class="gradient-text">Kyvvu</span>
+        </h1>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
+          Kyde and Kyvvu agree on more than most competitors in this space: both believe agent governance must be deterministic, must block before execution, and must produce a tamper-evident record. The disagreement is architectural, and it matters. Kyvvu is an in-process security kernel: an SDK that runs inside the agent and checks every action against policy. Kyde is a boundary gateway: it sits at the network egress, outside the agent, where no SDK import is required and no agent can opt out. The core question for your evaluation: do you trust every agent in your company to be instrumented?
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ TL;DR ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="border border-line-0 bg-bg-1 p-8">
+            <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-5">Choose Kyvvu if</p>
+            <ul class="space-y-3">
+              {[
+                "Every agent you need to govern is built by your own team and can adopt an SDK",
+                "You want path-aware enforcement deep inside the agent process, evaluating the full task trajectory",
+                "Your data may never cross a process boundary, not even to an internal proxy",
+              ].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-ink-1 leading-relaxed"><span class="shrink-0 mt-0.5 text-ink-1">→</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="border border-live/30 bg-bg-1 p-8">
+            <p class="font-mono text-xs uppercase tracking-widest text-live mb-5">Choose Kyde if</p>
+            <ul class="space-y-3">
+              {[
+                "You cannot guarantee that every agent in the company is instrumented. Shadow agents are exactly the ones that will not import a security SDK",
+                "You want enforcement that lives outside the agent, where the agent cannot disable it",
+                "One deployment must cover every agent, every framework and every provider at once",
+              ].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-ink-0 leading-relaxed"><span class="shrink-0 mt-0.5 text-live">→</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ SIDE BY SIDE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Side by side</span></div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full border border-line-0 text-sm">
+            <thead>
+              <tr class="border-b border-line-0 bg-bg-0">
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-1 w-56"></th>
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-1">Kyvvu</th>
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-0 bg-bg-1/5">Kyde</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line-0">
+              {rows.map(({ axis, x, kyde }) => (
+                <tr>
+                  <td class="px-5 py-4 font-mono text-xs text-ink-1 uppercase tracking-wider align-top">{axis}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{x}</td>
+                  <td class="px-5 py-4 text-sm text-ink-0 bg-bg-1/3 align-top">{kyde}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DEEP DIVE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0 space-y-16">
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What Kyvvu does well</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Kyvvu deserves a fair reading. Their reference monitor model is serious computer science, and path awareness is a real capability: the same action can be allowed or blocked depending on what the task did before, which single-call inspection cannot do. Their audit trail is hash-chained and tamper-evident. And their in-process design means payload data never leaves the agent environment. If you run a small, fully controlled fleet of self-built agents and can mandate the SDK everywhere, Kyvvu is a credible choice.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Where the approaches differ</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            The difference shows up the day an agent appears that nobody registered. In-process governance has a structural precondition: the agent must cooperate. It must import the SDK, or run behind a connector, or be routed through the engine. Every agent that does not is not just ungoverned, it is invisible. In practice, ungoverned agents are the risk. The marketing intern's automation, the vendor tool with an embedded agent, the developer experiment that quietly reached production: none of them will load a security kernel. Kyde starts from the opposite assumption: agents will not cooperate, so governance must not depend on them. The gateway sits at the network boundary the traffic must cross anyway. Egress rules make it the only route to model providers. No code change, no opt-in, no invisible agents.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Who guards the guard</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            There is a second, quieter difference: who guards the guard. An enforcement layer that runs inside the agent process shares the fate of that process. If the agent can touch the lock, it can pick it. A compromised, injected or simply buggy agent is exactly the one you cannot trust to host its own police. Kyvvu describes this as a strength: it runs inside the agent's own process rather than a separate layer that traffic passes through. We read the same sentence as the risk. Kyde enforces from a point the agent cannot reach, which is also what makes its ledger convincing as independent evidence.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Can you run both?</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Technically yes: Kyvvu for deep in-process control of your own critical agents, Kyde as the boundary that catches everything else. If you must pick one, pick based on your fleet: fully controlled and instrumentable, Kyvvu is defensible. Realistic enterprise mix with unknown agents, the boundary comes first.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">FAQ</span></div>
+        </div>
+        <div class="max-w-3xl space-y-px">
+          {faqs.map(({ q, a }) => (
+            <details class="group border border-line-0 bg-bg-1">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-ink-0 pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-ink-2 group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-ink-1 leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
+        <div class="border border-line-0 p-12 md:p-20">
+          <div class="max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
+              Put the lock where no agent can touch it.
+            </h2>
+            <p class="text-lg text-ink-1 mb-10">
+              Deploy the Kyde Gateway Starter in five minutes, or talk to us.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/starter" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+                Start Free →
+              </a>
+              <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
+                Talk to Us →
+              </button>
+            </div>
+            <p class="mt-8 font-mono text-xs text-ink-2">
+              <a href="/who-its-for" class="hover:text-ink-0 transition-colors">Who it's for</a> · <a href="/pricing" class="hover:text-ink-0 transition-colors">Pricing</a> · <a href="/faq" class="hover:text-ink-0 transition-colors">FAQ</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>

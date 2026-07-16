@@ -1,0 +1,219 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const rows = [
+  { axis: "Core engine",                                    x: "Real-time classification: injection, jailbreaks, leakage across prompts, RAG and MCP", kyde: "Deterministic policy enforcement on agent actions at the boundary" },
+  { axis: "Decision type",                                  x: "Probabilistic detection, tuned for accuracy and speed",                    kyde: "Deterministic: allowed executes, everything else does not" },
+  { axis: "Scope since 2026",                                x: "Expanded messaging to GenAI, agents and MCPs",                             kyde: "Agent governance from day one" },
+  { axis: "Integration",                                    x: "API integration per application, now with Check Point platform reach",     kyde: "Network boundary, one environment variable, no code" },
+  { axis: "Shadow agent coverage",                           x: "Unintegrated applications remain uncovered",                               kyde: "Egress enforcement covers agents that never opted in" },
+  { axis: "Audit trail",                                    x: "Detection logging",                                                        kyde: "Hash-chained, vendor-independent ledger (Ed25519 signing on Enterprise)" },
+  { axis: "Independence",                                   x: "Part of a large US security platform",                                     kyde: "Independent EU layer, in your perimeter, air-gapped available" },
+  { axis: "Regulatory anchor",                               x: "AI application and agent security",                                        kyde: "NIS-2, DORA, EU AI Act evidence duties" },
+];
+
+const faqs = [
+  {
+    q: "Does Kyde detect prompt injection?",
+    a: "Not as a primary feature, and we will not pretend otherwise. Kyde bounds what an injected agent can still do and proves what it attempted. Pair it with a detection layer for the semantic half.",
+  },
+  {
+    q: "Lakera now covers agents and MCP. Is that not the same as Kyde?",
+    a: "Same territory, different instrument. Lakera's public materials describe detection and threat blocking across agent and MCP traffic. Deterministic per-agent mandates with hash-chained, vendor-independent evidence is a different mechanism, and it is the one auditors ask about.",
+  },
+  {
+    q: "Which one do I need for NIS-2 and the EU AI Act?",
+    a: "The evidence duties point at the boundary: automatic, trustworthy records of what your systems did. NIS-2 and DORA apply today. EU AI Act high-risk enforcement begins December 2, 2027.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+---
+
+<Base
+  title="Kyde vs Lakera (Check Point): Detection vs Governance | Kyde"
+  description="Lakera, now part of Check Point, detects attacks on AI apps and agents. Kyde governs what agents may do and proves what they did. Compared honestly for 2026."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ HERO / VERDICT ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Compare · Last verified July 2026</span></div>
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
+          Kyde vs <span class="gradient-text">Lakera</span>
+        </h1>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
+          First, the fact some comparison pages still miss: Lakera is no longer a startup. Check Point acquired it in late 2025, and it now operates as "Lakera, a Check Point company," the foundation of Check Point's AI security practice. That makes this comparison one between a detection engine backed by a security giant and an independent governance boundary. Lakera classifies: its engine inspects prompts, outputs and increasingly agent and MCP traffic in real time to detect injection, jailbreaks and data leakage, fast and well. Kyde governs: a boundary gateway that deterministically enforces what each agent may do and records every action, allowed and blocked, in a hash-chained ledger. Lakera answers "is this content an attack?" Kyde answers "was this action allowed, and can you prove what happened?"
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ TL;DR ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="border border-line-0 bg-bg-1 p-8">
+            <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-5">Choose Lakera if</p>
+            <ul class="space-y-3">
+              {[
+                "Prompt injection and adversarial input are your top threat and you want the best-researched detection layer for it",
+                "You value Check Point's enterprise muscle, integration surface and procurement familiarity",
+                "Your risk lives in what goes into and comes out of models, including via MCP",
+              ].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-ink-1 leading-relaxed"><span class="shrink-0 mt-0.5 text-ink-1">→</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="border border-live/30 bg-bg-1 p-8">
+            <p class="font-mono text-xs uppercase tracking-widest text-live mb-5">Choose Kyde if</p>
+            <ul class="space-y-3">
+              {[
+                "Your risk lives in what agents do: tool calls, transactions, data movement, and the liability that follows",
+                "Detection percentages are not a defense: you need actions outside policy to be structurally unable to execute",
+                "You need vendor-independent, hash-chained evidence, and EU sovereignty without a US platform attached",
+              ].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-ink-0 leading-relaxed"><span class="shrink-0 mt-0.5 text-live">→</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ SIDE BY SIDE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Side by side</span></div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full border border-line-0 text-sm">
+            <thead>
+              <tr class="border-b border-line-0 bg-bg-0">
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-1 w-56"></th>
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-1">Lakera (Check Point)</th>
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-0 bg-bg-1/5">Kyde</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line-0">
+              {rows.map(({ axis, x, kyde }) => (
+                <tr>
+                  <td class="px-5 py-4 font-mono text-xs text-ink-1 uppercase tracking-wider align-top">{axis}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{x}</td>
+                  <td class="px-5 py-4 text-sm text-ink-0 bg-bg-1/3 align-top">{kyde}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DEEP DIVE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0 space-y-16">
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What Lakera does well</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Lakera earned its reputation honestly: Gandalf taught half the industry what prompt injection is, their research is genuinely good, and their detection models train on one of the largest prompt attack datasets in existence. The Check Point acquisition adds what startups lack: enterprise support, procurement trust and platform integration. And their 2026 expansion toward agents and MCP shows they read the market correctly. If your applications face untrusted input, a semantic detection layer of this quality is not optional. We do not compete with that layer. We sit under it.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Where the approaches differ</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            A detection engine, however good, gives you a probability. A governance boundary gives you a guarantee about a narrower question. Lakera's own new tagline says the quiet part well: controlling what AI can access is not enough, control what it does. We agree. The difference is the mechanism. Detection classifies behavior it observes and blocks what it recognizes as a threat, at claimed rates north of 98 percent. Enforcement does not classify at all: the action is within the agent's mandate or it does not execute. There is no detection rate on a locked door.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What that means in an audit</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+            The failure modes tell the story. When a novel injection slips past a classifier, the attacker's instructions run with the agent's full permissions. Behind a boundary, the injected agent still cannot call tools outside its policy or reach endpoints it was never allowed, and every attempt is in the record. Detection reduces the chance of compromise. The boundary bounds the damage and preserves the evidence. Mature stacks want both, in that order of dependency.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            One more difference matters to EU-regulated buyers since the acquisition: Lakera's engine now belongs to a large US security platform. That has real upsides in support and integration, and a real downside if vendor-independent evidence and EU sovereignty are procurement requirements. Kyde is an independent EU layer whose ledger stays in your perimeter.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Better together, honestly</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            If budget allows one tool and your agents already act on production systems, start at the boundary: that is where liability lives and where coverage does not depend on per-application integration. Then add semantic detection on your exposed applications, and Lakera is an excellent choice for it. If your AI is chat-only with untrusted users and no tool access, start with Lakera and come back when your agents begin to act.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">FAQ</span></div>
+        </div>
+        <div class="max-w-3xl space-y-px">
+          {faqs.map(({ q, a }) => (
+            <details class="group border border-line-0 bg-bg-1">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-ink-0 pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-ink-2 group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-ink-1 leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
+        <div class="border border-line-0 p-12 md:p-20">
+          <div class="max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
+              No detection rate on a locked door.
+            </h2>
+            <p class="text-lg text-ink-1 mb-10">
+              Deploy the Kyde Gateway Starter in five minutes, or talk to us.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/starter" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+                Start Free →
+              </a>
+              <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
+                Talk to Us →
+              </button>
+            </div>
+            <p class="mt-8 font-mono text-xs text-ink-2">
+              <a href="/who-its-for" class="hover:text-ink-0 transition-colors">Who it's for</a> · <a href="/pricing" class="hover:text-ink-0 transition-colors">Pricing</a> · <a href="/faq" class="hover:text-ink-0 transition-colors">FAQ</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>

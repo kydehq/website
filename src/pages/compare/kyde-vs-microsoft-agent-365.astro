@@ -1,0 +1,223 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const rows = [
+  { axis: "What it is",                                     x: "Control plane for AI agents: registry, identity, dashboards, Defender and Purview integration", kyde: "Governance gateway at the network boundary: enforcement plus hash-chained evidence" },
+  { axis: "Cross-vendor coverage",                           x: "Real but opt-in: SDK instrumentation, Entra registration, managed endpoints, partner integrations", kyde: "Structural: network egress covers agents that never opted in" },
+  { axis: "Uninstrumented server-side agents",               x: "Fall outside documented coverage",                                          kyde: "Governed at the boundary they must cross anyway" },
+  { axis: "Blocks before execution",                        x: "Policy controls within the Microsoft stack (Entra, Intune, Defender, Purview)", kyde: "Deterministic deny-by-default for all boundary traffic" },
+  { axis: "Audit record",                                   x: "Centralized in Microsoft's cloud, exportable; no documented cryptographic tamper evidence", kyde: "Hash-chained, vendor-independent ledger in your perimeter (Ed25519 signing on Enterprise)" },
+  { axis: "Independence",                                   x: "Governance and evidence live with your largest agent vendor",              kyde: "Independent layer: no agent vendor, including Microsoft, controls the record" },
+  { axis: "Pricing model",                                  x: "Per user: $15 per user per month, or Microsoft 365 E7",                     kyde: "Per governed deployment, not per user or token" },
+  { axis: "EU sovereignty",                                 x: "US hyperscaler cloud",                                                      kyde: "Edge enforcement in your perimeter, air-gapped available" },
+];
+
+const faqs = [
+  {
+    q: "We are rolling out Agent 365. Is Kyde redundant?",
+    a: "Deploy the free Kyde Starter next to it and compare what each sees for a week. The delta is your unregistered agent surface. If the delta is zero, you spent nothing and gained certainty.",
+  },
+  {
+    q: "Can Purview govern our non-Microsoft agents?",
+    a: "Purview reaches third-party AI mainly through browser and endpoint integration and through agents registered in Agent 365. Server-side agents calling model APIs directly from your infrastructure fall outside that documented reach. Those are exactly the boundary's job.",
+  },
+  {
+    q: "Is Microsoft's audit log good enough for the EU AI Act?",
+    a: "It is a log, and logs help. The question for your counsel: is a centralized record without documented tamper evidence, held by an involved vendor in US jurisdiction, the strongest evidence you can present? Independent, hash-chained, in-perimeter records exist for that question. High-risk enforcement begins December 2, 2027 under the agreed Digital Omnibus. NIS-2 and DORA apply today.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+---
+
+<Base
+  title="Kyde vs Microsoft Agent 365: The Independence Question | Kyde"
+  description="Agent 365 is Microsoft's control plane for AI agents. Kyde is the vendor-independent boundary with a hash-chained ledger. What each covers, honestly compared for 2026."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ HERO / VERDICT ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Compare · Last verified July 2026</span></div>
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
+          Kyde vs <span class="gradient-text">Microsoft Agent 365</span>
+        </h1>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
+          Microsoft Agent 365 is real, generally available since May 2026, and more capable than most startups will admit: an agent registry, identity via Entra Agent ID, dashboards, Defender and Purview integration, an SDK that reaches OpenAI Agents SDK and LangChain, and discovery connectors toward AWS and Google Cloud. If your company runs on Microsoft 365, it is the natural first layer, and this page will not pretend otherwise. The honest difference lies in two things Agent 365 is not built to be. Its cross-vendor coverage is opt-in: agents must be registered, instrumented with the SDK, or run on managed endpoints, and an unregistered agent calling a model API from a server falls through. And its audit trail lives in Microsoft's cloud without documented cryptographic tamper evidence. Kyde is built from the opposite corner: a vendor-independent boundary that covers agents whether or not they cooperate, with a hash-chained ledger in your own perimeter.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ TL;DR ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="border border-line-0 bg-bg-1 p-8">
+            <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-5">Choose Microsoft Agent 365 if</p>
+            <ul class="space-y-3">
+              {[
+                "Your agents live overwhelmingly in the Microsoft estate: Copilot, Copilot Studio, Foundry, managed Windows endpoints",
+                "You want agent inventory, identity and dashboards bundled into licensing you already own or plan to own (E7, or $15 per user per month)",
+                "One throat to choke matters more to you than vendor independence",
+              ].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-ink-1 leading-relaxed"><span class="shrink-0 mt-0.5 text-ink-1">→</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="border border-live/30 bg-bg-1 p-8">
+            <p class="font-mono text-xs uppercase tracking-widest text-live mb-5">Choose Kyde if</p>
+            <ul class="space-y-3">
+              {[
+                "Your agent reality includes things that will never register themselves: server-side agents, vendor tools with embedded agents, developer experiments",
+                "Your evidence must be credible to outside parties: hash-chained, tamper-evident, held in your perimeter, independent of every agent vendor",
+                "You prefer paying per governed deployment instead of per user, and EU data sovereignty is a requirement",
+              ].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-ink-0 leading-relaxed"><span class="shrink-0 mt-0.5 text-live">→</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ SIDE BY SIDE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Side by side</span></div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full border border-line-0 text-sm">
+            <thead>
+              <tr class="border-b border-line-0 bg-bg-0">
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-1 w-56"></th>
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-1">Microsoft Agent 365</th>
+                <th class="px-5 py-3 text-left font-mono text-xs uppercase tracking-widest text-ink-0 bg-bg-1/5">Kyde</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line-0">
+              {rows.map(({ axis, x, kyde }) => (
+                <tr>
+                  <td class="px-5 py-4 font-mono text-xs text-ink-1 uppercase tracking-wider align-top">{axis}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{x}</td>
+                  <td class="px-5 py-4 text-sm text-ink-0 bg-bg-1/3 align-top">{kyde}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DEEP DIVE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0 space-y-16">
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What Microsoft does well</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Agent 365 went from Ignite announcement to GA in under six months and shipped real substance: a registry that gives IT one inventory of agents, agent identities as first-class citizens in Entra, integration with the security stack a Microsoft shop already runs, and a genuinely open move with the Agent Control Specification. Microsoft also saw the cross-vendor problem and started building bridges: SDK support for OpenAI Agents SDK and LangChain, discovery sync toward AWS and Google Cloud, even endpoint discovery of local coding agents. For managing a known, registered agent fleet inside a Microsoft-first company, Agent 365 is a serious product at an aggressive price point.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Where the approaches differ</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Opt-in versus structural coverage. Everything Agent 365 governs shares one precondition: the agent is known to Microsoft's stack, through registration, SDK instrumentation, a managed endpoint or a partner integration. That covers the fleet you know. The liability problem is the fleet you do not: the vendor tool with an embedded agent, the script on a VM calling a model API directly, the experiment that reached production. Those never show up in a registry. They do cross your network boundary, which is where Kyde sits, with no opt-in to forget.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What that means in an audit</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Who holds the evidence matters just as much. When an agent incident goes to a regulator or a court, the record of what happened must be credible to an adversarial reader. Microsoft's audit logs are centralized in Microsoft's cloud, and Microsoft does not document cryptographic tamper evidence for them. That is not an accusation, it is a design gap with legal consequences: your proof depends on trusting the vendor whose agent ecosystem is under investigation. Kyde's ledger is hash-chained and lives in your perimeter. Nobody, including us, can quietly rewrite it. The suspect should not write the police report, and neither should the suspect's platform vendor.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">The pricing geometry</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            Per-user pricing fits products humans log into. Agents are not users: fleets scale with automation, not headcount. Kyde prices per governed deployment, so a thousand-agent workflow costs what a ten-agent workflow costs to govern. Run the numbers for your fleet both ways.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Do you replace Agent 365?</p>
+          <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+            For a Microsoft-first company: probably not, and we do not pitch that. Registry, identity and M365 integration are worth having. Kyde adds the two layers a platform vendor structurally cannot: coverage that does not depend on cooperation, and evidence that does not depend on trust in the platform. Several of our design conversations run exactly this stack: Agent 365 for management, Kyde as the independent boundary underneath.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">FAQ</span></div>
+        </div>
+        <div class="max-w-3xl space-y-px">
+          {faqs.map(({ q, a }) => (
+            <details class="group border border-line-0 bg-bg-1">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-ink-0 pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-ink-2 group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-ink-1 leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
+        <div class="border border-line-0 p-12 md:p-20">
+          <div class="max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
+              Govern the agents that never registered anywhere.
+            </h2>
+            <p class="text-lg text-ink-1 mb-10">
+              Deploy the Kyde Gateway Starter in five minutes, or talk to us.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/starter" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+                Start Free →
+              </a>
+              <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
+                Talk to Us →
+              </button>
+            </div>
+            <p class="mt-8 font-mono text-xs text-ink-2">
+              <a href="/who-its-for" class="hover:text-ink-0 transition-colors">Who it's for</a> · <a href="/pricing" class="hover:text-ink-0 transition-colors">Pricing</a> · <a href="/faq" class="hover:text-ink-0 transition-colors">FAQ</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>
