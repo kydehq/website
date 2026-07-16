@@ -15,22 +15,22 @@ import Footer from '../../components/Footer.astro';
     <!-- ══════════ HEADER ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
-            <span class="text-[#A8A8A8]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Regulatory</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatory</span>
           </div>
-          <div class="h-px w-full bg-[#1F1F1F]"></div>
+          <div class="h-px w-full bg-line-0"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
             DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Regulatory</span>
             <span>·</span>
             <span>4 min read</span>
@@ -43,15 +43,15 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-[#1F1F1F]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
           <article class="prose-kyde min-w-0">
 
             <p>
-              <span class="font-mono text-[#A8A8A8]">DORA</span> · the Digital Operational Resilience Act · has been in force since January 2025. Financial entities subject to DORA have had time to assess their ICT risk management frameworks. Most have not yet assessed what DORA means specifically for AI agents.
+              <span class="font-mono text-ink-1">DORA</span> · the Digital Operational Resilience Act · has been in force since January 2025. Financial entities subject to DORA have had time to assess their ICT risk management frameworks. Most have not yet assessed what DORA means specifically for AI agents.
             </p>
             <p>They should. The gap is significant.</p>
 
@@ -102,18 +102,18 @@ import Footer from '../../components/Footer.astro';
               Financial entities deploying AI agents for operational functions, credit decisions, customer interactions, fraud detection, claims processing, need a governance layer that satisfies all four properties above. That layer cannot be the LLM provider. It must sit between the agent fleet and the provider, capturing and signing every action independently.
             </p>
             <p>
-              <span class="font-mono text-[#A8A8A8]">DORA</span> is already in force. The question is not whether you need this infrastructure. It is whether you have it.
+              <span class="font-mono text-ink-1">DORA</span> is already in force. The question is not whether you need this infrastructure. It is whether you have it.
             </p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
-              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
                 Kyde sits between your agent fleet and any LLM provider, capturing, signing, and chaining every action into a tamper-evident, provider-independent audit trail that satisfies DORA Article 30 from day one.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Book a Demo →
               </button>
@@ -123,28 +123,28 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulations covered</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Regulations covered</p>
               <div class="space-y-2">
                 {["DORA, Art. 23, Art. 30", "NIS-2, Operational resilience", "GDPR Art. 22"].map((r) => (
-                  <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
+                  <p class="font-mono text-xs text-ink-1">{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Status</p>
-              <p class="font-mono text-sm text-[#3DDC84]">In Force</p>
-              <p class="text-xs text-[#A8A8A8] mt-1">Since January 2025</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Status</p>
+              <p class="font-mono text-sm text-live">In Force</p>
+              <p class="text-xs text-ink-1 mt-1">Since January 2025</p>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>EU AI Act Compliance for AI Agents: The Complete Guide</span>
                 </a>
-                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>What the EU AI Act Actually Requires for Audit Trails, And What Most Enterprises Are Missing</span>
                 </a>
               </div>

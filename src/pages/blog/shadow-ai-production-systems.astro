@@ -15,22 +15,22 @@ import Footer from '../../components/Footer.astro';
     <!-- ══════════ HEADER ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
-            <span class="text-[#A8A8A8]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Security</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Security</span>
           </div>
-          <div class="h-px w-full bg-[#1F1F1F]"></div>
+          <div class="h-px w-full bg-line-0"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
             Shadow AI Is Already in Your Production Systems, You Just Can't See It
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Security</span>
             <span>·</span>
             <span>5 min read</span>
@@ -43,8 +43,8 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-[#1F1F1F]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
@@ -103,21 +103,21 @@ import Footer from '../../components/Footer.astro';
               Shadow AI is expanding faster than governance frameworks are being deployed. Every month that passes without a central governance layer is another month of untraced agent actions, unscoped permissions, and unlogged decisions accumulating across your production environment.
             </p>
             <p>
-              When the <span class="font-mono text-[#A8A8A8]">EU AI Act</span> enforcement deadline arrives, regulators won't accept "we didn't know that agent was running" as a defense. The audit trail requirement applies to every high-risk AI system in operation · not just the ones IT sanctioned.
+              When the <span class="font-mono text-ink-1">EU AI Act</span> enforcement deadline arrives, regulators won't accept "we didn't know that agent was running" as a defense. The audit trail requirement applies to every high-risk AI system in operation · not just the ones IT sanctioned.
             </p>
             <p>
               The time to build visibility is before you need it. By the time an incident surfaces, the logs you needed already don't exist.
             </p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
-              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
                 Kyde routes all LLM API traffic through a central governance proxy, giving every agent an identity, every action an attribution, and every cost a budget envelope. Shadow AI becomes governed AI from day one.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Book a Demo →
               </button>
@@ -127,8 +127,8 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Risk profile</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Risk profile</p>
               <div class="space-y-2">
                 {[
                   "Untraced LLM calls",
@@ -137,31 +137,31 @@ import Footer from '../../components/Footer.astro';
                   "Prompt injection surface",
                   "No cost visibility",
                 ].map((r) => (
-                  <p class="flex gap-2 text-xs text-[#A8A8A8]"><span class="font-mono text-[#FFB84D] shrink-0">→</span>{r}</p>
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulatory exposure</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Regulatory exposure</p>
               <div class="space-y-2">
                 {["EU AI Act", "GDPR Art. 35", "NIS-2"].map((r) => (
-                  <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
+                  <p class="font-mono text-xs text-ink-1">{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/shadow-ai" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/shadow-ai" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Shadow AI: The Complete Guide</span>
                 </a>
-                <a href="/blog/missing-layer-agent-architecture" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/missing-layer-agent-architecture" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>The Missing Layer in Every Agent Architecture</span>
                 </a>
-                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/eu-ai-act-audit-trails" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>What the EU AI Act Actually Requires for Audit Trails</span>
                 </a>
               </div>

@@ -26,8 +26,12 @@
   --color-alert: #FF5C5C;
   --color-warn: #FFB84D;
 
+  /* CTA (the only pure-white fill in the system) */
+  --color-cta-ink: #0A0A0A;    /* text on the primary CTA fill */
+  --color-cta-hover: #E5E5E5;  /* primary CTA hover fill */
+
   --color-black: #050505;
-  --color-white: #F2F2F2;
+  --color-white: #F2F2F2; /* semantic: maximum-contrast ink/fill, not literal white */
 
   --color-blue-400: #4472c4;
   --color-blue-500: #2f5fab;
@@ -37,6 +41,77 @@
 
   --font-sans: 'Inter Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', monospace;
+}
+
+/* ── Light theme (dark stays the default) ───────────────────────
+   The palette is inverted deliberately, not mechanically:
+   - Canvas is warm paper, not clinical white; cards lift to white.
+   - "white" is the semantic max-contrast ink → becomes near-black,
+     so white CTA fills, text-white headlines and white/NN washes
+     all flip correctly without touching markup.
+   - Accents are darkened to hold WCAG AA on light ground.
+   - Figures, terminals and dashboard mocks opt out via .dark-island. */
+:root { color-scheme: dark; }
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg-0: #F7F6F3;   /* warm paper canvas */
+  --color-bg-1: #FFFFFF;   /* panels/cards lift to white */
+  --color-bg-2: #F1F0EC;   /* chrome, wells, sidebars */
+  --color-bg-3: #E9E7E2;   /* hover states, chips */
+
+  --color-line-0: #E3E1DB;
+  --color-line-1: #CBC8C0;
+
+  --color-ink-0: #191919;
+  --color-ink-1: #5C5C5C;
+  --color-ink-2: #8B8B8B;
+  --color-ink-3: #C8C8C8;
+
+  --color-gold: #9C7400;
+  --color-ember: #B34A2E;
+  --color-live: #0B8A50;
+  --color-alert: #D93036;
+  --color-warn: #955F00;
+
+  --color-cta-ink: #F7F6F3;
+  --color-cta-hover: #333330;
+
+  --color-black: #F7F6F3;
+  --color-white: #191919;
+}
+
+/* Dark islands: terminals, dashboard mocks, canvas/SVG figures keep the
+   dark palette inside a light page — a deliberate design decision, like
+   dark code blocks in documentation. Apply .dark-island to the wrapper. */
+:root[data-theme="light"] .dark-island {
+  color-scheme: dark;
+
+  --color-bg-0: #050505;
+  --color-bg-1: #0C0C0C;
+  --color-bg-2: #141414;
+  --color-bg-3: #1C1C1C;
+
+  --color-line-0: #1F1F1F;
+  --color-line-1: #2E2E2E;
+
+  --color-ink-0: #F2F2F2;
+  --color-ink-1: #A8A8A8;
+  --color-ink-2: #6B6B6B;
+  --color-ink-3: #3D3D3D;
+
+  --color-gold: #FEC106;
+  --color-ember: #D77657;
+  --color-live: #3DDC84;
+  --color-alert: #FF5C5C;
+  --color-warn: #FFB84D;
+
+  --color-cta-ink: #0A0A0A;
+  --color-cta-hover: #E5E5E5;
+
+  --color-black: #050505;
+  --color-white: #F2F2F2;
 }
 
 @layer base {
@@ -50,8 +125,8 @@
   }
 
   body {
-    background-color: #050505;
-    color: #F2F2F2;
+    background-color: var(--color-bg-0);
+    color: var(--color-ink-0);
     font-family: 'Inter Variable', system-ui, sans-serif;
     line-height: 1.4;
     overflow-x: hidden;
@@ -70,12 +145,12 @@
   }
 
   ::selection {
-    background-color: #FEC106;
-    color: #0A0A0A;
+    background-color: var(--color-gold);
+    color: var(--color-cta-ink);
   }
 
   :focus-visible {
-    outline: 1px solid #F2F2F2;
+    outline: 1px solid var(--color-ink-0);
     outline-offset: 2px;
   }
 
@@ -176,7 +251,7 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
   display: inline-block;
   width: 7px;
   height: 14px;
-  background: #3DDC84;
+  background: var(--color-live);
   margin-left: 6px;
   vertical-align: -2px;
   animation: cursor-blink 1.1s steps(1) infinite;
@@ -188,7 +263,7 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
 
 /* Dotted grid — subtle, techie (dark canvas) */
 .bg-grid {
-  background-image: radial-gradient(circle, rgba(242,242,242,0.13) 1px, transparent 1px);
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 13%, transparent) 1px, transparent 1px);
   background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
@@ -200,7 +275,7 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #6B6B6B;
+  color: var(--color-ink-2);
 }
 
 /* Display / Hero headline */
@@ -212,7 +287,7 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
 }
 
 .gradient-text {
-  color: #F2F2F2;
+  color: var(--color-ink-0);
 }
 
 /* Prose mobile fixes */
@@ -233,6 +308,14 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
 }
+
+/* Footer dot-matrix wordmark: theme-aware ink instead of a fixed rgba. */
+.wordmark-dot { fill: color-mix(in srgb, var(--color-ink-0) 13%, transparent); }
+
+/* Logo asset is a white-on-transparent SVG; invert it on light ground.
+   Excluded inside .dark-island, which stays dark regardless of theme. */
+:root[data-theme="light"] .logo-mark { filter: invert(1); }
+:root[data-theme="light"] .dark-island .logo-mark { filter: none; }
 
 .hero-noise {
   opacity: 0.04;

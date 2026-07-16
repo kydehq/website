@@ -11,11 +11,11 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#050505]/95 backdrop-blur-md">
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-bg-0/95 backdrop-blur-md">
   <nav aria-label="Main" class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
     <!-- Logo -->
     <a href="/" class="inline-flex items-center shrink-0">
-      <img src="/kyde-logo.svg" alt="KYDE" class="h-[33px] w-auto" />
+      <img src="/kyde-logo.svg" alt="KYDE" class="logo-mark h-[33px] w-auto" />
     </a>
 
     <!-- Nav links (desktop) -->
@@ -40,6 +40,12 @@ const currentPath = Astro.url.pathname;
     <!-- CTAs (desktop) · secondary CTA joins at xl where space allows -->
     <div class="hidden lg:flex items-center gap-3">
       <button
+        id="theme-toggle"
+        class="inline-flex h-[33px] w-[33px] items-center justify-center border border-white/25 font-mono text-[13px] text-white/70 transition-colors hover:border-white hover:text-white"
+        aria-label="Switch theme"
+        title="Switch theme"
+      >◐</button>
+      <button
         onclick="openModal()"
         class="hidden xl:inline-flex h-[33px] items-center gap-2 whitespace-nowrap border border-white/25 px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white"
       >
@@ -47,7 +53,7 @@ const currentPath = Astro.url.pathname;
       </button>
       <a
         href="/starter"
-        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-[#0A0A0A] transition-colors hover:bg-[#E5E5E5]"
+        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-cta-ink transition-colors hover:bg-cta-hover"
       >
         Start Free &gt;
       </a>
@@ -70,7 +76,7 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile menu · full-height overlay so page content can't show through -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden border-t border-white/10 bg-[#050505] px-6 py-6 min-h-[calc(100dvh-66px)] overflow-y-auto"
+    class="hidden lg:hidden border-t border-white/10 bg-bg-0 px-6 py-6 min-h-[calc(100dvh-66px)] overflow-y-auto"
   >
     <ul class="flex flex-col gap-6 mb-8">
       {navLinks.map(({ label, href }) => (
@@ -92,7 +98,7 @@ const currentPath = Astro.url.pathname;
     <div class="space-y-3">
       <a
         href="/starter"
-        class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+        class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
       >
         Start Free &gt;
       </a>
@@ -101,6 +107,12 @@ const currentPath = Astro.url.pathname;
         class="w-full border border-white/25 px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all"
       >
         Talk to Us &gt;
+      </button>
+      <button
+        id="theme-toggle-mobile"
+        class="w-full border border-white/25 px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all"
+      >
+        ◐ Theme
       </button>
     </div>
   </div>
@@ -131,4 +143,23 @@ const currentPath = Astro.url.pathname;
   btn?.addEventListener('click', () => setOpen(menu?.classList.contains('hidden') === true));
 
   (window as any).closeMobileMenu = () => setOpen(false);
+
+  // Theme toggle: dark is the default; light is an explicit, persisted opt-in.
+  const THEME_KEY = 'kyde_theme';
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  const setTheme = (theme: 'dark' | 'light') => {
+    if (theme === 'light') {
+      document.documentElement.dataset.theme = 'light';
+      themeColorMeta?.setAttribute('content', '#F7F6F3');
+    } else {
+      delete document.documentElement.dataset.theme;
+      themeColorMeta?.setAttribute('content', '#050505');
+    }
+    localStorage.setItem(THEME_KEY, theme);
+  };
+  const toggleTheme = () => {
+    setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+  };
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+  document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
 </script>

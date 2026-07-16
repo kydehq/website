@@ -15,22 +15,22 @@ import Footer from '../../components/Footer.astro';
     <!-- ══════════ HEADER ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
-            <span class="text-[#A8A8A8]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Security</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Security</span>
           </div>
-          <div class="h-px w-full bg-[#1F1F1F]"></div>
+          <div class="h-px w-full bg-line-0"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
             What Happens When an AI Agent Gets Compromised, And Nobody Has the Logs
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Security</span>
             <span>·</span>
             <span>5 min read</span>
@@ -43,8 +43,8 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-[#1F1F1F]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
@@ -56,7 +56,7 @@ import Footer from '../../components/Footer.astro';
             <p>
               This is not a hypothetical threat model. It's a demonstrated attack pattern against production enterprise systems. And the most important question it raises isn't technical, it's operational.
             </p>
-            <p class="font-mono text-[#A8A8A8]">If this happened in your environment, would you know?</p>
+            <p class="font-mono text-ink-1">If this happened in your environment, would you know?</p>
 
             <h2>The new attack surface</h2>
             <p>
@@ -86,7 +86,7 @@ import Footer from '../../components/Footer.astro';
               If your agent runs on provider-native logging, you have partial inputs and outputs from the provider's perspective. You don't have the full retrieval context. You don't have the causal chain that led to each decision. You don't have a tamper-evident record that proves the logs haven't been modified since the incident began. And if the provider's infrastructure was part of the attack surface, you may not fully trust the logs at all.
             </p>
             <p>
-              Without a complete, independent, tamper-evident audit trail, the investigation stalls. The full scope of the incident remains unknown. Regulatory reporting becomes a problem · <span class="font-mono text-[#A8A8A8]">DORA</span>'s 72-hour window doesn't pause while you wait for vendor logs.
+              Without a complete, independent, tamper-evident audit trail, the investigation stalls. The full scope of the incident remains unknown. Regulatory reporting becomes a problem · <span class="font-mono text-ink-1">DORA</span>'s 72-hour window doesn't pause while you wait for vendor logs.
             </p>
 
             <h2>Why software-layer logging isn't enough</h2>
@@ -122,14 +122,14 @@ import Footer from '../../components/Footer.astro';
             <p>The agents are running. The attack surface exists. The logs either do or they don't.</p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
-              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
                 Kyde captures every agent action in a cryptographically signed, hash-chained audit trail, independent of the agent, independent of the host, independent of the LLM provider. Behavioral baselines and anomaly detection on the roadmap. The record exists before the incident.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Book a Demo →
               </button>
@@ -139,8 +139,8 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Attack patterns covered</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Attack patterns covered</p>
               <div class="space-y-2">
                 {[
                   "Prompt injection",
@@ -148,31 +148,31 @@ import Footer from '../../components/Footer.astro';
                   "Data exfiltration via agent",
                   "Multi-agent cascade",
                 ].map((r) => (
-                  <p class="flex gap-2 text-xs text-[#A8A8A8]"><span class="font-mono text-[#FFB84D] shrink-0">→</span>{r}</p>
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Referenced research</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Referenced research</p>
               <div class="space-y-3">
-                <p class="text-xs text-[#A8A8A8] leading-relaxed">ForcedLeak, Salesforce Agentforce, 2025</p>
-                <p class="text-xs text-[#A8A8A8] leading-relaxed">AppOmni, ServiceNow Now Assist, 2025</p>
+                <p class="text-xs text-ink-1 leading-relaxed">ForcedLeak, Salesforce Agentforce, 2025</p>
+                <p class="text-xs text-ink-1 leading-relaxed">AppOmni, ServiceNow Now Assist, 2025</p>
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Reporting window</p>
-              <p class="font-mono text-sm text-[#A8A8A8]">72 hours</p>
-              <p class="text-xs text-[#A8A8A8] mt-1">DORA major incident reporting</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Reporting window</p>
+              <p class="font-mono text-sm text-ink-1">72 hours</p>
+              <p class="text-xs text-ink-1 mt-1">DORA major incident reporting</p>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/blog/shadow-ai-production-systems" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/shadow-ai-production-systems" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Shadow AI Is Already in Your Production Systems</span>
                 </a>
-                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30</span>
                 </a>
               </div>

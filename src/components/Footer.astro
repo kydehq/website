@@ -57,13 +57,13 @@ function wordmarkDots(word: string) {
 const wm = wordmarkDots("KYDE");
 ---
 
-<footer class="border-t border-white/10 bg-[#050505]">
+<footer class="border-t border-white/10 bg-bg-0">
     <div class="mx-auto max-w-7xl px-6 py-16">
         <div class="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-5">
             <!-- Brand -->
             <div class="col-span-2">
                 <a href="/" class="inline-flex items-center">
-                    <img src="/kyde-logo.svg" alt="KYDE" class="h-5 w-auto" />
+                    <img src="/kyde-logo.svg" alt="KYDE" class="logo-mark h-5 w-auto" />
                 </a>
                 <p class="mt-4 text-sm text-white/40 leading-relaxed">
                     Prevent · Prove · Rate.<br />Trust infrastructure for the Agentic Economy.
@@ -102,7 +102,7 @@ const wm = wordmarkDots("KYDE");
                 aria-hidden="true"
             >
                 {wm.dots.map(({ cx, cy }) => (
-                    <circle cx={cx} cy={cy} r={R} fill="rgba(242,242,242,0.13)" />
+                    <circle cx={cx} cy={cy} r={R} class="wordmark-dot" />
                 ))}
             </svg>
         </div>

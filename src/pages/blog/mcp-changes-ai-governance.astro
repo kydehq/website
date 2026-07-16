@@ -15,22 +15,22 @@ import Footer from '../../components/Footer.astro';
     <!-- ══════════ HEADER ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
-            <span class="text-[#A8A8A8]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Technical · Strategic</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technical · Strategic</span>
           </div>
-          <div class="h-px w-full bg-[#1F1F1F]"></div>
+          <div class="h-px w-full bg-line-0"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
             The End of the App Layer: Why MCP Changes Everything About AI Governance
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Technical · Strategic</span>
             <span>·</span>
             <span>6 min read</span>
@@ -43,8 +43,8 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-[#1F1F1F]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
@@ -105,7 +105,7 @@ import Footer from '../../components/Footer.astro';
               In <em>Moffatt v. Air Canada</em>, a tribunal held the airline liable for incorrect information its chatbot provided, rejecting the argument that the bot was a separate entity with its own policies. The principle established is clear: your agents act on your behalf. You are accountable for what they do.
             </p>
             <p>
-              That principle applies with full force to MCP-mediated actions. When an agent calls a core banking system through an MCP server and scopes a payment, that authorization is legally attributable to the organization that deployed the agent. When an agent retrieves personnel data through an HR system MCP server and uses it to make a recommendation, that retrieval and that recommendation are subject to <span class="font-mono text-[#A8A8A8]">GDPR</span>, to <span class="font-mono text-[#A8A8A8]">EU AI Act</span> obligations, to whatever regulatory framework governs that data.
+              That principle applies with full force to MCP-mediated actions. When an agent calls a core banking system through an MCP server and scopes a payment, that authorization is legally attributable to the organization that deployed the agent. When an agent retrieves personnel data through an HR system MCP server and uses it to make a recommendation, that retrieval and that recommendation are subject to <span class="font-mono text-ink-1">GDPR</span>, to <span class="font-mono text-ink-1">EU AI Act</span> obligations, to whatever regulatory framework governs that data.
             </p>
             <p>
               The absence of a human in the loop, the fact that no application interface was involved, no employee clicked a button, does not create a legal shield. It removes one.
@@ -120,7 +120,7 @@ import Footer from '../../components/Footer.astro';
               Consider what a mid-size bank's MCP infrastructure might look like in 2027. Core banking system exposed as an MCP server. Compliance database. Risk engine. Customer data platform. Document management system. Trading infrastructure. Communication tools.
             </p>
             <p>
-              Each of these systems is now directly accessible to any agent that has been granted access. Each call is a potential audit event under <span class="font-mono text-[#A8A8A8]">DORA</span>, under the <span class="font-mono text-[#A8A8A8]">EU AI Act</span>, under <span class="font-mono text-[#A8A8A8]">GDPR</span>. Each call needs:
+              Each of these systems is now directly accessible to any agent that has been granted access. Each call is a potential audit event under <span class="font-mono text-ink-1">DORA</span>, under the <span class="font-mono text-ink-1">EU AI Act</span>, under <span class="font-mono text-ink-1">GDPR</span>. Each call needs:
             </p>
             <ul>
               <li>An identity, which agent made it</li>
@@ -152,14 +152,14 @@ import Footer from '../../components/Footer.astro';
             <p>The app layer is going away. The control point it represented is not optional. It just needs to live somewhere else.</p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
-              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
                 Kyde governs not just LLM calls but every tool your agents invoke, including MCP servers. Every call is intercepted, traced to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. The app layer disappears. The governance layer doesn't.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Book a Demo →
               </button>
@@ -169,35 +169,35 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">What disappears</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">What disappears</p>
               <div class="space-y-2">
                 {["Input validation", "Permission enforcement", "Action logging", "Scope limits", "Audit trail"].map((r) => (
-                  <p class="flex gap-2 text-xs text-[#A8A8A8] line-through decoration-zinc-700"><span class="font-mono text-[#A8A8A8] shrink-0 no-underline" style="text-decoration:none">✕</span>{r}</p>
+                  <p class="flex gap-2 text-xs text-ink-1 line-through decoration-zinc-700"><span class="font-mono text-ink-1 shrink-0 no-underline" style="text-decoration:none">✕</span>{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulatory exposure</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Regulatory exposure</p>
               <div class="space-y-2">
                 {["DORA, Art. 23, 30", "EU AI Act, Art. 12, 14", "GDPR Art. 22, 35"].map((r) => (
-                  <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
+                  <p class="font-mono text-xs text-ink-1">{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/blog/compromised-agent-no-logs" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/compromised-agent-no-logs" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>What Happens When an AI Agent Gets Compromised</span>
                 </a>
-                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>DORA and AI Agents: Article 30</span>
                 </a>
-                <a href="/blog/hbr-ai-agents-infrastructure" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/hbr-ai-agents-infrastructure" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>HBR Just Described the Problem</span>
                 </a>
               </div>

@@ -12,18 +12,18 @@ const scoreEvents: ScoreEvent[] = [
 
 type MandateLine = { label: string; value: string; cls: string };
 const mandateExample: MandateLine[] = [
-  { label: "Declared role", value: "Customer Support",                        cls: "text-[#A8A8A8]"    },
-  { label: "Permitted",     value: "Read tickets · Send customer messages",   cls: "text-[#3DDC84]" },
-  { label: "Observed",      value: "Export all contacts",                     cls: "text-[#FF5C5C]" },
-  { label: "Result",        value: "Mandate deviation · Action blocked · Trust Score updated", cls: "text-[#A8A8A8]" },
+  { label: "Declared role", value: "Customer Support",                        cls: "text-ink-1"    },
+  { label: "Permitted",     value: "Read tickets · Send customer messages",   cls: "text-live" },
+  { label: "Observed",      value: "Export all contacts",                     cls: "text-alert" },
+  { label: "Result",        value: "Mandate deviation · Action blocked · Trust Score updated", cls: "text-ink-1" },
 ];
 
 type PeerRow = { name: string; score: number; cls: string; note?: string };
 const benchmarkExample: PeerRow[] = [
-  { name: "this agent",        score: 84, cls: "text-[#3DDC84]", note: "above median" },
-  { name: "peer median",       score: 78, cls: "text-[#F2F2F2]" },
-  { name: "peer p10",          score: 61, cls: "text-[#FFB84D]" },
-  { name: "flagged threshold", score: 40, cls: "text-[#FF5C5C]" },
+  { name: "this agent",        score: 84, cls: "text-live", note: "above median" },
+  { name: "peer median",       score: 78, cls: "text-ink-0" },
+  { name: "peer p10",          score: 61, cls: "text-warn" },
+  { name: "flagged threshold", score: 40, cls: "text-alert" },
 ];
 
 type Dimension = { label: string; question: string; desc: string; hasExample: boolean };
@@ -63,17 +63,17 @@ const dimensions: Dimension[] = [
   <main>
 
     <!-- ══════════ HERO ══════════ -->
-    <section class="relative bg-[#0C0C0C] overflow-hidden min-h-screen flex flex-col justify-center pt-24 pb-20">
+    <section class="relative bg-bg-1 overflow-hidden min-h-screen flex flex-col justify-center pt-24 pb-20">
       <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
       <div class="relative max-w-7xl mx-auto px-6 w-full">
-        <div class="grid lg:grid-cols-2 gap-16 lg:gap-0 lg:divide-x lg:divide-[#1F1F1F] [&>*:first-child]:lg:pr-12 [&>*:last-child]:lg:pl-12 items-center">
+        <div class="grid lg:grid-cols-2 gap-16 lg:gap-0 lg:divide-x lg:divide-line-0 [&>*:first-child]:lg:pr-12 [&>*:last-child]:lg:pl-12 items-center">
 
           <!-- Copy -->
           <div>
             <div class="flex items-center gap-2 mb-8">
               <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-white/15 px-3 py-1">Product</span>
               <span class="font-mono text-[10px] text-white/20">·</span>
-              <span class="font-mono text-[10px] uppercase tracking-widest text-[#FEC106]/90 border border-[#FEC106]/30 px-3 py-1">Trust Score™</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-gold/90 border border-gold/30 px-3 py-1">Trust Score™</span>
             </div>
             <h1 class="hero-h1 text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05] mb-6">
               Trust begins with independent measurement.
@@ -89,13 +89,13 @@ const dimensions: Dimension[] = [
             </p>
             <div class="flex flex-col sm:flex-row gap-3">
               <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free)
-              <a href="/starter" class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all">
+              <a href="/starter" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
                 Deploy the Gateway →
               </a>
               -->
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all"
+                class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all"
               >
                 Talk to Us →
               </button>
@@ -124,7 +124,7 @@ const dimensions: Dimension[] = [
             <div class="space-y-3.5 mb-8">
               {scoreEvents.map(({ label, ok }, i) => (
                 <div class="flex items-start gap-3 row-in" style={`animation-delay:${1.3 + i * 0.25}s`}>
-                  <span class={`font-mono text-base leading-none shrink-0 mt-0.5 ${ok ? 'text-[#3DDC84]' : 'text-[#FF5C5C]'}`}>{ok ? '✓' : '⚠'}</span>
+                  <span class={`font-mono text-base leading-none shrink-0 mt-0.5 ${ok ? 'text-live' : 'text-alert'}`}>{ok ? '✓' : '⚠'}</span>
                   <span class={`text-sm leading-snug ${ok ? 'text-white/45' : 'text-white/65'}`}>{label}</span>
                 </div>
               ))}
@@ -133,7 +133,7 @@ const dimensions: Dimension[] = [
             <div class="border-t border-white/8 pt-5 row-in" style="animation-delay:2.1s">
               <div class="flex items-center justify-between mb-2">
                 <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">Coverage</p>
-                <p id="ts-coverage" class="font-mono text-xl font-bold text-[#3DDC84]">92%</p>
+                <p id="ts-coverage" class="font-mono text-xl font-bold text-live">92%</p>
               </div>
               <p class="text-xs text-white/20 leading-snug">92% of observable agent activity contributed to the score.</p>
             </div>
@@ -164,20 +164,20 @@ const dimensions: Dimension[] = [
     </script>
 
     <!-- ══════════ INDEPENDENT MEASUREMENT ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-[#1F1F1F] [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start">
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start">
           <div>
-            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-6">Independent measurement</p>
-            <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight">
+            <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-6">Independent measurement</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-ink-0 leading-tight">
               Organizations increasingly rely on AI agents across models, providers and enterprise systems.
             </h2>
           </div>
           <div class="md:pt-10">
-            <p class="text-base text-[#A8A8A8] leading-relaxed mb-5">
+            <p class="text-base text-ink-1 leading-relaxed mb-5">
               Existing governance tools describe individual environments. They cannot provide a consistent measure of behavior across organizational boundaries.
             </p>
-            <p class="text-base text-[#A8A8A8] leading-relaxed">
+            <p class="text-base text-ink-1 leading-relaxed">
               The Trust Score addresses this by measuring observable actions where they occur: at the execution boundary.
             </p>
           </div>
@@ -186,30 +186,30 @@ const dimensions: Dimension[] = [
     </section>
 
     <!-- ══════════ COVERAGE ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#050505]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0 bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
 
         <div class="mb-12">
-          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">01 · Coverage</span></div>
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Coverage</span></div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-[#1F1F1F] [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start mb-16">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start mb-16">
           <div>
-            <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-ink-0 leading-tight mb-6">
               Every score requires a denominator.
             </h2>
-            <p class="text-base text-[#A8A8A8] leading-relaxed mb-4">
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
               A Trust Score without Coverage describes only part of the observed reality.
             </p>
-            <p class="text-base text-[#A8A8A8] leading-relaxed mb-4">
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
               Coverage expresses how much of an agent's observable activity passed through governed paths and therefore contributed to the score.
             </p>
-            <p class="text-base text-[#A8A8A8] leading-relaxed">
+            <p class="text-base text-ink-1 leading-relaxed">
               Coverage of 92% and Coverage of 41% may produce the same score, but they describe fundamentally different levels of confidence. For this reason, every Trust Score is accompanied by a Coverage Report.
             </p>
           </div>
-          <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6 md:p-8">
-            <p class="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-6">Coverage Report · Acme Corp</p>
+          <div class="border border-line-0 bg-bg-1 p-6 md:p-8">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-ink-2 mb-6">Coverage Report · Acme Corp</p>
             <div class="space-y-6">
               {[
                 { label: "Governed",    pct: 92, desc: "Observed, measured and cryptographically signed.",                                                                          color: "#3DDC84" },
@@ -218,13 +218,13 @@ const dimensions: Dimension[] = [
               ].map(({ label, pct, desc, color }) => (
                 <div>
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="font-mono text-[10px] uppercase tracking-widest text-[#A8A8A8]">{label}</span>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-ink-1">{label}</span>
                     <span class="font-mono text-sm font-bold" style={`color:${color}`}>{pct}%</span>
                   </div>
-                  <div class="h-1 bg-[#1C1C1C] rounded-full overflow-hidden mb-2">
+                  <div class="h-1 bg-bg-3 rounded-full overflow-hidden mb-2">
                     <div class="h-full rounded-full bar-fill" style={`width:${pct}%;background-color:${color};opacity:0.75`}></div>
                   </div>
-                  <p class="text-xs text-[#6B6B6B] leading-snug">{desc}</p>
+                  <p class="text-xs text-ink-2 leading-snug">{desc}</p>
                 </div>
               ))}
             </div>
@@ -233,49 +233,49 @@ const dimensions: Dimension[] = [
 
         <!-- Architecture diagram -->
         <div class="mb-8">
-          <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-6">The execution boundary</p>
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-6">The execution boundary</p>
           <div class="grid md:grid-cols-[1fr_36px_1fr_36px_1fr] items-stretch gap-0">
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-3">Unobserved</p>
-              <p class="text-sm font-semibold text-[#6B6B6B] mb-3">Provider-internal</p>
-              <p class="text-xs text-[#6B6B6B] leading-relaxed">Internal reasoning, sub-agent delegation, provider-native connectors. Quantified in the Coverage Report.</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-[10px] uppercase tracking-widest text-ink-2 mb-3">Unobserved</p>
+              <p class="text-sm font-semibold text-ink-2 mb-3">Provider-internal</p>
+              <p class="text-xs text-ink-2 leading-relaxed">Internal reasoning, sub-agent delegation, provider-native connectors. Quantified in the Coverage Report.</p>
             </div>
-            <div class="hidden md:flex items-center justify-center text-[#6B6B6B] font-mono">→</div>
-            <div class="border border-[#F2F2F2]/60 bg-[#0C0C0C] p-6 md:-my-2">
-              <p class="font-mono text-[10px] uppercase tracking-widest text-[#F2F2F2]/60 mb-3">KYDE Gateway</p>
-              <p class="text-sm font-semibold text-[#F2F2F2] mb-3">Execution boundary</p>
-              <p class="text-xs text-[#A8A8A8] leading-relaxed">Verifies agent identity, evaluates actions against mandate, computes the Trust Score, signs every event, and enforces organizational policy where required.</p>
+            <div class="hidden md:flex items-center justify-center text-ink-2 font-mono">→</div>
+            <div class="border border-ink-0/60 bg-bg-1 p-6 md:-my-2">
+              <p class="font-mono text-[10px] uppercase tracking-widest text-ink-0/60 mb-3">KYDE Gateway</p>
+              <p class="text-sm font-semibold text-ink-0 mb-3">Execution boundary</p>
+              <p class="text-xs text-ink-1 leading-relaxed">Verifies agent identity, evaluates actions against mandate, computes the Trust Score, signs every event, and enforces organizational policy where required.</p>
             </div>
-            <div class="hidden md:flex items-center justify-center text-[#6B6B6B] font-mono">→</div>
-            <div class="border border-[#3DDC84]/25 bg-[#0C0C0C] p-6">
-              <p class="font-mono text-[10px] uppercase tracking-widest text-[#3DDC84] mb-3">Governed</p>
-              <p class="text-sm font-semibold text-[#A8A8A8] mb-3">Enterprise systems</p>
-              <p class="text-xs text-[#A8A8A8] leading-relaxed">APIs, databases, MCP servers, SaaS endpoints. Every action measured, signed and recorded.</p>
+            <div class="hidden md:flex items-center justify-center text-ink-2 font-mono">→</div>
+            <div class="border border-live/25 bg-bg-1 p-6">
+              <p class="font-mono text-[10px] uppercase tracking-widest text-live mb-3">Governed</p>
+              <p class="text-sm font-semibold text-ink-1 mb-3">Enterprise systems</p>
+              <p class="text-xs text-ink-1 leading-relaxed">APIs, databases, MCP servers, SaaS endpoints. Every action measured, signed and recorded.</p>
             </div>
           </div>
         </div>
 
-        <div class="border-l-2 border-[#1F1F1F] pl-6 max-w-2xl">
-          <p class="text-sm text-[#A8A8A8] leading-relaxed">The resulting measurement is independent of model provider or framework.</p>
+        <div class="border-l-2 border-line-0 pl-6 max-w-2xl">
+          <p class="text-sm text-ink-1 leading-relaxed">The resulting measurement is independent of model provider or framework.</p>
         </div>
 
       </div>
     </section>
 
     <!-- ══════════ HOW THE SCORE IS COMPUTED ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
 
         <div class="mb-12">
-          <div class="flex items-end justify-between border-b border-[#1F1F1F] pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#A8A8A8]">02 · How the Trust Score is computed</span></div>
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">02 · How the Trust Score is computed</span></div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-[#1F1F1F] [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-center mb-12">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-center mb-12">
           <div>
-            <h2 class="text-3xl md:text-4xl font-bold text-[#F2F2F2] leading-tight mb-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-ink-0 leading-tight mb-6">
               The score is derived from four observable signals.
             </h2>
-            <p class="text-base text-[#A8A8A8] leading-relaxed">
+            <p class="text-base text-ink-1 leading-relaxed">
               No access to model internals is required. No provider-supplied assessment is used.
             </p>
           </div>
@@ -324,20 +324,20 @@ const dimensions: Dimension[] = [
 
         <div class="space-y-px">
           {dimensions.map(({ label, question, desc, hasExample }) => (
-            <div class="grid md:grid-cols-[200px_1fr] divide-y md:divide-y-0 md:divide-x divide-[#1F1F1F] border border-[#1F1F1F] bg-[#0C0C0C]">
+            <div class="grid md:grid-cols-[200px_1fr] divide-y md:divide-y-0 md:divide-x divide-line-0 border border-line-0 bg-bg-1">
               <div class="p-6 md:p-8 flex flex-col justify-center">
-                <p class="text-lg font-bold text-[#F2F2F2] mb-1.5">{label}</p>
-                <p class="text-sm text-[#6B6B6B] leading-snug">{question}</p>
+                <p class="text-lg font-bold text-ink-0 mb-1.5">{label}</p>
+                <p class="text-sm text-ink-2 leading-snug">{question}</p>
               </div>
               <div class="p-6 md:p-8">
-                <p class="text-sm text-[#A8A8A8] leading-relaxed">{desc}</p>
+                <p class="text-sm text-ink-1 leading-relaxed">{desc}</p>
                 {hasExample && (
-                  <div class="mt-5 border border-[#1F1F1F] bg-[#141414] p-5">
-                    <p class="font-mono text-[9px] uppercase tracking-widest text-[#6B6B6B] mb-4">Example</p>
+                  <div class="mt-5 border border-line-0 bg-bg-2 p-5">
+                    <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-4">Example</p>
                     <div class="space-y-2 font-mono text-xs">
                       {mandateExample.map(({ label: l, value, cls }) => (
                         <div class="grid grid-cols-[100px_1fr] gap-3">
-                          <span class="text-[#6B6B6B]">{l}</span>
+                          <span class="text-ink-2">{l}</span>
                           <span class={cls}>{value}</span>
                         </div>
                       ))}
@@ -345,15 +345,15 @@ const dimensions: Dimension[] = [
                   </div>
                 )}
                 {label === "Benchmark" && (
-                  <div class="mt-5 border border-[#1F1F1F] bg-[#141414] p-5">
-                    <p class="font-mono text-[9px] uppercase tracking-widest text-[#6B6B6B] mb-4">role class: crm-agents · anonymized · n=214</p>
+                  <div class="mt-5 border border-line-0 bg-bg-2 p-5">
+                    <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-4">role class: crm-agents · anonymized · n=214</p>
                     <div class="space-y-2.5 font-mono text-xs">
                       {benchmarkExample.map(({ name, score, cls, note }) => (
                         <div class="flex items-baseline gap-2">
-                          <span class="text-[#6B6B6B] shrink-0">{name}</span>
-                          <span class="flex-1 border-b border-dashed border-[#2E2E2E] translate-y-[-3px]"></span>
+                          <span class="text-ink-2 shrink-0">{name}</span>
+                          <span class="flex-1 border-b border-dashed border-line-1 translate-y-[-3px]"></span>
                           <span class={`font-bold ${cls}`}>{score}</span>
-                          {note && <span class="text-[#6B6B6B] text-[10px]">· {note}</span>}
+                          {note && <span class="text-ink-2 text-[10px]">· {note}</span>}
                         </div>
                       ))}
                     </div>
@@ -368,9 +368,9 @@ const dimensions: Dimension[] = [
     </section>
 
     <!-- ══════════ WHY INDEPENDENCE MATTERS ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-[#1F1F1F] [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start">
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start">
 
           <div>
             <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-6">Why independence matters</p>
@@ -391,8 +391,8 @@ const dimensions: Dimension[] = [
               { who: "Enterprises",     note: "Observe their own deployments.",                                                            highlight: false },
               { who: "KYDE",            note: "Computes one independent Trust Score across providers, models and enterprise environments.", highlight: true  },
             ].map(({ who, note, highlight }) => (
-              <div class={`p-5 border grid grid-cols-[140px_1fr] gap-4 items-start ${highlight ? 'border-[#FFB84D]/40 bg-[#FFB84D]/5' : 'border-white/8 bg-white/[0.02]'}`}>
-                <span class={`font-mono text-[10px] uppercase tracking-widest shrink-0 pt-0.5 ${highlight ? 'text-[#FFB84D]' : 'text-white/25'}`}>{who}</span>
+              <div class={`p-5 border grid grid-cols-[140px_1fr] gap-4 items-start ${highlight ? 'border-warn/40 bg-warn/5' : 'border-white/8 bg-white/[0.02]'}`}>
+                <span class={`font-mono text-[10px] uppercase tracking-widest shrink-0 pt-0.5 ${highlight ? 'text-warn' : 'text-white/25'}`}>{who}</span>
                 <p class={`text-sm leading-snug ${highlight ? 'text-white/70' : 'text-white/35'}`}>{note}</p>
               </div>
             ))}
@@ -403,9 +403,9 @@ const dimensions: Dimension[] = [
     </section>
 
     <!-- ══════════ DEPLOYMENT ══════════ -->
-    <section class="border-t border-white/5 bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
-        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-[#1F1F1F] [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-center">
+    <section class="border-t border-white/5 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-center">
 
           <div>
             <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-6">Deployment</p>
@@ -420,23 +420,23 @@ const dimensions: Dimension[] = [
             </p>
           </div>
 
-          <div class="border border-white/10">
+          <div class="dark-island border border-white/10">
             <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
-              <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
-              <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
-              <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-alert/40"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-warn/40"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-live/40"></span>
               <span class="ml-2 font-mono text-[10px] text-white/20">terminal</span>
             </div>
             <div class="p-6 font-mono text-sm leading-loose overflow-x-auto">
-              <p class="text-white/30 whitespace-nowrap"><span class="text-[#3DDC84]">$</span> export OPENAI_BASE_URL=https://kyde.company/v1</p>
-              <p class="text-white/30 mt-1"><span class="text-[#3DDC84]">$</span> kyde fleet init</p>
-              <p class="text-[#3DDC84] mt-1">&#10003; Gateway active</p>
-              <p class="text-[#3DDC84]">&#10003; Trust Score initialized</p>
-              <p class="text-[#3DDC84]">&#10003; Cryptographic ledger started</p>
-              <p class="text-white/30 mt-3"><span class="text-[#3DDC84]">$</span> kyde fleet status</p>
-              <p class="text-[#3DDC84] mt-1">14 agents</p>
-              <p class="text-[#3DDC84]">Coverage: 94%</p>
-              <p class="text-[#3DDC84]">Trust Score: 87</p>
+              <p class="text-white/30 whitespace-nowrap"><span class="text-live">$</span> export OPENAI_BASE_URL=https://kyde.company/v1</p>
+              <p class="text-white/30 mt-1"><span class="text-live">$</span> kyde fleet init</p>
+              <p class="text-live mt-1">&#10003; Gateway active</p>
+              <p class="text-live">&#10003; Trust Score initialized</p>
+              <p class="text-live">&#10003; Cryptographic ledger started</p>
+              <p class="text-white/30 mt-3"><span class="text-live">$</span> kyde fleet status</p>
+              <p class="text-live mt-1">14 agents</p>
+              <p class="text-live">Coverage: 94%</p>
+              <p class="text-live">Trust Score: 87</p>
             </div>
           </div>
 
@@ -445,11 +445,11 @@ const dimensions: Dimension[] = [
     </section>
 
     <!-- ══════════ CONTEXT ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#0C0C0C]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-[160px_1fr] gap-8 md:gap-12 items-start max-w-4xl">
-          <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B]">Context</p>
-          <p class="text-base text-[#A8A8A8] leading-relaxed">
+          <p class="font-mono text-xs uppercase tracking-widest text-ink-2">Context</p>
+          <p class="text-base text-ink-1 leading-relaxed">
             Large-scale systems of trust have consistently relied on observable behavior rather than inferred intention. Credit assessment is based on repayment behavior. Telematics evaluates driving behavior. Financial audit evaluates recorded transactions. AI governance requires an equivalent behavioral measurement. The Trust Score applies the same principle to autonomous AI systems.
           </p>
         </div>
@@ -457,38 +457,38 @@ const dimensions: Dimension[] = [
     </section>
 
     <!-- ══════════ CTA ══════════ -->
-    <section class="border-t border-[#1F1F1F] bg-[#050505]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0 bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-2 gap-6">
 
-          <div class="bg-[#0C0C0C] p-8 md:p-10">
+          <div class="bg-bg-1 p-8 md:p-10">
             <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-4">For enterprises</p>
             <h3 class="text-2xl font-bold text-white mb-4">Deploy the gateway and observe how Trust Score and Coverage evolve from the first recorded action.</h3>
             <p class="text-sm text-white/40 leading-relaxed mb-8">
               Kyde Gateway Starter is free. No SLA, no commitment. Self-hosted, deployed from GitHub in minutes.
             </p>
             <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free)
-            <a href="/starter" class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all">
+            <a href="/starter" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
               Deploy Starter →
             </a>
             -->
             <button
               onclick="openModal()"
-              class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-[#E5E5E5] transition-all"
+              class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all"
             >
               Talk to Us →
             </button>
           </div>
 
-          <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-8 md:p-10">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-4">For insurers, auditors and certification bodies</p>
-            <h3 class="text-2xl font-bold text-[#F2F2F2] mb-4">Building the next generation of AI assurance frameworks?</h3>
-            <p class="text-sm text-[#A8A8A8] leading-relaxed mb-8">
+          <div class="border border-line-0 bg-bg-1 p-8 md:p-10">
+            <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">For insurers, auditors and certification bodies</p>
+            <h3 class="text-2xl font-bold text-ink-0 mb-4">Building the next generation of AI assurance frameworks?</h3>
+            <p class="text-sm text-ink-1 leading-relaxed mb-8">
               The Trust Score provides an independent behavioral signal that can complement underwriting, assurance and certification processes. We welcome collaboration with organizations developing AI assurance infrastructure.
             </p>
             <a
               href="mailto:hello@kyde.com"
-              class="inline-flex items-center gap-2 border border-[#2E2E2E] text-[#F2F2F2] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-white hover:text-[#0A0A0A] transition-all"
+              class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-white hover:text-cta-ink transition-all"
             >
               hello@kyde.com →
             </a>
@@ -496,10 +496,10 @@ const dimensions: Dimension[] = [
 
         </div>
 
-        <div class="mt-8 flex flex-wrap gap-4 text-xs text-[#6B6B6B]">
-          <a href="/blog/confidence-infrastructure-part-3" class="font-mono hover:text-[#F2F2F2] transition-colors underline underline-offset-4 decoration-[#F2F2F2]/20">Technical Architecture →</a>
-          <a href="/ai-agent-insurance" class="font-mono hover:text-[#F2F2F2] transition-colors underline underline-offset-4 decoration-[#F2F2F2]/20">AI Agent Insurance Guide →</a>
-          <a href="/blog/trust-is-a-number" class="font-mono hover:text-[#F2F2F2] transition-colors underline underline-offset-4 decoration-[#F2F2F2]/20">Announcement →</a>
+        <div class="mt-8 flex flex-wrap gap-4 text-xs text-ink-2">
+          <a href="/blog/confidence-infrastructure-part-3" class="font-mono hover:text-ink-0 transition-colors underline underline-offset-4 decoration-ink-0/20">Technical Architecture →</a>
+          <a href="/ai-agent-insurance" class="font-mono hover:text-ink-0 transition-colors underline underline-offset-4 decoration-ink-0/20">AI Agent Insurance Guide →</a>
+          <a href="/blog/trust-is-a-number" class="font-mono hover:text-ink-0 transition-colors underline underline-offset-4 decoration-ink-0/20">Announcement →</a>
         </div>
       </div>
     </section>

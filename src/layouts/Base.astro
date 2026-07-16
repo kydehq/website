@@ -28,8 +28,16 @@ const ogImage = new URL(image, Astro.site).href;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="dark light" />
         <meta name="theme-color" content="#050505" />
+        <script is:inline>
+            // Theme pre-paint: dark is the default; light only on explicit opt-in.
+            // Runs before first paint so there is no flash-of-wrong-theme.
+            if (localStorage.getItem("kyde_theme") === "light") {
+                document.documentElement.dataset.theme = "light";
+                document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#F7F6F3");
+            }
+        </script>
         <meta name="description" content={description} />
         <title>{title}</title>
         {noindex ? (

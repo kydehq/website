@@ -27,11 +27,11 @@ for (let lat = -80; lat <= 80; lat += 8) {
 
     <main>
         <!-- ══════════ HERO STAGE ══════════ -->
-        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-white/10">
+        <section class="dark-island relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-white/10 bg-bg-0">
             <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-[#050505]/45 to-transparent"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505]"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-bg-0/45 to-transparent"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
@@ -55,13 +55,13 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     </button>
                     <a
                         href="/starter"
-                        class="inline-flex items-center gap-2 bg-white text-[#0A0A0A] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-[#E5E5E5] transition-all"
+                        class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
                     >
                         Start Free →
                     </a>
                 </div>
                 <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-                    <span class="text-[#3DDC84]">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span><span class="cursor-blink" aria-hidden="true"></span>
+                    <span class="text-live">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span><span class="cursor-blink" aria-hidden="true"></span>
                 </p>
             </div>
 
@@ -505,37 +505,37 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
                     <div class="w-px h-full bg-white/25"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0C0C0C] px-2">all requests</span>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-bg-1 px-2">all requests</span>
                 </div>
 
                 <!-- Layer 2: KYDE -->
-                <div class="relative p-5 md:p-8 border border-[#F2F2F2]/25" style="background-image: radial-gradient(circle, rgba(242,242,242,0.05) 1px, transparent 1px); background-size: 14px 14px;">
-                    <span class="absolute -top-px -left-px h-3 w-3 border-t border-l border-[#F2F2F2]" aria-hidden="true"></span>
-                    <span class="absolute -top-px -right-px h-3 w-3 border-t border-r border-[#F2F2F2]" aria-hidden="true"></span>
-                    <span class="absolute -bottom-px -left-px h-3 w-3 border-b border-l border-[#F2F2F2]" aria-hidden="true"></span>
-                    <span class="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-[#F2F2F2]" aria-hidden="true"></span>
+                <div class="relative p-5 md:p-8 border border-ink-0/25" style="background-image: radial-gradient(circle, rgba(242,242,242,0.05) 1px, transparent 1px); background-size: 14px 14px;">
+                    <span class="absolute -top-px -left-px h-3 w-3 border-t border-l border-ink-0" aria-hidden="true"></span>
+                    <span class="absolute -top-px -right-px h-3 w-3 border-t border-r border-ink-0" aria-hidden="true"></span>
+                    <span class="absolute -bottom-px -left-px h-3 w-3 border-b border-l border-ink-0" aria-hidden="true"></span>
+                    <span class="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-ink-0" aria-hidden="true"></span>
                     <div class="arch-glow pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 55% 90% at 50% 50%, rgba(61,220,132,0.12), transparent 70%);" aria-hidden="true"></div>
                     <div class="relative flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FEC106]">Control Plane</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F2F2F2]/60">Layer 02</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Control Plane</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-0/60">Layer 02</span>
                     </div>
                     <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
                     <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="border border-[#2E2E2E] p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Identity</p>
+                        <div class="border border-line-1 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Identity</p>
                             <p class="text-xs text-white/60 leading-relaxed">Cryptographic agent identity per action</p>
                         </div>
-                        <div class="border border-[#2E2E2E] p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Policy</p>
+                        <div class="border border-line-1 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Policy</p>
                             <p class="text-xs text-white/60 leading-relaxed">Role boundaries &amp; scope enforcement</p>
                         </div>
-                        <div class="border border-[#2E2E2E] p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Audit</p>
+                        <div class="border border-line-1 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Audit</p>
                             <p class="text-xs text-white/60 leading-relaxed">Tamper-evident ledger of every action</p>
                         </div>
-                        <div class="border border-[#2E2E2E] p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#F2F2F2]/60 mb-1.5">Control</p>
+                        <div class="border border-line-1 p-3">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Control</p>
                             <p class="text-xs text-white/60 leading-relaxed">Block out-of-scope requests in real time</p>
                         </div>
                     </div>
@@ -544,7 +544,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
                     <div class="w-px h-full bg-white/25"></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-[#0C0C0C] px-2">verified &amp; logged</span>
+                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-bg-1 px-2">verified &amp; logged</span>
                 </div>
 
                 <!-- Layer 3: Critical Systems -->
@@ -564,11 +564,11 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 </div>
 
                 <!-- Terminal -->
-                <div class="mt-10 border border-white/10">
+                <div class="dark-island mt-10 border border-white/10">
                     <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#FF5C5C]/40"></span>
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#FFB84D]/40"></span>
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#3DDC84]/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-alert/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-warn/40"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-live/40"></span>
                         <span class="ml-2 text-[10px] text-white/20 font-mono">terminal</span>
                         <button
                             class="ml-auto font-mono text-[10px] tracking-[0.15em] text-white/25 hover:text-white transition-colors"
@@ -576,13 +576,13 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         >COPY</button>
                     </div>
                     <div class="p-5 font-mono text-sm leading-relaxed">
-                        <p class="text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet init</span></p>
-                        <p class="mt-1 text-[#3DDC84]">&#10003; Fleet proxy started on :8080</p>
-                        <p class="text-[#3DDC84]">&#10003; Agent identities provisioned</p>
-                        <p class="text-[#3DDC84]">&#10003; Role boundaries enforced</p>
-                        <p class="text-[#3DDC84]">&#10003; Tamper-evident ledger initialized</p>
-                        <p class="mt-2 text-white/40"><span class="text-[#3DDC84]">$</span><span class="text-white/70"> kyde fleet status</span></p>
-                        <p class="mt-1 text-[#3DDC84]">&#10003; 12 agents active, all scoped, signed, accountable</p>
+                        <p class="text-white/40"><span class="text-live">$</span><span class="text-white/70"> kyde fleet init</span></p>
+                        <p class="mt-1 text-live">&#10003; Fleet proxy started on :8080</p>
+                        <p class="text-live">&#10003; Agent identities provisioned</p>
+                        <p class="text-live">&#10003; Role boundaries enforced</p>
+                        <p class="text-live">&#10003; Tamper-evident ledger initialized</p>
+                        <p class="mt-2 text-white/40"><span class="text-live">$</span><span class="text-white/70"> kyde fleet status</span></p>
+                        <p class="mt-1 text-live">&#10003; 12 agents active, all scoped, signed, accountable</p>
                     </div>
                 </div>
 
@@ -621,9 +621,9 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             No one gives an agent access to payments, customer data, or production systems until someone can control, prove, and rate what it does. That’s what these three layers unlock: deployed in minutes, covering every agent from day one.
                         </p>
                         <ul class="mt-10 space-y-3 font-mono text-xs uppercase tracking-[0.15em]">
-                            <li><a href="#prevent" class="text-white/50 hover:text-white transition-colors"><span class="text-[#FEC106] mr-3">03.1</span>Prevent · before the damage</a></li>
-                            <li><a href="#prove" class="text-white/50 hover:text-white transition-colors"><span class="text-[#FEC106] mr-3">03.2</span>Prove · after the action</a></li>
-                            <li><a href="#rate" class="text-white/50 hover:text-white transition-colors"><span class="text-[#FEC106] mr-3">03.3</span>Rate · across the network</a></li>
+                            <li><a href="#prevent" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">03.1</span>Prevent · before the damage</a></li>
+                            <li><a href="#prove" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">03.2</span>Prove · after the action</a></li>
+                            <li><a href="#rate" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">03.3</span>Rate · across the network</a></li>
                         </ul>
                     </div>
                     <div class="relative flex items-center justify-center min-h-[380px]">
@@ -782,22 +782,22 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         <div class="border border-white/10 bg-white/[0.02]">
                             <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
                                 <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Gateway · DLP Intercept</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#3DDC84]">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84] animate-pulse"></span>Live
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-live animate-pulse"></span>Live
                                 </span>
                             </div>
                             <div class="p-5 font-mono text-xs space-y-4">
                                 <div>
                                     <p class="text-white/25 mb-1.5">// incoming · agent:support-02 → openai/gpt-4o</p>
-                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-[#FF5C5C]/15 text-[#FF5C5C] px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-[#FF5C5C]/15 text-[#FF5C5C] px-1">€1.2M</span> …"</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-alert/15 text-alert px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-alert/15 text-alert px-1">€1.2M</span> …"</p>
                                 </div>
                                 <div class="border-t border-white/8 pt-4">
                                     <p class="text-white/25 mb-1.5">// decision · policy:dlp-standard · 12ms</p>
-                                    <p class="text-[#FFB84D] mb-2">⚠ PII detected, 2 entities · role:auditor → mask</p>
+                                    <p class="text-warn mb-2">⚠ PII detected, 2 entities · role:auditor → mask</p>
                                     <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
                                 </div>
                                 <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
-                                    <span class="text-[#3DDC84]">&#10003; Forwarded · masked by role</span>
+                                    <span class="text-live">&#10003; Forwarded · masked by role</span>
                                     <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
                                 </div>
                             </div>
@@ -807,7 +807,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         </p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs text-[#FEC106] uppercase tracking-[0.2em] mb-4">Before the damage</p>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Before the damage</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             Prevent What Must<br />Not Happen.
                         </h2>
@@ -823,7 +823,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 "See and stop knowledge egress to model providers, before it becomes their training data",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-[#FEC106] shrink-0 mt-1">1.{i + 1}</span>
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">1.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -842,7 +842,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
-                        <p class="font-mono text-xs text-[#FEC106] uppercase tracking-[0.2em] mb-4">After the action</p>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">After the action</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             <span class="text-white">Prove What Happened.</span><br /><span class="text-white/40">The Suspect Can't Write<br />the Police Report.</span>
                         </h2>
@@ -857,7 +857,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 "Compliance reports generated automatically",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-[#FEC106] shrink-0 mt-1">2.{i + 1}</span>
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">2.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -867,22 +867,22 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         <div class="border border-white/10 bg-white/[0.02]">
                             <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
                                 <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Ledger · Signed Action Log</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-[#3DDC84]">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-[#3DDC84]"></span>Chain intact
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-live"></span>Chain intact
                                 </span>
                             </div>
                             <div class="p-5 font-mono text-xs space-y-3">
                                 <div class="flex items-center justify-between gap-4">
                                     <span class="text-white/60 truncate">#a4cf · agent:etl-worker · db.write → allowed</span>
-                                    <span class="text-white/25 shrink-0">prev #a4ce · <span class="text-[#3DDC84]">&#10003;</span></span>
+                                    <span class="text-white/25 shrink-0">prev #a4ce · <span class="text-live">&#10003;</span></span>
                                 </div>
                                 <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4d0 · agent:hr-11 · mail.send → <span class="text-[#FF5C5C]">blocked</span></span>
-                                    <span class="text-white/25 shrink-0">prev #a4cf · <span class="text-[#3DDC84]">&#10003;</span></span>
+                                    <span class="text-white/60 truncate">#a4d0 · agent:hr-11 · mail.send → <span class="text-alert">blocked</span></span>
+                                    <span class="text-white/25 shrink-0">prev #a4cf · <span class="text-live">&#10003;</span></span>
                                 </div>
                                 <div class="flex items-center justify-between gap-4">
                                     <span class="text-white/60 truncate">#a4d1 · agent:support-02 · dlp.mask → forwarded</span>
-                                    <span class="text-white/25 shrink-0">prev #a4d0 · <span class="text-[#3DDC84]">&#10003;</span></span>
+                                    <span class="text-white/25 shrink-0">prev #a4d0 · <span class="text-live">&#10003;</span></span>
                                 </div>
                                 <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
                                     ed25519-signed · sha-256 hash chain · captured at the boundary, before any provider
@@ -914,23 +914,23 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             <div class="p-5 font-mono text-xs space-y-3">
                                 <div class="flex items-center gap-3">
                                     <span class="text-white/60 truncate flex-1">agent:support-02 <span class="text-white/25">· openai</span></span>
-                                    <span class="h-0.5 w-20 bg-[#1C1C1C] shrink-0 overflow-hidden"><span class="block h-full bg-[#3DDC84]/60" style="width:87%"></span></span>
-                                    <span class="text-[#F2F2F2] w-6 text-right shrink-0">87</span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:87%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">87</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="text-white/60 truncate flex-1">etl-worker <span class="text-white/25">· anthropic</span></span>
-                                    <span class="h-0.5 w-20 bg-[#1C1C1C] shrink-0 overflow-hidden"><span class="block h-full bg-[#3DDC84]/60" style="width:91%"></span></span>
-                                    <span class="text-[#F2F2F2] w-6 text-right shrink-0">91</span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:91%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">91</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="text-white/60 truncate flex-1">agent:proc-7 <span class="text-white/25">· google</span></span>
-                                    <span class="h-0.5 w-20 bg-[#1C1C1C] shrink-0 overflow-hidden"><span class="block h-full bg-[#3DDC84]/60" style="width:74%"></span></span>
-                                    <span class="text-[#F2F2F2] w-6 text-right shrink-0">74</span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:74%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">74</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="text-white/60 truncate flex-1">mail-drafter <span class="text-white/25">· local/vllm</span></span>
-                                    <span class="h-0.5 w-20 bg-[#1C1C1C] shrink-0 overflow-hidden"><span class="block h-full bg-[#3DDC84]/60" style="width:82%"></span></span>
-                                    <span class="text-[#F2F2F2] w-6 text-right shrink-0">82</span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:82%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">82</span>
                                 </div>
                                 <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
                                     computed from the signed ledger · normalized across comparison classes
@@ -942,7 +942,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         </p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs text-[#FEC106] uppercase tracking-[0.2em] mb-4">Across the network</p>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Across the network</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             <span class="text-white">Rate Every Agent.</span><br /><span class="text-white/40">In One Currency,<br />Across Every Provider.</span>
                         </h2>
@@ -956,7 +956,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 "The underwriting signal insurers can price",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-[#FEC106] shrink-0 mt-1">3.{i + 1}</span>
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">3.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -1011,17 +1011,17 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 { name: "DORA",      badge: "In force: Jan 2025",        desc: "Operational-resilience evidence for financial entities.",        hook: "Financial entities must prove it.",     urgent: false },
                                 { name: "EU AI Act", badge: "High-risk: Dec 2027",       desc: "Art. 12 logging and audit-trail duties for high-risk AI.",      hook: "The second wave, already dated.",      urgent: false },
                             ].map(({ name, badge, desc, hook, urgent }) => (
-                                <div class={`border p-5 ${urgent ? "border-[#FF5C5C]/40 bg-[#FF5C5C]/5" : "border-white/10 bg-white/[0.02]"}`}>
+                                <div class={`border p-5 ${urgent ? "border-alert/40 bg-alert/5" : "border-white/10 bg-white/[0.02]"}`}>
                                     <div class="flex items-start justify-between gap-3 mb-2">
                                         <h3 class="font-mono text-sm font-bold text-white">{name}</h3>
-                                        <span class={`font-mono text-[9px] px-1.5 py-0.5 border shrink-0 ${badge.includes("In force") ? "border-[#3DDC84]/30 text-[#3DDC84]" : "border-white/15 text-white/50"}`}>{badge}</span>
+                                        <span class={`font-mono text-[9px] px-1.5 py-0.5 border shrink-0 ${badge.includes("In force") ? "border-live/30 text-live" : "border-white/15 text-white/50"}`}>{badge}</span>
                                     </div>
                                     <p class="text-xs text-white/45 mb-3">{desc}</p>
                                     <p class="font-mono text-[10px] text-white/70 border-t border-white/10 pt-3">{hook}</p>
                                 </div>
                             ))}
                         </div>
-                        <p class="mt-8 font-mono text-sm text-[#F2F2F2] border-l-2 border-white/30 pl-4 leading-relaxed">
+                        <p class="mt-8 font-mono text-sm text-ink-0 border-l-2 border-white/30 pl-4 leading-relaxed">
                             The buying trigger is liability, not innovation.
                         </p>
                     </div>
@@ -1032,7 +1032,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
         <!-- ══════════ GLITCH WALL DIVIDER ══════════ -->
         <section class="relative border-b border-white/10 h-[280px] md:h-[380px] overflow-hidden" aria-hidden="true">
             <canvas id="glitch-wall" class="absolute inset-0 w-full h-full"></canvas>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#050505] via-transparent to-[#050505]/60"></div>
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-transparent to-bg-0/60"></div>
             <!-- grid rails continue through the divider -->
             <div class="absolute inset-0 pointer-events-none">
                 <div class="max-w-7xl mx-auto h-full md:border-x md:border-white/10"></div>
@@ -1127,7 +1127,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         </p>
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
+                            class="inline-flex items-center gap-2 bg-bg-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
                         >
                             Apply for Design Partnership →
                         </button>
@@ -1167,14 +1167,14 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         <!--
                         <a
                             href="/starter"
-                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
+                            class="inline-flex items-center gap-2 bg-bg-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
                         >
                             Start Free →
                         </a>
                         -->
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-[#0C0C0C] px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-[#F2F2F2] hover:bg-[#E5E5E5] transition-all"
+                            class="inline-flex items-center gap-2 bg-bg-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
                         >
                             Talk to Us →
                         </button>

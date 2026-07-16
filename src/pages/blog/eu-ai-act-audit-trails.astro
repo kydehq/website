@@ -15,22 +15,22 @@ import Footer from '../../components/Footer.astro';
     <!-- ══════════ HEADER ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-[#1F1F1F]">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors">↑ Resources</a>
-            <span class="text-[#A8A8A8]">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#A8A8A8]">Regulatory</span>
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatory</span>
           </div>
-          <div class="h-px w-full bg-[#1F1F1F]"></div>
+          <div class="h-px w-full bg-line-0"></div>
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F2F2F2] tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
             What the EU AI Act Actually Requires for Audit Trails, And What Most Enterprises Are Missing
           </h1>
-          <div class="flex items-center gap-4 text-xs font-mono text-[#A8A8A8]">
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Regulatory</span>
             <span>·</span>
             <span>5 min read</span>
@@ -43,21 +43,21 @@ import Footer from '../../components/Footer.astro';
     </section>
 
     <!-- ══════════ ARTICLE BODY ══════════ -->
-    <section class="border-t border-[#1F1F1F]">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-[#1F1F1F]">
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-[1fr_280px] gap-6 md:gap-16 items-start">
 
           <!-- Body -->
           <article class="prose-kyde min-w-0">
 
             <p>
-              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span> enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises deploying AI agents in regulated environments believe they have time. They also believe their existing logging infrastructure · or their LLM provider's audit console · will be sufficient when that deadline arrives.
+              The <span class="font-mono text-ink-1">EU AI Act</span> enforcement deadline for High-Risk AI systems is August 2, 2027. Most enterprises deploying AI agents in regulated environments believe they have time. They also believe their existing logging infrastructure · or their LLM provider's audit console · will be sufficient when that deadline arrives.
             </p>
             <p>Both assumptions are wrong.</p>
 
             <h2>What the regulation actually says</h2>
             <p>
-              Articles 12 and 26 of the <span class="font-mono text-[#A8A8A8]">EU AI Act</span> establish specific requirements for High-Risk AI systems. The key obligations are not vague:
+              Articles 12 and 26 of the <span class="font-mono text-ink-1">EU AI Act</span> establish specific requirements for High-Risk AI systems. The key obligations are not vague:
             </p>
             <ul>
               <li>Automatic logging of events throughout the system lifecycle</li>
@@ -85,7 +85,7 @@ import Footer from '../../components/Footer.astro';
 
             <h2>What "tamper-evident" actually means</h2>
             <p>
-              The <span class="font-mono text-[#A8A8A8]">EU AI Act</span> doesn't use the phrase "tamper-evident" directly · but the requirement is implicit. A log that can be altered after the fact does not satisfy the regulation's intent. When BaFin or the European Commission asks for the audit trail from a challenged automated decision, "we had logs but they may have been modified" is not an acceptable answer.
+              The <span class="font-mono text-ink-1">EU AI Act</span> doesn't use the phrase "tamper-evident" directly · but the requirement is implicit. A log that can be altered after the fact does not satisfy the regulation's intent. When BaFin or the European Commission asks for the audit trail from a challenged automated decision, "we had logs but they may have been modified" is not an acceptable answer.
             </p>
             <p>
               Tamper-evidence requires cryptographic integrity at the point of capture. Every entry must be signed at the moment it is written, and each entry must be chained to the previous one, so that any alteration is detectable. This is not a software configuration. It is an architectural property.
@@ -115,14 +115,14 @@ import Footer from '../../components/Footer.astro';
             </p>
 
             <!-- Kyde callout -->
-            <div class="not-prose mt-12 border border-[#1F1F1F] bg-[#0C0C0C] p-8">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#6B6B6B] mb-3">KYDE</p>
-              <p class="text-sm text-[#A8A8A8] leading-relaxed mb-6">
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
                 Kyde is a model-agnostic governance proxy that produces tamper-evident, cryptographically signed audit trails for every AI agent action, across every provider, from day one.
               </p>
               <button
                 onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-[#0A0A0A] hover:bg-[#E5E5E5] transition-all"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Book a Demo →
               </button>
@@ -132,32 +132,32 @@ import Footer from '../../components/Footer.astro';
 
           <!-- Sidebar -->
           <aside class="hidden md:block space-y-6 sticky top-28">
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Regulations covered</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Regulations covered</p>
               <div class="space-y-2">
                 {["EU AI Act, Art. 12, 14, 26", "GDPR Art. 35, DPIA", "BaFin AI Guidance"].map((r) => (
-                  <p class="font-mono text-xs text-[#A8A8A8]">{r}</p>
+                  <p class="font-mono text-xs text-ink-1">{r}</p>
                 ))}
               </div>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-4">Key deadline</p>
-              <p class="font-mono text-sm text-[#A8A8A8]">August 2, 2027</p>
-              <p class="text-xs text-[#A8A8A8] mt-1">High-Risk AI enforcement</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Key deadline</p>
+              <p class="font-mono text-sm text-ink-1">August 2, 2027</p>
+              <p class="text-xs text-ink-1 mt-1">High-Risk AI enforcement</p>
             </div>
-            <div class="border border-[#1F1F1F] bg-[#0C0C0C] p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-[#A8A8A8] mb-3">Related</p>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>EU AI Act Compliance for AI Agents: The Complete Guide</span>
                 </a>
-                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/blog/dora-ai-agents" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30</span>
                 </a>
-                <a href="/guides/classify-ai-systems" class="group flex items-start gap-2 text-xs text-[#A8A8A8] hover:text-[#A8A8A8] transition-colors leading-relaxed">
-                  <span class="font-mono text-[#FFB84D] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                <a href="/guides/classify-ai-systems" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>How to Classify AI Systems Under EU AI Act</span>
                 </a>
               </div>
