@@ -51,6 +51,7 @@ Ein CTA: Sandbox (nach SBX-002) bzw. Talk to us. Plus interne Links: /who-its-fo
 
 ## Checkliste vor Publish
 - [ ] Zwei ehrliche ✓/Stärken für den Wettbewerber drin
+- [ ] Keine Funding-Zahlen des Wettbewerbers (kein "$X raised", keine Series-Bezeichnung) — Hausregel 7, generell
 - [ ] Keine langen Gedankenstriche in der Copy
 - [ ] Datums-Anker korrekt (NIS-2/DORA heute, EU AI Act Dez 2027)
 - [ ] "Last verified" Datum gesetzt, Claims gegen deren aktuelle Website geprüft

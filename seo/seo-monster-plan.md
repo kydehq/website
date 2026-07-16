@@ -163,6 +163,7 @@ Kapazität: ~90 Min/Tag aus dem bestehenden 2h-Block (Routine aus `website-seo-d
 4. Shipping-Wahrheit: keine Features im Präsens behaupten, die WEB-001 (Ed25519/TPM-Status) noch klären muss — im Zweifel Formulierung aus /platform übernehmen
 5. Vergleiche: mindestens zwei ehrliche Stärken des Wettbewerbers, Stand-Datum auf der Seite ("Last verified July 2026")
 6. Jede Seite: ein CTA (Sandbox nach SBX-002, bis dahin Talk to us), 3+ interne Links, Meta Title/Description, Schema wo passend
+7. **Keine Funding-Zahlen kommunizieren** (Entscheid Joerg 2026-07-16, generell, nicht nur pro Seite) — kein "$X raised", keine Series-Bezeichnung, kein Bewertungs-Anker für Wettbewerber, auch nicht als vermeintliches Kompliment. Qualitative Einordnung ("well-funded", "mature platform") ist erlaubt, konkrete Zahlen nicht.
 
 ---
 
