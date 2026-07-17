@@ -45,7 +45,11 @@
 
 /* ── Light theme (dark stays the default) ───────────────────────
    The palette is inverted deliberately, not mechanically:
-   - Canvas is warm paper, not clinical white; cards lift to white.
+   - Canvas is warm paper, not clinical white. Elevation is a recess,
+     not a lift: bg-1/2/3 step slightly GRAYER/darker than the canvas,
+     the same direction as the "border + 2% ink wash" card pattern used
+     directly in markup elsewhere (bg-white/[0.02] etc.) — never a fill
+     brighter than the page, which reads as a jarring white sticker.
    - "white" is the semantic max-contrast ink → becomes near-black,
      so white CTA fills, text-white headlines and white/NN washes
      all flip correctly without touching markup.
@@ -57,9 +61,9 @@
   color-scheme: light;
 
   --color-bg-0: #F7F6F3;   /* warm paper canvas */
-  --color-bg-1: #FFFFFF;   /* panels/cards lift to white */
-  --color-bg-2: #F1F0EC;   /* chrome, wells, sidebars */
-  --color-bg-3: #E9E7E2;   /* hover states, chips */
+  --color-bg-1: #F3F2EE;   /* panels/cards recess slightly, never brighter than canvas */
+  --color-bg-2: #EEEDE8;   /* chrome, wells, sidebars */
+  --color-bg-3: #E6E4DE;   /* hover states, chips */
 
   --color-line-0: #E3E1DB;
   --color-line-1: #CBC8C0;
