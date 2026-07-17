@@ -367,19 +367,19 @@ for (let lat = -80; lat <= 80; lat += 8) {
                     <div class="relative flex items-center justify-center min-h-[380px]">
                         <svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
                             <!-- corner register marks -->
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
-                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
-                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="rgba(242,242,242,0.35)" stroke-width="1" />
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
 
                             <!-- concentric rings + crosshair -->
-                            <circle cx="240" cy="240" r="228" fill="none" stroke="rgba(242,242,242,0.05)" stroke-width="1" />
-                            <circle cx="240" cy="240" r="210" fill="none" stroke="rgba(242,242,242,0.14)" stroke-width="1" />
-                            <circle cx="240" cy="240" r="150" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
-                            <circle cx="240" cy="240" r="90" fill="none" stroke="rgba(242,242,242,0.10)" stroke-width="1" stroke-dasharray="2 5" />
-                            <circle cx="240" cy="240" r="68" fill="none" stroke="rgba(242,242,242,0.13)" stroke-width="1" />
-                            <line x1="240" y1="26" x2="240" y2="454" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
-                            <line x1="26" y1="240" x2="454" y2="240" stroke="rgba(242,242,242,0.07)" stroke-width="1" />
+                            <circle cx="240" cy="240" r="228" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.05" stroke-width="1" />
+                            <circle cx="240" cy="240" r="210" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" />
+                            <circle cx="240" cy="240" r="150" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.10" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="90" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.10" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="68" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.13" stroke-width="1" />
+                            <line x1="240" y1="26" x2="240" y2="454" stroke="var(--color-ink-0)" stroke-opacity="0.07" stroke-width="1" />
+                            <line x1="26" y1="240" x2="454" y2="240" stroke="var(--color-ink-0)" stroke-opacity="0.07" stroke-width="1" />
 
                             <!-- degree ticks -->
                             {Array.from({ length: 24 }, (_, i) => {
@@ -390,7 +390,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                         y1={240 + Math.sin(a) * 204}
                                         x2={240 + Math.cos(a) * 210}
                                         y2={240 + Math.sin(a) * 210}
-                                        stroke="rgba(242,242,242,0.3)"
+                                        stroke="var(--color-ink-0)" stroke-opacity="0.3"
                                         stroke-width="1"
                                     />
                                 );
@@ -398,16 +398,16 @@ for (let lat = -80; lat <= 80; lat += 8) {
 
                             <!-- sweep trail + line (rotated in JS) -->
                             <g id="radar-sweep">
-                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="rgba(242,242,242,0.04)" />
-                                <line x1="240" y1="240" x2="240" y2="30" stroke="rgba(242,242,242,0.3)" stroke-width="1" />
+                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="var(--color-ink-0)" fill-opacity="0.04" />
+                                <line x1="240" y1="240" x2="240" y2="30" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" />
                             </g>
 
                             <!-- blips + labels (lit by the sweep, from JS) -->
                             <g id="radar-blips"></g>
 
                             <!-- the observer at the center -->
-                            <circle cx="240" cy="240" r="4.5" fill="#F2F2F2" />
-                            <text x="240" y="262" text-anchor="middle" fill="rgba(242,242,242,0.6)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
+                            <circle cx="240" cy="240" r="4.5" fill="var(--color-ink-0)" />
+                            <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
                         </svg>
                     </div>
                 </div>
@@ -425,6 +425,21 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             const sweep = document.getElementById("radar-sweep")!;
                             const blipsG = document.getElementById("radar-blips")!;
                             const CX = 240, CY = 240;
+
+                            // Theme-aware palette (ditto elsewhere on this page): read the
+                            // ink/live tokens from CSS instead of hardcoding rgb triples.
+                            const RC = { ink: "242,242,242", live: "61,220,132" };
+                            function hexToRgb(hex: string): string {
+                                const m = hex.trim().replace("#", "");
+                                const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
+                                return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+                            }
+                            function readRadarColors() {
+                                const cs = getComputedStyle(document.documentElement);
+                                RC.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
+                                RC.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+                            }
+                            readRadarColors();
 
                             const AGENTS = [
                                 { id: "agent:crm-04",    r: 178, a: 0.4 },
@@ -453,19 +468,28 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                 sig.setAttribute("x", String(x + 9));
                                 sig.setAttribute("y", String(y + 6));
                                 sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
-                                sig.setAttribute("fill", "#3DDC84");
+                                sig.setAttribute("fill", `rgb(${RC.live})`);
                                 sig.textContent = "✓ signed";
                                 blipsG.append(dot, label, sig);
                                 return { ...ag, dot, label, sig, lastLit: -1e9 };
                             });
 
-                            if (radarReduced) {
+                            window.addEventListener("kyde:theme", () => {
+                                readRadarColors();
+                                if (radarReduced) paintStatic();
+                            });
+
+                            function paintStatic() {
                                 // static frame: everything mid-bright
                                 for (const b of blips) {
-                                    b.dot.setAttribute("fill", "rgba(242,242,242,0.7)");
-                                    b.label.setAttribute("fill", "rgba(242,242,242,0.55)");
-                                    b.sig.setAttribute("fill", "rgba(61,220,132,0.6)");
+                                    b.dot.setAttribute("fill", `rgba(${RC.ink},0.7)`);
+                                    b.label.setAttribute("fill", `rgba(${RC.ink},0.55)`);
+                                    b.sig.setAttribute("fill", `rgba(${RC.live},0.6)`);
                                 }
+                            }
+
+                            if (radarReduced) {
+                                paintStatic();
                             } else {
                                 const PERIOD = 32000; // one revolution
                                 let visible = true;
@@ -483,9 +507,9 @@ for (let lat = -80; lat <= 80; lat += 8) {
                                             if (diff < 0.06) b.lastLit = t;
 
                                             const glow = Math.exp(-(t - b.lastLit) / 2400);
-                                            b.dot.setAttribute("fill", `rgba(242,242,242,${0.12 + glow * 0.88})`);
-                                            b.label.setAttribute("fill", `rgba(242,242,242,${glow * 0.8})`);
-                                            b.sig.setAttribute("fill", `rgba(61,220,132,${Math.max(glow - 0.25, 0)})`);
+                                            b.dot.setAttribute("fill", `rgba(${RC.ink},${0.12 + glow * 0.88})`);
+                                            b.label.setAttribute("fill", `rgba(${RC.ink},${glow * 0.8})`);
+                                            b.sig.setAttribute("fill", `rgba(${RC.live},${Math.max(glow - 0.25, 0)})`);
                                         }
                                     }
                                     requestAnimationFrame(frame);
@@ -534,12 +558,12 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 </div>
 
                 <!-- Layer 2: KYDE -->
-                <div class="relative p-5 md:p-8 border border-ink-0/25" style="background-image: radial-gradient(circle, rgba(242,242,242,0.05) 1px, transparent 1px); background-size: 14px 14px;">
+                <div class="relative p-5 md:p-8 border border-ink-0/25" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 5%, transparent) 1px, transparent 1px); background-size: 14px 14px;">
                     <span class="absolute -top-px -left-px h-3 w-3 border-t border-l border-ink-0" aria-hidden="true"></span>
                     <span class="absolute -top-px -right-px h-3 w-3 border-t border-r border-ink-0" aria-hidden="true"></span>
                     <span class="absolute -bottom-px -left-px h-3 w-3 border-b border-l border-ink-0" aria-hidden="true"></span>
                     <span class="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-ink-0" aria-hidden="true"></span>
-                    <div class="arch-glow pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 55% 90% at 50% 50%, rgba(61,220,132,0.12), transparent 70%);" aria-hidden="true"></div>
+                    <div class="arch-glow pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 55% 90% at 50% 50%, color-mix(in srgb, var(--color-live) 12%, transparent), transparent 70%);" aria-hidden="true"></div>
                     <div class="relative flex items-center justify-between mb-4">
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Control Plane</span>
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-0/60">Layer 02</span>
@@ -655,34 +679,34 @@ for (let lat = -80; lat <= 80; lat += 8) {
                         <svg id="vpr-fig" viewBox="-45 5 610 545" class="w-full max-w-lg h-auto" aria-hidden="true">
                             <defs>
                                 <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
-                                    <circle cx="2" cy="2" r="1.1" fill="rgba(242,242,242,0.3)" />
+                                    <circle cx="2" cy="2" r="1.1" fill="var(--color-ink-0)" fill-opacity="0.3" />
                                 </pattern>
                             </defs>
 
                             <!-- tick pulse from the center -->
-                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="#FEC106" stroke-width="1" opacity="0" />
+                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="var(--color-gold)" stroke-width="1" opacity="0" />
 
                             <!-- outer cycle -->
-                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="rgba(242,242,242,0.55)" stroke-width="1" />
+                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1" />
 
                             <!-- direction arrows on the edges -->
-                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.85)" transform="translate(355,235) rotate(60.6)" />
-                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.85)" transform="translate(260,390) rotate(180)" />
-                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="rgba(242,242,242,0.85)" transform="translate(165,235) rotate(-60.6)" />
+                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(355,235) rotate(60.6)" />
+                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(260,390) rotate(180)" />
+                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(165,235) rotate(-60.6)" />
 
                             <!-- inner dot-grid triangle -->
-                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="rgba(242,242,242,0.45)" stroke-width="1" />
-                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="#F2F2F2" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
+                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
 
                             <!-- vertex nodes + labels -->
-                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="#F2F2F2" />
-                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
+                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="var(--color-ink-0)" />
+                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
 
-                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
-                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
+                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
+                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
 
-                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="#F2F2F2" />
-                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="rgba(242,242,242,0.85)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
+                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
+                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
                         </svg>
                     </div>
                 </div>
@@ -1071,6 +1095,23 @@ for (let lat = -80; lat <= 80; lat += 8) {
                 const gctx = gw.getContext("2d")!;
                 let gW = 0, gH = 0;
 
+                const GC = { ink: "242,242,242", live: "61,220,132" };
+                function gHexToRgb(hex: string): string {
+                    const m = hex.trim().replace("#", "");
+                    const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
+                    return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+                }
+                function readGwColors() {
+                    const cs = getComputedStyle(document.documentElement);
+                    GC.ink = gHexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
+                    GC.live = gHexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+                }
+                readGwColors();
+                window.addEventListener("kyde:theme", () => {
+                    readGwColors();
+                    if (gwReduced) gDraw(4000);
+                });
+
                 function ghash(n: number): number {
                     let t = (n + 0x6d2b79f5) | 0;
                     t = Math.imul(t ^ (t >>> 15), t | 1);
@@ -1106,8 +1147,8 @@ for (let lat = -80; lat <= 80; lat += 8) {
                             const flick = 0.4 + 0.6 * ghash(col + row + Math.floor(t / 240));
                             const a = (0.06 + r2 * 0.5) * band * flick;
                             gctx.fillStyle = r2 > 0.55
-                                ? `rgba(61,220,132,${a})`
-                                : `rgba(242,242,242,${a * 0.7})`;
+                                ? `rgba(${GC.live},${a})`
+                                : `rgba(${GC.ink},${a * 0.7})`;
                             gctx.fillRect(x, y, 1.5 + r2 * 2.5, 1.5);
                         }
                     }
@@ -1135,7 +1176,7 @@ for (let lat = -80; lat <= 80; lat += 8) {
 
         <!-- ══════════ 05 DESIGN PARTNERS ══════════ -->
         <section class="relative border-b border-white/10 overflow-hidden">
-            <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, rgba(242,242,242,0.07) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
+            <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 7%, transparent) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
@@ -1172,12 +1213,12 @@ for (let lat = -80; lat <= 80; lat += 8) {
             <div class="absolute -right-48 md:-right-24 top-1/2 -translate-y-1/2 w-[520px] md:w-[640px] pointer-events-none" aria-hidden="true">
                 <svg viewBox="0 0 640 640" class="w-full h-auto">
                     {sphereDots.map(({ x, y, a }) => (
-                        <circle cx={x} cy={y} r="1.5" fill={`rgba(242,242,242,${a})`} />
+                        <circle cx={x} cy={y} r="1.5" fill="var(--color-ink-0)" fill-opacity={a} />
                     ))}
-                    <circle cx="424" cy="238" r="2.5" fill="#F2F2F2" />
-                    <path d="M424 238 L500 200" stroke="rgba(242,242,242,0.3)" stroke-width="1" fill="none" />
-                    <text x="506" y="196" text-anchor="start" fill="rgba(242,242,242,0.45)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">gateway.kyde.com</text>
-                    <text x="506" y="212" text-anchor="start" fill="rgba(242,242,242,0.25)" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">52.52° N · 13.40° E</text>
+                    <circle cx="424" cy="238" r="2.5" fill="var(--color-ink-0)" />
+                    <path d="M424 238 L500 200" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" fill="none" />
+                    <text x="506" y="196" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">gateway.kyde.com</text>
+                    <text x="506" y="212" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.25" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">52.52° N · 13.40° E</text>
                 </svg>
             </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
