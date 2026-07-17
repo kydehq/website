@@ -195,7 +195,7 @@ import Footer from '../../components/Footer.astro';
 
 <style>
   .prose-kyde {
-    color: #A8A8A8;
+    color: var(--color-ink-1);
     font-size: 0.9375rem;
     line-height: 1.75;
     max-width: 68ch;
@@ -204,7 +204,7 @@ import Footer from '../../components/Footer.astro';
   }
   .prose-kyde p { margin-bottom: 1.25rem; }
   .prose-kyde h2 {
-    color: #F2F2F2;
+    color: var(--color-ink-0);
     font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -212,9 +212,9 @@ import Footer from '../../components/Footer.astro';
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(242,242,242,0.15);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
   }
-  .prose-kyde strong { color: #A8A8A8; font-weight: 600; }
-  .prose-kyde a { color: #FFB84D; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde a { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
   .prose-kyde a:hover { color: #fde68a; }
 </style>
