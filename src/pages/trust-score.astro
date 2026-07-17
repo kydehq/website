@@ -212,9 +212,9 @@ const dimensions: Dimension[] = [
             <p class="font-mono text-[10px] uppercase tracking-widest text-ink-2 mb-6">Coverage Report · Acme Corp</p>
             <div class="space-y-6">
               {[
-                { label: "Governed",    pct: 92, desc: "Observed, measured and cryptographically signed.",                                                                          color: "#3DDC84" },
-                { label: "Governable",  pct:  6, desc: "Known paths that have not yet been routed through the gateway.",                                                           color: "#FFB84D" },
-                { label: "Unobserved",  pct:  2, desc: "Provider-internal execution outside enterprise visibility, such as internal reasoning, delegated sub-agents or provider-native integrations.", color: "#aaa" },
+                { label: "Governed",    pct: 92, desc: "Observed, measured and cryptographically signed.",                                                                          color: "var(--color-live)" },
+                { label: "Governable",  pct:  6, desc: "Known paths that have not yet been routed through the gateway.",                                                           color: "var(--color-warn)" },
+                { label: "Unobserved",  pct:  2, desc: "Provider-internal execution outside enterprise visibility, such as internal reasoning, delegated sub-agents or provider-native integrations.", color: "var(--color-ink-2)" },
               ].map(({ label, pct, desc, color }) => (
                 <div>
                   <div class="flex items-center justify-between mb-1.5">
@@ -286,7 +286,7 @@ const dimensions: Dimension[] = [
             <svg viewBox="0 0 620 400" class="w-full max-w-lg h-auto" aria-hidden="true">
               <defs>
                 <pattern id="cube-dots" width="10" height="10" patternUnits="userSpaceOnUse">
-                  <circle cx="2" cy="2" r="1" fill="rgba(242,242,242,0.22)" />
+                  <circle cx="2" cy="2" r="1" fill="var(--color-ink-0)" fill-opacity="0.22" />
                 </pattern>
               </defs>
 
@@ -298,26 +298,26 @@ const dimensions: Dimension[] = [
                 { label: "BENCHMARK", y: 270 },
               ].map(({ label, y }) => (
                 <>
-                  <rect x="30" y={y - 13} width="108" height="26" fill="#1C1C1C" stroke="rgba(242,242,242,0.15)" stroke-width="1" />
-                  <text x="84" y={y + 4} text-anchor="middle" fill="rgba(242,242,242,0.65)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">{label}</text>
-                  <path d={`M138 ${y} L200 ${y} L240 ${180}`} fill="none" stroke="rgba(242,242,242,0.18)" stroke-width="1" stroke-dasharray="3 3" />
+                  <rect x="30" y={y - 13} width="108" height="26" fill="var(--color-bg-3)" stroke="var(--color-ink-0)" stroke-opacity="0.15" stroke-width="1" />
+                  <text x="84" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.65" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">{label}</text>
+                  <path d={`M138 ${y} L200 ${y} L240 ${180}`} fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="3 3" />
                 </>
               ))}
 
               <!-- isometric cube -->
-              <path class="draw" pathLength="1" d="M330 80 L420 125 L420 235 L330 280 L240 235 L240 125 Z" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
-              <path class="draw" pathLength="1" d="M240 125 L330 170 L420 125" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
-              <path class="draw" pathLength="1" d="M330 170 L330 280" fill="none" stroke="rgba(242,242,242,0.4)" stroke-width="1" />
+              <path class="draw" pathLength="1" d="M330 80 L420 125 L420 235 L330 280 L240 235 L240 125 Z" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.4" stroke-width="1" />
+              <path class="draw" pathLength="1" d="M240 125 L330 170 L420 125" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.4" stroke-width="1" />
+              <path class="draw" pathLength="1" d="M330 170 L330 280" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.4" stroke-width="1" />
               <path d="M330 80 L420 125 L330 170 L240 125 Z" fill="url(#cube-dots)" />
 
               <!-- output callout -->
-              <path d="M420 180 L490 180" fill="none" stroke="rgba(242,242,242,0.3)" stroke-width="1" />
-              <circle cx="420" cy="180" r="3" fill="#F2F2F2" />
-              <text x="498" y="172" text-anchor="start" fill="rgba(242,242,242,0.55)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.18em;">TRUST SCORE</text>
-              <text x="498" y="198" text-anchor="start" fill="#3DDC84" style="font-family:'JetBrains Mono Variable',monospace;font-size:24px;font-weight:700;">84</text>
+              <path d="M420 180 L490 180" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" />
+              <circle cx="420" cy="180" r="3" fill="var(--color-ink-0)" />
+              <text x="498" y="172" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.18em;">TRUST SCORE</text>
+              <text x="498" y="198" text-anchor="start" fill="var(--color-live)" style="font-family:'JetBrains Mono Variable',monospace;font-size:24px;font-weight:700;">84</text>
 
               <!-- coverage footnote -->
-              <text x="330" y="320" text-anchor="middle" fill="rgba(242,242,242,0.3)" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">COVERAGE 92%</text>
+              <text x="330" y="320" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">COVERAGE 92%</text>
             </svg>
           </div>
         </div>
