@@ -17,12 +17,32 @@ for (let lat = -80; lat <= 80; lat += 8) {
         });
     }
 }
+
+const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "KYDE",
+    url: "https://kyde.com",
+    logo: "https://kyde.com/kyde-logo.svg",
+    description: "KYDE is the behavioral firewall between AI agents and the real world: deterministic guardrails, a cryptographically signed audit trail, and a behavioral trust score for AI agents across every LLM provider.",
+};
+
+const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "KYDE",
+    url: "https://kyde.com",
+};
 ---
 
 <Base
     title="KYDE · Trust Infrastructure for the Agentic Economy"
     description="KYDE makes AI agents trustworthy enough to hand them real responsibility. It prevents what an agent must not do, proves what it did, and keeps your knowledge yours. The behavioral firewall for AI agents."
 >
+    <Fragment slot="head">
+        <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+        <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    </Fragment>
     <Navbar />
 
     <main>
