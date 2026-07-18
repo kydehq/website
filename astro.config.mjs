@@ -8,8 +8,9 @@ export default defineConfig({
   site: 'https://kyde.com',
   integrations: [
     sitemap({
-      // Ad-test landing pages (noindex) and the /sandbox redirect stub stay out
-      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox'),
+      // Ad-test landing pages (noindex), the /sandbox redirect stub, and
+      // password-gated investor decks (noindex) stay out
+      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides'),
     }),
   ],
   vite: {

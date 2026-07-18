@@ -243,12 +243,24 @@ const comingSoon = [
     { category: "Thought Leadership", title: "Your AI Agents Are Your Workforce. Courts Already Agree." },
     { category: "Thought Leadership", title: "From Deploy-and-Hope to Govern-by-Design" },
 ];
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
+        { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources" },
+    ],
+};
 ---
 
 <Base
     title="Resources, KYDE"
     description="Documentation, regulatory analysis, and technical guides for enterprises deploying AI agents in production."
 >
+    <Fragment slot="head">
+        <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    </Fragment>
     <Navbar />
 
     <main>
