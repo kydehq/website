@@ -12,6 +12,43 @@ const breadcrumbSchema = {
     { "@type": "ListItem", position: 3, name: "AI Agent Insurance", item: "https://kyde.com/ai-agent-insurance" },
   ],
 };
+
+const faqs = [
+  {
+    q: "Do I need AI agent insurance if I'm not yet in an EU-regulated high-risk vertical?",
+    a: "The EU AI Act's high-risk requirements (Dec 2, 2027) cover 10 Annex III verticals including HR, credit, insurance, critical infrastructure, and law enforcement. But the Product Liability Directive 2024 applies to all AI software across the EU regardless of vertical. If your agents can cause harm, financial, reputational, physical, the PLD's strict liability and rebuttable presumptions apply. The question is not whether you're exposed; it's whether you can produce the evidence to defend against claims.",
+  },
+  {
+    q: "What's the relationship between AIUC-1 certification and actual insurance coverage?",
+    a: "AIUC-1 certification is the precondition for coverage with Munich Re's aiSure platform, not a substitute for it. Certification tells the insurer what the system looked like at audit time. Coverage is the financial transfer of residual risk after certification. You need both. You also need the continuous behavioral monitoring layer to demonstrate that the certified controls were active between audits, which is what insurers will increasingly require as claims data accumulates.",
+  },
+  {
+    q: "What does DORA's 'independent audit trail' requirement actually mean technically?",
+    a: "DORA Article 30 requires that audit trails of third-party ICT provider interactions be stored independently of the provider, not on their infrastructure, not requiring their cooperation to access, not subject to their retention policies. For AI agents, every LLM API call is an ICT provider interaction. The audit trail must be stored in infrastructure the financial entity controls, signed with keys the financial entity holds, and accessible without the model provider's involvement. A log stored in OpenAI's console does not satisfy this requirement.",
+  },
+  {
+    q: "How does parametric AI agent insurance work in practice?",
+    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance and infrastructure like KYDE are architecturally linked. Without the monitoring layer, there's no reliable trigger signal.",
+  },
+  {
+    q: "What does the Moffatt v. Air Canada precedent mean for AI agent liability?",
+    a: "The tribunal held Air Canada liable for incorrect information its chatbot provided, explicitly rejecting the argument that the chatbot was a separate legal entity with distinct liability. The deploying organization is responsible for what its agents do. The precedent doesn't resolve what happens when the organization cannot reconstruct what the agent did, which is where the PLD's rebuttable presumptions become decisive. The inability to produce contrary evidence is not neutral; it creates a legal presumption against the defendant.",
+  },
+  {
+    q: "How quickly is the AI agent insurance market actually developing?",
+    a: "Faster than most people expect. Munich Re's aiSure had its first AIUC-1-backed policy in February 2026. HSB has operational AI Liability products. Lloyd's syndicates are actively writing coverage through specialist vehicles. The constraint is not carrier appetite, it's the actuarial data to price risk accurately. That data comes from behavioral monitoring infrastructure, which is why investment in monitoring directly expands available coverage and reduces premiums. The market will follow the evidence.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <Base
@@ -20,6 +57,7 @@ const breadcrumbSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
   <Navbar />
 
@@ -412,32 +450,7 @@ const breadcrumbSchema = {
                 <h2 class="text-xl md:text-2xl font-bold text-ink-0 uppercase tracking-wide">Frequently asked questions</h2>
               </div>
               <div class="space-y-3">
-                {[
-                  {
-                    q: "Do I need AI agent insurance if I'm not yet in an EU-regulated high-risk vertical?",
-                    a: "The EU AI Act's high-risk requirements (Dec 2, 2027) cover 10 Annex III verticals including HR, credit, insurance, critical infrastructure, and law enforcement. But the Product Liability Directive 2024 applies to all AI software across the EU regardless of vertical. If your agents can cause harm, financial, reputational, physical, the PLD's strict liability and rebuttable presumptions apply. The question is not whether you're exposed; it's whether you can produce the evidence to defend against claims.",
-                  },
-                  {
-                    q: "What's the relationship between AIUC-1 certification and actual insurance coverage?",
-                    a: "AIUC-1 certification is the precondition for coverage with Munich Re's aiSure platform, not a substitute for it. Certification tells the insurer what the system looked like at audit time. Coverage is the financial transfer of residual risk after certification. You need both. You also need the continuous behavioral monitoring layer to demonstrate that the certified controls were active between audits, which is what insurers will increasingly require as claims data accumulates.",
-                  },
-                  {
-                    q: "What does DORA's 'independent audit trail' requirement actually mean technically?",
-                    a: "DORA Article 30 requires that audit trails of third-party ICT provider interactions be stored independently of the provider, not on their infrastructure, not requiring their cooperation to access, not subject to their retention policies. For AI agents, every LLM API call is an ICT provider interaction. The audit trail must be stored in infrastructure the financial entity controls, signed with keys the financial entity holds, and accessible without the model provider's involvement. A log stored in OpenAI's console does not satisfy this requirement.",
-                  },
-                  {
-                    q: "How does parametric AI agent insurance work in practice?",
-                    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance and infrastructure like KYDE are architecturally linked. Without the monitoring layer, there's no reliable trigger signal.",
-                  },
-                  {
-                    q: "What does the Moffatt v. Air Canada precedent mean for AI agent liability?",
-                    a: "The tribunal held Air Canada liable for incorrect information its chatbot provided, explicitly rejecting the argument that the chatbot was a separate legal entity with distinct liability. The deploying organization is responsible for what its agents do. The precedent doesn't resolve what happens when the organization cannot reconstruct what the agent did, which is where the PLD's rebuttable presumptions become decisive. The inability to produce contrary evidence is not neutral; it creates a legal presumption against the defendant.",
-                  },
-                  {
-                    q: "How quickly is the AI agent insurance market actually developing?",
-                    a: "Faster than most people expect. Munich Re's aiSure had its first AIUC-1-backed policy in February 2026. HSB has operational AI Liability products. Lloyd's syndicates are actively writing coverage through specialist vehicles. The constraint is not carrier appetite, it's the actuarial data to price risk accurately. That data comes from behavioral monitoring infrastructure, which is why investment in monitoring directly expands available coverage and reduces premiums. The market will follow the evidence.",
-                  },
-                ].map(({ q, a }) => (
+                {faqs.map(({ q, a }) => (
                   <details class="group border border-line-0 bg-bg-1">
                     <summary class="flex items-start justify-between gap-4 p-5 cursor-pointer select-none list-none">
                       <span class="font-semibold text-sm text-ink-0 leading-snug">{q}</span>

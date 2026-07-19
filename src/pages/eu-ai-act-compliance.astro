@@ -12,6 +12,47 @@ const breadcrumbSchema = {
     { "@type": "ListItem", position: 3, name: "EU AI Act Compliance", item: "https://kyde.com/eu-ai-act-compliance" },
   ],
 };
+
+const faqs = [
+  {
+    q: "Does the EU AI Act apply to non-EU companies?",
+    a: "Yes. The AI Act applies to providers placing AI systems on the EU market and to deployers using AI systems in the EU, regardless of where those organizations are based. A US company deploying an AI agent for an EU-based employee or customer is subject to the regulation."
+  },
+  {
+    q: "Is an AI agent automatically High-Risk under Annex III?",
+    a: "Not automatically, but the use case determines classification, not the technology label. An AI agent performing HR screening, credit scoring, or insurance risk classification is Annex III even if it is marketed as a 'copilot' or 'assistant.' Classification must be assessed against the actual function the system performs, not its product category."
+  },
+  {
+    q: "Does my LLM provider's logging satisfy Article 12?",
+    a: "No. Provider-native logs (OpenAI usage logs, Anthropic audit console) are vendor reports, logs that live on the provider's infrastructure, signed by the provider's keys, and accessible only through the provider's interface. The EU AI Act requires the deployer to maintain an independent audit trail with tamper-evident integrity. Independence from the logged system is a structural requirement."
+  },
+  {
+    q: "What is the fine for non-compliance?",
+    a: "Violations related to High-Risk AI obligations can attract fines up to €15 million or 3% of global annual turnover (whichever is higher). For GPAI model violations, the ceiling is €30 million or 6% of turnover. Prohibited AI system violations reach €35 million or 7% of turnover."
+  },
+  {
+    q: "What is the difference between the EU AI Act and DORA for AI agents?",
+    a: "DORA (Digital Operational Resilience Act) applies to financial entities specifically and focuses on ICT risk management and resilience. The EU AI Act applies to AI systems broadly, across all regulated verticals. An AI agent deployed in a financial context must satisfy both: DORA Article 30 (ICT-related incident logs, two-year retention) and EU AI Act Articles 12 and 26. The requirements overlap but are not identical."
+  },
+  {
+    q: "Does the AI Act apply to open-source AI models?",
+    a: "Open-source models receive some exemptions under the GPAI provisions, but the deployer obligations under Annex III apply regardless of whether the underlying model is open or closed source. An enterprise running an open-source model (Llama, Mistral, etc.) for HR or credit decisions is still a deployer of a High-Risk AI system."
+  },
+  {
+    q: "What does 'tamper-evident' mean in practice?",
+    a: "A tamper-evident audit trail uses cryptographic signing at the point of capture, each log entry is signed with a private key, and entries are hash-chained so that any modification to any entry is detectable by verifying the chain. This is an architectural property, not a software feature. A database log that can be altered by a DBA with the right access credentials is not tamper-evident."
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <Base
@@ -20,6 +61,7 @@ const breadcrumbSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
   <Navbar />
 
@@ -280,36 +322,7 @@ const breadcrumbSchema = {
             <h2 id="faq">Frequently asked questions</h2>
 
             <div class="not-prose space-y-4">
-              {[
-                {
-                  q: "Does the EU AI Act apply to non-EU companies?",
-                  a: "Yes. The AI Act applies to providers placing AI systems on the EU market and to deployers using AI systems in the EU, regardless of where those organizations are based. A US company deploying an AI agent for an EU-based employee or customer is subject to the regulation."
-                },
-                {
-                  q: "Is an AI agent automatically High-Risk under Annex III?",
-                  a: "Not automatically, but the use case determines classification, not the technology label. An AI agent performing HR screening, credit scoring, or insurance risk classification is Annex III even if it is marketed as a 'copilot' or 'assistant.' Classification must be assessed against the actual function the system performs, not its product category."
-                },
-                {
-                  q: "Does my LLM provider's logging satisfy Article 12?",
-                  a: "No. Provider-native logs (OpenAI usage logs, Anthropic audit console) are vendor reports, logs that live on the provider's infrastructure, signed by the provider's keys, and accessible only through the provider's interface. The EU AI Act requires the deployer to maintain an independent audit trail with tamper-evident integrity. Independence from the logged system is a structural requirement."
-                },
-                {
-                  q: "What is the fine for non-compliance?",
-                  a: "Violations related to High-Risk AI obligations can attract fines up to €15 million or 3% of global annual turnover (whichever is higher). For GPAI model violations, the ceiling is €30 million or 6% of turnover. Prohibited AI system violations reach €35 million or 7% of turnover."
-                },
-                {
-                  q: "What is the difference between the EU AI Act and DORA for AI agents?",
-                  a: "DORA (Digital Operational Resilience Act) applies to financial entities specifically and focuses on ICT risk management and resilience. The EU AI Act applies to AI systems broadly, across all regulated verticals. An AI agent deployed in a financial context must satisfy both: DORA Article 30 (ICT-related incident logs, two-year retention) and EU AI Act Articles 12 and 26. The requirements overlap but are not identical."
-                },
-                {
-                  q: "Does the AI Act apply to open-source AI models?",
-                  a: "Open-source models receive some exemptions under the GPAI provisions, but the deployer obligations under Annex III apply regardless of whether the underlying model is open or closed source. An enterprise running an open-source model (Llama, Mistral, etc.) for HR or credit decisions is still a deployer of a High-Risk AI system."
-                },
-                {
-                  q: "What does 'tamper-evident' mean in practice?",
-                  a: "A tamper-evident audit trail uses cryptographic signing at the point of capture, each log entry is signed with a private key, and entries are hash-chained so that any modification to any entry is detectable by verifying the chain. This is an architectural property, not a software feature. A database log that can be altered by a DBA with the right access credentials is not tamper-evident."
-                },
-              ].map(({ q, a }) => (
+              {faqs.map(({ q, a }) => (
                 <details class="border border-line-0 bg-bg-1 group">
                   <summary class="px-6 py-4 text-sm font-semibold text-ink-0 cursor-pointer list-none flex items-center justify-between gap-4">
                     <span>{q}</span>
@@ -371,6 +384,18 @@ const breadcrumbSchema = {
                   title: "NIST and EU AI Act: Converging on the Same Requirements",
                   desc: "NIST AI RMF and the EU AI Act were developed independently. They are converging on identical requirements for traceable identity and tamper-evident records.",
                   href: "/blog/nist-critical-infrastructure-ai-convergence",
+                },
+                {
+                  label: "Compare",
+                  title: "Kyde vs Vanta: Program Compliance vs Runtime Proof",
+                  desc: "A GRC platform documents your EU AI Act program. Article 12 action logs require something in the runtime path. Why most regulated deployments need both layers.",
+                  href: "/compare/kyde-vs-vanta",
+                },
+                {
+                  label: "FAQ",
+                  title: "Questions Security and Compliance Teams Ask Before Deploying",
+                  desc: "Latency, data privacy, fail-open versus fail-closed, and how a governance gateway differs from a SIEM or API gateway.",
+                  href: "/faq",
                 },
               ].map(({ label, title, desc, href }) => (
                 <a href={href} class="group flex items-start gap-4 border border-line-0 bg-bg-1 p-5 hover:border-line-1 transition-colors">

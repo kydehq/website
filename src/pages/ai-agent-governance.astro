@@ -12,6 +12,43 @@ const breadcrumbSchema = {
     { "@type": "ListItem", position: 3, name: "AI Agent Governance", item: "https://kyde.com/ai-agent-governance" },
   ],
 };
+
+const faqs = [
+  {
+    q: "What is the difference between AI safety and AI governance?",
+    a: "AI safety is concerned with the properties of the model itself, whether it behaves predictably, avoids harmful outputs, and responds to instructions reliably. AI governance is concerned with what the deployed system is permitted to do, who authorized it, and whether that is provable. Safety is a property of the model. Governance is a property of the deployment. A perfectly safe model deployed without governance is still a compliance risk. A well-governed deployment of an imperfect model is controllable and auditable."
+  },
+  {
+    q: "Does AI governance require changes to existing agents?",
+    a: "No, at least, not for out-of-band governance infrastructure. A governance proxy that intercepts all AI inference traffic at the network layer requires no modifications to agents, frameworks, or application code. Configuration is typically a single environment variable change (pointing the agent's LLM calls to the governance proxy endpoint) or a network routing rule. The agent does not need to know the governance layer exists."
+  },
+  {
+    q: "Can't I just govern agents through the application layer, prompt templates, output validation, guardrails?",
+    a: "Application-layer controls are valuable safety measures. They are not governance infrastructure for several reasons: they can be bypassed through prompt injection or model updates; they produce no independent evidence of what the agent did; and they live in the same system as the agent, so they can be modified or disabled by anyone with application access. For regulatory purposes, the audit trail must be architecturally independent of the system being audited. Application-layer controls do not satisfy that requirement."
+  },
+  {
+    q: "What is a behavioral firewall for AI agents?",
+    a: "A behavioral firewall (the architecture KYDE implements) is a governance proxy that intercepts all AI inference calls between agent and provider. It enforces a behavioral policy, permitting requests that are within scope, blocking requests that violate scope, before they reach the LLM. It captures a tamper-evident record of every permitted and blocked action, signed at the moment of capture. It assigns cryptographic identity to each agent so every action is attributable. The term 'behavioral' distinguishes it from input/output security filters (which inspect content), a behavioral firewall governs what the agent is permitted to do, not just what it outputs."
+  },
+  {
+    q: "How does MCP (Model Context Protocol) affect AI agent governance?",
+    a: "MCP allows AI agents to connect directly to enterprise systems, databases, APIs, file systems, SaaS tools, through a standardized protocol. This dramatically expands the action surface of AI agents and removes the application layer that previously served as an implicit control point. Governance infrastructure must be MCP-aware: it needs to see and enforce policy on MCP tool calls, not just LLM inference calls. A governance layer that only monitors LLM traffic misses everything the agent does through MCP connections."
+  },
+  {
+    q: "Who in the enterprise owns AI agent governance?",
+    a: "Ownership is typically shared between CISO (security and risk), CCO/Legal (regulatory compliance and liability), and the AI/IT team (technical implementation). The regulatory driver, EU AI Act, DORA, GDPR, determines which function leads. In most regulated enterprises, the CISO or CCO initiates governance infrastructure procurement because the regulatory risk is their mandate. The AI team implements. This is why enterprise AI governance tools are evaluated and purchased by security and compliance functions, not by AI teams."
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <Base
@@ -20,6 +57,7 @@ const breadcrumbSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
   <Navbar />
 
@@ -236,32 +274,7 @@ const breadcrumbSchema = {
             <h2 id="faq">Frequently asked questions</h2>
 
             <div class="not-prose space-y-4">
-              {[
-                {
-                  q: "What is the difference between AI safety and AI governance?",
-                  a: "AI safety is concerned with the properties of the model itself, whether it behaves predictably, avoids harmful outputs, and responds to instructions reliably. AI governance is concerned with what the deployed system is permitted to do, who authorized it, and whether that is provable. Safety is a property of the model. Governance is a property of the deployment. A perfectly safe model deployed without governance is still a compliance risk. A well-governed deployment of an imperfect model is controllable and auditable."
-                },
-                {
-                  q: "Does AI governance require changes to existing agents?",
-                  a: "No, at least, not for out-of-band governance infrastructure. A governance proxy that intercepts all AI inference traffic at the network layer requires no modifications to agents, frameworks, or application code. Configuration is typically a single environment variable change (pointing the agent's LLM calls to the governance proxy endpoint) or a network routing rule. The agent does not need to know the governance layer exists."
-                },
-                {
-                  q: "Can't I just govern agents through the application layer, prompt templates, output validation, guardrails?",
-                  a: "Application-layer controls are valuable safety measures. They are not governance infrastructure for several reasons: they can be bypassed through prompt injection or model updates; they produce no independent evidence of what the agent did; and they live in the same system as the agent, so they can be modified or disabled by anyone with application access. For regulatory purposes, the audit trail must be architecturally independent of the system being audited. Application-layer controls do not satisfy that requirement."
-                },
-                {
-                  q: "What is a behavioral firewall for AI agents?",
-                  a: "A behavioral firewall (the architecture KYDE implements) is a governance proxy that intercepts all AI inference calls between agent and provider. It enforces a behavioral policy, permitting requests that are within scope, blocking requests that violate scope, before they reach the LLM. It captures a tamper-evident record of every permitted and blocked action, signed at the moment of capture. It assigns cryptographic identity to each agent so every action is attributable. The term 'behavioral' distinguishes it from input/output security filters (which inspect content), a behavioral firewall governs what the agent is permitted to do, not just what it outputs."
-                },
-                {
-                  q: "How does MCP (Model Context Protocol) affect AI agent governance?",
-                  a: "MCP allows AI agents to connect directly to enterprise systems, databases, APIs, file systems, SaaS tools, through a standardized protocol. This dramatically expands the action surface of AI agents and removes the application layer that previously served as an implicit control point. Governance infrastructure must be MCP-aware: it needs to see and enforce policy on MCP tool calls, not just LLM inference calls. A governance layer that only monitors LLM traffic misses everything the agent does through MCP connections."
-                },
-                {
-                  q: "Who in the enterprise owns AI agent governance?",
-                  a: "Ownership is typically shared between CISO (security and risk), CCO/Legal (regulatory compliance and liability), and the AI/IT team (technical implementation). The regulatory driver, EU AI Act, DORA, GDPR, determines which function leads. In most regulated enterprises, the CISO or CCO initiates governance infrastructure procurement because the regulatory risk is their mandate. The AI team implements. This is why enterprise AI governance tools are evaluated and purchased by security and compliance functions, not by AI teams."
-                },
-              ].map(({ q, a }) => (
+              {faqs.map(({ q, a }) => (
                 <details class="border border-line-0 bg-bg-1 group">
                   <summary class="px-6 py-4 text-sm font-semibold text-ink-0 cursor-pointer list-none flex items-center justify-between gap-4">
                     <span>{q}</span>
@@ -325,6 +338,24 @@ const breadcrumbSchema = {
                   title: "EU AI Act Compliance for AI Agents",
                   desc: "The regulatory obligations that make governance infrastructure mandatory, not optional.",
                   href: "/eu-ai-act-compliance",
+                },
+                {
+                  label: "Compare",
+                  title: "Kyde vs Zenity: Estate Connectors or One Boundary?",
+                  desc: "Per-platform agent security connectors versus one unavoidable network boundary. Where each approach reaches, and where it doesn't.",
+                  href: "/compare/kyde-vs-zenity",
+                },
+                {
+                  label: "Compare",
+                  title: "Kyde vs Noma Security: Platform Breadth vs Boundary Proof",
+                  desc: "An AI security lifecycle platform answers the threat question. Deterministic mandates with tamper-evident evidence answer the liability question.",
+                  href: "/compare/kyde-vs-noma-security",
+                },
+                {
+                  label: "Self-check",
+                  title: "Who Kyde Is For, and Who It Isn't",
+                  desc: "A two-minute self-qualification: which deployment situations the boundary approach fits, and which it doesn't.",
+                  href: "/who-its-for",
                 },
               ].map(({ label, title, desc, href }) => (
                 <a href={href} class="group flex items-start gap-4 border border-line-0 bg-bg-1 p-5 hover:border-line-1 transition-colors">
