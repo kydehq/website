@@ -52,3 +52,76 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  indexnow:
+    name: Notify IndexNow
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Submit changed URLs to IndexNow
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          HOST="kyde.com"
+          KEY="c7f6393c404c4ca78d0a4ea2428b6e6e"
+
+          # The live sitemap (fresh after the deploy job) is the source of
+          # truth for which URLs are public — noindex pages never appear in it.
+          SITEMAP_URLS=$(curl -sf "https://${HOST}/sitemap-0.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's|<loc>||g' -e 's|</loc>||g')
+          if [ -z "$SITEMAP_URLS" ]; then
+            echo "Could not read live sitemap, skipping IndexNow ping."
+            exit 0
+          fi
+
+          # Shared files affect every page; page files map 1:1 to URLs.
+          if [ -z "$BEFORE" ] || [[ "$BEFORE" =~ ^0+$ ]] || ! git cat-file -e "$BEFORE" 2>/dev/null; then
+            URLS="$SITEMAP_URLS"
+          else
+            CHANGED=$(git diff --name-only "$BEFORE" "$AFTER")
+            if echo "$CHANGED" | grep -qE '^(src/(layouts|components|styles)/|astro\.config\.mjs)'; then
+              URLS="$SITEMAP_URLS"
+            else
+              URLS=""
+              PAGES=$(echo "$CHANGED" | grep -E '^src/pages/.*\.astro$' | sed -e 's|^src/pages/||' -e 's|\.astro$||' || true)
+              while IFS= read -r p; do
+                [ -z "$p" ] && continue
+                if [ "$p" = "index" ]; then
+                  candidate="https://${HOST}/"
+                else
+                  candidate="https://${HOST}/${p%/index}/"
+                fi
+                if echo "$SITEMAP_URLS" | grep -qxF "$candidate"; then
+                  URLS+="$candidate"$'\n'
+                fi
+              done <<< "$PAGES"
+            fi
+          fi
+
+          URLS=$(echo "$URLS" | sed '/^$/d')
+          if [ -z "$URLS" ]; then
+            echo "No indexable URLs changed in this push, nothing to submit."
+            exit 0
+          fi
+
+          echo "Submitting $(echo "$URLS" | wc -l) URL(s) to IndexNow:"
+          echo "$URLS"
+
+          PAYLOAD=$(echo "$URLS" | jq -R . | jq -s --arg host "$HOST" --arg key "$KEY" \
+            '{host: $host, key: $key, keyLocation: "https://\($host)/\($key).txt", urlList: .}')
+
+          STATUS=$(curl -s -o /tmp/indexnow-response.txt -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$PAYLOAD")
+
+          echo "IndexNow responded with HTTP $STATUS"
+          cat /tmp/indexnow-response.txt || true
+          # An indexing ping must never fail the deploy; log and move on.
+          exit 0
