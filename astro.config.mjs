@@ -13,6 +13,14 @@ export default defineConfig({
       description: 'Documentation for the Kyde Gateway: quickstart, user manual, deployment, and reference.',
       // The marketing site owns the homepage and 404; Starlight only serves /docs/**
       disable404Route: true,
+      favicon: '/favicon.svg?v=2',
+      head: [
+        // Same full favicon set as Base.astro, same cache-busting version
+        { tag: 'link', attrs: { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=2' } },
+        { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png?v=2' } },
+        { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png?v=2' } },
+        { tag: 'link', attrs: { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png?v=2' } },
+      ],
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kydehq/gateway' }],
       customCss: ['./src/styles/starlight-kyde.css'],
       components: {
