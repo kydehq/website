@@ -1,0 +1,69 @@
+/* KYDE theming for Starlight (/docs).
+   Maps Starlight's design tokens onto the KYDE dark palette from
+   src/styles/global.css. The docs are dark-only. */
+
+/* Same self-hosted fonts as the marketing site (no third-party font CDN) */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+:root,
+:root[data-theme='dark'] {
+  /* Accents — gold is KYDE's text accent; links use warn like article prose */
+  --sl-color-accent-low: #2b2410;
+  --sl-color-accent: #fec106;
+  --sl-color-accent-high: #ffd75e;
+
+  /* Grayscale mapped to KYDE ink/bg ramp */
+  --sl-color-white: #f2f2f2;   /* ink-0 */
+  --sl-color-gray-1: #d9d9d9;
+  --sl-color-gray-2: #a8a8a8;  /* ink-1 */
+  --sl-color-gray-3: #6b6b6b;  /* ink-2 */
+  --sl-color-gray-4: #3d3d3d;  /* ink-3 */
+  --sl-color-gray-5: #2e2e2e;  /* line-1 */
+  --sl-color-gray-6: #1f1f1f;  /* line-0 */
+  --sl-color-black: #050505;   /* bg-0 */
+
+  --sl-color-bg: #050505;          /* page canvas = bg-0 */
+  --sl-color-bg-nav: #0c0c0c;      /* bg-1 */
+  --sl-color-bg-sidebar: #0c0c0c;  /* bg-1 */
+  --sl-color-bg-inline-code: #141414; /* bg-2 */
+  --sl-color-hairline-light: #2e2e2e;
+  --sl-color-hairline: #1f1f1f;
+  --sl-color-hairline-shade: #1f1f1f;
+
+  --sl-color-text: #a8a8a8;        /* ink-1 body text */
+  --sl-color-text-accent: #fec106;
+
+  --sl-font: 'Inter Variable', system-ui, sans-serif;
+  --sl-font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+}
+
+/* Headings in ink-0, like the marketing site */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  color: #f2f2f2;
+}
+
+/* Site title styled like the KYDE wordmark */
+.site-title {
+  font-family: var(--sl-font-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f2f2f2;
+}
+
+/* Sidebar current page: gold is a text accent in the KYDE system, never a fill */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+  background-color: #141414; /* bg-2 */
+  color: #fec106;
+}
+
+/* Square corners everywhere — KYDE uses no rounded UI */
+.sl-markdown-content :is(code, pre),
+.starlight-aside,
+.sl-link-card,
+article.card {
+  border-radius: 0;
+}

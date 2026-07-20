@@ -2,11 +2,33 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://kyde.com',
   integrations: [
+    starlight({
+      title: 'KYDE Docs',
+      description: 'Documentation for the Kyde Gateway: quickstart, user manual, deployment, and reference.',
+      // The marketing site owns the homepage and 404; Starlight only serves /docs/**
+      disable404Route: true,
+      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kydehq/gateway' }],
+      customCss: ['./src/styles/starlight-kyde.css'],
+      components: {
+        // Dark-only, matching the marketing site
+        ThemeProvider: './src/components/starlight/ThemeProviderDark.astro',
+        ThemeSelect: './src/components/starlight/ThemeSelectNone.astro',
+      },
+      sidebar: [
+        { label: 'Overview', slug: 'docs' },
+        { label: 'Quickstart', slug: 'docs/quickstart' },
+        { label: 'User Manual', slug: 'docs/user-manual' },
+        { label: 'Deployment', slug: 'docs/deployment' },
+        { label: 'Reference', slug: 'docs/reference' },
+        { label: 'kyde.com', link: 'https://kyde.com/' },
+      ],
+    }),
     sitemap({
       // Ad-test landing pages (noindex), the /sandbox redirect stub, and
       // password-gated investor decks (noindex) stay out

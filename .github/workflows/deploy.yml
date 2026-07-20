@@ -90,6 +90,8 @@ jobs:
             else
               URLS=""
               PAGES=$(echo "$CHANGED" | grep -E '^src/pages/.*\.astro$' | sed -e 's|^src/pages/||' -e 's|\.astro$||' || true)
+              DOCS=$(echo "$CHANGED" | grep -E '^src/content/docs/.*\.(md|mdx)$' | sed -e 's|^src/content/docs/||' -e 's|\.mdx\?$||' || true)
+              PAGES=$(printf '%s\n%s' "$PAGES" "$DOCS")
               while IFS= read -r p; do
                 [ -z "$p" ] && continue
                 if [ "$p" = "index" ]; then
