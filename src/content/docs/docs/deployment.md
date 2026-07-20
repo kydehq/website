@@ -223,7 +223,7 @@ The DLP pipeline runs as sidecars (`dlp-regex` always on, `dlp-bert`
 opt-in — see §1) and is fully wired into the stack — no deploy-time
 configuration is required. In production the regex pattern packs ship baked
 into the `dlp-regex` image and load automatically; in the dev posture the
-repo's [`dlp-patterns/`](../dlp-patterns) directory is mounted instead so
+repo's [`dlp-patterns/`](https://github.com/kydehq/gateway/tree/main/dlp-patterns) directory is mounted instead so
 patterns can be edited locally (see [§10.3](#103-dlp-patterns)).
 
 Alert review, allowlist management, the "Reapply allowlist" workflow,
@@ -1009,7 +1009,7 @@ Ports exposed on the host differ by posture:
 
 ### 10.2 Upstream routing — `config.yaml`
 
-The repo-root [`config.yaml`](../config.yaml) is mounted into both
+The repo-root [`config.yaml`](https://github.com/kydehq/gateway/blob/main/config.yaml) is mounted into both
 `kyde-gateway` and `kyde-api` at `/app/config.yaml`. Entries add new upstreams
 or override the built-in defaults (`openai`, `anthropic`, `gemini`,
 `copilot`). Adding an entry makes the name a valid path prefix immediately —
@@ -1034,7 +1034,7 @@ full format.
 
 The regex engine ships with five pattern packs baked into the `dlp-regex`
 image: `common_regex`, `gitleaks`, `google_dlp`, `owasp_crs`, `presidio`
-(sources in [`dlp-patterns/`](../dlp-patterns)). In production they load
+(sources in [`dlp-patterns/`](https://github.com/kydehq/gateway/tree/main/dlp-patterns)). In production they load
 from the image — to add or change patterns, deploy an updated `dlp-regex`
 image and bump `DLP_REGEX_VERSION` (§6.4). In the dev posture the local
 `dlp-patterns/` directory is mounted instead, so pattern edits apply on

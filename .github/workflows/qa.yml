@@ -29,6 +29,9 @@ jobs:
         with:
           name: dist
           path: dist/
+          # dist/docs/.htmlvalidate.json (scoped rules for Starlight's generated
+          # markup) is a dotfile; without this it never reaches the QA jobs
+          include-hidden-files: true
 
   links:
     name: Broken links
