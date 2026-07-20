@@ -1,6 +1,8 @@
 /* KYDE theming for Starlight (/docs).
    Maps Starlight's design tokens onto the KYDE dark palette from
-   src/styles/global.css. The docs are dark-only. */
+   src/styles/global.css. The docs are dark-only, and interactive
+   highlights follow the marketing site's footer logic: neutral
+   grays that turn white, never gold fills. */
 
 /* Same self-hosted fonts as the marketing site (no third-party font CDN) */
 @import '@fontsource-variable/inter';
@@ -8,10 +10,11 @@
 
 :root,
 :root[data-theme='dark'] {
-  /* Accents — gold is KYDE's text accent; links use warn like article prose */
-  --sl-color-accent-low: #2b2410;
-  --sl-color-accent: #fec106;
-  --sl-color-accent-high: #ffd75e;
+  /* Accents: neutral white ramp — gold is reserved for editorial text
+     accents on the marketing site, not for UI highlighting */
+  --sl-color-accent-low: #1c1c1c;  /* bg-3 */
+  --sl-color-accent: #f2f2f2;      /* ink-0 */
+  --sl-color-accent-high: #ffffff;
 
   /* Grayscale mapped to KYDE ink/bg ramp */
   --sl-color-white: #f2f2f2;   /* ink-0 */
@@ -32,7 +35,7 @@
   --sl-color-hairline-shade: #1f1f1f;
 
   --sl-color-text: #a8a8a8;        /* ink-1 body text */
-  --sl-color-text-accent: #fec106;
+  --sl-color-text-accent: #f2f2f2; /* current items: white, not gold */
 
   --sl-font: 'Inter Variable', system-ui, sans-serif;
   --sl-font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
@@ -43,22 +46,70 @@
   color: #f2f2f2;
 }
 
-/* Site title styled like the KYDE wordmark */
-.site-title {
-  font-family: var(--sl-font-mono);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* Content links: white with underline, brighten on hover (footer logic) */
+.sl-markdown-content a:not(:where(.not-content *)) {
   color: #f2f2f2;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #3d3d3d;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  color: #ffffff;
+  text-decoration-color: #f2f2f2;
 }
 
-/* Sidebar current page: gold is a text accent in the KYDE system, never a fill */
+/* Site title: KYDE logo → kyde.com, "Docs" → docs root */
+.kyde-title {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+.kyde-title-logo { display: inline-flex; align-items: center; }
+.kyde-title-logo img { height: 1.5rem; width: auto; }
+.kyde-title-sep {
+  color: #3d3d3d;
+  font-family: var(--sl-font-mono);
+  font-size: 0.875rem;
+}
+.kyde-title-docs {
+  font-family: var(--sl-font-mono);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a8a8a8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.kyde-title-docs:hover { color: #ffffff; }
+
+/* Sidebar: neutral hover/current, white text — never a gold fill */
 .sidebar-content a[aria-current='page'],
 .sidebar-content a[aria-current='page']:hover,
 .sidebar-content a[aria-current='page']:focus {
   background-color: #141414; /* bg-2 */
-  color: #fec106;
+  color: #f2f2f2;
+  font-weight: 600;
 }
+
+/* Asides: recessed KYDE panel, semantic color only as border + title accent,
+   never a colored fill */
+.starlight-aside {
+  border: 1px solid #1f1f1f;
+  border-left: 2px solid #3d3d3d;
+  background-color: #0c0c0c; /* bg-1 */
+  color: #a8a8a8;
+}
+.starlight-aside__title { color: #f2f2f2; }
+.starlight-aside--note    { border-left-color: #a8a8a8; }
+.starlight-aside--tip     { border-left-color: #3ddc84; }
+.starlight-aside--caution { border-left-color: #ffb84d; }
+.starlight-aside--danger  { border-left-color: #ff5c5c; }
+.starlight-aside--note    .starlight-aside__title { color: #a8a8a8; }
+.starlight-aside--tip     .starlight-aside__title { color: #3ddc84; }
+.starlight-aside--caution .starlight-aside__title { color: #ffb84d; }
+.starlight-aside--danger  .starlight-aside__title { color: #ff5c5c; }
 
 /* Square corners everywhere — KYDE uses no rounded UI */
 .sl-markdown-content :is(code, pre),

@@ -19,6 +19,8 @@ export default defineConfig({
         // Dark-only, matching the marketing site
         ThemeProvider: './src/components/starlight/ThemeProviderDark.astro',
         ThemeSelect: './src/components/starlight/ThemeSelectNone.astro',
+        // KYDE logo top-left, linking back to the marketing site
+        SiteTitle: './src/components/starlight/SiteTitleKyde.astro',
       },
       sidebar: [
         { label: 'Overview', slug: 'docs' },
@@ -26,7 +28,6 @@ export default defineConfig({
         { label: 'User Manual', slug: 'docs/user-manual' },
         { label: 'Deployment', slug: 'docs/deployment' },
         { label: 'Reference', slug: 'docs/reference' },
-        { label: 'kyde.com', link: 'https://kyde.com/' },
       ],
     }),
     sitemap({
