@@ -3,6 +3,27 @@ import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
+// FIG.7 · Zero-trust ring: six verification dimensions on a circle
+const ZT_CX = 280, ZT_CY = 280, ZT_R = 200;
+const ztDims = [
+    { label: "WHO",   sub: "identity"  },
+    { label: "WHAT",  sub: "action"    },
+    { label: "WHEN",  sub: "timestamp" },
+    { label: "WHERE", sub: "endpoint"  },
+    { label: "WHY",   sub: "context"   },
+    { label: "HOW",   sub: "method"    },
+].map((d, i) => {
+    const ang = ((-90 + i * 60) * Math.PI) / 180;
+    return {
+        ...d,
+        i,
+        x: ZT_CX + ZT_R * Math.cos(ang),
+        y: ZT_CY + ZT_R * Math.sin(ang),
+        lx: ZT_CX + (ZT_R + 42) * Math.cos(ang),
+        ly: ZT_CY + (ZT_R + 42) * Math.sin(ang),
+    };
+});
+
 // Orthographic dot-sphere for the closing ornament
 const SPHERE_R = 290;
 const sphereDots: { x: number; y: number; a: number }[] = [];
@@ -1040,6 +1061,208 @@ const websiteSchema = {
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ══════════ 03.4 ZERO TRUST ══════════ -->
+        <section id="zero-trust" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03.4 · Zero Trust</span>
+                    <span class="fig-label">FIG.7</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Never trust · always verify</p>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            <span class="text-white">Zero Trust,</span> <span class="text-white/40">Applied to Agents.</span>
+                        </h2>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Zero trust asked people to prove who they are. Agents have to prove more. Before an action executes, the gateway verifies it across six dimensions, and signs the verdict into the ledger. Trust is never assumed. It is earned, per action.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Six dimensions per action: who, what, when, where, why, how",
+                                "Deny by default: an unverified dimension blocks execution",
+                                "Every verdict lands in the tamper-evident ledger, allowed or not",
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">4.{i + 1}</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                            See how enforcement works →
+                        </a>
+                    </div>
+                    <div>
+                        <div class="relative flex items-center justify-center min-h-[380px]">
+                            <svg id="zt-fig" viewBox="0 0 560 560" class="w-full max-w-lg h-auto" aria-hidden="true">
+                                <!-- verdict pulse from the center -->
+                                <circle id="zt-pulse" cx="280" cy="280" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" />
+
+                                <!-- outer ring + inner dashed ring -->
+                                <circle cx="280" cy="280" r="200" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <circle cx="280" cy="280" r="92" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1" stroke-dasharray="2 7" />
+
+                                <!-- verification sweep -->
+                                <path id="zt-arc" d="" fill="none" stroke="var(--color-live)" stroke-width="1.5" opacity="0" />
+
+                                <!-- center -->
+                                <text x="280" y="268" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:14px;letter-spacing:0.22em;">ZERO TRUST</text>
+                                <text id="zt-status" x="280" y="292" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.18em;">VERIFYING</text>
+                                <text id="zt-req" x="280" y="312" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">req #a4d2</text>
+
+                                <!-- six dimension nodes -->
+                                {ztDims.map(({ i, x, y, lx, ly, label, sub }) => (
+                                    <>
+                                        <rect id={`zt-node-${i}`} x={x - 3.5} y={y - 3.5} width="7" height="7" fill="var(--color-ink-0)" fill-opacity="0.5" />
+                                        <text id={`zt-label-${i}`} x={lx} y={ly} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">{label}</text>
+                                        <text x={lx} y={ly + 15} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8.5px;letter-spacing:0.12em;">{sub}</text>
+                                    </>
+                                ))}
+                            </svg>
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.7 · Six checks per action, deny by default. An unverified dimension blocks the request before the upstream ever sees it.
+                        </p>
+                    </div>
+                </div>
+
+                <script>
+                    // FIG.7 · the zero-trust ring. Each request sweeps clockwise
+                    // through the six dimensions; every dimension verified turns
+                    // live. Roughly every fourth request fails at WHERE and is
+                    // blocked before execution: deny by default, on stage.
+                    const ztReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    const ztFig = document.getElementById("zt-fig");
+
+                    if (ztFig) {
+                        const $zt = (id: string) => document.getElementById(id)!;
+                        const ztNodes = [0, 1, 2, 3, 4, 5].map((i) => $zt(`zt-node-${i}`));
+                        const ztLabels = [0, 1, 2, 3, 4, 5].map((i) => $zt(`zt-label-${i}`));
+                        const ztArc = $zt("zt-arc");
+                        const ztStatus = $zt("zt-status");
+                        const ztReq = $zt("zt-req");
+                        const ztPulse = $zt("zt-pulse");
+
+                        const CX = 280, CY = 280, R = 200;
+                        const LIVE = "var(--color-live)";
+                        const ALERT = "var(--color-alert)";
+                        const INK = "var(--color-ink-0)";
+
+                        const setVerified = (i: number, ok: boolean) => {
+                            ztNodes[i].setAttribute("fill", ok ? LIVE : ALERT);
+                            ztNodes[i].setAttribute("fill-opacity", "1");
+                            ztLabels[i].setAttribute("fill", ok ? LIVE : ALERT);
+                            ztLabels[i].setAttribute("fill-opacity", "1");
+                        };
+                        const resetNodes = () => {
+                            for (let i = 0; i < 6; i++) {
+                                ztNodes[i].setAttribute("fill", INK);
+                                ztNodes[i].setAttribute("fill-opacity", "0.5");
+                                ztLabels[i].setAttribute("fill", INK);
+                                ztLabels[i].setAttribute("fill-opacity", "0.55");
+                            }
+                        };
+
+                        if (ztReduced) {
+                            // static final frame: everything verified
+                            for (let i = 0; i < 6; i++) setVerified(i, true);
+                            ztStatus.textContent = "VERIFIED · SIGNED";
+                            ztStatus.setAttribute("fill", LIVE);
+                            ztStatus.setAttribute("fill-opacity", "1");
+                        } else {
+                            const pt = (deg: number) => ({
+                                x: CX + R * Math.cos((deg * Math.PI) / 180),
+                                y: CY + R * Math.sin((deg * Math.PI) / 180),
+                            });
+                            const arcPath = (fromDeg: number, toDeg: number) => {
+                                const a = pt(fromDeg), b = pt(toDeg);
+                                const large = toDeg - fromDeg > 180 ? 1 : 0;
+                                return `M${a.x} ${a.y} A${R} ${R} 0 ${large} 1 ${b.x} ${b.y}`;
+                            };
+                            const newReq = () =>
+                                `req #${Array.from({ length: 4 }, () => "0123456789abcdef"[(Math.random() * 16) | 0]).join("")}`;
+
+                            const STEP_DUR = 520;   // per dimension
+                            const HOLD_DUR = 2100;  // verdict on screen
+                            const IDLE_DUR = 700;   // between requests
+
+                            let cycle = 0;
+                            let phase: "idle" | "verify" | "hold" = "idle";
+                            let phaseStart = performance.now();
+                            let blockedRun = false;
+
+                            let visible = true;
+                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ztFig);
+
+                            function ztFrame(t: number) {
+                                if (visible) {
+                                    const el = t - phaseStart;
+
+                                    if (phase === "idle" && el >= IDLE_DUR) {
+                                        phase = "verify";
+                                        phaseStart = t;
+                                        blockedRun = cycle % 4 === 3;
+                                        resetNodes();
+                                        ztReq.textContent = newReq();
+                                        ztStatus.textContent = "VERIFYING";
+                                        ztStatus.setAttribute("fill", INK);
+                                        ztStatus.setAttribute("fill-opacity", "0.6");
+                                        ztArc.setAttribute("stroke", LIVE);
+                                        ztArc.setAttribute("opacity", "0.7");
+                                    } else if (phase === "verify") {
+                                        const failAt = blockedRun ? 3 : 6;
+                                        const p = Math.min(el / (STEP_DUR * 6), 1);
+                                        const sweepDeg = -90 + 360 * p;
+                                        ztArc.setAttribute("d", arcPath(-90, sweepDeg));
+
+                                        const reached = Math.floor(el / STEP_DUR);
+                                        for (let i = 0; i <= Math.min(reached, 5); i++) {
+                                            if (i < failAt) setVerified(i, true);
+                                        }
+
+                                        if (blockedRun && reached >= failAt) {
+                                            setVerified(failAt, false);
+                                            ztArc.setAttribute("stroke", ALERT);
+                                            ztStatus.textContent = "BLOCKED · 403";
+                                            ztStatus.setAttribute("fill", ALERT);
+                                            ztStatus.setAttribute("fill-opacity", "1");
+                                            ztPulse.setAttribute("stroke", ALERT);
+                                            phase = "hold";
+                                            phaseStart = t;
+                                        } else if (!blockedRun && p >= 1) {
+                                            ztStatus.textContent = "VERIFIED · SIGNED";
+                                            ztStatus.setAttribute("fill", LIVE);
+                                            ztStatus.setAttribute("fill-opacity", "1");
+                                            ztPulse.setAttribute("stroke", LIVE);
+                                            phase = "hold";
+                                            phaseStart = t;
+                                        }
+                                    } else if (phase === "hold") {
+                                        const pp = el / 1600;
+                                        if (pp <= 1) {
+                                            ztPulse.setAttribute("r", String(12 + pp * 170));
+                                            ztPulse.setAttribute("opacity", String((1 - pp) * 0.5));
+                                        } else {
+                                            ztPulse.setAttribute("opacity", "0");
+                                        }
+                                        if (el >= HOLD_DUR) {
+                                            phase = "idle";
+                                            phaseStart = t;
+                                            cycle++;
+                                            ztArc.setAttribute("opacity", "0");
+                                        }
+                                    }
+                                }
+                                requestAnimationFrame(ztFrame);
+                            }
+                            requestAnimationFrame(ztFrame);
+                        }
+                    }
+                </script>
             </div>
         </section>
 
