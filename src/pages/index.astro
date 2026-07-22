@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-// FIG.7 · Zero-trust ring: six verification dimensions on a circle
+// FIG.3 · Zero-trust ring: six verification dimensions on a circle
 const ZT_CX = 280, ZT_CY = 280, ZT_R = 200;
 const ztDims = [
     { label: "WHO",   sub: "identity"  },
@@ -695,381 +695,12 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ 03 PREVENT · PROVE · RATE ══════════ -->
-        <section class="relative border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Prevent · Prove · Rate</span>
-                    <span class="fig-label">FIG.3</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Nobody hands real responsibility</span> <span class="text-white/40">to an agent nobody can trust.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            No one gives an agent access to payments, customer data, or production systems until someone can control, prove, and rate what it does. That’s what these three layers unlock: deployed in minutes, covering every agent from day one.
-                        </p>
-                        <ul class="mt-10 space-y-3 font-mono text-xs uppercase tracking-[0.15em]">
-                            <li><a href="#prevent" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">03.1</span>Prevent · before the damage</a></li>
-                            <li><a href="#prove" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">03.2</span>Prove · after the action</a></li>
-                            <li><a href="#rate" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">03.3</span>Rate · across the network</a></li>
-                        </ul>
-                    </div>
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="vpr-fig" viewBox="-45 5 610 545" class="w-full max-w-lg h-auto" aria-hidden="true">
-                            <defs>
-                                <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
-                                    <circle cx="2" cy="2" r="1.1" fill="var(--color-ink-0)" fill-opacity="0.3" />
-                                </pattern>
-                            </defs>
-
-                            <!-- tick pulse from the center -->
-                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="var(--color-gold)" stroke-width="1" opacity="0" />
-
-                            <!-- outer cycle -->
-                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1" />
-
-                            <!-- direction arrows on the edges -->
-                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(355,235) rotate(60.6)" />
-                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(260,390) rotate(180)" />
-                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(165,235) rotate(-60.6)" />
-
-                            <!-- inner dot-grid triangle -->
-                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
-
-                            <!-- vertex nodes + labels -->
-                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="var(--color-ink-0)" />
-                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
-
-                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
-                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
-
-                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
-                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
-                        </svg>
-                    </div>
-                </div>
-
-                <script>
-                        // FIG.3 · the cycle ticks. The triangle is rigid; every
-                        // ~10s it rotates one step like a slow clock, and a
-                        // pulse breathes out of the center as it moves.
-                        const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                        const fig = document.getElementById("vpr-fig");
-
-                        if (fig && !vprReduced) {
-                            const $ = (id: string) => document.getElementById(id)!;
-                            const outer = $("vpr-outer");
-                            const inner = $("vpr-inner");
-                            const center = $("vpr-center");
-                            const pulse = $("vpr-pulse");
-                            const nodes = [0, 1, 2].map((i) => $(`vpr-node-${i}`));
-                            const labels = [0, 1, 2].map((i) => $(`vpr-label-${i}`));
-                            const arrows = [0, 1, 2].map((i) => $(`vpr-arrow-${i}`));
-
-                            const anchors = [
-                                { x: 260, y: 70 },
-                                { x: 440, y: 390 },
-                                { x: 80, y: 390 },
-                            ];
-                            const C = {
-                                x: (anchors[0].x + anchors[1].x + anchors[2].x) / 3,
-                                y: (anchors[0].y + anchors[1].y + anchors[2].y) / 3,
-                            };
-                            const base = anchors.map((a) => ({
-                                r: Math.hypot(a.x - C.x, a.y - C.y),
-                                ang: Math.atan2(a.y - C.y, a.x - C.x),
-                            }));
-
-                            const TICK_EVERY = 4000;  // ms between ticks
-                            const TICK_DUR = 1100;    // rotation ease duration
-                            const PULSE_DUR = 1800;   // center pulse duration
-                            const STEP = Math.PI / 6; // 30° per tick, like minute marks
-
-                            let angleFrom = 0, angleTo = 0, angle = 0;
-                            let tickStart = -1e9;
-                            let nextTick = performance.now() + 2500;
-
-                            const easeInOut = (x: number) =>
-                                x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-
-                            let visible = true;
-                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
-
-                            center.setAttribute("x", String(C.x));
-                            center.setAttribute("y", String(C.y + 4));
-                            pulse.setAttribute("cx", String(C.x));
-                            pulse.setAttribute("cy", String(C.y));
-
-                            function frame(t: number) {
-                                if (visible) {
-                                    if (t >= nextTick) {
-                                        angleFrom = angleTo;
-                                        angleTo += STEP;
-                                        tickStart = t;
-                                        nextTick = t + TICK_EVERY;
-                                    }
-
-                                    const rp = Math.min((t - tickStart) / TICK_DUR, 1);
-                                    angle = angleFrom + (angleTo - angleFrom) * easeInOut(rp);
-
-                                    // pulse breathing out of the center during the tick
-                                    const pp = (t - tickStart) / PULSE_DUR;
-                                    if (pp >= 0 && pp <= 1) {
-                                        pulse.setAttribute("r", String(16 + pp * 150));
-                                        pulse.setAttribute("opacity", String((1 - pp) * 0.55));
-                                    } else {
-                                        pulse.setAttribute("opacity", "0");
-                                    }
-                                    const breath = pp >= 0 && pp <= 1 ? Math.sin(pp * Math.PI) * 0.05 : 0;
-
-                                    const v = base.map((b) => ({
-                                        x: C.x + b.r * Math.cos(b.ang + angle),
-                                        y: C.y + b.r * Math.sin(b.ang + angle),
-                                    }));
-
-                                    outer.setAttribute("d", `M${v[0].x} ${v[0].y} L${v[1].x} ${v[1].y} L${v[2].x} ${v[2].y} Z`);
-
-                                    const s = 0.52 + breath;
-                                    const inV = v.map((p) => ({ x: C.x + (p.x - C.x) * s, y: C.y + (p.y - C.y) * s }));
-                                    inner.setAttribute("d", `M${inV[0].x} ${inV[0].y} L${inV[1].x} ${inV[1].y} L${inV[2].x} ${inV[2].y} Z`);
-
-                                    for (let i = 0; i < 3; i++) {
-                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
-                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
-
-                                        // labels sit outward from the center, always upright
-                                        const dx = v[i].x - C.x, dy = v[i].y - C.y;
-                                        const d = Math.hypot(dx, dy);
-                                        labels[i].setAttribute("x", String(v[i].x + (dx / d) * 30));
-                                        labels[i].setAttribute("y", String(v[i].y + (dy / d) * 30 + 4));
-
-                                        const a = v[i], b = v[(i + 1) % 3];
-                                        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
-                                        const ang = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
-                                        arrows[i].setAttribute("transform", `translate(${mx},${my}) rotate(${ang})`);
-                                    }
-                                }
-                                requestAnimationFrame(frame);
-                            }
-                            requestAnimationFrame(frame);
-                        }
-                    </script>
-            </div>
-        </section>
-
-        <!-- ══════════ 03.1 PREVENT ══════════ -->
-        <section id="prevent" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03.1 · Prevent</span>
-                    <span class="fig-label">FIG.4</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div class="flex flex-col">
-                        <div class="border border-white/10 bg-white/[0.02]">
-                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Gateway · DLP Intercept</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-live animate-pulse"></span>Live
-                                </span>
-                            </div>
-                            <div class="p-5 font-mono text-xs space-y-4">
-                                <div>
-                                    <p class="text-white/25 mb-1.5">// incoming · agent:support-02 → openai/gpt-4o</p>
-                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-alert/15 text-alert px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-alert/15 text-alert px-1">€1.2M</span> …"</p>
-                                </div>
-                                <div class="border-t border-white/8 pt-4">
-                                    <p class="text-white/25 mb-1.5">// decision · policy:dlp-standard · 12ms</p>
-                                    <p class="text-warn mb-2">⚠ PII detected, 2 entities · role:auditor → mask</p>
-                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
-                                </div>
-                                <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
-                                    <span class="text-live">&#10003; Forwarded · masked by role</span>
-                                    <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.4 · PII detected. Email masked. Context redacted by role · before the auditor could see it.
-                        </p>
-                    </div>
-                    <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Before the damage</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            Prevent What Must<br />Not Happen.
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Deterministic guardrails on a probabilistic technology. Deny-by-default at the boundary: the damage doesn’t happen first and gets explained later. It never happens.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Block out-of-scope requests in real time",
-                                "Attribute every action to a verified agent identity",
-                                "PII detected and masked by role, in prompts and completions, before delivery",
-                                "Works with every provider: OpenAI, Anthropic, Google, local models",
-                                "See and stop knowledge egress to model providers, before it becomes their training data",
-                            ].map((item, i) => (
-                                <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">1.{i + 1}</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ 03.2 PROVE ══════════ -->
-        <section id="prove" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03.2 · Prove</span>
-                    <span class="fig-label">FIG.5</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">After the action</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Prove What Happened.</span><br /><span class="text-white/40">The Suspect Can't Write<br />the Police Report.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent, Ed25519-signed, hash-chained, captured before the action reaches any provider.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Architecturally independent of every LLM provider, captured before it reaches them",
-                                "Every entry Ed25519-signed and hash-chained: tamper with one, every subsequent link breaks",
-                                "Undeletable by any agent, including the one being investigated",
-                                "Compliance reports generated automatically",
-                            ].map((item, i) => (
-                                <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">2.{i + 1}</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <div class="border border-white/10 bg-white/[0.02]">
-                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Ledger · Signed Action Log</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-live"></span>Chain intact
-                                </span>
-                            </div>
-                            <div class="p-5 font-mono text-xs space-y-3">
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4cf · agent:etl-worker · db.write → allowed</span>
-                                    <span class="text-white/25 shrink-0">prev #a4ce · <span class="text-live">&#10003;</span></span>
-                                </div>
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4d0 · agent:hr-11 · mail.send → <span class="text-alert">blocked</span></span>
-                                    <span class="text-white/25 shrink-0">prev #a4cf · <span class="text-live">&#10003;</span></span>
-                                </div>
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4d1 · agent:support-02 · dlp.mask → forwarded</span>
-                                    <span class="text-white/25 shrink-0">prev #a4d0 · <span class="text-live">&#10003;</span></span>
-                                </div>
-                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
-                                    ed25519-signed · sha-256 hash chain · captured at the boundary, before any provider
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.5 · Every action becomes a signed ledger entry. #a4d1 references #a4d0: history can't be rewritten, only extended.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ 03.3 RATE ══════════ -->
-        <section id="rate" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03.3 · Rate</span>
-                    <span class="fig-label">FIG.6</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div class="flex flex-col justify-center">
-                        <div class="border border-white/10 bg-white/[0.02]">
-                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Trust Score™ · Cross-Provider</span>
-                                <span class="font-mono text-[9px] uppercase tracking-widest text-white/40">One scale</span>
-                            </div>
-                            <div class="p-5 font-mono text-xs space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">agent:support-02 <span class="text-white/25">· openai</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:87%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">87</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">etl-worker <span class="text-white/25">· anthropic</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:91%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">91</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">agent:proc-7 <span class="text-white/25">· google</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:74%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">74</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">mail-drafter <span class="text-white/25">· local/vllm</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:82%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">82</span>
-                                </div>
-                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
-                                    computed from the signed ledger · normalized across comparison classes
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.6 · Four agents, four providers, one currency. Rated on behavior, not vendor claims.
-                        </p>
-                    </div>
-                    <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Across the network</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Rate Every Agent.</span><br /><span class="text-white/40">In One Currency,<br />Across Every Provider.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            The KYDE Trust Score™: agent behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. Trust that can be measured can be priced. And insured.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "One scale for OpenAI, Anthropic, Google, and local models",
-                                "Computed from the signed ledger: evidence, not vendor telemetry",
-                                "The underwriting signal insurers can price",
-                            ].map((item, i) => (
-                                <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">3.{i + 1}</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="/trust-score" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                                Explore the Trust Score →
-                            </a>
-                            <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                                See full platform →
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ 03.4 ZERO TRUST ══════════ -->
+        <!-- ══════════ 03 ZERO TRUST ══════════ -->
         <section id="zero-trust" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03.4 · Zero Trust</span>
-                    <span class="fig-label">FIG.7</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Zero Trust</span>
+                    <span class="fig-label">FIG.3</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div>
@@ -1087,7 +718,7 @@ const websiteSchema = {
                                 "Every verdict lands in the tamper-evident ledger, allowed or not",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">4.{i + 1}</span>
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">3.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -1130,13 +761,13 @@ const websiteSchema = {
                             </svg>
                         </div>
                         <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.7 · Six checks per action, deny by default. An unverified dimension blocks the request before the upstream ever sees it.
+                            FIG.3 · Six checks per action, deny by default. An unverified dimension blocks the request before the upstream ever sees it.
                         </p>
                     </div>
                 </div>
 
                 <script>
-                    // FIG.7 · the zero-trust ring. Each request sweeps clockwise
+                    // FIG.3 · the zero-trust ring. Each request sweeps clockwise
                     // through the six dimensions; every dimension verified turns
                     // live. Roughly every fourth request fails at WHERE and is
                     // blocked before execution: deny by default, on stage.
@@ -1271,12 +902,381 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ 04 WHY NOW ══════════ -->
+        <!-- ══════════ 04 PREVENT · PROVE · RATE ══════════ -->
+        <section class="relative border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Prevent · Prove · Rate</span>
+                    <span class="fig-label">FIG.4</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            <span class="text-white">Nobody hands real responsibility</span> <span class="text-white/40">to an agent nobody can trust.</span>
+                        </h2>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            No one gives an agent access to payments, customer data, or production systems until someone can control, prove, and rate what it does. That’s what these three layers unlock: deployed in minutes, covering every agent from day one.
+                        </p>
+                        <ul class="mt-10 space-y-3 font-mono text-xs uppercase tracking-[0.15em]">
+                            <li><a href="#prevent" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">04.1</span>Prevent · before the damage</a></li>
+                            <li><a href="#prove" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">04.2</span>Prove · after the action</a></li>
+                            <li><a href="#rate" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">04.3</span>Rate · across the network</a></li>
+                        </ul>
+                    </div>
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="vpr-fig" viewBox="-45 5 610 545" class="w-full max-w-lg h-auto" aria-hidden="true">
+                            <defs>
+                                <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
+                                    <circle cx="2" cy="2" r="1.1" fill="var(--color-ink-0)" fill-opacity="0.3" />
+                                </pattern>
+                            </defs>
+
+                            <!-- tick pulse from the center -->
+                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="var(--color-gold)" stroke-width="1" opacity="0" />
+
+                            <!-- outer cycle -->
+                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1" />
+
+                            <!-- direction arrows on the edges -->
+                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(355,235) rotate(60.6)" />
+                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(260,390) rotate(180)" />
+                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(165,235) rotate(-60.6)" />
+
+                            <!-- inner dot-grid triangle -->
+                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
+
+                            <!-- vertex nodes + labels -->
+                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="var(--color-ink-0)" />
+                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
+
+                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
+                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
+
+                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
+                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <script>
+                        // FIG.4 · the cycle ticks. The triangle is rigid; every
+                        // ~10s it rotates one step like a slow clock, and a
+                        // pulse breathes out of the center as it moves.
+                        const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const fig = document.getElementById("vpr-fig");
+
+                        if (fig && !vprReduced) {
+                            const $ = (id: string) => document.getElementById(id)!;
+                            const outer = $("vpr-outer");
+                            const inner = $("vpr-inner");
+                            const center = $("vpr-center");
+                            const pulse = $("vpr-pulse");
+                            const nodes = [0, 1, 2].map((i) => $(`vpr-node-${i}`));
+                            const labels = [0, 1, 2].map((i) => $(`vpr-label-${i}`));
+                            const arrows = [0, 1, 2].map((i) => $(`vpr-arrow-${i}`));
+
+                            const anchors = [
+                                { x: 260, y: 70 },
+                                { x: 440, y: 390 },
+                                { x: 80, y: 390 },
+                            ];
+                            const C = {
+                                x: (anchors[0].x + anchors[1].x + anchors[2].x) / 3,
+                                y: (anchors[0].y + anchors[1].y + anchors[2].y) / 3,
+                            };
+                            const base = anchors.map((a) => ({
+                                r: Math.hypot(a.x - C.x, a.y - C.y),
+                                ang: Math.atan2(a.y - C.y, a.x - C.x),
+                            }));
+
+                            const TICK_EVERY = 4000;  // ms between ticks
+                            const TICK_DUR = 1100;    // rotation ease duration
+                            const PULSE_DUR = 1800;   // center pulse duration
+                            const STEP = Math.PI / 6; // 30° per tick, like minute marks
+
+                            let angleFrom = 0, angleTo = 0, angle = 0;
+                            let tickStart = -1e9;
+                            let nextTick = performance.now() + 2500;
+
+                            const easeInOut = (x: number) =>
+                                x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+
+                            let visible = true;
+                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
+
+                            center.setAttribute("x", String(C.x));
+                            center.setAttribute("y", String(C.y + 4));
+                            pulse.setAttribute("cx", String(C.x));
+                            pulse.setAttribute("cy", String(C.y));
+
+                            function frame(t: number) {
+                                if (visible) {
+                                    if (t >= nextTick) {
+                                        angleFrom = angleTo;
+                                        angleTo += STEP;
+                                        tickStart = t;
+                                        nextTick = t + TICK_EVERY;
+                                    }
+
+                                    const rp = Math.min((t - tickStart) / TICK_DUR, 1);
+                                    angle = angleFrom + (angleTo - angleFrom) * easeInOut(rp);
+
+                                    // pulse breathing out of the center during the tick
+                                    const pp = (t - tickStart) / PULSE_DUR;
+                                    if (pp >= 0 && pp <= 1) {
+                                        pulse.setAttribute("r", String(16 + pp * 150));
+                                        pulse.setAttribute("opacity", String((1 - pp) * 0.55));
+                                    } else {
+                                        pulse.setAttribute("opacity", "0");
+                                    }
+                                    const breath = pp >= 0 && pp <= 1 ? Math.sin(pp * Math.PI) * 0.05 : 0;
+
+                                    const v = base.map((b) => ({
+                                        x: C.x + b.r * Math.cos(b.ang + angle),
+                                        y: C.y + b.r * Math.sin(b.ang + angle),
+                                    }));
+
+                                    outer.setAttribute("d", `M${v[0].x} ${v[0].y} L${v[1].x} ${v[1].y} L${v[2].x} ${v[2].y} Z`);
+
+                                    const s = 0.52 + breath;
+                                    const inV = v.map((p) => ({ x: C.x + (p.x - C.x) * s, y: C.y + (p.y - C.y) * s }));
+                                    inner.setAttribute("d", `M${inV[0].x} ${inV[0].y} L${inV[1].x} ${inV[1].y} L${inV[2].x} ${inV[2].y} Z`);
+
+                                    for (let i = 0; i < 3; i++) {
+                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
+                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
+
+                                        // labels sit outward from the center, always upright
+                                        const dx = v[i].x - C.x, dy = v[i].y - C.y;
+                                        const d = Math.hypot(dx, dy);
+                                        labels[i].setAttribute("x", String(v[i].x + (dx / d) * 30));
+                                        labels[i].setAttribute("y", String(v[i].y + (dy / d) * 30 + 4));
+
+                                        const a = v[i], b = v[(i + 1) % 3];
+                                        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+                                        const ang = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
+                                        arrows[i].setAttribute("transform", `translate(${mx},${my}) rotate(${ang})`);
+                                    }
+                                }
+                                requestAnimationFrame(frame);
+                            }
+                            requestAnimationFrame(frame);
+                        }
+                    </script>
+            </div>
+        </section>
+
+        <!-- ══════════ 04.1 PREVENT ══════════ -->
+        <section id="prevent" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04.1 · Prevent</span>
+                    <span class="fig-label">FIG.5</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div class="flex flex-col">
+                        <div class="border border-white/10 bg-white/[0.02]">
+                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Gateway · DLP Intercept</span>
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-live animate-pulse"></span>Live
+                                </span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-4">
+                                <div>
+                                    <p class="text-white/25 mb-1.5">// incoming · agent:support-02 → openai/gpt-4o</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-alert/15 text-alert px-1">j.mueller@acme.com</span> confirming the contract value of <span class="bg-alert/15 text-alert px-1">€1.2M</span> …"</p>
+                                </div>
+                                <div class="border-t border-white/8 pt-4">
+                                    <p class="text-white/25 mb-1.5">// decision · policy:dlp-standard · 12ms</p>
+                                    <p class="text-warn mb-2">⚠ PII detected, 2 entities · role:auditor → mask</p>
+                                    <p class="text-white/60 leading-relaxed">"Draft a reply to <span class="bg-white/8 text-white/35 px-1">[EMAIL:masked]</span> confirming the contract value of <span class="bg-white/8 text-white/35 px-1">[FIN:masked]</span> …"</p>
+                                </div>
+                                <div class="border-t border-white/8 pt-4 flex items-center justify-between gap-4">
+                                    <span class="text-live">&#10003; Forwarded · masked by role</span>
+                                    <span class="text-white/25 truncate">ledger #a4d1…9f2c · signed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.5 · PII detected. Email masked. Context redacted by role · before the auditor could see it.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Before the damage</p>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            Prevent What Must<br />Not Happen.
+                        </h2>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Deterministic guardrails on a probabilistic technology. Deny-by-default at the boundary: the damage doesn’t happen first and gets explained later. It never happens.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Block out-of-scope requests in real time",
+                                "Attribute every action to a verified agent identity",
+                                "PII detected and masked by role, in prompts and completions, before delivery",
+                                "Works with every provider: OpenAI, Anthropic, Google, local models",
+                                "See and stop knowledge egress to model providers, before it becomes their training data",
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">1.{i + 1}</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ 04.2 PROVE ══════════ -->
+        <section id="prove" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04.2 · Prove</span>
+                    <span class="fig-label">FIG.6</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">After the action</p>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            <span class="text-white">Prove What Happened.</span><br /><span class="text-white/40">The Suspect Can't Write<br />the Police Report.</span>
+                        </h2>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent, Ed25519-signed, hash-chained, captured before the action reaches any provider.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "Architecturally independent of every LLM provider, captured before it reaches them",
+                                "Every entry Ed25519-signed and hash-chained: tamper with one, every subsequent link breaks",
+                                "Undeletable by any agent, including the one being investigated",
+                                "Compliance reports generated automatically",
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">2.{i + 1}</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <div class="border border-white/10 bg-white/[0.02]">
+                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Ledger · Signed Action Log</span>
+                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-live"></span>Chain intact
+                                </span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-3">
+                                <div class="flex items-center justify-between gap-4">
+                                    <span class="text-white/60 truncate">#a4cf · agent:etl-worker · db.write → allowed</span>
+                                    <span class="text-white/25 shrink-0">prev #a4ce · <span class="text-live">&#10003;</span></span>
+                                </div>
+                                <div class="flex items-center justify-between gap-4">
+                                    <span class="text-white/60 truncate">#a4d0 · agent:hr-11 · mail.send → <span class="text-alert">blocked</span></span>
+                                    <span class="text-white/25 shrink-0">prev #a4cf · <span class="text-live">&#10003;</span></span>
+                                </div>
+                                <div class="flex items-center justify-between gap-4">
+                                    <span class="text-white/60 truncate">#a4d1 · agent:support-02 · dlp.mask → forwarded</span>
+                                    <span class="text-white/25 shrink-0">prev #a4d0 · <span class="text-live">&#10003;</span></span>
+                                </div>
+                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
+                                    ed25519-signed · sha-256 hash chain · captured at the boundary, before any provider
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.6 · Every action becomes a signed ledger entry. #a4d1 references #a4d0: history can't be rewritten, only extended.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ 04.3 RATE ══════════ -->
+        <section id="rate" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04.3 · Rate</span>
+                    <span class="fig-label">FIG.7</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div class="flex flex-col justify-center">
+                        <div class="border border-white/10 bg-white/[0.02]">
+                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Trust Score™ · Cross-Provider</span>
+                                <span class="font-mono text-[9px] uppercase tracking-widest text-white/40">One scale</span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-white/60 truncate flex-1">agent:support-02 <span class="text-white/25">· openai</span></span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:87%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">87</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-white/60 truncate flex-1">etl-worker <span class="text-white/25">· anthropic</span></span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:91%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">91</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-white/60 truncate flex-1">agent:proc-7 <span class="text-white/25">· google</span></span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:74%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">74</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-white/60 truncate flex-1">mail-drafter <span class="text-white/25">· local/vllm</span></span>
+                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:82%"></span></span>
+                                    <span class="text-ink-0 w-6 text-right shrink-0">82</span>
+                                </div>
+                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
+                                    computed from the signed ledger · normalized across comparison classes
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.7 · Four agents, four providers, one currency. Rated on behavior, not vendor claims.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Across the network</p>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
+                            <span class="text-white">Rate Every Agent.</span><br /><span class="text-white/40">In One Currency,<br />Across Every Provider.</span>
+                        </h2>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            The KYDE Trust Score™: agent behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. Trust that can be measured can be priced. And insured.
+                        </p>
+                        <ul class="space-y-2.5 mb-8">
+                            {[
+                                "One scale for OpenAI, Anthropic, Google, and local models",
+                                "Computed from the signed ledger: evidence, not vendor telemetry",
+                                "The underwriting signal insurers can price",
+                            ].map((item, i) => (
+                                <li class="flex items-start gap-3 text-sm text-white/55">
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">3.{i + 1}</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="/trust-score" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                                Explore the Trust Score →
+                            </a>
+                            <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                                See full platform →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ 05 WHY NOW ══════════ -->
         <section class="relative border-b border-white/10">
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Why Now</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Why Now</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
@@ -1422,13 +1422,13 @@ const websiteSchema = {
             }
         </script>
 
-        <!-- ══════════ 05 DESIGN PARTNERS ══════════ -->
+        <!-- ══════════ 06 DESIGN PARTNERS ══════════ -->
         <section class="relative border-b border-white/10 overflow-hidden">
             <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 7%, transparent) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Early Access Program</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Early Access Program</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
