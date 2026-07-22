@@ -1,0 +1,40 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Human-in-the-Loop Approval for AI Agents"
+  slug="human-in-the-loop-ai-agents"
+  title="What Is Human-in-the-Loop Approval for AI Agents? Definition and Limits | Kyde Glossary"
+  description="Human-in-the-loop approval gates designated agent actions behind explicit human sign-off. What it is, when it counts as regulatory oversight, and why it cannot scale alone."
+  definition="Human-in-the-loop approval for AI agents is a control pattern in which designated actions cannot execute until a human explicitly approves them. It is the strictest practical autonomy level and the pattern regulators reference for human oversight. It only counts as oversight, however, if the approval, its context, and its approver are recorded verifiably."
+  who="Teams operating agents whose individual actions carry legal or financial weight: payments above a threshold, HR decisions, anything touching Annex III use cases under the EU AI Act. Article 14 requires effective human oversight for high-risk systems; an approval gate at the boundary is the most direct documented implementation of it."
+  related={[
+    { label: 'Agent Autonomy Levels', href: '/glossary/agent-autonomy-levels' },
+    { label: 'AI Agent Audit Trail', href: '/glossary/ai-agent-audit-trail' },
+    { label: 'EU AI Act Compliance Guide', href: '/eu-ai-act-compliance' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">The scaling wall, and what it means</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      The arithmetic is unforgiving: 10,000 agents executing ten actions a minute generate 1,667 decisions per second. A human reviewer meaningfully assesses one every thirty seconds. Human-in-the-loop for everything is therefore not a governance strategy; it is a bottleneck that teams quietly route around, which is worse than no control at all.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      The workable pattern is selective gating: approval for the few action classes where a single mistake is unacceptable, enforced policy with full recording for everything else. The approval itself must land in the same tamper-evident record as the action, otherwise the oversight exists in an email thread and evaporates in an audit.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · what a verifiable approval record captures</p>
+    <table class="w-full text-sm">
+      <tbody class="divide-y divide-line-0 text-ink-1">
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0 w-40">Approver</td><td class="py-3">Identified human, not a shared account</td></tr>
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Decision + time</td><td class="py-3">Approve or reject, millisecond timestamp</td></tr>
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Context hash</td><td class="py-3">What the approver actually saw, hash-referenced</td></tr>
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Chain position</td><td class="py-3">Entry hash-chained to the gated action it authorizes</td></tr>
+      </tbody>
+    </table>
+    <p class="text-xs text-ink-2 mt-4">EU AI Act Article 14 asks for effective oversight. An approval nobody can reconstruct is neither effective nor oversight.</p>
+  </div>
+</GlossaryEntry>

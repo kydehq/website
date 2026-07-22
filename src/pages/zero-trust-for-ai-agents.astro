@@ -1,0 +1,205 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const dimensions = [
+  { d: "WHO",   q: "Which cryptographically identified agent is acting?",            fails: "Shared service accounts: ten agents, one API key, zero attribution." },
+  { d: "WHAT",  q: "Is this specific action inside the agent's mandate?",            fails: "An expense agent that can also read the HR database." },
+  { d: "WHEN",  q: "Is the action happening at a plausible time and rate?",          fails: "A wire transfer to a new payee at 2 AM, at machine speed." },
+  { d: "WHERE", q: "Is the target endpoint on this agent's allowlist?",              fails: "Data exfiltrated to an endpoint nobody scoped." },
+  { d: "WHY",   q: "What retrieval and reasoning context led to this action?",       fails: "A decision nobody can reconstruct for Article 14 oversight." },
+  { d: "HOW",   q: "Which tools and methods is the agent invoking?",                 fails: "An MCP tool call that bypasses every application control." },
+];
+
+const frameworks = [
+  { name: "NIST SP 800-207",            what: "The zero trust architecture standard. Defines the principles for users and devices; agents inherit them but are not its subject." },
+  { name: "OWASP Agentic Security",     what: "Community threat taxonomy for agentic AI, including goal hijacking and tool misuse. Describes attacks, not enforcement architecture." },
+  { name: "AWS agent scoping guidance", what: "Cloud-vendor guidance for scoping agent autonomy in tiers. Useful vocabulary, scoped to one vendor's stack." },
+  { name: "Anthropic agent guidance",   what: "Model-vendor guidance on safe agent design. Strong on model behavior, silent on independent evidence." },
+  { name: "SANS guidance",              what: "Practitioner training material on securing agentic systems for security teams." },
+  { name: "Agentic Trust Framework",    what: "A vendor-authored open spec, published via the CSA blog. Five governance questions and a maturity ladder." },
+];
+
+const faqs = [
+  {
+    q: "Is zero trust for AI agents different from normal zero trust?",
+    a: "The principle is identical: never trust, always verify, deny by default. The subject changes. Classic zero trust verifies who connects (user, device) at session start. Agents require verifying every action, because a legitimately authenticated agent can still act far outside its mandate one request later. Identity checks once per session become six-dimension checks once per action.",
+  },
+  {
+    q: "Can I implement zero trust for agents inside the agent framework?",
+    a: "Not credibly. Zero trust assumes the subject being verified cannot influence the verifier. Guardrails inside the agent share the agent's runtime, its permissions, and its compromises. Enforcement has to sit at a boundary the agent cannot route around, which in practice means the network path to the model providers.",
+  },
+  {
+    q: "What is the minimum viable starting point?",
+    a: "Observation. Route agent traffic through a governance gateway in observe mode: no blocking, no behavior change, full recording. Within a week you know who acts, what leaves your network, and what it costs. Enforcement policies come second, written against observed reality instead of guesses. The Kyde Gateway Starter does exactly this for free.",
+  },
+  {
+    q: "Which regulations effectively demand this?",
+    a: "None uses the phrase zero trust for agents, but the obligations converge on it: EU AI Act Articles 12 and 14 require tamper-evident logging and effective human oversight (high-risk enforcement begins December 2, 2027), NIS-2 makes management personally liable for security controls, and DORA requires provider-independent records for financial entities today.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources" },
+    { "@type": "ListItem", position: 3, name: "Zero Trust for AI Agents", item: "https://kyde.com/zero-trust-for-ai-agents" },
+  ],
+};
+---
+
+<Base
+  title="Zero Trust for AI Agents: Never Trust, Always Verify, Per Action | KYDE"
+  description="Zero trust verified who connects. Agents require verifying every action, across six dimensions: who, what, when, where, why, how. What the principle means for agents, how it maps to existing frameworks, and how to enforce it at the boundary."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ HERO / DEFINITION ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Guide · Last verified July 2026</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
+          Zero Trust for <span class="gradient-text">AI Agents</span>
+        </h1>
+        <p class="text-lg md:text-xl text-ink-0 leading-relaxed max-w-3xl border-l-2 border-line-1 pl-6">
+          Zero trust for AI agents applies the never-trust-always-verify principle to autonomous software: no agent action executes on identity alone. Every request is verified against the agent's mandate across six dimensions, who, what, when, where, why, and how, at a boundary the agent cannot route around, and every verdict is recorded tamper-evidently.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ WHY SESSIONS ARE NOT ENOUGH ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">From sessions to actions</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Classic zero trust, codified in NIST SP 800-207, dismantled the castle-and-moat: no user or device is trusted for being inside the network, every session is verified. It was designed for subjects that authenticate, then behave roughly as predictably as their role suggests.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Agents break that assumption in one specific way: authentication says nothing about the next action. An agent that legitimately holds credentials can, one request later, call a tool it never called before, against an endpoint nobody scoped, for reasons encoded in a prompt nobody reviewed. The unit of trust has to shrink, from the session to the individual action.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            That shift has an architectural consequence. Per-action verification cannot live inside the agent, because a capable agent can be prompted or compromised into bypassing its own rules. It has to happen at a boundary in the data path, where the verdict is deterministic: the action matches the mandate and executes, or it does not and is blocked before the upstream ever sees it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ THE SIX DIMENSIONS ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">The six dimensions of per-action verification</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          {dimensions.map(({ d, q, fails }) => (
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-sm font-bold text-ink-0 tracking-[0.15em] mb-2">{d}</p>
+              <p class="text-sm text-ink-0 leading-relaxed mb-3">{q}</p>
+              <p class="text-xs text-ink-1 leading-relaxed"><span class="font-mono text-alert uppercase text-[10px] tracking-wider mr-2">unverified</span>{fails}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mt-6 text-sm text-ink-1 max-w-3xl leading-relaxed">
+          Together the six answers form the fingerprint of an action. Verified, they justify execution; recorded, they make the action reconstructable; hash-chained, they make the record evidence. Any single unverified dimension is grounds to block: deny by default.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ FRAMEWORK LANDSCAPE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Where existing frameworks stand</p>
+        <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-8">
+          The framework landscape agrees on the principles and stops short of the enforcement question. Use these to decide what your governance requires; none of them is the runtime that enforces it.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full border border-line-0 text-sm max-w-4xl">
+            <tbody class="divide-y divide-line-0">
+              {frameworks.map(({ name, what }) => (
+                <tr>
+                  <td class="px-5 py-4 font-mono text-xs uppercase tracking-wider text-ink-0 align-top whitespace-nowrap">{name}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{what}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ ENFORCEMENT IN PRACTICE ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What enforcement looks like in practice</p>
+        <div class="max-w-3xl space-y-4 mb-8">
+          <p class="text-base text-ink-1 leading-relaxed">
+            The Kyde Gateway implements the boundary as a governance proxy: agents reach their model providers only through it, configured with one environment variable, no agent code changes. Every request is checked against the agent's mandate deterministically; out-of-scope requests receive a 403 before the upstream sees them. Every verdict, allowed or blocked, lands in a hash-chained ledger, with Ed25519 signing on the Enterprise edition.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Start in observe mode: full recording, no blocking, deployed in minutes. Write enforcement policy against what you actually observe. Promote agents to more autonomy when the record supports it.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/starter" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all w-fit">
+            Start Free →
+          </a>
+          <a href="/platform" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all w-fit">
+            See the Platform →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">FAQ</span></div>
+        </div>
+        <div class="max-w-3xl space-y-px">
+          {faqs.map(({ q, a }) => (
+            <details class="group border border-line-0 bg-bg-1">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-ink-0 pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-ink-2 group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-ink-1 leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+        <p class="mt-10 font-mono text-xs text-ink-2">
+          Related: <a href="/glossary/behavioral-firewall" class="hover:text-ink-0 transition-colors">Behavioral Firewall</a> · <a href="/glossary/ai-agent-audit-trail" class="hover:text-ink-0 transition-colors">AI Agent Audit Trail</a> · <a href="/glossary/agent-autonomy-levels" class="hover:text-ink-0 transition-colors">Autonomy Levels</a> · <a href="/ai-agent-governance" class="hover:text-ink-0 transition-colors">The Complete Governance Guide</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>

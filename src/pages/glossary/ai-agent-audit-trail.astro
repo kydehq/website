@@ -1,0 +1,43 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="AI Agent Audit Trail"
+  slug="ai-agent-audit-trail"
+  title="What Is an AI Agent Audit Trail? Definition and Required Fields | Kyde Glossary"
+  description="An AI agent audit trail is a tamper-evident record of every agent action across six dimensions. What it must contain, why provider logs do not qualify, and the actual ledger fields."
+  definition="An AI agent audit trail is a complete, tamper-evident record of every action an agent takes: which agent acted, what it did, when, where, why, and how. To count as evidence, it must be captured outside the agent's runtime, hash-chained so any alteration is detectable, and independent of the model provider whose behavior it records."
+  who="Deployers of agents in regulated contexts, where the EU AI Act (Article 12), DORA (Article 30), and GDPR (Article 22) each demand reconstructable records. Also anyone who will one day face an incident: when an agent is compromised or misbehaves, the audit trail is the difference between a forensic investigation and an educated guess."
+  related={[
+    { label: 'Agent Attestation', href: '/glossary/agent-attestation' },
+    { label: 'Observability vs Governance', href: '/glossary/agent-observability-vs-governance' },
+    { label: 'What the EU AI Act Requires', href: '/blog/eu-ai-act-audit-trails' },
+    { label: 'Reference: Ledger Fields', href: '/docs/reference/' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Why vendor logs do not qualify</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      Every model provider offers usage logs. They fail the audit-trail test on independence: the log lives on the provider's infrastructure, under the provider's keys, shaped by the provider's interests. In any dispute involving that provider's model, its own log is not neutral evidence. The suspect can't write the police report.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      Tamper-evidence is the second test. A log a database administrator can edit is a report, not a record. Hash-chaining fixes this structurally: every entry carries a hash of its predecessor, so altering any past entry breaks every subsequent link, detectably and mathematically.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · one ledger entry in the Kyde Gateway</p>
+    <pre class="font-mono text-[11px] md:text-xs text-ink-1 leading-relaxed overflow-x-auto"><code>entry_id     unique identifier of this action
+timestamp    millisecond-precise capture time        (WHEN)
+agent_id     cryptographic agent identity            (WHO)
+action       request type and target                 (WHAT / WHERE)
+why          causal context captured before the call (WHY)
+tool_calls   tools invoked and their arguments       (HOW)
+model        provider and model version
+prev_hash    hash of the previous entry  ─┐
+entry_hash   hash of this entry          ─┴─ the chain
+signature    Ed25519, on the Enterprise edition</code></pre>
+    <p class="text-xs text-ink-2 mt-4">Six dimensions per action: who, what, when, where, why, how. The Starter edition hash-chains every entry; Ed25519 signing and managed keys are Enterprise.</p>
+  </div>
+</GlossaryEntry>

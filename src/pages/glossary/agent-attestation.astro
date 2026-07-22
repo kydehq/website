@@ -1,0 +1,49 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Agent Attestation"
+  slug="agent-attestation"
+  title="What Is Agent Attestation? Definition, Roles, and Verifiability | Kyde Glossary"
+  description="Agent attestation is signed, verifiable proof that an AI agent operated within its mandate. The definition, the three roles that make it trustworthy, and why the witness must be independent."
+  definition="Agent attestation is the practice of producing signed, verifiable proof that an AI agent operated within its mandate over a defined period: which policies applied, what evidence was recorded, who signed off. Third parties such as auditors, insurers, or enterprise customers can verify the attestation without access to the underlying raw data."
+  who="Organizations that need to demonstrate agent trustworthiness to someone outside the building: an auditor preparing a compliance opinion, an insurer pricing coverage, a procurement team evaluating an agent-powered vendor, a partner deciding whether your agent may touch their API. Attestation turns internal governance into an artifact others can rely on."
+  related={[
+    { label: 'AI Agent Audit Trail', href: '/glossary/ai-agent-audit-trail' },
+    { label: 'Agent Autonomy Levels', href: '/glossary/agent-autonomy-levels' },
+    { label: 'AI Agent Trust Score', href: '/glossary/ai-agent-trust-score' },
+    { label: 'AI Agent Insurance Guide', href: '/ai-agent-insurance' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">What makes an attestation trustworthy</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      An attestation is only as credible as the record behind it and the independence of whoever produced that record. Self-attestation from editable logs is marketing. Trustworthy attestation requires a separation of roles, the same one every serious audit regime uses: the party operating the system, the party recording its behavior, and the party verifying the claims cannot be the same entity with the same incentives.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      The structural rule that follows: the witness, whoever records the evidence, must not profit when the agent is granted more autonomy. A model vendor attesting its own agents fails that test by construction. Player, referee, and scorekeeper have to be different people.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl overflow-x-auto">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · the three roles</p>
+    <table class="w-full text-sm">
+      <tbody class="divide-y divide-line-0 text-ink-1">
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Operator</td>
+          <td class="py-3">Runs the agents, benefits from their autonomy. Cannot credibly attest itself.</td>
+        </tr>
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Witness</td>
+          <td class="py-3">Records every action into a tamper-evident ledger. Must be structurally independent of agent and model vendors.</td>
+        </tr>
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Verifier</td>
+          <td class="py-3">Checks the evidence and signs the attestation: auditor, insurer, or regulator. Needs hash proofs, not raw data.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-xs text-ink-2 mt-4">Verification without raw data access works through hash references: the artifact carries checksums of the record, not its contents. Sovereignty-compatible by design.</p>
+  </div>
+</GlossaryEntry>

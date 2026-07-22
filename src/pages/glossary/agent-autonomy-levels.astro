@@ -1,0 +1,52 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Levels of Agent Autonomy"
+  slug="agent-autonomy-levels"
+  title="What Are Levels of Agent Autonomy? The Autonomy Ladder Explained | Kyde Glossary"
+  description="The autonomy ladder for AI agents: from read-only analysis to self-directed operation. The four levels, what each requires, and why promotion should be earned with evidence."
+  definition="Levels of agent autonomy describe how much an AI agent may do without human intervention, typically climbing from read-only analysis, through human-approved actions, to monitored autonomy and self-direction within a domain. Each level implies different governance requirements: what must be enforced, what must be recorded, and what evidence justifies promotion to the next level."
+  who="Teams rolling agents into production incrementally, which is every sensible team. The ladder gives engineering, security, and business owners a shared vocabulary for the only question that matters operationally: what is this agent allowed to do today, and what would it take to allow more tomorrow. It also mirrors how regulators think about human oversight."
+  related={[
+    { label: 'Human-in-the-Loop Approval', href: '/glossary/human-in-the-loop-ai-agents' },
+    { label: 'AI Agent Trust Score', href: '/glossary/ai-agent-trust-score' },
+    { label: 'Agent Attestation', href: '/glossary/agent-attestation' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Autonomy is earned, not configured</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      The industry converged on ladders like this one quickly, because it mirrors how organizations already handle people: interns do not approve payments. The part most frameworks leave open is the promotion decision itself. Moving an agent from approval-gated to monitored autonomy is a risk decision, and it is only as sound as the evidence it rests on: how long the agent operated, how often it was blocked, how it behaved at the edges.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      That is why the ladder needs a record underneath it. Promotion from a gut feeling is hope; promotion from a tamper-evident behavioral record is a defensible decision. And demotion must be cheap: one critical incident should drop an agent a level faster than any meeting can be scheduled.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl overflow-x-auto">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · the four levels</p>
+    <table class="w-full text-sm">
+      <tbody class="divide-y divide-line-0 text-ink-1">
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0 whitespace-nowrap">L0 · isolated</td>
+          <td class="py-3">Reads and analyzes only. No side effects on any system.</td>
+        </tr>
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0 whitespace-nowrap">L1 · approval</td>
+          <td class="py-3">Every action gated by explicit human approval before execution.</td>
+        </tr>
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0 whitespace-nowrap">L2 · monitored</td>
+          <td class="py-3">Acts within enforced policy; humans notified after the action; hard limits active.</td>
+        </tr>
+        <tr>
+          <td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0 whitespace-nowrap">L3 · autonomous</td>
+          <td class="py-3">Self-directed within its domain; escalates edge cases; every action still recorded.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-xs text-ink-2 mt-4">Promotion requires an evidence window at the current level. Demotion after a critical incident is mandatory, not optional.</p>
+  </div>
+</GlossaryEntry>

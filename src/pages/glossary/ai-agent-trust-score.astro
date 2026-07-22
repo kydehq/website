@@ -1,0 +1,41 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Trust Score for AI Agents"
+  slug="ai-agent-trust-score"
+  title="What Is a Trust Score for AI Agents? Definition and Inputs | Kyde Glossary"
+  description="A trust score rates the deployed agent, not the model: a behavioral rating computed from observed actions, normalized across providers. Definition, the four inputs, and an example."
+  definition="A trust score for AI agents is a behavioral rating computed from an agent's observed actions: policy violations, escalation behavior, task outcomes, cost profile, normalized so agents on different model providers are comparable. Unlike vendor benchmarks, it rates the deployed agent rather than the underlying model, and it changes as behavior changes."
+  who="Anyone who has to decide how much responsibility an agent gets next: engineering leads promoting agents to higher autonomy, risk teams setting limits, insurers pricing coverage, and buyers comparing agents across vendors. Model benchmarks answer which model is smartest; a trust score answers which deployed agent has earned what."
+  related={[
+    { label: 'Agent Autonomy Levels', href: '/glossary/agent-autonomy-levels' },
+    { label: 'Agent Attestation', href: '/glossary/agent-attestation' },
+    { label: 'KYDE Trust Score™', href: '/trust-score' },
+    { label: 'Trust Is a Number', href: '/blog/trust-is-a-number' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Why behavior, not benchmarks</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      No credit bureau reads a borrower's intentions; it prices the observed record. The same logic applies to agents: intent analysis and benchmark scores describe potential, but liability follows behavior. A rating built on interpreted intentions is unauditable by construction, because two evaluators can disagree about it. A rating built on recorded actions at the boundary is reproducible: same record, same score.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      Normalization across providers is what makes the score a currency. An agent on a frontier model and an agent on a local open-source model can be compared on the same scale, because the scale measures conduct, not capability.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · the four inputs of the KYDE Trust Score™</p>
+    <table class="w-full text-sm">
+      <tbody class="divide-y divide-line-0 text-ink-1">
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0 w-32">Identity</td><td class="py-3">Is every action attributable to a cryptographically identified agent?</td></tr>
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Mandate</td><td class="py-3">How often does the agent attempt actions outside its policy?</td></tr>
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Baseline</td><td class="py-3">How far does current behavior drift from the agent's own history?</td></tr>
+        <tr><td class="py-3 pr-4 font-mono text-xs uppercase tracking-wider text-ink-0">Benchmark</td><td class="py-3">How does it compare to agents in the same role class, across providers?</td></tr>
+      </tbody>
+    </table>
+    <p class="text-xs text-ink-2 mt-4">Computed from the signed ledger, not from vendor telemetry: evidence in, score out. Scale 0-100 per agent.</p>
+  </div>
+</GlossaryEntry>

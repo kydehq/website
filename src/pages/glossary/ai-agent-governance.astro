@@ -1,0 +1,48 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="AI Agent Governance"
+  slug="ai-agent-governance"
+  title="What Is AI Agent Governance? Definition, Requirements, Examples | Kyde Glossary"
+  description="AI agent governance defined in 50 words: the infrastructure that controls what autonomous agents may do, enforces it at runtime, and produces verifiable evidence. Who needs it, how it works, and the regulatory numbers behind it."
+  definition="AI agent governance is the infrastructure that controls what autonomous AI agents are permitted to do, enforces those boundaries at runtime, and produces verifiable evidence of every action. It combines four primitives: agent identity, behavioral policy, enforcement before execution, and a tamper-evident audit trail, independent of the models and vendors it governs."
+  who="Any organization whose AI agents act on real systems: payments, customer data, production infrastructure, HR decisions. The accountable roles are the CISO (operational risk), the CCO or general counsel (regulatory liability), and the board, which under NIS-2 is personally liable. If your agents only draft text that humans review, you need less of this. If they execute, you need all of it."
+  related={[
+    { label: 'Behavioral Firewall', href: '/glossary/behavioral-firewall' },
+    { label: 'AI Agent Audit Trail', href: '/glossary/ai-agent-audit-trail' },
+    { label: 'Observability vs Governance', href: '/glossary/agent-observability-vs-governance' },
+    { label: 'The Complete Guide', href: '/ai-agent-governance' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Why it became its own category</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      Traditional IT governance assumes systems do what they were programmed to do. Agents are probabilistic: the same agent, prompt, and toolchain can produce different actions on different days, and the model underneath changes without notice. That breaks the two pillars classic governance rests on, predictable behavior and reviewable code, and replaces them with a new requirement: constrain and record behavior at runtime, because you cannot certify it in advance.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      Governance is therefore not a policy document and not a model property. It is deployed infrastructure that answers four questions for every action: who acted, what were they allowed to do, was it enforced, and can you prove it to a third party who does not trust your logs.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · what non-governance costs in the EU</p>
+    <table class="w-full text-sm">
+      <tbody class="divide-y divide-line-0">
+        <tr>
+          <td class="py-3 font-mono text-xs uppercase tracking-wider text-ink-1 pr-4">EU AI Act, high-risk</td>
+          <td class="py-3 text-ink-0">up to €35M or 7% of global turnover · enforcement from December 2, 2027</td>
+        </tr>
+        <tr>
+          <td class="py-3 font-mono text-xs uppercase tracking-wider text-ink-1 pr-4">NIS-2</td>
+          <td class="py-3 text-ink-0">up to €10M or 2% of turnover · management personally liable · in force</td>
+        </tr>
+        <tr>
+          <td class="py-3 font-mono text-xs uppercase tracking-wider text-ink-1 pr-4">DORA (financial)</td>
+          <td class="py-3 text-ink-0">independent ICT logs, up to 2-year retention · in force since January 2025</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</GlossaryEntry>

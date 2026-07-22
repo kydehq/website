@@ -1,0 +1,38 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Knowledge Egress"
+  slug="knowledge-egress"
+  title="What Is Knowledge Egress? Data Egress Through AI Agents, Defined | Kyde Glossary"
+  description="Knowledge egress is the continuous outflow of proprietary information through AI usage: prompts, documents, traces, corrections. Why it is invisible to classic DLP and how a boundary sees it."
+  definition="Knowledge egress is the flow of proprietary information out of an organization through AI usage: prompts, documents, traces, and corrections sent to external model providers. Unlike a one-time breach, it is continuous, authorized-looking, and cumulative. Without a control point at the network boundary it is invisible to security teams, because each individual request looks legitimate."
+  who="CISOs and data-protection officers first, but increasingly anyone who owns proprietary know-how: the prompts your teams refine, the corrections they make, and the internal documents they paste are training-grade material about how your business works. Legal teams meet the same issue as a GDPR question when personal data crosses into unauthorized processors."
+  related={[
+    { label: 'What Is Shadow AI', href: '/shadow-ai' },
+    { label: 'AI Governance Proxy', href: '/glossary/ai-governance-proxy' },
+    { label: 'Detect Shadow AI', href: '/guides/detect-shadow-ai' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Why classic DLP misses it</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      Traditional data-loss prevention watches for files leaving through email, uploads, and USB drives. Knowledge egress travels as text inside TLS-encrypted API calls to domains your firewall categorizes as productivity tools. A Microsoft survey found 78% of AI users bring their own tools to work; every one of those sessions is an egress channel no file-transfer monitor sees.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      The workable control point is the AI boundary itself: a gateway that sees every prompt before it leaves, can mask or block classified patterns inline, and records what actually flowed. Blocking AI wholesale just pushes usage to personal devices; seeing and governing the flow is the sustainable posture.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · a DLP finding at the boundary, Kyde Gateway</p>
+    <div class="font-mono text-[11px] md:text-xs leading-relaxed space-y-1.5">
+      <p class="text-ink-1">PII detected · <span class="text-ink-0">email address in outbound prompt</span></p>
+      <p class="text-ink-1">action · <span class="text-live">masked before forwarding</span></p>
+      <p class="text-ink-1">context · <span class="text-ink-0">redacted by role, entry hash-chained into the ledger</span></p>
+      <p class="text-ink-1">modes · <span class="text-ink-0">observe (alert, Starter) or prevent (block inline, Enterprise)</span></p>
+    </div>
+    <p class="text-xs text-ink-2 mt-4">Two engines inspect outbound traffic: regex patterns plus a neural detector, applied per policy at the boundary. What you cannot see, you cannot govern.</p>
+  </div>
+</GlossaryEntry>

@@ -1,0 +1,45 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Agent Observability vs Agent Governance"
+  slug="agent-observability-vs-governance"
+  title="Agent Observability vs Agent Governance: What Is the Difference? | Kyde Glossary"
+  description="Observability collects telemetry about what agents did. Governance controls what they may do and proves it. The difference in 50 words, a side-by-side table, and why audits ask for the second one."
+  definition="Agent observability collects telemetry about what AI agents did: traces, latencies, token counts, evaluation scores, consumed by developers to debug and improve. Agent governance controls what agents are allowed to do and proves it: identity, runtime enforcement, tamper-evident records, consumed by security, compliance, and auditors. Observability describes behavior after the fact; governance constrains it before execution."
+  who="Engineering teams need observability from the first prototype; it is how you debug non-deterministic systems. Security and compliance teams need governance the day an agent touches production. The confusion between the two is expensive in both directions: buying observability to answer an auditor fails the audit, and buying governance to debug prompts frustrates the engineers."
+  related={[
+    { label: 'AI Agent Governance', href: '/glossary/ai-agent-governance' },
+    { label: 'AI Agent Audit Trail', href: '/glossary/ai-agent-audit-trail' },
+    { label: 'Three Categories, Explained', href: '/blog/ai-governance-three-categories' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">The structural difference</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      Observability is instrumented from inside: the agent framework emits traces because a developer added the SDK. That makes it opt-in by construction, and it makes the record as trustworthy as the system emitting it. Governance is imposed from outside at a boundary the agent cannot avoid, which is what allows it to cover agents nobody instrumented and to produce records that hold up when the agent itself is the suspect.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl overflow-x-auto">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · side by side</p>
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-line-0">
+          <th class="py-2 pr-4 text-left font-mono text-xs uppercase tracking-wider text-ink-2"></th>
+          <th class="py-2 pr-4 text-left font-mono text-xs uppercase tracking-wider text-ink-1">Observability</th>
+          <th class="py-2 text-left font-mono text-xs uppercase tracking-wider text-ink-0">Governance</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-line-0 text-ink-1">
+        <tr><td class="py-2.5 pr-4 font-mono text-xs uppercase text-ink-2">Question</td><td class="py-2.5 pr-4">What happened, and how well?</td><td class="py-2.5 text-ink-0">What is allowed, and can you prove it?</td></tr>
+        <tr><td class="py-2.5 pr-4 font-mono text-xs uppercase text-ink-2">Timing</td><td class="py-2.5 pr-4">After execution</td><td class="py-2.5 text-ink-0">Before execution (blocked = HTTP 403)</td></tr>
+        <tr><td class="py-2.5 pr-4 font-mono text-xs uppercase text-ink-2">Coverage</td><td class="py-2.5 pr-4">Instrumented agents only</td><td class="py-2.5 text-ink-0">Everything crossing the boundary</td></tr>
+        <tr><td class="py-2.5 pr-4 font-mono text-xs uppercase text-ink-2">Record</td><td class="py-2.5 pr-4">Editable telemetry</td><td class="py-2.5 text-ink-0">Hash-chained, tamper-evident ledger</td></tr>
+        <tr><td class="py-2.5 pr-4 font-mono text-xs uppercase text-ink-2">Buyer</td><td class="py-2.5 pr-4">Engineering</td><td class="py-2.5 text-ink-0">CISO, compliance, audit</td></tr>
+      </tbody>
+    </table>
+    <p class="text-xs text-ink-2 mt-4">Most mature stacks run both. They meet at the same agents and answer different questions.</p>
+  </div>
+</GlossaryEntry>

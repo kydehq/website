@@ -1,0 +1,39 @@
+---
+import GlossaryEntry from '../../components/GlossaryEntry.astro';
+---
+
+<GlossaryEntry
+  term="Behavioral Firewall"
+  slug="behavioral-firewall"
+  title="What Is a Behavioral Firewall for AI Agents? Definition and Architecture | Kyde Glossary"
+  description="A behavioral firewall governs what AI agents may do, not just what they say. Definition in 50 words, the architecture behind it, and why it must sit outside the agent."
+  definition="A behavioral firewall is a governance layer between AI agents and the systems they act on. It enforces rules about what each agent may do, not just what it may say: requests within the agent's mandate execute, everything else is blocked before it reaches the model or tool. It sits outside the agent, so the agent cannot route around it."
+  who="Teams that have moved past chat and let agents call tools, APIs, and internal systems. A content filter answers whether text is harmful; a behavioral firewall answers whether this agent, with this identity, is allowed to take this action against this endpoint right now. The moment agents touch money, data, or infrastructure, the second question is the one that matters."
+  related={[
+    { label: 'AI Governance Proxy', href: '/glossary/ai-governance-proxy' },
+    { label: 'AI Agent Governance', href: '/glossary/ai-agent-governance' },
+    { label: 'Zero Trust for AI Agents', href: '/zero-trust-for-ai-agents' },
+    { label: 'Platform', href: '/platform' },
+  ]}
+>
+  <div>
+    <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Why outside the agent</h2>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
+      Guardrails built into the agent share the agent's fate: a capable agent can be prompted, updated, or compromised into bypassing its own rules, and anyone with application access can switch them off. A behavioral firewall takes the network position instead. Every inference and tool call crosses it because that is the only path to the model, which makes enforcement structural rather than cooperative.
+    </p>
+    <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
+      The decision logic is deterministic, not probabilistic. There is no confidence score on whether an action was within mandate: it either matched policy and executed, or it did not and was blocked with a 403 before the upstream ever saw it. There is no detection rate on a locked door.
+    </p>
+  </div>
+
+  <div class="border border-line-0 bg-bg-1 p-8 max-w-3xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-5">Data point · the network position, from the Kyde Gateway docs</p>
+    <pre class="font-mono text-[11px] md:text-xs text-ink-1 leading-relaxed overflow-x-auto"><code>Agent ──► your-proxy:4000/v1 ──► OpenAI/Anthropic/Gemini/Copilot/any LLM
+                │
+                ▼
+        Behavioral Ledger (Postgres, JSONB)
+        entry_id · timestamp · agent_id · action · model
+        why (context) · tool_calls · prev_hash · entry_hash</code></pre>
+    <p class="text-xs text-ink-2 mt-4">One gateway instance proxies all supported providers simultaneously. Deployment is one environment variable; no agent code changes.</p>
+  </div>
+</GlossaryEntry>

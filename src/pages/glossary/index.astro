@@ -1,0 +1,154 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const terms = [
+  {
+    term: "AI Agent Governance",
+    slug: "ai-agent-governance",
+    teaser: "The infrastructure that controls what agents may do, enforces it at runtime, and produces verifiable evidence.",
+  },
+  {
+    term: "Behavioral Firewall",
+    slug: "behavioral-firewall",
+    teaser: "Enforcement between agents and the systems they act on: what is not allowed does not execute.",
+  },
+  {
+    term: "Observability vs Governance",
+    slug: "agent-observability-vs-governance",
+    teaser: "Telemetry describes behavior after the fact; governance constrains it before execution. The difference, side by side.",
+  },
+  {
+    term: "AI Agent Audit Trail",
+    slug: "ai-agent-audit-trail",
+    teaser: "A tamper-evident record of every action across six dimensions: who, what, when, where, why, how.",
+  },
+  {
+    term: "Agent Attestation",
+    slug: "agent-attestation",
+    teaser: "Signed, verifiable proof that an agent operated within its mandate, checkable by third parties without raw data.",
+  },
+  {
+    term: "Trust Score for AI Agents",
+    slug: "ai-agent-trust-score",
+    teaser: "A behavioral rating of the deployed agent, normalized across providers. Conduct, not capability.",
+  },
+  {
+    term: "Levels of Agent Autonomy",
+    slug: "agent-autonomy-levels",
+    teaser: "The ladder from read-only to self-directed, and why promotion should be earned with evidence.",
+  },
+  {
+    term: "Human-in-the-Loop Approval",
+    slug: "human-in-the-loop-ai-agents",
+    teaser: "Explicit human sign-off before designated actions execute, and why it must be recorded to count.",
+  },
+  {
+    term: "AI Governance Proxy (AI Gateway)",
+    slug: "ai-governance-proxy",
+    teaser: "One network control point for all agent traffic: identity, policy, evidence, zero code changes.",
+  },
+  {
+    term: "Knowledge Egress",
+    slug: "knowledge-egress",
+    teaser: "The continuous outflow of proprietary information through AI usage, invisible to classic DLP.",
+  },
+];
+
+const termSetSchema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  name: "KYDE AI Agent Governance Glossary",
+  url: "https://kyde.com/glossary",
+  hasDefinedTerm: terms.map(({ term, slug }) => ({
+    "@type": "DefinedTerm",
+    name: term,
+    url: `https://kyde.com/glossary/${slug}`,
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
+    { "@type": "ListItem", position: 2, name: "Glossary", item: "https://kyde.com/glossary" },
+  ],
+};
+---
+
+<Base
+  title="AI Agent Governance Glossary: The Terms, Defined Precisely | KYDE"
+  description="The vocabulary of AI agent governance, defined in plain language: behavioral firewall, audit trail, attestation, trust score, autonomy levels, knowledge egress, and more. Definition first, evidence second."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(termSetSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Glossary · Last verified July 2026</span>
+          </div>
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
+          The <span class="gradient-text">Vocabulary</span> of Agent Governance
+        </h1>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
+          A young category runs on borrowed words until someone defines them properly. These are the terms security, compliance, and engineering teams use when AI agents act on real systems: each defined in under 60 words, each backed by a concrete data point, none padded.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ TERMS ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-4">
+          {terms.map(({ term, slug, teaser }) => (
+            <a href={`/glossary/${slug}`} class="group flex flex-col border border-line-0 bg-bg-1 hover:bg-bg-2 hover:border-line-1 transition-all p-6">
+              <h2 class="text-lg font-bold text-ink-0 mb-2 leading-snug">{term}</h2>
+              <p class="text-sm text-ink-1 leading-relaxed flex-1">{teaser}</p>
+              <span class="mt-4 font-mono text-xs text-ink-2 group-hover:translate-x-1 group-hover:text-ink-0 transition-all">Read the definition →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-line-0">
+        <div class="border border-line-0 p-10 md:p-16">
+          <div class="max-w-3xl">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
+              Definitions are the map. The gateway is the territory.
+            </h2>
+            <p class="text-base text-ink-1 mb-8">
+              Deploy the Kyde Gateway Starter in five minutes, or talk to us.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/starter" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+                Start Free →
+              </a>
+              <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
+                Talk to Us →
+              </button>
+            </div>
+            <p class="mt-8 font-mono text-xs text-ink-2">
+              <a href="/zero-trust-for-ai-agents" class="hover:text-ink-0 transition-colors">Zero Trust for AI Agents</a> · <a href="/ai-agent-governance" class="hover:text-ink-0 transition-colors">The Complete Guide</a> · <a href="/docs/" class="hover:text-ink-0 transition-colors">Docs</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>
