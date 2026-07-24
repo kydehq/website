@@ -578,6 +578,19 @@ const websiteSchema = {
                         That is the gap between what agents could do and what you let them do. KYDE closes it. Not by slowing agents down. By giving you the ground to stand them on.
                     </p>
                 </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 mt-14">
+                    {[
+                        "Know what runs.",
+                        "Decide what is allowed.",
+                        "Answer any question about the past.",
+                        "Learn who to trust with more.",
+                    ].map((need, i) => (
+                        <div class="bg-bg-0 p-6">
+                            <p class="font-mono text-[10px] text-gold mb-2">0{i + 1}</p>
+                            <p class="text-sm text-white/80 leading-snug">{need}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
 
@@ -591,8 +604,9 @@ const websiteSchema = {
                         <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · The Core</span>
                         <span class="fig-label">FIG.2</span>
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">One core. Every autonomous system.</span> <span class="text-white/40">Zero code changes.</span></h2>
-                    <p class="text-white/55 leading-relaxed max-w-2xl mb-5">We are not a filter on top of your agents. We are the ground they stand on. KYDE sits outside, in the path itself: every action passes through the core, checked against your rules, before it executes. Deterministic. Deny by default.</p>
+                    <p class="font-mono text-xs text-gold mb-4">"How do I get control without rebuilding everything?"</p>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">Control in an Afternoon.</span> <span class="text-white/40">Not a Re-Architecture.</span></h2>
+                    <p class="text-white/55 leading-relaxed max-w-2xl mb-5">One core for every autonomous system, zero code changes. We are not a filter on top of your agents. We are the ground they stand on. KYDE sits outside, in the path itself: every action passes through the core, checked against your rules, before it executes. Deterministic. Deny by default.</p>
                     <p class="font-mono text-sm text-ink-0 border-l-2 border-white/30 pl-4 leading-relaxed mb-5 max-w-2xl">Others guess what an agent intends. We are the concrete it runs on.</p>
                     <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">From visible to governed to autonomous · <span class="text-gold">Observe · Trust · Govern · Autonomy</span> · one layer carries all four</p>
                 </div>
@@ -759,7 +773,7 @@ const websiteSchema = {
                         </p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Business rules for autonomous work</p>
+                        <p class="font-mono text-xs text-gold mb-4">"Who decides what an agent may do?"</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
                             <span class="text-white">Your Company Already Runs on Rules.</span> <span class="text-white/40">Now Your Agents Follow Them.</span>
                         </h2>
@@ -914,12 +928,12 @@ const websiteSchema = {
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">After the action</p>
+                        <p class="font-mono text-xs text-gold mb-4">"What do I show when someone asks what happened?"</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">The Suspect Cannot Write</span><br /><span class="text-white/40">the Police Report.</span>
+                            <span class="text-white">When Someone Asks What Happened,</span><br /><span class="text-white/40">You Have the Answer.</span>
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. KYDE's record is architecturally independent. Integrity you can demonstrate, not just assert.
+                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. The suspect cannot write the police report. KYDE's record is architecturally independent: integrity you can demonstrate, not just assert.
                         </p>
                         <ul class="space-y-2.5 mb-8">
                             {[
@@ -1007,18 +1021,19 @@ const websiteSchema = {
                         </p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Across the network</p>
+                        <p class="font-mono text-xs text-gold mb-4">"Which agent has earned more?"</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Rate Every Agent.</span><br /><span class="text-white/40">In One Currency,<br />Across Every Provider.</span>
+                            <span class="text-white">Know Who Deserves More Work.</span><br /><span class="text-white/40">Before You Hand It Over.</span>
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            The KYDE Trust Score™: agent behavior rated across every provider in the same currency. Vendors grade their own homework. We grade behavior. Trust that can be measured can be priced. And insured.
+                            The KYDE Trust Score™: every agent earns a score from its actual behavior. Policy hits, escalations, outcomes, drift. So you hand out more autonomy on evidence, catch degradation early, and show insurers a risk they can finally price. Trust that can be measured can be priced. And insured.
                         </p>
                         <ul class="space-y-2.5 mb-8">
                             {[
-                                "One scale for OpenAI, Anthropic, Google, and local models",
-                                "Computed from the signed ledger: evidence, not vendor telemetry",
-                                "The underwriting signal insurers can price",
+                                "Promote agents on evidence, not gut feeling",
+                                "Catch drift and degradation before your customers do",
+                                "One scale across GPT, Claude, Gemini, and local models, so vendor claims stop mattering",
+                                "Vendors grade their own homework. We grade behavior.",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
                                     <span class="font-mono text-[10px] text-gold shrink-0 mt-1">5.{i + 5}</span>
@@ -1049,6 +1064,7 @@ const websiteSchema = {
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
+                        <p class="font-mono text-xs text-gold mb-4">"What does waiting cost?"</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
                             <span class="text-white">Liability Makes Trust Urgent.</span> <span class="text-white/40">Courts Already Enforce It.</span>
                         </h2>
