@@ -57,8 +57,8 @@ const websiteSchema = {
 ---
 
 <Base
-    title="KYDE · Trust Infrastructure for the Agentic Economy"
-    description="KYDE makes AI agents trustworthy enough to hand them real responsibility. It prevents what an agent must not do, proves what it did, and keeps your knowledge yours. The behavioral firewall for AI agents."
+    title="KYDE · The Solid Core for Autonomous Work"
+    description="Give agents real work. Keep real control. KYDE is one deterministic layer that every autonomous system runs through: identity, policy, audit, control. Vendor neutral. Engineered in Germany."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -69,70 +69,21 @@ const websiteSchema = {
     <main>
         <!-- ══════════ HERO STAGE ══════════ -->
         <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 border-b border-line-0 bg-bg-0">
-            <!-- The recorder: a running cassette, drawn as line art. Observe only: nothing is ever blocked here, the tape just runs. -->
-            <div class="absolute right-2 lg:right-10 bottom-8 lg:bottom-12 w-[46%] max-w-2xl hidden md:block pointer-events-none">
-                <svg id="hero-cassette" viewBox="0 0 640 430" class="w-full max-w-2xl h-auto" aria-hidden="true">
-                    <!-- body -->
-                    <rect x="30" y="30" width="580" height="360" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-                    <rect x="44" y="44" width="552" height="332" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.16" />
-                    <!-- corner screws -->
-                    <rect x="37" y="37" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                    <rect x="598" y="37" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                    <rect x="37" y="378" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                    <rect x="598" y="378" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                    <!-- label plate -->
-                    <rect x="70" y="62" width="500" height="60" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" />
-                    <text x="92" y="99" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:15px;letter-spacing:0.22em;">KYDE · THE RECORD</text>
-                    <text id="cs-counter" x="472" y="99" text-anchor="end" fill="var(--color-gold)" style="font-family:'JetBrains Mono Variable',monospace;font-size:14px;letter-spacing:0.14em;">#004211</text>
-                    <circle id="cs-rec" cx="506" cy="93" r="5" fill="var(--color-alert)" />
-                    <text x="520" y="99" fill="var(--color-alert)" fill-opacity="0.9" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.18em;">REC</text>
-                    <!-- window -->
-                    <rect x="140" y="140" width="360" height="140" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" />
-                    <!-- tape packs (radii animate: left feeds, right takes up) -->
-                    <circle id="cs-pack-l" cx="230" cy="210" r="64" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.32" />
-                    <circle id="cs-pack-r" cx="410" cy="210" r="42" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.32" />
-                    <!-- hubs -->
-                    <circle cx="230" cy="210" r="17" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.75" />
-                    <circle cx="410" cy="210" r="17" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.75" />
-                    <g id="cs-hub-l" stroke="var(--color-ink-0)" stroke-opacity="0.75">
-                        <line x1="230" y1="210" x2="244" y2="210" />
-                        <line x1="230" y1="210" x2="223" y2="222.1" />
-                        <line x1="230" y1="210" x2="223" y2="197.9" />
-                    </g>
-                    <g id="cs-hub-r" stroke="var(--color-ink-0)" stroke-opacity="0.75">
-                        <line x1="410" y1="210" x2="424" y2="210" />
-                        <line x1="410" y1="210" x2="403" y2="222.1" />
-                        <line x1="410" y1="210" x2="403" y2="197.9" />
-                    </g>
-                    <!-- tape path: packs to rollers to the head line -->
-                    <circle cx="185" cy="332" r="7" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.5" />
-                    <circle cx="455" cy="332" r="7" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.5" />
-                    <line x1="230" y1="276" x2="188" y2="326" stroke="var(--color-ink-0)" stroke-opacity="0.4" />
-                    <line x1="410" y1="273" x2="452" y2="326" stroke="var(--color-ink-0)" stroke-opacity="0.4" />
-                    <line x1="192" y1="332" x2="448" y2="332" stroke="var(--color-ink-0)" stroke-opacity="0.45" />
-                    <!-- event markers travel this line (created by script) -->
-                    <g id="cs-markers"></g>
-                    <!-- signed tick where the tape winds up -->
-                    <circle id="cs-tick" cx="452" cy="326" r="9" fill="none" stroke="var(--color-live)" stroke-width="1.5" opacity="0" />
-                    <!-- status -->
-                    <text id="cs-status" x="320" y="416" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.16em;">4,211 ENTRIES · CHAIN INTACT</text>
-                </svg>
-            </div>
+            <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
             <div class="absolute inset-0 pointer-events-none hero-noise"></div>
             <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-bg-0/45 to-transparent"></div>
             <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-                    <span id="hero-l1" style="display:block">Understand What Makes</span>
-                    <span id="hero-l2" style="display:block">Your Company</span>
-                    <span id="hero-l3" style="display:block">Unique.</span>
+                    <span id="hero-l1" style="display:block">Give Agents Real Work.</span>
+                    <span id="hero-l2" style="display:block">Keep Real Control.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    The Black Box for Autonomous Systems.
+                    The Solid Core for Autonomous Work.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    Your AI workforce, on record: benchmarked, replayed, understood.
+                    One deterministic layer that every autonomous system runs through. Coding agents, SAP bots, factory robots. Engineered in Germany. Vendor neutral. Yours.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -197,15 +148,13 @@ const websiteSchema = {
 
   const l1 = document.getElementById("hero-l1") as HTMLElement;
   const l2 = document.getElementById("hero-l2") as HTMLElement;
-  const l3 = document.getElementById("hero-l3") as HTMLElement;
   const sub = document.getElementById("hero-sub") as HTMLElement;
   const h1 = l1?.closest("h1") as HTMLElement;
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "UNDERSTAND WHAT MAKES", 200);
-  if (l2) scrambleLine(l2, "YOUR COMPANY", 200);
-  if (l3) scrambleLine(l3, "UNIQUE.", 200, () => {
+  if (l1) scrambleLine(l1, "GIVE AGENTS REAL WORK.", 200);
+  if (l2) scrambleLine(l2, "KEEP REAL CONTROL.", 200, () => {
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
@@ -214,277 +163,241 @@ const websiteSchema = {
   });
   setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
 
-  // ── The recorder ────────────────────────────────────────────────
-  // The cassette runs. Reels turn, tape moves from the full reel to
-  // the take-up reel, and every ~1.4s one event marker travels the
-  // tape into the record: a green tick, the counter advances. Nothing
-  // is ever blocked here. Observe only, on stage.
-  const cassette = document.getElementById("hero-cassette");
+  // ── Boundary-gate figure ────────────────────────────────────────
+  // Geometric, not "rain": unordered agents drift on the left,
+  // cross the vertical gate line, and snap into a strict lattice , 
+  // ungoverned chaos becomes governed order. Rare green pulse at
+  // crossing (signed), rare red flash bouncing off (blocked).
+  const canvas = document.getElementById("hero-datastream") as HTMLCanvasElement | null;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (cassette && !reduced) {
-    const NS = "http://www.w3.org/2000/svg";
-    const hubL = document.getElementById("cs-hub-l")!;
-    const hubR = document.getElementById("cs-hub-r")!;
-    const packL = document.getElementById("cs-pack-l")!;
-    const packR = document.getElementById("cs-pack-r")!;
-    const rec = document.getElementById("cs-rec")!;
-    const tick = document.getElementById("cs-tick")!;
-    const counter = document.getElementById("cs-counter")!;
-    const status = document.getElementById("cs-status")!;
-    const markers = document.getElementById("cs-markers")!;
+  if (canvas) {
+    const ctx = canvas.getContext("2d")!;
+    let W = 0, H = 0, GATE = 0, ROW = 26;
 
-    let entries = 4211;
-    const MARKER_EVERY = 1400;
-    const MARKER_DUR = 1900;
-    const X0 = 192, X1 = 448, Y = 332;
-    let nextMarker = performance.now() + 600;
-    const inflight: { el: SVGRectElement; t0: number }[] = [];
+    // Theme-aware palette: the figure is drawn from CSS tokens, not literal
+    // rgb triples, so it inverts cleanly (light ink on dark, dark ink on
+    // light) instead of staying a fixed dark box when the theme toggles.
+    const C = { ink: "242,242,242", live: "61,220,132", alert: "255,92,92" };
+    function hexToRgb(hex: string): string {
+      const m = hex.trim().replace("#", "");
+      const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
+      return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+    }
+    function readColors() {
+      const cs = getComputedStyle(document.documentElement);
+      C.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
+      C.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+      C.alert = hexToRgb(cs.getPropertyValue("--color-alert") || "#FF5C5C");
+    }
+    readColors();
 
-    let visible = true;
-    new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(cassette);
+    function hash(n: number): number {
+      let t = (n + 0x6d2b79f5) | 0;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
 
-    let tickAt = -1e9;
+    type P = {
+      x: number; y: number; vx: number; seed: number;
+      state: "wild" | "signed" | "blocked";
+      rowY: number; pulse: number;
+    };
+    let parts: P[] = [];
 
-    function frame(t: number) {
-      if (visible) {
-        // reels: take-up turns faster than the feed, like a real deck
-        hubL.setAttribute("transform", `rotate(${(t * 0.028) % 360} 230 210)`);
-        hubR.setAttribute("transform", `rotate(${(t * 0.046) % 360} 410 210)`);
+    // occasional bloom when a particle crosses the gate
+    type Flare = { x: number; y: number; t0: number };
+    let flares: Flare[] = [];
+    let lastFlare = 0;
 
-        // tape slowly migrates from the left pack to the right one
-        const drift = Math.sin(t / 24000) * 5;
-        packL.setAttribute("r", String(64 - drift));
-        packR.setAttribute("r", String(42 + drift));
+    function spawn(p: P, i: number, initial = false) {
+      p.x = initial ? hash(i * 7 + 1) * GATE : -10 - hash(i * 13) * 60;
+      p.y = 40 + hash(i * 31 + performance.now() % 9973) * (H - 80);
+      p.vx = 12 + hash(i * 17) * 22;
+      p.seed = i * 7919 + Math.floor(performance.now());
+      p.state = "wild";
+      p.pulse = 0;
+    }
 
-        // REC breathes
-        rec.setAttribute("fill-opacity", String(0.55 + 0.45 * Math.sin(t / 450)));
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth;
+      H = canvas.clientHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      GATE = W * 0.68;
+      parts = [];
+      const n = Math.max(40, Math.floor(W / 16));
+      for (let i = 0; i < n; i++) {
+        const p = {} as P;
+        spawn(p, i, true);
+        parts.push(p);
+      }
+    }
 
-        // spawn markers
-        if (t >= nextMarker) {
-          const m = document.createElementNS(NS, "rect");
-          m.setAttribute("y", String(Y - 3));
-          m.setAttribute("width", "5");
-          m.setAttribute("height", "6");
-          m.setAttribute("fill", "var(--color-ink-0)");
-          m.setAttribute("fill-opacity", "0.9");
-          markers.appendChild(m);
-          inflight.push({ el: m, t0: t });
-          nextMarker = t + MARKER_EVERY;
-        }
+    let last = 0;
+    function draw(t: number) {
+      const dt = Math.min((t - last) / 1000, 0.05) || 0.016;
+      last = t;
+      ctx.clearRect(0, 0, W, H);
 
-        // move markers; on arrival: tick + counter
-        for (let i = inflight.length - 1; i >= 0; i--) {
-          const f = inflight[i];
-          const p = (t - f.t0) / MARKER_DUR;
-          if (p >= 1) {
-            f.el.remove();
-            inflight.splice(i, 1);
-            entries++;
-            counter.textContent = `#${String(entries).padStart(6, "0")}`;
-            status.textContent = `${entries.toLocaleString("en-US")} ENTRIES · CHAIN INTACT`;
-            tickAt = t;
+      // lattice on the governed side, faint, strict
+      ctx.fillStyle = `rgba(${C.ink},0.08)`;
+      for (let x = GATE + ROW; x < W; x += ROW)
+        for (let y = ROW; y < H; y += ROW)
+          ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
+
+      // gate line, nearly invisible at the ends, a faint shimmer mid-height;
+      // it reveals itself through interaction (blooms, blocks), not presence
+      const gateGrad = ctx.createLinearGradient(0, 0, 0, H);
+      gateGrad.addColorStop(0, `rgba(${C.ink},0)`);
+      gateGrad.addColorStop(0.5, `rgba(${C.ink},0.13)`);
+      gateGrad.addColorStop(1, `rgba(${C.ink},0)`);
+      ctx.fillStyle = gateGrad;
+      ctx.fillRect(GATE, 0, 1, H);
+      for (let y = 0; y < H; y += ROW * 2) {
+        const env = Math.sin((Math.PI * y) / H);
+        ctx.fillStyle = `rgba(${C.ink},${0.16 * env * env})`;
+        ctx.fillRect(GATE - 3, y, 7, 1);
+      }
+
+      for (const p of parts) {
+        const jitterSeed = p.seed + Math.floor(t / 300);
+
+        if (p.state === "wild") {
+          // brownian drift with slow right bias
+          p.x += p.vx * dt;
+          p.y += (hash(jitterSeed) - 0.5) * 34 * dt * 2.2;
+
+          if (p.x >= GATE) {
+            if (hash(p.seed + 5) > 0.93) {
+              p.state = "blocked";
+              p.pulse = 1;
+              p.vx = -18;
+            } else {
+              p.state = "signed";
+              p.pulse = hash(p.seed + 9) > 0.7 ? 1 : 0;
+              p.rowY = Math.round(p.y / ROW) * ROW;
+              p.vx = 26 + hash(p.seed + 3) * 18;
+              // every few seconds, one crossing blooms
+              if (t - lastFlare > 2100 && hash(p.seed + 11) > 0.4) {
+                flares.push({ x: GATE, y: p.rowY, t0: t });
+                lastFlare = t;
+              }
+            }
+          }
+          ctx.fillStyle = `rgba(${C.ink},0.32)`;
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+        } else if (p.state === "signed") {
+          p.x += p.vx * dt;
+          p.y += (p.rowY - p.y) * Math.min(dt * 6, 1); // snap to lattice row
+
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(${C.live},${p.pulse * 0.7})`;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(p.x - 4, p.y - 4, 8, 8);
+            p.pulse -= dt * 1.4;
+          }
+          ctx.fillStyle = `rgba(${C.ink},0.68)`;
+          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+
+          if (p.x > W + 10) spawn(p, Math.floor(p.seed / 7919));
+        } else {
+          // blocked: red flash at the gate, drift back, fade
+          p.x += p.vx * dt;
+          if (p.pulse > 0) {
+            ctx.strokeStyle = `rgba(${C.alert},${p.pulse * 0.8})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x + 4, p.y - 4); ctx.lineTo(p.x - 4, p.y + 4);
+            ctx.moveTo(p.x - 4, p.y - 4); ctx.lineTo(p.x + 4, p.y + 4);
+            ctx.stroke();
+            p.pulse -= dt * 0.9;
           } else {
-            f.el.setAttribute("x", String(X0 + (X1 - X0) * p - 2.5));
-            f.el.setAttribute("fill-opacity", String(0.35 + 0.55 * p));
+            spawn(p, Math.floor(p.seed / 7919));
           }
         }
-
-        // signed tick flash
-        const tp = (t - tickAt) / 700;
-        if (tp >= 0 && tp <= 1) {
-          tick.setAttribute("opacity", String((1 - tp) * 0.9));
-          tick.setAttribute("r", String(7 + tp * 10));
-        } else {
-          tick.setAttribute("opacity", "0");
-        }
       }
-      requestAnimationFrame(frame);
+
+      // flares, soft light bloom at the gate, expanding and fading
+      flares = flares.filter((f) => t - f.t0 < 1600);
+      for (const f of flares) {
+        const age = (t - f.t0) / 1600; // 0 → 1
+        const ease = 1 - Math.pow(1 - age, 2);
+        const r = 16 + ease * 130;
+        const a = (1 - age) * 0.85;
+
+        const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r);
+        g.addColorStop(0, `rgba(${C.ink},${a})`);
+        g.addColorStop(0.25, `rgba(${C.ink},${a * 0.35})`);
+        g.addColorStop(0.6, `rgba(${C.live},${a * 0.22})`);
+        g.addColorStop(1, `rgba(${C.live},0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // bright core that snuffs out quickly
+        if (age < 0.35) {
+          ctx.fillStyle = `rgba(${C.ink},${(1 - age / 0.35) * 0.9})`;
+          ctx.fillRect(f.x - 2, f.y - 2, 4, 4);
+        }
+
+        // brief brightening of the gate line around the bloom
+        const gl = ctx.createLinearGradient(f.x, f.y - r, f.x, f.y + r);
+        gl.addColorStop(0, `rgba(${C.ink},0)`);
+        gl.addColorStop(0.5, `rgba(${C.ink},${a * 0.8})`);
+        gl.addColorStop(1, `rgba(${C.ink},0)`);
+        ctx.fillStyle = gl;
+        ctx.fillRect(GATE, f.y - r, 1, r * 2);
+      }
     }
-    requestAnimationFrame(frame);
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    // Re-read the palette on theme toggle. The running rAF loop repaints
+    // every frame anyway and will pick the new colors up on its own; the
+    // reduced-motion path only ever draws once, so it needs an explicit nudge.
+    window.addEventListener("kyde:theme", () => {
+      readColors();
+      if (reduced) draw(performance.now());
+    });
+
+    if (reduced) {
+      draw(1);
+    } else {
+      let heroVisible = true;
+      new IntersectionObserver((es) => { heroVisible = es[0].isIntersecting; }).observe(canvas);
+      const loop = (t: number) => { if (heroVisible) draw(t); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    }
   }
 </script>
 
-
-        <!-- ══════════ 01 ONE RECORD ══════════ -->
-        <section id="one-record" class="scroll-mt-20 border-b border-white/10">
+        <!-- ══════════ 01 THE SHIFT ══════════ -->
+        <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · One Record</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · The Shift</span>
                     <span class="fig-label">FIG.1</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">The tape is running</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Recorded Once.</span> <span class="text-white/40">Valuable Everywhere.</span>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            <span class="text-white">Agents Already Do Real Work</span> <span class="text-white/40">in Your Company.</span>
                         </h2>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            Every agent action lands on one tamper-evident record: the black box of your autonomous work. Everything KYDE gives you is drawn from it. Proof for the people you answer to. A risk profile insurers can price. Evaluation against any model, on your real traffic. And a corpus that stays yours.
-                        </p>
-                    </div>
-                    <div>
-                        <div class="relative flex items-center justify-center min-h-[380px]">
-                            <svg id="br-fig" viewBox="0 0 560 600" class="w-full max-w-lg h-auto" aria-hidden="true">
-                                <!-- spokes -->
-                                <line x1="280" y1="233" x2="280" y2="122" stroke="var(--color-ink-0)" stroke-opacity="0.3" />
-                                <line x1="372" y1="290" x2="452" y2="290" stroke="var(--color-ink-0)" stroke-opacity="0.3" />
-                                <line x1="280" y1="347" x2="280" y2="458" stroke="var(--color-ink-0)" stroke-opacity="0.3" />
-                                <line x1="188" y1="290" x2="108" y2="290" stroke="var(--color-ink-0)" stroke-opacity="0.3" />
-
-                                <!-- pulses -->
-                                <circle id="br-pulse-0" r="3.5" fill="var(--color-live)" opacity="0" />
-                                <circle id="br-pulse-1" r="3.5" fill="var(--color-live)" opacity="0" />
-                                <circle id="br-pulse-2" r="3.5" fill="var(--color-live)" opacity="0" />
-                                <circle id="br-pulse-3" r="3.5" fill="var(--color-live)" opacity="0" />
-
-                                <!-- center: the mini recorder -->
-                                <rect x="190" y="233" width="180" height="114" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.6" />
-                                <text x="280" y="259" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.22em;">THE RECORD</text>
-                                <circle id="br-pack-l" cx="248" cy="295" r="21" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" />
-                                <circle id="br-pack-r" cx="312" cy="295" r="14" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" />
-                                <circle cx="248" cy="295" r="7" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.75" />
-                                <circle cx="312" cy="295" r="7" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.75" />
-                                <g id="br-hub-l" stroke="var(--color-ink-0)" stroke-opacity="0.75">
-                                    <line x1="248" y1="295" x2="254" y2="295" />
-                                    <line x1="248" y1="295" x2="245" y2="300.2" />
-                                    <line x1="248" y1="295" x2="245" y2="289.8" />
-                                </g>
-                                <g id="br-hub-r" stroke="var(--color-ink-0)" stroke-opacity="0.75">
-                                    <line x1="312" y1="295" x2="318" y2="295" />
-                                    <line x1="312" y1="295" x2="309" y2="300.2" />
-                                    <line x1="312" y1="295" x2="309" y2="289.8" />
-                                </g>
-                                <text id="br-counter" x="280" y="335" text-anchor="middle" fill="var(--color-gold)" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.16em;">#004211</text>
-
-                                <!-- four value nodes -->
-                                <rect id="br-node-0" x="276.5" y="104.5" width="7" height="7" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                                <text id="br-label-0" x="280" y="88" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.18em;">PROVE</text>
-                                <text x="280" y="70" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8.5px;letter-spacing:0.12em;">regulators &amp; courts</text>
-
-                                <rect id="br-node-1" x="466.5" y="286.5" width="7" height="7" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                                <text id="br-label-1" x="470" y="270" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.18em;">INSURE</text>
-                                <text x="470" y="314" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8.5px;letter-spacing:0.12em;">telematics for AI</text>
-
-                                <rect id="br-node-2" x="276.5" y="468.5" width="7" height="7" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                                <text id="br-label-2" x="280" y="502" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.18em;">EVALUATE</text>
-                                <text x="280" y="520" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8.5px;letter-spacing:0.12em;">replay real traffic</text>
-
-                                <rect id="br-node-3" x="86.5" y="286.5" width="7" height="7" fill="var(--color-ink-0)" fill-opacity="0.5" />
-                                <text id="br-label-3" x="90" y="270" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.18em;">LEARN</text>
-                                <text x="90" y="314" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8.5px;letter-spacing:0.12em;">your corpus, your models</text>
-                            </svg>
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.1 · One record feeds four streams: proof, insurance, evaluation, learning. Nothing intercepted, everything written down.
-                        </p>
-                    </div>
-                </div>
-
-                <script>
-                    // FIG.1 · the value ring. The mini recorder writes an entry,
-                    // then a pulse travels one spoke outward and lights that
-                    // value node: record becomes proof, insurance, evaluation,
-                    // learning, in rotation. Direction matters: everything
-                    // flows OUT of the record, nothing is intercepted.
-                    const brReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                    const brFig = document.getElementById("br-fig");
-
-                    if (brFig) {
-                        const $br = (id: string) => document.getElementById(id)!;
-                        const brNodes = [0, 1, 2, 3].map((i) => $br(`br-node-${i}`));
-                        const brLabels = [0, 1, 2, 3].map((i) => $br(`br-label-${i}`));
-                        const brPulses = [0, 1, 2, 3].map((i) => $br(`br-pulse-${i}`));
-                        const brCounter = $br("br-counter");
-                        const hubL = $br("br-hub-l");
-                        const hubR = $br("br-hub-r");
-
-                        const LIVE = "var(--color-live)";
-                        const INK = "var(--color-ink-0)";
-                        // spoke start/end per node (N, E, S, W)
-                        const spokes = [
-                            { x0: 280, y0: 233, x1: 280, y1: 112 },
-                            { x0: 372, y0: 290, x1: 460, y1: 290 },
-                            { x0: 280, y0: 347, x1: 280, y1: 466 },
-                            { x0: 188, y0: 290, x1: 100, y1: 290 },
-                        ];
-
-                        const light = (i: number, on: boolean) => {
-                            brNodes[i].setAttribute("fill", on ? LIVE : INK);
-                            brNodes[i].setAttribute("fill-opacity", on ? "1" : "0.5");
-                            brLabels[i].setAttribute("fill", on ? LIVE : INK);
-                            brLabels[i].setAttribute("fill-opacity", on ? "1" : "0.55");
-                        };
-
-                        if (brReduced) {
-                            for (let i = 0; i < 4; i++) light(i, true);
-                        } else {
-                            let entries = 4211;
-                            let active = 0;
-                            let phaseStart = performance.now() + 400;
-                            const TRAVEL = 750;
-                            const LIT = 1450;
-
-                            let visible = true;
-                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(brFig);
-
-                            function brFrame(t: number) {
-                                if (visible) {
-                                    hubL.setAttribute("transform", `rotate(${(t * 0.03) % 360} 248 295)`);
-                                    hubR.setAttribute("transform", `rotate(${(t * 0.05) % 360} 312 295)`);
-
-                                    const el = t - phaseStart;
-                                    const sp = spokes[active];
-                                    const pulse = brPulses[active];
-
-                                    if (el >= 0 && el < TRAVEL) {
-                                        const p = el / TRAVEL;
-                                        pulse.setAttribute("cx", String(sp.x0 + (sp.x1 - sp.x0) * p));
-                                        pulse.setAttribute("cy", String(sp.y0 + (sp.y1 - sp.y0) * p));
-                                        pulse.setAttribute("opacity", String(0.9 - p * 0.25));
-                                    } else if (el >= TRAVEL && el < TRAVEL + LIT) {
-                                        pulse.setAttribute("opacity", "0");
-                                        light(active, true);
-                                    } else if (el >= TRAVEL + LIT) {
-                                        light(active, false);
-                                        active = (active + 1) % 4;
-                                        entries++;
-                                        brCounter.textContent = `#${String(entries).padStart(6, "0")}`;
-                                        phaseStart = t;
-                                    }
-                                }
-                                requestAnimationFrame(brFrame);
-                            }
-                            requestAnimationFrame(brFrame);
-                        }
-                    }
-                </script>
-            </div>
-        </section>
-
-        <!-- ══════════ 02 PROBLEM ══════════ -->
-        <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · The Problem</span>
-                    <span class="fig-label">FIG.2</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Shadow Agents Are Already Running.</span><br /><span class="text-white/40">Do You Know What They're Doing?</span>
-                        </h2>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">The question is no longer whether. It is on what terms.</p>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Shadow AI was employees using unauthorized tools. Shadow Agents are autonomous systems calling APIs, processing data, and making decisions, outside IT and security oversight entirely.
+                            They call APIs, move data, and make decisions right now, most of them outside IT and security oversight. While they work, every prompt, trace, and correction flows upstream. Your know-how, training someone else's model.
                         </p>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            And while they work, every prompt, trace, and correction flows upstream. Your know-how, training someone else's model.
-                        </p>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Courts hold you liable for what they do. Not the vendor, not the model. Ask Air Canada.
+                            And you carry the outcome. Courts hold you liable for what your agents do. Not the vendor. Not the model. Ask Air Canada.
                         </p>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            KYDE gives you the complete picture from the moment you deploy: every agent identity, every action, every upstream provider.
+                            KYDE gives you the complete picture from the moment you deploy. Every agent identity. Every action. Every upstream provider. On day one.
                         </p>
                     </div>
                     <div class="relative flex items-center justify-center min-h-[380px]">
@@ -532,11 +445,14 @@ const websiteSchema = {
                             <circle cx="240" cy="240" r="4.5" fill="var(--color-ink-0)" />
                             <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
                         </svg>
+                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.1 · The fleet, signed. Every agent accounted for.
+                        </p>
                     </div>
                 </div>
 
                 <script>
-                    // FIG.2 · radar. Shadow agents sit almost invisible in
+                    // FIG.1 · radar. Shadow agents sit almost invisible in
                         // the field; the sweep reveals them: blip flashes, the
                         // identity label appears, a green "signed" confirms the
                         // record, then the afterglow fades until the next pass.
@@ -644,18 +560,41 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ 03 ARCHITECTURE ══════════ -->
+
+        <!-- ══════════ 02 THE NEED ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-14">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · The Need</span>
+                </div>
+                <div class="max-w-3xl">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-8">
+                        <span class="text-white">Nobody Hands Real Responsibility</span> <span class="text-white/40">to an Agent Nobody Can Control.</span>
+                    </h2>
+                    <p class="text-lg text-white/55 leading-relaxed mb-5">
+                        No one gives an agent access to payments, customer data, or production systems until they can control what it does, prove what it did, and trust it to do more.
+                    </p>
+                    <p class="text-lg text-white/55 leading-relaxed">
+                        That is the gap between what agents could do and what you let them do. KYDE closes it. Not by slowing agents down. By giving you the ground to stand them on.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ 03 THE CORE ══════════ -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
             <div class="max-w-4xl mx-auto">
 
                 <div class="mb-12 md:mb-16">
                     <div class="mb-8 flex items-end justify-between border-b border-white/10 pb-3">
-                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Architecture</span>
-                        <span class="fig-label">FIG.3</span>
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · The Core</span>
+                        <span class="fig-label">FIG.2</span>
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">One gateway. Every agent.</span> <span class="text-white/40">Zero code changes.</span></h2>
-                    <p class="text-white/55 leading-relaxed max-w-2xl">Not on the machine. Not in the agent. KYDE sits outside, in the path itself: every action passes through it, intercepted, scoped, and signed before it executes.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">One core. Every autonomous system.</span> <span class="text-white/40">Zero code changes.</span></h2>
+                    <p class="text-white/55 leading-relaxed max-w-2xl mb-5">We are not a filter on top of your agents. We are the ground they stand on. KYDE sits outside, in the path itself: every action passes through the core, checked against your rules, before it executes. Deterministic. Deny by default.</p>
+                    <p class="font-mono text-sm text-ink-0 border-l-2 border-white/30 pl-4 leading-relaxed mb-5 max-w-2xl">Others guess what an agent intends. We are the concrete it runs on.</p>
+                    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">From visible to governed to autonomous · <span class="text-gold">Observe · Trust · Govern · Autonomy</span> · one layer carries all four</p>
                 </div>
 
                 <!-- Layer 1: AI Agents -->
@@ -664,19 +603,21 @@ const websiteSchema = {
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Incoming</span>
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 01</span>
                     </div>
-                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">AI Agents</p>
+                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">AI Systems</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Claude</span>
                         <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">GPT-4o</span>
                         <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Gemini</span>
                         <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">LangChain</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">SAP Bots</span>
+                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Robots</span>
                         <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Custom Agents</span>
                     </div>
                 </div>
 
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-white/25"></div>
+                    <div class="w-px h-full bg-white/25 relative overflow-hidden"><span class="core-drop block absolute left-0 top-0 h-2 w-px bg-white"></span></div>
                     <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-bg-1 px-2">all requests</span>
                 </div>
 
@@ -692,7 +633,7 @@ const websiteSchema = {
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-0/60">Layer 02</span>
                     </div>
                     <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
-                    <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">Agent Governance Gateway</p>
+                    <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">The Solid Core for Autonomous Work</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="border border-line-1 p-3">
                             <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Identity</p>
@@ -715,7 +656,7 @@ const websiteSchema = {
 
                 <!-- Connector -->
                 <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-white/25"></div>
+                    <div class="w-px h-full bg-white/25 relative overflow-hidden"><span class="core-drop core-drop-late block absolute left-0 top-0 h-2 w-px bg-live"></span></div>
                     <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-bg-1 px-2">verified &amp; logged</span>
                 </div>
 
@@ -751,7 +692,7 @@ const websiteSchema = {
                         <p class="text-white/40"><span class="text-live">$</span><span class="text-white/70"> kyde fleet init</span></p>
                         <p class="mt-1 text-live">&#10003; Fleet proxy started on :8080</p>
                         <p class="text-live">&#10003; Agent identities provisioned</p>
-                        <p class="text-live">&#10003; Role boundaries enforced</p>
+                        <p class="text-live">&#10003; Rules enforced at the boundary</p>
                         <p class="text-live">&#10003; Tamper-evident ledger initialized</p>
                         <p class="mt-2 text-white/40"><span class="text-live">$</span><span class="text-white/70"> kyde fleet status</span></p>
                         <p class="mt-1 text-live">&#10003; 12 agents active, all scoped, signed, accountable</p>
@@ -764,190 +705,25 @@ const websiteSchema = {
                     <span>Target &lt;100ms Latency</span>
                     <span>Provider-Agnostic</span>
                     <span>MCP-Ready</span>
-                    <span>Zero Code Changes</span>
+                    <span>Live in Ten Minutes</span>
                 </div>
 
                 <!-- Footnote -->
                 <div class="mt-6 flex items-center gap-3">
                     <span class="h-px flex-1 bg-white/10"></span>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Outside the agent. Cannot be overridden.</span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Outside the system. Owned by you.</span>
                 </div>
 
             </div>
             </div>
         </section>
 
-        <!-- ══════════ 04 PREVENT · PROVE · RATE ══════════ -->
-        <section class="relative border-b border-white/10">
+        <!-- ══════════ 04 YOUR RULES, ENFORCED ══════════ -->
+        <section id="policies" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Prevent · Prove · Rate</span>
-                    <span class="fig-label">FIG.4</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Nobody hands real responsibility</span> <span class="text-white/40">to an agent nobody can trust.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            No one gives an agent access to payments, customer data, or production systems until someone can control, prove, and rate what it does. That’s what these three layers unlock: deployed in minutes, covering every agent from day one.
-                        </p>
-                        <ul class="mt-10 space-y-3 font-mono text-xs uppercase tracking-[0.15em]">
-                            <li><a href="#prevent" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">04.1</span>Prevent · before the damage</a></li>
-                            <li><a href="#prove" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">04.2</span>Prove · after the action</a></li>
-                            <li><a href="#rate" class="text-white/50 hover:text-white transition-colors"><span class="text-gold mr-3">04.3</span>Rate · across the network</a></li>
-                        </ul>
-                    </div>
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="vpr-fig" viewBox="-45 5 610 545" class="w-full max-w-lg h-auto" aria-hidden="true">
-                            <defs>
-                                <pattern id="vpr-dots" width="11" height="11" patternUnits="userSpaceOnUse">
-                                    <circle cx="2" cy="2" r="1.1" fill="var(--color-ink-0)" fill-opacity="0.3" />
-                                </pattern>
-                            </defs>
-
-                            <!-- tick pulse from the center -->
-                            <circle id="vpr-pulse" cx="260" cy="283" r="0" fill="none" stroke="var(--color-gold)" stroke-width="1" opacity="0" />
-
-                            <!-- outer cycle -->
-                            <path id="vpr-outer" d="M260 70 L440 390 L80 390 Z" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1" />
-
-                            <!-- direction arrows on the edges -->
-                            <polygon id="vpr-arrow-0" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(355,235) rotate(60.6)" />
-                            <polygon id="vpr-arrow-1" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(260,390) rotate(180)" />
-                            <polygon id="vpr-arrow-2" points="0,-3.5 8,0 0,3.5" fill="var(--color-ink-0)" fill-opacity="0.85" transform="translate(165,235) rotate(-60.6)" />
-
-                            <!-- inner dot-grid triangle -->
-                            <path id="vpr-inner" d="M260 175 L355 345 L165 345 Z" fill="url(#vpr-dots)" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                            <text id="vpr-center" x="260" y="310" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;letter-spacing:0.2em;">KYDE</text>
-
-                            <!-- vertex nodes + labels -->
-                            <rect id="vpr-node-0" x="256.5" y="66.5" width="7" height="7" fill="var(--color-ink-0)" />
-                            <text id="vpr-label-0" x="260" y="48" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PREVENT</text>
-
-                            <rect id="vpr-node-1" x="436.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
-                            <text id="vpr-label-1" x="452" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">PROVE</text>
-
-                            <rect id="vpr-node-2" x="76.5" y="386.5" width="7" height="7" fill="var(--color-ink-0)" />
-                            <text id="vpr-label-2" x="72" y="424" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">RATE</text>
-                        </svg>
-                    </div>
-                </div>
-
-                <script>
-                        // FIG.4 · the cycle ticks. The triangle is rigid; every
-                        // ~10s it rotates one step like a slow clock, and a
-                        // pulse breathes out of the center as it moves.
-                        const vprReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                        const fig = document.getElementById("vpr-fig");
-
-                        if (fig && !vprReduced) {
-                            const $ = (id: string) => document.getElementById(id)!;
-                            const outer = $("vpr-outer");
-                            const inner = $("vpr-inner");
-                            const center = $("vpr-center");
-                            const pulse = $("vpr-pulse");
-                            const nodes = [0, 1, 2].map((i) => $(`vpr-node-${i}`));
-                            const labels = [0, 1, 2].map((i) => $(`vpr-label-${i}`));
-                            const arrows = [0, 1, 2].map((i) => $(`vpr-arrow-${i}`));
-
-                            const anchors = [
-                                { x: 260, y: 70 },
-                                { x: 440, y: 390 },
-                                { x: 80, y: 390 },
-                            ];
-                            const C = {
-                                x: (anchors[0].x + anchors[1].x + anchors[2].x) / 3,
-                                y: (anchors[0].y + anchors[1].y + anchors[2].y) / 3,
-                            };
-                            const base = anchors.map((a) => ({
-                                r: Math.hypot(a.x - C.x, a.y - C.y),
-                                ang: Math.atan2(a.y - C.y, a.x - C.x),
-                            }));
-
-                            const TICK_EVERY = 4000;  // ms between ticks
-                            const TICK_DUR = 1100;    // rotation ease duration
-                            const PULSE_DUR = 1800;   // center pulse duration
-                            const STEP = Math.PI / 6; // 30° per tick, like minute marks
-
-                            let angleFrom = 0, angleTo = 0, angle = 0;
-                            let tickStart = -1e9;
-                            let nextTick = performance.now() + 2500;
-
-                            const easeInOut = (x: number) =>
-                                x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-
-                            let visible = true;
-                            new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
-
-                            center.setAttribute("x", String(C.x));
-                            center.setAttribute("y", String(C.y + 4));
-                            pulse.setAttribute("cx", String(C.x));
-                            pulse.setAttribute("cy", String(C.y));
-
-                            function frame(t: number) {
-                                if (visible) {
-                                    if (t >= nextTick) {
-                                        angleFrom = angleTo;
-                                        angleTo += STEP;
-                                        tickStart = t;
-                                        nextTick = t + TICK_EVERY;
-                                    }
-
-                                    const rp = Math.min((t - tickStart) / TICK_DUR, 1);
-                                    angle = angleFrom + (angleTo - angleFrom) * easeInOut(rp);
-
-                                    // pulse breathing out of the center during the tick
-                                    const pp = (t - tickStart) / PULSE_DUR;
-                                    if (pp >= 0 && pp <= 1) {
-                                        pulse.setAttribute("r", String(16 + pp * 150));
-                                        pulse.setAttribute("opacity", String((1 - pp) * 0.55));
-                                    } else {
-                                        pulse.setAttribute("opacity", "0");
-                                    }
-                                    const breath = pp >= 0 && pp <= 1 ? Math.sin(pp * Math.PI) * 0.05 : 0;
-
-                                    const v = base.map((b) => ({
-                                        x: C.x + b.r * Math.cos(b.ang + angle),
-                                        y: C.y + b.r * Math.sin(b.ang + angle),
-                                    }));
-
-                                    outer.setAttribute("d", `M${v[0].x} ${v[0].y} L${v[1].x} ${v[1].y} L${v[2].x} ${v[2].y} Z`);
-
-                                    const s = 0.52 + breath;
-                                    const inV = v.map((p) => ({ x: C.x + (p.x - C.x) * s, y: C.y + (p.y - C.y) * s }));
-                                    inner.setAttribute("d", `M${inV[0].x} ${inV[0].y} L${inV[1].x} ${inV[1].y} L${inV[2].x} ${inV[2].y} Z`);
-
-                                    for (let i = 0; i < 3; i++) {
-                                        nodes[i].setAttribute("x", String(v[i].x - 3.5));
-                                        nodes[i].setAttribute("y", String(v[i].y - 3.5));
-
-                                        // labels sit outward from the center, always upright
-                                        const dx = v[i].x - C.x, dy = v[i].y - C.y;
-                                        const d = Math.hypot(dx, dy);
-                                        labels[i].setAttribute("x", String(v[i].x + (dx / d) * 30));
-                                        labels[i].setAttribute("y", String(v[i].y + (dy / d) * 30 + 4));
-
-                                        const a = v[i], b = v[(i + 1) % 3];
-                                        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
-                                        const ang = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
-                                        arrows[i].setAttribute("transform", `translate(${mx},${my}) rotate(${ang})`);
-                                    }
-                                }
-                                requestAnimationFrame(frame);
-                            }
-                            requestAnimationFrame(frame);
-                        }
-                    </script>
-            </div>
-        </section>
-
-        <!-- ══════════ 04.1 PREVENT ══════════ -->
-        <section id="prevent" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04.1 · Prevent</span>
-                    <span class="fig-label">FIG.5</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Your Rules, Enforced</span>
+                    <span class="fig-label">FIG.3</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div class="flex flex-col">
@@ -975,61 +751,181 @@ const websiteSchema = {
                             </div>
                         </div>
                         <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.5 · PII detected. Email masked. Context redacted by role · before the auditor could see it.
+                            FIG.3 · Rule matched. PII masked by role. Redacted before the agent ever saw it.
                         </p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Before the damage</p>
+                        <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">Business rules for autonomous work</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            Prevent What Must<br />Not Happen.
+                            <span class="text-white">Your Company Already Runs on Rules.</span> <span class="text-white/40">Now Your Agents Follow Them.</span>
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Deterministic guardrails on a probabilistic technology. Deny-by-default at the boundary: the damage doesn’t happen first and gets explained later. It never happens.
+                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent must pass before it acts.
                         </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Block out-of-scope requests in real time",
-                                "Attribute every action to a verified agent identity",
-                                "PII detected and masked by role, in prompts and completions, before delivery",
-                                "Works with every provider: OpenAI, Anthropic, Google, local models",
-                                "See and stop knowledge egress to model providers, before it becomes their training data",
-                            ].map((item, i) => (
-                                <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">1.{i + 1}</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        <p class="text-lg text-white/55 leading-relaxed mb-8">
+                            <span class="text-white">See it before you ship it.</span> Run any rule against last week's real traffic and see exactly which agents it would have stopped, before you switch it on.
+                        </p>
+                        <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                            See how policies work →
+                        </a>
                     </div>
                 </div>
+
+                <!-- Write the rule the way you would say it -->
+                <div class="grid md:grid-cols-3 gap-4 pb-14">
+                    {[
+                        { k: "In plain language", q: "\u201CMarketing agents may use any model but never send customer emails.\u201D", a: "KYDE writes the policy." },
+                        { k: "In the visual builder", q: "IF agent is Finance AND amount over 100 euros THEN require approval.", a: "No code." },
+                        { k: "As policy code", q: "Versioned rules for engineers, reviewed like any other change.", a: "The same language your agents are held to." },
+                    ].map(({ k, q, a }) => (
+                        <div class="border border-white/10 bg-white/[0.02] p-6">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-3">{k}</p>
+                            <p class="font-mono text-xs text-white/70 leading-relaxed mb-3">{q}</p>
+                            <p class="text-xs text-white/45">{a}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <!-- Autonomy ladder -->
+                <div class="pb-24 md:pb-28">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-8">
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Autonomy is earned, not granted</span>
+                        <span class="fig-label">FIG.4</span>
+                    </div>
+                    <p class="text-base text-white/55 leading-relaxed max-w-3xl mb-10">
+                        Every agent starts at level zero and climbs. KYDE manages the whole climb, and the reason for every step.
+                    </p>
+                    <svg id="ladder-fig" viewBox="0 0 1000 250" class="w-full h-auto" aria-hidden="true">
+                        <!-- stairs -->
+                        <path d="M40 210 L220 210 L220 170 L400 170 L400 130 L580 130 L580 90 L760 90 L760 50 L950 50"
+                              fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.5" stroke-width="1.5" />
+                        <!-- step labels -->
+                        <text x="130" y="238" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L0</text>
+                        <text x="310" y="238" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L1</text>
+                        <text x="490" y="238" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L2</text>
+                        <text x="670" y="238" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L3</text>
+                        <text x="860" y="238" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L4</text>
+                        <text id="lad-sub-0" x="130" y="222" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">reads</text>
+                        <text id="lad-sub-1" x="310" y="222" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">suggests</text>
+                        <text id="lad-sub-2" x="490" y="222" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">files tickets</text>
+                        <text id="lad-sub-3" x="670" y="222" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">deploys code</text>
+                        <text id="lad-sub-4" x="860" y="222" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">approves payments</text>
+                        <!-- evidence ticks under current step -->
+                        <text id="lad-evidence" x="40" y="30" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">evidence window complete · promoted</text>
+                        <!-- the agent -->
+                        <rect id="lad-agent" x="126" y="201" width="8" height="8" fill="var(--color-ink-0)" />
+                        <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="130" cy="205" />
+                    </svg>
+                    <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
+                        FIG.4 · Autonomy is earned. Level 0 reads. Level 2 files tickets. Level 3 deploys code. Level 4 approves payments. Every step climbed on evidence, every step recorded.
+                    </p>
+                </div>
+
+                <script>
+                    // FIG.4 · the ladder. The agent climbs one level per evidence
+                    // window; a green pulse marks the promotion. At the top it
+                    // holds, then a new agent starts at zero. Autonomy is earned.
+                    const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    const ladFig = document.getElementById("ladder-fig");
+
+                    if (ladFig && !ladReduced) {
+                        const agent = document.getElementById("lad-agent")!;
+                        const pulse = document.getElementById("lad-pulse")!;
+                        const evidence = document.getElementById("lad-evidence")!;
+                        const steps = [
+                            { x: 130, y: 210 }, { x: 310, y: 170 }, { x: 490, y: 130 },
+                            { x: 670, y: 90 }, { x: 860, y: 50 },
+                        ];
+                        let level = 0;
+                        let phaseStart = performance.now() + 800;
+                        const DWELL = 2200, CLIMB = 700, HOLD_TOP = 3200;
+
+                        let visible = true;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ladFig);
+
+                        const put = (x: number, y: number) => {
+                            agent.setAttribute("x", String(x - 4));
+                            agent.setAttribute("y", String(y - 9));
+                        };
+
+                        function ladFrame(t: number) {
+                            if (visible) {
+                                const el = t - phaseStart;
+                                const atTop = level === steps.length - 1;
+                                const dwell = atTop ? HOLD_TOP : DWELL;
+
+                                if (el < dwell) {
+                                    put(steps[level].x, steps[level].y);
+                                } else if (el < dwell + CLIMB && !atTop) {
+                                    const pr = (el - dwell) / CLIMB;
+                                    const a = steps[level], b = steps[level + 1];
+                                    // step profile: first across, then up
+                                    if (pr < 0.5) {
+                                        put(a.x + (b.x - a.x) * (pr * 2), a.y);
+                                    } else {
+                                        put(b.x, a.y + (b.y - a.y) * ((pr - 0.5) * 2));
+                                    }
+                                } else {
+                                    if (atTop) {
+                                        level = 0;
+                                        put(steps[0].x, steps[0].y);
+                                    } else {
+                                        level++;
+                                        const stp = steps[level];
+                                        put(stp.x, stp.y);
+                                        pulse.setAttribute("cx", String(stp.x));
+                                        pulse.setAttribute("cy", String(stp.y - 5));
+                                        pulse.setAttribute("r", "6");
+                                        pulse.setAttribute("opacity", "0.8");
+                                        evidence.setAttribute("x", String(Math.min(stp.x - 90, 700)));
+                                        evidence.setAttribute("y", String(stp.y - 28));
+                                        evidence.setAttribute("fill-opacity", "0.8");
+                                    }
+                                    phaseStart = t;
+                                }
+
+                                // pulse + evidence fade
+                                const po = parseFloat(pulse.getAttribute("opacity") || "0");
+                                if (po > 0) {
+                                    pulse.setAttribute("opacity", String(Math.max(po - 0.012, 0)));
+                                    pulse.setAttribute("r", String(parseFloat(pulse.getAttribute("r")!) + 0.5));
+                                }
+                                const eo = parseFloat(evidence.getAttribute("fill-opacity") || "0");
+                                if (eo > 0) evidence.setAttribute("fill-opacity", String(Math.max(eo - 0.006, 0)));
+                            }
+                            requestAnimationFrame(ladFrame);
+                        }
+                        requestAnimationFrame(ladFrame);
+                    }
+                </script>
             </div>
         </section>
 
-        <!-- ══════════ 04.2 PROVE ══════════ -->
+        <!-- ══════════ 05 PROVE & TRUST ══════════ -->
         <section id="prove" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04.2 · Prove</span>
-                    <span class="fig-label">FIG.6</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Prove &amp; Trust</span>
+                    <span class="fig-label">FIG.5</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
                         <p class="font-mono text-xs text-gold uppercase tracking-[0.2em] mb-4">After the action</p>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Prove What Happened.</span><br /><span class="text-white/40">The Suspect Can't Write<br />the Police Report.</span>
+                            <span class="text-white">The Suspect Cannot Write</span><br /><span class="text-white/40">the Police Report.</span>
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Your LLM provider's log lives on their infrastructure, signed with their keys, accessible only through their console. In a dispute involving them, it's worthless. KYDE's audit trail is architecturally independent, Ed25519-signed, hash-chained, captured before the action reaches any provider.
+                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. KYDE's record is architecturally independent. Integrity you can demonstrate, not just assert.
                         </p>
                         <ul class="space-y-2.5 mb-8">
                             {[
-                                "Architecturally independent of every LLM provider, captured before it reaches them",
-                                "Every entry Ed25519-signed and hash-chained: tamper with one, every subsequent link breaks",
-                                "Undeletable by any agent, including the one being investigated",
-                                "Compliance reports generated automatically",
+                                "Independent of every model provider, captured before it reaches them",
+                                "Every entry signed and hash-chained: tamper with one link, every following link breaks",
+                                "Undeletable by any agent, including the one under investigation",
+                                "Reports generated automatically for auditors and regulators",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">2.{i + 1}</span>
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">5.{i + 1}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -1062,20 +958,13 @@ const websiteSchema = {
                             </div>
                         </div>
                         <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.6 · Every action becomes a signed ledger entry. #a4d1 references #a4d0: history can't be rewritten, only extended.
+                            FIG.5 · Every action becomes a signed entry. History can only be extended, never rewritten.
                         </p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- ══════════ 04.3 RATE ══════════ -->
-        <section id="rate" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04.3 · Rate</span>
-                    <span class="fig-label">FIG.7</span>
-                </div>
+                <div class="border-t border-white/10 mt-0"></div>
+
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div class="flex flex-col justify-center">
                         <div class="border border-white/10 bg-white/[0.02]">
@@ -1110,7 +999,7 @@ const websiteSchema = {
                             </div>
                         </div>
                         <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.7 · Four agents, four providers, one currency. Rated on behavior, not vendor claims.
+                            FIG.6 · Four agents, four providers, one currency. Rated on behavior, not vendor claims.
                         </p>
                     </div>
                     <div>
@@ -1128,7 +1017,7 @@ const websiteSchema = {
                                 "The underwriting signal insurers can price",
                             ].map((item, i) => (
                                 <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">3.{i + 1}</span>
+                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">5.{i + 5}</span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -1146,12 +1035,12 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ 05 WHY NOW ══════════ -->
+        <!-- ══════════ 06 WHY NOW ══════════ -->
         <section class="relative border-b border-white/10">
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Why Now</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Why Now</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
@@ -1163,7 +1052,7 @@ const websiteSchema = {
                             Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable, not the vendor, not the model.
                         </p>
                         <p class="text-white/55 leading-relaxed mb-6">
-                            Your AI agents negotiate, transact, and make commitments in your name, right now. Regulators, auditors, and courts will hold you accountable for what they do.
+                            Your agents negotiate, transact, and commit in your name right now. Regulators, auditors, and courts will hold you to it.
                         </p>
                         <div class="border border-white/10 bg-white/[0.02] p-6 mb-6">
                             <p class="font-mono text-xs uppercase tracking-widest text-white/50 mb-3">Moffatt v. Air Canada</p>
@@ -1171,9 +1060,6 @@ const websiteSchema = {
                                 "Air Canada cannot avoid responsibility for information provided by its agent."
                             </p>
                         </div>
-                        <p class="text-sm text-white/40 leading-relaxed">
-                            The question isn't whether you need an evidence trail. It's whether yours would survive scrutiny.
-                        </p>
                     </div>
 
                     <div class="flex flex-col justify-center">
@@ -1297,22 +1183,22 @@ const websiteSchema = {
             }
         </script>
 
-        <!-- ══════════ 06 DESIGN PARTNERS ══════════ -->
+        <!-- ══════════ 07 EARLY ACCESS ══════════ -->
         <section class="relative border-b border-white/10 overflow-hidden">
             <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 7%, transparent) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Early Access Program</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Early Access</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            Built With Regulated Industries, Not For Them.
+                            Built With Regulated Industries. Not For Them.
                         </h2>
                         <p class="text-white/55 leading-relaxed mb-8">
-                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, and Critical Infrastructure in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
+                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, Critical Infrastructure, and Manufacturing in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
                         </p>
                         <button
                             onclick="openModal()"
@@ -1346,10 +1232,10 @@ const websiteSchema = {
             </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Get started</p>
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">See what runs · Set the rules · Prove every action · Rate every agent</p>
                     <div class="mb-12 h-px bg-white/10"></div>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-12">
-                        Your agents are a workforce.<br />Your workforce is critical infrastructure.<br />Govern accordingly.
+                        Your agents are a workforce.<br />Put it on solid ground.
                     </h2>
                     <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -1375,3 +1261,19 @@ const websiteSchema = {
 
     <Footer />
 </Base>
+
+<style>
+    /* Requests dropping through the core connectors (03 · The Core) */
+    @keyframes core-drop {
+        0%   { transform: translateY(-10px); opacity: 0; }
+        15%  { opacity: 0.9; }
+        85%  { opacity: 0.9; }
+        100% { transform: translateY(42px); opacity: 0; }
+    }
+    .core-drop { animation: core-drop 1.6s linear infinite; }
+    .core-drop-late { animation-delay: 0.8s; }
+    @media (prefers-reduced-motion: reduce) {
+        .core-drop { animation: none; opacity: 0; }
+    }
+</style>
+
