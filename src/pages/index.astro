@@ -75,6 +75,11 @@ const websiteSchema = {
             <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
 
             <div class="relative max-w-7xl mx-auto px-6 w-full">
+                <!-- Regulation register: the one above-fold cue for why a buyer needs us.
+                     Wording mirrors the design-partner line further down, so the claim is repeated, not re-opened. -->
+                <p id="hero-eyebrow" class="mb-4 md:mb-5 font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.16em] md:tracking-[0.2em]" style="opacity:0;transition:opacity 0.9s ease;">
+                    Built for GDPR <span class="text-white/30" aria-hidden="true">·</span> EU AI Act <span class="text-white/30" aria-hidden="true">·</span> NIS-2 <span class="text-white/30" aria-hidden="true">·</span> DORA
+                </p>
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
                     <span id="hero-l1" style="display:block">Give Agents Real Work.</span>
                     <span id="hero-l2" style="display:block">Keep Real Control.</span>
@@ -149,12 +154,14 @@ const websiteSchema = {
   const l1 = document.getElementById("hero-l1") as HTMLElement;
   const l2 = document.getElementById("hero-l2") as HTMLElement;
   const sub = document.getElementById("hero-sub") as HTMLElement;
+  const eyebrow = document.getElementById("hero-eyebrow") as HTMLElement;
   const h1 = l1?.closest("h1") as HTMLElement;
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
   if (l1) scrambleLine(l1, "GIVE AGENTS REAL WORK.", 200);
   if (l2) scrambleLine(l2, "KEEP REAL CONTROL.", 200, () => {
+    if (eyebrow) eyebrow.style.opacity = "1";
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
