@@ -57,8 +57,8 @@ const websiteSchema = {
 ---
 
 <Base
-    title="KYDE · The Solid Core for Autonomous Work"
-    description="Give agents real work. Keep real control. One deterministic layer for every autonomous system. Built for GDPR, EU AI Act, NIS-2, DORA. Engineered in Germany."
+    title="KYDE · Know What Your Agents Are Doing"
+    description="Complete visibility into every AI agent in your company. Across every vendor, with one environment variable. Signed record, workflow analytics. Built for GDPR, EU AI Act, NIS-2, DORA. Engineered in Germany."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -81,14 +81,14 @@ const websiteSchema = {
                     Built for GDPR <span class="text-white/30" aria-hidden="true">·</span> EU AI Act <span class="text-white/30" aria-hidden="true">·</span> NIS-2 <span class="text-white/30" aria-hidden="true">·</span> DORA
                 </p>
                 <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-                    <span id="hero-l1" style="display:block">Give Agents Real Work.</span>
-                    <span id="hero-l2" style="display:block">Keep Real Control.</span>
+                    <span id="hero-l1" style="display:block">Know What Your</span>
+                    <span id="hero-l2" style="display:block">Agents Are Doing.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    The Solid Core for Autonomous Work.
+                    Complete Visibility Into Every AI Agent. Across Every Vendor.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    One deterministic layer that every autonomous system runs through. Coding agents, SAP bots, factory robots. Engineered in Germany. Vendor neutral. Yours.
+                    KYDE finds every autonomous system in your company, records what it did in a ledger no vendor can rewrite, and shows how the work actually gets done.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -159,8 +159,8 @@ const websiteSchema = {
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "GIVE AGENTS REAL WORK.", 200);
-  if (l2) scrambleLine(l2, "KEEP REAL CONTROL.", 200, () => {
+  if (l1) scrambleLine(l1, "KNOW WHAT YOUR", 200);
+  if (l2) scrambleLine(l2, "AGENTS ARE DOING.", 200, () => {
     if (eyebrow) eyebrow.style.opacity = "1";
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
