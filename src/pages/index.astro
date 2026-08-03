@@ -1111,6 +1111,106 @@ const websiteSchema = {
             </div>
         </section>
 
+        <!-- ══════════ 07 INDEPENDENCE ══════════ -->
+        <!-- The actual reason to buy: a control layer that lives inside one vendor's
+             platform ends where that vendor ends. This one does not. -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Independence</span>
+                    <span class="fig-label">FIG.7</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            Control that stops at a vendor's edge is not control.
+                        </h2>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">One layer across every system, owned by you.</p>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Every platform offers governance for the agents running on that platform. Your coding agents, your SAP bots and the robots on the floor do not run on one platform, and the model behind any of them will be swapped faster than a procurement cycle. Four vendor consoles is not oversight, it is four blind spots with a shared login.
+                        </p>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            KYDE sits outside all of them. Identity, policy and record are held in your layer, not in theirs, and they survive the day you change providers. That is what sovereignty means in practice: you keep the ability to change your mind, and nobody else holds the evidence of what your company did.
+                        </p>
+                    </div>
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="indep-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+                            <!-- one vendor's control reaches its own column and no further -->
+                            <path d="M40 76 L104 76" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1.5" fill="none" />
+                            <path d="M40 76 L40 92 M104 76 L104 92" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1.5" fill="none" />
+                            <text x="72" y="64" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">VENDOR CONSOLE</text>
+                            <text x="118" y="82" fill="var(--color-alert)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">STOPS HERE</text>
+
+                            <!-- the four systems, none of which shares a platform -->
+                            {[
+                                { x: 40,  l1: "LLM",     l2: "providers" },
+                                { x: 152, l1: "AGENT",   l2: "frameworks" },
+                                { x: 264, l1: "SAP",     l2: "ERP, CRM" },
+                                { x: 376, l1: "OT",      l2: "machines" },
+                            ].map(({ x, l1, l2 }) => (
+                                <>
+                                    <rect x={x} y="110" width="64" height="86" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
+                                    <text x={x + 32} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.1em;">{l1}</text>
+                                    <text x={x + 32} y="164" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">{l2}</text>
+                                    <line x1={x + 32} y1="196" x2={x + 32} y2="236" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="3 5" />
+                                </>
+                            ))}
+
+                            <!-- KYDE spans all four; the bar draws itself when the section reveals -->
+                            <path class="draw" pathLength="1" d="M40 240 L440 240" stroke="var(--color-live)" stroke-opacity="0.7" stroke-width="2" fill="none" />
+                            <rect x="40" y="240" width="400" height="46" fill="none" stroke="var(--color-live)" stroke-opacity="0.25" stroke-width="1" />
+                            <text x="240" y="270" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.8" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">KYDE · YOUR LAYER</text>
+                            <text x="240" y="308" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">identity · policy · record · portable</text>
+                        </svg>
+                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.7 · A vendor governs its own column. The layer underneath is yours.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ 08 EARLY ACCESS ══════════ -->
+        <!-- Last block before the ask: proof that regulated companies are already
+             building this with us, and the only place the page pays off the
+             regulation register the hero eyebrow opens with. -->
+        <section class="relative border-b border-white/10 overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 7%, transparent) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
+            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">08 · Early Access</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            Built With Regulated Industries. Not For Them.
+                        </h2>
+                        <p class="text-white/55 leading-relaxed mb-8">
+                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, Critical Infrastructure, and Manufacturing in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
+                        </p>
+                        <button
+                            onclick="openModal()"
+                            class="inline-flex items-center gap-2 bg-bg-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
+                        >
+                            Apply for Design Partnership →
+                        </button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 content-start">
+                        {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
+                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50 border border-white/15 px-3 py-1.5">{industry}</span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ══════════ CLOSING CTA ══════════ -->
         <section class="relative overflow-hidden">
             <!-- dot-sphere ornament -->
@@ -1129,9 +1229,12 @@ const websiteSchema = {
                 <div class="mx-auto max-w-3xl text-center">
                     <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Identity · Capabilities · Enforcement · Evidence</p>
                     <div class="mb-12 h-px bg-white/10"></div>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-12">
-                        Your agents are a workforce.<br />Put it on solid ground.
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-8">
+                        Your agents will change vendors.<br />Your control shouldn't.
                     </h2>
+                    <p class="text-lg text-white/55 leading-relaxed mb-12 mx-auto max-w-2xl">
+                        One layer across every model, provider, tool and business system. Vendor neutral, engineered in Germany, and yours to keep.
+                    </p>
                     <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <!--
