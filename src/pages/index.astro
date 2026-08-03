@@ -381,24 +381,23 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ 01 THE SHIFT ══════════ -->
+        <!-- ══════════ 01 KNOW WHO ACTS ══════════ -->
+        <!-- The four pillars carry the page, one full section each, figure and text
+             swapping sides so the eye alternates instead of scanning one column. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · The Shift</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · Identity</span>
                     <span class="fig-label">FIG.1</span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            <span class="text-white">Agents Already Do Real Work</span> <span class="text-white/40">in Your Company.</span>
+                            Know who acts.
                         </h2>
-                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">The question is no longer whether. It is on what terms.</p>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            They call APIs, move data, and make decisions right now, most of them outside IT and security oversight. And you carry the outcome. Courts hold you liable for what your agents do. Not the vendor. Not the model. Ask Air Canada.
-                        </p>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Every AI agent receives a unique, verifiable identity.</p>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            You cannot delegate responsibility to something you cannot identify, restrict, stop, or prove. That is the gap KYDE closes.
+                            Most agents run today under a shared API key, which makes them indistinguishable from each other and from the humans whose credentials they borrowed. KYDE issues each one its own identity, so every action has a name attached before it happens.
                         </p>
                     </div>
                     <div class="relative flex items-center justify-center min-h-[380px]">
@@ -562,35 +561,343 @@ const websiteSchema = {
         </section>
 
 
-        <!-- ══════════ 02 THE FOUR PILLARS ══════════ -->
-        <!-- The four run in the order an action passes through them: identity before
-             authorization, authorization before enforcement, enforcement before evidence.
-             Continuous verification is the loop around all four, so it gets the band
-             below the grid rather than a fifth column. -->
-        <section id="pillars" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-14">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · The Four Pillars</span>
+        <!-- ══════════ 02 CONTROL WHAT IT CAN DO ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · Capabilities</span>
                     <span class="fig-label">FIG.2</span>
                 </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <!-- figure left, text right: the alternation starts here -->
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="cap-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <!-- corner register marks, as on every figure -->
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
-                    {[
-                        { n: "01", h: "Know who acts.",             d: "Every AI agent receives a unique, verifiable identity." },
-                        { n: "02", h: "Control what it can do.",    d: "Grant short-lived, least-privilege capabilities instead of permanent access." },
-                        { n: "03", h: "Stop what shouldn't happen.", d: "Enforce business policies before an action reaches your systems." },
-                        { n: "04", h: "Prove what happened.",       d: "Every decision becomes independently verifiable evidence in a tamper-proof record." },
-                    ].map(({ n, h, d }) => (
-                        <div class="bg-bg-0 p-7 lg:p-8">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">{n}</p>
-                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">{h}</h3>
-                            <p class="text-sm text-white/55 leading-relaxed">{d}</p>
-                        </div>
-                    ))}
+                            <text x="52" y="58" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EVERYTHING THE KEY COULD REACH</text>
+
+                            <!-- the full permission surface: 24 cells, 2 of them granted -->
+                            {Array.from({ length: 24 }, (_, i) => {
+                                const col = i % 6, row = Math.floor(i / 6);
+                                const granted = i === 8 || i === 15;
+                                return (
+                                    <rect id={granted ? `cap-cell-${i}` : undefined}
+                                          x={52 + col * 64} y={80 + row * 44} width="48" height="30"
+                                          fill={granted ? "var(--color-live)" : "none"} fill-opacity={granted ? "0.18" : "0"}
+                                          stroke={granted ? "var(--color-live)" : "var(--color-ink-0)"}
+                                          stroke-opacity={granted ? "0.7" : "0.12"} stroke-width="1"
+                                          class={granted ? "cap-cell" : ""} />
+                                );
+                            })}
+
+                            <text x="52" y="272" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">2 GRANTED</text>
+                            <text x="150" y="272" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">22 DENIED BY DEFAULT</text>
+
+                            <!-- the grant is short-lived: the bar drains, then the cells go dark -->
+                            <line x1="52" y1="292" x2="428" y2="292" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="2" />
+                            <line id="cap-ttl-bar" x1="52" y1="292" x2="428" y2="292" stroke="var(--color-live)" stroke-opacity="0.6" stroke-width="2" />
+                            <text id="cap-ttl-label" x="428" y="282" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">TTL</text>
+                        </svg>
+                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.2 · Two permissions out of twenty-four, and both of them expire.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            Control what it can do.
+                        </h2>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Grant short-lived, least-privilege capabilities instead of permanent access.</p>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            A standing API key is a permanent grant to do anything the key can reach, and it keeps working long after the task is finished. KYDE hands out narrow capabilities that expire on their own, so an agent holds exactly what this job needs and nothing after it.
+                        </p>
+                    </div>
                 </div>
+            </div>
+            <script>
+                // FIG.2 · the TTL bar drains, the two granted cells go dark with it, and
+                // the grant has to be re-issued. Least privilege is the still image;
+                // short-lived is the part only motion can show.
+                const capFig = document.getElementById("cap-fig");
+                const capReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (capFig) {
+                    const bar = document.getElementById("cap-ttl-bar")!;
+                    const label = document.getElementById("cap-ttl-label")!;
+                    const cells = Array.from(capFig.querySelectorAll(".cap-cell")) as SVGElement[];
+                    const X0 = 52, X1 = 428, CYCLE = 7000, DARK = 1400;
+
+                    const paint = (t: number) => {
+                        const p = Math.min(1, t / CYCLE);
+                        bar.setAttribute("x2", String(X1 - (X1 - X0) * p));
+                        const expired = p >= 1;
+                        label.textContent = expired ? "EXPIRED · RE-REQUEST" : "TTL";
+                        label.setAttribute("fill-opacity", expired ? "0.7" : "0.4");
+                        cells.forEach((c) => {
+                            c.setAttribute("stroke", expired ? "var(--color-ink-0)" : "var(--color-live)");
+                            c.setAttribute("stroke-opacity", expired ? "0.12" : "0.7");
+                            c.setAttribute("fill", expired ? "none" : "var(--color-live)");
+                            c.setAttribute("fill-opacity", expired ? "0" : "0.18");
+                        });
+                    };
+
+                    if (capReduced) {
+                        paint(0);
+                    } else {
+                        let visible = false, start = 0;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(capFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (!start) start = now;
+                                const t = (now - start) % (CYCLE + DARK);
+                                paint(t);
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ 03 STOP WHAT SHOULDN'T HAPPEN ══════════ -->
+        <section id="policies" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Enforcement</span>
+                    <span class="fig-label">FIG.3</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            Stop what shouldn't happen.
+                        </h2>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Enforce business policies before an action reaches your systems.</p>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent must pass before it acts, not a report you read afterwards.
+                        </p>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            <span class="text-white">See it before you ship it.</span> Run any rule against last week's real traffic and see exactly which agents it would have stopped, before you switch it on.
+                        </p>
+                    </div>
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AGENT ACTIONS</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
+
+                            <!-- three lanes running into the policy line -->
+                            {[110, 170, 230].map((y) => (
+                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="3 6" />
+                            ))}
+
+                            <!-- the policy line itself: everything crosses here or not at all -->
+                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.5" stroke-width="1.5" />
+                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">POLICY</text>
+
+                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
+                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.16" stroke-width="1" />
+
+                            <g id="gate-actions"></g>
+                        </svg>
+                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.3 · The blocked action stops at the policy line, not inside your systems.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // FIG.3 · actions travel their lane toward the policy line. Most cross and
+                // continue into the systems boundary; one in four hits the line, flashes
+                // red and is turned back. Nothing is "inspected afterwards" here.
+                const gateFig = document.getElementById("gate-fig");
+                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (gateFig) {
+                    const layer = document.getElementById("gate-actions")!;
+                    const NS = "http://www.w3.org/2000/svg";
+                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
+                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
+                    const acts: Act[] = [];
+                    let spawnAt = 0, n = 0;
+
+                    const spawn = (lane: number, blocked: boolean) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("r", "4");
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.55");
+                        layer.appendChild(el);
+                        acts.push({ el, x: START, lane, blocked, back: false });
+                    };
+
+                    const step = (a: Act) => {
+                        if (a.back) {
+                            a.x -= 3.4;
+                        } else {
+                            a.x += 2.2;
+                            if (a.blocked && a.x >= GATE - 6) {
+                                a.back = true;
+                                a.el.setAttribute("fill", "var(--color-alert)");
+                                a.el.setAttribute("fill-opacity", "0.9");
+                            } else if (!a.blocked && a.x >= GATE + 6) {
+                                a.el.setAttribute("fill", "var(--color-live)");
+                                a.el.setAttribute("fill-opacity", "0.85");
+                            }
+                        }
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.back ? a.x > START - 10 : a.x < END;
+                    };
+
+                    if (gateReduced) {
+                        // Static reading of the same story: two through, one turned back.
+                        spawn(0, false); spawn(1, true); spawn(2, false);
+                        acts.forEach((a, i) => {
+                            a.x = a.blocked ? GATE - 20 : GATE + 60;
+                            a.el.setAttribute("cx", String(a.x));
+                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.85");
+                        });
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length, n % 4 === 2);
+                                    n += 1;
+                                    spawnAt = now + 900;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ 04 PROVE WHAT HAPPENED ══════════ -->
+        <section id="prove" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Evidence</span>
+                    <span class="fig-label">FIG.4</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
+                    <div class="relative flex items-center justify-center min-h-[380px]">
+                        <svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">SIGNED ACTION LOG</text>
+
+                            <!-- four links of the chain, each one sealing the one before it -->
+                            {[0, 1, 2, 3].map((i) => (
+                                <g id={`chain-link-${i}`}>
+                                    <rect x={40 + i * 106} y="130" width="84" height="80" fill="none"
+                                          stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                                    <text x={82 + i * 106} y="163" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.75"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.1em;">{["#a4ce", "#a4cf", "#a4d0", "#a4d1"][i]}</text>
+                                    <text x={82 + i * 106} y="183" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">{["db.write", "transfer", "dlp.mask", "quote.set"][i]}</text>
+                                    <text x={82 + i * 106} y="199" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.7"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">signed</text>
+                                    {i < 3 && (
+                                        <line x1={124 + i * 106} y1="170" x2={146 + i * 106} y2="170"
+                                              stroke="var(--color-live)" stroke-opacity="0.5" stroke-width="1.5" />
+                                    )}
+                                </g>
+                            ))}
+
+                            <text id="chain-status" x="240" y="258" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.75"
+                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">CHAIN INTACT</text>
+                            <text x="240" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3"
+                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">ed25519 · sha-256 · captured before any provider</text>
+                        </svg>
+                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                            FIG.4 · Rewrite one entry and every entry after it breaks with it.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                            Prove what happened.
+                        </h2>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Every decision becomes independently verifiable evidence in a tamper-proof record.</p>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. The suspect cannot write the police report.
+                        </p>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            KYDE's record is captured at the boundary before anything reaches a provider, signed and hash-chained so that tampering with one link breaks every link after it, and undeletable by any agent, including the one under investigation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // FIG.4 · someone edits the second entry. It turns red, and so does every
+                // link after it: that cascade is the whole property. Then it heals and
+                // the loop runs again.
+                const chainFig = document.getElementById("chain-fig");
+                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (chainFig) {
+                    const status = document.getElementById("chain-status")!;
+                    const links = [0, 1, 2, 3].map((i) => document.getElementById(`chain-link-${i}`)!);
+                    const TAMPERED = 1;
+
+                    const setBroken = (broken: boolean) => {
+                        links.forEach((g, i) => {
+                            const hit = broken && i >= TAMPERED;
+                            const rect = g.querySelector("rect")!;
+                            const line = g.querySelector("line");
+                            const seal = g.querySelectorAll("text")[2];
+                            rect.setAttribute("stroke", hit ? "var(--color-alert)" : "var(--color-ink-0)");
+                            rect.setAttribute("stroke-opacity", hit ? "0.75" : "0.35");
+                            if (line) {
+                                line.setAttribute("stroke", broken && i >= TAMPERED ? "var(--color-alert)" : "var(--color-live)");
+                                line.setAttribute("stroke-opacity", "0.5");
+                            }
+                            seal.textContent = hit ? (i === TAMPERED ? "altered" : "broken") : "signed";
+                            seal.setAttribute("fill", hit ? "var(--color-alert)" : "var(--color-live)");
+                        });
+                        status.textContent = broken ? "TAMPERING DETECTED · 3 LINKS BROKEN" : "CHAIN INTACT";
+                        status.setAttribute("fill", broken ? "var(--color-alert)" : "var(--color-live)");
+                    };
+
+                    if (!chainReduced) {
+                        let visible = false, broken = false, next = 0;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
+                        const loop = (now: number) => {
+                            if (visible && now > next) {
+                                broken = !broken;
+                                setBroken(broken);
+                                next = now + (broken ? 3200 : 2600);
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ CONTINUOUS VERIFICATION ══════════ -->
+        <!-- Not a fifth pillar: the loop that keeps running the other four, and the
+             reason a rung on the ladder below can be lost as well as earned. -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-24 md:py-28 md:border-x md:border-white/10">
 
                 <!-- The loop around the four -->
-                <div class="mt-px border border-white/10 bg-white/[0.02] p-7 lg:p-8">
+                <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-8">
                     <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
                         <div>
                             <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">Around all four · Continuous verification</p>
@@ -623,18 +930,18 @@ const websiteSchema = {
                         </svg>
                     </div>
                     <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
-                        FIG.2 · The loop never stops running. Every pass re-establishes the right to act.
+                        FIG.5 · The loop never stops running. Every pass re-establishes the right to act.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ 03 THE TRUST LADDER ══════════ -->
+        <!-- ══════════ 05 THE TRUST LADDER ══════════ -->
         <section id="ladder" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · The Trust Ladder</span>
-                    <span class="fig-label">FIG.3</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · The Trust Ladder</span>
+                    <span class="fig-label">FIG.6</span>
                 </div>
                 <!-- Autonomy ladder -->
                 <div class="pt-12 pb-24 md:pb-28">
@@ -670,12 +977,12 @@ const websiteSchema = {
                         <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="130" cy="205" />
                     </svg>
                     <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                        FIG.3 · Autonomy is earned. Level 0 reads. Level 2 files tickets. Level 3 deploys code. Level 4 approves payments. Every step climbed on evidence, every step recorded.
+                        FIG.6 · Autonomy is earned. Level 0 reads. Level 2 files tickets. Level 3 deploys code. Level 4 approves payments. Every step climbed on evidence, every step recorded.
                     </p>
                 </div>
 
                 <script>
-                    // FIG.3 · the ladder. The agent climbs one level per evidence
+                    // FIG.6 · the ladder. The agent climbs one level per evidence
                     // window; a green pulse marks the promotion. At the top it
                     // holds, then a new agent starts at zero. Autonomy is earned.
                     const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -755,13 +1062,13 @@ const websiteSchema = {
         </section>
 
 
-        <!-- ══════════ 04 WHY KYDE ══════════ -->
+        <!-- ══════════ 06 WHY KYDE ══════════ -->
         <!-- The competitive claim is adjacency, not superiority: each category is
              named as genuinely solving its own piece, and KYDE is what joins them. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-14">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Why KYDE</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Why KYDE</span>
                 </div>
 
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-12 max-w-3xl">
