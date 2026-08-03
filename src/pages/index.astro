@@ -594,7 +594,12 @@ const websiteSchema = {
                                 );
                             })}
 
-                            <text x="52" y="272" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">2 GRANTED</text>
+                            <!-- The expiry stamp belongs over the grid, where the granted cells
+                                 were, not tacked onto the end of the TTL bar. -->
+                            <text id="cap-expired" x="236" y="165" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0"
+                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">GRANT EXPIRED · RE-REQUEST REQUIRED</text>
+
+                            <text id="cap-granted-label" x="52" y="272" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">2 GRANTED</text>
                             <text x="150" y="272" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">22 DENIED BY DEFAULT</text>
 
                             <!-- the grant is short-lived: the bar drains, then the cells go dark -->
@@ -625,7 +630,8 @@ const websiteSchema = {
                 const capReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                 if (capFig) {
                     const bar = document.getElementById("cap-ttl-bar")!;
-                    const label = document.getElementById("cap-ttl-label")!;
+                    const stamp = document.getElementById("cap-expired")!;
+                    const grantedLabel = document.getElementById("cap-granted-label")!;
                     const cells = Array.from(capFig.querySelectorAll(".cap-cell")) as SVGElement[];
                     const X0 = 52, X1 = 428, CYCLE = 7000, DARK = 1400;
 
@@ -633,8 +639,10 @@ const websiteSchema = {
                         const p = Math.min(1, t / CYCLE);
                         bar.setAttribute("x2", String(X1 - (X1 - X0) * p));
                         const expired = p >= 1;
-                        label.textContent = expired ? "EXPIRED · RE-REQUEST" : "TTL";
-                        label.setAttribute("fill-opacity", expired ? "0.7" : "0.4");
+                        stamp.setAttribute("fill-opacity", expired ? "0.8" : "0");
+                        // the legend must not still read "2 granted" while the stamp says expired
+                        grantedLabel.setAttribute("fill", expired ? "var(--color-ink-0)" : "var(--color-live)");
+                        grantedLabel.setAttribute("fill-opacity", expired ? "0.3" : "0.75");
                         cells.forEach((c) => {
                             c.setAttribute("stroke", expired ? "var(--color-ink-0)" : "var(--color-live)");
                             c.setAttribute("stroke-opacity", expired ? "0.12" : "0.7");
