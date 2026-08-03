@@ -3,27 +3,6 @@ import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-// FIG.3 · Zero-trust ring: six verification dimensions on a circle
-const ZT_CX = 280, ZT_CY = 280, ZT_R = 200;
-const ztDims = [
-    { label: "WHO",   sub: "identity"  },
-    { label: "WHAT",  sub: "action"    },
-    { label: "WHEN",  sub: "timestamp" },
-    { label: "WHERE", sub: "endpoint"  },
-    { label: "WHY",   sub: "context"   },
-    { label: "HOW",   sub: "method"    },
-].map((d, i) => {
-    const ang = ((-90 + i * 60) * Math.PI) / 180;
-    return {
-        ...d,
-        i,
-        x: ZT_CX + ZT_R * Math.cos(ang),
-        y: ZT_CY + ZT_R * Math.sin(ang),
-        lx: ZT_CX + (ZT_R + 42) * Math.cos(ang),
-        ly: ZT_CY + (ZT_R + 42) * Math.sin(ang),
-    };
-});
-
 // Orthographic dot-sphere for the closing ornament
 const SPHERE_R = 290;
 const sphereDots: { x: number; y: number; a: number }[] = [];
@@ -57,8 +36,8 @@ const websiteSchema = {
 ---
 
 <Base
-    title="KYDE · Know What Your Agents Are Doing"
-    description="Complete visibility into every AI agent in your company. Across every vendor, with one environment variable. Signed record, workflow analytics. Built for GDPR, EU AI Act, NIS-2, DORA. Engineered in Germany."
+    title="KYDE · The Trust Infrastructure for AI Agents"
+    description="Give AI agents real responsibility: verifiable identity, capability-based authorization, real-time enforcement, tamper-proof evidence. Built for GDPR, EU AI Act, NIS-2, DORA."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -80,15 +59,18 @@ const websiteSchema = {
                 <p id="hero-eyebrow" class="mb-4 md:mb-5 font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.16em] md:tracking-[0.2em]" style="opacity:0;transition:opacity 0.9s ease;">
                     Built for GDPR <span class="text-white/30" aria-hidden="true">·</span> EU AI Act <span class="text-white/30" aria-hidden="true">·</span> NIS-2 <span class="text-white/30" aria-hidden="true">·</span> DORA
                 </p>
-                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-                    <span id="hero-l1" style="display:block">Know What Your</span>
-                    <span id="hero-l2" style="display:block">Agents Are Doing.</span>
+                <!-- "THE TRUST INFRASTRUCTURE" is 24 characters: at 72px it needs 1041px, more
+                     than the container holds below a 1280px viewport. Sizes step down one notch
+                     earlier than the old, shorter headline so line 1 never wraps on desktop. -->
+                <h1 class="hero-h1 text-4xl text-white uppercase tracking-tight leading-none sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl" style="opacity:0;">
+                    <span id="hero-l1" style="display:block">The Trust Infrastructure</span>
+                    <span id="hero-l2" style="display:block">for AI Agents.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    Complete Visibility Into Every AI Agent. Across Every Vendor.
+                    Give AI Agents Real Responsibility.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    KYDE finds every autonomous system in your company, records what it did in a ledger no vendor can rewrite, and shows how the work actually gets done.
+                    Verifiable identity, capability-based authorization, real-time enforcement, and tamper-proof evidence. One trust layer across every model, provider, tool, and business system.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -159,8 +141,8 @@ const websiteSchema = {
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "KNOW WHAT YOUR", 200);
-  if (l2) scrambleLine(l2, "AGENTS ARE DOING.", 200, () => {
+  if (l1) scrambleLine(l1, "THE TRUST INFRASTRUCTURE", 200);
+  if (l2) scrambleLine(l2, "FOR AI AGENTS.", 200, () => {
     if (eyebrow) eyebrow.style.opacity = "1";
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
@@ -398,13 +380,10 @@ const websiteSchema = {
                         </h2>
                         <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">The question is no longer whether. It is on what terms.</p>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            They call APIs, move data, and make decisions right now, most of them outside IT and security oversight. While they work, every prompt, trace, and correction flows upstream. Your know-how, training someone else's model.
-                        </p>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            And you carry the outcome. Courts hold you liable for what your agents do. Not the vendor. Not the model. Ask Air Canada.
+                            They call APIs, move data, and make decisions right now, most of them outside IT and security oversight. And you carry the outcome. Courts hold you liable for what your agents do. Not the vendor. Not the model. Ask Air Canada.
                         </p>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            KYDE gives you the complete picture from the moment you deploy. Every agent identity. Every action. Every upstream provider. On day one.
+                            You cannot delegate responsibility to something you cannot identify, restrict, stop, or prove. That is the gap KYDE closes.
                         </p>
                     </div>
                     <div class="relative flex items-center justify-center min-h-[380px]">
@@ -568,259 +547,91 @@ const websiteSchema = {
         </section>
 
 
-        <!-- ══════════ 02 THE NEED ══════════ -->
-        <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+        <!-- ══════════ 02 THE FOUR PILLARS ══════════ -->
+        <!-- The four run in the order an action passes through them: identity before
+             authorization, authorization before enforcement, enforcement before evidence.
+             Continuous verification is the loop around all four, so it gets the band
+             below the grid rather than a fifth column. -->
+        <section id="pillars" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-14">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · The Need</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · The Four Pillars</span>
+                    <span class="fig-label">FIG.2</span>
                 </div>
-                <div class="max-w-3xl">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-8">
-                        <span class="text-white">Nobody Hands Real Responsibility</span> <span class="text-white/40">to an Agent Nobody Can Control.</span>
-                    </h2>
-                    <p class="text-lg text-white/55 leading-relaxed mb-5">
-                        No one gives an agent access to payments, customer data, or production systems until they can control what it does, prove what it did, and trust it to do more.
-                    </p>
-                    <p class="text-lg text-white/55 leading-relaxed">
-                        That is the gap between what agents could do and what you let them do. KYDE closes it. Not by slowing agents down. By giving you the ground to stand them on.
-                    </p>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 mt-14">
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
                     {[
-                        "Know what runs.",
-                        "Decide what is allowed.",
-                        "Answer any question about the past.",
-                        "Learn who to trust with more.",
-                    ].map((need, i) => (
-                        <div class="bg-bg-0 p-6">
-                            <p class="font-mono text-[10px] text-gold mb-2">0{i + 1}</p>
-                            <p class="text-sm text-white/80 leading-snug">{need}</p>
+                        { n: "01", h: "Know who acts.",             d: "Every AI agent receives a unique, verifiable identity." },
+                        { n: "02", h: "Control what it can do.",    d: "Grant short-lived, least-privilege capabilities instead of permanent access." },
+                        { n: "03", h: "Stop what shouldn't happen.", d: "Enforce business policies before an action reaches your systems." },
+                        { n: "04", h: "Prove what happened.",       d: "Every decision becomes independently verifiable evidence in a tamper-proof record." },
+                    ].map(({ n, h, d }) => (
+                        <div class="bg-bg-0 p-7 lg:p-8">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">{n}</p>
+                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">{h}</h3>
+                            <p class="text-sm text-white/55 leading-relaxed">{d}</p>
                         </div>
                     ))}
                 </div>
+
+                <!-- The loop around the four -->
+                <div class="mt-px border border-white/10 bg-white/[0.02] p-7 lg:p-8">
+                    <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
+                        <div>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">Around all four · Continuous verification</p>
+                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">Trust is re-earned, not granted once.</h3>
+                            <p class="text-sm text-white/55 leading-relaxed max-w-2xl">
+                                Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next. An agent that drifts loses scope before anyone files a ticket.
+                            </p>
+                        </div>
+                        <svg viewBox="0 0 220 220" class="w-40 h-40 lg:w-52 lg:h-52 justify-self-center" aria-hidden="true">
+                            <circle cx="110" cy="110" r="66" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" />
+                            <circle cx="110" cy="110" r="66" fill="none" stroke="var(--color-live)" stroke-opacity="0.55" stroke-width="1.5"
+                                    stroke-dasharray="48 367" stroke-linecap="round" transform="rotate(-90 110 110)">
+                                <animateTransform attributeName="transform" type="rotate" from="-90 110 110" to="270 110 110" dur="7s" repeatCount="indefinite" />
+                            </circle>
+                            {/* Labels sit above their node except at the bottom, so none of them
+                                runs past the 220-wide viewBox and gets clipped. */}
+                            {[
+                                { x: 110, y: 44,  ly: 30,  t: "identity"   },
+                                { x: 176, y: 110, ly: 98,  t: "capability" },
+                                { x: 110, y: 176, ly: 194, t: "policy"     },
+                                { x: 44,  y: 110, ly: 98,  t: "evidence"   },
+                            ].map(({ x, y, ly, t }) => (
+                                <>
+                                    <circle cx={x} cy={y} r="3" fill="var(--color-ink-0)" fill-opacity="0.65" />
+                                    <text x={x} y={ly} text-anchor="middle"
+                                          fill="var(--color-ink-0)" fill-opacity="0.45"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">{t}</text>
+                                </>
+                            ))}
+                        </svg>
+                    </div>
+                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
+                        FIG.2 · The loop never stops running. Every pass re-establishes the right to act.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <!-- ══════════ 03 THE CORE ══════════ -->
-        <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
-            <div class="max-w-4xl mx-auto">
-
-                <div class="mb-12 md:mb-16">
-                    <div class="mb-8 flex items-end justify-between border-b border-white/10 pb-3">
-                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · The Core</span>
-                        <span class="fig-label">FIG.2</span>
-                    </div>
-                    <p class="font-mono text-xs text-gold mb-4">"How do I get control without rebuilding everything?"</p>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4"><span class="text-white">Control in an Afternoon.</span> <span class="text-white/40">Not a Re-Architecture.</span></h2>
-                    <p class="text-white/55 leading-relaxed max-w-2xl mb-5">One core for every autonomous system, zero code changes. We are not a filter on top of your agents. We are the ground they stand on. KYDE sits outside, in the path itself: every action passes through the core, checked against your rules, before it executes. Deterministic. Deny by default.</p>
-                    <p class="font-mono text-sm text-ink-0 border-l-2 border-white/30 pl-4 leading-relaxed mb-5 max-w-2xl">Others guess what an agent intends. We are the concrete it runs on.</p>
-                    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">From visible to governed to autonomous · <span class="text-gold">Observe · Trust · Govern · Autonomy</span> · one layer carries all four</p>
-                </div>
-
-                <!-- Layer 1: AI Agents -->
-                <div class="border border-white/20 bg-white/[0.02] p-5 md:p-7">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Incoming</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 01</span>
-                    </div>
-                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">AI Systems</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Claude</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">GPT-4o</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Gemini</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">LangChain</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">SAP Bots</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Robots</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Custom Agents</span>
-                    </div>
-                </div>
-
-                <!-- Connector -->
-                <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-white/25 relative overflow-hidden"><span class="core-drop block absolute left-0 top-0 h-2 w-px bg-white"></span></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-bg-1 px-2">all requests</span>
-                </div>
-
-                <!-- Layer 2: KYDE -->
-                <div class="relative p-5 md:p-8 border border-ink-0/25" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 5%, transparent) 1px, transparent 1px); background-size: 14px 14px;">
-                    <span class="absolute -top-px -left-px h-3 w-3 border-t border-l border-ink-0" aria-hidden="true"></span>
-                    <span class="absolute -top-px -right-px h-3 w-3 border-t border-r border-ink-0" aria-hidden="true"></span>
-                    <span class="absolute -bottom-px -left-px h-3 w-3 border-b border-l border-ink-0" aria-hidden="true"></span>
-                    <span class="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-ink-0" aria-hidden="true"></span>
-                    <div class="arch-glow pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 55% 90% at 50% 50%, color-mix(in srgb, var(--color-live) 12%, transparent), transparent 70%);" aria-hidden="true"></div>
-                    <div class="relative flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Control Plane</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-0/60">Layer 02</span>
-                    </div>
-                    <p class="text-3xl md:text-4xl text-white uppercase tracking-tighter font-bold mb-1">KYDE</p>
-                    <p class="font-mono text-xs text-white/50 uppercase tracking-[0.15em] mb-7">The Solid Core for Autonomous Work</p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="border border-line-1 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Identity</p>
-                            <p class="text-xs text-white/60 leading-relaxed">Cryptographic agent identity per action</p>
-                        </div>
-                        <div class="border border-line-1 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Policy</p>
-                            <p class="text-xs text-white/60 leading-relaxed">Role boundaries &amp; scope enforcement</p>
-                        </div>
-                        <div class="border border-line-1 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Audit</p>
-                            <p class="text-xs text-white/60 leading-relaxed">Tamper-evident ledger of every action</p>
-                        </div>
-                        <div class="border border-line-1 p-3">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-0/60 mb-1.5">Control</p>
-                            <p class="text-xs text-white/60 leading-relaxed mb-1.5">Block out-of-scope requests in real time</p>
-                            <p class="font-mono text-[9px] uppercase tracking-[0.12em] text-gold/70">→ Behavioral Firewall</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Connector -->
-                <div class="flex justify-center items-center h-10 relative">
-                    <div class="w-px h-full bg-white/25 relative overflow-hidden"><span class="core-drop core-drop-late block absolute left-0 top-0 h-2 w-px bg-live"></span></div>
-                    <span class="absolute font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 bg-bg-1 px-2">verified &amp; logged</span>
-                </div>
-
-                <!-- Layer 3: Critical Systems -->
-                <div class="border border-white/20 bg-white/[0.02] p-5 md:p-7">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Protected</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">Layer 03</span>
-                    </div>
-                    <p class="text-sm md:text-base text-white uppercase tracking-wide font-bold mb-4">Critical Systems</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">APIs</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Databases</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Financial Systems</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">SaaS Tools</span>
-                        <span class="font-mono text-xs text-white/70 border border-white/25 px-2.5 py-1">Internal Services</span>
-                    </div>
-                </div>
-
-                <!-- Terminal -->
-                <div class="dark-island mt-10 border border-white/10">
-                    <div class="flex items-center gap-2 border-b border-white/8 px-4 py-3">
-                        <span class="h-2.5 w-2.5 rounded-full bg-alert/40"></span>
-                        <span class="h-2.5 w-2.5 rounded-full bg-warn/40"></span>
-                        <span class="h-2.5 w-2.5 rounded-full bg-live/40"></span>
-                        <span class="ml-2 text-[10px] text-white/20 font-mono">terminal</span>
-                        <button
-                            class="ml-auto font-mono text-[10px] tracking-[0.15em] text-white/25 hover:text-white transition-colors"
-                            onclick="navigator.clipboard.writeText('kyde fleet init');this.textContent='COPIED';setTimeout(()=>this.textContent='COPY',1400)"
-                        >COPY</button>
-                    </div>
-                    <div class="p-5 font-mono text-sm leading-relaxed">
-                        <p class="text-white/40"><span class="text-live">$</span><span class="text-white/70"> kyde fleet init</span></p>
-                        <p class="mt-1 text-live">&#10003; Fleet proxy started on :8080</p>
-                        <p class="text-live">&#10003; Agent identities provisioned</p>
-                        <p class="text-live">&#10003; Rules enforced at the boundary</p>
-                        <p class="text-live">&#10003; Tamper-evident ledger initialized</p>
-                        <p class="mt-2 text-white/40"><span class="text-live">$</span><span class="text-white/70"> kyde fleet status</span></p>
-                        <p class="mt-1 text-live">&#10003; 12 agents active, all scoped, signed, accountable</p>
-                    </div>
-                </div>
-
-                <!-- Badges -->
-                <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-white/30">
-                    <span>One ENV Variable</span>
-                    <span>Target &lt;100ms Latency</span>
-                    <span>Provider-Agnostic</span>
-                    <span>MCP-Ready</span>
-                    <span>Live in Ten Minutes</span>
-                </div>
-
-                <!-- Footnote -->
-                <div class="mt-6 flex items-center gap-3">
-                    <span class="h-px flex-1 bg-white/10"></span>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Outside the system. Owned by you.</span>
-                </div>
-
-            </div>
-            </div>
-        </section>
-
-        <!-- ══════════ 04 YOUR RULES, ENFORCED ══════════ -->
-        <section id="policies" class="scroll-mt-20 border-b border-white/10">
+        <!-- ══════════ 03 THE TRUST LADDER ══════════ -->
+        <section id="ladder" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Your Rules, Enforced</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · The Trust Ladder</span>
                     <span class="fig-label">FIG.3</span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div class="flex flex-col">
-                        <div class="border border-white/10 bg-white/[0.02]">
-                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Core · Rule Check</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-live animate-pulse"></span>Live
-                                </span>
-                            </div>
-                            <div class="p-5 font-mono text-xs space-y-4">
-                                <div>
-                                    <p class="text-white/25 mb-1.5">// rule · sales-discount-cap · v7 · set by: Head of Sales</p>
-                                    <p class="text-white/60 leading-relaxed">IF agent is Sales AND discount over <span class="text-white">20%</span> THEN block</p>
-                                </div>
-                                <div class="border-t border-white/8 pt-4">
-                                    <p class="text-white/25 mb-1.5">// incoming · agent:sales-07 → crm/quote.update · 6ms</p>
-                                    <p class="text-white/60 leading-relaxed mb-2">quote #4471 · discount: <span class="bg-alert/15 text-alert px-1">24%</span></p>
-                                    <p class="text-alert">✕ Blocked before execution · rule matched</p>
-                                </div>
-                                <div class="border-t border-white/8 pt-4">
-                                    <p class="text-white/25 mb-1.5">// incoming · agent:sales-07 → crm/quote.update · 5ms</p>
-                                    <p class="text-white/60 leading-relaxed mb-2">quote #4471 · discount: <span class="bg-live/10 text-live px-1">18%</span></p>
-                                    <div class="flex items-center justify-between gap-4">
-                                        <span class="text-live">&#10003; Within policy · executed</span>
-                                        <span class="text-white/25 truncate">ledger #b7e2…41ac · signed</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.3 · Your rule, enforced. The 24 percent discount never happened. The 18 percent quote passed, signed into the ledger.
-                        </p>
-                    </div>
-                    <div>
-                        <p class="font-mono text-xs text-gold mb-4">"Who decides what an agent may do?"</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Your Company Already Runs on Rules.</span> <span class="text-white/40">Now Your Agents Follow Them.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent must pass before it acts.
-                        </p>
-                        <p class="text-lg text-white/55 leading-relaxed mb-8">
-                            <span class="text-white">See it before you ship it.</span> Run any rule against last week's real traffic and see exactly which agents it would have stopped, before you switch it on.
-                        </p>
-                        <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                            See how policies work →
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Write the rule the way you would say it -->
-                <div class="grid md:grid-cols-3 gap-4 pb-14">
-                    {[
-                        { k: "In plain language", q: "\u201CMarketing agents may use any model but never send customer emails.\u201D", a: "KYDE writes the policy." },
-                        { k: "In the visual builder", q: "IF agent is Finance AND amount over 100 euros THEN require approval.", a: "No code." },
-                        { k: "As policy code", q: "Versioned rules for engineers, reviewed like any other change.", a: "The same language your agents are held to." },
-                    ].map(({ k, q, a }) => (
-                        <div class="border border-white/10 bg-white/[0.02] p-6">
-                            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-3">{k}</p>
-                            <p class="font-mono text-xs text-white/70 leading-relaxed mb-3">{q}</p>
-                            <p class="text-xs text-white/45">{a}</p>
-                        </div>
-                    ))}
-                </div>
-
                 <!-- Autonomy ladder -->
-                <div class="pb-24 md:pb-28">
-                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-8">
-                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Autonomy is earned, not granted</span>
-                        <span class="fig-label">FIG.4</span>
-                    </div>
-                    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40 mb-4">Observe · Trust · Govern get an agent to the door. This is Autonomy, rung by rung.</p>
-                    <p class="text-base text-white/55 leading-relaxed max-w-3xl mb-10">
-                        Every agent starts at level zero and climbs. KYDE manages the whole climb, and the reason for every step.
+                <div class="pt-12 pb-24 md:pb-28">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                        <span class="text-white">From Assistant</span> <span class="text-white/40">to Autonomous Operator.</span>
+                    </h2>
+                    <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">AI autonomy should be earned, not assumed.</p>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
+                        The Trust Ladder measures whether your organization has the technical controls required for each level of autonomy. As your controls improve, you can safely delegate more responsibility to AI.
+                    </p>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-10">
+                        This is where continuous verification becomes visible: every rung is held by evidence, and an agent that stops producing it comes back down.
                     </p>
                     <svg id="ladder-fig" viewBox="0 0 1000 250" class="w-full h-auto" aria-hidden="true">
                         <!-- stairs -->
@@ -844,12 +655,12 @@ const websiteSchema = {
                         <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="130" cy="205" />
                     </svg>
                     <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                        FIG.4 · Autonomy is earned. Level 0 reads. Level 2 files tickets. Level 3 deploys code. Level 4 approves payments. Every step climbed on evidence, every step recorded.
+                        FIG.3 · Autonomy is earned. Level 0 reads. Level 2 files tickets. Level 3 deploys code. Level 4 approves payments. Every step climbed on evidence, every step recorded.
                     </p>
                 </div>
 
                 <script>
-                    // FIG.4 · the ladder. The agent climbs one level per evidence
+                    // FIG.3 · the ladder. The agent climbs one level per evidence
                     // window; a green pulse marks the promotion. At the top it
                     // holds, then a new agent starts at zero. Autonomy is earned.
                     const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -928,319 +739,44 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ 05 PROVE & TRUST ══════════ -->
-        <section id="prove" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Prove &amp; Trust</span>
-                    <span class="fig-label">FIG.5</span>
+
+        <!-- ══════════ 04 WHY KYDE ══════════ -->
+        <!-- The competitive claim is adjacency, not superiority: each category is
+             named as genuinely solving its own piece, and KYDE is what joins them. -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-14">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Why KYDE</span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div>
-                        <p class="font-mono text-xs text-gold mb-4">"What do I show when someone asks what happened?"</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">When Someone Asks What Happened,</span><br /><span class="text-white/40">You Have the Answer.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. The suspect cannot write the police report. KYDE's record is architecturally independent: integrity you can demonstrate, not just assert.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Independent of every model provider, captured before it reaches them",
-                                "Every entry signed and hash-chained: tamper with one link, every following link breaks",
-                                "Undeletable by any agent, including the one under investigation",
-                                "Reports generated automatically for auditors and regulators",
-                            ].map((item, i) => (
-                                <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">5.{i + 1}</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <div class="border border-white/10 bg-white/[0.02]">
-                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Ledger · Signed Action Log</span>
-                                <span class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-live">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-live"></span>Chain intact
-                                </span>
-                            </div>
-                            <div class="p-5 font-mono text-xs space-y-3">
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4cf · agent:etl-worker · db.write → allowed</span>
-                                    <span class="text-white/25 shrink-0">prev #a4ce · <span class="text-live">&#10003;</span></span>
-                                </div>
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4d0 · agent:hr-11 · mail.send → <span class="text-alert">blocked</span></span>
-                                    <span class="text-white/25 shrink-0">prev #a4cf · <span class="text-live">&#10003;</span></span>
-                                </div>
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="text-white/60 truncate">#a4d1 · agent:support-02 · dlp.mask → forwarded</span>
-                                    <span class="text-white/25 shrink-0">prev #a4d0 · <span class="text-live">&#10003;</span></span>
-                                </div>
-                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
-                                    ed25519-signed · sha-256 hash chain · captured at the boundary, before any provider
-                                </div>
-                            </div>
+
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-12 max-w-3xl">
+                    <span class="text-white">Most vendors solve one piece</span> <span class="text-white/40">of the problem.</span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 mb-px">
+                    {[
+                        { k: "Identity providers", d: "know who the agent is." },
+                        { k: "AI platforms",       d: "know what the model generated." },
+                        { k: "Security tools",     d: "inspect network traffic." },
+                        { k: "Audit tools",        d: "record what already happened." },
+                    ].map(({ k, d }) => (
+                        <div class="bg-bg-0 p-7">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40 mb-3">{k}</p>
+                            <p class="text-base text-white/55 leading-relaxed">{d}</p>
                         </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.5 · Every action becomes a signed entry. History can only be extended, never rewritten.
-                        </p>
-                    </div>
+                    ))}
                 </div>
 
-                <div class="border-t border-white/10 mt-0"></div>
-
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div class="flex flex-col justify-center">
-                        <div class="border border-white/10 bg-white/[0.02]">
-                            <div class="flex items-center justify-between border-b border-white/8 px-4 py-3">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">KYDE Trust Score™ · Cross-Provider</span>
-                                <span class="font-mono text-[9px] uppercase tracking-widest text-white/40">One scale</span>
-                            </div>
-                            <div class="p-5 font-mono text-xs space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">agent:support-02 <span class="text-white/25">· openai</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:87%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">87</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">etl-worker <span class="text-white/25">· anthropic</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:91%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">91</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">agent:proc-7 <span class="text-white/25">· google</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:74%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">74</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-white/60 truncate flex-1">mail-drafter <span class="text-white/25">· local/vllm</span></span>
-                                    <span class="h-0.5 w-20 bg-bg-3 shrink-0 overflow-hidden"><span class="block h-full bg-live/60" style="width:82%"></span></span>
-                                    <span class="text-ink-0 w-6 text-right shrink-0">82</span>
-                                </div>
-                                <div class="border-t border-white/8 pt-4 text-white/25 leading-relaxed">
-                                    computed from the signed ledger · normalized across comparison classes
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-3 font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.6 · Four agents, four providers, one currency. Rated on behavior, not vendor claims.
-                        </p>
-                    </div>
-                    <div>
-                        <p class="font-mono text-xs text-gold mb-4">"Which agent has earned more?"</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-8">
-                            <span class="text-white">Know Who Deserves More Work.</span><br /><span class="text-white/40">Before You Hand It Over.</span>
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            The KYDE Trust Score™: every agent earns a score from its actual behavior. Policy hits, escalations, outcomes, drift. So you hand out more autonomy on evidence, catch degradation early, and show insurers a risk they can finally price. Trust that can be measured can be priced. And insured.
-                        </p>
-                        <ul class="space-y-2.5 mb-8">
-                            {[
-                                "Promote agents on evidence, not gut feeling",
-                                "Catch drift and degradation before your customers do",
-                                "One scale across GPT, Claude, Gemini, and local models, so vendor claims stop mattering",
-                                "Vendors grade their own homework. We grade behavior.",
-                            ].map((item, i) => (
-                                <li class="flex items-start gap-3 text-sm text-white/55">
-                                    <span class="font-mono text-[10px] text-gold shrink-0 mt-1">5.{i + 5}</span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="/trust-score" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                                Explore the Trust Score →
-                            </a>
-                            <a href="/platform" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                                See full platform →
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ 06 WHY NOW ══════════ -->
-        <section class="relative border-b border-white/10">
-            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Why Now</span>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div>
-                        <p class="font-mono text-xs text-gold mb-4">"What does waiting cost?"</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
-                            <span class="text-white">Liability Makes Trust Urgent.</span> <span class="text-white/40">Courts Already Enforce It.</span>
-                        </h2>
-                        <p class="text-white/55 leading-relaxed mb-4">
-                            Air Canada lost because its chatbot gave wrong information. The court held Air Canada liable, not the vendor, not the model.
-                        </p>
-                        <p class="text-white/55 leading-relaxed mb-6">
-                            Your agents negotiate, transact, and commit in your name right now. Regulators, auditors, and courts will hold you to it.
-                        </p>
-                        <div class="border border-white/10 bg-white/[0.02] p-6 mb-6">
-                            <p class="font-mono text-xs uppercase tracking-widest text-white/50 mb-3">Moffatt v. Air Canada</p>
-                            <p class="font-mono text-sm text-white/70 leading-relaxed border-l-2 border-white/25 pl-4">
-                                "Air Canada cannot avoid responsibility for information provided by its agent."
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col justify-center">
-                        <div class="flex flex-col gap-px">
-                            {[
-                                { name: "NIS-2",     badge: "In force · DE: NIS2UmsuCG", desc: "Personal liability for management. Not delegable to the CISO.", hook: "The board is personally on the hook.", urgent: true },
-                                { name: "DORA",      badge: "In force: Jan 2025",        desc: "Operational-resilience evidence for financial entities.",        hook: "Financial entities must prove it.",     urgent: false },
-                                { name: "EU AI Act", badge: "High-risk: Dec 2027",       desc: "Art. 12 logging and audit-trail duties for high-risk AI.",      hook: "The second wave, already dated.",      urgent: false },
-                            ].map(({ name, badge, desc, hook, urgent }) => (
-                                <div class={`border p-5 ${urgent ? "border-alert/40 bg-alert/5" : "border-white/10 bg-white/[0.02]"}`}>
-                                    <div class="flex items-start justify-between gap-3 mb-2">
-                                        <h3 class="font-mono text-sm font-bold text-white">{name}</h3>
-                                        <span class={`font-mono text-[9px] px-1.5 py-0.5 border shrink-0 ${badge.includes("In force") ? "border-live/30 text-live" : "border-white/15 text-white/50"}`}>{badge}</span>
-                                    </div>
-                                    <p class="text-xs text-white/45 mb-3">{desc}</p>
-                                    <p class="font-mono text-[10px] text-white/70 border-t border-white/10 pt-3">{hook}</p>
-                                </div>
-                            ))}
-                        </div>
-                        <p class="mt-8 font-mono text-sm text-ink-0 border-l-2 border-white/30 pl-4 leading-relaxed">
-                            The buying trigger is liability, not innovation.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ GLITCH WALL DIVIDER ══════════ -->
-        <section class="relative border-b border-white/10 h-[280px] md:h-[380px] overflow-hidden" aria-hidden="true">
-            <canvas id="glitch-wall" class="absolute inset-0 w-full h-full"></canvas>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-transparent to-bg-0/60"></div>
-            <!-- grid rails continue through the divider -->
-            <div class="absolute inset-0 pointer-events-none">
-                <div class="max-w-7xl mx-auto h-full md:border-x md:border-white/10"></div>
-            </div>
-        </section>
-        <script>
-            // Diagonal data-wall divider, flowing dash field, green-dominant
-            const gw = document.getElementById("glitch-wall") as HTMLCanvasElement | null;
-            const gwReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (gw) {
-                const gctx = gw.getContext("2d")!;
-                let gW = 0, gH = 0;
-
-                const GC = { ink: "242,242,242", live: "61,220,132" };
-                function gHexToRgb(hex: string): string {
-                    const m = hex.trim().replace("#", "");
-                    const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
-                    return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
-                }
-                function readGwColors() {
-                    const cs = getComputedStyle(document.documentElement);
-                    GC.ink = gHexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
-                    GC.live = gHexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
-                }
-                readGwColors();
-                window.addEventListener("kyde:theme", () => {
-                    readGwColors();
-                    if (gwReduced) gDraw(4000);
-                });
-
-                function ghash(n: number): number {
-                    let t = (n + 0x6d2b79f5) | 0;
-                    t = Math.imul(t ^ (t >>> 15), t | 1);
-                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-                }
-
-                function gResize() {
-                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                    gW = gw.clientWidth;
-                    gH = gw.clientHeight;
-                    gw.width = gW * dpr;
-                    gw.height = gH * dpr;
-                    gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                }
-
-                const CX = 6, CY = 8; // cell size
-                function gDraw(t: number) {
-                    gctx.clearRect(0, 0, gW, gH);
-                    const flow = t / 40;
-                    for (let y = 0; y < gH; y += CY) {
-                        const row = Math.floor(y / CY);
-                        const rowSpeed = 0.4 + ghash(row * 71) * 1.2;
-                        for (let x = 0; x < gW; x += CX) {
-                            const col = Math.floor((x + flow * rowSpeed * 10) / CX);
-                            // diagonal density band, sweeping slowly
-                            const diag = (x / gW) * 0.6 + (1 - y / gH) * 0.4;
-                            const bandC = 0.5 + 0.28 * Math.sin(t / 9000);
-                            const band = Math.max(0, 1 - Math.abs(diag - bandC) * 3.2);
-                            const r = ghash(col * 733 + row * 131);
-                            if (r > band * 0.75 + 0.04) continue;
-                            const r2 = ghash(col * 31 + row * 977);
-                            const flick = 0.4 + 0.6 * ghash(col + row + Math.floor(t / 240));
-                            const a = (0.06 + r2 * 0.5) * band * flick;
-                            gctx.fillStyle = r2 > 0.55
-                                ? `rgba(${GC.live},${a})`
-                                : `rgba(${GC.ink},${a * 0.7})`;
-                            gctx.fillRect(x, y, 1.5 + r2 * 2.5, 1.5);
-                        }
-                    }
-                }
-
-                gResize();
-                window.addEventListener("resize", gResize);
-
-                if (gwReduced) {
-                    gDraw(4000);
-                } else {
-                    let visible = false;
-                    const gio = new IntersectionObserver((es) => {
-                        visible = es[0].isIntersecting;
-                    });
-                    gio.observe(gw);
-                    const gLoop = (t: number) => {
-                        if (visible) gDraw(t);
-                        requestAnimationFrame(gLoop);
-                    };
-                    requestAnimationFrame(gLoop);
-                }
-            }
-        </script>
-
-        <!-- ══════════ 07 EARLY ACCESS ══════════ -->
-        <section class="relative border-b border-white/10 overflow-hidden">
-            <div class="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none" style="background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink-0) 7%, transparent) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
-            <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Early Access</span>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            Built With Regulated Industries. Not For Them.
-                        </h2>
-                        <p class="text-white/55 leading-relaxed mb-8">
-                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, Critical Infrastructure, and Manufacturing in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
-                        </p>
-                        <button
-                            onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-bg-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
-                        >
-                            Apply for Design Partnership →
-                        </button>
-                    </div>
-                    <div class="flex flex-wrap gap-2 content-start">
-                        {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
-                            <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50 border border-white/15 px-3 py-1.5">{industry}</span>
+                <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-10">
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-white mb-6">KYDE connects all four.</h3>
+                    <div class="flex flex-wrap gap-x-6 gap-y-3 mb-6">
+                        {["Identity", "Capabilities", "Enforcement", "Evidence"].map((w) => (
+                            <span class="font-mono text-sm uppercase tracking-[0.16em] text-white">{w}<span class="text-gold">.</span></span>
                         ))}
                     </div>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl">
+                        One trust layer across every model, provider, tool and business system.
+                    </p>
                 </div>
             </div>
         </section>
@@ -1261,7 +797,7 @@ const websiteSchema = {
             </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">See what runs · Set the rules · Prove every action · Rate every agent</p>
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Identity · Capabilities · Enforcement · Evidence</p>
                     <div class="mb-12 h-px bg-white/10"></div>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-12">
                         Your agents are a workforce.<br />Put it on solid ground.
@@ -1291,18 +827,4 @@ const websiteSchema = {
     <Footer />
 </Base>
 
-<style>
-    /* Requests dropping through the core connectors (03 · The Core) */
-    @keyframes core-drop {
-        0%   { transform: translateY(-10px); opacity: 0; }
-        15%  { opacity: 0.9; }
-        85%  { opacity: 0.9; }
-        100% { transform: translateY(42px); opacity: 0; }
-    }
-    .core-drop { animation: core-drop 1.6s linear infinite; }
-    .core-drop-late { animation-delay: 0.8s; }
-    @media (prefers-reduced-motion: reduce) {
-        .core-drop { animation: none; opacity: 0; }
-    }
-</style>
 
