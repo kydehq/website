@@ -960,12 +960,14 @@ const websiteSchema = {
                     <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
                         The Trust Ladder measures whether your organization has the technical controls required for each level of autonomy. As your controls improve, you can safely delegate more responsibility to AI.
                     </p>
-                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-10">
-                        This is where continuous verification becomes visible: every rung is held by evidence, and an agent that stops producing it comes back down.
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
+                        This is where continuous verification becomes visible: every rung is held by evidence, and an agent that stops producing it comes back down. Six levels, L0 to L5, from an assistant that only reads to an operator running unattended.
                     </p>
-                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-10">
-                        The levels run L0 to L5, from an assistant that only reads and suggests to an operator running unattended within a defined scope. Up to L3 observability carries the level. From L4, where money moves or something physical happens, watching is no longer a qualification: the boundary has to be enforced, not just logged.
-                    </p>
+                    <!-- The level-by-level detail lives on /trust-score, beside the measurement
+                         that decides the level. Here it stays a summary. -->
+                    <a href="/trust-score#ladder" class="mb-10 inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                        See all six levels →
+                    </a>
                     <!-- The staircase is asymmetric by nature, so without a frame and a pair
                          of axes it floats. The plot frame gives it something to stand on. -->
                     <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">

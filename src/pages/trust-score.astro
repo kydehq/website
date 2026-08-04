@@ -367,6 +367,62 @@ const dimensions: Dimension[] = [
       </div>
     </section>
 
+    <!-- ══════════ 03 THE TRUST LADDER ══════════ -->
+    <!-- The score measures behaviour; the ladder says what that behaviour entitles
+         an agent to. They belong on the same page: one is the measurement, the
+         other is the consequence. Levels follow the canonical L0–L5 ladder. -->
+    <section id="ladder" class="scroll-mt-20 border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+
+        <div class="mb-12">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · The Trust Ladder</span>
+            <span class="fig-label">FIG.4</span>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start mb-12">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-ink-0 leading-tight mb-6">
+              A score on its own grants nothing.
+            </h2>
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
+              The Trust Ladder turns the measurement into a decision. Six levels, L0 to L5, from an assistant that only reads and suggests to an operator running unattended within a defined scope. Each level names the work an agent may be trusted with, and the evidence it has to keep producing to stay there.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed">
+              Up to L3, observability carries the level. From L4, where money moves or something physical happens, watching is no longer a qualification: the boundary has to be enforced, not just logged. Drift takes a level away as readily as evidence earns it.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex flex-col gap-px">
+              {[
+                { l: "L0", name: "Assistant",                     work: "Reads, answers, suggests. No actions.",                    band: "Home · sandbox" },
+                { l: "L1", name: "Tool User",                     work: "Tool calls, each one attributable.",                       band: "Home · sandbox" },
+                { l: "L2", name: "Workflow Executor",             work: "Multi-step work: tickets, workflows.",                     band: "Company · production" },
+                { l: "L3", name: "Operational Authority",         work: "Production responsibility, such as deploying code.",       band: "Company · production" },
+                { l: "L4", name: "Financial / Physical Authority", work: "Money or physical effect, such as releasing payments.",   band: "Critical infrastructure · NIS-2 / DORA" },
+                { l: "L5", name: "Autonomous Operator",           work: "Unattended operation within a defined scope.",             band: "Critical infrastructure · NIS-2 / DORA" },
+              ].map(({ l, name, work, band }, i) => (
+                <div class={`border p-4 ${i >= 4 ? "border-line-0 bg-ink-0/[0.03]" : "border-line-0"}`}>
+                  <div class="flex items-baseline gap-3 mb-1.5">
+                    <span class="font-mono text-sm font-bold text-ink-0 shrink-0">{l}</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-0">{name}</span>
+                  </div>
+                  <p class="text-sm text-ink-1 leading-relaxed mb-2">{work}</p>
+                  <p class="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-2">{band}</p>
+                </div>
+              ))}
+            </div>
+            <p class="mt-4 font-mono text-[10px] text-ink-2 leading-relaxed">
+              FIG.4 · Six levels. From L4 upwards, enforcement at the boundary replaces observation as the qualifying evidence.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ══════════ WHY INDEPENDENCE MATTERS ══════════ -->
     <section class="border-t border-line-0 bg-bg-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
