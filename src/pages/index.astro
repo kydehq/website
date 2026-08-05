@@ -24,7 +24,7 @@ const orgSchema = {
     name: "KYDE",
     url: "https://kyde.com",
     logo: "https://kyde.com/kyde-logo.svg",
-    description: "KYDE is the trust infrastructure for AI agents: verifiable identity, short-lived capabilities, real-time policy enforcement at the boundary, and a signed, tamper-evident record of every action, across every LLM provider.",
+    description: "KYDE is the trust infrastructure for AI agents: verifiable identity, short-lived capabilities, real-time policy enforcement at the boundary, and a hash-chained, tamper-evident record of every action, across every LLM provider.",
 };
 
 const websiteSchema = {
@@ -37,7 +37,7 @@ const websiteSchema = {
 
 <Base
     title="KYDE · Deploy AI Agents With Confidence"
-    description="Continuous control over every AI agent action: identity, capabilities, real-time enforcement, tamper-proof evidence. The trust infrastructure for AI agents. Built for GDPR, EU AI Act, NIS-2, DORA."
+    description="Continuous control over every AI agent action: identity, capabilities, real-time enforcement, a tamper-evident record. The trust infrastructure for AI agents. Built for GDPR, EU AI Act, NIS-2, DORA."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -70,7 +70,7 @@ const websiteSchema = {
                     Continuous Control Over Every Action.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    Identity, capabilities, real-time enforcement, and tamper-proof evidence — on every action, not once at onboarding.
+                    Identity, capabilities, real-time enforcement, and a tamper-evident record — on every action, not once at onboarding.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -156,7 +156,7 @@ const websiteSchema = {
   // Geometric, not "rain": unordered agents drift on the left,
   // cross the vertical gate line, and snap into a strict lattice , 
   // ungoverned chaos becomes governed order. Rare green pulse at
-  // crossing (signed), rare red flash bouncing off (blocked).
+  // crossing (recorded), rare red flash bouncing off (blocked).
   const canvas = document.getElementById("hero-datastream") as HTMLCanvasElement | null;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -375,9 +375,34 @@ const websiteSchema = {
                 <p class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white max-w-4xl">
                     KYDE is the <span class="text-white">Trust Infrastructure for AI Agents</span><span class="text-gold">.</span>
                     <span class="block mt-4 text-lg md:text-xl font-normal text-white/55 leading-relaxed">
-                        One trust layer across every model, provider, tool and business system.
+                        One trust layer, held outside the platforms your agents run on. Every model and provider today, built to reach the tools and business systems next.
                     </span>
                 </p>
+            </div>
+        </section>
+
+        <!-- ══════════ DRY RUN BAND ══════════ -->
+        <!-- Sits directly under the fold because it answers the objection that stops
+             deals: not "will the rule work" but "will it work on the wrong thing". -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-white/10">
+                <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-16 items-center">
+                    <div>
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">Before you switch anything on</p>
+                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-white mb-4">
+                            See what a rule would have done, before it does it.
+                        </h2>
+                        <p class="text-base md:text-lg text-white/55 leading-relaxed max-w-2xl">
+                            Run any rule backwards over traffic that already happened, and read the answer in plain numbers. Nothing in production moves until you say so.
+                        </p>
+                    </div>
+                    <div class="border border-white/10 bg-white/[0.02] px-6 py-5 lg:min-w-[300px]">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-3">Dry run · last 30 days</p>
+                        <p class="font-mono text-sm text-white/70 leading-relaxed mb-3">payment-approval · v3</p>
+                        <p class="font-mono text-2xl text-white leading-none mb-2">4<span class="text-white/30 text-base"> / 812 calls</span></p>
+                        <p class="font-mono text-[10px] text-white/35 leading-relaxed">would have been stopped · listed by name</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -446,7 +471,7 @@ const websiteSchema = {
                             <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
                         </svg>
                         <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.1 · The fleet, signed. Every agent accounted for.
+                            FIG.1 · Five of these seven run under an id nobody has claimed.
                         </p>
                     </div>
                 </div>
@@ -454,8 +479,8 @@ const websiteSchema = {
                 <script>
                     // FIG.1 · radar. Shadow agents sit almost invisible in
                         // the field; the sweep reveals them: blip flashes, the
-                        // identity label appears, a green "signed" confirms the
-                        // record, then the afterglow fades until the next pass.
+                        // identity label appears with its ownership state, then the
+                        // afterglow fades until the next pass.
                         const radarReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                         const radar = document.getElementById("radar-fig");
 
@@ -467,7 +492,7 @@ const websiteSchema = {
 
                             // Theme-aware palette (ditto elsewhere on this page): read the
                             // ink/live tokens from CSS instead of hardcoding rgb triples.
-                            const RC = { ink: "242,242,242", live: "61,220,132" };
+                            const RC = { ink: "242,242,242", live: "61,220,132", warn: "255,184,77" };
                             function hexToRgb(hex: string): string {
                                 const m = hex.trim().replace("#", "");
                                 const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
@@ -477,17 +502,21 @@ const websiteSchema = {
                                 const cs = getComputedStyle(document.documentElement);
                                 RC.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
                                 RC.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+                                RC.warn = hexToRgb(cs.getPropertyValue("--color-warn") || "#FFB84D");
                             }
                             readRadarColors();
 
+                            // The state a first install actually reports is named versus
+                            // unclaimed, not signed: signing is an Enterprise capability, and
+                            // the unclaimed ones are the finding worth showing.
                             const AGENTS = [
-                                { id: "agent:crm-04",    r: 178, a: 0.4 },
-                                { id: "agent:hr-11",     r: 120, a: 1.3 },
-                                { id: "ci-runner",       r: 195, a: 2.2 },
-                                { id: "agent:support-2", r: 68,  a: 2.9 },
-                                { id: "etl-worker",      r: 150, a: 3.8 },
-                                { id: "agent:proc-7",    r: 104, a: 4.6 },
-                                { id: "mail-drafter",    r: 186, a: 5.4 },
+                                { id: "agent:crm-04",    r: 178, a: 0.4, claimed: true  },
+                                { id: "agent:hr-11",     r: 120, a: 1.3, claimed: false },
+                                { id: "ci-runner",       r: 195, a: 2.2, claimed: false },
+                                { id: "agent:support-2", r: 68,  a: 2.9, claimed: true  },
+                                { id: "etl-worker",      r: 150, a: 3.8, claimed: false },
+                                { id: "agent:proc-7",    r: 104, a: 4.6, claimed: false },
+                                { id: "mail-drafter",    r: 186, a: 5.4, claimed: false },
                             ];
 
                             const blips = AGENTS.map((ag) => {
@@ -507,8 +536,8 @@ const websiteSchema = {
                                 sig.setAttribute("x", String(x + 9));
                                 sig.setAttribute("y", String(y + 6));
                                 sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
-                                sig.setAttribute("fill", `rgb(${RC.live})`);
-                                sig.textContent = "✓ signed";
+                                sig.setAttribute("fill", ag.claimed ? `rgb(${RC.live})` : `rgb(${RC.warn})`);
+                                sig.textContent = ag.claimed ? "✓ named" : "unclaimed · no owner";
                                 blipsG.append(dot, label, sig);
                                 return { ...ag, dot, label, sig, lastLit: -1e9 };
                             });
@@ -820,7 +849,7 @@ const websiteSchema = {
                                     <text x={82 + i * 106} y="183" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3"
                                           style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">{["db.write", "transfer", "dlp.mask", "quote.set"][i]}</text>
                                     <text x={82 + i * 106} y="199" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.7"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">signed</text>
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">chained</text>
                                     {i < 3 && (
                                         <line x1={124 + i * 106} y1="170" x2={146 + i * 106} y2="170"
                                               stroke="var(--color-live)" stroke-opacity="0.5" stroke-width="1.5" />
@@ -831,7 +860,7 @@ const websiteSchema = {
                             <text id="chain-status" x="240" y="258" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.75"
                                   style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">CHAIN INTACT</text>
                             <text x="240" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3"
-                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">ed25519 · sha-256 · captured before any provider</text>
+                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">sha-256 hash chain · captured before any provider · ed25519 signing on Enterprise</text>
                         </svg>
                         <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
                             FIG.4 · Rewrite one entry and every entry after it breaks with it.
@@ -841,12 +870,12 @@ const websiteSchema = {
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
                             Prove what happened.
                         </h2>
-                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Every decision becomes independently verifiable evidence in a tamper-proof record.</p>
+                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Every decision becomes independently verifiable evidence in a hash-chained record.</p>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
                             Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. The suspect cannot write the police report.
                         </p>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            KYDE's record is captured at the boundary before anything reaches a provider, signed and hash-chained so that tampering with one link breaks every link after it, and undeletable by any agent, including the one under investigation.
+                            KYDE's record is captured at the boundary before anything reaches a provider, and hash-chained so that tampering with one link breaks every link after it. It is undeletable by any agent, including the one under investigation. On Enterprise each entry is additionally signed with your own keys.
                         </p>
                     </div>
                 </div>
@@ -874,7 +903,7 @@ const websiteSchema = {
                                 line.setAttribute("stroke", broken && i >= TAMPERED ? "var(--color-alert)" : "var(--color-live)");
                                 line.setAttribute("stroke-opacity", "0.5");
                             }
-                            seal.textContent = hit ? (i === TAMPERED ? "altered" : "broken") : "signed";
+                            seal.textContent = hit ? (i === TAMPERED ? "altered" : "broken") : "chained";
                             seal.setAttribute("fill", hit ? "var(--color-alert)" : "var(--color-live)");
                         });
                         status.textContent = broken ? "TAMPERING DETECTED · 3 LINKS BROKEN" : "CHAIN INTACT";
@@ -911,7 +940,12 @@ const websiteSchema = {
                             <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">Around all four · Continuous control</p>
                             <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">Trust is re-earned, not granted once.</h3>
                             <p class="text-sm text-white/55 leading-relaxed max-w-2xl">
-                                Control is not a switch you flip at onboarding. Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next. An agent that drifts loses scope before anyone files a ticket.
+                                Control is not a switch you flip at onboarding. Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next.
+                            </p>
+                            <!-- The pattern case: no single action breaks a rule, the sequence does.
+                                 A per-action check cannot see this; a baseline over time can. -->
+                            <p class="mt-4 text-sm text-white/55 leading-relaxed max-w-2xl">
+                                It is also how you catch what no single action reveals. An agent that moves 90 euros on Monday, 140 on Tuesday and 240 on Wednesday is not breaking a rule — it is finding the edge of one. The pattern is the evidence, and an agent that drifts loses scope before anyone files a ticket.
                             </p>
                         </div>
                         <svg viewBox="0 0 220 220" class="w-40 h-40 lg:w-52 lg:h-52 justify-self-center" aria-hidden="true">
@@ -1126,7 +1160,7 @@ const websiteSchema = {
                             Every platform offers governance for the agents running on that platform. Your coding agents, your SAP bots and the robots on the floor do not run on one platform, and the model behind any of them will be swapped faster than a procurement cycle. Four vendor consoles is not oversight, it is four blind spots with a shared login.
                         </p>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            KYDE sits outside all of them. Identity, policy and record are held in your layer, not in theirs, and they survive the day you change providers. That is what sovereignty means in practice: you keep the ability to change your mind, and nobody else holds the evidence of what your company did.
+                            KYDE sits outside all of them. Identity, policy and record are held in your layer, not in theirs, and they survive the day you change providers. Every model and provider runs through it today; the same layer is built to take the tools and business systems next, which is exactly what a layer inside one vendor can never do. That is what sovereignty means in practice: you keep the ability to change your mind, and nobody else holds the evidence of what your company did.
                         </p>
                     </div>
                     <div class="relative flex items-center justify-center min-h-[380px]">
@@ -1164,7 +1198,7 @@ const websiteSchema = {
                             <text x="240" y="308" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">identity · policy · record · portable</text>
                         </svg>
                         <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.7 · A vendor governs its own column. The layer underneath is yours.
+                            FIG.7 · A vendor governs its own column. The layer underneath is yours, and it is not bounded by any of them.
                         </p>
                     </div>
                 </div>
@@ -1229,7 +1263,7 @@ const websiteSchema = {
                         Your agents will change vendors.<br />Your control shouldn't.
                     </h2>
                     <p class="text-lg text-white/55 leading-relaxed mb-12 mx-auto max-w-2xl">
-                        One layer across every model, provider, tool and business system. Vendor neutral, engineered in Germany, and yours to keep.
+                        One layer across every model and provider, designed to extend to the tools and business systems your agents touch next. Vendor neutral, engineered in Germany, and yours to keep.
                     </p>
                     <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
