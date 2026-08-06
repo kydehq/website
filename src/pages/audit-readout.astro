@@ -1,0 +1,188 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { readout, heldCount, foundCount } from '../data/audit-readout';
+
+// The ask on /starter is "install this in your infrastructure", which no feature
+// tile carries. This page is the counterweight: the document itself, in full,
+// from a real deployment rather than a mock-up.
+const kindLabel: Record<string, string> = {
+  capability: "Capability",
+  evidence:   "Evidence",
+  economics:  "Economics",
+};
+---
+
+<Base
+  title="An Actual Audit Readout, In Full"
+  description="The complete readout a KYDE audit produces, from a real deployment: findings worst first, the rows behind every number, the conditions that were checked, and the four things it could not see."
+>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ WHAT THIS DOCUMENT IS ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-5xl mx-auto px-6 pt-32 pb-16 md:border-x md:border-line-0">
+        <div class="flex flex-wrap items-center gap-2 mb-8">
+          <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-white/15 px-3 py-1">Specimen</span>
+          <span class="font-mono text-[10px] text-white/20">·</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-live/80 border border-live/30 px-3 py-1">{readout.source}</span>
+        </div>
+
+        <h1 class="hero-h1 text-3xl md:text-4xl lg:text-5xl text-ink-0 uppercase tracking-tight leading-[1.08] mb-6">
+          This is the document,<br />not a picture of it.
+        </h1>
+        <p class="text-base md:text-lg text-ink-1 leading-relaxed max-w-2xl mb-4">
+          Installing something in your own infrastructure is a larger ask than signing up for a trial, and the only honest argument for it is the thing you get out. So here is one in full, run on {readout.source} and read on {readout.read}. Not a customer's estate, and not an illustration: our own, including the parts that do not flatter us.
+        </p>
+        <p class="text-base text-ink-1 leading-relaxed max-w-2xl">
+          Every number below names the rows it was computed from. Where the evidence stops, it says so instead of rounding up — which is why this readout withholds its own trust scores and prints two limits with no figure at all.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ THE HEADLINE FINDING ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-5xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Audit readout</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-ink-2">Window opens {readout.windowStart}</span>
+        </div>
+
+        <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-ink-0 leading-tight tracking-tight mb-8 max-w-4xl">
+          {readout.headline}
+        </p>
+
+        <div class="flex flex-wrap gap-px bg-line-0 border border-line-0 mb-8 w-fit">
+          {readout.headlineMetrics.map(({ value, label }) => (
+            <div class="bg-bg-1 px-6 py-4">
+              <p class="font-mono text-2xl md:text-3xl text-ink-0 leading-none mb-1">{value}</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">{label}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-sm text-ink-1 leading-relaxed mb-2">{readout.basis}</p>
+        <p class="font-mono text-xs text-ink-2 leading-relaxed max-w-2xl">{readout.coverage}</p>
+      </div>
+    </section>
+
+    <!-- ══════════ FINDINGS ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-5xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Everything this audit found</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-ink-2">{readout.findings.length} findings · worst first</span>
+        </div>
+
+        <div class="flex flex-col gap-px bg-line-0 border border-line-0">
+          {readout.findings.map((f, i) => (
+            <article class="bg-bg-1 p-6 md:p-8">
+              <div class="flex items-baseline gap-3 mb-4">
+                <span class="font-mono text-[10px] text-ink-2">{String(i + 1).padStart(2, "0")}</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">{kindLabel[f.kind]}</span>
+              </div>
+
+              <p class="text-lg md:text-xl text-ink-0 leading-relaxed mb-6 max-w-3xl">{f.statement}</p>
+
+              <div class="flex flex-wrap gap-x-10 gap-y-4 mb-6">
+                {f.metrics.map(({ value, label }) => (
+                  <div>
+                    <p class="font-mono text-xl text-ink-0 leading-none mb-1">{value}</p>
+                    <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              {f.caveat && (
+                <p class="border-l-2 border-line-1 pl-4 text-sm text-ink-1 leading-relaxed mb-6 max-w-3xl">{f.caveat}</p>
+              )}
+
+              <a href={f.rowsHref} class="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-1 border-b border-line-1 pb-0.5 hover:text-ink-0 hover:border-ink-0 transition-colors">
+                Rows behind it · {f.rowsLabel} →
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <p class="mt-4 font-mono text-[10px] text-ink-2 leading-relaxed">
+          In the product each of these opens the rows it was computed from. Here they point at the section that explains the method.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT WAS CHECKED ══════════ -->
+    <section id="rows-agent-roster" class="scroll-mt-20 border-t border-line-0 bg-bg-1">
+      <div class="max-w-5xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-8">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">What was checked</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-ink-2">{heldCount} of {readout.checks.length} held · {foundCount} found</span>
+        </div>
+
+        <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-10">{readout.checksIntro}</p>
+
+        <div class="flex flex-col gap-px bg-line-0 border border-line-0">
+          {readout.checks.map((c) => (
+            <div class="bg-bg-1 p-5 md:p-6">
+              <div class="flex flex-wrap items-baseline gap-3 mb-2">
+                <span class={`font-mono text-[10px] uppercase tracking-[0.18em] px-2 py-0.5 border ${c.status === "found" ? "text-warn border-warn/40" : "text-live border-live/30"}`}>
+                  {c.status === "found" ? "Found" : "Clear"}
+                </span>
+                <p class="text-base text-ink-0 leading-snug">{c.question}</p>
+              </div>
+              <p class="font-mono text-xs text-ink-2 leading-relaxed max-w-3xl">{c.fires}</p>
+              {c.note && (
+                <p class="mt-3 border-l-2 border-line-1 pl-4 text-sm text-ink-1 leading-relaxed max-w-3xl">{c.note}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT WAS NOT SEEN ══════════ -->
+    <!-- The section that makes the rest believable: a readout that names its own
+         blind spots is one whose other numbers can be trusted. -->
+    <section id="rows-integrity" class="scroll-mt-20 border-t border-line-0 bg-bg-1">
+      <div class="max-w-5xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">What was not seen</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-ink-2">{readout.limits.length} limits</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-px bg-line-0 border border-line-0">
+          {readout.limits.map((l) => (
+            <div class="bg-bg-1 p-6 md:p-8">
+              <div class="flex items-baseline justify-between gap-4 mb-4">
+                <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0">{l.title}</p>
+                <p class={`font-mono text-[10px] uppercase tracking-[0.14em] shrink-0 text-ink-2 ${l.figure ? "" : "italic"}`}>
+                  {l.figure ?? "no figure"}
+                </p>
+              </div>
+              <p class="text-sm text-ink-1 leading-relaxed mb-4">{l.body}</p>
+              <p class="font-mono text-[10px] text-ink-2 leading-relaxed border-t border-line-0 pt-3">{l.source}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section id="rows-token-share" class="scroll-mt-20 border-t border-line-0 bg-bg-0">
+      <div class="max-w-5xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-line-0 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-ink-0 leading-tight mb-4">
+          The same document, about your own estate.
+        </h2>
+        <p class="text-base text-ink-1 leading-relaxed max-w-xl mx-auto mb-10">
+          One environment variable, one agent routed through the gateway, and the first findings land the same day. It costs nothing and nothing is switched on in production.
+        </p>
+        <a href="/starter" class="inline-flex items-center gap-2 bg-bg-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all">
+          Start the audit →
+        </a>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>
