@@ -6,8 +6,8 @@ import FleetStatusMock from '../components/FleetStatusMock.astro';
 ---
 
 <Base
-  title="KYDE Gateway Starter, Deploy in Minutes, See Your Agents for the First Time"
-  description="Deploy the free KYDE Gateway Starter edition via Docker Compose and one environment variable. No license required. See your agent traffic on a dashboard within minutes."
+  title="Free 30-Day Agent Audit, Find Out What Is Actually Running"
+  description="A free, self-service audit of the AI agents in your company. Deploy the KYDE Gateway with one environment variable, let it run for thirty days, and end with a report you can hand to someone who never saw the screen."
 >
   <Navbar />
   <main>
@@ -18,22 +18,22 @@ import FleetStatusMock from '../components/FleetStatusMock.astro';
       <div class="relative max-w-7xl mx-auto px-6 pt-32 pb-20 md:border-x md:border-line-0">
         <div class="max-w-3xl">
           <div class="flex items-center gap-2 mb-8">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-white/15 px-3 py-1">Free</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/30 border border-white/15 px-3 py-1">Free Audit · 30 Days</span>
             <span class="font-mono text-[10px] text-white/20">·</span>
             <span class="font-mono text-[10px] uppercase tracking-widest text-live/80 border border-live/30 px-3 py-1">Kyde Gateway Starter</span>
           </div>
           <h1 class="hero-h1 text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05] mb-6">
-            <span class="text-white">Your agents are acting.</span><br /><span class="text-white/40">See what they're doing.</span>
+            <span class="text-white">How many of your agents</span><br /><span class="text-white/40">can you name?</span>
           </h1>
           <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
-            Deploy the KYDE Gateway via Docker Compose, then point your agent at it with one environment variable. Within minutes, every agent call in your environment appears on a dashboard, attributed, hash-chained, and observable. An independent witness for every agent action.
+            Point your agents at the gateway with one environment variable and let it run for thirty days. It ends with a finding, not a trial that expires: how many agents are running, under which identities, against which providers — and how many of them nobody has claimed. You run it yourself, and nothing is switched on in production.
           </p>
           <div class="flex flex-col sm:flex-row gap-3">
             <a
               href="#deploy"
               class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all"
             >
-              Deploy now →
+              Start the audit →
             </a>
             <a
               href="https://github.com/kydehq/gateway"
@@ -229,6 +229,52 @@ import FleetStatusMock from '../components/FleetStatusMock.astro';
           </a>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT THE AUDIT PRODUCES ══════════ -->
+    <!-- The line that keeps the free audit from eating the paid engagement: this one
+         is self-service and bounded by what crosses the gateway. It establishes that
+         the problem exists. Sizing it, and acting on it, is the paid conversation. -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-10">What you have after thirty days</p>
+
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 items-start">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-ink-0 leading-tight mb-6">
+              A finding, not a trial that ran out.
+            </h2>
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
+              The audit ends with a report: how many agents ran, under which identities, against which providers and models, and how many of them nobody has claimed. It prints and it exports, because it is written to be handed to someone who never saw the screen.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
+              Nothing switches off afterwards. The gateway keeps observing; what ends is the audit window, so that there is a dated document rather than a dashboard nobody opens again.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed">
+              Every number in it names the rows it was computed from. Where the evidence stops, the report says so instead of rounding up.
+            </p>
+          </div>
+
+          <div>
+            <div class="border border-line-0 p-6 md:p-8 mb-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">What this audit covers</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-4">
+                Everything that crosses the gateway, and nothing else. Agents that never route through it do not appear, and the report marks that boundary rather than hiding it. Coverage here is observed, not measured against an independent inventory.
+              </p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                It runs itself. No one from KYDE is in your environment, and there is no upgrade button on the report.
+              </p>
+            </div>
+            <div class="border border-line-0 p-6 md:p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Where the paid engagement starts</p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                The free audit establishes that the gap exists. Sizing it takes the things a self-service tool cannot reach: registry and identity sync, egress and DNS, license data, and conversations with the teams running the agents. That work is delivered by people, ours or a partner's, and it ends in a measured coverage figure and a plan.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
