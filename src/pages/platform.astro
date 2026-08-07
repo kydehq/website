@@ -7,7 +7,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
 
 <Base
     title="Platform, KYDE"
-    description="KYDE, Prevent · Prove · Rate. The behavioral firewall between AI agents and the real world. Prevent what must not happen. Prove what did. Rate agent behavior across every provider. Without touching agent code."
+    description="KYDE, Prevent · Prove · Rate. The behavioral system of record between AI agents and the real world. Prevent what must not happen. Prove what did. Rate agent behavior across every provider. Without touching agent code."
 >
     <Navbar />
 
@@ -19,12 +19,12 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
             <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-24 md:pt-48 md:pb-36 md:border-x md:border-line-0">
 
                 <div class="mb-10">
-                    <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · The Behavioral Firewall · Platform</span></div>
+                    <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · The Behavioral System of Record · Platform</span></div>
                 </div>
 
                 <h1 class="hero-h1 max-w-5xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl">
-                    The Behavioral<br />
-                    <span class="gradient-text">Firewall.</span>
+                    The Behavioral System of<br />
+                    <span class="gradient-text">Record.</span>
                 </h1>
 
                 <div class="mt-16 border-t border-line-0 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
@@ -34,7 +34,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                     </div>
                     <div class="space-y-10">
                         <p class="text-sm uppercase tracking-wide leading-relaxed text-ink-1">
-                            The Behavioral Firewall sits between your agents and every LLM provider. Every agent gets a cryptographic identity, enforced behavioral scope, and a court-ready evidence trail, without touching a single line of agent code.
+                            The Behavioral System of Record sits between your agents and every LLM provider. Every agent gets a cryptographic identity, enforced behavioral scope, and an evidence trail anyone can verify without us, without touching a single line of agent code.
                         </p>
 
                         <!-- Stats -->
@@ -162,7 +162,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         </div>
                         <h3 class="mb-1 font-mono text-2xl font-bold text-ink-0">PREVENT</h3>
                         <p class="mb-2 text-sm font-medium text-ink-1">Before the damage. Deny-by-default.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-ink-1">Deterministic guardrails at the boundary. The catastrophic action can't execute if it never reaches the system. The buy reason today: NIS-2 board liability. DORA.</p>
+                        <p class="mb-6 text-sm leading-relaxed text-ink-1">The enforcement layer is the Behavioral Firewall. Deterministic guardrails at the boundary. The catastrophic action can't execute if it never reaches the system.</p>
                         <ul class="space-y-2">
                             {[
                                 "Deny-by-default at the boundary",
@@ -171,6 +171,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                                 "Hard circuit breakers before external systems",
                                 "Agent identity & role scoping, no shared service accounts",
                                 "Provider-agnostic, every model, every provider",
+                                "Covers the agent layer of your NIS-2 and DORA duties",
                             ].map((f) => (
                                 <li class="flex items-center gap-3 text-sm">
                                     <svg class="h-4 w-4 shrink-0 text-live" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
@@ -194,8 +195,10 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                                 "6D fingerprint, who / what / when / where / why / how",
                                 "Ed25519-signed append-only ledger",
                                 "Tamper-evident hash chain, alter any entry, every link breaks",
+                                "SHA-256 chaining, the technique the EU prescribes for qualified electronic ledgers",
+                                "Offline verification: the recipient recomputes the chain without asking us",
                                 "Architecturally independent of every LLM provider",
-                                "NIS-2, DORA, EU AI Act evidence trail",
+                                "Evidence for the agent layer of NIS-2, DORA and EU AI Act duties",
                             ].map((f) => (
                                 <li class="flex items-center gap-3 text-sm">
                                     <svg class="h-4 w-4 shrink-0 text-live" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" /></svg>
@@ -205,7 +208,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         </ul>
                         <div class="mt-6 border-t border-line-0 pt-4">
                             <p class="font-mono text-xs text-ink-0/60 uppercase tracking-widest mb-1">Optional High-Security Layer</p>
-                            <p class="text-xs text-ink-1 leading-relaxed">Military-grade hardware isolation via TPM/HSM, signing keys never exposed to the host OS. For regulated environments where software-only signing isn't enough.</p>
+                            <p class="text-xs text-ink-1 leading-relaxed">Hardware-isolated signing via TPM or HSM. Signing keys never exposed to the host OS. For regulated environments where software-only signing isn't enough.</p>
                         </div>
                     </div>
 
@@ -513,6 +516,41 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
 }`}</code></pre>
                     </div>
                 </div>
+
+                <!-- offline verification + the EU's own recording technique -->
+                <div class="mt-16 grid md:grid-cols-2 gap-8">
+
+                    <div class="border border-line-0 bg-bg-1 p-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-6">Independent verification</p>
+                        <h3 class="text-xl font-bold text-ink-0 mb-4">The recipient verifies without us.</h3>
+                        <p class="text-sm leading-relaxed text-ink-1 mb-4">
+                            Each export ships the canonicalised bytes, the entry hash, the signature and the public key. An auditor, an insurer or opposing counsel recomputes the hash and checks the signature offline. They never have to come back to KYDE, and we cannot influence the result.
+                        </p>
+                        <p class="font-mono text-sm text-ink-1 border-l-2 border-line-0 pl-4 leading-relaxed">
+                            That matters because self-reported evidence is worth what the reporter is worth. Ours doesn't depend on us being trusted.
+                        </p>
+                    </div>
+
+                    <div class="border border-line-0 bg-bg-1 p-8">
+                        <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-6">Regulatory benchmark</p>
+                        <h3 class="text-xl font-bold text-ink-0 mb-4">The chaining isn't our idea. It's the EU's specification.</h3>
+                        <p class="text-sm leading-relaxed text-ink-1 mb-4">
+                            In December 2025 the European Commission adopted Implementing Regulation (EU) 2025/2531, the technical rules for qualified electronic ledgers under the eIDAS Regulation. Its annex, requirement REQ-7.5-04, mandates cryptographic chaining through hash lists or hash trees, using SHA-256 or SHA3-256 or stronger.
+                        </p>
+                        <p class="text-sm leading-relaxed text-ink-1 mb-6">
+                            That is the architecture KYDE was built on, before the rule existed. KYDE is not a qualified trust service provider and does not operate a qualified electronic ledger. The recording technique is the one the European legislator selected for defensible evidence.
+                        </p>
+                        <div class="border-t border-line-0 pt-4">
+                            <a
+                                href="https://eur-lex.europa.eu/eli/reg_impl/2025/2531/oj"
+                                target="_blank"
+                                rel="noopener"
+                                class="font-mono text-xs text-ink-0/60 uppercase tracking-widest hover:underline"
+                            >→ Read: what the EU requires of electronic ledgers</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -535,7 +573,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                     {[
                         {
                             title: "Identity & Roles",
-                            body: "Register every agent with a unique ID. Assign roles, infrastructure, customer_facing, internal_research, intern_sandbox. Roles carry permissions, not agents.",
+                            body: "Register every agent with a unique ID. Assign roles: infrastructure, customer_facing, internal_research, intern_sandbox. Roles carry permissions, not agents.",
                             tag: "Core",
                         },
                         {
@@ -555,7 +593,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         },
                         {
                             title: "Behavioral Baselines & Anomaly Detection",
-                            body: "KYDE learns what normal looks like for each role. When an agent deviates, unusual call volume, unexpected endpoints, out-of-pattern tool usage, you get alerted before it becomes an incident.",
+                            body: "KYDE learns what normal looks like for each role. When an agent deviates, unusual call volume, unexpected endpoints, out-of-pattern tool usage, it alerts you before it becomes an incident.",
                             tag: "Coming Soon",
                         },
                     ].map(({ title, body, tag }) => (
@@ -674,7 +712,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                             Each entry is signed with an Ed25519 keypair generated locally on first initialization. The hash chain ensures sequential integrity, tamper with any single entry, and every subsequent link breaks.
                         </p>
                         <p class="text-ink-1 leading-relaxed mb-10">
-                            For environments where software-only signing isn't enough, KYDE's architecture is built for hardware-rooted attestation from day one.
+                            For environments where software-only signing isn't enough, KYDE's architecture is built for hardware-rooted key storage from day one. The relevant benchmark is public: Implementing Regulation (EU) 2025/2531 requires, in REQ-7.5-06, that signing keys for qualified electronic ledgers sit in a certified cryptographic device, Common Criteria at EAL 4 or above, or FIPS 140-3 Level 3 until the end of 2030. That is the target our roadmap is measured against.
                         </p>
                         <p class="font-mono text-sm text-ink-1 border-l-2 border-line-0 pl-4 leading-relaxed">
                             No re-architecture required between levels. Same API. Same data format. Same evidence chain. The root of trust gets deeper, the interface stays the same.
@@ -682,18 +720,18 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                     </div>
 
                     <div class="border border-line-0 divide-y divide-line-0">
-                        <div class="grid grid-cols-[110px_1fr_96px] md:grid-cols-[140px_1fr_120px] divide-x divide-line-0 bg-bg-0">
+                        <div class="grid grid-cols-[120px_1fr_96px] md:grid-cols-[170px_1fr_130px] divide-x divide-line-0 bg-bg-0">
                             <div class="px-4 py-3"><p class="font-mono text-xs text-ink-1 uppercase tracking-widest">Level</p></div>
                             <div class="px-4 py-3"><p class="font-mono text-xs text-ink-1 uppercase tracking-widest">Mechanism</p></div>
                             <div class="px-4 py-3"><p class="font-mono text-xs text-ink-1 uppercase tracking-widest">Status</p></div>
                         </div>
                         {[
-                            { level: "Ed25519 Signed", desc: "Cryptographic signing at the point of capture, core to the current development phase.", status: "IN DEVELOPMENT", live: true, available: false },
-                            { level: "TPM / HSM", desc: "Military-grade hardware isolation. Signing keys never exposed to host OS.", status: "PLANNED", live: false, available: true },
-                            { level: "TEE (TDX/SEV-SNP)", desc: "Trusted Execution Environment attestation for maximum integrity.", status: "PLANNED", live: false, available: true },
-                            { level: "FIPS 140-3", desc: "Architecture designed for FIPS-validated cryptographic modules.", status: "TARGET ARCHITECTURE", live: false, available: true },
+                            { level: "Ed25519 Signed", desc: "Cryptographic signing and hash chaining at the point of capture. Exports verify offline.", status: "LIVE", live: true, available: false },
+                            { level: "HSM key storage", desc: "Signing keys held in a certified cryptographic device, never exposed to the host OS. Target: Common Criteria EAL 4+ or FIPS 140-3 Level 3.", status: "PLANNED", live: false, available: true },
+                            { level: "TPM-backed host binding", desc: "Hardware-bound machine identity for the recording host.", status: "UNDER EVALUATION", live: false, available: false },
+                            { level: "TEE (TDX/SEV-SNP)", desc: "Trusted Execution Environment attestation of the agent runtime.", status: "PLANNED", live: false, available: true },
                         ].map(({ level, desc, status, live, available }) => (
-                            <div class="grid grid-cols-[110px_1fr_96px] md:grid-cols-[140px_1fr_120px] divide-x divide-line-0">
+                            <div class="grid grid-cols-[120px_1fr_96px] md:grid-cols-[170px_1fr_130px] divide-x divide-line-0">
                                 <div class="px-4 py-4"><p class="font-mono text-sm text-ink-0">{level}</p></div>
                                 <div class="px-4 py-4"><p class="text-sm text-ink-1">{desc}</p></div>
                                 <div class="px-4 py-4">
@@ -726,7 +764,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                             {[
                                 { label: "Sits outside the agent", desc: "Cannot be overridden by agent logic or bypassed by agent code." },
                                 { label: "No SDK dependency", desc: "No library to install, no wrapper to integrate, no runtime to manage." },
-                                { label: "Framework-agnostic", desc: "LangChain, AutoGen, CrewAI, custom, governed equally with one ENV variable." },
+                                { label: "Framework-agnostic", desc: "LangChain, AutoGen, CrewAI, custom, all governed equally with one ENV variable." },
                                 { label: "Targeting under 100ms latency", desc: "Governance is designed to be invisible to agent code and end users." },
                             ].map(({ label, desc }) => (
                                 <div class="border-t border-line-0 pt-3">
@@ -892,7 +930,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                     <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Get started</p>
                     <div class="mb-12 h-px bg-line-0"></div>
                     <h2 class="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-12">
-                        See the Behavioral Firewall in action.
+                        See the Behavioral System of Record in action.
                     </h2>
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <button
