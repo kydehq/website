@@ -1,0 +1,628 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources" },
+    { "@type": "ListItem", position: 3, name: "Qualified Electronic Ledger", item: "https://kyde.com/qualified-electronic-ledger" },
+  ],
+};
+
+const faqs = [
+  {
+    q: "Is a qualified electronic ledger mandatory?",
+    a: "No. It is a voluntary trust service. No sector is covered and no date applies."
+  },
+  {
+    q: "Since when do the technical rules apply?",
+    a: "Since 6 January 2026. They are set out in Implementing Regulation (EU) 2025/2531 of 16 December 2025."
+  },
+  {
+    q: "Where is this written in law?",
+    a: "In Articles 45k and 45l of the eIDAS Regulation, as amended by Regulation (EU) 2024/1183."
+  },
+  {
+    q: "What is the difference between a simple and a qualified ledger?",
+    a: "Anyone may operate a simple ledger. Only an authorised trust service provider may operate a qualified one. The presumption under Article 45k(2) of the eIDAS Regulation applies only to the qualified version."
+  },
+  {
+    q: "Does a qualified ledger have to be a blockchain?",
+    a: "No. REQ-7.5-04 of Implementing Regulation (EU) 2025/2531 requires hash lists or hash trees. A distributed architecture is permitted but not required. If you choose one, ISO 23257:2022 and ISO/TS 23635:2022 apply on top."
+  },
+  {
+    q: "Are there providers in Germany yet?",
+    a: "According to the Bundesnetzagentur, not as of 7 August 2026."
+  },
+  {
+    q: "Does a qualified ledger satisfy the EU AI Act?",
+    a: "It goes further. Article 12 of the EU AI Act requires automatic event recording, but no chaining. A ledger answers a different question: not whether something was recorded, but whether the record can be trusted."
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+---
+
+<Base
+  title="Qualified Electronic Ledger (eIDAS): Rules, Requirements, Providers, KYDE"
+  description="Since January 2026, the EU has technical rules for qualified electronic ledgers. What they require, who needs one, and why Germany still has no provider."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatory · Reference</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-flex items-center border border-line-0 bg-bg-1 px-3 py-1 text-xs font-mono text-ink-1">Reference</span>
+            <span class="inline-flex items-center border border-line-0 bg-bg-1 px-3 py-1 text-xs font-mono text-ink-1">In force: Jan 6, 2026</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+            Qualified Electronic Ledger: What the EU Has Required Since January 2026
+          </h1>
+          <p class="text-base text-ink-1 leading-relaxed max-w-2xl">
+            A new EU trust service records data entries in a fixed order and makes any later change visible. Nobody is obliged to use one, and Germany has no provider. What changed is the benchmark for what a defensible record looks like.
+          </p>
+          <div class="mt-6 flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Regulatory · Reference</span>
+            <span>·</span>
+            <span>10 min read</span>
+            <span>·</span>
+            <span>Updated August 2026</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ BODY ══════════ -->
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_300px] gap-6 md:gap-16 items-start">
+
+          <!-- Article -->
+          <article class="prose-kyde min-w-0">
+
+            <!-- In short -->
+            <div class="not-prose mb-10 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-3">In short</p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                A qualified electronic ledger is a new EU trust service. It records data entries in a fixed order and makes any later change visible. The legal basis is Articles 45k and 45l of the eIDAS Regulation. The technical rules are set out in Implementing Regulation (EU) 2025/2531 and have applied since 6 January 2026. No one is required to use one. Germany currently has no authorised provider.
+              </p>
+            </div>
+
+            <!-- TOC -->
+            <div class="not-prose mb-10 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">On this page</p>
+              <ol class="space-y-2">
+                {[
+                  ["#what-is-it", "What is an electronic ledger?"],
+                  ["#simple-vs-qualified", "Simple versus qualified"],
+                  ["#legal-basis", "Where this is written in law"],
+                  ["#article-45k", "Article 45k: legal effect"],
+                  ["#article-45l", "Article 45l: the four requirements"],
+                  ["#technical-rules", "What the technical rules require"],
+                  ["#legal-effect", "What the legal effect is, and is not"],
+                  ["#is-it-mandatory", "Does my company have to use one?"],
+                  ["#logging-today", "What already applies to logging today"],
+                  ["#open-question", "Who signs when a machine writes?"],
+                  ["#market", "Market situation in Germany"],
+                  ["#what-it-means", "What this means for AI agent operators"],
+                  ["#faq", "FAQ"],
+                  ["#sources", "Sources"],
+                ].map(([href, label]) => (
+                  <li>
+                    <a href={href} class="group flex items-start gap-2 text-sm text-ink-1 hover:text-ink-0 transition-colors leading-snug">
+                      <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                      <span>{label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <!-- Section 1 -->
+            <h2 id="what-is-it">What is an electronic ledger?</h2>
+            <p>
+              An electronic ledger is a continuous record of data entries. Think of a cash book.
+            </p>
+            <p>It does three things:</p>
+            <ul>
+              <li>It establishes where an entry came from.</li>
+              <li>It secures the unique, sequential order of entries.</li>
+              <li>It makes any later change detectable.</li>
+            </ul>
+            <p>
+              The German term used by the supervisory authority is <em>elektronisches Journal</em>. It means the same thing.
+            </p>
+
+            <!-- Section 2 -->
+            <h2 id="simple-vs-qualified">Simple versus qualified: the difference</h2>
+            <p>There are two levels.</p>
+            <p>
+              <strong>The simple electronic ledger.</strong> Anyone may operate one. No authorisation, no assessment.
+            </p>
+            <p>
+              <strong>The qualified electronic ledger.</strong> Only an authorised trust service provider may operate one. In return, it carries a specific effect in court.
+            </p>
+            <p>
+              The difference is not in the technology. It is in the authorisation.
+            </p>
+
+            <!-- Section 3 -->
+            <h2 id="legal-basis">Where this is written in law</h2>
+
+            <div class="not-prose my-5 border border-line-0 overflow-x-auto">
+              <div class="min-w-[520px]">
+                <div class="grid grid-cols-[1fr_1fr_130px] border-b border-line-0 bg-bg-0">
+                  {["What", "Legal act", "In force since"].map((h) => (
+                    <div class="px-4 py-3"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-1">{h}</p></div>
+                  ))}
+                </div>
+                {[
+                  { what: "The foundation for trust services", act: "eIDAS Regulation, i.e. Regulation (EU) No 910/2014", since: "2014" },
+                  { what: "The amendment, often called “eIDAS 2.0”", act: "Regulation (EU) 2024/1183", since: "20 May 2024" },
+                  { what: "Technical rules for ledgers", act: "Implementing Regulation (EU) 2025/2531", since: "6 Jan 2026" },
+                ].map(({ what, act, since }) => (
+                  <div class="grid grid-cols-[1fr_1fr_130px] border-b border-line-0 last:border-b-0">
+                    <div class="px-4 py-3"><p class="text-sm text-ink-1 leading-relaxed">{what}</p></div>
+                    <div class="px-4 py-3"><p class="text-sm text-ink-1 leading-relaxed">{act}</p></div>
+                    <div class="px-4 py-3"><p class="font-mono text-xs text-ink-0">{since}</p></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p>
+              One note on reading these texts. Regulation (EU) 2024/1183 is not a standalone act. It amends the eIDAS Regulation. To read the rules that actually apply, read the eIDAS Regulation as amended. Articles 45k and 45l are there.
+            </p>
+
+            <!-- Section 4 -->
+            <h2 id="article-45k">Article 45k of the eIDAS Regulation: legal effect</h2>
+            <p>
+              Paragraph 1 says an electronic ledger may not be denied legal effect in court on the sole ground that it is electronic. This applies to non-qualified ledgers too.
+            </p>
+            <p>
+              Paragraph 2 says a qualified electronic ledger enjoys a presumption. The sequential chronological order and the integrity of the entries are assumed to be correct. Anyone claiming otherwise has to prove it.
+            </p>
+
+            <!-- Section 5 -->
+            <h2 id="article-45l">Article 45l of the eIDAS Regulation: the four requirements</h2>
+            <p>
+              Under Article 45l(1) of the eIDAS Regulation, a qualified electronic ledger must:
+            </p>
+            <ul>
+              <li>(a) be created and managed by one or more qualified trust service providers,</li>
+              <li>(b) establish the origin of the data entries,</li>
+              <li>(c) ensure the unique sequential chronological ordering,</li>
+              <li>(d) record data so that any later change is immediately detectable.</li>
+            </ul>
+            <p>
+              Points b, c and d are engineering. Point a is an authorisation. That is why point a is the real hurdle.
+            </p>
+
+            <!-- Section 6 -->
+            <h2 id="technical-rules">What the technical rules require</h2>
+            <p>
+              The detail sits in the annex to Implementing Regulation (EU) 2025/2531. The baseline standard is ETSI EN 319 401 v3.1.1, plus additional requirements. The key ones:
+            </p>
+
+            <div class="not-prose my-5 border border-line-0">
+              {[
+                { req: "REQ-7.5-03", label: "Origin", desc: "Advanced electronic signatures or seals based on qualified certificates, created by the users of the service. Permitted formats: CAdES, XAdES, JAdES." },
+                { req: "REQ-7.5-04", label: "Ordering", desc: "Cryptographic chaining using hash lists or hash trees, with SHA-256 or SHA3-256 or stronger. Qualified timestamps are an accepted alternative." },
+                { req: "REQ-7.5-05", label: "Integrity", desc: "Advanced signatures or seals based on qualified certificates. Any later change must be immediately detectable." },
+                { req: "REQ-7.5-06", label: "Keys", desc: "The provider's private signing keys must sit in a certified cryptographic device. Common Criteria at EAL 4 or above, or FIPS 140-3 Level 3 until the end of 2030." },
+                { req: "REQ-6.1-12", label: "Disclosure", desc: "The provider must publicly document its chaining, its origin mechanism and its integrity mechanism." },
+                { req: "REQ-7.8-14X / -18X", label: "Testing", desc: "Vulnerability scan at least quarterly, penetration test at least annually." },
+              ].map(({ req, label, desc }) => (
+                <div class="grid grid-cols-[130px_1fr] border-b border-line-0 last:border-b-0">
+                  <div class="px-4 py-3 border-r border-line-0 flex flex-col gap-0.5 pt-3.5">
+                    <span class="font-mono text-[11px] font-bold text-warn">{req}</span>
+                    <span class="text-[10px] text-ink-1">{label}</span>
+                  </div>
+                  <div class="px-4 py-3 text-sm text-ink-1 leading-relaxed">{desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <p>
+              Distributed ledgers additionally have to meet ISO 23257:2022 and ISO/TS 23635:2022.
+            </p>
+
+            <h3 class="text-base font-bold text-ink-0 mt-6 mb-3 uppercase tracking-wide">The point that matters</h3>
+            <p>
+              REQ-7.5-04 mandates a hash chain. Not as a recommendation. As a binding specification.
+            </p>
+            <p>
+              That is the real news in this act. The European legislator has now put in writing which technique counts for provable ordering. It is cryptographic chaining. A database table with a timestamp column does not meet it.
+            </p>
+
+            <!-- Section 7 -->
+            <h2 id="legal-effect">What the legal effect is, and what it is not</h2>
+            <p>
+              A qualified electronic ledger carries the presumption under Article 45k(2) of the eIDAS Regulation. Before any court in the EU, order and integrity are assumed to be correct.
+            </p>
+            <p>What it does not carry:</p>
+            <ul>
+              <li>No presumption about content. Only about order and integrity.</li>
+              <li>No presumption about the time. That comes only from a qualified timestamp, under Article 41(2) of the eIDAS Regulation.</li>
+              <li>No statement about lawfulness. Whether what was recorded was correct is a separate question.</li>
+            </ul>
+            <p>
+              The ledger shows that nobody changed anything afterwards. Whether the recorded action was the right one is not what it answers.
+            </p>
+
+            <!-- Section 8 -->
+            <h2 id="is-it-mandatory">Does my company have to use one?</h2>
+            <p><strong>No.</strong></p>
+            <p>
+              There is no obligation. No sector, no company and no public authority is required to use a qualified electronic ledger. There is also no date on which that changes.
+            </p>
+            <p>
+              Anyone who adopts one is buying evidentiary weight. They are not buying compliance.
+            </p>
+            <p>
+              This needs saying, because a deadline gets quoted online that belongs to a different topic.
+            </p>
+
+            <h3 class="text-base font-bold text-ink-0 mt-6 mb-3 uppercase tracking-wide">Not to be confused: the December 2027 deadline belongs to the EUDI Wallet</h3>
+
+            <div class="not-prose my-5 border border-line-0 overflow-x-auto">
+              <div class="min-w-[520px]">
+                <div class="grid grid-cols-[120px_1fr_1fr] border-b border-line-0 bg-bg-0">
+                  {["", "Qualified electronic ledger", "EUDI Wallet"].map((h) => (
+                    <div class="px-4 py-3"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-1">{h}</p></div>
+                  ))}
+                </div>
+                {[
+                  { prop: "Legal basis", ledger: "eIDAS Regulation, Articles 45k and 45l", wallet: "eIDAS Regulation, Article 5f(2)" },
+                  { prop: "Subject matter", ledger: "Recording of data entries", wallet: "Identification of people" },
+                  { prop: "Mandatory?", ledger: "No", wallet: "Yes" },
+                  { prop: "Deadline", ledger: "None", wallet: "Acceptance obligation from 24 December 2027" },
+                ].map(({ prop, ledger, wallet }) => (
+                  <div class="grid grid-cols-[120px_1fr_1fr] border-b border-line-0 last:border-b-0">
+                    <div class="px-4 py-3"><p class="font-mono text-xs text-ink-0">{prop}</p></div>
+                    <div class="px-4 py-3"><p class="text-sm text-ink-1 leading-relaxed">{ledger}</p></div>
+                    <div class="px-4 py-3"><p class="text-sm text-ink-1 leading-relaxed">{wallet}</p></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p>
+              Both sit in the same regulation. Beyond that they have nothing to do with each other. Applying the deadline in Article 5f of the eIDAS Regulation to ledgers is simply wrong.
+            </p>
+
+            <!-- Section 9 -->
+            <h2 id="logging-today">What already applies to logging today</h2>
+            <p>
+              Logging obligations have existed for a while. None of them require chaining:
+            </p>
+            <ul>
+              <li>Article 12 of the EU AI Act: high-risk AI systems must technically allow for the automatic recording of events. No format is prescribed.</li>
+              <li>Article 19 of the EU AI Act: providers must retain those logs for at least six months.</li>
+              <li>Section 30 of the German BSI Act (BSIG), which implements NIS-2: requires logging as part of risk management.</li>
+              <li>The DORA Regulation: requires logs of ICT incidents.</li>
+            </ul>
+            <p>
+              A note on EU AI Act timing. The high-risk obligations were originally set for August 2026. The Digital Omnibus moved them, Annex III to 2 December 2027, Annex I to 2 August 2028. <a href="/blog/eu-ai-act-omnibus-collapse">Many older articles still cite the earlier date.</a>
+            </p>
+            <p>
+              So the obligation has not changed. The standard has. A log satisfies the duty. For proof, the EU decided in December 2025 which technique it considers sound.
+            </p>
+
+            <!-- Section 10 -->
+            <h2 id="open-question">The open question: who signs when a machine writes?</h2>
+            <p>
+              REQ-7.5-03 of Implementing Regulation (EU) 2025/2531 assumes that the users of a service sign their own entries, using a qualified certificate.
+            </p>
+            <p>
+              With AI agents, no human writes. An agent has no qualified certificate and cannot obtain one.
+            </p>
+            <p>
+              One plausible answer: the user in the sense of the regulation is not the agent but the company. A qualified electronic seal is issued to legal persons. The company seals through its gateway, and the agent acts in its name.
+            </p>
+            <p>
+              This has not been settled. Neither the regulation nor the supervisory authority has addressed it. Anyone recording agent activity for evidentiary purposes today is operating in a space the legislator has not yet worked through.
+            </p>
+
+            <!-- Section 11 -->
+            <h2 id="market">Market situation: Germany has no provider yet</h2>
+            <p>
+              The Bundesnetzagentur, Germany's supervisory authority for trust services, maintains the list of authorised providers. Its page on qualified electronic ledgers states (retrieved 7 August 2026) that there are no qualified providers in Germany yet.
+            </p>
+            <p>The infrastructure is in place:</p>
+            <ul>
+              <li>Since 29 April 2026, the European trusted list runs on the TLv6 format. Only that version allows electronic ledgers to be registered at all.</li>
+              <li>The German conformity assessment bodies exist, including datenschutz cert, SRC Security Research &amp; Consulting, Deutsche Telekom Security and TÜV NORD CERT.</li>
+              <li>The Bundesnetzagentur has published its procedure and application forms.</li>
+            </ul>
+            <p>
+              No piece is missing. Nobody has offered the service yet.
+            </p>
+
+            <!-- Section 12 -->
+            <h2 id="what-it-means">What this means for companies running AI agents</h2>
+            <p>
+              If you run agents in production today, you do not need a qualified electronic ledger. There is no obligation and there is no provider.
+            </p>
+            <p>
+              What has changed is the benchmark. If a dispute comes later, with a customer, an insurer, a regulator, there is now an officially described reference for what a defensible record looks like. It sits in REQ-7.5-04 of Implementing Regulation (EU) 2025/2531. And it calls for a chain.
+            </p>
+            <p>
+              Three practical steps, independent of any authorisation:
+            </p>
+
+            <div class="not-prose my-5 border border-line-0">
+              {[
+                { n: "01", body: "Check whether your record is chained. Plain log lines in a file or a database are not." },
+                { n: "02", body: "Check which hash function you use. The regulation names SHA-256, SHA3-256 or stronger." },
+                { n: "03", body: "Look at qualified timestamps. Anchoring a chain head with a qualified timestamp is available today. The legal basis is Article 42 of the eIDAS Regulation. The effect is set out in Article 41(2): a presumption of the accuracy of the date and time, and of the integrity of the data." },
+              ].map(({ n, body }) => (
+                <div class="grid grid-cols-[48px_1fr] border-b border-line-0 last:border-b-0">
+                  <div class="px-3 py-3 font-mono text-[11px] text-ink-1 border-r border-line-0 flex items-start pt-3.5">{n}</div>
+                  <div class="px-4 py-3 text-sm text-ink-1 leading-relaxed">{body}</div>
+                </div>
+              ))}
+            </div>
+
+            <h3 class="text-base font-bold text-ink-0 mt-6 mb-3 uppercase tracking-wide">KYDE and cryptographic chaining</h3>
+            <p>
+              KYDE records agent activity in a cryptographic hash chain. Each entry carries its own hash and an Ed25519 signature. The export ships the canonicalised bytes, the entry hash, the signature and the public key.
+            </p>
+            <p>
+              This means the recipient verifies without asking us. An auditor, an insurer or opposing counsel recomputes the hash and checks the signature offline. We do not need to be present, and we cannot influence the result. Self-reported evidence is worth what the reporter is worth. This kind isn't.
+            </p>
+            <p>
+              This is the same technique that Implementing Regulation (EU) 2025/2531 prescribes in REQ-7.5-04 for qualified electronic ledgers. <strong>KYDE is not a qualified trust service provider and does not operate a qualified electronic ledger.</strong> The architecture follows the specification the European legislator chose for defensible recording.
+            </p>
+            <p>
+              For key storage, REQ-7.5-06 of the same regulation sets the benchmark: a certified cryptographic device at Common Criteria EAL 4 or above, or FIPS 140-3 Level 3 until the end of 2030. That is the standard our hardware roadmap is measured against.
+            </p>
+            <p>
+              <a href="/platform#evidence-capture">See how the recording works: KYDE Platform, evidence capture →</a>
+            </p>
+
+            <!-- FAQ -->
+            <h2 id="faq">Frequently asked questions</h2>
+
+            <div class="not-prose space-y-4">
+              {faqs.map(({ q, a }) => (
+                <details class="border border-line-0 bg-bg-1 group">
+                  <summary class="px-6 py-4 text-sm font-semibold text-ink-0 cursor-pointer list-none flex items-center justify-between gap-4">
+                    <span>{q}</span>
+                    <span class="font-mono text-warn shrink-0 text-base group-open:rotate-45 transition-transform">+</span>
+                  </summary>
+                  <div class="px-6 pb-5 pt-2 text-sm text-ink-1 leading-relaxed border-t border-line-0">
+                    {a}
+                  </div>
+                </details>
+              ))}
+            </div>
+
+            <!-- Sources -->
+            <h2 id="sources">Sources</h2>
+            <ul>
+              <li>eIDAS Regulation as amended, Articles 45k and 45l</li>
+              <li>
+                <a href="https://eur-lex.europa.eu/eli/reg_impl/2025/2531/oj" target="_blank" rel="noopener">Implementing Regulation (EU) 2025/2531 of 16 December 2025, annex</a>
+              </li>
+              <li>Bundesnetzagentur, overview page on qualified electronic ledgers</li>
+              <li>EU AI Act, Articles 12 and 19</li>
+              <li>German BSI Act (BSIG), Section 30</li>
+            </ul>
+
+            <!-- Related resources -->
+            <h2 id="resources">Related resources</h2>
+
+            <div class="not-prose space-y-3">
+              {[
+                {
+                  label: "Guide",
+                  title: "EU AI Act Compliance for AI Agents",
+                  desc: "Annex III classification, Articles 12, 14 and 26, and the six-step plan for building audit infrastructure that survives a market surveillance review.",
+                  href: "/eu-ai-act-compliance",
+                },
+                {
+                  label: "Article",
+                  title: "What the EU AI Act Actually Requires for Audit Trails",
+                  desc: "Why provider-native logs fail, what tamper-evidence means structurally, and what the causal context requirement forces you to capture.",
+                  href: "/blog/eu-ai-act-audit-trails",
+                },
+                {
+                  label: "Glossary",
+                  title: "AI Agent Audit Trail",
+                  desc: "Log, ledger or chain. What separates an operational log from a record that can carry evidentiary weight.",
+                  href: "/glossary/ai-agent-audit-trail",
+                },
+                {
+                  label: "Article",
+                  title: "DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30",
+                  desc: "For financial entities: how DORA Article 30 intersects with EU AI Act obligations, and why the requirements are additive.",
+                  href: "/blog/dora-ai-agents",
+                },
+                {
+                  label: "Platform",
+                  title: "Evidence Capture: The Six Questions Every Entry Answers",
+                  desc: "Who, what, when, where, why and how, sealed per entry with an Ed25519 signature and a SHA-256 hash-chain link.",
+                  href: "/platform#evidence-capture",
+                },
+              ].map(({ label, title, desc, href }) => (
+                <a href={href} class="group flex items-start gap-4 border border-line-0 bg-bg-1 p-5 hover:border-line-1 transition-colors">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-ink-1 border border-line-0 px-2 py-1 shrink-0 mt-0.5">{label}</span>
+                  <div class="min-w-0">
+                    <p class="text-sm font-semibold text-ink-0 group-hover:text-ink-1 transition-colors leading-snug mb-1">{title}</p>
+                    <p class="text-xs text-ink-1 leading-relaxed">{desc}</p>
+                  </div>
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                </a>
+              ))}
+            </div>
+
+            <!-- KYDE CTA -->
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
+              <p class="text-base font-semibold text-ink-0 mb-2">A chained record of every agent action, verifiable without us.</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                KYDE sits between your agents and every LLM provider and writes an Ed25519-signed, SHA-256 hash-chained entry for every action. Exports verify offline, against the public key, by whoever is asking. KYDE is not a qualified trust service provider. The recording technique is the one the European legislator selected.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <button
+                  onclick="openModal()"
+                  class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
+                >
+                  Talk to Us →
+                </button>
+                <a
+                  href="/platform"
+                  class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] hover:border-line-1 transition-all"
+                >
+                  See the Platform →
+                </a>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="hidden md:block space-y-5 sticky top-28">
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">In force since</p>
+              <p class="font-mono text-xl font-bold text-ink-0">Jan 6, 2026</p>
+              <p class="text-xs text-ink-1 mt-1">Implementing Regulation (EU) 2025/2531</p>
+              <p class="font-mono text-xs text-ink-1 mt-3">Adopted 16 Dec 2025</p>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Obligation</p>
+              <p class="font-mono text-xl font-bold text-ink-0">None</p>
+              <p class="text-xs text-ink-1 mt-1">Voluntary trust service. No sector, no deadline.</p>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Provisions covered</p>
+              <div class="space-y-1.5">
+                {[
+                  "eIDAS Art. 45k, Legal effect",
+                  "eIDAS Art. 45l, Requirements",
+                  "eIDAS Art. 41(2), Timestamps",
+                  "eIDAS Art. 42, Timestamps",
+                  "eIDAS Art. 5f(2), EUDI Wallet",
+                  "REQ-7.5-03 to -06, Annex",
+                  "REQ-6.1-12, Disclosure",
+                ].map((r) => (
+                  <p class="font-mono text-xs text-ink-1">{r}</p>
+                ))}
+              </div>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Providers in Germany</p>
+              <p class="font-mono text-xl font-bold text-ink-0">0</p>
+              <p class="text-xs text-ink-1 mt-1">Bundesnetzagentur list, retrieved 7 Aug 2026</p>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related pages</p>
+              <div class="space-y-3">
+                {[
+                  { href: "/eu-ai-act-compliance", label: "EU AI Act Compliance" },
+                  { href: "/blog/eu-ai-act-audit-trails", label: "Audit Trail Requirements" },
+                  { href: "/glossary/ai-agent-audit-trail", label: "AI Agent Audit Trail" },
+                  { href: "/blog/dora-ai-agents", label: "DORA + AI Agents" },
+                  { href: "/platform", label: "KYDE Platform" },
+                ].map(({ href, label }) => (
+                  <a href={href} class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors leading-snug">
+                    <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                    <span>{label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-0); font-weight: 600; }
+  .prose-kyde em { font-style: italic; color: var(--color-ink-1); }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-ink-0); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--color-ink-0) 30%, transparent); }
+  .prose-kyde a:hover:not(.inline-flex) { text-decoration-color: var(--color-warn); }
+  details summary::-webkit-details-marker { display: none; }
+</style>
