@@ -28,6 +28,13 @@ const regulations = [
         deadline: "In force",
         urgency: false,
     },
+    {
+        name: "eIDAS, Qualified Electronic Ledgers",
+        desc: "Arts. 45k and 45l, with technical rules in Implementing Regulation (EU) 2025/2531. Nobody is obliged to use one, but it is where the EU wrote down what a defensible record looks like.",
+        deadline: "In force: January 6, 2026",
+        urgency: false,
+        href: "/qualified-electronic-ledger",
+    },
 ];
 
 const articles = [
@@ -430,8 +437,10 @@ const breadcrumbSchema = {
                 </div>
 
                 <div class="max-w-3xl space-y-3">
-                    {regulations.map(({ name, desc, deadline, urgency }) => (
-                        <div class={`border p-6 transition-colors ${urgency ? "border-alert/30 bg-alert/5 hover:border-alert/40" : "border-line-0 bg-bg-1 hover:border-line-1"}`}>
+                    {regulations.map(({ name, desc, deadline, urgency, href }) => {
+                        const Card = href ? "a" : "div";
+                        return (
+                        <Card href={href} class={`block border p-6 transition-colors ${urgency ? "border-alert/30 bg-alert/5 hover:border-alert/40" : "border-line-0 bg-bg-1 hover:border-line-1"}`}>
                             <div class="flex items-start justify-between gap-4">
                                 <div>
                                     <h3 class="font-mono text-base font-bold text-ink-0">{name}</h3>
@@ -444,8 +453,9 @@ const breadcrumbSchema = {
                                 )}
                             </div>
                             <p class={`mt-3 font-mono text-xs ${deadline.includes('In force') ? 'text-live' : 'text-ink-1'}`}>{deadline}</p>
-                        </div>
-                    ))}
+                        </Card>
+                    );
+                    })}
                 </div>
 
             </div>
