@@ -24,7 +24,7 @@ const orgSchema = {
     name: "KYDE",
     url: "https://kyde.com",
     logo: "https://kyde.com/kyde-logo.svg",
-    description: "KYDE is the trust infrastructure for AI agents: verifiable identity, short-lived capabilities, real-time policy enforcement at the boundary, and a hash-chained, tamper-evident record of every action, across every LLM provider.",
+    description: "KYDE is the behavioral system of record for autonomous work: verifiable identity, short-lived capabilities, real-time policy enforcement at the boundary, and a hash-chained, tamper-evident record of every agent action routed through it.",
 };
 
 const websiteSchema = {
@@ -37,7 +37,7 @@ const websiteSchema = {
 
 <Base
     title="KYDE · Deploy AI Agents With Confidence"
-    description="Continuous control over every AI agent action: identity, capabilities, real-time enforcement, a tamper-evident record. The trust infrastructure for AI agents. Built for GDPR, EU AI Act, NIS-2, DORA."
+    description="Identity, capabilities, real-time enforcement and a tamper-evident record, on every agent action routed through it. The behavioral system of record for autonomous work. Built for GDPR, EU AI Act, NIS-2, DORA."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -63,14 +63,14 @@ const websiteSchema = {
                      686px and clears every container down to 768px. Base is 2rem rather than
                      text-4xl so it still fits one line on a 375px phone. -->
                 <h1 class="hero-h1 text-[2rem] text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-                    <span id="hero-l1" style="display:block">Deploy AI Agents</span>
-                    <span id="hero-l2" style="display:block">With Confidence.</span>
+                    <span id="hero-l1" style="display:block">One Record.</span>
+                    <span id="hero-l2" style="display:block">Every Vendor.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    Continuous Control Over Every Action.
+                    The Behavioral System of Record for Autonomous Work.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    Identity, capabilities, real-time enforcement, and a tamper-evident record — on every action, not once at onboarding.
+                    Identity, scope, enforcement and a signed record — held outside every platform your agents run on.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -141,8 +141,8 @@ const websiteSchema = {
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "DEPLOY AI AGENTS", 200);
-  if (l2) scrambleLine(l2, "WITH CONFIDENCE.", 200, () => {
+  if (l1) scrambleLine(l1, "ONE RECORD.", 200);
+  if (l2) scrambleLine(l2, "EVERY VENDOR.", 200, () => {
     if (eyebrow) eyebrow.style.opacity = "1";
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
@@ -366,42 +366,676 @@ const websiteSchema = {
   }
 </script>
 
-        <!-- ══════════ CATEGORY BAND ══════════ -->
-        <!-- The hero states the pain; this is the first thing past the fold and
-             names what we are, so a visitor never has to infer the category. -->
+        <!-- ══════════ THE LAYER IN THE MIDDLE ══════════ -->
+        <!-- First thing past the fold. The topology is the argument: a reader has to
+             see that everything crosses one place before "system of record" means
+             anything. FIG.1 is full-width for that reason, like the ladder further
+             down, and it is the only figure on the page that shows the whole shape. -->
         <section class="border-b border-white/10 bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-white/10">
-                <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-6">The category</p>
-                <p class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white max-w-4xl">
-                    KYDE is the <span class="text-white">Trust Infrastructure for AI Agents</span><span class="text-gold">.</span>
-                    <span class="block mt-4 text-lg md:text-xl font-normal text-white/55 leading-relaxed">
-                        One trust layer, held outside the platforms your agents run on. Every model and provider today, built to reach the tools and business systems next.
-                    </span>
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">The layer in the middle</span>
+                    <span class="fig-label">FIG.1</span>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-4 max-w-4xl">
+                    Everything your agents do crosses one layer.
+                </h2>
+                <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">That is where the record is written, and where it is stopped.</p>
+                <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-12">
+                    A company running on agents does not run on one platform. The agents answer to different vendors, and the systems they reach, databases, MCP servers, ERP, payment APIs, belong to nobody in particular either. KYDE sits in the middle of that traffic and signs every action into a single chain as it passes. That is why the record is complete: something standing beside the action only ever sees what happened. This sees what was not allowed to.
+                </p>
+
+                <!-- The plot frame gives the topology something to stand in, same
+                     treatment as the ladder figure. -->
+                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">One record, written where the action passes</span>
+                        <span class="fig-label">FIG.1</span>
+                    </div>
+                    <svg id="spine-fig" viewBox="0 0 1000 420" class="w-full h-auto" aria-hidden="true">
+                        <!-- corner register marks, as on every other figure -->
+                        <path d="M6 21 L6 6 L21 6" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" />
+                        <path d="M979 6 L994 6 L994 21" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" />
+                        <path d="M6 399 L6 414 L21 414" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" />
+                        <path d="M994 399 L994 414 L979 414" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" />
+
+                        <text x="40" y="34" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">A COMPANY THAT RUNS ON AGENTS</text>
+                        <text x="960" y="34" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">THE SYSTEMS THEY REACH</text>
+
+                        <!-- left: the agent fleet, by function rather than by three
+                             generic boxes, so "a whole company" is visible at a glance -->
+                        {[
+                            { y: 96,  l: "CODING" },
+                            { y: 148, l: "SUPPORT" },
+                            { y: 200, l: "FINANCE" },
+                            { y: 252, l: "HR" },
+                            { y: 304, l: "OPS" },
+                        ].map(({ y, l }) => (
+                            <>
+                                <rect x="40" y={y - 16} width="132" height="32" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
+                                <text x="106" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">{l}</text>
+                                <line x1="172" y1={y} x2="436" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="3 6" />
+                                <line x1="564" y1={y} x2="828" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="3 6" />
+                            </>
+                        ))}
+
+                        <!-- right: the systems, which belong to as many vendors as the agents do -->
+                        {[
+                            { y: 96,  l: "POSTGRES" },
+                            { y: 148, l: "MCP SERVERS" },
+                            { y: 200, l: "SAP · ERP" },
+                            { y: 252, l: "STRIPE" },
+                            { y: 304, l: "S3" },
+                        ].map(({ y, l }) => (
+                            <>
+                                <rect x="828" y={y - 16} width="132" height="32" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
+                                <text x="894" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">{l}</text>
+                            </>
+                        ))}
+
+                        <!-- the spine: one layer, full height, nothing routes around it -->
+                        <rect x="436" y="64" width="128" height="276" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1.5" />
+                        <text x="500" y="190" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.9" style="font-family:'JetBrains Mono Variable',monospace;font-size:19px;font-weight:700;letter-spacing:0.22em;">KYDE</text>
+                        <text x="500" y="212" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">one record</text>
+
+                        <!-- what leaves the spine downward is the chain itself -->
+                        <line x1="500" y1="340" x2="500" y2="366" stroke="var(--color-live)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
+
+                        <defs>
+                            <radialGradient id="spine-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="spine-blooms"></g>
+                        <g id="spine-actions"></g>
+                        <!-- the chain scrolls under a clip, so links leave the frame
+                             instead of piling up at the left edge -->
+                        <clipPath id="spine-chain-clip"><rect x="30" y="348" width="940" height="48" /></clipPath>
+                        <g clip-path="url(#spine-chain-clip)"><g id="spine-chain"></g></g>
+
+                        <text x="40" y="410" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">ed25519 · sha-256 · append-only</text>
+                    </svg>
+                    <p class="mt-4 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                        FIG.1 · Every crossing appends a link. The chain is the byproduct of the traffic, not a second system someone has to remember to feed.
+                    </p>
+                </div>
+            </div>
+            <script>
+                // FIG.1 · actions cross from the fleet to the systems through the spine.
+                // The chain below grows by exactly one link per crossing, because that is
+                // the claim: the record is not assembled afterwards from someone's logs,
+                // it is a side effect of the traffic passing through.
+                const spineFig = document.getElementById("spine-fig");
+                const spineReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (spineFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const LANES = [96, 148, 200, 252, 304];
+                    const START = 176, CROSS = 500, END = 824;
+                    const CHAIN_Y = 372, LINK_W = 46, LINK_X0 = 60, VISIBLE = 17;
+
+                    const actLayer = document.getElementById("spine-actions") as unknown as SVGGElement;
+                    const chainLayer = document.getElementById("spine-chain") as unknown as SVGGElement;
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("spine-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#spine-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+
+                    type Act = { el: SVGCircleElement; x: number; lane: number; signed: boolean };
+                    type Link = { g: SVGGElement; x: number };
+                    const acts: Act[] = [];
+                    let links: Link[] = [];
+                    // Absolute position of every link ever written. The chain never
+                    // restarts: it slides continuously left while new links are appended
+                    // on the right, so the ledger reads as endless rather than as a
+                    // buffer that fills up and jumps.
+                    let written = 0;
+                    let scrollX = 0;
+
+                    const appendLink = () => {
+                        const g = document.createElementNS(NS, "g");
+                        const conn = document.createElementNS(NS, "line");
+                        conn.setAttribute("x1", String(-LINK_W + 26));
+                        conn.setAttribute("y1", String(CHAIN_Y));
+                        conn.setAttribute("x2", "0");
+                        conn.setAttribute("y2", String(CHAIN_Y));
+                        conn.setAttribute("stroke", "var(--color-ink-0)");
+                        conn.setAttribute("stroke-opacity", "0.28");
+                        conn.setAttribute("stroke-width", "1");
+                        g.appendChild(conn);
+
+                        const box = document.createElementNS(NS, "rect");
+                        box.setAttribute("x", "0");
+                        box.setAttribute("y", String(CHAIN_Y - 9));
+                        box.setAttribute("width", "26");
+                        box.setAttribute("height", "18");
+                        box.setAttribute("fill", "none");
+                        box.setAttribute("stroke", "var(--color-live)");
+                        box.setAttribute("stroke-opacity", "0.85");
+                        box.setAttribute("stroke-width", "1.5");
+                        g.appendChild(box);
+
+                        chainLayer.appendChild(g);
+                        links.push({ g, x: written * LINK_W });
+                        written += 1;
+
+                        // the newest link is the bright one; everything behind it settles
+                        links.forEach((l, i) => {
+                            const r = l.g.children[1] as SVGRectElement;
+                            const fresh = i === links.length - 1;
+                            r.setAttribute("stroke", fresh ? "var(--color-live)" : "var(--color-ink-0)");
+                            r.setAttribute("stroke-opacity", fresh ? "0.85" : "0.3");
+                            r.setAttribute("stroke-width", fresh ? "1.5" : "1");
+                        });
+                    };
+
+                    // Scroll target is derived from how many links exist, not from a fixed
+                    // speed, so the chain self-corrects instead of drifting out of step
+                    // with the crossings that feed it.
+                    const advanceChain = () => {
+                        const target = Math.max(0, (written - VISIBLE) * LINK_W);
+                        scrollX += (target - scrollX) * 0.08;
+                        for (let i = links.length - 1; i >= 0; i--) {
+                            const screenX = LINK_X0 + links[i].x - scrollX;
+                            if (screenX < -LINK_W * 2) {
+                                links[i].g.remove();
+                                links.splice(i, 1);
+                            } else {
+                                links[i].g.setAttribute("transform", `translate(${screenX},0)`);
+                            }
+                        }
+                    };
+
+                    const spawn = (lane: number) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("cx", String(START));
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("r", "4");
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.5");
+                        actLayer.appendChild(el);
+                        acts.push({ el, x: START, lane, signed: false });
+                    };
+
+                    const step = (a: Act) => {
+                        a.x += 1.5;
+                        // the crossing is the event: this is the moment a link exists
+                        if (!a.signed && a.x >= CROSS) {
+                            a.signed = true;
+                            a.el.setAttribute("fill", "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.9");
+                            appendLink();
+                            bloom(CROSS, LANES[a.lane]);
+                        }
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.x < END;
+                    };
+
+                    if (spineReduced) {
+                        // Static equivalent: a settled chain and one action on each side.
+                        for (let i = 0; i < VISIBLE; i++) appendLink();
+                        advanceChain();
+                        links.forEach((l) => l.g.setAttribute("transform", `translate(${LINK_X0 + l.x},0)`));
+                        [0, 2, 4].forEach((lane) => {
+                            spawn(lane);
+                            const a = acts[acts.length - 1];
+                            a.x = lane === 2 ? END - 120 : START + 90;
+                            a.el.setAttribute("cx", String(a.x));
+                        });
+                    } else {
+                        let visible = false;
+                        let spawnAt = 0;
+                        let n = 0;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(spineFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length);
+                                    n += 1;
+                                    spawnAt = now + 1000;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                                advanceChain();
+                                stepBlooms();
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ THE PREMISE ══════════ -->
+        <!-- Sits between the topology and the readings on purpose: FIG.1 shows the
+             shape, this says why it has to be that shape. Descends from the older
+             "if the agent can touch the lock, it can pick it" — same figure, but
+             about the record rather than about prevention, which is where the
+             product actually stands now. Deliberately the quietest section on the
+             page: no figure, no list, nothing to click. -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-28 md:py-40 md:border-x md:border-white/10">
+                <div class="max-w-4xl">
+                    <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 mb-10">The premise</p>
+                    <p class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
+                        If an agent can touch the record,<br class="hidden md:block" />
+                        it can rewrite it<span class="text-gold">.</span>
+                    </p>
+                    <div class="mt-10 h-px w-24 bg-white/15"></div>
+                    <p class="mt-8 font-mono text-sm md:text-base text-gold uppercase tracking-[0.12em] leading-relaxed">
+                        So the record is not kept where the agent can reach.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ ONE RECORD, SIX READINGS ══════════ -->
+        <!-- Framing only. This exists to stop the six from reading as six products,
+             which is the whole strategic point: competitors build six silos, this
+             reads one recording six ways. It deliberately lists nothing, because each
+             reading below already carries its own number, category and maturity in a
+             header you cannot miss, and saying it twice made the page a product list.
+             The readings are ordered by what can be demonstrated, not by how neatly
+             each falls out of the record, so a reader arriving from the top does not
+             meet the least finished thing first. -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">What one record is worth</span>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4 max-w-3xl">
+                    One record. Six readings.
+                </h2>
+                <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Not six products. One recording, read six ways.</p>
+                <p class="text-lg text-white/55 leading-relaxed max-w-3xl">
+                    Everything below comes out of the same signed chain. Built separately, these are six data silos and six integrations to keep in step with each other. That is why the completeness of the record is the thing worth arguing about, and why we are precise about what it holds today and what it does not hold yet.
                 </p>
             </div>
         </section>
 
-        <!-- ══════════ 01 KNOW WHO ACTS ══════════ -->
-        <!-- The four pillars carry the page, one full section each, figure and text
+        <!-- ══════════ READING 01 · SECURITY ══════════ -->
+        <section id="policies" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Security</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Stopped at the line, not found in a report.</p>
+                        <p class="mt-3 font-mono text-sm text-gold uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent passes before it acts, not a report you read afterwards. It is also where the agents nobody registered turn up, because they still have to come through here to reach a model. <span class="text-white/35">All of this runs in production today.</span>
+                        </p>
+                        </div>
+                    </div>
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AGENT ACTIONS</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
+
+                            <!-- three lanes running into the policy line -->
+                            {[110, 170, 230].map((y) => (
+                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="3 6" />
+                            ))}
+
+                            <!-- the policy line itself: everything crosses here or not at all -->
+                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.5" stroke-width="1.5" />
+                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">POLICY</text>
+
+                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
+                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.16" stroke-width="1" />
+
+                            <g id="gate-actions"></g>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The blocked action stops at the policy line, not inside your systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // gate-fig · actions travel their lane toward the policy line. Most cross and
+                // continue into the systems boundary; one in four hits the line, flashes
+                // red and is turned back. Nothing is "inspected afterwards" here.
+                const gateFig = document.getElementById("gate-fig");
+                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (gateFig) {
+                    const layer = document.getElementById("gate-actions")!;
+                    const NS = "http://www.w3.org/2000/svg";
+                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
+                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
+                    const acts: Act[] = [];
+                    let spawnAt = 0, n = 0;
+
+                    const spawn = (lane: number, blocked: boolean) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("r", "4");
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.55");
+                        layer.appendChild(el);
+                        acts.push({ el, x: START, lane, blocked, back: false });
+                    };
+
+                    const step = (a: Act) => {
+                        if (a.back) {
+                            a.x -= 3.4;
+                        } else {
+                            a.x += 2.2;
+                            if (a.blocked && a.x >= GATE - 6) {
+                                a.back = true;
+                                a.el.setAttribute("fill", "var(--color-alert)");
+                                a.el.setAttribute("fill-opacity", "0.9");
+                            } else if (!a.blocked && a.x >= GATE + 6) {
+                                a.el.setAttribute("fill", "var(--color-live)");
+                                a.el.setAttribute("fill-opacity", "0.85");
+                            }
+                        }
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.back ? a.x > START - 10 : a.x < END;
+                    };
+
+                    if (gateReduced) {
+                        // Static reading of the same story: two through, one turned back.
+                        spawn(0, false); spawn(1, true); spawn(2, false);
+                        acts.forEach((a, i) => {
+                            a.x = a.blocked ? GATE - 20 : GATE + 60;
+                            a.el.setAttribute("cx", String(a.x));
+                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.85");
+                        });
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length, n % 4 === 2);
+                                    n += 1;
+                                    spawnAt = now + 900;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ READING 02 · COMPLIANCE ══════════ -->
+        <section id="prove" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+                            <defs>
+                                <radialGradient id="chain-glow">
+                                    <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                    <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                    <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                    <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                                </radialGradient>
+                            </defs>
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">SIGNED ACTION LOG</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OUTSIDE KYDE</text>
+
+                            <!-- the boundary is the argument: everything to the right of it
+                                 happens without us, and nothing crosses back -->
+                            <line x1="300" y1="66" x2="300" y2="304" stroke="var(--color-ink-0)" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="2 6" />
+                            <text x="294" y="86" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">KYDE ENDS HERE</text>
+
+                            <g id="chain-blooms"></g>
+
+                            {[
+                                { h: "a4ce", a: "db.write" },
+                                { h: "a4cf", a: "transfer" },
+                                { h: "a4d0", a: "dlp.mask" },
+                                { h: "a4d1", a: "quote.set" },
+                            ].map(({ h, a }, i) => (
+                                <>
+                                    {i < 3 && (
+                                        <line class="ch-conn" x1={30 + i * 64 + 54} y1="134" x2={30 + (i + 1) * 64} y2="134"
+                                              stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1.5" />
+                                    )}
+                                    <rect class="ch-box" x={30 + i * 64} y="112" width="54" height="44" fill="none"
+                                          stroke="var(--color-ink-0)" stroke-opacity="0.16" stroke-width="1" />
+                                    <text x={57 + i * 64} y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;">{h}</text>
+                                    <text x={57 + i * 64} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.26"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">{a}</text>
+                                </>
+                            ))}
+
+                            <!-- the export's route out; the token is driven along it -->
+                            <path id="ch-route" d="M249 156 Q 292 196, 356 226" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="2 5" />
+
+                            <rect id="ch-verifier" x="330" y="214" width="110" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
+                            <text x="385" y="234" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">AUDITOR</text>
+                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.25" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">recompute · check signature</text>
+
+                            <rect id="ch-export" x="243" y="150" width="12" height="12" fill="none" stroke="var(--color-live)" stroke-opacity="0" stroke-width="1.5" />
+
+                            <text id="ch-status" x="385" y="292" text-anchor="middle" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HASH MATCHES</text>
+                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">sha-256 chain · public key travels with the export · we are not asked</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The export leaves with the public key. Everything after the boundary happens without us, and nothing comes back.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Compliance</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Evidence the other side can check without you.</p>
+                        <p class="mt-3 font-mono text-sm text-gold uppercase tracking-[0.12em]">A signed ledger and exports an auditor can take away.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. The suspect cannot write the police report. KYDE's record is captured at the boundary before anything reaches a provider and hash-chained, so altering one link breaks every link after it. <span class="text-white/35">The ledger and the exports run today; signing each entry with your own keys is an Enterprise capability.</span>
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // chain-fig · the seal runs left to right, one entry at a time, each sealed
+                // by the one before it. Then the export leaves, crosses the boundary and
+                // is checked on the other side. Nothing comes back: that is the claim the
+                // figure has to carry, so the motion only ever travels outward.
+                const chainFig = document.getElementById("chain-fig");
+                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (chainFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const boxes = Array.from(chainFig.querySelectorAll(".ch-box")) as SVGRectElement[];
+                    const conns = Array.from(chainFig.querySelectorAll(".ch-conn")) as SVGLineElement[];
+                    const route = document.getElementById("ch-route") as unknown as SVGPathElement;
+                    const exp = document.getElementById("ch-export") as unknown as SVGRectElement;
+                    const status = document.getElementById("ch-status") as unknown as SVGTextElement;
+                    const recompute = document.getElementById("ch-recompute") as unknown as SVGTextElement;
+                    const bloomLayer = document.getElementById("chain-blooms") as unknown as SVGGElement;
+                    const routeLen = route.getTotalLength();
+
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#chain-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+                    const REST = 0.16, SEALED = 0.5;
+                    let lit = boxes.map(() => REST);
+                    let connLit = conns.map(() => 0.12);
+                    let phase: "seal" | "leave" | "check" | "rest" = "seal";
+                    let sealX = 10, routeT = 0, statusO = 0, waitUntil = 0, sealed = -1;
+
+                    const paint = () => {
+                        boxes.forEach((b, i) => {
+                            b.setAttribute("stroke-opacity", lit[i].toFixed(3));
+                            b.setAttribute("stroke", lit[i] > SEALED + 0.05 ? "var(--color-live)" : "var(--color-ink-0)");
+                        });
+                        conns.forEach((c, i) => c.setAttribute("stroke-opacity", connLit[i].toFixed(3)));
+                        status.setAttribute("fill-opacity", statusO.toFixed(3));
+                        recompute.setAttribute("fill-opacity", (0.25 + statusO * 0.4).toFixed(3));
+                    };
+
+                    const reset = () => {
+                        lit = boxes.map(() => REST);
+                        connLit = conns.map(() => 0.12);
+                        sealX = 10; routeT = 0; statusO = 0; sealed = -1;
+                        exp.setAttribute("stroke-opacity", "0");
+                        phase = "seal";
+                    };
+
+                    const tick = (now: number) => {
+                        if (phase === "seal") {
+                            sealX += 1.15;
+                            const centres = boxes.map((_, i) => 57 + i * 64);
+                            centres.forEach((cx, i) => {
+                                if (sealX >= cx && sealed < i) {
+                                    sealed = i;
+                                    lit[i] = 0.95;
+                                    if (i > 0) connLit[i - 1] = 0.55;
+                                    bloom(cx, 134, 7, 0.8);
+                                }
+                            });
+                            if (sealX > 300) { phase = "leave"; routeT = 0; }
+                        } else if (phase === "leave") {
+                            routeT += 1.5;
+                            const pt = route.getPointAtLength(Math.min(routeT, routeLen));
+                            exp.setAttribute("x", String(pt.x - 6));
+                            exp.setAttribute("y", String(pt.y - 6));
+                            exp.setAttribute("stroke-opacity", "0.8");
+                            if (routeT >= routeLen) { phase = "check"; waitUntil = now + 700; }
+                        } else if (phase === "check") {
+                            if (now > waitUntil && statusO === 0) {
+                                bloom(385, 243, 10, 0.85);
+                                statusO = 0.9;
+                                waitUntil = now + 2600;
+                            }
+                            if (statusO > 0 && now > waitUntil) { phase = "rest"; waitUntil = now + 900; }
+                        } else if (now > waitUntil) {
+                            reset();
+                        }
+
+                        // everything settles rather than switching: sealed entries fall back
+                        // to a resting glow, the verdict fades out on its own
+                        lit = lit.map((v) => SEALED + (v - SEALED) * 0.985);
+                        if (phase === "rest") { statusO *= 0.94; exp.setAttribute("stroke-opacity", String(Math.max(0, statusO))); }
+                        stepBlooms();
+                        paint();
+                    };
+
+                    if (chainReduced) {
+                        lit = boxes.map(() => SEALED);
+                        connLit = conns.map(() => 0.55);
+                        statusO = 0.9;
+                        exp.setAttribute("x", "350"); exp.setAttribute("y", "220"); exp.setAttribute("stroke-opacity", "0.8");
+                        paint();
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
+                        const loop = (now: number) => {
+                            if (visible) tick(now);
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ READING 03 · GOVERNANCE ══════════ -->
+        <!-- The six readings carry the page, one full section each, figure and text
              swapping sides so the eye alternates instead of scanning one column. -->
         <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · Identity</span>
-                    <span class="fig-label">FIG.1</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            Know who acts.
-                        </h2>
-                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Every AI agent receives a unique, verifiable identity.</p>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            Most agents run today under a shared API key, which makes them indistinguishable from each other and from the humans whose credentials they borrowed. KYDE issues each one its own identity, so every action has a name attached before it happens.
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Governance</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">What runs, under whose name, on which model.</p>
+                        <p class="mt-3 font-mono text-sm text-gold uppercase tracking-[0.12em]">Read out of the record, not off an architecture diagram.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Most agents run under a shared API key, indistinguishable from each other and from the humans whose credentials they borrowed. KYDE gives each one its own identity, so every action carries a name before it happens and the inventory writes itself: which providers, models and tools each agent depends on. <span class="text-white/35">The dependency picture is already in the record. Approval queues and registry sync are not.</span>
                         </p>
+                        </div>
                     </div>
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
                             <!-- corner register marks -->
                             <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
@@ -445,14 +1079,15 @@ const websiteSchema = {
                             <circle cx="240" cy="240" r="4.5" fill="var(--color-ink-0)" />
                             <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
                         </svg>
-                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.1 · Five of these seven run under an id nobody has claimed.
-                        </p>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Five of these seven run under an id nobody has claimed.</p>
+                        </div>
                     </div>
                 </div>
-
-                <script>
-                    // FIG.1 · radar. Shadow agents sit almost invisible in
+            </div>
+<script>
+                    // radar-fig · Shadow agents sit almost invisible in
                         // the field; the sweep reveals them: blip flashes, the
                         // identity label appears with its ownership state, then the
                         // afterglow fades until the next pass.
@@ -565,227 +1200,216 @@ const websiteSchema = {
         </section>
 
 
-        <!-- ══════════ 02 CONTROL WHAT IT CAN DO ══════════ -->
+        <!-- ══════════ READING 04 · PROCESS INTELLIGENCE ══════════ -->
         <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · Capabilities</span>
-                    <span class="fig-label">FIG.2</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <!-- figure left, text right: the alternation starts here -->
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="cap-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <!-- corner register marks, as on every figure -->
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="loop-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
                             <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
 
-                            <text x="52" y="58" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EVERYTHING THE KEY COULD REACH</text>
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">ONE PROCESS RUN</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EXIT</text>
 
-                            <!-- the full permission surface: 24 cells, 2 of them granted -->
-                            {Array.from({ length: 24 }, (_, i) => {
-                                const col = i % 6, row = Math.floor(i / 6);
-                                const granted = i === 8 || i === 15;
-                                return (
-                                    <rect id={granted ? `cap-cell-${i}` : undefined}
-                                          x={52 + col * 64} y={80 + row * 44} width="48" height="30"
-                                          fill={granted ? "var(--color-live)" : "none"} fill-opacity={granted ? "0.18" : "0"}
-                                          stroke={granted ? "var(--color-live)" : "var(--color-ink-0)"}
-                                          stroke-opacity={granted ? "0.7" : "0.12"} stroke-width="1"
-                                          class={granted ? "cap-cell" : ""} />
-                                );
-                            })}
+                            <!-- the track the run is supposed to take, once, left to right -->
+                            <line x1="55" y1="200" x2="425" y2="200" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="3 6" />
 
-                            <!-- The expiry stamp belongs over the grid, where the granted cells
-                                 were, not tacked onto the end of the TTL bar. -->
-                            <text id="cap-expired" x="236" y="165" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0"
-                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">GRANT EXPIRED · RE-REQUEST REQUIRED</text>
+                            <!-- the arc back is the loop; ghosts of earlier passes stack under it -->
+                            <path id="loop-arc" d="M310 200 C 310 108, 140 108, 140 200" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="2 5" />
+                            <defs>
+                            <radialGradient id="loop-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="loop-blooms"></g>
+                        <g id="loop-ghosts"></g>
 
-                            <text id="cap-granted-label" x="52" y="272" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">2 GRANTED</text>
-                            <text x="150" y="272" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">22 DENIED BY DEFAULT</text>
-
-                            <!-- the grant is short-lived: the bar drains, then the cells go dark -->
-                            <line x1="52" y1="292" x2="428" y2="292" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="2" />
-                            <line id="cap-ttl-bar" x1="52" y1="292" x2="428" y2="292" stroke="var(--color-live)" stroke-opacity="0.6" stroke-width="2" />
-                            <text id="cap-ttl-label" x="428" y="282" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">TTL</text>
-                        </svg>
-                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.2 · Two permissions out of twenty-four, and both of them expire.
-                        </p>
-                    </div>
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            Control what it can do.
-                        </h2>
-                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Grant short-lived, least-privilege capabilities instead of permanent access.</p>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            A standing API key is a permanent grant to do anything the key can reach, and it keeps working long after the task is finished. KYDE hands out narrow capabilities that expire on their own, so an agent holds exactly what this job needs and nothing after it.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <script>
-                // FIG.2 · the TTL bar drains, the two granted cells go dark with it, and
-                // the grant has to be re-issued. Least privilege is the still image;
-                // short-lived is the part only motion can show.
-                const capFig = document.getElementById("cap-fig");
-                const capReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if (capFig) {
-                    const bar = document.getElementById("cap-ttl-bar")!;
-                    const stamp = document.getElementById("cap-expired")!;
-                    const grantedLabel = document.getElementById("cap-granted-label")!;
-                    const cells = Array.from(capFig.querySelectorAll(".cap-cell")) as SVGElement[];
-                    const X0 = 52, X1 = 428, CYCLE = 7000, DARK = 1400;
-
-                    const paint = (t: number) => {
-                        const p = Math.min(1, t / CYCLE);
-                        bar.setAttribute("x2", String(X1 - (X1 - X0) * p));
-                        const expired = p >= 1;
-                        stamp.setAttribute("fill-opacity", expired ? "0.8" : "0");
-                        // the legend must not still read "2 granted" while the stamp says expired
-                        grantedLabel.setAttribute("fill", expired ? "var(--color-ink-0)" : "var(--color-live)");
-                        grantedLabel.setAttribute("fill-opacity", expired ? "0.3" : "0.75");
-                        cells.forEach((c) => {
-                            c.setAttribute("stroke", expired ? "var(--color-ink-0)" : "var(--color-live)");
-                            c.setAttribute("stroke-opacity", expired ? "0.12" : "0.7");
-                            c.setAttribute("fill", expired ? "none" : "var(--color-live)");
-                            c.setAttribute("fill-opacity", expired ? "0" : "0.18");
-                        });
-                    };
-
-                    if (capReduced) {
-                        paint(0);
-                    } else {
-                        let visible = false, start = 0;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(capFig);
-                        const loop = (now: number) => {
-                            if (visible) {
-                                if (!start) start = now;
-                                const t = (now - start) % (CYCLE + DARK);
-                                paint(t);
-                            }
-                            requestAnimationFrame(loop);
-                        };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
-        </section>
-
-        <!-- ══════════ 03 STOP WHAT SHOULDN'T HAPPEN ══════════ -->
-        <section id="policies" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Enforcement</span>
-                    <span class="fig-label">FIG.3</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            Stop what shouldn't happen.
-                        </h2>
-                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Enforce business policies before an action reaches your systems.</p>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent must pass before it acts, not a report you read afterwards.
-                        </p>
-                    </div>
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AGENT ACTIONS</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
-
-                            <!-- three lanes running into the policy line -->
-                            {[110, 170, 230].map((y) => (
-                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="3 6" />
+                            {[
+                                { x: 55,  l: "fetch"  },
+                                { x: 140, l: "plan"   },
+                                { x: 225, l: "call"   },
+                                { x: 310, l: "check"  },
+                                { x: 425, l: "done"   },
+                            ].map(({ x, l }) => (
+                                <>
+                                    <circle cx={x} cy="200" r="7" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.4" stroke-width="1.25" />
+                                    <text x={x} y="228" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">{l}</text>
+                                </>
                             ))}
 
-                            <!-- the policy line itself: everything crosses here or not at all -->
-                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.5" stroke-width="1.5" />
-                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">POLICY</text>
+                            <circle id="loop-token" cx="55" cy="200" r="4.5" fill="var(--color-ink-0)" fill-opacity="0.7" />
 
-                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
-                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.16" stroke-width="1" />
+                            <!-- the identity of the loop: the same input, over and over -->
+                            <text x="225" y="96" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">input_hash 9f86d0…</text>
+                            <text id="loop-count" x="225" y="140" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:15px;font-weight:700;letter-spacing:0.1em;">×1</text>
 
-                            <g id="gate-actions"></g>
+                            <text x="30" y="300" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">same input · same path · billed each time</text>
                         </svg>
-                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.3 · The blocked action stops at the policy line, not inside your systems.
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">No single pass looks wrong. The shape only appears once the passes are laid over each other.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Process intelligence</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">The same work, six times, on your bill.</p>
+                        <p class="mt-3 font-mono text-sm text-gold uppercase tracking-[0.12em]">Loops read off the input hash the record already carries.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            An agent that keeps retrying the same request is nobody's incident. It looks like activity. But the record already holds what identifies the repetition, the hash of the input going in, so a run that keeps returning to the same point stops being a line on an invoice and becomes a shape you can see. <span class="text-white/35">The data is already being written. What is missing is the reading.</span>
                         </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <script>
-                // FIG.3 · actions travel their lane toward the policy line. Most cross and
-                // continue into the systems boundary; one in four hits the line, flashes
-                // red and is turned back. Nothing is "inspected afterwards" here.
-                const gateFig = document.getElementById("gate-fig");
-                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if (gateFig) {
-                    const layer = document.getElementById("gate-actions")!;
-                    const NS = "http://www.w3.org/2000/svg";
-                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
-                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
-                    const acts: Act[] = [];
-                    let spawnAt = 0, n = 0;
+<script>
+                // loop-fig · the run travels its track, but at "check" it arcs back to "plan"
+                // and does it again. Each completed loop leaves a ghost of the arc that
+                // decays instead of blinking off, so after a few passes the loop is
+                // visible as accumulated residue, which is exactly how you find one in
+                // a log: not from any single entry, from the overlay.
+                const loopFig = document.getElementById("loop-fig");
+                const loopReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                    const spawn = (lane: number, blocked: boolean) => {
-                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        el.setAttribute("r", "4");
-                        el.setAttribute("cy", String(LANES[lane]));
-                        el.setAttribute("fill", "var(--color-ink-0)");
-                        el.setAttribute("fill-opacity", "0.55");
-                        layer.appendChild(el);
-                        acts.push({ el, x: START, lane, blocked, back: false });
+                if (loopFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const token = document.getElementById("loop-token") as unknown as SVGCircleElement;
+                    const arc = document.getElementById("loop-arc") as unknown as SVGPathElement;
+                    const ghosts = document.getElementById("loop-ghosts") as unknown as SVGGElement;
+                    const counter = document.getElementById("loop-count") as unknown as SVGTextElement;
+                    const arcLen = arc.getTotalLength();
+                    const arcD = arc.getAttribute("d") || "";
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("loop-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#loop-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
                     };
 
-                    const step = (a: Act) => {
-                        if (a.back) {
-                            a.x -= 3.4;
-                        } else {
-                            a.x += 2.2;
-                            if (a.blocked && a.x >= GATE - 6) {
-                                a.back = true;
-                                a.el.setAttribute("fill", "var(--color-alert)");
-                                a.el.setAttribute("fill-opacity", "0.9");
-                            } else if (!a.blocked && a.x >= GATE + 6) {
-                                a.el.setAttribute("fill", "var(--color-live)");
-                                a.el.setAttribute("fill-opacity", "0.85");
+
+                    const TRACK_Y = 200, X0 = 55, X_CHECK = 310, X_PLAN = 140, X_END = 425;
+                    const LOOPS = 5;
+
+                    let mode: "run" | "arc" | "exit" | "rest" = "run";
+                    let x = X0, arcT = 0, laps = 0, restUntil = 0;
+                    let ghostList: { el: SVGPathElement; o: number }[] = [];
+                    let countOpacity = 0;
+
+                    const addGhost = () => {
+                        const g = document.createElementNS(NS, "path") as SVGPathElement;
+                        g.setAttribute("d", arcD);
+                        g.setAttribute("fill", "none");
+                        g.setAttribute("stroke", "var(--color-warn)");
+                        g.setAttribute("stroke-width", "1.5");
+                        g.setAttribute("stroke-opacity", "0.75");
+                        ghosts.appendChild(g);
+                        ghostList.push({ el: g, o: 0.75 });
+                    };
+
+                    // Everything fades rather than switching off: a ghost that vanishes in
+                    // one frame reads as a glitch, one that burns down reads as a trace.
+                    const decay = () => {
+                        for (let i = ghostList.length - 1; i >= 0; i--) {
+                            ghostList[i].o *= 0.988;
+                            if (ghostList[i].o < 0.02) {
+                                ghostList[i].el.remove();
+                                ghostList.splice(i, 1);
+                            } else {
+                                ghostList[i].el.setAttribute("stroke-opacity", String(ghostList[i].o));
                             }
                         }
-                        a.el.setAttribute("cx", String(a.x));
-                        return a.back ? a.x > START - 10 : a.x < END;
+                        countOpacity *= 0.995;
+                        counter.setAttribute("fill-opacity", String(countOpacity));
                     };
 
-                    if (gateReduced) {
-                        // Static reading of the same story: two through, one turned back.
-                        spawn(0, false); spawn(1, true); spawn(2, false);
-                        acts.forEach((a, i) => {
-                            a.x = a.blocked ? GATE - 20 : GATE + 60;
-                            a.el.setAttribute("cx", String(a.x));
-                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
-                            a.el.setAttribute("fill-opacity", "0.85");
+                    const reset = () => {
+                        mode = "run"; x = X0; arcT = 0; laps = 0;
+                        token.setAttribute("fill", "var(--color-ink-0)");
+                        token.setAttribute("fill-opacity", "0.7");
+                    };
+
+                    const tick = () => {
+                        if (mode === "run") {
+                            x += 1.25;
+                            token.setAttribute("cx", String(x));
+                            token.setAttribute("cy", String(TRACK_Y));
+                            if (x >= X_CHECK) {
+                                if (laps < LOOPS) { mode = "arc"; arcT = 0; }
+                                else { mode = "exit"; }
+                            }
+                        } else if (mode === "arc") {
+                            arcT += 2.6;
+                            const p = arc.getPointAtLength(Math.min(arcT, arcLen));
+                            token.setAttribute("cx", String(p.x));
+                            token.setAttribute("cy", String(p.y));
+                            if (arcT >= arcLen) {
+                                laps += 1;
+                                addGhost();
+                                bloom(X_PLAN, TRACK_Y, 7, 0.8);
+                                countOpacity = 0.95;
+                                counter.textContent = "×" + (laps + 1);
+                                // the token warms as the repetition compounds
+                                token.setAttribute("fill", "var(--color-warn)");
+                                token.setAttribute("fill-opacity", String(Math.min(0.5 + laps * 0.12, 0.95)));
+                                x = X_PLAN; mode = "run";
+                            }
+                        } else if (mode === "exit") {
+                            x += 2.2;
+                            token.setAttribute("cx", String(x));
+                            if (x >= X_END) { mode = "rest"; restUntil = performance.now() + 1600; }
+                        } else if (mode === "rest") {
+                            if (performance.now() > restUntil && ghostList.length === 0) reset();
+                        }
+                        decay();
+                        stepBlooms();
+                    };
+
+                    if (loopReduced) {
+                        // Static equivalent: the residue, without the motion that built it.
+                        for (let i = 0; i < 4; i++) addGhost();
+                        ghostList.forEach((g, i) => {
+                            g.o = 0.2 + i * 0.16;
+                            g.el.setAttribute("stroke-opacity", String(g.o));
                         });
+                        counter.textContent = "×6";
+                        counter.setAttribute("fill-opacity", "0.9");
+                        token.setAttribute("cx", String(X_PLAN));
+                        token.setAttribute("fill", "var(--color-warn)");
                     } else {
                         let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
-                        const loop = (now: number) => {
-                            if (visible) {
-                                if (now > spawnAt) {
-                                    spawn(n % LANES.length, n % 4 === 2);
-                                    n += 1;
-                                    spawnAt = now + 900;
-                                }
-                                for (let i = acts.length - 1; i >= 0; i--) {
-                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
-                                }
-                            }
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(loopFig);
+                        const loop = () => {
+                            if (visible) tick();
                             requestAnimationFrame(loop);
                         };
                         requestAnimationFrame(loop);
@@ -794,103 +1418,353 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ 04 PROVE WHAT HAPPENED ══════════ -->
-        <section id="prove" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">04 · Evidence</span>
-                    <span class="fig-label">FIG.4</span>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+        <!-- ══════════ READING 05 · REPLAY ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Replay</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Run it again. See what changed underneath.</p>
+                        <p class="mt-3 font-mono text-sm text-gold uppercase tracking-[0.12em]">A recorded run, replayed against what would happen today.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            A model swapped under the same name does not announce itself. Same prompt, same agent, different answer, and the first anyone hears about it is a complaint six weeks later. Replaying a recorded run against the present turns that into a difference you can point at. <span class="text-white/35">Coming soon. It needs the tool responses held next to the calls, which is the field it is still waiting on.</span>
+                        </p>
+                        </div>
+                    </div>
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="replay-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
                             <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
                             <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
 
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">SIGNED ACTION LOG</text>
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AS RECORDED</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">REPLAYED TODAY</text>
 
-                            <!-- four links of the chain, each one sealing the one before it -->
-                            {[0, 1, 2, 3].map((i) => (
-                                <g id={`chain-link-${i}`}>
-                                    <rect x={40 + i * 106} y="130" width="84" height="80" fill="none"
-                                          stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                                    <text x={82 + i * 106} y="163" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.75"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.1em;">{["#a4ce", "#a4cf", "#a4d0", "#a4d1"][i]}</text>
-                                    <text x={82 + i * 106} y="183" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">{["db.write", "transfer", "dlp.mask", "quote.set"][i]}</text>
-                                    <text x={82 + i * 106} y="199" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.7"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">chained</text>
-                                    {i < 3 && (
-                                        <line x1={124 + i * 106} y1="170" x2={146 + i * 106} y2="170"
-                                              stroke="var(--color-live)" stroke-opacity="0.5" stroke-width="1.5" />
-                                    )}
-                                </g>
+                            <line x1="40" y1="130" x2="430" y2="130" stroke="var(--color-ink-0)" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="3 6" />
+                            <line x1="40" y1="230" x2="430" y2="230" stroke="var(--color-ink-0)" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="3 6" />
+                            <text x="30" y="134" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">A</text>
+                            <text x="30" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">B</text>
+
+                            <!-- the divergence is one entry, not a general mismatch -->
+                            <line id="rp-gap" x1="300" y1="130" x2="300" y2="266" stroke="var(--color-warn)" stroke-opacity="0" stroke-width="1" stroke-dasharray="2 3" />
+
+                            {Array.from({ length: 8 }, (_, i) => 60 + i * 48).map((x, i) => (
+                                <>
+                                    <rect class="rp-top" x={x - 5} y="122" width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.15" stroke-width="1.25" />
+                                    <rect class="rp-bot" x={x - 5} y={i === 5 ? 258 : 222} width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.15" stroke-width="1.25" />
+                                </>
                             ))}
 
-                            <text id="chain-status" x="240" y="258" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.75"
-                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">CHAIN INTACT</text>
-                            <text x="240" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3"
-                                  style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">sha-256 hash chain · captured before any provider · ed25519 signing on Enterprise</text>
+                            <defs>
+                            <radialGradient id="replay-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="replay-blooms"></g>
+                        <line id="rp-head" x1="40" y1="104" x2="40" y2="284" stroke="var(--color-live)" stroke-opacity="0.5" stroke-width="1" />
+
+                            <text id="rp-note" x="300" y="296" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">model changed underneath</text>
+                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">same prompt · same agent · different answer</text>
                         </svg>
-                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.4 · Rewrite one entry and every entry after it breaks with it.
-                        </p>
-                    </div>
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                            Prove what happened.
-                        </h2>
-                        <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">Every decision becomes independently verifiable evidence in a hash-chained record.</p>
-                        <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. The suspect cannot write the police report.
-                        </p>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            KYDE's record is captured at the boundary before anything reaches a provider, and hash-chained so that tampering with one link breaks every link after it. It is undeletable by any agent, including the one under investigation. On Enterprise each entry is additionally signed with your own keys.
-                        </p>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Seven entries replay identically. The eighth is the one worth finding, and only the recording makes it findable.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <script>
-                // FIG.4 · someone edits the second entry. It turns red, and so does every
-                // link after it: that cascade is the whole property. Then it heals and
-                // the loop runs again.
-                const chainFig = document.getElementById("chain-fig");
-                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if (chainFig) {
-                    const status = document.getElementById("chain-status")!;
-                    const links = [0, 1, 2, 3].map((i) => document.getElementById(`chain-link-${i}`)!);
-                    const TAMPERED = 1;
+<script>
+                // replay-fig · a playhead runs the recorded sequence against the replayed one.
+                // Entries light as the head reaches them and burn down to a resting level
+                // rather than switching off. One entry sits lower than its recorded twin:
+                // that is the whole point of the figure, so it is the only thing that
+                // holds its color after the head has gone past.
+                const rpFig = document.getElementById("replay-fig");
+                const rpReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                    const setBroken = (broken: boolean) => {
-                        links.forEach((g, i) => {
-                            const hit = broken && i >= TAMPERED;
-                            const rect = g.querySelector("rect")!;
-                            const line = g.querySelector("line");
-                            const seal = g.querySelectorAll("text")[2];
-                            rect.setAttribute("stroke", hit ? "var(--color-alert)" : "var(--color-ink-0)");
-                            rect.setAttribute("stroke-opacity", hit ? "0.75" : "0.35");
-                            if (line) {
-                                line.setAttribute("stroke", broken && i >= TAMPERED ? "var(--color-alert)" : "var(--color-live)");
-                                line.setAttribute("stroke-opacity", "0.5");
-                            }
-                            seal.textContent = hit ? (i === TAMPERED ? "altered" : "broken") : "chained";
-                            seal.setAttribute("fill", hit ? "var(--color-alert)" : "var(--color-live)");
-                        });
-                        status.textContent = broken ? "TAMPERING DETECTED · 3 LINKS BROKEN" : "CHAIN INTACT";
-                        status.setAttribute("fill", broken ? "var(--color-alert)" : "var(--color-live)");
+                if (rpFig) {
+                    const DIVERGE = 5;
+                    const XS = Array.from({ length: 8 }, (_, i) => 60 + i * 48);
+                    const head = document.getElementById("rp-head") as unknown as SVGLineElement;
+                    const gap = document.getElementById("rp-gap") as unknown as SVGLineElement;
+                    const note = document.getElementById("rp-note") as unknown as SVGTextElement;
+                    const tops = Array.from(rpFig.querySelectorAll(".rp-top")) as SVGRectElement[];
+                    const bots = Array.from(rpFig.querySelectorAll(".rp-bot")) as SVGRectElement[];
+                    const NS = "http://www.w3.org/2000/svg";
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("replay-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#replay-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
                     };
 
-                    if (!chainReduced) {
-                        let visible = false, broken = false, next = 0;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
-                        const loop = (now: number) => {
-                            if (visible && now > next) {
-                                broken = !broken;
-                                setBroken(broken);
-                                next = now + (broken ? 3200 : 2600);
+
+                    const REST = 0.15;
+                    let bright = XS.map(() => ({ t: REST, b: REST }));
+                    let x = 40, gapO = 0, noteO = 0, holdUntil = 0;
+
+                    const paint = () => {
+                        bright.forEach((v, i) => {
+                            const diverged = i === DIVERGE;
+                            tops[i].setAttribute("stroke-opacity", String(v.t));
+                            tops[i].setAttribute("stroke", "var(--color-ink-0)");
+                            bots[i].setAttribute("stroke-opacity", String(v.b));
+                            bots[i].setAttribute("stroke", diverged && v.b > REST + 0.02 ? "var(--color-warn)" : "var(--color-ink-0)");
+                        });
+                        gap.setAttribute("stroke-opacity", String(gapO));
+                        note.setAttribute("fill-opacity", String(noteO));
+                        head.setAttribute("x1", String(x));
+                        head.setAttribute("x2", String(x));
+                    };
+
+                    const tick = () => {
+                        if (performance.now() < holdUntil) {
+                            // hold on the divergence, then let it burn down with the rest
+                            gapO *= 0.994; noteO *= 0.994;
+                            bright.forEach((v, i) => {
+                                v.t = REST + (v.t - REST) * 0.985;
+                                v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.997 : 0.985);
+                            });
+                            paint();
+                            return;
+                        }
+                        x += 1.05;
+                        XS.forEach((xi, i) => {
+                            if (x >= xi && bright[i].t <= REST + 0.01) bright[i].t = 0.95;
+                            if (x >= xi + 14 && bright[i].b <= REST + 0.01) {
+                                bright[i].b = 0.95;
+                                if (i === DIVERGE) { gapO = 0.7; noteO = 0.9; bloom(300, 266, 7, 0.8); }
                             }
+                        });
+                        bright.forEach((v, i) => {
+                            v.t = REST + (v.t - REST) * 0.97;
+                            v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.995 : 0.97);
+                        });
+                        gapO *= 0.997; noteO *= 0.997;
+                        if (x > 430) { x = 40; holdUntil = performance.now() + 2200; }
+                        stepBlooms();
+                        paint();
+                    };
+
+                    if (rpReduced) {
+                        bright = bright.map((_, i) => ({ t: 0.35, b: i === DIVERGE ? 0.9 : 0.35 }));
+                        gapO = 0.6; noteO = 0.9; x = 430;
+                        paint();
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(rpFig);
+                        const loop = () => {
+                            if (visible) tick();
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ READING 06 · INSURANCE ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="band-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OBSERVED BEHAVIOR</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">WHAT IS PRICEABLE</text>
+
+                            <line x1="46" y1="286" x2="440" y2="286" stroke="var(--color-ink-0)" stroke-opacity="0.2" stroke-width="1" />
+                            <line x1="46" y1="80" x2="46" y2="286" stroke="var(--color-ink-0)" stroke-opacity="0.2" stroke-width="1" />
+                            <text x="440" y="302" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">RECORD OVER TIME</text>
+
+                            <!-- the band is the claim: it narrows because there is more of the
+                                 record, not because the agent got better -->
+                            <path id="band-up" d="" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="3 4" />
+                            <path id="band-dn" d="" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="3 4" />
+                            <line x1="46" y1="186" x2="440" y2="186" stroke="var(--color-ink-0)" stroke-opacity="0.08" stroke-width="1" />
+                            <defs>
+                            <radialGradient id="band-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="band-blooms"></g>
+                        <g id="band-points"></g>
+
+                            <text id="band-read" x="440" y="120" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:17px;font-weight:700;letter-spacing:0.08em;">±62</text>
+                            <text x="440" y="136" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">uncertainty</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Nothing about the agent changes across this figure. Only how much of it was recorded.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Insurance</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">A risk somebody can actually price.</p>
+                        <p class="mt-3 font-mono text-sm text-gold uppercase tracking-[0.12em]">The longer the record, the narrower the band around what an agent does.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Insuring autonomous work today means pricing something nobody observes: the applicant describes their own controls, and an underwriter wraps a number around the description. A signed behavioral record changes what is being priced. Not intentions, but what the agents did, in a form the insurer can check without taking the applicant's word for it. <span class="text-white/35">Coming soon. This is the reading every one above it feeds, and the furthest out.</span>
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // band-fig · observations land left to right. The envelope around them is drawn
+                // from how many there are, so it narrows on its own as the record grows.
+                // Points fade up and settle instead of appearing; the readout counts the
+                // band down rather than snapping to a final number, because the argument
+                // is the narrowing, not the value it lands on.
+                const bandFig = document.getElementById("band-fig");
+                const bandReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (bandFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const N = 30, X0 = 60, DX = 12.6, MID = 186;
+                    const up = document.getElementById("band-up") as unknown as SVGPathElement;
+                    const dn = document.getElementById("band-dn") as unknown as SVGPathElement;
+                    const layer = document.getElementById("band-points") as unknown as SVGGElement;
+                    const read = document.getElementById("band-read") as unknown as SVGTextElement;
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("band-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#band-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+
+                    // deterministic scatter, so the figure is the same on every visit
+                    const rnd = (n: number) => {
+                        let t = (n * 2654435761) >>> 0;
+                        t ^= t >>> 15; t = Math.imul(t, 2246822519); t ^= t >>> 13;
+                        return ((t >>> 0) % 1000) / 1000;
+                    };
+                    const halfAt = (i: number) => 62 / Math.sqrt(1 + i * 0.42);
+                    const xAt = (i: number) => X0 + i * DX;
+
+                    const dots: { el: SVGCircleElement; o: number; target: number }[] = [];
+                    let shown = 0, band = 62, nextAt = 0;
+
+                    const drawBand = () => {
+                        let u = "", d = "";
+                        for (let i = 0; i < Math.max(shown, 1); i++) {
+                            const h = halfAt(i);
+                            u += (i === 0 ? "M" : "L") + xAt(i) + " " + (MID - h);
+                            d += (i === 0 ? "M" : "L") + xAt(i) + " " + (MID + h);
+                        }
+                        up.setAttribute("d", u);
+                        dn.setAttribute("d", d);
+                    };
+
+                    const addPoint = (i: number) => {
+                        const h = halfAt(i);
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("cx", String(xAt(i)));
+                        el.setAttribute("cy", String(MID + (rnd(i) * 2 - 1) * h * 0.8));
+                        el.setAttribute("r", "2.6");
+                        el.setAttribute("fill", "var(--color-live)");
+                        el.setAttribute("fill-opacity", "0");
+                        layer.appendChild(el);
+                        dots.push({ el, o: 0, target: 0.85 });
+                    };
+
+                    const tick = (now: number) => {
+                        if (shown < N && now > nextAt) {
+                            addPoint(shown);
+                            if (shown % 5 === 0) bloom(xAt(shown), MID, 5, 0.55);
+                            shown += 1;
+                            drawBand();
+                            nextAt = now + 210;
+                        }
+                        // fade up, then settle back down to a resting brightness
+                        dots.forEach((d) => {
+                            d.o += (d.target - d.o) * 0.12;
+                            if (d.o > 0.8) d.target = 0.42;
+                            d.el.setAttribute("fill-opacity", String(d.o));
+                        });
+                        stepBlooms();
+                        const want = halfAt(Math.max(shown - 1, 0));
+                        band += (want - band) * 0.06;
+                        read.textContent = "±" + Math.round(band);
+                        if (shown >= N && dots.every((d) => Math.abs(d.o - d.target) < 0.02) && now > nextAt + 2600) {
+                            dots.forEach((d) => d.el.remove());
+                            dots.length = 0;
+                            shown = 0; band = 62; nextAt = now + 400;
+                            drawBand();
+                        }
+                    };
+
+                    if (bandReduced) {
+                        for (let i = 0; i < N; i++) { addPoint(i); }
+                        shown = N; drawBand();
+                        dots.forEach((d) => { d.o = 0.42; d.el.setAttribute("fill-opacity", "0.42"); });
+                        read.textContent = "±" + Math.round(halfAt(N - 1));
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(bandFig);
+                        const loop = (now: number) => {
+                            if (visible) tick(now);
                             requestAnimationFrame(loop);
                         };
                         requestAnimationFrame(loop);
@@ -900,8 +1774,10 @@ const websiteSchema = {
         </section>
 
         <!-- ══════════ CONTINUOUS VERIFICATION ══════════ -->
-        <!-- Not a fifth pillar: the loop that keeps running the other four, and the
-             reason a rung on the ladder below can be lost as well as earned. -->
+        <!-- Not a seventh reading: the four mechanisms that produce the record every
+             reading is read from. Since the readings took over the page, this is the
+             only place identity and expiring capabilities still appear, which makes
+             it load-bearing rather than a footnote. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-24 md:py-28 md:border-x md:border-white/10">
 
@@ -909,8 +1785,11 @@ const websiteSchema = {
                 <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-8">
                     <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
                         <div>
-                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">Around all four · Continuous control</p>
-                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">Trust is re-earned, not granted once.</h3>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold mb-5">Under all six · How the record is made</p>
+                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">A reading is only worth the recording under it.</h3>
+                            <p class="text-sm text-white/55 leading-relaxed max-w-2xl mb-4">
+                                Four mechanisms produce every entry the six readings are read from: each agent has its own identity, its capabilities are narrow and expire on their own, policy is evaluated before the action goes through, and what happened is sealed into the chain as it passes.
+                            </p>
                             <p class="text-sm text-white/55 leading-relaxed max-w-2xl">
                                 Control is not a switch you flip at onboarding. Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next.
                             </p>
@@ -944,24 +1823,24 @@ const websiteSchema = {
                         </svg>
                     </div>
                     <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
-                        FIG.5 · The loop never stops running. Every pass re-establishes the right to act.
+                        FIG.2 · The loop never stops running. Every pass re-establishes the right to act.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ 05 THE TRUST LADDER ══════════ -->
+        <!-- ══════════ THE TRUST LADDER ══════════ -->
         <section id="ladder" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · The Trust Ladder</span>
-                    <span class="fig-label">FIG.6</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">The Trust Ladder</span>
+                    <span class="fig-label">FIG.3</span>
                 </div>
                 <!-- Autonomy ladder -->
                 <div class="pt-12 pb-24 md:pb-28">
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
                         <span class="text-white">From Assistant</span> <span class="text-white/40">to Autonomous Operator.</span>
-                    </h2>
+                        </h2>
                     <p class="font-mono text-sm text-gold uppercase tracking-[0.12em] mb-8">AI autonomy should be earned, not assumed.</p>
                     <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
                         The Trust Ladder measures whether your organization has the technical controls required for each level of autonomy. As your controls improve, you can safely delegate more responsibility to AI.
@@ -979,7 +1858,7 @@ const websiteSchema = {
                     <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">
                     <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Autonomy is earned, not granted</span>
-                        <span class="fig-label">FIG.6</span>
+                        <span class="fig-label">FIG.3</span>
                     </div>
                     <svg id="ladder-fig" viewBox="0 0 1000 268" class="w-full h-auto" aria-hidden="true">
                         <!-- corner register marks, as on every other figure -->
@@ -1027,13 +1906,13 @@ const websiteSchema = {
                         <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="116" cy="201" />
                     </svg>
                     <p class="mt-5 border-t border-white/10 pt-4 font-mono text-[10px] text-white/35 leading-relaxed">
-                        FIG.6 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
+                        FIG.3 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
                     </p>
                     </div>
                 </div>
 
                 <script>
-                    // FIG.6 · the ladder. The agent climbs one level per evidence
+                    // FIG.3 · the ladder. The agent climbs one level per evidence
                     // window; a green pulse marks the promotion. At the top it
                     // holds, then a new agent starts at zero. Autonomy is earned.
                     const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1113,17 +1992,18 @@ const websiteSchema = {
         </section>
 
 
-        <!-- ══════════ 06 INDEPENDENCE ══════════ -->
+        <!-- ══════════ INDEPENDENCE ══════════ -->
         <!-- The actual reason to buy: a control layer that lives inside one vendor's
              platform ends where that vendor ends. This one does not. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Independence</span>
-                    <span class="fig-label">FIG.7</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Independence</span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 [&>*]:md:flex [&>*]:md:flex-col [&>*]:md:justify-center">
-                    <div>
+                <!-- Text only: the topology this argument used to carry now opens the
+                     page as FIG.1, and saying it twice weakened both. -->
+                <div class="pt-10 md:pt-12 md:pb-28">
+                    <div class="max-w-3xl">
                         <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
                             Control that stops at a vendor's edge is not control.
                         </h2>
@@ -1135,49 +2015,11 @@ const websiteSchema = {
                             KYDE sits outside all of them. Identity, policy and record are held in your layer, not in theirs, and they survive the day you change providers. Every model and provider runs through it today; the same layer is built to take the tools and business systems next, which is exactly what a layer inside one vendor can never do. That is what sovereignty means in practice: you keep the ability to change your mind, and nobody else holds the evidence of what your company did.
                         </p>
                     </div>
-                    <div class="relative flex items-center justify-center min-h-[380px]">
-                        <svg id="indep-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
-
-                            <!-- one vendor's control reaches its own column and no further -->
-                            <path d="M40 76 L104 76" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1.5" fill="none" />
-                            <path d="M40 76 L40 92 M104 76 L104 92" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1.5" fill="none" />
-                            <text x="72" y="64" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.4" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">VENDOR CONSOLE</text>
-                            <text x="118" y="82" fill="var(--color-alert)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">STOPS HERE</text>
-
-                            <!-- the four systems, none of which shares a platform -->
-                            {[
-                                { x: 40,  l1: "LLM",     l2: "providers" },
-                                { x: 152, l1: "AGENT",   l2: "frameworks" },
-                                { x: 264, l1: "SAP",     l2: "ERP, CRM" },
-                                { x: 376, l1: "OT",      l2: "machines" },
-                            ].map(({ x, l1, l2 }) => (
-                                <>
-                                    <rect x={x} y="110" width="64" height="86" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
-                                    <text x={x + 32} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.1em;">{l1}</text>
-                                    <text x={x + 32} y="164" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.3" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">{l2}</text>
-                                    <line x1={x + 32} y1="196" x2={x + 32} y2="236" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="3 5" />
-                                </>
-                            ))}
-
-                            <!-- KYDE spans all four; the bar draws itself when the section reveals -->
-                            <path class="draw" pathLength="1" d="M40 240 L440 240" stroke="var(--color-live)" stroke-opacity="0.7" stroke-width="2" fill="none" />
-                            <rect x="40" y="240" width="400" height="46" fill="none" stroke="var(--color-live)" stroke-opacity="0.25" stroke-width="1" />
-                            <text x="240" y="270" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.8" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.18em;">KYDE · YOUR LAYER</text>
-                            <text x="240" y="308" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">identity · policy · record · portable</text>
-                        </svg>
-                        <p class="absolute bottom-0 left-0 right-0 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                            FIG.7 · A vendor governs its own column. The layer underneath is yours, and it is not bounded by any of them.
-                        </p>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ══════════ 07 EARLY ACCESS ══════════ -->
+        <!-- ══════════ EARLY ACCESS ══════════ -->
         <!-- Last block before the ask: proof that regulated companies are already
              building this with us, and the only place the page pays off the
              regulation register the hero eyebrow opens with. -->
@@ -1186,7 +2028,7 @@ const websiteSchema = {
             <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Early Access</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Early Access</span>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch pt-10 md:pt-0 [&>*]:md:pt-12 [&>*]:md:pb-28 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
@@ -1229,7 +2071,7 @@ const websiteSchema = {
             </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Identity · Capabilities · Enforcement · Evidence</p>
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">One record · Six readings</p>
                     <div class="mb-12 h-px bg-white/10"></div>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-8">
                         Your agents will change vendors.<br />Your control shouldn't.
