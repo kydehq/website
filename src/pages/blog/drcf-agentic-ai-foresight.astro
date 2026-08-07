@@ -114,13 +114,13 @@ import Footer from '../../components/Footer.astro';
               This is not a documentation problem. It is an architecture problem.
             </p>
             <p>
-              Producing the record that regulators expect requires that the record exists, continuously, for every agent action, in a form that cannot be altered after the fact. It requires that every agent action is attributed to a specific agent identity. That every tool call captures the causal context, what the agent was shown, what it retrieved, why it decided what it decided. And that the record is cryptographically signed at the point of capture, so that its integrity can be verified independently of any vendor's infrastructure.
+              Producing the record that regulators expect requires that the record exists, continuously, for every agent action, in a form where any alteration after the fact is detectable. It requires that every agent action is attributed to a specific agent identity. That every tool call captures the causal context, what the agent was shown, what it retrieved, why it decided what it decided. And that the record is cryptographically signed at the point of capture, so that its integrity can be verified independently of any vendor's infrastructure.
             </p>
             <p>
               Most enterprise agent deployments today rely on provider-native logs. Those logs are self-reported by the provider, stored on infrastructure the provider controls, and signed by the provider's own keys. They are vendor reports. When the FCA or ICO asks for a complete, verifiable account of what an agent did, a vendor report is not an independent audit trail.
             </p>
             <p>
-              The "Many Hands" problem is solved by removing the ambiguity: one governance layer, external to every agent and every provider, that captures and signs every action in a single tamper-evident record. Not many hands. One record.
+              The "Many Hands" problem is solved by removing the ambiguity: one governance layer, external to every agent and every provider, that captures and signs every action routed through it in a single hash-chained record. Not many hands. One record.
             </p>
 
             <h2>Why this matters beyond the UK</h2>
@@ -134,7 +134,7 @@ import Footer from '../../components/Footer.astro';
               An enterprise that addresses the DRCF's seven risks has, in the process, addressed most of the EU AI Act's high-risk logging requirements, DORA's independent audit trail obligations, and NIS-2's forensic evidence requirements. The frameworks are converging. The governance infrastructure that satisfies one satisfies most of the others.
             </p>
             <p>
-              The practical consequence: organizations that build compliant agent governance now are not building for one jurisdiction. They are building for the regulatory baseline that is emerging globally.
+              The practical consequence: organizations that build agent governance to this standard now are not building for one jurisdiction. They are building for the regulatory baseline that is emerging globally.
             </p>
 
             <h2>What to do before enforcement begins</h2>
@@ -159,7 +159,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE sits between your agent fleet and every system your agents act on, capturing every action in a cryptographically signed, tamper-evident audit trail that is independent of every LLM provider. One governance layer. One record. The "Many Hands" problem has one answer.
+                KYDE is the behavioral system of record for autonomous work. It sits between your agent fleet and the systems your agents act on, capturing every action routed through it in a hash-chained, cryptographically signed record that is independent of every LLM provider. One governance layer. One record. The "Many Hands" problem has one answer.
               </p>
               <button
                 onclick="openModal()"

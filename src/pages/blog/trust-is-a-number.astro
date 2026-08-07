@@ -59,7 +59,7 @@ import Footer from '../../components/Footer.astro';
               Notice what that machinery has never included: access to anyone's mind. No credit score has ever read a borrower's intentions. Moody's has never audited a CFO's inner life. The telematics box in a car records braking, acceleration, and speed, and prices risk more accurately than a century of demographic proxies ever did, without knowing a single thing the driver was thinking. Behavior is not the fallback you settle for when intentions are unavailable. Behavior is the only thing that has ever been scored, because behavior is the only thing that ever causes damage.
             </p>
             <p>
-              This is the premise our product is named after. Today we're introducing the <strong>KYDE Trust Score</strong>, the behavioral rating computed by the Behavioral Firewall, for the newest category of economic actor that needs one.
+              This is the premise our product is named after. Today we're introducing the <strong>KYDE Trust Score</strong>, a behavioral rating read out of the record, for the newest category of economic actor that needs one.
             </p>
 
             <h2>Agents make behavioral scoring more necessary, not less</h2>
@@ -75,13 +75,13 @@ import Footer from '../../components/Footer.astro';
 
             <h2>What the score is computed from</h2>
             <p>
-              The Behavioral Firewall sits at the boundaries the enterprise controls, and every action that crosses them feeds four inputs.
+              KYDE sits at the boundaries the enterprise controls, and every action that crosses them enters the record and feeds four inputs.
             </p>
             <p>
               <strong>Identity.</strong> Is this a known agent, attributable, operating under a defined role? Self-hosted agents get a cryptographic identity per instance. Cloud-executed agents bind to what the enterprise actually issues, credentials, OAuth grants, connector authorizations. Enforceable and revocable, which is what an identity is for.
             </p>
             <p>
-              <strong>Mandate.</strong> Every agent and connector has a declared purpose. The firewall scores actions against it. A support connector authorized for ticket retrieval that initiates a bulk export of customer records has violated its mandate, a fact, established at the boundary, requiring no interpretation of anyone's inner state. Where KYDE also sits in the reasoning path, self-hosted agents routing through the proxy, the evaluation gets richer, drawing on causal context captured before each tool call. The scoring principle stays the same either way: actions against declarations.
+              <strong>Mandate.</strong> Every agent and connector has a declared purpose. Actions are scored against it. A support connector authorized for ticket retrieval that initiates a bulk export of customer records has violated its mandate, a fact, established at the boundary, requiring no interpretation of anyone's inner state. Where KYDE also sits in the reasoning path, self-hosted agents routing through the proxy, the evaluation gets richer, drawing on causal context captured before each tool call. The scoring principle stays the same either way: actions against declarations.
             </p>
             <p>
               <strong>Baseline.</strong> How does current activity compare with this agent's own established pattern, call volumes, endpoint sequences, cost profiles, timing? Drift is the earliest observable signal of compromise, misconfiguration, or goal hijacking, and it shows up in behavior long before any single action looks wrong.
@@ -95,10 +95,10 @@ import Footer from '../../components/Footer.astro';
               A score is a claim, and claims have denominators. A Trust Score of 89 computed on 95% of an agent's actions and one computed on 40% are different facts wearing the same clothes, so every KYDE Trust Score ships with a coverage figure: the share of the agent's observable activity that flowed through governed paths in the scoring window.
             </p>
             <p>
-              The topology of enterprise agents makes this figure non-trivial, and worth stating precisely. Agent runtimes are moving into vendor clouds, where reasoning, sub-agent delegation, and vendor-native SaaS-to-SaaS connector traffic remain fundamentally opaque to third-party monitoring by architectural design, us included. What remains fully in the enterprise's hands is the layer that was always the point: its own systems, credentials, and endpoints. Front those with the firewall and every action any agent takes against them, including agents running in clouds you will never see, is intercepted, evaluated, signed, and enforceable. No agent action against a system you control happens ungoverned.
+              The topology of enterprise agents makes this figure non-trivial, and worth stating precisely. Agent runtimes are moving into vendor clouds, where reasoning, sub-agent delegation, and vendor-native SaaS-to-SaaS connector traffic remain fundamentally opaque to third-party monitoring by architectural design, us included. What remains fully in the enterprise's hands is the layer that was always the point: its own systems, credentials, and endpoints. Front those with KYDE and every action any agent takes against them, including agents running in clouds you will never see, is intercepted, evaluated, signed, and enforceable. The enforcement layer is the Behavioral Firewall. No agent action that reaches a governed system through the governed path happens unrecorded.
             </p>
             <p>
-              The rest, vendor-internal flows, gets quantified, not ignored. The Coverage Report tells a CISO and a board exactly what share of their agent activity runs dark, converting an invisible exposure into a measurable, decidable one. And the regulation agrees with this division of labor: the EU AI Act and NIS-2 demand traceability of decisions and actions with effect, not thought protocols. The reasoning layer is the provider's obligation. The action layer, the one that carries liability, the one auditors examine, the one insurers will price, is the deployer's. That layer is ours, completely.
+              The rest, vendor-internal flows, gets quantified, not ignored. The Coverage Report tells a CISO and a board exactly what share of their agent activity runs dark, converting an invisible exposure into a measurable, decidable one. And the regulation agrees with this division of labor: the EU AI Act and NIS-2 demand traceability of decisions and actions with effect, not thought protocols. The reasoning layer is the provider's obligation. The action layer, the one that carries liability, the one auditors examine, the one insurers will price, is the deployer's. That is the layer we cover, for everything routed through the governed path.
             </p>
             <p>
               One architectural condition makes all of this hold, and it deserves naming before diligence names it for us: shadow agents. An agent handed direct credentials that bypass the governed endpoint runs outside the score and outside every control. Deny-by-default is therefore not a feature but the existence condition of the design, credentials to governed systems are reachable only through the governed path, because a boundary you can walk around is a suggestion.
@@ -123,14 +123,14 @@ import Footer from '../../components/Footer.astro';
               A model provider sees only agents on its own models, and couldn't be the neutral scorer of its own outputs anyway, no bank rates its own bonds. A single enterprise sees only its own fleet. A vendor consortium fails for a plainer reason: Anthropic's logs, Microsoft's logs, and Google's logs have different schemas, different definitions, and each grades itself. The one point where every agent from every provider is measurable in the same currency is the boundary where actions meet the world.
             </p>
             <p>
-              Model providers naturally evaluate their own outputs in their own proprietary formats. We provide independent measurement of behavior, the only metric that exists identically across every provider, and the only one that ever deserved a score.
+              Model providers naturally evaluate their own outputs in their own proprietary formats. We provide independent measurement of behavior at the boundary, the only metric that reads the same across providers, and the only one that ever deserved a score.
             </p>
 
             <!-- CTA -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Trust Score</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-2">
-                The KYDE Trust Score is computed by the Behavioral Firewall: independent, cryptographically signed telemetry, evaluated at the boundaries you control, always published with its coverage figure.
+                The KYDE Trust Score is one reading of the behavioral system of record for autonomous work: independent, cryptographically signed telemetry, evaluated at the boundaries you control, always published with its coverage figure.
               </p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
                 If you're an insurer, auditor, or certification body working on the confidence infrastructure for autonomous AI: <a href="mailto:hello@kyde.com" class="text-ink-0 underline underline-offset-4 decoration-ink-0/30 hover:decoration-warn transition-colors">hello@kyde.com</a>

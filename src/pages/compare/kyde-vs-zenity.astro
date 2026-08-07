@@ -4,14 +4,14 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 
 const rows = [
-  { axis: "Coverage model",                x: "Per-estate platform connectors (SaaS, cloud, device)",                        kyde: "One network boundary for all agents and providers" },
+  { axis: "Coverage model",                x: "Per-estate platform connectors (SaaS, cloud, device)",                        kyde: "One network boundary for every agent and provider routed through it" },
   { axis: "Agents outside covered estates", x: "Not reached until a connector exists",                                        kyde: "Governed at the egress they must cross anyway" },
   { axis: "Blocks before execution",        x: "Inline controls advertised; mechanism per platform, publicly undocumented",   kyde: "Deterministic deny-by-default, same mechanism for every agent" },
   { axis: "Policy primitive",               x: "Platform-aware rules, posture and detection",                                 kyde: "Mandate-based: what is not allowed does not execute" },
   { axis: "Audit trail",                    x: "Platform logging and forensics",                                              kyde: "Hash-chained, vendor-independent ledger (Ed25519 signing on Enterprise)" },
   { axis: "Deployment",                     x: "Agentless API connectors per estate, endpoint components for device agents",  kyde: "One environment variable or group policy" },
   { axis: "EU sovereignty",                 x: "US and Israel based company, cloud platform",                                 kyde: "Edge enforcement in your perimeter, air-gapped available" },
-  { axis: "Regulatory anchor",              x: "AI agent security broadly",                                                   kyde: "NIS-2, DORA, EU AI Act evidence duties" },
+  { axis: "Regulatory anchor",              x: "AI agent security broadly",                                                   kyde: "Evidence for the agent layer of NIS-2, DORA and EU AI Act duties" },
 ];
 
 const faqs = [
@@ -24,8 +24,8 @@ const faqs = [
     a: "Copilot is rarely alone for long. The free Kyde Gateway Starter shows you within a week what else crosses your egress. If it truly is only Copilot, you lost nothing finding out.",
   },
   {
-    q: "Which one satisfies EU AI Act logging duties?",
-    a: "Article 12 requires automatic, tamper-evident logs for high-risk systems. Kyde implements this with cryptographic hash chains, with Ed25519 signing on the Enterprise tier. High-risk enforcement begins December 2, 2027. NIS-2 and DORA apply today.",
+    q: "Which one helps with EU AI Act logging duties?",
+    a: "Article 12 requires automatic, trustworthy logs for high-risk systems. Kyde covers the agent layer of that duty with cryptographic hash chains, not the whole obligation, and Ed25519 signing is on the Enterprise tier. High-risk enforcement begins December 2, 2027. NIS-2 and DORA apply today.",
   },
 ];
 
@@ -42,7 +42,7 @@ const faqSchema = {
 
 <Base
   title="Kyde vs Zenity: Estate Connectors or One Boundary? | Kyde"
-  description="Zenity secures AI agents estate by estate through platform connectors. Kyde governs every agent at one network boundary with tamper-evident records. Compared for 2026."
+  description="Zenity secures AI agents estate by estate through platform connectors. Kyde governs every agent routed through one network boundary, with tamper-evident records. Compared for 2026."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -61,7 +61,7 @@ const faqSchema = {
           Kyde vs <span class="gradient-text">Zenity</span>
         </h1>
         <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
-          Zenity has been in agent security longer than almost anyone, and its scope today is broad: SaaS agents like Copilot and ChatGPT Enterprise, cloud platforms like Bedrock and Vertex, even device-based coding agents, covered through three modules for observability, posture and detection and response, with inline controls to stop unsafe actions. The architectural difference to Kyde is where the control attaches. Zenity connects to each agent estate through platform integrations: one connector per ecosystem, deep in that ecosystem. Kyde stands at the one place every agent must pass regardless of ecosystem: the network boundary, with deterministic policy and a hash-chained, tamper-evident ledger. Estate-by-estate coverage versus one unavoidable control point. That choice shapes everything else.
+          Zenity has been in agent security longer than almost anyone, and its scope today is broad: SaaS agents like Copilot and ChatGPT Enterprise, cloud platforms like Bedrock and Vertex, even device-based coding agents, covered through three modules for observability, posture and detection and response, with inline controls to stop unsafe actions. The architectural difference to Kyde is where the control attaches. Zenity connects to each agent estate through platform integrations: one connector per ecosystem, deep in that ecosystem. Kyde stands at the one place an agent has to pass to reach a model, regardless of ecosystem: the network egress you control, with deterministic policy and a hash-chained, tamper-evident ledger. Estate-by-estate coverage versus one unavoidable control point. That choice shapes everything else.
         </p>
       </div>
     </section>

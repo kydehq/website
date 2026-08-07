@@ -244,13 +244,13 @@ const dimensions: Dimension[] = [
             <div class="border border-ink-0/60 bg-bg-1 p-6 md:-my-2">
               <p class="font-mono text-[10px] uppercase tracking-widest text-ink-0/60 mb-3">KYDE Gateway</p>
               <p class="text-sm font-semibold text-ink-0 mb-3">Execution boundary</p>
-              <p class="text-xs text-ink-1 leading-relaxed">Verifies agent identity, evaluates actions against mandate, computes the Trust Score, signs every event, and enforces organizational policy where required.</p>
+              <p class="text-xs text-ink-1 leading-relaxed">Verifies agent identity, evaluates actions against mandate, computes the Trust Score, writes every event it sees into a hash-chained ledger, and enforces organizational policy where required.</p>
             </div>
             <div class="hidden md:flex items-center justify-center text-ink-2 font-mono">→</div>
             <div class="border border-live/25 bg-bg-1 p-6">
               <p class="font-mono text-[10px] uppercase tracking-widest text-live mb-3">Governed</p>
               <p class="text-sm font-semibold text-ink-1 mb-3">Enterprise systems</p>
-              <p class="text-xs text-ink-1 leading-relaxed">APIs, databases, MCP servers, SaaS endpoints. Every action measured, signed and recorded.</p>
+              <p class="text-xs text-ink-1 leading-relaxed">APIs, databases, MCP servers, SaaS endpoints. Every action routed through the gateway is measured and recorded.</p>
             </div>
           </div>
         </div>
@@ -437,7 +437,7 @@ const dimensions: Dimension[] = [
               Model providers observe their own environments. Enterprises observe only their own deployments. Neither provides an independent measure across providers, infrastructures and organizational boundaries.
             </p>
             <p class="text-base text-white/45 leading-relaxed">
-              The execution boundary is the only location where every externally observable action can be measured using the same methodology. KYDE provides that common measurement layer.
+              The execution boundary is the only location where actions from every model and provider routed through it can be measured using the same methodology. KYDE is the behavioral system of record for autonomous work, and that common measurement layer is one reading of it.
             </p>
           </div>
 
@@ -445,7 +445,7 @@ const dimensions: Dimension[] = [
             {[
               { who: "Model providers", note: "Observe activity within their own platforms.",                                               highlight: false },
               { who: "Enterprises",     note: "Observe their own deployments.",                                                            highlight: false },
-              { who: "KYDE",            note: "Computes one independent Trust Score across providers, models and enterprise environments.", highlight: true  },
+              { who: "KYDE",            note: "Computes one independent Trust Score across the providers, models and enterprise environments routed through it.", highlight: true  },
             ].map(({ who, note, highlight }) => (
               <div class={`p-5 border grid grid-cols-[140px_1fr] gap-4 items-start ${highlight ? 'border-warn/40 bg-warn/5' : 'border-white/8 bg-white/[0.02]'}`}>
                 <span class={`font-mono text-[10px] uppercase tracking-widest shrink-0 pt-0.5 ${highlight ? 'text-warn' : 'text-white/25'}`}>{who}</span>
@@ -469,7 +469,7 @@ const dimensions: Dimension[] = [
               Deployment requires a single endpoint change.
             </h2>
             <p class="text-white/45 leading-relaxed mb-6">
-              No SDKs. No application changes. No framework dependency. Existing agents continue operating while every observable action becomes attributable, measurable and cryptographically recorded.
+              No SDKs. No application changes. No framework dependency. Existing agents continue operating while every action routed through the gateway becomes attributable, measurable and recorded in a hash-chained ledger.
             </p>
             <p class="text-white/35 leading-relaxed text-sm">
               Supported environments include OpenAI, Anthropic, Gemini, self-hosted models and MCP-based architectures. Target latency: below 100 ms.
@@ -521,7 +521,7 @@ const dimensions: Dimension[] = [
             <p class="font-mono text-xs uppercase tracking-widest text-white/30 mb-4">For enterprises</p>
             <h3 class="text-2xl font-bold text-white mb-4">Deploy the gateway and observe how Trust Score and Coverage evolve from the first recorded action.</h3>
             <p class="text-sm text-white/40 leading-relaxed mb-8">
-              Kyde Gateway Starter is free. No SLA, no commitment. Self-hosted, deployed from GitHub in minutes.
+              Kyde Gateway Starter is a free 30-day audit. No SLA, no commitment. Self-hosted, deployed from GitHub in minutes.
             </p>
             <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free)
             <a href="/starter" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">

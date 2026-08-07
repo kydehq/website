@@ -11,7 +11,7 @@ const rows = [
   { axis: "Audit trail",                                    witness: "Logging, not cryptographically verifiable evidence",                 kyde: "Hash-chained, tamper-evident, vendor-independent ledger (Ed25519 signing on Enterprise)" },
   { axis: "Agent fleet RBAC",                               witness: "Not a core concept",                                                kyde: "Per-agent roles, per-tool policy, MCP routing" },
   { axis: "EU sovereignty, Article 25 posture",             witness: "US vendor, cloud-centric",                                          kyde: "Edge enforcement in your perimeter, external proxy, deployer status preserved" },
-  { axis: "Regulatory anchor",                              witness: "General AI security",                                               kyde: "Built for NIS-2, DORA and EU AI Act evidence duties" },
+  { axis: "Regulatory anchor",                              witness: "General AI security",                                               kyde: "Built for the agent layer of NIS-2, DORA and EU AI Act evidence duties" },
 ];
 
 const faqs = [
@@ -21,11 +21,11 @@ const faqs = [
   },
   {
     q: "Does WitnessAI cover shadow agents?",
-    a: "It provides network-level visibility for known egress paths. Kyde is built for the shadow agent problem: it sits at the egress boundary, so agents that never registered, never imported an SDK and never asked permission are still governed.",
+    a: "It provides network-level visibility for known egress paths. Kyde is built for the shadow agent problem: it sits at the egress boundary, so agents that never registered, never imported an SDK and never asked permission are still governed, as long as their traffic leaves through that egress.",
   },
   {
-    q: "Which one satisfies EU AI Act logging duties?",
-    a: "Article 12 requires automatic, trustworthy logs for high-risk systems. Kyde produces hash-chained, vendor-independent records designed for exactly this evidence duty, with Ed25519 signing available on the Enterprise tier. High-risk enforcement begins December 2, 2027. NIS-2 and DORA apply today.",
+    q: "Which one helps with EU AI Act logging duties?",
+    a: "Article 12 requires automatic, trustworthy logs for high-risk systems. Kyde produces hash-chained, vendor-independent records designed for the agent layer of that duty, not the whole obligation, with Ed25519 signing available on the Enterprise tier. High-risk enforcement begins December 2, 2027. NIS-2 and DORA apply today.",
   },
 ];
 
@@ -61,7 +61,7 @@ const faqSchema = {
           Kyde vs <span class="gradient-text">WitnessAI</span>
         </h1>
         <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
-          Despite the similar space, these are two different products for two different questions. WitnessAI is an AI security platform focused on visibility and guardrails for how your workforce uses AI: it observes traffic, infers intent, and applies policies to risky usage. Kyde is a behavioral firewall for autonomous AI agents: it sits at the network boundary, enforces deterministic rules before an action executes, and records every agent action in a hash-chained, tamper-evident ledger. In one sentence: WitnessAI estimates what your AI is trying to do. Kyde defines what your agents may do, and proves what they did.
+          Despite the similar space, these are two different products for two different questions. WitnessAI is an AI security platform focused on visibility and guardrails for how your workforce uses AI: it observes traffic, infers intent, and applies policies to risky usage. Kyde is the behavioral system of record for autonomous work: it sits at the network boundary, where the enforcement layer, the Behavioral Firewall, applies deterministic rules before an action executes, and every action that crosses it lands in a hash-chained, tamper-evident ledger. In one sentence: WitnessAI estimates what your AI is trying to do. Kyde defines what your agents may do, and proves what they did.
         </p>
       </div>
     </section>

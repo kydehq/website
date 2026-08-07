@@ -612,7 +612,8 @@ ledger logging (the chat row is always logged, so its toggle is hidden).
 
 **Who can see it:** admin or auditor.
 
-A forensic analytics view across all agents for a selected time window.
+A forensic analytics view across every agent in the ledger for a selected
+time window.
 Charts: activity over time (with average and +2σ reference lines), top
 agents bar, and model / provider / action-type pie charts. A
 Tokens/Calls metric toggle switches what the charts measure. Below the
@@ -662,7 +663,8 @@ and last-seen time. Infinite scroll.
   expandable body (auditor-only content), tool-call names, and an inline
   red "⚠ DLP alert(s)" box whose chips open the alert detail sheet.
 
-A footer notes the entries are an immutable, signed ledger.
+A footer notes that the entries are hash-chained, so altering one breaks
+every entry after it, and signed on the Enterprise edition.
 
 ### 2.9 Audit Log
 
@@ -705,7 +707,10 @@ the result as compliance evidence.
 
 - **Hero:** `COMPLIANT` (green) / `NON-COMPLIANT` (red), driven by chain
   verification, with a context line (entry count, chain breaks, signature
-  failures).
+  failures). Read the label narrowly: it says the chain and the signatures
+  verify, nothing more. It is not a statement that your deployment meets any
+  framework, which depends on how you run the gateway and on much that never
+  touches the ledger.
 - **KPIs:** Ledger Entries · Chain Integrity · Signing Mode.
 - **Detail cards:** Verification Details; Signing Status; Evidence Export
   (time-window picker + buttons: Full Compliance Report PDF, Ledger CSV,
@@ -717,7 +722,9 @@ the result as compliance evidence.
 - **Evidence Coverage** cards per framework — EU AI Act, DORA, NIS-2,
   GDPR Art. 30 — each with a COVERED / PARTIAL badge and per-article
   check/✗ icons. These derive from live ledger / DLP / signing signals,
-  not from alert counts.
+  not from alert counts. The badges are scoped to the agent layer: they say
+  what the ledger can evidence for a given article, not that the article as a
+  whole is discharged.
 
 If the hero ever reads NON-COMPLIANT, read the Integrity Errors list,
 then see the deployment guide's troubleshooting section.
@@ -1234,7 +1241,8 @@ continues) or clear the per-pattern Prevention toggles.
   content hashes (see §2.8). A single conversation that compacts or
   spans hours stays as one session.
 - **Entry.** One request/response pair recorded in the audit ledger.
-  Each entry is signed and linked to the previous one by hash.
+  Each entry is linked to the previous one by hash, and signed on the
+  Enterprise edition.
 - **Ledger chain.** The full series of entries, linked by
   `entry_hash` → `prev_hash`. Tampering with any entry breaks every
   subsequent hash — the Compliance page surfaces this immediately.

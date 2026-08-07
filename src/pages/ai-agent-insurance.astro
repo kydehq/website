@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "How does parametric AI agent insurance work in practice?",
-    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance and infrastructure like KYDE are architecturally linked. Without the monitoring layer, there's no reliable trigger signal.",
+    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance depends on infrastructure like KYDE. Without the monitoring layer, there's no reliable trigger signal. The recording runs today. The insurance reading built on top of it is not shipped yet.",
   },
   {
     q: "What does the Moffatt v. Air Canada precedent mean for AI agent liability?",
@@ -379,10 +379,13 @@ const faqSchema = {
               </div>
               <div class="prose-kyde">
                 <p>
-                  KYDE is the behavioral monitoring infrastructure for autonomous AI, the continuous, cryptographically signed, tamper-evident record of every agent action that the confidence infrastructure depends on.
+                  KYDE is the behavioral system of record for autonomous work, the continuous, tamper-evident record of every agent action routed through it, which is what the confidence infrastructure depends on.
                 </p>
                 <p>
-                  KYDE Gateway sits in the data path between agents and every system they act on. Every request routes through the Gateway before reaching any downstream system. The Gateway captures the action, signs it using Ed25519 cryptography, chains it to the previous entry, and forwards the original request, without modifying agent behavior, without requiring changes to the agent or model provider, in under 100 milliseconds.
+                  KYDE Gateway sits in the data path between the agents and the systems they act on. What you route through the Gateway is captured before it reaches the downstream system, chained to the previous entry so that altering one entry breaks every entry after it, and forwarded unchanged, without modifying agent behavior, without requiring changes to the agent or model provider, in under 100 milliseconds. Signing each entry with your own Ed25519 keys is an Enterprise capability. What the Gateway does not see, it does not record, which is why coverage is reported alongside the record rather than assumed.
+                </p>
+                <p>
+                  The insurance reading itself, a behavioral record an underwriter prices, is not shipped. What runs today is the recording it would be priced from.
                 </p>
               </div>
 
@@ -391,25 +394,25 @@ const faqSchema = {
                   {
                     title: "For the legal frameworks",
                     items: [
-                      "Produces DORA-independent audit trail, not stored on model provider infrastructure",
-                      "Enables EU AI Act causal reconstructability, complete decision chain per event",
-                      "Creates the evidence that rebuts PLD strict liability presumptions",
+                      "Audit trail independent of the model provider, for the agent layer of DORA duties",
+                      "Supports EU AI Act causal reconstructability, decision chain per recorded event",
+                      "Produces the evidence you would answer PLD strict liability presumptions with",
                     ],
                   },
                   {
                     title: "For the insurance market",
                     items: [
-                      "Provides continuous behavioral signal for parametric trigger verification",
-                      "Establishes behavioral baselines that enable dynamic risk pricing",
-                      "Satisfies AIUC-1's 'substantive and verifiable' evidence standard",
+                      "Provides the continuous behavioral signal a parametric trigger has to be checked against",
+                      "Establishes the behavioral baselines dynamic risk pricing would be built on",
+                      "Produces evidence of the kind AIUC-1 calls 'substantive and verifiable'",
                     ],
                   },
                   {
                     title: "For the enterprise",
                     items: [
                       "Zero changes to model providers or agent code, one ENV variable",
-                      "All providers covered: OpenAI, Anthropic, Gemini, local models, MCP",
-                      "Free Starter tier for audit/observe; Enterprise for enforcement + SLA",
+                      "Provider-agnostic: OpenAI, Anthropic, Gemini, local models, MCP, whatever you route through it",
+                      "Free 30-day audit with Starter; Enterprise for enforcement, signing and SLA",
                     ],
                   },
                 ].map(({ title, items }) => (
@@ -428,9 +431,9 @@ const faqSchema = {
               </div>
 
               <div class="mt-8 border border-line-0 bg-bg-1 p-8">
-                <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4 inline-block">Start with the free tier</p>
+                <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4 inline-block">Start with the free audit</p>
                 <p class="text-ink-1 mb-6 text-sm leading-relaxed">
-                  Kyde Gateway Starter is free, self-serve, no SLA. Deploy in minutes, see your agent traffic with hash-chained, tamper-evident records. When you need enforcement (blocking out-of-policy actions pre-execution), managed signing infrastructure, and SLA, that's Gateway Enterprise.
+                  Kyde Gateway Starter is a free, self-serve 30-day audit. Deploy in minutes, let it run, and end with what your agents actually did, in hash-chained, tamper-evident records. When you need enforcement (blocking out-of-policy actions pre-execution), signing each entry with your own keys, and an SLA, that's Gateway Enterprise.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3">
                   <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all">

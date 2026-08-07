@@ -192,8 +192,8 @@ import Footer from '../../components/Footer.astro';
                 <p class="text-ink-1 text-sm">Operates at the speed of computation, milliseconds. Infrastructure enforces policies in real time, before actions are executed. No human is in this loop. None should be.</p>
               </div>
               <div class="border-l-2 border-line-0 pl-6">
-                <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-1">Judicial Layer · Immutable Record</p>
-                <p class="text-ink-1 text-sm">Operates at the speed of audit, retroactively, on demand. Every decision is cryptographically anchored to the policy that governed it, creating an immutable chain of evidence queryable by regulators, auditors, and courts.</p>
+                <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-1">Judicial Layer · Hash-Chained Record</p>
+                <p class="text-ink-1 text-sm">Operates at the speed of audit, retroactively, on demand. Every decision is cryptographically anchored to the policy that governed it, in a hash-chained record: altering one entry breaks every entry after it, and an auditor or regulator can recompute that offline.</p>
               </div>
             </div>
 
@@ -290,7 +290,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
 
               <div>
                 <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Dimension 3 · Data Domain</p>
-                <p class="text-ink-1 text-sm mb-4">Classification of data types the agent is permitted to access, process, or transmit. Data domain scoping is the primary mechanism for GDPR, HIPAA, and EU AI Act compliance at the agent level.</p>
+                <p class="text-ink-1 text-sm mb-4">Classification of data types the agent is permitted to access, process, or transmit. Data domain scoping is the primary mechanism for the agent layer of GDPR, HIPAA, and EU AI Act duties.</p>
                 <pre class="bg-bg-1 border border-line-0 p-4 text-xs font-mono text-ink-1 overflow-x-auto"><code>data_domain:
   permitted:  ["client_portfolio_data", "market_data", "public_filings"]
   prohibited: ["PII", "health_records", "biometric_data"]</code></pre>
@@ -405,13 +405,13 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
 
             <div class="border border-line-0 bg-bg-1 p-6 my-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-2">The Behavioral Intelligence Advantage</p>
-              <p class="text-ink-1 text-sm">A governance proxy that observes all agent traffic can cluster agents by behavior, detect fleet-wide anomalies, and identify which agent types are high-trust versus high-risk, capabilities impossible at human speed.</p>
+              <p class="text-ink-1 text-sm">A governance proxy that observes the agent traffic routed through it can cluster those agents by behavior, detect fleet-wide anomalies, and identify which agent types are high-trust versus high-risk, capabilities impossible at human speed. What is not routed through the proxy is not in the picture.</p>
             </div>
 
             <!-- Section 7 -->
             <h2 class="text-xl font-bold text-ink-0 uppercase tracking-tight mt-16 mb-6 border-b border-line-0 pb-3">7. The Role Protocol Specification</h2>
 
-            <p>A Role Protocol is the machine-readable implementation of an agent role. It is the atomic unit of Machine-First Governance: a cryptographically signed artifact that travels with every agent, is verifiable by any counterparty, and is immutably chained to the ledger that governs it.</p>
+            <p>A Role Protocol is the machine-readable implementation of an agent role. It is the atomic unit of Machine-First Governance: a cryptographically signed artifact that travels with every agent, is verifiable by any counterparty, and is hash-chained to the ledger that governs it.</p>
 
             <h3 class="text-base font-bold text-ink-0 mt-10 mb-3">7.1 Structure</h3>
 
@@ -448,8 +448,8 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
 
             <div class="space-y-4 my-6">
               <div class="flex gap-4">
-                <span class="font-mono text-xs text-ink-1 shrink-0 mt-0.5">Immutability</span>
-                <p class="text-ink-1 text-sm">The role protocol is signed with Ed25519 by the policy authority at issuance. The agent cannot modify its own role.</p>
+                <span class="font-mono text-xs text-ink-1 shrink-0 mt-0.5">Signed at issuance</span>
+                <p class="text-ink-1 text-sm">The role protocol is signed with Ed25519 by the policy authority at issuance. The agent cannot modify its own role without breaking the signature.</p>
               </div>
               <div class="flex gap-4">
                 <span class="font-mono text-xs text-ink-1 shrink-0 mt-0.5">Policy Binding</span>
@@ -473,7 +473,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
               <div class="border-b border-line-0 pb-8">
                 <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">8.1 · Banking · Autonomous Trading</p>
                 <p class="font-semibold text-ink-0 mb-3">Role: Executor. Scope: <code class="text-ink-1 text-xs bg-line-0 px-1">trading.*</code> within 5% AUM/day. Escalation: any single trade &gt;2% AUM. Time Window: market hours CEST only.</p>
-                <p class="text-ink-1 text-sm">Without this taxonomy: shared <code class="text-ink-1 bg-line-0 px-1">trading_api_key</code> across all agents, no financial limits, no attribution when BaFin investigates a trade sequence. The governance proxy blocks any attempt to execute margin trades or options. Every executed trade is Ed25519-signed and chained to the role protocol version that scoped it. When a regulator requests an audit trail, the response is not a vendor-provided log. It is a mathematical proof.</p>
+                <p class="text-ink-1 text-sm">Without this taxonomy: shared <code class="text-ink-1 bg-line-0 px-1">trading_api_key</code> across all agents, no financial limits, no attribution when BaFin investigates a trade sequence. The governance proxy blocks any attempt to execute margin trades or options. Every executed trade is Ed25519-signed and chained to the role protocol version that scoped it. When a regulator requests an audit trail, the response is not a vendor-provided log. It is a chained record whose integrity the regulator can recompute without taking anyone's word for it.</p>
               </div>
 
               <div class="border-b border-line-0 pb-8">
@@ -485,7 +485,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
               <div>
                 <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">8.3 · Critical Infrastructure · Grid Management</p>
                 <p class="font-semibold text-ink-0 mb-3">Role: Executor with restricted Delegate (can spawn sub-agents for assigned grid zones only). Scope: <code class="text-ink-1 text-xs bg-line-0 px-1">grid_zone_A.dispatch</code>, <code class="text-ink-1 text-xs bg-line-0 px-1">energy_market.purchase</code>. Blast Radius Control: explicit blocklist on adjacent zones.</p>
-                <p class="text-ink-1 text-sm">In NIS-2 regulated environments, anonymity is not permissible. The dispatch agent's signed identity and the role protocol that scoped each grid action constitute the evidence trail that the Bundesnetzagentur requires. No cloud vendor log qualifies. A tamper-evident, independently-signed ledger does.</p>
+                <p class="text-ink-1 text-sm">In NIS-2 regulated environments, anonymity is not permissible. The dispatch agent's signed identity and the role protocol that scoped each grid action are the evidence for the agent layer of what the Bundesnetzagentur asks an operator to show. A cloud vendor log leaves that to the vendor's word. A tamper-evident, independently signed ledger does not.</p>
               </div>
 
             </div>
@@ -512,7 +512,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
               </div>
               <div class="flex gap-4">
                 <span class="font-mono text-xs text-ink-1 shrink-0 mt-0.5">IV.</span>
-                <p class="text-ink-1 text-sm">The Role Protocol as a machine-readable, cryptographically signed policy artifact, verifiable by any counterparty, immutably chained to the ledger.</p>
+                <p class="text-ink-1 text-sm">The Role Protocol as a machine-readable, cryptographically signed policy artifact, verifiable by any counterparty, hash-chained to the ledger.</p>
               </div>
             </div>
 
@@ -582,7 +582,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
             <!-- CTA -->
             <div class="border border-line-0 p-5 bg-bg-1">
               <p class="text-xs text-ink-1 mb-4 leading-relaxed">
-                Kyde implements the Machine-First Governance framework in this paper.
+                Kyde is built along the Machine-First Governance framework in this paper.
               </p>
               <button
                 onclick="openModal()"
@@ -604,7 +604,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
         <div class="max-w-2xl">
           <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">About Kyde</p>
           <p class="text-ink-1 text-sm leading-relaxed">
-            Kyde is the Trust &amp; Control Layer for the Agentic Economy. The Kyde governance proxy implements the Machine-First Governance framework described in this paper: cryptographic agent identity, role-based scope enforcement, real-time budget limits, and a tamper-evident SHA-256 hash-chained audit ledger, deployed in under five minutes via a single environment variable.
+            Kyde is the behavioral system of record for autonomous work. The Kyde governance proxy is built along the Machine-First Governance framework described in this paper: cryptographic agent identity, role-based scope enforcement, real-time budget limits, and a tamper-evident SHA-256 hash-chained audit ledger over what is routed through it, deployed in under five minutes via a single environment variable.
           </p>
           <div class="mt-6 flex items-center gap-4">
             <button

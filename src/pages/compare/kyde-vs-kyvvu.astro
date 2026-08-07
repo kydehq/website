@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Which one covers shadow agents?",
-    a: "Kyde. That is the structural difference, not a feature gap. An agent that never loads the SDK does not exist for in-process governance. It cannot avoid the network boundary.",
+    a: "Kyde. That is the structural difference, not a feature gap. An agent that never loads the SDK does not exist for in-process governance. It still has to reach a model provider, and once egress rules make the gateway the only route out, it cannot avoid the boundary.",
   },
 ];
 
@@ -87,7 +87,7 @@ const faqSchema = {
               {[
                 "You cannot guarantee that every agent in the company is instrumented. Shadow agents are exactly the ones that will not import a security SDK",
                 "You want enforcement that lives outside the agent, where the agent cannot disable it",
-                "One deployment must cover every agent, every framework and every provider at once",
+                "One deployment must cover every agent, framework and provider routed through it, without a per-framework integration each time",
               ].map((item) => (
                 <li class="flex items-start gap-3 text-sm text-ink-0 leading-relaxed"><span class="shrink-0 mt-0.5 text-live">→</span>{item}</li>
               ))}
@@ -140,7 +140,7 @@ const faqSchema = {
         <div>
           <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Where the approaches differ</p>
           <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
-            The difference shows up the day an agent appears that nobody registered. In-process governance has a structural precondition: the agent must cooperate. It must import the SDK, or run behind a connector, or be routed through the engine. Every agent that does not is not just ungoverned, it is invisible. In practice, ungoverned agents are the risk. The marketing intern's automation, the vendor tool with an embedded agent, the developer experiment that quietly reached production: none of them will load a security kernel. Kyde starts from the opposite assumption: agents will not cooperate, so governance must not depend on them. The gateway sits at the network boundary the traffic must cross anyway. Egress rules make it the only route to model providers. No code change, no opt-in, no invisible agents.
+            The difference shows up the day an agent appears that nobody registered. In-process governance has a structural precondition: the agent must cooperate. It must import the SDK, or run behind a connector, or be routed through the engine. Every agent that does not is not just ungoverned, it is invisible. In practice, ungoverned agents are the risk. The marketing intern's automation, the vendor tool with an embedded agent, the developer experiment that quietly reached production: none of them will load a security kernel. Kyde starts from the opposite assumption: agents will not cooperate, so governance must not depend on them. The gateway sits at the network boundary the traffic must cross anyway. Egress rules make it the only route to model providers. No code change, no opt-in, and no agent that reaches a provider through that egress stays invisible.
           </p>
         </div>
 

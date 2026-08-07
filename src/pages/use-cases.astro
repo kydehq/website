@@ -17,8 +17,8 @@ const cases = [
       },
       {
         label: 'PROVE',
-        q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'Every autonomous trade is Ed25519-signed at the point of capture as a 6D fingerprint, who, what, when, where, why, how. Tamper-proof audit trail stored outside the agent runtime. For DORA-regulated deployments requiring the highest assurance: military-grade hardware isolation (TPM/HSM) ensures signing keys never leave the hardware boundary. BaFin receives mathematical proof, not an editable server log.',
+        q: 'Signed 6D fingerprint. Hash-chained record.',
+        text: 'Every autonomous trade is Ed25519-signed at the point of capture as a 6D fingerprint, who, what, when, where, why, how. The record is hash-chained and stored outside the agent runtime, so altering one entry breaks every entry after it. The ledger and the exports run today, signing each entry with your own keys is an Enterprise capability. BaFin receives a chain it can recompute offline, not an editable server log.',
       },
       {
         label: 'RATE',
@@ -41,8 +41,8 @@ const cases = [
       },
       {
         label: 'PROVE',
-        q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained as a 6D fingerprint. Every financial commitment the machine entered is court-admissible. The CFO has unbreakable proof, not a filtered dashboard export.',
+        q: 'Signed 6D fingerprint. Hash-chained record.',
+        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained as a 6D fingerprint. Every financial commitment the machine entered is on the record, signed at the point of capture. The CFO has a chain a third party can recompute, not a filtered dashboard export.',
       },
       {
         label: 'RATE',
@@ -65,8 +65,8 @@ const cases = [
       },
       {
         label: 'PROVE',
-        q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'In GDPR Art. 9 / HIPAA environments, tamper-evident records are a legal requirement. The Behavioral Firewall guarantees that hospitals can prove, in any audit, exactly which agent processed which patient data, when, and on what basis. Every entry signed as a 6D fingerprint at the point of capture. Unalterable.',
+        q: 'Signed 6D fingerprint. Hash-chained record.',
+        text: 'In GDPR Art. 9 and HIPAA environments, the agent layer has to hold up in an audit. The record shows hospitals exactly which agent processed which patient data, when, and on what basis. Every entry is signed as a 6D fingerprint at the point of capture and hash-chained, so altering one entry breaks every entry after it.',
       },
       {
         label: 'RATE',
@@ -89,8 +89,8 @@ const cases = [
       },
       {
         label: 'PROVE',
-        q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'When a fraud ring floods automated agents with fake images, the Behavioral Firewall proves immutably, on what data basis, at what timestamp, the agent approved each payment. Every decision signed as a 6D fingerprint at the point of capture. Essential for internal fraud investigators, Solvency II audits, and GDPR Art. 22 challenges.',
+        q: 'Signed 6D fingerprint. Hash-chained record.',
+        text: 'When a fraud ring floods automated agents with fake images, the record shows on what data basis, at what timestamp, the agent approved each payment. Every decision is signed as a 6D fingerprint at the point of capture and hash-chained, so a reordered or edited entry is visible. Evidence for internal fraud investigators, and for the agent layer of Solvency II audits and GDPR Art. 22 challenges.',
       },
       {
         label: 'RATE',
@@ -113,8 +113,8 @@ const cases = [
       },
       {
         label: 'PROVE',
-        q: 'Signed 6D fingerprint. Immutable record.',
-        text: 'When an outage occurs, the Bundesnetzagentur demands a provenance-grade record. Vendor cloud logs do not qualify. For KRITIS-grade deployments, the Behavioral Firewall provides military-grade hardware isolation (TPM/HSM), signing keys never exposed to the host OS. What regulators receive is a cryptographic ledger with unbreakable chain of custody.',
+        q: 'Signed 6D fingerprint. Hash-chained record.',
+        text: 'When an outage occurs, the Bundesnetzagentur asks what issued the command and on what basis. A vendor cloud log is the vendor\'s own account of it. KYDE captures the action at the boundary, signs it as a 6D fingerprint, and chains it, so altering one entry breaks every entry after it. What regulators receive is a chain they can recompute offline. Signing each entry with your own keys is an Enterprise capability, hardware-backed key storage (TPM/HSM) is planned, not shipped.',
       },
       {
         label: 'RATE',
@@ -129,7 +129,7 @@ const cases = [
 
 <Base
   title="Use Cases, KYDE"
-  description="The Behavioral Firewall. Infrastructure-grade governance for any organization running AI agents in production, regardless of sector, provider, or use case."
+  description="The behavioral system of record for autonomous work. One hash-chained record of every agent action routed through KYDE, for any organization running AI agents in production, in any sector."
 >
   <Navbar />
 
@@ -156,10 +156,10 @@ const cases = [
           </div>
           <div class="space-y-6">
             <p class="text-sm uppercase tracking-wide leading-relaxed text-ink-1">
-              The Behavioral Firewall provides infrastructure-grade governance for any organization running AI agents in production, regardless of sector, provider, or use case.
+              KYDE is the behavioral system of record for autonomous work. One record of every agent action routed through it, for any organization running AI agents in production, in any sector.
             </p>
             <p class="text-sm uppercase tracking-wide leading-relaxed text-ink-1">
-              The <span class="font-mono text-ink-1">EU AI Act</span>, <span class="font-mono text-ink-1">NIS-2</span>, <span class="font-mono text-ink-1">DORA</span>, and <span class="font-mono text-ink-1">GDPR</span> don't care which LLM vendor you chose. They care whether you can prove what your agents did, explain why, and demonstrate that the record can't be tampered with.
+              The <span class="font-mono text-ink-1">EU AI Act</span>, <span class="font-mono text-ink-1">NIS-2</span>, <span class="font-mono text-ink-1">DORA</span>, and <span class="font-mono text-ink-1">GDPR</span> don't care which LLM vendor you chose. They care whether you can show what your agents did, explain why, and demonstrate that the record has not been altered since it was written.
             </p>
           </div>
         </div>
@@ -239,7 +239,7 @@ const cases = [
               bullets: [
                 "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure, is a vendor report. A compromised host can rewrite it silently. KYDE's records are cryptographically signed at the point of capture. Alter any entry, every subsequent link breaks.",
                 "Your audit trail is yours. Not locked to a provider console, not dependent on vendor uptime, not subject to vendor retention policies.",
-                "Audit standing that satisfies regulators, courts, and your own InfoSec review, built before an incident, not assembled after one.",
+                "Evidence you can hand to a regulator, a lawyer, or your own InfoSec review, written before an incident, not assembled after one.",
               ],
             },
             {
@@ -257,7 +257,7 @@ const cases = [
               label: "GC · DPO · CCO",
               quote: "One framework won't be enough. One evidence trail has to cover all of them.",
               bullets: [
-                "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35, regulators don't coordinate their requirements around your roadmap. KYDE's tamper-evident trail satisfies all of them from day one.",
+                "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35, regulators don't coordinate their requirements around your roadmap. One hash-chained trail, built to serve as evidence for the agent layer of all of those duties from day one.",
                 "Verifiable audit exports on demand, complete, machine-generated, cryptographically signed. Not a screenshot. Not a filtered vendor report.",
                 "Every challenged decision is reconstructable: what the agent was shown, what it decided, which sources it relied on. The record exists before the challenge arrives.",
               ],
@@ -329,7 +329,7 @@ const cases = [
               Your industry. Your agents.<br />Your critical infrastructure.
             </h2>
             <p class="text-lg text-ink-1 mb-10">
-              The Behavioral Firewall works across every sector, every provider, every framework. Governance isn't the brake. It's what lets you accelerate.
+              One record, across every sector, and across every provider and framework you route through KYDE. Governance isn't the brake. It's what lets you accelerate.
             </p>
             <button
               onclick="openModal()"

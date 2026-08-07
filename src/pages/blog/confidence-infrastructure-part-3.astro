@@ -119,7 +119,7 @@ import Footer from '../../components/Footer.astro';
               This is the same architectural principle that underlies every independent audit function. The auditor does not sit inside the audited entity. They sit outside it, with independent access to the evidence. The behavioral monitoring layer for AI agents must be designed on the same principle.
             </p>
 
-            <h2>The technical architecture of an immutable record</h2>
+            <h2>The technical architecture of a tamper-evident record</h2>
             <p>
               The research on AI governance audit infrastructure identifies a consistent set of technical requirements for records that can withstand regulatory and legal scrutiny.
             </p>
@@ -130,7 +130,7 @@ import Footer from '../../components/Footer.astro';
               <strong>Hash chaining between entries.</strong> Each entry contains the cryptographic hash of the previous entry. This creates a sequential integrity guarantee: alter any entry in the chain, and every subsequent entry's hash is invalidated. The tampering is detectable without access to the original logs, only the chain itself is needed to verify that it has not been modified. Merkle tree structures allow efficient verification at scale, enabling auditors to verify the integrity of specific events without exposing the complete log.
             </p>
             <p>
-              <strong>Append-only storage with WORM properties.</strong> The log is written to storage that does not permit modification or deletion, Write Once, Read Many. Records written to WORM storage cannot be altered by the operator, by the agent, or by any party with access to the host infrastructure. The immutability is a property of the storage layer, not of access controls that could be overridden.
+              <strong>Append-only storage with WORM properties.</strong> The log is written to storage that does not permit modification or deletion, Write Once, Read Many. Records written to WORM storage cannot be rewritten in place by the operator, by the agent, or by any party with access to the host infrastructure. That property belongs to the storage layer, not to access controls that could be overridden, and the hash chain above it is what makes any attempt to work around the storage detectable.
             </p>
             <p>
               <strong>Independence from model provider infrastructure.</strong> The monitoring infrastructure stores records in systems that the model provider does not control, does not have access to, and does not hold the keys for. This is the architectural operationalization of DORA's independence requirement. The evidence trail's integrity does not depend on any party whose interests might be adversarial to the organization relying on the evidence.
@@ -213,7 +213,7 @@ import Footer from '../../components/Footer.astro';
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
               <p class="text-base font-semibold text-ink-0 mb-2">We are building the telematics for autonomous systems.</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is the behavioral monitoring infrastructure for autonomous AI, a continuous, cryptographically signed, tamper-evident record of every agent action, independent of every model provider. We are looking to work with insurers, auditors, certification bodies, and regulators who understand that the confidence infrastructure for autonomous AI is a shared project.
+                KYDE is the behavioral system of record for autonomous work, a continuous, cryptographically signed, hash-chained record of every agent action routed through it, independent of every model provider. We are looking to work with insurers, auditors, certification bodies, and regulators who understand that the confidence infrastructure for autonomous AI is a shared project.
               </p>
               <div class="flex flex-col sm:flex-row gap-3">
                 <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all">

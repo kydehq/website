@@ -110,7 +110,7 @@ const pricingFaqSchema = {
               <p class="text-xs text-ink-1">Basic policies</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-ink-1 leading-relaxed mb-6">For developers and testing. An independent witness for every agent action, hash-chained and tamper-evident, from day one. No credit card required.</p>
+              <p class="text-xs text-ink-1 leading-relaxed mb-6">For developers and testing. An independent witness for every agent action routed through it, hash-chained and tamper-evident, from day one. No credit card required.</p>
               <ul class="space-y-2.5">
                 {[
                   { text: "Agent identity registration" },
@@ -152,7 +152,7 @@ const pricingFaqSchema = {
               <p class="text-xs text-ink-1">Custom policies</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-ink-1 leading-relaxed mb-4">For scaling AI workforces. The guard that blocks what must not happen: custom policy engine, full compliance export, 30-day audit trail. Court-ready evidence by default.</p>
+              <p class="text-xs text-ink-1 leading-relaxed mb-4">For scaling AI workforces. The guard that blocks what must not happen: custom policy engine, signed evidence export, 30-day audit trail. Evidence a third party can recompute offline.</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-3">Everything in Starter, plus:</p>
               <ul class="space-y-2.5">
                 {[
@@ -160,8 +160,8 @@ const pricingFaqSchema = {
                   { text: "Policy Enforcement Point (hard circuit breakers)", g: "PREVENT" },
                   { text: "30-day audit log retention", g: "PROVE" },
                   { text: "Continuous data integrity verification", g: "PROVE" },
-                  { text: "Compliance export (NIS-2, DORA, EU AI Act)", g: "PROVE" },
-                  { text: "Court-ready cryptographic audit trail", g: "PROVE" },
+                  { text: "Evidence export for the agent layer of NIS-2, DORA, EU AI Act", g: "PROVE" },
+                  { text: "Hash-chained audit trail, verifiable by a third party", g: "PROVE" },
                   { text: "Machine-readable Proof of Authority", g: "PROVE" },
                 ].map(({ text, g }) => (
                   <li class="flex gap-2.5 text-xs text-ink-1 leading-relaxed">
@@ -252,7 +252,7 @@ const pricingFaqSchema = {
                 { label: "Scale",                  vals: ["Dev / Testing", "Scaling fleets",             "Unlimited"]   },
                 { label: "Policies",               vals: ["Basic",         "Custom",                     "Custom + Air-Gapped"] },
                 { label: "Log retention",          vals: ["—",             "30 days",                    "Unlimited"]   },
-                { label: "Compliance export",      vals: ["✓ (unsigned)",  "✓ (signed)",                 "✓ (signed)"]  },
+                { label: "Evidence export",        vals: ["✓ (unsigned)",  "✓ (signed)",                 "✓ (signed)"]  },
                 { label: "Silicon Leash (TPM/HSM)",vals: ["—",             "—",                          "✓"]           },
               ].map(({ label, vals }) => (
                 <tr>
@@ -337,7 +337,7 @@ const pricingFaqSchema = {
 
         <div class="grid border border-line-0 divide-y divide-line-0 sm:divide-y-0 sm:divide-x sm:grid-cols-2 lg:grid-cols-5">
           {[
-            { label: "Provider coverage",         value: "Every model. Every provider." },
+            { label: "Provider coverage",         value: "Every model and provider routed through it" },
             { label: "Deployment",                value: "One ENV variable or Group Policy push" },
             { label: "Latency overhead",           value: "< 100ms" },
             { label: "Code changes required",      value: "None" },

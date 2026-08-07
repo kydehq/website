@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.astro';
 
 <Base
   title="Shadow AI Governance Checklist, KYDE"
-  description="8-phase checklist for implementing AI governance: from shadow AI discovery to compliance readiness. Includes templates, RACI matrix, and incident response."
+  description="8-phase checklist for implementing AI governance: from shadow AI discovery to documented evidence a regulator can read. Includes templates, RACI matrix, and incident response."
 >
   <Navbar />
 
@@ -56,7 +56,7 @@ import Footer from '../../components/Footer.astro';
           <article class="prose-kyde min-w-0">
 
             <p>
-              <strong>Governance</strong> is the step after detection and classification. This checklist walks you through the process of taking a shadow AI system you've discovered and making it compliant with EU AI Act and operational best practices.
+              <strong>Governance</strong> is the step after detection and classification. This checklist walks you through the process of taking a shadow AI system you've discovered and bringing it under governance built for EU AI Act duties and operational best practices.
             </p>
 
             <h2 id="lifecycle">The Governance Lifecycle</h2>
@@ -77,7 +77,7 @@ import Footer from '../../components/Footer.astro';
             </ol>
 
             <p class="mt-6">
-              <strong>Timeline:</strong> 4-6 months from discovery to compliance-ready.
+              <strong>Timeline:</strong> 4-6 months from discovery to a governed system with documented evidence.
             </p>
 
             <h2 id="phase-1">Phase 1: Discovery & Initial Assessment</h2>
@@ -154,12 +154,12 @@ import Footer from '../../components/Footer.astro';
             <ul>
               <li>Audit trail system selected & deployed</li>
               <li>Captures: Decision / Timestamp / User / Authorization / Output</li>
-              <li>Logs are immutable (cannot be deleted/modified retroactively)</li>
-              <li>Logs are cryptographically signed (tamper-proof)</li>
+              <li>Logs are hash-chained (altering one entry breaks every entry after it)</li>
+              <li>Logs are cryptographically signed, and a third party can recompute the chain offline</li>
               <li>Logs retained for minimum 3 years</li>
               <li>Access control implemented (only scoped users can view)</li>
               <li>All log access is itself logged</li>
-              <li>Regular backup of logs (offsite, immutable)</li>
+              <li>Regular backup of logs (offsite, write-once storage)</li>
             </ul>
 
             <h3>Step 3.2: Policy & Authorization Framework</h3>
@@ -356,7 +356,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Ready to Implement?</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Kyde automates the audit trail, policy enforcement, and compliance monitoring across all three phases: detection, classification, and governance.
+                Kyde writes the audit trail and enforces policy on every call routed through it, across all three phases: detection, classification, and governance. The signed, hash-chained ledger and the exports run today. Approval queues and registry sync do not.
               </p>
               <div class="flex flex-col sm:flex-row gap-3">
                 <a
@@ -410,7 +410,7 @@ import Footer from '../../components/Footer.astro';
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Timeline</p>
               <p class="font-mono text-sm text-ink-1">4-6 months</p>
-              <p class="text-xs text-ink-1 mt-1">From discovery to compliance</p>
+              <p class="text-xs text-ink-1 mt-1">From discovery to governed</p>
             </div>
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Full Guide</p>

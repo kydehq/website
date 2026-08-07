@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "What is a Shadow AI governance proxy?",
-    a: "A governance proxy is a network layer that sits between your users and agents and all external LLM providers. All AI inference traffic routes through the proxy, which logs every request and response with a tamper-evident record, enforces policy rules (blocking requests that violate data classification, scope, or provider restrictions), and provides visibility across all providers simultaneously. It requires no code changes in applications, typically a single environment variable or network routing rule. This is the only approach that provides complete visibility without requiring enumeration of every AI tool in use."
+    a: "A governance proxy is a network layer that sits between your users and agents and all external LLM providers. All AI inference traffic routes through the proxy, which logs every request and response with a tamper-evident record, enforces policy rules (blocking requests that violate data classification, scope, or provider restrictions), and gives you one view across every provider it routes to. It requires no code changes in applications, typically a single environment variable or network routing rule. It sees what is routed through it, not what bypasses it, but it is the only approach that covers the routed traffic in full without requiring enumeration of every AI tool in use."
   },
 ];
 
@@ -178,7 +178,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Regulatory compliance.</strong> Under GDPR, processing personal data through an unauthorized third-party processor is a breach regardless of whether a data incident occurs. Under the EU AI Act, deploying a High-Risk AI system without the required logging, oversight, and registration obligations is non-compliant regardless of whether that system causes harm. Shadow AI in regulated verticals creates compliance exposure that is both retroactive and structural, you cannot fix it by issuing a policy. You need visibility first.
+              <strong>Regulatory compliance.</strong> Under GDPR, processing personal data through an unauthorized third-party processor is a breach regardless of whether a data incident occurs. Under the EU AI Act, deploying a High-Risk AI system without the required logging, oversight, and registration obligations breaches those obligations regardless of whether that system causes harm. Shadow AI in regulated verticals creates compliance exposure that is both retroactive and structural, you cannot fix it by issuing a policy. You need visibility first.
             </p>
 
             <p>
@@ -221,7 +221,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>A governance proxy layer.</strong> The only way to achieve complete Shadow AI visibility across all providers, all agents, and all deployment patterns is a network-level governance proxy that all outbound AI traffic routes through. This is not primarily a blocking tool, it is a visibility tool. Once you can see it, you can govern it.
+              <strong>A governance proxy layer.</strong> The broadest single signal is a network-level governance proxy that outbound AI traffic routes through: every provider, every agent, and every deployment pattern on that path shows up in one record. It sees what routes through it, so it does not replace the network and endpoint sweeps above, it turns what they find into something continuously visible. This is not primarily a blocking tool, it is a visibility tool. Once you can see it, you can govern it.
             </p>
 
             <p>
@@ -335,9 +335,9 @@ const faqSchema = {
             <!-- KYDE CTA -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
-              <p class="text-base font-semibold text-ink-0 mb-2">See every AI inference call across your organization, from day one.</p>
+              <p class="text-base font-semibold text-ink-0 mb-2">See every AI inference call routed through it, from day one.</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is a model-agnostic governance proxy that provides complete visibility into all AI agent traffic across every provider. Shadow AI doesn't disappear, it becomes visible, logged, and policy-enforced. One environment variable or network routing rule. No code changes. Any provider.
+                KYDE is the behavioral system of record for autonomous work: a model-agnostic governance proxy that records every agent call routed through it, across every provider it routes to. Shadow AI doesn't disappear, what you route through KYDE becomes visible, logged, and policy-enforced. One environment variable or network routing rule. No code changes. Any provider.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <button

@@ -57,7 +57,7 @@ const faqSchema = {
 
 <Base
   title="EU AI Act Compliance for AI Agents: The Complete Guide, KYDE"
-  description="Everything enterprises need to know about EU AI Act compliance for AI agents. Annex III classification, Articles 12, 14, 26 obligations, the December 2027 deadline, and how to build a compliant audit infrastructure."
+  description="Everything enterprises need to know about EU AI Act compliance for AI agents. Annex III classification, Articles 12, 14, 26 obligations, the December 2027 deadline, and how to build the audit infrastructure those obligations assume."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -122,7 +122,7 @@ const faqSchema = {
                   ["#annex-iii", "Annex III: the 10 high-risk categories"],
                   ["#what-it-requires", "What the Act requires: Art. 12, 14, 26, 49"],
                   ["#where-enterprises-fail", "Where enterprises fall short"],
-                  ["#compliance-plan", "How to build a compliant infrastructure"],
+                  ["#compliance-plan", "How to build the audit infrastructure"],
                   ["#faq", "FAQ"],
                   ["#resources", "Related resources"],
                 ].map(([href, label]) => (
@@ -177,7 +177,7 @@ const faqSchema = {
               The December 2, 2027 deadline is the result of the Digital Omnibus agreement (preliminary agreement May 7, 2026), which extended the original August 2026 Annex III deadline. <a href="/blog/eu-ai-act-omnibus-collapse">The path to that agreement was not straightforward</a>, and the obligations themselves were not softened, only delayed.
             </p>
             <p>
-              December 2027 sounds distant. It is not. Building compliant audit infrastructure, classifying systems, completing technical documentation, and registering in the EU database requires six to eighteen months of preparation for most enterprises. The organizations that start in 2027 will be building under enforcement pressure.
+              December 2027 sounds distant. It is not. Building the audit infrastructure, classifying systems, completing technical documentation, and registering in the EU database requires six to eighteen months of preparation for most enterprises. The organizations that start in 2027 will be building under enforcement pressure.
             </p>
 
             <!-- Section 3 -->
@@ -281,13 +281,13 @@ const faqSchema = {
             </p>
 
             <p>
-              <a href="/blog/eu-ai-act-audit-trails">A full breakdown of what enterprises are currently missing, and what compliant audit infrastructure actually looks like.</a>
+              <a href="/blog/eu-ai-act-audit-trails">A full breakdown of what enterprises are currently missing, and what the audit infrastructure actually has to do.</a>
             </p>
 
             <!-- Section 6 -->
-            <h2 id="compliance-plan">How to build a compliant infrastructure</h2>
+            <h2 id="compliance-plan">How to build the audit infrastructure</h2>
             <p>
-              Achieving EU AI Act compliance for AI agent deployments is a six-step process. The first three can be started immediately, without procuring any new technology.
+              Building an AI agent deployment for the EU AI Act is a six-step process. The first three can be started immediately, without procuring any new technology.
             </p>
 
             <p>
@@ -295,7 +295,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Step 2, Audit your current logging infrastructure.</strong> For each Annex III system, map your current logging against Articles 12, 14, and 26. The key questions: Is logging automatic, or manually triggered? Is the audit trail cryptographically integrity-verified? Is it architecturally independent of your LLM provider? Does it capture causal context, not just inputs and outputs? Does it cover all providers and all agents, or only some?
+              <strong>Step 2, Audit your current logging infrastructure.</strong> For each Annex III system, map your current logging against Articles 12, 14, and 26. The key questions: Is logging automatic, or manually triggered? Is the audit trail cryptographically integrity-verified? Is it architecturally independent of your LLM provider? Does it capture causal context, not just inputs and outputs? Does it cover every provider and every agent routed through it, and do you know what is not routed through it?
             </p>
 
             <p>
@@ -303,7 +303,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Step 4, Implement an independent governance layer.</strong> The structural fix for Gaps 1 and 2 is an out-of-band governance proxy, a layer that sits between your agents and every LLM provider, captures tamper-evident logs at the point of every inference call, and does so independently of the providers being logged. This layer needs to be provider-agnostic: your agents use OpenAI today, Anthropic tomorrow, and local models on air-gapped infrastructure next year.
+              <strong>Step 4, Implement an independent governance layer.</strong> The structural fix for Gaps 1 and 2 is an out-of-band governance proxy, a layer that sits between your agents and the LLM providers they call, captures a tamper-evident log at the point of every inference call routed through it, and does so independently of the providers being logged. This layer needs to be provider-agnostic: your agents use OpenAI today, Anthropic tomorrow, and local models on air-gapped infrastructure next year.
             </p>
 
             <p>
@@ -315,7 +315,7 @@ const faqSchema = {
             </p>
 
             <p>
-              December 2, 2027 is 18 months away. Steps 1–3 take weeks. Steps 4–6 take months. The enterprises that start now will have compliant infrastructure before enforcement begins. The ones that wait for regulatory certainty will still be retrofitting when competent authorities begin their first market surveillance reviews.
+              December 2, 2027 is 18 months away. Steps 1–3 take weeks. Steps 4–6 take months. The enterprises that start now will have the infrastructure in place before enforcement begins. The ones that wait for regulatory certainty will still be retrofitting when competent authorities begin their first market surveillance reviews.
             </p>
 
             <!-- FAQ -->
@@ -412,9 +412,9 @@ const faqSchema = {
             <!-- KYDE CTA -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
-              <p class="text-base font-semibold text-ink-0 mb-2">The fastest path to EU AI Act–compliant agent infrastructure.</p>
+              <p class="text-base font-semibold text-ink-0 mb-2">Built for the agent layer of EU AI Act duties.</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is a model-agnostic governance proxy that sits between your agents and every LLM provider. It produces tamper-evident, cryptographically signed audit trails for every agent action, capturing causal context, not just inputs and outputs, without touching a single line of agent code. One environment variable. Any provider. Day one.
+                KYDE is the behavioral system of record for autonomous work, a model-agnostic gateway that sits between your agents and the LLM providers they call. It writes a hash-chained, tamper-evident record of every agent action routed through it, capturing causal context, not just inputs and outputs, without touching a single line of agent code. One environment variable. Any provider you route through it. Day one.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <button

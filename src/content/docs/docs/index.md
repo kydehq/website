@@ -1,6 +1,6 @@
 ---
 title: "Kyde Gateway Documentation"
-description: "The behavioral firewall for AI agents: a drop-in, OpenAI-compatible proxy with a hash-chained behavioral ledger. Quickstart, user manual, deployment, and reference."
+description: "The gateway behind the behavioral system of record for autonomous work: a drop-in, OpenAI-compatible proxy with a hash-chained behavioral ledger. Quickstart, user manual, deployment, and reference."
 ---
 
 Nobody hands real responsibility to an agent nobody can trust. Agents
@@ -10,14 +10,14 @@ log lives on their infrastructure, signed with their keys: the suspect
 can't write the police report.
 
 KYDE Gateway is a drop-in, OpenAI-compatible proxy that sits outside
-the agent, in the path itself. Every action is intercepted and recorded
+the agent, in the path itself. Every action routed through it is recorded
 into a hash-chained ledger (Ed25519-signed on the Enterprise edition),
-independent of every model provider, undeletable by any agent, including
+independent of every model provider, out of reach of any agent, including
 the one being investigated. And while it records, it sees what flows
 upstream: your prompts, traces, and corrections, before they become
 someone else's training data.
 
-**Prevent what must not happen. Prove what did. Own what your agents produce.**
+**One record. Every vendor. The behavioral system of record for autonomous work.**
 
 **Two ways to start, same install, one switch:**
 

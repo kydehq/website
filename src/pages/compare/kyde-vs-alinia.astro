@@ -16,15 +16,15 @@ const rows = [
 const faqs = [
   {
     q: "Can Alinia and Kyde run together?",
-    a: "Yes, cleanly. Alinia checks content inside applications you build. Kyde governs the boundary all agents cross. Several layers of a real defense.",
+    a: "Yes, cleanly. Alinia checks content inside applications you build. Kyde governs the egress boundary, which covers every agent routed through it, wrapped or not. Several layers of a real defense.",
   },
   {
     q: "We only have two AI applications. Do we still need a boundary?",
     a: "You have two you know about. The Kyde Starter exists to answer how many you actually have. It is free, and the answer routinely surprises teams.",
   },
   {
-    q: "Which one satisfies EU AI Act logging duties?",
-    a: "Article 12 asks for automatic, trustworthy logs for high-risk systems. A hash-chained, tamper-evident, vendor-independent ledger is built for that duty, with Ed25519 signing available on paid tiers. High-risk enforcement begins December 2, 2027. NIS-2 and DORA apply today.",
+    q: "Which one helps with EU AI Act logging duties?",
+    a: "Article 12 asks for automatic, trustworthy logs for high-risk systems. A hash-chained, tamper-evident, vendor-independent ledger is built for the agent layer of that duty, not the whole obligation, with Ed25519 signing available on Enterprise. High-risk enforcement begins December 2, 2027. NIS-2 and DORA apply today.",
   },
 ];
 
@@ -41,7 +41,7 @@ const faqSchema = {
 
 <Base
   title="Kyde vs Alinia AI: Guardrails or Governance? | Kyde"
-  description="Alinia wraps AI calls in compliance guardrails via SDK. Kyde governs every agent at the network boundary with a hash-chained audit trail. An honest 2026 comparison."
+  description="Alinia wraps AI calls in compliance guardrails via SDK. Kyde governs every agent routed through the network boundary, with a hash-chained audit trail. An honest 2026 comparison."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -150,14 +150,14 @@ const faqSchema = {
         <div>
           <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What that means in an audit</p>
           <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
-            What a regulator sees afterwards differs too. Content filtering produces a decision in the moment. Kyde produces evidence that survives the moment: a hash-chained record of every action, allowed and blocked, that no vendor and no agent can rewrite. When the audit comes, the question is not whether you filtered. It is whether you can prove what happened. One question belongs to your lawyers, not to us: solutions that modify model inputs or outputs inline should be assessed against the substantial modification threshold in Article 25 of the EU AI Act, which can shift provider duties onto the deployer. Kyde's external proxy leaves models and pipelines untouched by design.
+            What a regulator sees afterwards differs too. Content filtering produces a decision in the moment. Kyde produces evidence that survives the moment: a hash-chained record of every action at the boundary, allowed and blocked, where altering one entry breaks every entry after it and a third party can recompute that offline. When the audit comes, the question is not whether you filtered. It is whether you can prove what happened. One question belongs to your lawyers, not to us: solutions that modify model inputs or outputs inline should be assessed against the substantial modification threshold in Article 25 of the EU AI Act, which can shift provider duties onto the deployer. Kyde's external proxy leaves models and pipelines untouched by design.
           </p>
         </div>
 
         <div>
           <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Can you run both?</p>
           <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
-            Yes, cleanly. Alinia checks content inside applications you build. Kyde governs the boundary all agents cross. Several layers of a real defense. If budget forces a choice, start where the liability is broadest: the boundary, since it covers agents you have not built yet.
+            Yes, cleanly. Alinia checks content inside applications you build. Kyde governs the egress boundary, which covers every agent routed through it, wrapped or not. Several layers of a real defense. If budget forces a choice, start where the liability is broadest: the boundary, since it covers agents you have not built yet.
           </p>
         </div>
 
@@ -192,7 +192,7 @@ const faqSchema = {
         <div class="border border-line-0 p-12 md:p-20">
           <div class="max-w-3xl">
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
-              Govern every agent, not just the wrapped ones.
+              Govern the agents nobody wrapped.
             </h2>
             <p class="text-lg text-ink-1 mb-10">
               Deploy the Kyde Gateway Starter in five minutes, or talk to us.
