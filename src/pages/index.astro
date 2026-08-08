@@ -375,16 +375,16 @@ const websiteSchema = {
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">The layer in the middle</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">What you cannot answer today</span>
                     <span class="fig-label">FIG.1</span>
                 </div>
 
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-4 max-w-4xl">
-                    Everything your agents do crosses one layer.
+                    Your agents are doing work you cannot see, stop, attribute or prove.
                 </h2>
-                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">That is where the record is written, and where it is stopped.</p>
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Everything they do crosses one layer. That is where it stops being traffic.</p>
                 <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-12">
-                    A company running on agents does not run on one platform. The agents answer to different vendors, and the systems they reach, databases, MCP servers, ERP, payment APIs, belong to nobody in particular either. KYDE sits in the middle of that traffic and writes every action routed through it into a single chain as it passes. That is why the record of that traffic is whole: something standing beside the action only ever sees what happened. This sees what was not allowed to.
+                    A company running on agents does not run on one platform. The agents answer to different vendors, and the systems they reach, databases, MCP servers, ERP, payment APIs, belong to nobody in particular either. KYDE sits in the middle of that traffic and writes every action routed through it into a single chain as it passes. That is why the record of that traffic is whole: something standing beside the action only ever sees what happened. This sees what was not allowed to. What comes out the other side is a behavioral system of record.
                 </p>
 
                 <!-- The plot frame gives the topology something to stand in, same
@@ -669,11 +669,8 @@ const websiteSchema = {
         <!-- Framing only. This exists to stop the six from reading as six products,
              which is the whole strategic point: competitors build six silos, this
              reads one recording six ways. It deliberately lists nothing, because each
-             reading below already carries its own number, category and maturity in a
-             header you cannot miss, and saying it twice made the page a product list.
-             The readings are ordered by what can be demonstrated, not by how neatly
-             each falls out of the record, so a reader arriving from the top does not
-             meet the least finished thing first. -->
+             reading below already carries its own category and maturity in a header
+             you cannot miss, and saying it twice made the page a product list. -->
         <section class="border-b border-white/10 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
@@ -691,18 +688,20 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ READING 01 · SECURITY ══════════ -->
-        <section id="policies" class="scroll-mt-20 border-b border-white/10">
+        <!-- ══════════ READING 01 · GOVERNANCE ══════════ -->
+        <!-- The six readings carry the page, one full section each, figure and text
+             swapping sides so the eye alternates instead of scanning one column. -->
+        <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Security</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Stopped at the line, not found in a report.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Governance</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">What runs, under whose name, on which model.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Read out of the record, not off an architecture diagram.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent passes before it acts, not a report you read afterwards. It is also where the agents nobody registered turn up, once egress rules make this the only route to a model provider. <span class="text-white/35">All of this runs in production today.</span>
+                            Most agents run under a shared API key, indistinguishable from each other and from the humans whose credentials they borrowed. KYDE gives each one its own identity, so every action carries a name before it happens and the inventory writes itself: which providers, models and tools each agent depends on. <span class="text-white/35">The dependency picture is already in the record. Approval queues and registry sync are not.</span>
                         </p>
                         </div>
                     </div>
@@ -711,108 +710,170 @@ const websiteSchema = {
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 items-center justify-center py-10">
-<svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+<svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <!-- corner register marks -->
                             <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
                             <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
 
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AGENT ACTIONS</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
+                            <!-- concentric rings + crosshair -->
+                            <circle cx="240" cy="240" r="228" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.09" stroke-width="1" />
+                            <circle cx="240" cy="240" r="210" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.24" stroke-width="1" />
+                            <circle cx="240" cy="240" r="150" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="90" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="68" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.22" stroke-width="1" />
+                            <line x1="240" y1="26" x2="240" y2="454" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" />
+                            <line x1="26" y1="240" x2="454" y2="240" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" />
 
-                            <!-- three lanes running into the policy line -->
-                            {[110, 170, 230].map((y) => (
-                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
-                            ))}
+                            <!-- degree ticks -->
+                            {Array.from({ length: 24 }, (_, i) => {
+                                const a = (i * 15 * Math.PI) / 180;
+                                return (
+                                    <line
+                                        x1={240 + Math.cos(a) * 204}
+                                        y1={240 + Math.sin(a) * 204}
+                                        x2={240 + Math.cos(a) * 210}
+                                        y2={240 + Math.sin(a) * 210}
+                                        stroke="var(--color-ink-0)" stroke-opacity="0.45"
+                                        stroke-width="1"
+                                    />
+                                );
+                            })}
 
-                            <!-- the policy line itself: everything crosses here or not at all -->
-                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
-                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">POLICY</text>
+                            <!-- sweep trail + line (rotated in JS) -->
+                            <g id="radar-sweep">
+                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="var(--color-ink-0)" fill-opacity="0.04" />
+                                <line x1="240" y1="240" x2="240" y2="30" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                            </g>
 
-                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
-                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
+                            <!-- blips + labels (lit by the sweep, from JS) -->
+                            <g id="radar-blips"></g>
 
-                            <g id="gate-actions"></g>
+                            <!-- the observer at the center -->
+                            <circle cx="240" cy="240" r="4.5" fill="var(--color-ink-0)" />
+                            <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
                         </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The blocked action stops at the policy line, not inside your systems.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Five of these seven run under an id nobody has claimed.</p>
                         </div>
                     </div>
                 </div>
             </div>
 <script>
-                // gate-fig · actions travel their lane toward the policy line. Most cross and
-                // continue into the systems boundary; one in four hits the line, flashes
-                // red and is turned back. Nothing is "inspected afterwards" here.
-                const gateFig = document.getElementById("gate-fig");
-                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if (gateFig) {
-                    const layer = document.getElementById("gate-actions")!;
-                    const NS = "http://www.w3.org/2000/svg";
-                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
-                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
-                    const acts: Act[] = [];
-                    let spawnAt = 0, n = 0;
+                    // radar-fig · Shadow agents sit almost invisible in
+                        // the field; the sweep reveals them: blip flashes, the
+                        // identity label appears with its ownership state, then the
+                        // afterglow fades until the next pass.
+                        const radarReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const radar = document.getElementById("radar-fig");
 
-                    const spawn = (lane: number, blocked: boolean) => {
-                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        el.setAttribute("r", "4");
-                        el.setAttribute("cy", String(LANES[lane]));
-                        el.setAttribute("fill", "var(--color-ink-0)");
-                        el.setAttribute("fill-opacity", "0.55");
-                        layer.appendChild(el);
-                        acts.push({ el, x: START, lane, blocked, back: false });
-                    };
+                        if (radar) {
+                            const NS = "http://www.w3.org/2000/svg";
+                            const sweep = document.getElementById("radar-sweep")!;
+                            const blipsG = document.getElementById("radar-blips")!;
+                            const CX = 240, CY = 240;
 
-                    const step = (a: Act) => {
-                        if (a.back) {
-                            a.x -= 3.4;
-                        } else {
-                            a.x += 2.2;
-                            if (a.blocked && a.x >= GATE - 6) {
-                                a.back = true;
-                                a.el.setAttribute("fill", "var(--color-alert)");
-                                a.el.setAttribute("fill-opacity", "0.9");
-                            } else if (!a.blocked && a.x >= GATE + 6) {
-                                a.el.setAttribute("fill", "var(--color-live)");
-                                a.el.setAttribute("fill-opacity", "0.85");
+                            // Theme-aware palette (ditto elsewhere on this page): read the
+                            // ink/live tokens from CSS instead of hardcoding rgb triples.
+                            const RC = { ink: "242,242,242", live: "61,220,132", warn: "255,184,77" };
+                            function hexToRgb(hex: string): string {
+                                const m = hex.trim().replace("#", "");
+                                const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
+                                return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+                            }
+                            function readRadarColors() {
+                                const cs = getComputedStyle(document.documentElement);
+                                RC.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
+                                RC.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+                                RC.warn = hexToRgb(cs.getPropertyValue("--color-warn") || "#FFB84D");
+                            }
+                            readRadarColors();
+
+                            // The state a first install actually reports is named versus
+                            // unclaimed, not signed: signing is an Enterprise capability, and
+                            // the unclaimed ones are the finding worth showing.
+                            const AGENTS = [
+                                { id: "agent:crm-04",    r: 178, a: 0.4, claimed: true  },
+                                { id: "agent:hr-11",     r: 120, a: 1.3, claimed: false },
+                                { id: "ci-runner",       r: 195, a: 2.2, claimed: false },
+                                { id: "agent:support-2", r: 68,  a: 2.9, claimed: true  },
+                                { id: "etl-worker",      r: 150, a: 3.8, claimed: false },
+                                { id: "agent:proc-7",    r: 104, a: 4.6, claimed: false },
+                                { id: "mail-drafter",    r: 186, a: 5.4, claimed: false },
+                            ];
+
+                            const blips = AGENTS.map((ag) => {
+                                const x = CX + Math.cos(ag.a) * ag.r;
+                                const y = CY + Math.sin(ag.a) * ag.r;
+                                const dot = document.createElementNS(NS, "rect");
+                                dot.setAttribute("x", String(x - 2));
+                                dot.setAttribute("y", String(y - 2));
+                                dot.setAttribute("width", "4");
+                                dot.setAttribute("height", "4");
+                                const label = document.createElementNS(NS, "text");
+                                label.setAttribute("x", String(x + 9));
+                                label.setAttribute("y", String(y - 7));
+                                label.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;");
+                                label.textContent = ag.id;
+                                const sig = document.createElementNS(NS, "text");
+                                sig.setAttribute("x", String(x + 9));
+                                sig.setAttribute("y", String(y + 6));
+                                sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
+                                sig.setAttribute("fill", ag.claimed ? `rgb(${RC.live})` : `rgb(${RC.warn})`);
+                                sig.textContent = ag.claimed ? "✓ named" : "unclaimed · no owner";
+                                blipsG.append(dot, label, sig);
+                                return { ...ag, dot, label, sig, lastLit: -1e9 };
+                            });
+
+                            window.addEventListener("kyde:theme", () => {
+                                readRadarColors();
+                                if (radarReduced) paintStatic();
+                            });
+
+                            function paintStatic() {
+                                // static frame: everything mid-bright
+                                for (const b of blips) {
+                                    b.dot.setAttribute("fill", `rgba(${RC.ink},0.7)`);
+                                    b.label.setAttribute("fill", `rgba(${RC.ink},0.55)`);
+                                    b.sig.setAttribute("fill", `rgba(${RC.live},0.6)`);
+                                }
+                            }
+
+                            if (radarReduced) {
+                                paintStatic();
+                            } else {
+                                const PERIOD = 32000; // one revolution
+                                let visible = true;
+                                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(radar);
+
+                                function frame(t: number) {
+                                    if (visible) {
+                                        const ang = ((t % PERIOD) / PERIOD) * Math.PI * 2 - Math.PI / 2;
+                                        sweep.setAttribute("transform", `rotate(${(ang * 180) / Math.PI + 90} ${CX} ${CY})`);
+
+                                        for (const b of blips) {
+                                            // sweep just passed this blip?
+                                            let diff = (ang - b.a) % (Math.PI * 2);
+                                            if (diff < 0) diff += Math.PI * 2;
+                                            if (diff < 0.06) b.lastLit = t;
+
+                                            const glow = Math.exp(-(t - b.lastLit) / 2400);
+                                            b.dot.setAttribute("fill", `rgba(${RC.ink},${0.12 + glow * 0.88})`);
+                                            b.label.setAttribute("fill", `rgba(${RC.ink},${glow * 0.8})`);
+                                            b.sig.setAttribute("fill", `rgba(${RC.live},${Math.max(glow - 0.25, 0)})`);
+                                        }
+                                    }
+                                    requestAnimationFrame(frame);
+                                }
+                                requestAnimationFrame(frame);
                             }
                         }
-                        a.el.setAttribute("cx", String(a.x));
-                        return a.back ? a.x > START - 10 : a.x < END;
-                    };
-
-                    if (gateReduced) {
-                        // Static reading of the same story: two through, one turned back.
-                        spawn(0, false); spawn(1, true); spawn(2, false);
-                        acts.forEach((a, i) => {
-                            a.x = a.blocked ? GATE - 20 : GATE + 60;
-                            a.el.setAttribute("cx", String(a.x));
-                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
-                            a.el.setAttribute("fill-opacity", "0.85");
-                        });
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
-                        const loop = (now: number) => {
-                            if (visible) {
-                                if (now > spawnAt) {
-                                    spawn(n % LANES.length, n % 4 === 2);
-                                    n += 1;
-                                    spawnAt = now + 900;
-                                }
-                                for (let i = acts.length - 1; i >= 0; i--) {
-                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
-                                }
-                            }
-                            requestAnimationFrame(loop);
-                        };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
+                </script>
+            </div>
         </section>
+
 
         <!-- ══════════ READING 02 · COMPLIANCE ══════════ -->
         <section id="prove" class="scroll-mt-20 border-b border-white/10">
@@ -1020,20 +1081,18 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ READING 03 · GOVERNANCE ══════════ -->
-        <!-- The six readings carry the page, one full section each, figure and text
-             swapping sides so the eye alternates instead of scanning one column. -->
-        <section class="border-b border-white/10">
+        <!-- ══════════ READING 03 · SECURITY ══════════ -->
+        <section id="policies" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Governance</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">What runs, under whose name, on which model.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Read out of the record, not off an architecture diagram.</p>
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Security</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Stopped at the line, not found in a report.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            Most agents run under a shared API key, indistinguishable from each other and from the humans whose credentials they borrowed. KYDE gives each one its own identity, so every action carries a name before it happens and the inventory writes itself: which providers, models and tools each agent depends on. <span class="text-white/35">The dependency picture is already in the record. Approval queues and registry sync are not.</span>
+                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent passes before it acts, not a report you read afterwards. It is also where the agents nobody registered turn up, once egress rules make this the only route to a model provider. <span class="text-white/35">All of this runs in production today.</span>
                         </p>
                         </div>
                     </div>
@@ -1042,170 +1101,108 @@ const websiteSchema = {
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 items-center justify-center py-10">
-<svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <!-- corner register marks -->
+<svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
                             <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
                             <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
 
-                            <!-- concentric rings + crosshair -->
-                            <circle cx="240" cy="240" r="228" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.09" stroke-width="1" />
-                            <circle cx="240" cy="240" r="210" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.24" stroke-width="1" />
-                            <circle cx="240" cy="240" r="150" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
-                            <circle cx="240" cy="240" r="90" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
-                            <circle cx="240" cy="240" r="68" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.22" stroke-width="1" />
-                            <line x1="240" y1="26" x2="240" y2="454" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" />
-                            <line x1="26" y1="240" x2="454" y2="240" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" />
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AGENT ACTIONS</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
 
-                            <!-- degree ticks -->
-                            {Array.from({ length: 24 }, (_, i) => {
-                                const a = (i * 15 * Math.PI) / 180;
-                                return (
-                                    <line
-                                        x1={240 + Math.cos(a) * 204}
-                                        y1={240 + Math.sin(a) * 204}
-                                        x2={240 + Math.cos(a) * 210}
-                                        y2={240 + Math.sin(a) * 210}
-                                        stroke="var(--color-ink-0)" stroke-opacity="0.45"
-                                        stroke-width="1"
-                                    />
-                                );
-                            })}
+                            <!-- three lanes running into the policy line -->
+                            {[110, 170, 230].map((y) => (
+                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                            ))}
 
-                            <!-- sweep trail + line (rotated in JS) -->
-                            <g id="radar-sweep">
-                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="var(--color-ink-0)" fill-opacity="0.04" />
-                                <line x1="240" y1="240" x2="240" y2="30" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                            </g>
+                            <!-- the policy line itself: everything crosses here or not at all -->
+                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
+                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">POLICY</text>
 
-                            <!-- blips + labels (lit by the sweep, from JS) -->
-                            <g id="radar-blips"></g>
+                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
+                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
 
-                            <!-- the observer at the center -->
-                            <circle cx="240" cy="240" r="4.5" fill="var(--color-ink-0)" />
-                            <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
+                            <g id="gate-actions"></g>
                         </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Five of these seven run under an id nobody has claimed.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The blocked action stops at the policy line, not inside your systems.</p>
                         </div>
                     </div>
                 </div>
             </div>
 <script>
-                    // radar-fig · Shadow agents sit almost invisible in
-                        // the field; the sweep reveals them: blip flashes, the
-                        // identity label appears with its ownership state, then the
-                        // afterglow fades until the next pass.
-                        const radarReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                        const radar = document.getElementById("radar-fig");
+                // gate-fig · actions travel their lane toward the policy line. Most cross and
+                // continue into the systems boundary; one in four hits the line, flashes
+                // red and is turned back. Nothing is "inspected afterwards" here.
+                const gateFig = document.getElementById("gate-fig");
+                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (gateFig) {
+                    const layer = document.getElementById("gate-actions")!;
+                    const NS = "http://www.w3.org/2000/svg";
+                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
+                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
+                    const acts: Act[] = [];
+                    let spawnAt = 0, n = 0;
 
-                        if (radar) {
-                            const NS = "http://www.w3.org/2000/svg";
-                            const sweep = document.getElementById("radar-sweep")!;
-                            const blipsG = document.getElementById("radar-blips")!;
-                            const CX = 240, CY = 240;
+                    const spawn = (lane: number, blocked: boolean) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("r", "4");
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.55");
+                        layer.appendChild(el);
+                        acts.push({ el, x: START, lane, blocked, back: false });
+                    };
 
-                            // Theme-aware palette (ditto elsewhere on this page): read the
-                            // ink/live tokens from CSS instead of hardcoding rgb triples.
-                            const RC = { ink: "242,242,242", live: "61,220,132", warn: "255,184,77" };
-                            function hexToRgb(hex: string): string {
-                                const m = hex.trim().replace("#", "");
-                                const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
-                                return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
-                            }
-                            function readRadarColors() {
-                                const cs = getComputedStyle(document.documentElement);
-                                RC.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
-                                RC.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
-                                RC.warn = hexToRgb(cs.getPropertyValue("--color-warn") || "#FFB84D");
-                            }
-                            readRadarColors();
-
-                            // The state a first install actually reports is named versus
-                            // unclaimed, not signed: signing is an Enterprise capability, and
-                            // the unclaimed ones are the finding worth showing.
-                            const AGENTS = [
-                                { id: "agent:crm-04",    r: 178, a: 0.4, claimed: true  },
-                                { id: "agent:hr-11",     r: 120, a: 1.3, claimed: false },
-                                { id: "ci-runner",       r: 195, a: 2.2, claimed: false },
-                                { id: "agent:support-2", r: 68,  a: 2.9, claimed: true  },
-                                { id: "etl-worker",      r: 150, a: 3.8, claimed: false },
-                                { id: "agent:proc-7",    r: 104, a: 4.6, claimed: false },
-                                { id: "mail-drafter",    r: 186, a: 5.4, claimed: false },
-                            ];
-
-                            const blips = AGENTS.map((ag) => {
-                                const x = CX + Math.cos(ag.a) * ag.r;
-                                const y = CY + Math.sin(ag.a) * ag.r;
-                                const dot = document.createElementNS(NS, "rect");
-                                dot.setAttribute("x", String(x - 2));
-                                dot.setAttribute("y", String(y - 2));
-                                dot.setAttribute("width", "4");
-                                dot.setAttribute("height", "4");
-                                const label = document.createElementNS(NS, "text");
-                                label.setAttribute("x", String(x + 9));
-                                label.setAttribute("y", String(y - 7));
-                                label.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;");
-                                label.textContent = ag.id;
-                                const sig = document.createElementNS(NS, "text");
-                                sig.setAttribute("x", String(x + 9));
-                                sig.setAttribute("y", String(y + 6));
-                                sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
-                                sig.setAttribute("fill", ag.claimed ? `rgb(${RC.live})` : `rgb(${RC.warn})`);
-                                sig.textContent = ag.claimed ? "✓ named" : "unclaimed · no owner";
-                                blipsG.append(dot, label, sig);
-                                return { ...ag, dot, label, sig, lastLit: -1e9 };
-                            });
-
-                            window.addEventListener("kyde:theme", () => {
-                                readRadarColors();
-                                if (radarReduced) paintStatic();
-                            });
-
-                            function paintStatic() {
-                                // static frame: everything mid-bright
-                                for (const b of blips) {
-                                    b.dot.setAttribute("fill", `rgba(${RC.ink},0.7)`);
-                                    b.label.setAttribute("fill", `rgba(${RC.ink},0.55)`);
-                                    b.sig.setAttribute("fill", `rgba(${RC.live},0.6)`);
-                                }
-                            }
-
-                            if (radarReduced) {
-                                paintStatic();
-                            } else {
-                                const PERIOD = 32000; // one revolution
-                                let visible = true;
-                                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(radar);
-
-                                function frame(t: number) {
-                                    if (visible) {
-                                        const ang = ((t % PERIOD) / PERIOD) * Math.PI * 2 - Math.PI / 2;
-                                        sweep.setAttribute("transform", `rotate(${(ang * 180) / Math.PI + 90} ${CX} ${CY})`);
-
-                                        for (const b of blips) {
-                                            // sweep just passed this blip?
-                                            let diff = (ang - b.a) % (Math.PI * 2);
-                                            if (diff < 0) diff += Math.PI * 2;
-                                            if (diff < 0.06) b.lastLit = t;
-
-                                            const glow = Math.exp(-(t - b.lastLit) / 2400);
-                                            b.dot.setAttribute("fill", `rgba(${RC.ink},${0.12 + glow * 0.88})`);
-                                            b.label.setAttribute("fill", `rgba(${RC.ink},${glow * 0.8})`);
-                                            b.sig.setAttribute("fill", `rgba(${RC.live},${Math.max(glow - 0.25, 0)})`);
-                                        }
-                                    }
-                                    requestAnimationFrame(frame);
-                                }
-                                requestAnimationFrame(frame);
+                    const step = (a: Act) => {
+                        if (a.back) {
+                            a.x -= 3.4;
+                        } else {
+                            a.x += 2.2;
+                            if (a.blocked && a.x >= GATE - 6) {
+                                a.back = true;
+                                a.el.setAttribute("fill", "var(--color-alert)");
+                                a.el.setAttribute("fill-opacity", "0.9");
+                            } else if (!a.blocked && a.x >= GATE + 6) {
+                                a.el.setAttribute("fill", "var(--color-live)");
+                                a.el.setAttribute("fill-opacity", "0.85");
                             }
                         }
-                </script>
-            </div>
-        </section>
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.back ? a.x > START - 10 : a.x < END;
+                    };
 
+                    if (gateReduced) {
+                        // Static reading of the same story: two through, one turned back.
+                        spawn(0, false); spawn(1, true); spawn(2, false);
+                        acts.forEach((a, i) => {
+                            a.x = a.blocked ? GATE - 20 : GATE + 60;
+                            a.el.setAttribute("cx", String(a.x));
+                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.85");
+                        });
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length, n % 4 === 2);
+                                    n += 1;
+                                    spawnAt = now + 900;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
 
         <!-- ══════════ READING 04 · PROCESS INTELLIGENCE ══════════ -->
         <section class="border-b border-white/10">
@@ -1803,7 +1800,7 @@ const websiteSchema = {
                             <!-- The pattern case: no single action breaks a rule, the sequence does.
                                  A per-action check cannot see this; a baseline over time can. -->
                             <p class="mt-4 text-sm text-white/55 leading-relaxed max-w-2xl">
-                                It is also how you catch what no single action reveals. An agent that moves 90 euros on Monday, 140 on Tuesday and 240 on Wednesday is not breaking a rule — it is finding the edge of one. The pattern is the evidence, and an agent that drifts loses scope before anyone files a ticket.
+                                It is also how you catch what no single action reveals. An agent that moves 90 euros on Monday, 140 on Tuesday and 240 on Wednesday is not breaking a rule — it is finding the edge of one. The pattern is in the record, which is what any later judgement about that agent has to rest on.
                             </p>
                         </div>
                         <svg viewBox="0 0 220 220" class="w-40 h-40 lg:w-52 lg:h-52 justify-self-center" aria-hidden="true">
@@ -1846,14 +1843,14 @@ const websiteSchema = {
                 <!-- Autonomy ladder -->
                 <div class="pt-12 pb-24 md:pb-28">
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
-                        <span class="text-white">From Assistant</span> <span class="text-white/40">to Autonomous Operator.</span>
+                        How much responsibility can this agent safely handle?
                         </h2>
                     <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">AI autonomy should be earned, not assumed.</p>
                     <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
-                        The Trust Ladder measures whether your organization has the technical controls required for each level of autonomy. As your controls improve, you can safely delegate more responsibility to AI.
+                        Reading? Suggesting? Calling tools? Running workflows? Approving payments? Running unattended? Every one of those is a different amount of trust, and most organizations grant them all at once, on the day the agent is switched on, because there is nothing to grant them against.
                     </p>
                     <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
-                        This is where continuous verification becomes visible: every rung is held by evidence, and an agent that stops producing it comes back down. Six levels, L0 to L5, from an assistant that only reads to an operator running unattended.
+                        KYDE ties each step to evidence. A rung is held because the record shows it was held, and an agent that stops producing that evidence comes back down. Six levels, L0 to L5, from an assistant that only reads to an operator running unattended.
                     </p>
                     <!-- The level-by-level detail lives on /trust-score, beside the measurement
                          that decides the level. Here it stays a summary. -->
@@ -2016,13 +2013,10 @@ const websiteSchema = {
                         </h2>
                         <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">One layer, outside every vendor, owned by you.</p>
                         <p class="text-lg text-white/55 leading-relaxed mb-6">
-                            Every platform offers governance for the agents running on that platform. Your coding agents, your SAP bots and the robots on the floor do not run on one platform, and the model behind any of them will be swapped faster than a procurement cycle. Four vendor consoles is not oversight, it is four blind spots with a shared login.
+                            A sovereign organization runs a cluster of models and frameworks, not one vendor's stack. Every platform governs the agents on its own platform, so four vendor consoles is not oversight. It is four blind spots with a shared login.
                         </p>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            KYDE sits outside all of them. Identity, policy and record are held in your layer, not in theirs. Every model and provider you route through it runs through one layer today, and the same layer is built to take the tools and business systems next, which is exactly what a layer inside one vendor can never do.
-                        </p>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            This is not an argument about whose values you prefer. A model can become unavailable across every hyperscaler at once, by a decision taken somewhere you have no vote. On that day the question is not whether you agree with the decision. It is whether your agents keep running, and whether the record of what they already did is still yours to produce.
+                            KYDE sits outside all of them, with identity, policy and record in your layer rather than theirs. A model can vanish from every hyperscaler at once by a decision you have no vote in, and what matters that day is whether your agents keep running and the record is still yours to produce.
                         </p>
                     </div>
                 </div>
