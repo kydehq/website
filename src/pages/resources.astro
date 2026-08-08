@@ -28,6 +28,13 @@ const regulations = [
         deadline: "In force",
         urgency: false,
     },
+    {
+        name: "eIDAS, Qualified Electronic Ledgers",
+        desc: "Arts. 45k and 45l, with technical rules in Implementing Regulation (EU) 2025/2531. Nobody is obliged to use one, but it is where the EU wrote down what a defensible record looks like.",
+        deadline: "In force: January 6, 2026",
+        urgency: false,
+        href: "/qualified-electronic-ledger",
+    },
 ];
 
 const articles = [
@@ -93,6 +100,14 @@ const articles = [
         summary: "Everything enterprises need to know about EU AI Act compliance for AI agents, Annex III classification, Articles 12, 14, 26 obligations, the December 2, 2027 deadline, the three structural gaps most organizations have, and a six-step action plan for building the audit infrastructure.",
         href: "/eu-ai-act-compliance",
         readTime: "15 min read",
+        live: true,
+    },
+    {
+        category: "Regulatory · Reference",
+        title: "Qualified Electronic Ledger: What the EU Has Required Since January 2026",
+        summary: "A new EU trust service under Articles 45k and 45l of the eIDAS Regulation, with technical rules in force since 6 January 2026. What REQ-7.5-04 mandates about hash chaining, what the Article 45k(2) presumption does and does not cover, why the December 2027 deadline belongs to the EUDI Wallet and not to ledgers, and why Germany still has no authorised provider.",
+        href: "/qualified-electronic-ledger",
+        readTime: "10 min read",
         live: true,
     },
     {
@@ -422,8 +437,10 @@ const breadcrumbSchema = {
                 </div>
 
                 <div class="max-w-3xl space-y-3">
-                    {regulations.map(({ name, desc, deadline, urgency }) => (
-                        <div class={`border p-6 transition-colors ${urgency ? "border-alert/30 bg-alert/5 hover:border-alert/40" : "border-line-0 bg-bg-1 hover:border-line-1"}`}>
+                    {regulations.map(({ name, desc, deadline, urgency, href }) => {
+                        const Card = href ? "a" : "div";
+                        return (
+                        <Card href={href} class={`block border p-6 transition-colors ${urgency ? "border-alert/30 bg-alert/5 hover:border-alert/40" : "border-line-0 bg-bg-1 hover:border-line-1"}`}>
                             <div class="flex items-start justify-between gap-4">
                                 <div>
                                     <h3 class="font-mono text-base font-bold text-ink-0">{name}</h3>
@@ -436,8 +453,9 @@ const breadcrumbSchema = {
                                 )}
                             </div>
                             <p class={`mt-3 font-mono text-xs ${deadline.includes('In force') ? 'text-live' : 'text-ink-1'}`}>{deadline}</p>
-                        </div>
-                    ))}
+                        </Card>
+                    );
+                    })}
                 </div>
 
             </div>
