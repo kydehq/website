@@ -146,7 +146,7 @@ import Footer from '../../components/Footer.astro';
               <strong>Tamper-evident records.</strong> A sophisticated attacker who has influenced an agent's behavior may also influence what gets logged. Software logs on a compromised host can be altered silently. The forensic record must be cryptographically signed at the point of capture and hash-chained so that any modification is detectable, independent of the agent, independent of the host, independent of the LLM provider.
             </p>
             <p>
-              None of these capabilities exist in provider-native logging. They require a governance layer that sits in the data path, intercepting every action, capturing every context, signing every record, before it reaches the systems the agent acts on.
+              None of these capabilities exist in provider-native logging. They require a governance layer that sits in the data path, intercepting every action routed through it, capturing the context for each one, and chaining every record, before it reaches the systems the agent acts on.
             </p>
 
             <h2>The window before this becomes a mandatory lesson</h2>
@@ -157,14 +157,14 @@ import Footer from '../../components/Footer.astro';
               Agent Goal Hijacking is already happening. The enterprises that will navigate it successfully are not the ones with the best incident response, it is the ones that built the forensic infrastructure before the incident occurred.
             </p>
             <p>
-              The audit trail that satisfies NIS-2's 72-hour reporting requirement cannot be built after the breach is discovered. It needs to exist continuously, for every agent, before any incident that might require it.
+              The audit trail that carries the agent layer of NIS-2's 72-hour reporting duty cannot be built after the breach is discovered. It needs to exist continuously, for every agent, before any incident that might require it.
             </p>
 
             <!-- KYDE callout -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE sits in the data path of every AI agent action, capturing causal context, signing every record at the point of capture, and producing the tamper-evident audit trail that behavioral detection and NIS-2 reporting both require. Before any incident.
+                KYDE sits in the data path of every AI agent action routed through it, capturing causal context, chaining every record at the point of capture, and producing the tamper-evident audit trail that behavioral detection and the agent layer of NIS-2 reporting both need. Signing each entry with your own Ed25519 keys is an Enterprise capability. Before any incident.
               </p>
               <button
                 onclick="openModal()"

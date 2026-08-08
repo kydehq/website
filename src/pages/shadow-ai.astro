@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "Can I stop Shadow AI by blocking LLM provider domains at the firewall?",
-    a: "Blocking works as a temporary measure, but it is not a sustainable governance strategy. Employees who need AI tools will find workarounds: mobile data, VPNs, personal devices, or AI features embedded in approved tools that cannot be blocked without disabling the tool entirely. Blocking without a sanctioned alternative also destroys productivity gains and creates employee friction. The more effective approach is a governance proxy that routes all AI traffic through a controlled layer, providing visibility and policy enforcement without blanket blocking."
+    a: "Blocking works as a temporary measure, but it is not a sustainable governance strategy. Employees who need AI tools will find workarounds: mobile data, VPNs, personal devices, or AI features embedded in approved tools that cannot be blocked without disabling the tool entirely. Blocking without a sanctioned alternative also destroys productivity gains and creates employee friction. The more effective approach is a governance proxy that routes AI traffic through a controlled layer, providing visibility and policy enforcement over everything routed through it, without blanket blocking."
   },
   {
     q: "Does Shadow AI include AI features built into approved SaaS tools?",
@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "What is a Shadow AI governance proxy?",
-    a: "A governance proxy is a network layer that sits between your users and agents and all external LLM providers. All AI inference traffic routes through the proxy, which logs every request and response with a tamper-evident record, enforces policy rules (blocking requests that violate data classification, scope, or provider restrictions), and gives you one view across every provider it routes to. It requires no code changes in applications, typically a single environment variable or network routing rule. It sees what is routed through it, not what bypasses it, but it is the only approach that covers the routed traffic in full without requiring enumeration of every AI tool in use."
+    a: "A governance proxy is a network layer that sits between your users and agents and the external LLM providers they call. AI inference traffic you route through the proxy is logged and policy-checked there: it records every request and response on that path with a tamper-evident record, enforces policy rules (blocking requests that violate data classification, scope, or provider restrictions), and gives you one view across every provider it routes to. It requires no code changes in applications, typically a single environment variable or network routing rule. It sees what is routed through it, not what bypasses it, but it is the only approach that covers the routed traffic in full without requiring enumeration of every AI tool in use."
   },
 ];
 
@@ -237,7 +237,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Phase 1, Establish visibility.</strong> Before making any access decisions, build a complete picture of what AI tools are in use, who is using them, and what data categories they are touching. Network traffic analysis and endpoint audits give you the baseline. A governance proxy gives you continuous visibility going forward.
+              <strong>Phase 1, Establish visibility.</strong> Before making any access decisions, build the clearest picture you can of what AI tools are in use, who is using them, and what data categories they are touching. Network traffic analysis and endpoint audits give you the baseline. A governance proxy gives you continuous visibility going forward.
             </p>
 
             <p>
@@ -249,7 +249,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Phase 4, Enforce at the governance layer, not the application layer.</strong> Rather than blocking access at the network edge, enforce scope controls through a governance proxy. All AI traffic, approved and unapproved, routes through the proxy. Approved traffic passes through with logging. Traffic that violates policy (wrong data categories, unapproved tools in regulated workflows, scope violations) is blocked before it reaches the model. Employees who route around approved tools get blocked automatically, not by an IT ticket.
+              <strong>Phase 4, Enforce at the governance layer, not the application layer.</strong> Rather than blocking access at the network edge, enforce scope controls through a governance proxy. AI traffic you can route, approved and unapproved, goes through the proxy. Approved traffic passes through with logging. Traffic that violates policy (wrong data categories, unapproved tools in regulated workflows, scope violations) is blocked before it reaches the model. On that path, enforcement happens automatically, not by an IT ticket.
             </p>
 
             <h2 id="faq">Frequently asked questions</h2>

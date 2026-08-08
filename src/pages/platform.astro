@@ -41,7 +41,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         <div class="grid grid-cols-3 divide-x divide-line-0 border border-line-0">
                             {[
                                 { value: "<100ms", label: "Target latency" },
-                                { value: "100%", label: "Of traffic routed through it" },
+                                { value: "Every call", label: "On the routed path, by design" },
                                 { value: "0", label: "Code changes by design" },
                             ].map(({ value, label }) => (
                                 <div class="px-6 py-5">
@@ -162,7 +162,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         </div>
                         <h3 class="mb-1 font-mono text-2xl font-bold text-ink-0">ENFORCE</h3>
                         <p class="mb-2 text-sm font-medium text-ink-1">Before the damage. Deny-by-default.</p>
-                        <p class="mb-6 text-sm leading-relaxed text-ink-1">Deterministic guardrails at the boundary. The catastrophic action can't execute if it never reaches the system. The enforcement layer is the Behavioral Firewall. The buy reason today: the agent layer of NIS-2 board liability and DORA duties.</p>
+                        <p class="mb-6 text-sm leading-relaxed text-ink-1">Deterministic guardrails at the boundary. The catastrophic action can't execute if it never reaches the system. The enforcement layer is the Behavioral Firewall. What it buys you today is evidence for the agent layer of NIS-2 board liability and DORA duties.</p>
                         <ul class="space-y-2">
                             {[
                                 "Deny-by-default at the boundary",
@@ -298,7 +298,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                             <circle cx="110" cy="280" r="8" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-width="1.25" />
 
                             <text x="280" y="72" text-anchor="middle" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">INTERCEPT</text>
-                            <text x="280" y="92" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.8" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">$ all agent traffic</text>
+                            <text x="280" y="92" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.8" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">$ all routed traffic</text>
 
                             <text x="472" y="270" text-anchor="start" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">REGISTER</text>
                             <text x="472" y="290" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">identity · role · budget</text>
@@ -307,7 +307,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                             <text x="280" y="512" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">ed25519 · sha-256</text>
 
                             <text x="88" y="270" text-anchor="end" fill="var(--color-ink-0)" style="font-family:'JetBrains Mono Variable',monospace;font-size:13px;font-weight:700;letter-spacing:0.12em;">FORWARD</text>
-                            <text x="88" y="290" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">&lt;100ms to provider</text>
+                            <text x="88" y="290" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;">target &lt;100ms</text>
                         </svg>
                     </div>
                 </div>
@@ -317,7 +317,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                     {[
                         { n: "4.1", title: "Intercept", body: "Every request from every agent pointed at the proxy routes through it. The agent sees no difference." },
                         { n: "4.2", title: "Register", body: "The request is matched to an agent identity and role. Budget and policy checks run before the call is forwarded." },
-                        { n: "4.3", title: "Sign & Chain", body: "An Ed25519-signed, SHA-256 hash-chained entry is written. Alter any record and every subsequent link breaks." },
+                        { n: "4.3", title: "Sign & Chain", body: "A SHA-256 hash-chained entry is written, signed with your own Ed25519 keys on Enterprise. Alter any record and every subsequent link breaks." },
                         { n: "4.4", title: "Forward", body: "The original request continues to the LLM provider. Target added latency: under 100ms." },
                     ].map(({ n, title, body }) => (
                         <div class="p-6 bg-bg-1 hover:bg-bg-2 transition-colors">
@@ -345,7 +345,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         Fleet visibility, in one console.
                     </h2>
                     <p class="text-ink-1 leading-relaxed max-w-2xl">
-                        Every agent, session, and action routed through KYDE, mapped, logged, and auditable from a single dashboard. Agents nobody registered turn up here too, because they still have to come through the proxy to reach a model.
+                        Every agent, session, and action routed through KYDE, mapped, logged, and auditable from a single dashboard. Agents nobody registered turn up here too, once egress rules make the proxy the only route to a model provider.
                     </p>
                 </div>
 
@@ -560,7 +560,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                         },
                         {
                             title: "Behavioral Baselines & Anomaly Detection",
-                            body: "KYDE learns what normal looks like for each role. When an agent deviates, unusual call volume, unexpected endpoints, out-of-pattern tool usage, you get alerted before it becomes an incident.",
+                            body: "The calls are already in the record. The reading that turns them into a baseline per role, and alerts you when an agent deviates, unusual call volume, unexpected endpoints, out-of-pattern tool usage, is not built yet.",
                             tag: "Coming Soon",
                         },
                     ].map(({ title, body, tag }) => (
@@ -676,7 +676,7 @@ import FleetStatusMock from "../components/FleetStatusMock.astro";
                             Root of trust.<br />From software to silicon.
                         </h2>
                         <p class="text-ink-1 leading-relaxed mb-6">
-                            Each entry is signed with an Ed25519 keypair generated locally on first initialization. The hash chain ensures sequential integrity, tamper with any single entry, and every subsequent link breaks.
+                            On the Enterprise edition, each entry is signed with an Ed25519 keypair generated locally on first initialization. The hash chain ensures sequential integrity on every edition, tamper with any single entry, and every subsequent link breaks.
                         </p>
                         <p class="text-ink-1 leading-relaxed mb-10">
                             For environments where software-only signing isn't enough, KYDE's architecture is built for hardware-rooted attestation from day one. The hardware levels themselves are planned, not shipped, and the table says which is which.

@@ -43,13 +43,13 @@ const dimensions: Dimension[] = [
   {
     label:      "Baseline",
     question:   "Is the behavior consistent with this agent's established pattern?",
-    desc:       "Normal operating characteristics are learned over time, including call sequences, timing, endpoint usage and execution profiles. Persistent deviation may indicate compromise, misuse or unintended behavior.",
+    desc:       "The calls are already in the record: sequences, timing, endpoint usage and execution profiles. The reading that learns normal operating characteristics from them, so that persistent deviation stands out, is not built yet.",
     hasExample: false,
   },
   {
     label:      "Benchmark",
     question:   "How does this agent compare with similar agents?",
-    desc:       "Anonymized comparison across comparable role classes provides additional context. A CRM agent is evaluated against CRM agents. A coding agent is evaluated against coding agents. The comparison reflects behavior rather than implementation.",
+    desc:       "Anonymized comparison across comparable role classes is designed to add context: a CRM agent evaluated against CRM agents, a coding agent against coding agents, on behavior rather than implementation. This dimension is not built yet.",
     hasExample: false,
   },
 ];
@@ -83,6 +83,9 @@ const dimensions: Dimension[] = [
             </p>
             <p class="text-base text-white/35 leading-relaxed max-w-lg mb-4">
               KYDE computes an independent Trust Score from the observable behavior of AI agents at the execution boundary.
+            </p>
+            <p class="text-base text-white/35 leading-relaxed max-w-lg mb-4">
+              Identity and mandate are measured at the boundary today. The baseline and benchmark dimensions below describe where the score is going, not what it reads yet.
             </p>
             <p class="text-base text-white/30 leading-relaxed max-w-lg mb-10">
               Deploy through a single gateway. Existing agents continue to operate unchanged.
@@ -212,7 +215,7 @@ const dimensions: Dimension[] = [
             <p class="font-mono text-[10px] uppercase tracking-widest text-ink-2 mb-6">Coverage Report · Acme Corp</p>
             <div class="space-y-6">
               {[
-                { label: "Governed",    pct: 92, desc: "Observed, measured and cryptographically signed.",                                                                          color: "var(--color-live)" },
+                { label: "Governed",    pct: 92, desc: "Observed, measured and written into the hash-chained record.",                                                                        color: "var(--color-live)" },
                 { label: "Governable",  pct:  6, desc: "Known paths that have not yet been routed through the gateway.",                                                           color: "var(--color-warn)" },
                 { label: "Unobserved",  pct:  2, desc: "Provider-internal execution outside enterprise visibility, such as internal reasoning, delegated sub-agents or provider-native integrations.", color: "var(--color-ink-2)" },
               ].map(({ label, pct, desc, color }) => (
@@ -244,7 +247,7 @@ const dimensions: Dimension[] = [
             <div class="border border-ink-0/60 bg-bg-1 p-6 md:-my-2">
               <p class="font-mono text-[10px] uppercase tracking-widest text-ink-0/60 mb-3">KYDE Gateway</p>
               <p class="text-sm font-semibold text-ink-0 mb-3">Execution boundary</p>
-              <p class="text-xs text-ink-1 leading-relaxed">Verifies agent identity, evaluates actions against mandate, computes the Trust Score, writes every event it sees into a hash-chained ledger, and enforces organizational policy where required.</p>
+              <p class="text-xs text-ink-1 leading-relaxed">Verifies agent identity, evaluates actions against mandate, writes every event it sees into a hash-chained ledger, and enforces organizational policy where required. The Trust Score is computed from that record, on the identity and mandate dimensions today.</p>
             </div>
             <div class="hidden md:flex items-center justify-center text-ink-2 font-mono">→</div>
             <div class="border border-live/25 bg-bg-1 p-6">
@@ -346,7 +349,7 @@ const dimensions: Dimension[] = [
                 )}
                 {label === "Benchmark" && (
                   <div class="mt-5 border border-line-0 bg-bg-2 p-5">
-                    <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-4">role class: crm-agents · anonymized · n=214</p>
+                    <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-4">illustrative · role class: crm-agents · anonymized · not live data</p>
                     <div class="space-y-2.5 font-mono text-xs">
                       {benchmarkExample.map(({ name, score, cls, note }) => (
                         <div class="flex items-baseline gap-2">

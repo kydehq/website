@@ -6,8 +6,8 @@ import GlossaryEntry from '../../components/GlossaryEntry.astro';
   term="AI Governance Proxy (AI Gateway)"
   slug="ai-governance-proxy"
   title="What Is an AI Governance Proxy or AI Gateway? Definition and Deployment | Kyde Glossary"
-  description="An AI governance proxy routes all agent traffic to model providers through one control point: identity, policy, evidence, zero code changes. Definition and the one-line deployment."
-  definition="An AI governance proxy, also called an AI gateway, is a network component that routes all traffic between AI agents and model providers through a single control point. Because every inference and tool call passes through it, it can verify agent identity, enforce behavioral policy, and record tamper-evident evidence, without any changes to agent code."
+  description="An AI governance proxy routes agent traffic to model providers through one control point: identity, policy, evidence, zero code changes. Definition and the one-line deployment."
+  definition="An AI governance proxy, also called an AI gateway, is a network component that routes traffic between AI agents and model providers through a single control point. Because every inference and tool call on that route passes through it, it can verify agent identity, enforce behavioral policy, and record tamper-evident evidence, without any changes to agent code. It sees what is routed through it, not what bypasses it."
   who="Platform and security teams who need coverage across many agents, frameworks, and providers at once. The proxy pattern is what makes governance retrofittable: agents built last year, vendor tools you cannot modify, and scripts nobody documented all cross the same network egress, so they are all governed the moment the route changes."
   related={[
     { label: 'Behavioral Firewall', href: '/glossary/behavioral-firewall' },
@@ -19,7 +19,7 @@ import GlossaryEntry from '../../components/GlossaryEntry.astro';
   <div>
     <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Proxy vs SDK: the coverage question</h2>
     <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
-      The alternative to a proxy is instrumentation: wrap every agent in an SDK, add middleware to every framework. That works exactly as well as your inventory is complete, and agent inventories never are. The proxy inverts the default: instead of finding every agent and opting it in, you stand at the one point they all must pass and cover them by construction, including the ones you do not know about yet.
+      The alternative to a proxy is instrumentation: wrap every agent in an SDK, add middleware to every framework. That works exactly as well as your inventory is complete, and agent inventories never are. The proxy inverts the default: instead of finding every agent and opting it in, you stand at the point they must pass to reach a provider and cover them by construction, including agents you did not know about, as long as the egress rules leave no other route.
     </p>
     <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
       The cost of the position is latency, which is why the enforcement path must be deterministic policy, not model calls. No LLM sits in the decision loop.

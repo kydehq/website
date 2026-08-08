@@ -12,8 +12,10 @@ can't write the police report.
 KYDE Gateway is a drop-in, OpenAI-compatible proxy that sits outside
 the agent, in the path itself. Every action routed through it is recorded
 into a hash-chained ledger (Ed25519-signed on the Enterprise edition),
-independent of every model provider, out of reach of any agent, including
-the one being investigated. And while it records, it sees what flows
+independent of every model provider it fronts and written outside the
+agent's runtime. If an agent can touch the record, it can rewrite it, so
+the ledger is hash-chained: altering one entry breaks every entry after
+it, and a third party can recompute that offline. And while it records, it sees what flows
 upstream: your prompts, traces, and corrections, before they become
 someone else's training data.
 

@@ -155,7 +155,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Kyde governs not just LLM calls but every tool your agents invoke, including MCP servers. Every call is intercepted, traced to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. The app layer disappears. The governance layer doesn't.
+                Kyde governs not just LLM calls but every tool your agents invoke through it, including MCP servers. Every call routed through the gateway is intercepted, traced to an agent identity, checked against role-based scope, and written into a tamper-evident audit trail. Tool calls through MCP are written and hash-chained, but they do not yet carry a session id, so they cannot be followed back to the conversation that caused them. The app layer disappears. The governance layer doesn't.
               </p>
               <button
                 onclick="openModal()"

@@ -22,8 +22,8 @@ const cases = [
       },
       {
         label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. Continuous behavioral scoring flags if the agent deviates from established trading patterns or expands its request scope, catching a compromised agent before it causes damage.',
+        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
+        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag an agent that deviates from established trading patterns or expands its request scope, is a reading we have not built yet.',
       },
     ],
     regs: ['DORA, Digital Operational Resilience Act', 'EU AI Act, Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35, DPIA'],
@@ -42,12 +42,12 @@ const cases = [
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'The complete negotiation trail with the supplier API and the final order amount are Ed25519-signed and hash-chained as a 6D fingerprint. Every financial commitment the machine entered is on the record, signed at the point of capture. The CFO has a chain a third party can recompute, not a filtered dashboard export.',
+        text: 'The complete negotiation trail with the supplier API and the final order amount are hash-chained as a 6D fingerprint. Every financial commitment routed through the gateway is on the record, written at the point of capture. Signing each entry with your own keys is an Enterprise capability. The CFO has a chain a third party can recompute, not a filtered dashboard export.',
       },
       {
         label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. Continuous behavioral scoring flags if the agent deviates from normal order volumes or accesses suppliers outside its established scope, catching supply chain manipulation before it executes.',
+        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
+        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag an agent that deviates from normal order volumes or reaches suppliers outside its established scope, is a reading we have not built yet.',
       },
     ],
     regs: ['EU AI Act, High-Risk AI for automated procurement', 'NIS-2, Critical supply chain infrastructure', 'GDPR Art. 35, DPIA for large-scale processing'],
@@ -66,12 +66,12 @@ const cases = [
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'In GDPR Art. 9 and HIPAA environments, the agent layer has to hold up in an audit. The record shows hospitals exactly which agent processed which patient data, when, and on what basis. Every entry is signed as a 6D fingerprint at the point of capture and hash-chained, so altering one entry breaks every entry after it.',
+        text: 'In GDPR Art. 9 and HIPAA environments, the agent layer has to hold up in an audit. The record shows hospitals exactly which agent processed which patient data, when, and on what basis. Every entry is written as a 6D fingerprint at the point of capture and hash-chained, so altering one entry breaks every entry after it. Signing each entry with your own keys is an Enterprise capability.',
       },
       {
         label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. Continuous behavioral scoring flags if the billing agent accesses clinical records outside its scope or submits atypical claim volumes, catching data leakage before it escalates.',
+        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
+        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag a billing agent reaching clinical records outside its scope or submitting atypical claim volumes, is a reading we have not built yet.',
       },
     ],
     regs: ['EU AI Act, Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9, Special category health data', 'MDR / IVDR, AI-assisted diagnostics', 'NIS-2, Critical health infrastructure'],
@@ -90,12 +90,12 @@ const cases = [
       {
         label: 'PROVE',
         q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'When a fraud ring floods automated agents with fake images, the record shows on what data basis, at what timestamp, the agent approved each payment. Every decision is signed as a 6D fingerprint at the point of capture and hash-chained, so a reordered or edited entry is visible. Evidence for internal fraud investigators, and for the agent layer of Solvency II audits and GDPR Art. 22 challenges.',
+        text: 'When a fraud ring floods automated agents with fake images, the record shows on what data basis, at what timestamp, the agent approved each payment. Every decision is written as a 6D fingerprint at the point of capture and hash-chained, so a reordered or edited entry is visible. Signing each entry with your own keys is an Enterprise capability. Evidence for internal fraud investigators, and for the agent layer of Solvency II audits and GDPR Art. 22 challenges.',
       },
       {
         label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. Continuous behavioral scoring flags if the claims agent starts approving at abnormal rates or exhibits patterns consistent with adversarial manipulation, before further damage occurs.',
+        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
+        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag a claims agent approving at abnormal rates or drifting into patterns consistent with adversarial manipulation, is a reading we have not built yet.',
       },
     ],
     regs: ['EU AI Act, High-Risk AI Annex III §5 Insurance', 'Solvency II, Governance and risk management', 'GDPR Art. 22, Automated decision-making rights', 'NIS-2, Operational resilience'],
@@ -118,8 +118,8 @@ const cases = [
       },
       {
         label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™.',
-        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. Continuous behavioral scoring flags if the dispatch agent issues commands outside its assigned grid segments or deviates from established load balancing patterns, catching manipulation before it impacts grid stability.',
+        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
+        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag a dispatch agent issuing commands outside its assigned grid segments or deviating from established load balancing patterns, is a reading we have not built yet.',
       },
     ],
     regs: ['NIS-2, Network and Information Security (in force · DE: NIS2UmsuCG)', 'EU AI Act, High-Risk AI for critical infrastructure', 'KRITIS, German critical infrastructure protection', 'Cyber Resilience Act'],
@@ -237,7 +237,7 @@ const cases = [
               label: "Chief Information Security Officer",
               quote: "Your vendor's log isn't an independent record.",
               bullets: [
-                "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure, is a vendor report. A compromised host can rewrite it silently. KYDE's records are cryptographically signed at the point of capture. Alter any entry, every subsequent link breaks.",
+                "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure, is a vendor report. A compromised host can rewrite it silently. KYDE's records are hash-chained at the point of capture, on your own infrastructure. Alter any entry, every subsequent link breaks. Signing each entry with your own keys is an Enterprise capability.",
                 "Your audit trail is yours. Not locked to a provider console, not dependent on vendor uptime, not subject to vendor retention policies.",
                 "Evidence you can hand to a regulator, a lawyer, or your own InfoSec review, written before an incident, not assembled after one.",
               ],
@@ -247,7 +247,7 @@ const cases = [
               label: "Chief Technology Officer",
               quote: "Your governance layer shouldn't depend on your LLM choice.",
               bullets: [
-                "One environment variable. No SDK dependency. No code changes. Full fleet coverage in minutes, your agents see no difference.",
+                "One environment variable, or an egress rule that makes the gateway the only route to a provider, which covers agents nobody registered. No SDK dependency. No code changes. Minutes to deploy, and your agents see no difference.",
                 "Models change monthly. Add a local model for sensitive data, route cheap tasks to a cheaper provider, switch frontier models entirely. Governance follows automatically. No re-integration required.",
                 "No per-agent installation. No framework lock-in. Architecture that outlasts your current LLM stack, by design.",
               ],
@@ -258,8 +258,8 @@ const cases = [
               quote: "One framework won't be enough. One evidence trail has to cover all of them.",
               bullets: [
                 "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35, regulators don't coordinate their requirements around your roadmap. One hash-chained trail, built to serve as evidence for the agent layer of all of those duties from day one.",
-                "Verifiable audit exports on demand, complete, machine-generated, cryptographically signed. Not a screenshot. Not a filtered vendor report.",
-                "Every challenged decision is reconstructable: what the agent was shown, what it decided, which sources it relied on. The record exists before the challenge arrives.",
+                "Verifiable audit exports on demand, unfiltered, machine-generated, hash-chained. Not a screenshot. Not a filtered vendor report.",
+                "Every challenged decision can be traced through the record: what the agent was asked, what it decided, which sources it called. The record exists before the challenge arrives.",
               ],
             },
             {

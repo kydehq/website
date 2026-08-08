@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 const costAnchors = [
   { k: "NIS-2",        v: "Fines up to €10M or 2% of global turnover. Management is personally liable." },
   { k: "DORA",         v: "Gives financial supervisors direct enforcement power over operational resilience failures." },
-  { k: "EU AI Act",    v: "High-risk violations reach €35M or 7% of turnover once enforcement begins, December 2, 2027." },
+  { k: "EU AI Act",    v: "High-risk violations reach €15M or 3% of turnover once enforcement begins, December 2, 2027." },
   { k: "A failed audit", v: "Consumes more senior time than a year of governance infrastructure." },
 ];
 
@@ -106,11 +106,11 @@ const pricingFaqSchema = {
               <div class="mb-3">
                 <span class="font-mono text-xs uppercase tracking-widest text-ink-0">Free</span>
               </div>
-              <p class="font-mono text-xs text-ink-1 mb-1">Developer access · Self-hosted</p>
-              <p class="text-xs text-ink-1">Basic policies</p>
+              <p class="font-mono text-xs text-ink-1 mb-1">30-day audit · Self-hosted</p>
+              <p class="text-xs text-ink-1">Observe only, no blocking</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-ink-1 leading-relaxed mb-6">For developers and testing. An independent witness for every agent action routed through it, hash-chained and tamper-evident, from day one. No credit card required.</p>
+              <p class="text-xs text-ink-1 leading-relaxed mb-6">A free 30-day audit that ends with a finding: how many agents are running, under which identities, against which providers. An independent witness for every agent action routed through it, hash-chained and tamper-evident, from day one. No credit card required.</p>
               <ul class="space-y-2.5">
                 {[
                   { text: "Agent identity registration" },
@@ -152,7 +152,7 @@ const pricingFaqSchema = {
               <p class="text-xs text-ink-1">Custom policies</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-ink-1 leading-relaxed mb-4">For scaling AI workforces. The guard that blocks what must not happen: custom policy engine, signed evidence export, 30-day audit trail. Evidence a third party can recompute offline.</p>
+              <p class="text-xs text-ink-1 leading-relaxed mb-4">For scaling AI workforces. The guard that blocks what must not happen: custom policy engine, hash-chained evidence export, 30-day audit trail. Evidence a third party can recompute offline. Signing each entry with your own keys is an Enterprise capability.</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-3">Everything in Starter, plus:</p>
               <ul class="space-y-2.5">
                 {[
@@ -192,16 +192,17 @@ const pricingFaqSchema = {
               <p class="text-xs text-ink-1">Custom + Air-Gapped</p>
             </div>
             <div class="px-7 py-7 flex-1">
-              <p class="text-xs text-ink-1 leading-relaxed mb-4">For KRITIS, banks, and defense. Hardware-rooted attestation. Air-gapped deployments. Silicon Leash, signing keys never exposed to host OS.</p>
+              <p class="text-xs text-ink-1 leading-relaxed mb-4">For KRITIS, banks, and defense. Ed25519 signing with your own keys, air-gapped deployments. Hardware-rooted attestation is planned, not shipped.</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-ink-2 mb-3">Everything in Business, plus:</p>
               <ul class="space-y-2.5">
                 {[
+                  { text: "Ed25519 signing of each entry with your own keys", g: "PROVE" },
                   { text: "Agent-to-agent trust delegation", g: "PREVENT" },
                   { text: "Unlimited log retention", g: "PROVE" },
                   { text: "SIEM / SOC integration", g: "PROVE" },
-                  { text: "Silicon Leash, TPM/HSM hardware signing", g: "PROVE" },
-                  { text: "TEE attestation (TDX/SEV-SNP)", g: "PROVE" },
-                  { text: "FIPS 140-3 validated crypto modules", g: "PROVE" },
+                  { text: "Silicon Leash, TPM/HSM hardware signing (planned)", g: "PROVE" },
+                  { text: "TEE attestation, TDX/SEV-SNP (planned)", g: "PROVE" },
+                  { text: "FIPS 140-3 validated crypto modules (planned)", g: "PROVE" },
                   { text: "Air-gapped deployment option", g: null },
                   { text: "EU data residency", g: null },
                   { text: "ISO 27001 / BSI procurement track", g: null },
@@ -249,11 +250,11 @@ const pricingFaqSchema = {
             <tbody class="divide-y divide-line-0">
               {[
                 { label: "Pricing",                vals: ["Free",          "Pilot pricing on request",   "Custom"]      },
-                { label: "Scale",                  vals: ["Dev / Testing", "Scaling fleets",             "Unlimited"]   },
-                { label: "Policies",               vals: ["Basic",         "Custom",                     "Custom + Air-Gapped"] },
-                { label: "Log retention",          vals: ["—",             "30 days",                    "Unlimited"]   },
-                { label: "Evidence export",        vals: ["✓ (unsigned)",  "✓ (signed)",                 "✓ (signed)"]  },
-                { label: "Silicon Leash (TPM/HSM)",vals: ["—",             "—",                          "✓"]           },
+                { label: "Scale",                  vals: ["30-day audit",  "Scaling fleets",             "Unlimited"]   },
+                { label: "Policies",               vals: ["Observe only",  "Custom",                     "Custom + Air-Gapped"] },
+                { label: "Log retention",          vals: ["Local, self-hosted", "30 days",               "Unlimited"]   },
+                { label: "Evidence export",        vals: ["✓ (hash-chained)", "✓ (hash-chained)",        "✓ (signed with your keys)"] },
+                { label: "Silicon Leash (TPM/HSM)",vals: ["—",             "—",                          "Planned"]     },
               ].map(({ label, vals }) => (
                 <tr>
                   <td class="px-5 py-3.5 font-mono text-xs text-ink-1 uppercase tracking-wider">{label}</td>
@@ -339,7 +340,7 @@ const pricingFaqSchema = {
           {[
             { label: "Provider coverage",         value: "Every model and provider routed through it" },
             { label: "Deployment",                value: "One ENV variable or Group Policy push" },
-            { label: "Latency overhead",           value: "< 100ms" },
+            { label: "Latency overhead",           value: "Target: under 100ms" },
             { label: "Code changes required",      value: "None" },
             { label: "Data ownership",             value: "Yours, not ours, not your vendor's" },
           ].map(({ label, value }) => (

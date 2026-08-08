@@ -19,7 +19,7 @@ import GlossaryEntry from '../../components/GlossaryEntry.astro';
   <div>
     <h2 class="text-lg font-bold text-ink-0 uppercase tracking-wide mb-4">Why outside the agent</h2>
     <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-4">
-      Guardrails built into the agent share the agent's fate: a capable agent can be prompted, updated, or compromised into bypassing its own rules, and anyone with application access can switch them off. A behavioral firewall takes the network position instead. Every inference and tool call crosses it because that is the only path to the model, which makes enforcement structural rather than cooperative.
+      Guardrails built into the agent share the agent's fate: a capable agent can be prompted, updated, or compromised into bypassing its own rules, and anyone with application access can switch them off. A behavioral firewall takes the network position instead. Every inference and tool call routed through it crosses it, and egress rules are what make that route the only one, which turns enforcement from cooperative into structural for everything on that path.
     </p>
     <p class="text-base text-ink-1 leading-relaxed max-w-3xl">
       The decision logic is deterministic, not probabilistic. There is no confidence score on whether an action was within mandate: it either matched policy and executed, or it did not and was blocked with a 403 before the upstream ever saw it. There is no detection rate on a locked door.

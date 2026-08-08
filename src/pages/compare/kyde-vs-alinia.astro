@@ -60,7 +60,7 @@ const faqSchema = {
           Kyde vs <span class="gradient-text">Alinia AI</span>
         </h1>
         <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">
-          Alinia and Kyde serve the same regulated buyer with different instruments. Alinia is compliance as code: an SDK and API that wraps your AI calls and checks inputs and outputs against configurable rules, with prebuilt rule sets for frameworks like MiFID II and the EU AI Act. Kyde is governance infrastructure: an external gateway at the network boundary that enforces deterministic policy on every agent action and records it in a hash-chained, tamper-evident ledger. Alinia governs the calls your developers wrap. Kyde governs everything that crosses the boundary, wrapped or not.
+          Alinia and Kyde serve the same regulated buyer with different instruments. Alinia is compliance as code: an SDK and API that wraps your AI calls and checks inputs and outputs against configurable rules, with prebuilt rule sets for frameworks like MiFID II and the EU AI Act. Kyde is governance infrastructure: an external gateway at the network boundary that enforces deterministic policy on every agent action that crosses it and records that action in a hash-chained, tamper-evident ledger. Alinia governs the calls your developers wrap. Kyde governs everything that crosses the boundary, wrapped or not.
         </p>
       </div>
     </section>
@@ -87,7 +87,7 @@ const faqSchema = {
               {[
                 "Your compliance duty covers all agents, including the ones nobody integrated anything into",
                 "You need rollout without touching code: one environment variable or group policy, five minutes",
-                "You need evidence, not just filtering: a hash-chained, tamper-evident record of what every agent did and what was blocked",
+                "You need evidence, not just filtering: a hash-chained, tamper-evident record of what every agent routed through the boundary did and what was blocked",
               ].map((item) => (
                 <li class="flex items-start gap-3 text-sm text-ink-0 leading-relaxed"><span class="shrink-0 mt-0.5 text-live">→</span>{item}</li>
               ))}
@@ -192,7 +192,7 @@ const faqSchema = {
         <div class="border border-line-0 p-12 md:p-20">
           <div class="max-w-3xl">
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
-              Govern the agents nobody wrapped.
+              Govern the agents nobody wrapped, and the ones they did.
             </h2>
             <p class="text-lg text-ink-1 mb-10">
               Deploy the Kyde Gateway Starter in five minutes, or talk to us.
