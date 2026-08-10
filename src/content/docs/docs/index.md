@@ -6,8 +6,8 @@ description: "The gateway behind the behavioral system of record for autonomous 
 Nobody hands real responsibility to an agent nobody can trust. Agents
 stay stuck waiting for human approval on every step, because when
 something goes wrong, nobody can prove what happened. The provider's
-log lives on their infrastructure, signed with their keys: the suspect
-can't write the police report.
+log lives on their infrastructure, signed with their keys, and can only
+be read back through their console.
 
 KYDE Gateway is a drop-in, OpenAI-compatible proxy that sits outside
 the agent, in the path itself. Every action routed through it is recorded
