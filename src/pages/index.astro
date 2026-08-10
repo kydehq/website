@@ -665,10 +665,10 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ ONE RECORD, SIX READINGS ══════════ -->
-        <!-- Framing only. This exists to stop the six from reading as six products,
-             which is the whole strategic point: competitors build six silos, this
-             reads one recording six ways. It deliberately lists nothing, because each
+        <!-- ══════════ ONE RECORD, FIVE READINGS ══════════ -->
+        <!-- Framing only. This exists to stop the five from reading as five products,
+             which is the whole strategic point: competitors build five silos, this
+             reads one recording five ways. It deliberately lists nothing, because each
              reading below already carries its own category and maturity in a header
              you cannot miss, and saying it twice made the page a product list. -->
         <section class="border-b border-white/10 bg-bg-0">
@@ -679,17 +679,17 @@ const websiteSchema = {
                 </div>
 
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4 max-w-3xl">
-                    One record. Six readings.
+                    One record. Five readings.
                 </h2>
-                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Not six products. One recording, read six ways.</p>
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Not five products. One recording, read five ways.</p>
                 <p class="text-lg text-white/55 leading-relaxed max-w-3xl">
-                    Everything below comes out of the same signed chain. Built separately, these are six data silos and six integrations to keep in step with each other. That is why the completeness of the record is the thing worth arguing about, and why we are precise about what it holds today and what it does not hold yet.
+                    Everything below comes out of the same signed chain. Built separately, these are five data silos and five integrations to keep in step with each other. That is why the completeness of the record is the thing worth arguing about, and why we are precise about what it holds today and what it does not hold yet.
                 </p>
             </div>
         </section>
 
         <!-- ══════════ READING 01 · GOVERNANCE ══════════ -->
-        <!-- The six readings carry the page, one full section each, figure and text
+        <!-- The five readings carry the page, one full section each, figure and text
              swapping sides so the eye alternates instead of scanning one column. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
@@ -1204,108 +1204,107 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ READING 04 · PROCESS INTELLIGENCE ══════════ -->
+        <!-- ══════════ READING 04 · MANDATES ══════════ -->
+        <!-- Every other control on this page answers "was this call allowed". This one
+             answers "how much has been used in total", which nothing in the stack can
+             answer today because no single system sees the sum. Figure alternates to
+             the left, matching the section it replaced. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <!-- Figure sits between two hairlines, so the animation reads as a
-                         plate and not as something floating in the column. -->
+
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 items-center justify-center py-10">
-<svg id="loop-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <svg id="mandate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                                <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                                <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                                <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                                <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
 
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">ONE PROCESS RUN</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EXIT</text>
+                                <defs>
+                                    <radialGradient id="mandate-glow">
+                                        <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                        <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                        <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                        <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                                    </radialGradient>
+                                </defs>
+                                <g id="mandate-blooms"></g>
 
-                            <!-- the track the run is supposed to take, once, left to right -->
-                            <line x1="55" y1="200" x2="425" y2="200" stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="3 6" />
+                                <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EACH CALL ALLOWED</text>
+                                <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">THE SUM IS NOT</text>
 
-                            <!-- the arc back is the loop; ghosts of earlier passes stack under it -->
-                            <path id="loop-arc" d="M310 200 C 310 108, 140 108, 140 200" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.24" stroke-width="1" stroke-dasharray="2 5" />
-                            <defs>
-                            <radialGradient id="loop-glow">
-                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
-                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
-                            </radialGradient>
-                        </defs>
-                        <g id="loop-blooms"></g>
-                        <g id="loop-ghosts"></g>
+                                <!-- three teams, none of which can see the other two -->
+                                {[
+                                    { y: 104, l: "claims" },
+                                    { y: 150, l: "billing" },
+                                    { y: 196, l: "support" },
+                                ].map(({ y, l }) => (
+                                    <>
+                                        <rect x="30" y={y - 15} width="86" height="30" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                                        <text x="73" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">{l}</text>
+                                        <line x1="116" y1={y} x2="300" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                                    </>
+                                ))}
 
-                            {[
-                                { x: 55,  l: "fetch"  },
-                                { x: 140, l: "plan"   },
-                                { x: 225, l: "call"   },
-                                { x: 310, l: "check"  },
-                                { x: 425, l: "done"   },
-                            ].map(({ x, l }) => (
-                                <>
-                                    <circle cx={x} cy="200" r="7" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.25" />
-                                    <text x={x} y="228" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">{l}</text>
-                                </>
-                            ))}
+                                <line id="mandate-line" x1="300" y1="80" x2="300" y2="220" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
+                                <text x="300" y="240" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">MANDATE</text>
 
-                            <circle id="loop-token" cx="55" cy="200" r="4.5" fill="var(--color-ink-0)" fill-opacity="0.7" />
+                                <g id="mandate-acts"></g>
 
-                            <!-- the identity of the loop: the same input, over and over -->
-                            <text x="225" y="96" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">input_hash 9f86d0…</text>
-                            <text id="loop-count" x="225" y="140" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:15px;font-weight:700;letter-spacing:0.1em;">×1</text>
-
-                            <text x="30" y="300" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">same input · same path · billed each time</text>
-                        </svg>
+                                <!-- the counter: the only place the total exists -->
+                                <text x="30" y="278" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">USED THIS PERIOD</text>
+                                <rect x="30" y="288" width="420" height="14" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                                <rect id="mandate-fill" x="31" y="289" width="0" height="12" fill="var(--color-live)" fill-opacity="0.35" />
+                                <text id="mandate-count" x="450" y="278" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;">€0</text>
+                                <text id="mandate-held" x="300" y="264" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HELD · MANDATE SPENT</text>
+                            </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">No single pass looks wrong. The shape only appears once the passes are laid over each other.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Not one of these calls breaks a rule. The eleventh one does, and only because of the ten before it. Figures illustrative.</p>
                         </div>
                     </div>
+
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Process intelligence</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">The same work, six times, on your bill.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Loops read off the input hash the record already carries.</p>
-                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            An agent that keeps retrying the same request is nobody's incident. It looks like activity. But the record already holds what identifies the repetition, the hash of the input going in, so a run that keeps returning to the same point stops being a line on an invoice and becomes a shape you can see. <span class="text-white/35">The data is already being written. What is missing is the reading.</span>
-                        </p>
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Mandates</h2>
+                            <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Every call is allowed. Nobody knows the total.</p>
+                            <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A gateway decides per call. A mandate needs memory.</p>
+                            <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                                One assistant may release 800 euros of goodwill per case. So may another, in another team. What the two together may release in a month is a question nothing in the stack can answer, because there is nowhere for that number to live. KYDE holds the mandate at that boundary and stops the action when it is spent. <span class="text-white/35">Coming soon. A path around the gateway makes the count wrong.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-<script>
-                // loop-fig · the run travels its track, but at "check" it arcs back to "plan"
-                // and does it again. Each completed loop leaves a ghost of the arc that
-                // decays instead of blinking off, so after a few passes the loop is
-                // visible as accumulated residue, which is exactly how you find one in
-                // a log: not from any single entry, from the overlay.
-                const loopFig = document.getElementById("loop-fig");
-                const loopReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            <script>
+                // mandate-fig · every call crosses and is allowed, and each one adds to a
+                // running total. Nothing looks wrong until the bar is full, at which point
+                // the next call, identical to the ten before it, is held at the line. The
+                // figure has to make the sum the villain, not any single action.
+                const mandateFig = document.getElementById("mandate-fig");
+                const mandateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                if (loopFig) {
+                if (mandateFig) {
                     const NS = "http://www.w3.org/2000/svg";
-                    const token = document.getElementById("loop-token") as unknown as SVGCircleElement;
-                    const arc = document.getElementById("loop-arc") as unknown as SVGPathElement;
-                    const ghosts = document.getElementById("loop-ghosts") as unknown as SVGGElement;
-                    const counter = document.getElementById("loop-count") as unknown as SVGTextElement;
-                    const arcLen = arc.getTotalLength();
-                    const arcD = arc.getAttribute("d") || "";
+                    const LANES = [104, 150, 196];
+                    const START = 120, LINE = 300, END = 440;
+                    const LIMIT = 5000, BAR_W = 418;
 
-                    // Bloom borrowed from the hero canvas: expands on an ease-out and
-                    // burns down over roughly two seconds, so a contact glows like an
-                    // ember rather than switching on.
-                    const bloomLayer = document.getElementById("loop-blooms") as unknown as SVGGElement;
+                    const acts = document.getElementById("mandate-acts") as unknown as SVGGElement;
+                    const fill = document.getElementById("mandate-fill") as unknown as SVGRectElement;
+                    const count = document.getElementById("mandate-count") as unknown as SVGTextElement;
+                    const held = document.getElementById("mandate-held") as unknown as SVGTextElement;
+                    const line = document.getElementById("mandate-line") as unknown as SVGLineElement;
+                    const bloomLayer = document.getElementById("mandate-blooms") as unknown as SVGGElement;
+
                     const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
                     const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
                         const c = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        c.setAttribute("cx", String(bx));
-                        c.setAttribute("cy", String(by));
-                        c.setAttribute("r", String(r0));
-                        c.setAttribute("fill", "url(#loop-glow)");
+                        c.setAttribute("cx", String(bx)); c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0)); c.setAttribute("fill", "url(#mandate-glow)");
                         c.setAttribute("opacity", String(peak));
                         bloomLayer.appendChild(c);
                         blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
@@ -1313,109 +1312,81 @@ const websiteSchema = {
                     const stepBlooms = () => {
                         for (let i = blooms.length - 1; i >= 0; i--) {
                             const b = blooms[i];
-                            b.r += (b.max - b.r) * 0.045;
-                            b.a *= 0.972;
+                            b.r += (b.max - b.r) * 0.045; b.a *= 0.972;
                             if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
                             else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
                         }
                     };
 
+                    type Act = { g: SVGGElement; x: number; lane: number; amount: number; blocked: boolean; back: boolean };
+                    const live: Act[] = [];
+                    let used = 0, spawnAt = 0, heldO = 0, restUntil = 0, n = 0;
 
-                    const TRACK_Y = 200, X0 = 55, X_CHECK = 310, X_PLAN = 140, X_END = 425;
-                    const LOOPS = 5;
-
-                    let mode: "run" | "arc" | "exit" | "rest" = "run";
-                    let x = X0, arcT = 0, laps = 0, restUntil = 0;
-                    let ghostList: { el: SVGPathElement; o: number }[] = [];
-                    let countOpacity = 0;
-
-                    const addGhost = () => {
-                        const g = document.createElementNS(NS, "path") as SVGPathElement;
-                        g.setAttribute("d", arcD);
-                        g.setAttribute("fill", "none");
-                        g.setAttribute("stroke", "var(--color-warn)");
-                        g.setAttribute("stroke-width", "1.5");
-                        g.setAttribute("stroke-opacity", "0.75");
-                        ghosts.appendChild(g);
-                        ghostList.push({ el: g, o: 0.75 });
+                    const spawn = (lane: number, amount: number) => {
+                        const g = document.createElementNS(NS, "g") as SVGGElement;
+                        const c = document.createElementNS(NS, "circle");
+                        c.setAttribute("cx", "0"); c.setAttribute("cy", "0"); c.setAttribute("r", "4");
+                        c.setAttribute("fill", "var(--color-ink-0)"); c.setAttribute("fill-opacity", "0.62");
+                        const t = document.createElementNS(NS, "text");
+                        t.setAttribute("x", "10"); t.setAttribute("y", "4");
+                        t.setAttribute("fill", "var(--color-ink-0)"); t.setAttribute("fill-opacity", "0.42");
+                        t.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;");
+                        t.textContent = "\u20ac" + amount;
+                        g.appendChild(c); g.appendChild(t);
+                        acts.appendChild(g);
+                        live.push({ g, x: START, lane, amount, blocked: used + amount > LIMIT, back: false });
                     };
 
-                    // Everything fades rather than switching off: a ghost that vanishes in
-                    // one frame reads as a glitch, one that burns down reads as a trace.
-                    const decay = () => {
-                        for (let i = ghostList.length - 1; i >= 0; i--) {
-                            ghostList[i].o *= 0.988;
-                            if (ghostList[i].o < 0.02) {
-                                ghostList[i].el.remove();
-                                ghostList.splice(i, 1);
+                    const paint = () => {
+                        fill.setAttribute("width", String(Math.min(used / LIMIT, 1) * BAR_W));
+                        count.textContent = "\u20ac" + used.toLocaleString("en-US") + " / \u20ac" + LIMIT.toLocaleString("en-US");
+                        held.setAttribute("fill-opacity", heldO.toFixed(3));
+                        line.setAttribute("stroke", heldO > 0.1 ? "var(--color-warn)" : "var(--color-ink-0)");
+                    };
+
+                    const tick = (now: number) => {
+                        if (restUntil && now > restUntil) {
+                            used = 0; restUntil = 0; heldO = 0;
+                            live.forEach((a) => a.g.remove()); live.length = 0;
+                        }
+                        if (!restUntil && now > spawnAt) {
+                            spawn(n % LANES.length, [400, 600, 800][n % 3]);
+                            n += 1; spawnAt = now + 1100;
+                        }
+                        for (let i = live.length - 1; i >= 0; i--) {
+                            const a = live[i];
+                            if (a.back) {
+                                a.x -= 2.4;
+                                if (a.x < START - 20) { a.g.remove(); live.splice(i, 1); continue; }
                             } else {
-                                ghostList[i].el.setAttribute("stroke-opacity", String(ghostList[i].o));
+                                a.x += 1.4;
+                                if (a.x >= LINE) {
+                                    if (a.blocked) {
+                                        a.back = true; heldO = 0.95;
+                                        (a.g.firstChild as SVGCircleElement).setAttribute("fill", "var(--color-warn)");
+                                        restUntil = now + 3400;
+                                    } else {
+                                        used += a.amount;
+                                        bloom(LINE, LANES[a.lane], 7, 0.8);
+                                        a.blocked = false;
+                                        (a.g.firstChild as SVGCircleElement).setAttribute("fill", "var(--color-live)");
+                                    }
+                                }
+                                if (a.x > END) { a.g.remove(); live.splice(i, 1); continue; }
                             }
+                            a.g.setAttribute("transform", `translate(${a.x},${LANES[a.lane]})`);
                         }
-                        countOpacity *= 0.995;
-                        counter.setAttribute("fill-opacity", String(countOpacity));
-                    };
-
-                    const reset = () => {
-                        mode = "run"; x = X0; arcT = 0; laps = 0;
-                        token.setAttribute("fill", "var(--color-ink-0)");
-                        token.setAttribute("fill-opacity", "0.8");
-                    };
-
-                    const tick = () => {
-                        if (mode === "run") {
-                            x += 1.25;
-                            token.setAttribute("cx", String(x));
-                            token.setAttribute("cy", String(TRACK_Y));
-                            if (x >= X_CHECK) {
-                                if (laps < LOOPS) { mode = "arc"; arcT = 0; }
-                                else { mode = "exit"; }
-                            }
-                        } else if (mode === "arc") {
-                            arcT += 2.6;
-                            const p = arc.getPointAtLength(Math.min(arcT, arcLen));
-                            token.setAttribute("cx", String(p.x));
-                            token.setAttribute("cy", String(p.y));
-                            if (arcT >= arcLen) {
-                                laps += 1;
-                                addGhost();
-                                bloom(X_PLAN, TRACK_Y, 7, 0.8);
-                                countOpacity = 0.95;
-                                counter.textContent = "×" + (laps + 1);
-                                // the token warms as the repetition compounds
-                                token.setAttribute("fill", "var(--color-warn)");
-                                token.setAttribute("fill-opacity", String(Math.min(0.5 + laps * 0.12, 0.95)));
-                                x = X_PLAN; mode = "run";
-                            }
-                        } else if (mode === "exit") {
-                            x += 2.2;
-                            token.setAttribute("cx", String(x));
-                            if (x >= X_END) { mode = "rest"; restUntil = performance.now() + 1600; }
-                        } else if (mode === "rest") {
-                            if (performance.now() > restUntil && ghostList.length === 0) reset();
-                        }
-                        decay();
+                        heldO *= 0.995;
                         stepBlooms();
+                        paint();
                     };
 
-                    if (loopReduced) {
-                        // Static equivalent: the residue, without the motion that built it.
-                        for (let i = 0; i < 4; i++) addGhost();
-                        ghostList.forEach((g, i) => {
-                            g.o = 0.2 + i * 0.16;
-                            g.el.setAttribute("stroke-opacity", String(g.o));
-                        });
-                        counter.textContent = "×6";
-                        counter.setAttribute("fill-opacity", "0.9");
-                        token.setAttribute("cx", String(X_PLAN));
-                        token.setAttribute("fill", "var(--color-warn)");
+                    if (mandateReduced) {
+                        used = LIMIT; heldO = 0.9; paint();
                     } else {
                         let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(loopFig);
-                        const loop = () => {
-                            if (visible) tick();
-                            requestAnimationFrame(loop);
-                        };
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(mandateFig);
+                        const loop = (now: number) => { if (visible) tick(now); requestAnimationFrame(loop); };
                         requestAnimationFrame(loop);
                     }
                 }
@@ -1596,195 +1567,6 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ READING 06 · MANDATES ══════════ -->
-        <!-- Every other control on this page answers "was this call allowed". This one
-             answers "how much has been used in total", which nothing in the stack can
-             answer today because no single system sees the sum. Figure alternates to
-             the left, matching the section it replaced. -->
-        <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 items-center justify-center py-10">
-                            <svg id="mandate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                                <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                                <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                                <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                                <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-
-                                <defs>
-                                    <radialGradient id="mandate-glow">
-                                        <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                                        <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                                        <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
-                                        <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
-                                    </radialGradient>
-                                </defs>
-                                <g id="mandate-blooms"></g>
-
-                                <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EACH CALL ALLOWED</text>
-                                <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">THE SUM IS NOT</text>
-
-                                <!-- three teams, none of which can see the other two -->
-                                {[
-                                    { y: 104, l: "claims" },
-                                    { y: 150, l: "billing" },
-                                    { y: 196, l: "support" },
-                                ].map(({ y, l }) => (
-                                    <>
-                                        <rect x="30" y={y - 15} width="86" height="30" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-                                        <text x="73" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">{l}</text>
-                                        <line x1="116" y1={y} x2="300" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
-                                    </>
-                                ))}
-
-                                <line id="mandate-line" x1="300" y1="80" x2="300" y2="220" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-                                <text x="300" y="240" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">MANDATE</text>
-
-                                <g id="mandate-acts"></g>
-
-                                <!-- the counter: the only place the total exists -->
-                                <text x="30" y="278" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">USED THIS PERIOD</text>
-                                <rect x="30" y="288" width="420" height="14" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-                                <rect id="mandate-fill" x="31" y="289" width="0" height="12" fill="var(--color-live)" fill-opacity="0.35" />
-                                <text id="mandate-count" x="450" y="278" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;">€0</text>
-                                <text id="mandate-held" x="300" y="264" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HELD · MANDATE SPENT</text>
-                            </svg>
-                        </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Not one of these calls breaks a rule. The eleventh one does, and only because of the ten before it. Figures illustrative.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Mandates</h2>
-                            <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Every call is allowed. Nobody can tell you the total.</p>
-                            <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A gateway decides per call. A mandate needs memory over time.</p>
-                            <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                                One assistant may release 800 euros of goodwill per case. So may another one, in a different team. How much the two of them together may release in a month is a question no system in the stack can answer, because there is nowhere for that number to live. The damage arrives before the incident does: whoever cannot answer it does not approve the next assistant, and the cost is the automation that never starts. KYDE holds the mandate where the automations meet the systems they write into, counts against it, and stops the action before execution when it is spent. <span class="text-white/35">Coming soon. And it stands or falls on coverage: if one path goes around the gateway the count is wrong, and a wrong number is worse than none, because someone will rely on it.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                // mandate-fig · every call crosses and is allowed, and each one adds to a
-                // running total. Nothing looks wrong until the bar is full, at which point
-                // the next call, identical to the ten before it, is held at the line. The
-                // figure has to make the sum the villain, not any single action.
-                const mandateFig = document.getElementById("mandate-fig");
-                const mandateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                if (mandateFig) {
-                    const NS = "http://www.w3.org/2000/svg";
-                    const LANES = [104, 150, 196];
-                    const START = 120, LINE = 300, END = 440;
-                    const LIMIT = 5000, BAR_W = 418;
-
-                    const acts = document.getElementById("mandate-acts") as unknown as SVGGElement;
-                    const fill = document.getElementById("mandate-fill") as unknown as SVGRectElement;
-                    const count = document.getElementById("mandate-count") as unknown as SVGTextElement;
-                    const held = document.getElementById("mandate-held") as unknown as SVGTextElement;
-                    const line = document.getElementById("mandate-line") as unknown as SVGLineElement;
-                    const bloomLayer = document.getElementById("mandate-blooms") as unknown as SVGGElement;
-
-                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
-                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
-                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        c.setAttribute("cx", String(bx)); c.setAttribute("cy", String(by));
-                        c.setAttribute("r", String(r0)); c.setAttribute("fill", "url(#mandate-glow)");
-                        c.setAttribute("opacity", String(peak));
-                        bloomLayer.appendChild(c);
-                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
-                    };
-                    const stepBlooms = () => {
-                        for (let i = blooms.length - 1; i >= 0; i--) {
-                            const b = blooms[i];
-                            b.r += (b.max - b.r) * 0.045; b.a *= 0.972;
-                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
-                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
-                        }
-                    };
-
-                    type Act = { g: SVGGElement; x: number; lane: number; amount: number; blocked: boolean; back: boolean };
-                    const live: Act[] = [];
-                    let used = 0, spawnAt = 0, heldO = 0, restUntil = 0, n = 0;
-
-                    const spawn = (lane: number, amount: number) => {
-                        const g = document.createElementNS(NS, "g") as SVGGElement;
-                        const c = document.createElementNS(NS, "circle");
-                        c.setAttribute("cx", "0"); c.setAttribute("cy", "0"); c.setAttribute("r", "4");
-                        c.setAttribute("fill", "var(--color-ink-0)"); c.setAttribute("fill-opacity", "0.62");
-                        const t = document.createElementNS(NS, "text");
-                        t.setAttribute("x", "10"); t.setAttribute("y", "4");
-                        t.setAttribute("fill", "var(--color-ink-0)"); t.setAttribute("fill-opacity", "0.42");
-                        t.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;");
-                        t.textContent = "\u20ac" + amount;
-                        g.appendChild(c); g.appendChild(t);
-                        acts.appendChild(g);
-                        live.push({ g, x: START, lane, amount, blocked: used + amount > LIMIT, back: false });
-                    };
-
-                    const paint = () => {
-                        fill.setAttribute("width", String(Math.min(used / LIMIT, 1) * BAR_W));
-                        count.textContent = "\u20ac" + used.toLocaleString("en-US") + " / \u20ac" + LIMIT.toLocaleString("en-US");
-                        held.setAttribute("fill-opacity", heldO.toFixed(3));
-                        line.setAttribute("stroke", heldO > 0.1 ? "var(--color-warn)" : "var(--color-ink-0)");
-                    };
-
-                    const tick = (now: number) => {
-                        if (restUntil && now > restUntil) {
-                            used = 0; restUntil = 0; heldO = 0;
-                            live.forEach((a) => a.g.remove()); live.length = 0;
-                        }
-                        if (!restUntil && now > spawnAt) {
-                            spawn(n % LANES.length, [400, 600, 800][n % 3]);
-                            n += 1; spawnAt = now + 1100;
-                        }
-                        for (let i = live.length - 1; i >= 0; i--) {
-                            const a = live[i];
-                            if (a.back) {
-                                a.x -= 2.4;
-                                if (a.x < START - 20) { a.g.remove(); live.splice(i, 1); continue; }
-                            } else {
-                                a.x += 1.4;
-                                if (a.x >= LINE) {
-                                    if (a.blocked) {
-                                        a.back = true; heldO = 0.95;
-                                        (a.g.firstChild as SVGCircleElement).setAttribute("fill", "var(--color-warn)");
-                                        restUntil = now + 3400;
-                                    } else {
-                                        used += a.amount;
-                                        bloom(LINE, LANES[a.lane], 7, 0.8);
-                                        a.blocked = false;
-                                        (a.g.firstChild as SVGCircleElement).setAttribute("fill", "var(--color-live)");
-                                    }
-                                }
-                                if (a.x > END) { a.g.remove(); live.splice(i, 1); continue; }
-                            }
-                            a.g.setAttribute("transform", `translate(${a.x},${LANES[a.lane]})`);
-                        }
-                        heldO *= 0.995;
-                        stepBlooms();
-                        paint();
-                    };
-
-                    if (mandateReduced) {
-                        used = LIMIT; heldO = 0.9; paint();
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(mandateFig);
-                        const loop = (now: number) => { if (visible) tick(now); requestAnimationFrame(loop); };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
-        </section>
-
         <!-- ══════════ CONTINUOUS VERIFICATION ══════════ -->
         <!-- Not a seventh reading: the four mechanisms that produce the record every
              reading is read from. Since the readings took over the page, this is the
@@ -1797,10 +1579,10 @@ const websiteSchema = {
                 <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-8">
                     <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
                         <div>
-                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">Under all six · How the record is made</p>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">Under all five · How the record is made</p>
                             <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">A reading is only worth the recording under it.</h3>
                             <p class="text-sm text-white/55 leading-relaxed max-w-2xl mb-4">
-                                Four mechanisms produce every entry the six readings are read from: each agent has its own identity, its capabilities are narrow and expire on their own, policy is evaluated before the action goes through, and what happened is sealed into the chain as it passes.
+                                Four mechanisms produce every entry the five readings are read from: each agent has its own identity, its capabilities are narrow and expire on their own, policy is evaluated before the action goes through, and what happened is sealed into the chain as it passes.
                             </p>
                             <p class="text-sm text-white/55 leading-relaxed max-w-2xl">
                                 Control is not a switch you flip at onboarding. Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next.
@@ -2083,7 +1865,7 @@ const websiteSchema = {
             </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">One record · Six readings</p>
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">One record · Five readings</p>
                     <div class="mb-12 h-px bg-white/10"></div>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-8">
                         Your agents will change vendors.<br />Your control shouldn't.
