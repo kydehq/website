@@ -1596,93 +1596,107 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ READING 06 · INSURANCE ══════════ -->
+        <!-- ══════════ READING 06 · MANDATES ══════════ -->
+        <!-- Every other control on this page answers "was this call allowed". This one
+             answers "how much has been used in total", which nothing in the stack can
+             answer today because no single system sees the sum. Figure alternates to
+             the left, matching the section it replaced. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <!-- Figure sits between two hairlines, so the animation reads as a
-                         plate and not as something floating in the column. -->
+
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 items-center justify-center py-10">
-<svg id="band-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <svg id="mandate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                                <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                                <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                                <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                                <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
 
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OBSERVED BEHAVIOR</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">WHAT IS PRICEABLE</text>
+                                <defs>
+                                    <radialGradient id="mandate-glow">
+                                        <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                        <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                        <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                        <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                                    </radialGradient>
+                                </defs>
+                                <g id="mandate-blooms"></g>
 
-                            <line x1="46" y1="286" x2="440" y2="286" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
-                            <line x1="46" y1="80" x2="46" y2="286" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
-                            <text x="440" y="302" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">RECORD OVER TIME</text>
+                                <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">EACH CALL ALLOWED</text>
+                                <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">THE SUM IS NOT</text>
 
-                            <!-- the band is the claim: it narrows because there is more of the
-                                 record, not because the agent got better -->
-                            <path id="band-up" d="" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3 4" />
-                            <path id="band-dn" d="" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3 4" />
-                            <line x1="46" y1="186" x2="440" y2="186" stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" />
-                            <defs>
-                            <radialGradient id="band-glow">
-                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
-                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
-                            </radialGradient>
-                        </defs>
-                        <g id="band-blooms"></g>
-                        <g id="band-points"></g>
+                                <!-- three teams, none of which can see the other two -->
+                                {[
+                                    { y: 104, l: "claims" },
+                                    { y: 150, l: "billing" },
+                                    { y: 196, l: "support" },
+                                ].map(({ y, l }) => (
+                                    <>
+                                        <rect x="30" y={y - 15} width="86" height="30" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                                        <text x="73" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">{l}</text>
+                                        <line x1="116" y1={y} x2="300" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                                    </>
+                                ))}
 
-                            <text id="band-read" x="440" y="120" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:17px;font-weight:700;letter-spacing:0.08em;">±62</text>
-                            <text x="440" y="136" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">uncertainty</text>
-                        </svg>
+                                <line id="mandate-line" x1="300" y1="80" x2="300" y2="220" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
+                                <text x="300" y="240" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">MANDATE</text>
+
+                                <g id="mandate-acts"></g>
+
+                                <!-- the counter: the only place the total exists -->
+                                <text x="30" y="278" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">USED THIS PERIOD</text>
+                                <rect x="30" y="288" width="420" height="14" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                                <rect id="mandate-fill" x="31" y="289" width="0" height="12" fill="var(--color-live)" fill-opacity="0.35" />
+                                <text id="mandate-count" x="450" y="278" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;">€0</text>
+                                <text id="mandate-held" x="300" y="264" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HELD · MANDATE SPENT</text>
+                            </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Nothing about the agent changes across this figure. Only how much of it was recorded.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Not one of these calls breaks a rule. The eleventh one does, and only because of the ten before it. Figures illustrative.</p>
                         </div>
                     </div>
+
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Insurance</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">A risk somebody can actually price.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">The longer the record, the narrower the band around what an agent does.</p>
-                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            Insuring autonomous work today means pricing something nobody observes: the applicant describes their own controls, and an underwriter wraps a number around the description. A signed behavioral record changes what is being priced. Not intentions, but what the agents did, in a form the insurer can check without taking the applicant's word for it. <span class="text-white/35">Coming soon. This is the reading every one above it feeds, and the furthest out.</span>
-                        </p>
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Mandates</h2>
+                            <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Every call is allowed. Nobody can tell you the total.</p>
+                            <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A gateway decides per call. A mandate needs memory over time.</p>
+                            <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                                One assistant may release 800 euros of goodwill per case. So may another one, in a different team. How much the two of them together may release in a month is a question no system in the stack can answer, because there is nowhere for that number to live. The damage arrives before the incident does: whoever cannot answer it does not approve the next assistant, and the cost is the automation that never starts. KYDE holds the mandate where the automations meet the systems they write into, counts against it, and stops the action before execution when it is spent. <span class="text-white/35">Coming soon. And it stands or falls on coverage: if one path goes around the gateway the count is wrong, and a wrong number is worse than none, because someone will rely on it.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-<script>
-                // band-fig · observations land left to right. The envelope around them is drawn
-                // from how many there are, so it narrows on its own as the record grows.
-                // Points fade up and settle instead of appearing; the readout counts the
-                // band down rather than snapping to a final number, because the argument
-                // is the narrowing, not the value it lands on.
-                const bandFig = document.getElementById("band-fig");
-                const bandReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            <script>
+                // mandate-fig · every call crosses and is allowed, and each one adds to a
+                // running total. Nothing looks wrong until the bar is full, at which point
+                // the next call, identical to the ten before it, is held at the line. The
+                // figure has to make the sum the villain, not any single action.
+                const mandateFig = document.getElementById("mandate-fig");
+                const mandateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                if (bandFig) {
+                if (mandateFig) {
                     const NS = "http://www.w3.org/2000/svg";
-                    const N = 30, X0 = 60, DX = 12.6, MID = 186;
-                    const up = document.getElementById("band-up") as unknown as SVGPathElement;
-                    const dn = document.getElementById("band-dn") as unknown as SVGPathElement;
-                    const layer = document.getElementById("band-points") as unknown as SVGGElement;
-                    const read = document.getElementById("band-read") as unknown as SVGTextElement;
+                    const LANES = [104, 150, 196];
+                    const START = 120, LINE = 300, END = 440;
+                    const LIMIT = 5000, BAR_W = 418;
 
-                    // Bloom borrowed from the hero canvas: expands on an ease-out and
-                    // burns down over roughly two seconds, so a contact glows like an
-                    // ember rather than switching on.
-                    const bloomLayer = document.getElementById("band-blooms") as unknown as SVGGElement;
+                    const acts = document.getElementById("mandate-acts") as unknown as SVGGElement;
+                    const fill = document.getElementById("mandate-fill") as unknown as SVGRectElement;
+                    const count = document.getElementById("mandate-count") as unknown as SVGTextElement;
+                    const held = document.getElementById("mandate-held") as unknown as SVGTextElement;
+                    const line = document.getElementById("mandate-line") as unknown as SVGLineElement;
+                    const bloomLayer = document.getElementById("mandate-blooms") as unknown as SVGGElement;
+
                     const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
                     const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
                         const c = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        c.setAttribute("cx", String(bx));
-                        c.setAttribute("cy", String(by));
-                        c.setAttribute("r", String(r0));
-                        c.setAttribute("fill", "url(#band-glow)");
+                        c.setAttribute("cx", String(bx)); c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0)); c.setAttribute("fill", "url(#mandate-glow)");
                         c.setAttribute("opacity", String(peak));
                         bloomLayer.appendChild(c);
                         blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
@@ -1690,87 +1704,81 @@ const websiteSchema = {
                     const stepBlooms = () => {
                         for (let i = blooms.length - 1; i >= 0; i--) {
                             const b = blooms[i];
-                            b.r += (b.max - b.r) * 0.045;
-                            b.a *= 0.972;
+                            b.r += (b.max - b.r) * 0.045; b.a *= 0.972;
                             if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
                             else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
                         }
                     };
 
+                    type Act = { g: SVGGElement; x: number; lane: number; amount: number; blocked: boolean; back: boolean };
+                    const live: Act[] = [];
+                    let used = 0, spawnAt = 0, heldO = 0, restUntil = 0, n = 0;
 
-                    // deterministic scatter, so the figure is the same on every visit
-                    const rnd = (n: number) => {
-                        let t = (n * 2654435761) >>> 0;
-                        t ^= t >>> 15; t = Math.imul(t, 2246822519); t ^= t >>> 13;
-                        return ((t >>> 0) % 1000) / 1000;
-                    };
-                    const halfAt = (i: number) => 62 / Math.sqrt(1 + i * 0.42);
-                    const xAt = (i: number) => X0 + i * DX;
-
-                    const dots: { el: SVGCircleElement; o: number; target: number }[] = [];
-                    let shown = 0, band = 62, nextAt = 0;
-
-                    const drawBand = () => {
-                        let u = "", d = "";
-                        for (let i = 0; i < Math.max(shown, 1); i++) {
-                            const h = halfAt(i);
-                            u += (i === 0 ? "M" : "L") + xAt(i) + " " + (MID - h);
-                            d += (i === 0 ? "M" : "L") + xAt(i) + " " + (MID + h);
-                        }
-                        up.setAttribute("d", u);
-                        dn.setAttribute("d", d);
+                    const spawn = (lane: number, amount: number) => {
+                        const g = document.createElementNS(NS, "g") as SVGGElement;
+                        const c = document.createElementNS(NS, "circle");
+                        c.setAttribute("cx", "0"); c.setAttribute("cy", "0"); c.setAttribute("r", "4");
+                        c.setAttribute("fill", "var(--color-ink-0)"); c.setAttribute("fill-opacity", "0.62");
+                        const t = document.createElementNS(NS, "text");
+                        t.setAttribute("x", "10"); t.setAttribute("y", "4");
+                        t.setAttribute("fill", "var(--color-ink-0)"); t.setAttribute("fill-opacity", "0.42");
+                        t.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;");
+                        t.textContent = "\u20ac" + amount;
+                        g.appendChild(c); g.appendChild(t);
+                        acts.appendChild(g);
+                        live.push({ g, x: START, lane, amount, blocked: used + amount > LIMIT, back: false });
                     };
 
-                    const addPoint = (i: number) => {
-                        const h = halfAt(i);
-                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        el.setAttribute("cx", String(xAt(i)));
-                        el.setAttribute("cy", String(MID + (rnd(i) * 2 - 1) * h * 0.8));
-                        el.setAttribute("r", "2.6");
-                        el.setAttribute("fill", "var(--color-live)");
-                        el.setAttribute("fill-opacity", "0");
-                        layer.appendChild(el);
-                        dots.push({ el, o: 0, target: 0.85 });
+                    const paint = () => {
+                        fill.setAttribute("width", String(Math.min(used / LIMIT, 1) * BAR_W));
+                        count.textContent = "\u20ac" + used.toLocaleString("en-US") + " / \u20ac" + LIMIT.toLocaleString("en-US");
+                        held.setAttribute("fill-opacity", heldO.toFixed(3));
+                        line.setAttribute("stroke", heldO > 0.1 ? "var(--color-warn)" : "var(--color-ink-0)");
                     };
 
                     const tick = (now: number) => {
-                        if (shown < N && now > nextAt) {
-                            addPoint(shown);
-                            if (shown % 5 === 0) bloom(xAt(shown), MID, 5, 0.55);
-                            shown += 1;
-                            drawBand();
-                            nextAt = now + 210;
+                        if (restUntil && now > restUntil) {
+                            used = 0; restUntil = 0; heldO = 0;
+                            live.forEach((a) => a.g.remove()); live.length = 0;
                         }
-                        // fade up, then settle back down to a resting brightness
-                        dots.forEach((d) => {
-                            d.o += (d.target - d.o) * 0.12;
-                            if (d.o > 0.8) d.target = 0.55;
-                            d.el.setAttribute("fill-opacity", String(d.o));
-                        });
+                        if (!restUntil && now > spawnAt) {
+                            spawn(n % LANES.length, [400, 600, 800][n % 3]);
+                            n += 1; spawnAt = now + 1100;
+                        }
+                        for (let i = live.length - 1; i >= 0; i--) {
+                            const a = live[i];
+                            if (a.back) {
+                                a.x -= 2.4;
+                                if (a.x < START - 20) { a.g.remove(); live.splice(i, 1); continue; }
+                            } else {
+                                a.x += 1.4;
+                                if (a.x >= LINE) {
+                                    if (a.blocked) {
+                                        a.back = true; heldO = 0.95;
+                                        (a.g.firstChild as SVGCircleElement).setAttribute("fill", "var(--color-warn)");
+                                        restUntil = now + 3400;
+                                    } else {
+                                        used += a.amount;
+                                        bloom(LINE, LANES[a.lane], 7, 0.8);
+                                        a.blocked = false;
+                                        (a.g.firstChild as SVGCircleElement).setAttribute("fill", "var(--color-live)");
+                                    }
+                                }
+                                if (a.x > END) { a.g.remove(); live.splice(i, 1); continue; }
+                            }
+                            a.g.setAttribute("transform", `translate(${a.x},${LANES[a.lane]})`);
+                        }
+                        heldO *= 0.995;
                         stepBlooms();
-                        const want = halfAt(Math.max(shown - 1, 0));
-                        band += (want - band) * 0.06;
-                        read.textContent = "±" + Math.round(band);
-                        if (shown >= N && dots.every((d) => Math.abs(d.o - d.target) < 0.02) && now > nextAt + 2600) {
-                            dots.forEach((d) => d.el.remove());
-                            dots.length = 0;
-                            shown = 0; band = 62; nextAt = now + 400;
-                            drawBand();
-                        }
+                        paint();
                     };
 
-                    if (bandReduced) {
-                        for (let i = 0; i < N; i++) { addPoint(i); }
-                        shown = N; drawBand();
-                        dots.forEach((d) => { d.o = 0.55; d.el.setAttribute("fill-opacity", "0.55"); });
-                        read.textContent = "±" + Math.round(halfAt(N - 1));
+                    if (mandateReduced) {
+                        used = LIMIT; heldO = 0.9; paint();
                     } else {
                         let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(bandFig);
-                        const loop = (now: number) => {
-                            if (visible) tick(now);
-                            requestAnimationFrame(loop);
-                        };
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(mandateFig);
+                        const loop = (now: number) => { if (visible) tick(now); requestAnimationFrame(loop); };
                         requestAnimationFrame(loop);
                     }
                 }
