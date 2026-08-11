@@ -1,4 +1,6 @@
 ---
+import { localeOf } from "../data/locales";
+
 const footerLinks = {
     Product: [
         { label: "Platform", href: "/platform" },
@@ -24,6 +26,14 @@ const footerLinks = {
         { label: "Privacy & Imprint", href: "/legal" },
     ],
 };
+
+// German law wants the provider identification immediately reachable and
+// recognizable as such. A German reader should not have to guess that an
+// English "Imprint" is the Impressum, so German pages get their own label.
+const isGerman = localeOf(Astro.url.pathname) === "de";
+const links = isGerman
+    ? { ...footerLinks, Company: [...footerLinks.Company, { label: "Impressum", href: "/de/impressum" }] }
+    : footerLinks;
 
 const year = new Date().getFullYear();
 
@@ -78,7 +88,7 @@ const wm = wordmarkDots("KYDE");
 
             <!-- Link groups -->
             {
-                Object.entries(footerLinks).map(([group, links]) => (
+                Object.entries(links).map(([group, links]) => (
                     <div>
                         <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-5">
                             {group}

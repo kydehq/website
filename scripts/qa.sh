@@ -70,6 +70,9 @@ run_step "Spell check" npm run qa:spell
 #     still carrying a claim the English one already dropped.
 run_step "Translation drift" npm run qa:i18n
 
+# 2c. Scaffolded legal pages must not ship with their gaps still in them.
+run_step "Placeholders" npm run qa:placeholders
+
 # 3. HTML validation (needs dist/)
 if [ -d dist ]; then
     run_step "HTML validation" npm run qa:html

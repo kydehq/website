@@ -1,0 +1,125 @@
+---
+import Base from "../../layouts/Base.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+// Anbieterkennzeichnung nach § 5 DDG und Verantwortlichkeit nach § 18 Abs. 2 MStV.
+//
+// Eigene Seite statt Abschnitt in /legal: die Kennzeichnung muss "leicht
+// erkennbar, unmittelbar erreichbar und ständig verfügbar" sein. Ein englisch
+// betitelter Abschnitt auf einer englischen Seite erfüllt das für deutsche
+// Leser im Zweifel nicht, und Impressumsmängel sind der mit Abstand häufigste
+// Abmahngrund in Deutschland.
+//
+// § 18 Abs. 2 MStV greift, weil unter /de/wissen/ journalistisch-redaktionelle
+// Beiträge geplant sind. Ohne die Angabe wäre der Fachartikel selbst das
+// Risiko, nicht sein Inhalt.
+
+// Three entries are absent on purpose rather than unfilled.
+//
+// Rechtsform: § 5 DDG requires it of legal persons. These are two natural
+// persons acting personally, so name and address are the complete answer. Add
+// it, with Registergericht, Registernummer and Vertretungsberechtigte, on the
+// day the company is incorporated.
+//
+// Telefon: not required where another route to fast, direct contact exists
+// (EuGH C-298/07). Email plus the contact form covers it.
+//
+// USt-IdNr.: only owed under § 27a UStG by someone who has one.
+const angaben = [
+  {
+    heading: "Anbieter",
+    lines: [
+      "Jürgen Eckel und Jörg Radehaus",
+      "Klenzestraße 57",
+      "80469 München",
+      "Deutschland",
+    ],
+  },
+  {
+    heading: "Kontakt",
+    lines: [
+      "E-Mail: hello@kyde.com",
+    ],
+  },
+  {
+    heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+    lines: [
+      "Jörg Radehaus",
+      "Klenzestraße 57",
+      "80469 München",
+      "Deutschland",
+    ],
+  },
+];
+---
+
+<Base
+  title="Impressum, KYDE"
+  description="Anbieterkennzeichnung nach § 5 DDG und Angaben zur Verantwortlichkeit für redaktionelle Inhalte."
+>
+  <Navbar />
+
+  <main>
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Rechtliche Angaben</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight">
+          Impressum
+        </h1>
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="max-w-2xl space-y-10">
+          {angaben.map(({ heading, lines }) => (
+            <div class="border-t border-line-0 pt-5">
+              <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-1 mb-3">{heading}</p>
+              {lines.map((z) => (
+                <p class="text-sm text-ink-0 leading-relaxed">{z}</p>
+              ))}
+            </div>
+          ))}
+
+          <div class="border-t border-line-0 pt-5">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-1 mb-3">Verbraucherstreitbeilegung</p>
+            <p class="text-sm text-ink-1 leading-relaxed">
+              Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
+            </p>
+          </div>
+
+          <div class="border-t border-line-0 pt-5">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-1 mb-3">Haftung für Inhalte und Links</p>
+            <p class="text-sm text-ink-1 leading-relaxed mb-4">
+              Die Inhalte dieser Seiten wurden mit Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit
+              und Aktualität der Inhalte wird keine Gewähr übernommen. Beiträge zu Rechtsthemen geben den
+              Stand zum jeweils angegebenen Datum wieder und stellen keine Rechtsberatung dar.
+            </p>
+            <p class="text-sm text-ink-1 leading-relaxed">
+              Für die Inhalte externer Links sind ausschließlich deren Betreiber verantwortlich. Zum
+              Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar.
+            </p>
+          </div>
+
+          <div class="border-t border-line-0 pt-5">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-1 mb-3">Datenschutz</p>
+            <p class="text-sm text-ink-1 leading-relaxed">
+              Angaben zur Verarbeitung personenbezogener Daten finden Sie derzeit auf Englisch unter
+              <a href="/legal" class="text-ink-0 underline underline-offset-4 decoration-ink-0/30 hover:decoration-warn">Legal &amp; Privacy</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
