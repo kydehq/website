@@ -1,0 +1,265 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import Zitat from "../../../components/Zitat.astro";
+import Rechtshinweis from "../../../components/Rechtshinweis.astro";
+
+// SCAFFOLD. The structure, the schema, the citation apparatus and the guard
+// rails are here; the legal prose is not, and should not be machine-written.
+// Translated legalese is spotted immediately by exactly the audience this
+// cluster is aimed at, and once spotted the page is worth nothing.
+//
+// Every section below carries the claim it has to make. Replace the marked
+// bodies with your own German. Nothing ships while the markers are in: the
+// placeholder check fails the build.
+//
+// Three things this page must never do:
+//   1. Suggest KYDE operates a qualified ledger. The disclaimer is not a
+//      footnote, it sits in the body.
+//   2. Tell the reader what they must do. Describe what the law requires.
+//   3. Characterise a third party's accreditation scope. Quote the document,
+//      with its date and where it was retrieved, and let it speak.
+
+const stand = "2026-08-11";
+const autor = {
+  name: "Jörg Radehaus",
+  url: "[BITTE ERGÄNZEN: LinkedIn-Profil-URL]",
+};
+
+const faq = [
+  {
+    frage: "Ist ein qualifiziertes elektronisches Journal Pflicht?",
+    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: nein, freiwilliger Vertrauensdienst, kein Sektor erfasst, keine Frist.]",
+  },
+  {
+    frage: "Seit wann gelten die technischen Anforderungen?",
+    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: seit 6. Januar 2026, Durchführungsverordnung (EU) 2025/2531 vom 16. Dezember 2025.]",
+  },
+  {
+    frage: "Wo steht das im Gesetz?",
+    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: Artikel 45k und 45l eIDAS-Verordnung, geändert durch Verordnung (EU) 2024/1183.]",
+  },
+  {
+    frage: "Was unterscheidet ein einfaches von einem qualifizierten Journal?",
+    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: der Unterschied ist die Zulassung, nicht die Technik. Vermutungswirkung nach Art. 45k Abs. 2 nur beim qualifizierten.]",
+  },
+  {
+    frage: "Muss ein qualifiziertes Journal eine Blockchain sein?",
+    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: nein, REQ-7.5-04 verlangt Hash-Listen oder Hash-Bäume; verteilte Architektur zulässig, nicht gefordert.]",
+  },
+  {
+    frage: "Gibt es in Deutschland bereits Anbieter?",
+    antwort: "[BITTE ERGÄNZEN: Antwort mit Abrufdatum der Bundesnetzagentur-Liste.]",
+  },
+  {
+    frage: "Erfüllt ein qualifiziertes Journal den EU AI Act?",
+    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: andere Frage. Art. 12 EU AI Act verlangt Aufzeichnung, keine Verkettung.]",
+  },
+];
+
+// Article plus FAQPage, both in German, with a named author. The author is not
+// decoration: on regulatory topics it is one of the few signals a reader has
+// that a person stands behind the text, and models weight it when citing.
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  inLanguage: "de",
+  headline: "Qualifiziertes elektronisches Journal nach eIDAS",
+  description:
+    "Was ein qualifiziertes elektronisches Journal ist, was die Durchführungsverordnung (EU) 2025/2531 technisch verlangt und wie der Stand der Anbieter in Deutschland ist.",
+  datePublished: stand,
+  dateModified: stand,
+  author: { "@type": "Person", name: autor.name, url: autor.url },
+  publisher: { "@type": "Organization", name: "KYDE", url: "https://kyde.com" },
+  mainEntityOfPage: "https://kyde.com/de/wissen/qualifiziertes-elektronisches-journal",
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "de",
+  mainEntity: faq.map(({ frage, antwort }) => ({
+    "@type": "Question",
+    name: frage,
+    acceptedAnswer: { "@type": "Answer", text: antwort },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Start", item: "https://kyde.com/" },
+    { "@type": "ListItem", position: 2, name: "Wissen", item: "https://kyde.com/de/wissen/" },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Qualifiziertes elektronisches Journal",
+      item: "https://kyde.com/de/wissen/qualifiziertes-elektronisches-journal",
+    },
+  ],
+};
+
+// Headings and the claim each section has to land. The order is deliberate:
+// what it is, then what it is not, then what the rules demand, then the market,
+// and only then anything about KYDE.
+const kapitel = [
+  { id: "kurz", h: "Kurz gefasst", claim: "Die ganze Seite in fünf Sätzen: neuer Vertrauensdienst, Rechtsgrundlage, Geltung seit 6. Januar 2026, keine Pflicht, keine Anbieter in Deutschland." },
+  { id: "was-ist-das", h: "Was ist ein elektronisches Journal?", claim: "Fortlaufende Aufzeichnung. Drei Leistungen: Herkunft, Reihenfolge, Erkennbarkeit späterer Änderung." },
+  { id: "einfach-qualifiziert", h: "Einfach und qualifiziert: der Unterschied", claim: "Der Unterschied ist die Zulassung, nicht die Technik." },
+  { id: "rechtsgrundlage", h: "Wo das im Gesetz steht", claim: "eIDAS-Verordnung, geändert durch (EU) 2024/1183. Artikel 45k und 45l. Die Änderungsverordnung ist kein eigenständiger Rechtsakt." },
+  { id: "artikel-45k", h: "Artikel 45k: die Rechtswirkung", claim: "Abs. 1 gilt auch für nicht qualifizierte Journale. Abs. 2 begründet die Vermutung für Reihenfolge und Integrität." },
+  { id: "artikel-45l", h: "Artikel 45l: die vier Anforderungen", claim: "Buchstaben b, c, d sind Technik. Buchstabe a ist eine Zulassung, und damit die eigentliche Hürde." },
+  { id: "technische-anforderungen", h: "Was die technischen Regeln verlangen", claim: "Anhang der Durchführungsverordnung. REQ-7.5-03 bis -06 und REQ-6.1-12. Der Kern: REQ-7.5-04 schreibt kryptografische Verkettung vor." },
+  { id: "rechtswirkung", h: "Was die Rechtswirkung ist, und was nicht", claim: "Keine Vermutung über den Inhalt, keine über die Zeit, keine Aussage über Rechtmäßigkeit." },
+  { id: "keine-pflicht", h: "Besteht eine Pflicht?", claim: "Nein. Und die Frist im Dezember 2027 gehört zur EUDI-Wallet, nicht zu Journalen." },
+  { id: "protokollpflichten", h: "Was heute schon für Protokollierung gilt", claim: "Art. 12 und 19 EU AI Act, § 30 BSIG, DORA. Keine davon verlangt Verkettung." },
+  { id: "anbieter", h: "Stand der Anbieter in Deutschland", claim: "Bundesnetzagentur führt die Liste. Mit Abrufdatum zitieren, nicht als Zustand behaupten." },
+  { id: "agenten", h: "Wer signiert, wenn eine Maschine schreibt?", claim: "REQ-7.5-03 setzt signierende Nutzer voraus. Offene Frage, als offen kennzeichnen." },
+  { id: "faq", h: "Häufige Fragen", claim: null },
+  { id: "quellen", h: "Quellen", claim: null },
+];
+---
+
+<Base
+  title="Qualifiziertes elektronisches Journal nach eIDAS: Regeln, Anforderungen, Anbieter, KYDE"
+  description="Seit Januar 2026 gelten technische Regeln für qualifizierte elektronische Journale. Was sie verlangen, wer eines braucht, und warum es in Deutschland noch keine Anbieter gibt."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+  <Navbar />
+
+  <main>
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatorik · Referenz</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+            Qualifiziertes elektronisches Journal: was die EU seit Januar 2026 verlangt
+          </h1>
+          <div class="mb-6">
+            <Stand datum={stand} geprueft="Bundesnetzagentur, Liste der qualifizierten Vertrauensdiensteanbieter" />
+          </div>
+          <p class="font-mono text-xs text-ink-1">
+            Von {autor.name}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_300px] gap-6 md:gap-16 items-start">
+          <article class="prose-kyde min-w-0">
+
+            <div class="not-prose mb-10 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Auf dieser Seite</p>
+              <ol class="space-y-2">
+                {kapitel.filter((k) => k.claim !== null || k.id === "faq" || k.id === "quellen").map(({ id, h }) => (
+                  <li>
+                    <a href={`#${id}`} class="group flex items-start gap-2 text-sm text-ink-1 hover:text-ink-0 transition-colors leading-snug">
+                      <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                      <span>{h}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {kapitel.map(({ id, h, claim }) => (
+              <>
+                <h2 id={id}>{h}</h2>
+                {claim && (
+                  <p class="not-prose mb-4 border-l-2 border-warn/50 pl-4 font-mono text-[11px] leading-relaxed text-ink-1">
+                    [BITTE ERGÄNZEN: Fließtext. Aussage, die dieser Abschnitt tragen muss: {claim}]
+                  </p>
+                )}
+              </>
+            ))}
+
+            <!-- Muster, wie ein Zitat aus dem Verordnungstext gesetzt wird.
+                 Wörtlich, mit Fundstelle und Abrufdatum. Ersetzen oder löschen. -->
+            <Zitat
+              text="[BITTE ERGÄNZEN: wörtliches Zitat aus dem Anhang der Durchführungsverordnung]"
+              source="Durchführungsverordnung (EU) 2025/2531, Anhang, REQ-7.5-04"
+              url="https://eur-lex.europa.eu/eli/reg_impl/2025/2531/oj"
+              retrieved={stand}
+            />
+
+            <div class="not-prose my-10 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-3">KYDE und kryptografische Verkettung</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-3">
+                [BITTE ERGÄNZEN: kurzer Absatz. Kern: KYDE zeichnet Agentenaktivität in einer Hash-Kette auf,
+                der Export ist offline prüfbar. Dasselbe Verfahren, das REQ-7.5-04 vorschreibt.]
+              </p>
+              <p class="text-sm text-ink-0 leading-relaxed font-medium">
+                KYDE ist kein qualifizierter Vertrauensdiensteanbieter und betreibt kein qualifiziertes
+                elektronisches Journal.
+              </p>
+            </div>
+
+            <Rechtshinweis />
+          </article>
+
+          <aside class="hidden md:block space-y-5 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">In Kraft seit</p>
+              <p class="font-mono text-xl font-bold text-ink-0">6. Januar 2026</p>
+              <p class="text-xs text-ink-1 mt-1">Durchführungsverordnung (EU) 2025/2531</p>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Pflicht</p>
+              <p class="font-mono text-xl font-bold text-ink-0">Keine</p>
+              <p class="text-xs text-ink-1 mt-1">Freiwilliger Vertrauensdienst, kein Sektor, keine Frist.</p>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Primärquellen</p>
+              <div class="space-y-3">
+                {[
+                  { t: "Durchführungsverordnung (EU) 2025/2531", u: "https://eur-lex.europa.eu/eli/reg_impl/2025/2531/oj" },
+                  { t: "eIDAS-Verordnung (EU) Nr. 910/2014", u: "https://eur-lex.europa.eu/eli/reg/2014/910/oj" },
+                  { t: "Verordnung (EU) 2024/1183", u: "https://eur-lex.europa.eu/eli/reg/2024/1183/oj" },
+                ].map(({ t, u }) => (
+                  <a href={u} target="_blank" rel="noopener" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors leading-snug">
+                    <span class="font-mono text-warn shrink-0 mt-0.5">→</span>
+                    <span>{t}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde { color: var(--color-ink-1); font-size: 0.9375rem; line-height: 1.75; max-width: 72ch; overflow-wrap: break-word; }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0); font-size: 1.25rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-top: 2.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-ink-0); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--color-ink-0) 30%, transparent); }
+  .prose-kyde a:hover:not(.inline-flex) { text-decoration-color: var(--color-warn); }
+</style>
