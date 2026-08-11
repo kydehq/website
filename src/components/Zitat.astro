@@ -1,0 +1,43 @@
+---
+// Verbatim quotation from an official text, marked as such.
+//
+// Two reasons this is a component rather than a blockquote. It forces the
+// source and the retrieval date to be supplied with the quote, so a claim can
+// never appear without its provenance. And it keeps quotation visually distinct
+// from paraphrase, which is what lets a reader — and a model — tell which words
+// are the legislator's and which are ours.
+//
+// Only quote official sources: EU legal texts and authority pages are amtliche
+// Werke and free to reproduce. A law firm's analysis is not.
+interface Props {
+  /** The exact wording, no ellipsis without marking it. */
+  text: string;
+  /** Where it comes from, e.g. "Durchführungsverordnung (EU) 2025/2531, Anhang, REQ-7.5-04". */
+  source: string;
+  /** Direct link to the primary source, not to a secondary report. */
+  url?: string;
+  /** ISO date the source was retrieved. */
+  retrieved?: string;
+}
+const { text, source, url, retrieved } = Astro.props;
+
+const retrievedFormatted = retrieved
+  ? new Date(retrieved).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })
+  : null;
+---
+
+<figure class="my-8 border-l-2 border-line-1 pl-6">
+  <blockquote class="text-base text-ink-0 leading-relaxed">
+    <p>„{text}"</p>
+  </blockquote>
+  <figcaption class="mt-3 font-mono text-[11px] text-ink-1 leading-relaxed">
+    {url ? (
+      <a href={url} target="_blank" rel="noopener" class="underline underline-offset-4 decoration-ink-1/40 hover:decoration-warn">
+        {source}
+      </a>
+    ) : (
+      <span>{source}</span>
+    )}
+    {retrievedFormatted && <span class="text-ink-1/70"> · abgerufen am {retrievedFormatted}</span>}
+  </figcaption>
+</figure>

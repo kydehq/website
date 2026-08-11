@@ -32,7 +32,14 @@ const footerLinks = {
 // English "Imprint" is the Impressum, so German pages get their own label.
 const isGerman = localeOf(Astro.url.pathname) === "de";
 const links = isGerman
-    ? { ...footerLinks, Company: [...footerLinks.Company, { label: "Impressum", href: "/de/impressum" }] }
+    ? {
+          ...footerLinks,
+          Company: [
+              ...footerLinks.Company,
+              { label: "Impressum", href: "/de/impressum" },
+              { label: "Datenschutz", href: "/de/datenschutz" },
+          ],
+      }
     : footerLinks;
 
 const year = new Date().getFullYear();

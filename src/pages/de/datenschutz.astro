@@ -1,0 +1,148 @@
+---
+import Base from "../../layouts/Base.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+// Written from what the site actually does, not from a template. Every
+// processing operation below was checked against the source: GitHub Pages
+// serves it, Plausible is loaded unconditionally in Base.astro, the contact
+// form posts to service.kyde.com, and the only browser storage is kyde_theme
+// and kyde_cookie_consent.
+//
+// Art. 12 DSGVO wants this in clear and plain language for the people it
+// addresses, which is why it exists in German rather than pointing at the
+// English page.
+
+const stand = "2026-08-11";
+
+const sections = [
+  {
+    n: "1.",
+    heading: "Verantwortlicher",
+    paragraphs: [
+      "Verantwortlich für die Datenverarbeitung auf dieser Website sind Jürgen Eckel und Jörg Radehaus, Klenzestraße 57, 80469 München, Deutschland, E-Mail hello@kyde.com.",
+    ],
+  },
+  {
+    n: "2.",
+    heading: "Hosting und Server-Logdateien",
+    paragraphs: [
+      "Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
+      "Beim Abruf einer Seite verarbeitet der Hoster technische Zugriffsdaten: IP-Adresse, Datum und Uhrzeit des Zugriffs, angeforderte Datei, Browsertyp und -version, Betriebssystem und Referrer-URL. Diese Verarbeitung ist für die Auslieferung der Seite technisch erforderlich und dient der Sicherheit und Fehleranalyse.",
+      "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt im sicheren und störungsfreien Betrieb der Website. Eine Zusammenführung dieser Daten mit anderen Datenquellen findet nicht statt.",
+    ],
+  },
+  {
+    n: "3.",
+    heading: "Reichweitenmessung mit Plausible",
+    paragraphs: [
+      "Zur Auswertung der Seitennutzung setzen wir Plausible Analytics ein, einen Dienst der Plausible Insights OÜ, Västriku tn 2, 50403 Tartu, Estland. Die Verarbeitung findet auf Servern innerhalb der Europäischen Union statt.",
+      "Plausible verwendet keine Cookies und legt keine Kennungen auf Ihrem Endgerät ab. Es werden keine geräteübergreifenden Profile gebildet und keine Daten an Dritte weitergegeben. Erhoben werden aggregierte Angaben wie aufgerufene Seite, Referrer, ungefähre Herkunftsregion sowie Gerätetyp und Browser. Die IP-Adresse wird zur Erkennung wiederkehrender Aufrufe innerhalb eines Tages verarbeitet und nicht gespeichert.",
+      "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der statistischen Auswertung der Nutzung zur Verbesserung des Angebots. Da kein Zugriff auf Informationen in Ihrem Endgerät erfolgt, ist eine Einwilligung nach § 25 TDDDG nicht erforderlich.",
+    ],
+  },
+  {
+    n: "4.",
+    heading: "Speicherung im Browser",
+    paragraphs: [
+      "Diese Website speichert zwei Einträge im lokalen Speicher Ihres Browsers: die gewählte Darstellung hell oder dunkel, und die Information, dass Sie den Hinweis zur Datenverarbeitung zur Kenntnis genommen haben.",
+      "Beide Einträge dienen ausschließlich der von Ihnen gewünschten Funktion, werden nicht an uns übertragen und ermöglichen keine Wiedererkennung. Sie können sie jederzeit über die Einstellungen Ihres Browsers löschen.",
+    ],
+  },
+  {
+    n: "5.",
+    heading: "Kontaktaufnahme",
+    paragraphs: [
+      "Wenn Sie uns per E-Mail schreiben oder das Kontaktformular nutzen, verarbeiten wir die von Ihnen gemachten Angaben, um Ihre Anfrage zu beantworten. Pflichtangaben sind als solche gekennzeichnet.",
+      "Formularanfragen werden an unsere eigene Infrastruktur unter service.kyde.com übermittelt. Eine Weitergabe an Dritte findet nicht statt.",
+      "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit die Anfrage auf einen Vertrag gerichtet ist, im Übrigen Art. 6 Abs. 1 lit. f DSGVO. Anfragen werden nach zwölf Monaten gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
+    ],
+  },
+  {
+    n: "6.",
+    heading: "Übermittlung in Drittländer",
+    paragraphs: [
+      "Durch die Nutzung von GitHub Pages werden Daten an die GitHub Inc. in den USA übermittelt. GitHub ist unter dem EU-US Data Privacy Framework zertifiziert; die Übermittlung stützt sich auf den Angemessenheitsbeschluss der Europäischen Kommission vom 10. Juli 2023 nach Art. 45 DSGVO. Ergänzend bestehen Standardvertragsklauseln.",
+      "Eine Übermittlung an weitere Drittländer findet nicht statt.",
+    ],
+  },
+  {
+    n: "7.",
+    heading: "Ihre Rechte",
+    paragraphs: [
+      "Sie haben das Recht auf Auskunft über die zu Ihrer Person verarbeiteten Daten (Art. 15 DSGVO), auf Berichtigung (Art. 16), auf Löschung (Art. 17), auf Einschränkung der Verarbeitung (Art. 18), auf Datenübertragbarkeit (Art. 20) sowie auf Widerspruch gegen Verarbeitungen, die auf Art. 6 Abs. 1 lit. f DSGVO beruhen (Art. 21).",
+      "Zur Ausübung genügt eine formlose Nachricht an hello@kyde.com.",
+    ],
+  },
+  {
+    n: "8.",
+    heading: "Beschwerderecht",
+    paragraphs: [
+      "Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Für uns zuständig ist das Bayerische Landesamt für Datenschutzaufsicht, Promenade 27, 91522 Ansbach.",
+    ],
+  },
+  {
+    n: "9.",
+    heading: "Änderungen",
+    paragraphs: [
+      "Wir passen diese Erklärung an, wenn sich die Verarbeitung oder die Rechtslage ändert. Maßgeblich ist die jeweils hier veröffentlichte Fassung mit dem oben genannten Stand.",
+    ],
+  },
+];
+
+const formatiert = new Date(stand).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<Base
+  title="Datenschutzerklärung, KYDE"
+  description="Welche personenbezogenen Daten beim Besuch dieser Website verarbeitet werden, auf welcher Rechtsgrundlage und wie lange."
+>
+  <Navbar />
+
+  <main>
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Rechtliche Angaben</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          Datenschutzerklärung
+        </h1>
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-1">
+          Stand: <time datetime={stand}>{formatiert}</time>
+        </p>
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="max-w-2xl space-y-10">
+          {sections.map(({ n, heading, paragraphs }) => (
+            <div class="border-t border-line-0 pt-5">
+              <div class="flex items-baseline gap-3 mb-3">
+                <span class="font-mono text-xs text-ink-1">{n}</span>
+                <h2 class="font-mono text-xs uppercase tracking-[0.14em] text-ink-0">{heading}</h2>
+              </div>
+              {paragraphs.map((a) => (
+                <p class="text-sm text-ink-1 leading-relaxed mb-3 last:mb-0">{a}</p>
+              ))}
+            </div>
+          ))}
+
+          <div class="border-t border-line-0 pt-5">
+            <p class="text-sm text-ink-1 leading-relaxed">
+              Angaben zum Anbieter finden Sie im
+              <a href="/de/impressum" class="text-ink-0 underline underline-offset-4 decoration-ink-0/30 hover:decoration-warn">Impressum</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

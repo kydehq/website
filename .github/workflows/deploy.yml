@@ -33,6 +33,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Deploy does not depend on the QA workflow, so the guard has to sit here
+      # too. Otherwise a page scaffolded with gaps fails QA and publishes anyway.
+      - name: Refuse placeholders
+        run: npm run qa:placeholders
+
       - name: Build Astro site
         run: npm run build
 
