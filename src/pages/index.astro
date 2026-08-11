@@ -209,12 +209,21 @@ const websiteSchema = {
       p.pulse = 0;
     }
 
+    // Measuring once at script time is not enough: on a reload the module can run
+    // before layout has settled, and a canvas that is measured at zero keeps its
+    // default 300x150 buffer while CSS stretches it to full width. Everything then
+    // looks scaled up and, because the particles cross a much smaller space, far
+    // too fast. Only a real window resize used to fix it.
     function resize() {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (!w || !h) return;                       // not laid out yet, try again later
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = canvas.clientWidth;
-      H = canvas.clientHeight;
-      canvas.width = W * dpr;
-      canvas.height = H * dpr;
+      if (w === W && h === H && canvas.width === Math.round(w * dpr)) return;
+      W = w;
+      H = h;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       GATE = W * 0.68;
       parts = [];
@@ -346,6 +355,18 @@ const websiteSchema = {
 
     resize();
     window.addEventListener("resize", resize);
+
+    // Held in a variable on purpose: an observer with no reference of its own can
+    // be collected, and then it silently stops firing. Measured that happening.
+    const canvasObserver = "ResizeObserver" in window ? new ResizeObserver(() => resize()) : null;
+    if (canvasObserver) canvasObserver.observe(canvas);
+
+    // Belt and braces for the first paint. The observer covers later changes, but
+    // the very first measurement can land before layout is final, and the guard
+    // above makes each of these free once the size is already right.
+    requestAnimationFrame(() => resize());
+    window.addEventListener("load", () => resize());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => resize());
 
     // Re-read the palette on theme toggle. The running rAF loop repaints
     // every frame anyway and will pick the new colors up on its own; the
@@ -659,7 +680,7 @@ const websiteSchema = {
                          the caps used for the short gold lines elsewhere, because fifty
                          tracked words in uppercase stop being a line and become a wall. -->
                     <p class="mt-8 font-mono text-sm md:text-base text-white/70 tracking-[0.02em] leading-relaxed max-w-3xl">
-                        So KYDE writes tamper-evident records, chained and held outside the agent's reach. SHA-256 hash chain on every entry, written at the boundary before anything reaches a provider, and recomputed offline by whoever is asking. Signing each entry with your own Ed25519 keys is an Enterprise capability.
+                        So KYDE writes tamper-evident records, chained and held outside the agent's reach. SHA-256 hash chain on every entry, written at the boundary before anything reaches a provider, and recomputed offline by whoever is asking.
                     </p>
                 </div>
             </div>
@@ -683,7 +704,7 @@ const websiteSchema = {
                 </h2>
                 <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Not five products. One recording, read five ways.</p>
                 <p class="text-lg text-white/55 leading-relaxed max-w-3xl">
-                    Everything below comes out of the same signed chain. Built separately, these are five data silos and five integrations to keep in step with each other. That is why the completeness of the record is the thing worth arguing about, and why we are precise about what it holds today and what it does not hold yet.
+                    Everything below comes out of the same signed chain. Built separately, these are five data silos and five integrations to keep in step with each other. That is why the completeness of the record is the thing worth arguing about.
                 </p>
             </div>
         </section>
@@ -701,7 +722,7 @@ const websiteSchema = {
                         <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">What runs, under whose name, on which model.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Read out of the record, not off an architecture diagram.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            Most agents run under a shared API key, indistinguishable from each other and from the humans whose credentials they borrowed. KYDE gives each one its own identity, so every action carries a name before it happens and the inventory writes itself: which providers, models and tools each agent depends on. <span class="text-white/35">The dependency picture is already in the record. Approval queues and registry sync are not.</span>
+                            Most agents run under a shared API key, indistinguishable from each other and from the humans whose credentials they borrowed. KYDE gives each one its own identity, so every action carries a name before it happens and the inventory writes itself: which providers, models and tools each agent depends on. <span class="text-white/35">Already in the record.</span>
                         </p>
                         </div>
                     </div>
@@ -953,7 +974,7 @@ const websiteSchema = {
                         <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Evidence the other side can check without you.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A signed ledger and exports an auditor can take away.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. KYDE's record is captured at the boundary before anything reaches a provider and hash-chained, so altering one link breaks every link after it. <span class="text-white/35">The ledger and the exports run today; signing each entry with your own keys is an Enterprise capability.</span>
+                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. KYDE's record is captured at the boundary before anything reaches a provider and hash-chained, so altering one link breaks every link after it. <span class="text-white/35">Running today.</span>
                         </p>
                         </div>
                     </div>
@@ -1092,7 +1113,7 @@ const websiteSchema = {
                         <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Stopped at the line, not found in a report.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent passes before it acts, not a report you read afterwards. It is also where the agents nobody registered turn up, once egress rules make this the only route to a model provider. <span class="text-white/35">All of this runs in production today.</span>
+                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent passes before it acts, not a report you read afterwards. <span class="text-white/35">All of this runs in production today.</span>
                         </p>
                         </div>
                     </div>
@@ -1273,7 +1294,7 @@ const websiteSchema = {
                             <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Every call is allowed. Nobody knows the total.</p>
                             <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A gateway decides per call. A mandate needs memory.</p>
                             <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                                One assistant may release 800 euros of goodwill per case. So may another, in another team. What the two together may release in a month is a question nothing in the stack can answer, because there is nowhere for that number to live. KYDE holds the mandate at that boundary and stops the action when it is spent. <span class="text-white/35">Coming soon. A path around the gateway makes the count wrong.</span>
+                                One assistant may release 800 euros of goodwill per case. So may another, in another team. What the two together may release in a month is a question nothing in the stack can answer, because there is nowhere for that number to live. KYDE holds the mandate at that boundary and stops the action when it is spent. <span class="text-white/35">Coming soon.</span>
                             </p>
                         </div>
                     </div>
@@ -1404,7 +1425,7 @@ const websiteSchema = {
                         <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Run it again. See what changed underneath.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A recorded run, replayed against what would happen today.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            A model swapped under the same name does not announce itself. Same prompt, same agent, different answer, and the first anyone hears about it is a complaint six weeks later. Replaying a recorded run against the present turns that into a difference you can point at. <span class="text-white/35">Coming soon. It needs the tool responses held next to the calls, which is the field it is still waiting on.</span>
+                            A model swapped under the same name does not announce itself. Same prompt, same agent, different answer, and the first anyone hears about it is a complaint six weeks later. Replaying a recorded run against the present turns that into a difference you can point at. <span class="text-white/35">Coming soon.</span>
                         </p>
                         </div>
                     </div>
