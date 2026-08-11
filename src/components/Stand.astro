@@ -1,0 +1,34 @@
+---
+// Visible currency date for regulatory pages.
+//
+// Legal writing without a date is discounted by readers and by models alike,
+// because the reader cannot tell whether it describes the law as it stands.
+// It sits at the top, not in a footer: it is a qualifier on everything below
+// it, and a qualifier that arrives after the claim has done no work.
+//
+// `geprueft` is for facts that are true today and can quietly stop being true
+// — a provider list, an accreditation scope — where the retrieval date is the
+// honest part of the claim.
+interface Props {
+  /** ISO date the page content was last checked against the sources. */
+  datum: string;
+  /** Optional: what specifically was re-checked on that date. */
+  geprueft?: string;
+}
+const { datum, geprueft } = Astro.props;
+
+const formatiert = new Date(datum).toLocaleDateString("de-DE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line-0 pb-3">
+  <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-0">
+    Stand: <time datetime={datum}>{formatiert}</time>
+  </p>
+  {geprueft && (
+    <p class="font-mono text-[11px] text-ink-1">Geprüft: {geprueft}</p>
+  )}
+</div>

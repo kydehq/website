@@ -1,4 +1,5 @@
 ---
+import { alternatesFor, localeOf } from "../data/locales";
 import "../styles/global.css";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
@@ -20,11 +21,18 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+
+// Language and its counterparts come from the URL and one shared table, not
+// from per-page props, so a page cannot claim a counterpart that does not
+// claim it back.
+const locale = localeOf(Astro.url.pathname);
+const alternates = alternatesFor(Astro.url.pathname);
+const hasAlternates = Object.keys(alternates).length > 0;
 const ogImage = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en" class="antialiased">
+<html lang={locale} class="antialiased">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,6 +52,17 @@ const ogImage = new URL(image, Astro.site).href;
             <meta name="robots" content="noindex" />
         ) : (
             <link rel="canonical" href={canonicalURL} />
+        )}
+
+        <!-- Reciprocal only: emitted for both languages or for neither, and
+             x-default points at English, which is the fuller site. -->
+        {!noindex && hasAlternates && (
+            <>
+                {Object.entries(alternates).map(([lang, path]) => (
+                    <link rel="alternate" hreflang={lang} href={new URL(path, Astro.site).href} />
+                ))}
+                <link rel="alternate" hreflang="x-default" href={new URL(alternates.en!, Astro.site).href} />
+            </>
         )}
 
         <!-- Open Graph -->

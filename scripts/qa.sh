@@ -66,6 +66,10 @@ fi
 # 2. Spell check
 run_step "Spell check" npm run qa:spell
 
+# 2b. Translation drift — cheap, needs no dist/, and catches a German page
+#     still carrying a claim the English one already dropped.
+run_step "Translation drift" npm run qa:i18n
+
 # 3. HTML validation (needs dist/)
 if [ -d dist ]; then
     run_step "HTML validation" npm run qa:html

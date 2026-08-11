@@ -1,4 +1,6 @@
 ---
+import { alternatesFor, localeOf } from "../data/locales";
+
 const navLinks = [
   { label: 'Platform',      href: '/platform'     },
   { label: 'Trust',         href: '/trust-score'  },
@@ -9,6 +11,14 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
+
+// Only rendered where a counterpart actually exists. A switch that dumps the
+// reader on a homepage in another language is worse than no switch: it looks
+// like the translation exists and then does not deliver it.
+const locale = localeOf(currentPath);
+const alternates = alternatesFor(currentPath);
+const otherLocale = locale === "de" ? "en" : "de";
+const otherHref = alternates[otherLocale];
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-bg-0/95 backdrop-blur-md">
@@ -45,6 +55,15 @@ const currentPath = Astro.url.pathname;
       >
         Start Free &gt;
       </a>
+      {otherHref && (
+        <a
+          href={otherHref}
+          hreflang={otherLocale}
+          class="ml-3 hidden md:inline-flex items-center border border-white/20 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/50 hover:border-white/60 hover:text-white transition-colors"
+        >
+          {otherLocale.toUpperCase()}
+        </a>
+      )}
     </div>
 
     <!-- Mobile menu button -->

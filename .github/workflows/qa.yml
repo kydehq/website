@@ -69,6 +69,18 @@ jobs:
       - run: npm ci
       - run: npx cspell "src/pages/**/*.astro" "src/components/**/*.astro" --no-progress
 
+  i18n-drift:
+    name: Translation drift
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm run qa:i18n
+
   html-validate:
     name: HTML validation
     needs: build
