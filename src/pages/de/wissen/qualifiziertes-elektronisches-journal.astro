@@ -20,12 +20,9 @@ import Rechtshinweis from "../../../components/Rechtshinweis.astro";
 //      the retrieval date travels with it.
 
 const stand = "2026-08-20";
-const author = {
-  name: "Jörg Radehaus",
-  // LinkedIn-Profil-URL fehlt noch. Schema.org/Person ist ohne url gültig;
-  // sobald sie vorliegt, hier eintragen und in articleSchema durchreichen.
-  url: null as string | null,
-};
+// Kein Profil-Link: es gibt keinen. schema.org/Person ist ohne url gültig,
+// und ein erfundener oder geliehener Link wäre schlechter als die Lücke.
+const author = { name: "Jörg Radehaus" };
 
 // Der Fließtext. Absätze pro Abschnitt, damit die Gliederung und das
 // Inhaltsverzeichnis aus einer Quelle kommen und nicht auseinanderlaufen.
@@ -86,7 +83,7 @@ const chapters = [
     paras: [
       "Erstens senkt die Verordnung die Hürde für alle verketteten Aufzeichnungen, auch unterhalb der qualifizierten Stufe. Nach Artikel 45k Absatz 1 der eIDAS-Verordnung darf ein elektronisches Journal vor Gericht nicht allein deshalb abgelehnt werden, weil es elektronisch ist oder keine Qualifikation trägt.",
       "Zweitens hat der Gesetzgeber unabhängig von der Marktentwicklung etwas Bleibendes hinterlassen: eine amtliche Festlegung, welche Technik er für beweisfähige Reihenfolge für richtig hält, nämlich kryptographische Verkettung über Hash-Listen oder Hash-Bäume mit SHA-256 oder stärker. Unsere Aufzeichnung arbeitet mit diesem Verfahren, und die Bauweise stand vor der Regel. Das begründet weder ein Zertifikat noch eine gesetzliche Vermutung noch die Erfüllung der übrigen Anforderungen an einen qualifizierten Dienst, und wir bezeichnen es nicht so. Es ist ein überprüfbarer Qualitätsmaßstab für einen Teilaspekt, mit Amtsblatt-Referenz. Nicht mehr und nicht weniger.",
-      "Drittens existiert im selben Katalog ein Dienst, der heute funktioniert: der qualifizierte Zeitstempel, flächendeckend verfügbar, zu Centbeträgen, mit echter Rechtsfolge nach Artikel 41 Absatz 2 der eIDAS-Verordnung. Dort gilt die Vermutung der Richtigkeit von Datum und Zeit sowie der Unversehrtheit der gestempelten Daten. Die Durchführungsverordnung nennt ihn ausdrücklich als gleichwertigen Weg, die Reihenfolge zu sichern. Für die Praxis ist er derzeit der nützlichste Teil des gesamten eIDAS-Katalogs, und es ist der Pfad, den wir nutzen.",
+      "Drittens existiert im selben Katalog ein Dienst, der heute funktioniert: der qualifizierte Zeitstempel, flächendeckend verfügbar, zu Centbeträgen, mit echter Rechtsfolge nach Artikel 41 Absatz 2 der eIDAS-Verordnung. Dort gilt die Vermutung der Richtigkeit von Datum und Zeit sowie der Unversehrtheit der gestempelten Daten. Die Durchführungsverordnung nennt ihn ausdrücklich als gleichwertigen Weg, die Reihenfolge zu sichern. Für die Praxis ist er derzeit der nützlichste Teil des gesamten eIDAS-Katalogs, und der Pfad, auf den wir setzen.",
     ],
   },
   {
@@ -187,9 +184,7 @@ const articleSchema = {
     "Acht Monate nach Inkrafttreten der technischen Regeln: was die Durchführungsverordnung (EU) 2025/2531 verlangt, wie viele Anbieter in den EU-Vertrauenslisten stehen und warum die Erklärung nicht bei den Normen liegt.",
   datePublished: stand,
   dateModified: stand,
-  author: author.url
-    ? { "@type": "Person", name: author.name, url: author.url }
-    : { "@type": "Person", name: author.name },
+  author: { "@type": "Person", name: author.name },
   publisher: { "@type": "Organization", name: "KYDE", url: "https://kyde.com" },
   mainEntityOfPage: pageUrl,
 };
