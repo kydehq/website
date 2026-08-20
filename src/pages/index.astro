@@ -456,108 +456,113 @@ const websiteSchema = {
         </section>
 
         <!-- ══════════ 3 · THE ENVELOPE ══════════ -->
-        <!-- The one new figure v3 asks for. Containment, not crossing: execution sits
-             inside, models and target systems sit outside, and everything that leaves
-             passes the same five controls on the way out. Static on purpose. The claim
-             is where the wall is, and a wall does not need to move to make that point. -->
+        <!-- Half width, figure on the right, so the page alternates right, left,
+             right across its three figures. The diagram had to be rebuilt for the
+             narrower column: the flow used to run left to right, it now runs top to
+             bottom, which puts the wall along the bottom edge of the envelope where
+             it reads as the thing everything has to pass through on the way out. -->
         <section class="border-b border-white/10 bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · The envelope</span>
-                    <span class="fig-label">FIG.1</span>
-                </div>
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
 
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-10 max-w-4xl">
-                    Every worker runs inside the secure KYDE envelope.
-                </h2>
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">03 · The envelope</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-5">
+                                Every worker runs inside the secure KYDE envelope.
+                            </h2>
+                            <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">On-premise or hosted, in your environment.</p>
 
-                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7 mb-12">
-                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Execution inside. Models and systems outside.</span>
-                        <span class="fig-label">FIG.1</span>
+                            <ul class="space-y-3.5">
+                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-16 pt-0.5">Identity</span><span class="text-sm text-white/60 leading-relaxed">Every worker has its own identity, so every action carries a name before it happens.</span></li>
+                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-16 pt-0.5">Mask</span><span class="text-sm text-white/60 leading-relaxed">Sensitive data is masked inline, before it reaches a model.</span></li>
+                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-16 pt-0.5">Policy</span><span class="text-sm text-white/60 leading-relaxed">Policy is enforced before an action executes, not in a report afterwards.</span></li>
+                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-warn/70 shrink-0 w-16 pt-0.5">Limit</span><span class="text-sm text-white/60 leading-relaxed">Limits that hold over time, not per call. What two assistants may release together in a month is a question nothing else in the stack can answer. <span class="text-white/35">Coming soon.</span></span></li>
+                                <li class="flex gap-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-live/70 shrink-0 w-16 pt-0.5">Seal</span><span class="text-sm text-white/60 leading-relaxed">Every action is sealed into the record as it happens.</span></li>
+                            </ul>
+
+                            <a href="/platform" class="mt-10 inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                                Explore the platform →
+                            </a>
+                        </div>
                     </div>
-                    <svg viewBox="0 0 1000 440" class="w-full h-auto" aria-hidden="true">
-                        <path d="M6 21 L6 6 L21 6"        fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        <path d="M979 6 L994 6 L994 21"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        <path d="M6 419 L6 434 L21 434"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        <path d="M994 419 L994 434 L979 434" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
 
-                        <!-- the envelope itself -->
-                        <rect x="46" y="52" width="654" height="336" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-                        <text x="62" y="42" fill="var(--color-ink-0)" fill-opacity="0.70" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE ENVELOPE · YOUR ENVIRONMENT</text>
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-end border-b border-white/10">
+                            <span class="fig-label">FIG.1</span>
+                        </div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+                            <svg viewBox="0 0 480 580" class="w-full max-w-md h-auto" aria-hidden="true">
+                                <path d="M12 27 L12 12 L27 12"     fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <path d="M453 12 L468 12 L468 27"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <path d="M12 553 L12 568 L27 568"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <path d="M468 553 L468 568 L453 568" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
 
-                        <!-- execution, inside -->
-                        <rect x="82" y="112" width="380" height="216" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1" />
-                        <text x="98" y="140" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">WORKER · ONE RUN</text>
+                                <!-- the envelope -->
+                                <text x="24" y="46" fill="var(--color-ink-0)" fill-opacity="0.70" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">KYDE ENVELOPE · YOUR ENVIRONMENT</text>
+                                <rect x="24" y="56" width="432" height="340" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
 
-                        <line x1="106" y1="216" x2="196" y2="216" stroke="var(--color-ink-0)" stroke-opacity="0.70" stroke-width="3" />
-                        <text x="151" y="202" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">deterministic</text>
-                        <circle cx="222" cy="216" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
-                        <circle cx="248" cy="216" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
-                        <circle cx="274" cy="216" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
-                        <text x="248" y="202" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">agent</text>
-                        <rect x="304" y="210" width="12" height="12" fill="var(--color-ink-0)" fill-opacity="0.55" />
-                        <text x="310" y="202" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">human</text>
-                        <line x1="336" y1="216" x2="438" y2="216" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="3" />
-                        <text x="151" y="248" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">fixed steps</text>
-                        <text x="248" y="248" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">judgement</text>
-                        <text x="330" y="248" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">legal effect</text>
+                                <!-- execution, inside -->
+                                <rect x="56" y="88" width="368" height="160" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1" />
+                                <text x="72" y="112" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">WORKER · ONE RUN</text>
 
-                        <!-- the wall: five controls, every exit passes all of them -->
-                        <line x1="524" y1="88" x2="524" y2="352" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" stroke-dasharray="2 4" />
-                        <text x="524" y="78" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">AT THE BOUNDARY</text>
-                        <g style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">
-                            <rect x="536" y="106" width="6" height="6" fill="var(--color-ink-0)" fill-opacity="0.60" />
-                            <text x="552" y="112" fill="var(--color-ink-0)" fill-opacity="0.70">identity</text>
-                            <rect x="536" y="152" width="6" height="6" fill="var(--color-ink-0)" fill-opacity="0.60" />
-                            <text x="552" y="158" fill="var(--color-ink-0)" fill-opacity="0.70">mask</text>
-                            <rect x="536" y="198" width="6" height="6" fill="var(--color-ink-0)" fill-opacity="0.60" />
-                            <text x="552" y="204" fill="var(--color-ink-0)" fill-opacity="0.70">policy</text>
-                            <rect x="536" y="244" width="6" height="6" fill="var(--color-warn)" fill-opacity="0.70" />
-                            <text x="552" y="250" fill="var(--color-warn)" fill-opacity="0.70">limit</text>
-                            <text x="596" y="250" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-size:8px;">soon</text>
-                            <rect x="536" y="290" width="6" height="6" fill="var(--color-live)" fill-opacity="0.75" />
-                            <text x="552" y="296" fill="var(--color-live)" fill-opacity="0.85">seal</text>
-                        </g>
+                                <line x1="76" y1="182" x2="166" y2="182" stroke="var(--color-ink-0)" stroke-opacity="0.70" stroke-width="3" />
+                                <circle cx="190" cy="182" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <circle cx="212" cy="182" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <circle cx="234" cy="182" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <rect x="256" y="176" width="12" height="12" fill="var(--color-ink-0)" fill-opacity="0.55" />
+                                <line x1="288" y1="182" x2="404" y2="182" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="3" />
 
-                        <!-- crossings out of the envelope -->
-                        <line x1="700" y1="150" x2="792" y2="122" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="3 4" />
-                        <line x1="700" y1="262" x2="792" y2="300" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="3 4" />
+                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;" text-anchor="middle">
+                                    <text x="121" y="208" fill="var(--color-ink-0)" fill-opacity="0.50">deterministic</text>
+                                    <text x="212" y="208" fill="var(--color-live)" fill-opacity="0.70">agent</text>
+                                    <text x="262" y="222" fill="var(--color-ink-0)" fill-opacity="0.50">human</text>
+                                </g>
 
-                        <!-- outside -->
-                        <rect x="792" y="86" width="164" height="72" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
-                        <text x="874" y="118" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">MODELS</text>
-                        <text x="874" y="136" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">any provider, any vendor</text>
+                                <!-- the wall: five controls, in order, on the way out -->
+                                <line x1="56" y1="284" x2="424" y2="284" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" stroke-dasharray="2 4" />
+                                <text x="56" y="276" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">AT THE BOUNDARY</text>
 
-                        <rect x="792" y="264" width="164" height="72" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
-                        <text x="874" y="296" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">YOUR SYSTEMS</text>
-                        <text x="874" y="314" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">ERP, databases, MCP servers</text>
+                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;" text-anchor="middle">
+                                    <rect x="74" y="308" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.60" />
+                                    <text x="76" y="332" fill="var(--color-ink-0)" fill-opacity="0.70">identity</text>
+                                    <rect x="150" y="308" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.60" />
+                                    <text x="152" y="332" fill="var(--color-ink-0)" fill-opacity="0.70">mask</text>
+                                    <rect x="226" y="308" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.60" />
+                                    <text x="228" y="332" fill="var(--color-ink-0)" fill-opacity="0.70">policy</text>
+                                    <rect x="302" y="308" width="5" height="5" fill="var(--color-warn)" fill-opacity="0.70" />
+                                    <text x="304" y="332" fill="var(--color-warn)" fill-opacity="0.70">limit</text>
+                                    <text x="304" y="346" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-size:7px;letter-spacing:0.1em;">soon</text>
+                                    <rect x="378" y="308" width="5" height="5" fill="var(--color-live)" fill-opacity="0.75" />
+                                    <text x="380" y="332" fill="var(--color-live)" fill-opacity="0.85">seal</text>
+                                </g>
 
-                        <text x="46" y="418" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">NOTHING REACHES A MODEL OR A SYSTEM WITHOUT CROSSING THE WALL</text>
-                    </svg>
-                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
-                        FIG.1 · The wall is the product. Execution can be anything you already run; what makes it governable is that every exit is the same five checks in the same order.
-                    </p>
+                                <!-- everything leaves downward, through the wall -->
+                                <line x1="128" y1="368" x2="128" y2="444" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="3 4" />
+                                <line x1="352" y1="368" x2="352" y2="444" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="3 4" />
+
+                                <!-- outside -->
+                                <rect x="24" y="444" width="208" height="80" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
+                                <text x="128" y="478" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">MODELS</text>
+                                <text x="128" y="496" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">any provider, any vendor</text>
+
+                                <rect x="248" y="444" width="208" height="80" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
+                                <text x="352" y="478" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">YOUR SYSTEMS</text>
+                                <text x="352" y="496" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">ERP, databases, MCP</text>
+
+                                <text x="24" y="556" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">NOTHING LEAVES WITHOUT CROSSING THE WALL</text>
+                            </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · The wall is the product. Execution can be anything you already run. What makes it governable is that every exit is the same five checks, in the same order.</p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="grid md:grid-cols-2 gap-10 md:gap-16">
-                    <ul class="space-y-4">
-                        <li class="flex gap-4 border-b border-white/10 pb-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-1">Identity</span><span class="text-base text-white/60 leading-relaxed">Every worker has its own identity, so every action carries a name before it happens.</span></li>
-                        <li class="flex gap-4 border-b border-white/10 pb-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-1">Mask</span><span class="text-base text-white/60 leading-relaxed">Sensitive data is masked inline, before it reaches a model.</span></li>
-                        <li class="flex gap-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-1">Policy</span><span class="text-base text-white/60 leading-relaxed">Policy is enforced before an action executes, not in a report afterwards.</span></li>
-                    </ul>
-                    <ul class="space-y-4">
-                        <li class="flex gap-4 border-b border-white/10 pb-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-warn/70 shrink-0 w-20 pt-1">Limit</span><span class="text-base text-white/60 leading-relaxed">Limits that hold over time, not per call. What two assistants may release together in a month is a question nothing else in the stack can answer. <span class="text-white/35">Coming soon.</span></span></li>
-                        <li class="flex gap-4 border-b border-white/10 pb-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-live/70 shrink-0 w-20 pt-1">Seal</span><span class="text-base text-white/60 leading-relaxed">Every action is sealed into the record as it happens.</span></li>
-                        <li class="flex gap-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-1">Where</span><span class="text-base text-white/60 leading-relaxed">On-premise or hosted, in your environment. One layer for people, workflows and workers.</span></li>
-                    </ul>
-                </div>
-
-                <a href="/platform" class="mt-12 inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                    Explore the platform →
-                </a>
             </div>
         </section>
+
         <!-- ══════════ 4 · THE RECORD ══════════ -->
         <section id="prove" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
