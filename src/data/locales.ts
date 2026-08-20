@@ -26,7 +26,14 @@ export type LocalePair = {
 // move; product pages change whenever we change our minds, and every one of
 // them doubles the surface that can go stale in a language we read less
 // carefully. Nothing goes in here without a reason in `note`.
-export const LOCALE_PAIRS: LocalePair[] = [];
+export const LOCALE_PAIRS: LocalePair[] = [
+  {
+    en: "qualified-electronic-ledger",
+    de: "de/wissen/qualifiziertes-elektronisches-journal",
+    sourceHash: "76fc395deb3c6627",
+    note: "Nicht übersetzt, sondern eigenständig geschrieben: die deutsche Fassung ist eine Bestandsaufnahme mit eigener Auswertung der Vertrauenslisten, die englische eine Referenz zum Rechtsakt. Der Hash steht trotzdem, weil beide Seiten dieselben Rechtsaussagen tragen und nicht auseinanderlaufen dürfen.",
+  },
+];
 
 export const LOCALES = ["en", "de"] as const;
 export type Locale = (typeof LOCALES)[number];

@@ -1,0 +1,82 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+
+// Übersicht des deutschen Wissens-Clusters.
+//
+// Bewusst kurz: die Seite existiert, weil der Breadcrumb der Artikel irgendwo
+// hinführen muss und weil ein Cluster ohne Einstieg keiner ist. Sie wächst mit
+// den Artikeln, nicht vorher — eine Übersicht, die auf Vorrat Kategorien
+// anlegt, sieht leer aus und liest sich wie ein Versprechen.
+
+const entries = [
+  {
+    category: "Regulatorik · Bestandsaufnahme",
+    title: "Qualifizierte elektronische Journale: eine Bestandsaufnahme",
+    summary:
+      "Seit dem 6. Januar 2026 gelten die technischen Regeln aus der Durchführungsverordnung (EU) 2025/2531. Die Auswertung aller 30 nationalen Vertrauenslisten in EU und EWR ergibt null eingetragene Anbieter. Was die Verordnung verlangt, warum es nicht an den Normen liegt, und was heute stattdessen funktioniert.",
+    href: "/de/wissen/qualifiziertes-elektronisches-journal",
+    stand: "2026-08-20",
+  },
+];
+
+const formatiert = (d: string) =>
+  new Date(d).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<Base
+  title="Wissen: Regulatorik für autonome Systeme, KYDE"
+  description="Analysen zu den europäischen Regeln für Aufzeichnung, Nachweis und Vertrauensdienste, entlang der Primärquellen und mit Stand-Datum."
+>
+  <Navbar />
+
+  <main>
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Wissen</span>
+          </div>
+        </div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6 max-w-3xl">
+          Regulatorik für autonome Systeme
+        </h1>
+        <p class="max-w-2xl text-base text-ink-1 leading-relaxed">
+          Analysen entlang der Primärquellen: was ein Rechtsakt verlangt, wann er gilt, und was er ausdrücklich
+          nicht sagt. Jeder Text trägt ein Stand-Datum und die Fundstellen, an denen er nachprüfbar ist.
+        </p>
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="max-w-3xl space-y-10">
+          {entries.map(({ category, title, summary, href, stand }) => (
+            <a href={href} class="group block border-t border-line-0 pt-5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1 mb-3">{category}</p>
+              <h2 class="text-xl md:text-2xl font-bold text-ink-0 tracking-tight leading-snug mb-3 group-hover:text-warn transition-colors">
+                {title}
+              </h2>
+              <p class="text-sm text-ink-1 leading-relaxed mb-4">{summary}</p>
+              <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">
+                Stand: <time datetime={stand}>{formatiert(stand)}</time>
+                <span class="text-warn ml-3 inline-block group-hover:translate-x-0.5 transition-transform">Lesen →</span>
+              </p>
+            </a>
+          ))}
+
+          <div class="border-t border-line-0 pt-5">
+            <p class="text-sm text-ink-1 leading-relaxed">
+              Der übrige Teil dieser Website ist englisch. Die vollständige Sammlung findet sich unter
+              <a href="/resources" class="text-ink-0 underline underline-offset-4 decoration-ink-0/30 hover:decoration-warn">Resources</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

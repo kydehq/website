@@ -6,74 +6,192 @@ import Stand from "../../../components/Stand.astro";
 import Zitat from "../../../components/Zitat.astro";
 import Rechtshinweis from "../../../components/Rechtshinweis.astro";
 
-// SCAFFOLD. The structure, the schema, the citation apparatus and the guard
-// rails are here; the legal prose is not, and should not be machine-written.
-// Translated legalese is spotted immediately by exactly the audience this
-// cluster is aimed at, and once spotted the page is worth nothing.
+// German prose, written by Jörg Radehaus. Not translated, not machine-written:
+// this cluster is aimed at readers who spot translated legalese immediately,
+// and once spotted the page is worth nothing.
 //
-// Every section below carries the claim it has to make. Replace the marked
-// bodies with your own German. Nothing ships while the markers are in: the
-// placeholder check fails the build.
-//
-// Three things this page must never do:
-//   1. Suggest KYDE operates a qualified ledger. The disclaimer is not a
-//      footnote, it sits in the body.
-//   2. Tell the reader what they must do. Describe what the law requires.
-//   3. Characterise a third party's accreditation scope. Quote the document,
-//      with its date and where it was retrieved, and let it speak.
+// Three rules this page keeps:
+//   1. It never suggests KYDE operates a qualified ledger. The disclaimer is
+//      not a footnote; it sits above the first heading.
+//   2. It describes what the law requires. It does not tell the reader what
+//      they must do.
+//   3. It does not characterise a third party's accreditation scope. Where a
+//      fact can quietly stop being true — a provider list, an audit offering —
+//      the retrieval date travels with it.
 
-const stand = "2026-08-11";
-const autor = {
+const stand = "2026-08-20";
+const author = {
   name: "Jörg Radehaus",
-  url: "[BITTE ERGÄNZEN: LinkedIn-Profil-URL]",
+  // LinkedIn-Profil-URL fehlt noch. Schema.org/Person ist ohne url gültig;
+  // sobald sie vorliegt, hier eintragen und in articleSchema durchreichen.
+  url: null as string | null,
 };
 
-const faq = [
+// Der Fließtext. Absätze pro Abschnitt, damit die Gliederung und das
+// Inhaltsverzeichnis aus einer Quelle kommen und nicht auseinanderlaufen.
+const chapters = [
   {
-    frage: "Ist ein qualifiziertes elektronisches Journal Pflicht?",
-    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: nein, freiwilliger Vertrauensdienst, kein Sektor erfasst, keine Frist.]",
+    id: "dienst",
+    h: "Ein Dienst mit Rechtsfolge, aber ohne Pflicht",
+    paras: [
+      "Ein elektronisches Journal ist, in der Analogie der Bundesnetzagentur, ein elektronisches Kassenbuch: ein fortlaufendes Verzeichnis von Datensätzen, das die Herkunft der Einträge feststellt, ihre Reihenfolge sichert und jede nachträgliche Änderung erkennbar macht. Die eIDAS-Novelle von 2024 hat daraus in Artikel 45k und 45l der eIDAS-Verordnung einen Vertrauensdienst in zwei Stufen gemacht. Ein einfaches Journal darf jeder anbieten. Die qualifizierte Stufe ist zugelassenen Vertrauensdiensteanbietern vorbehalten, und nur sie trägt eine Rechtsfolge: Für Datensätze in einem qualifizierten Journal vermutet jedes Gericht in der EU, dass die fortlaufende chronologische Reihenfolge und die Unversehrtheit stimmen. Wer das Gegenteil behauptet, trägt die Beweislast.",
+      "Die Vermutung ist enger, als sie klingt. Sie erstreckt sich nicht auf den Inhalt der Einträge, nicht auf die absolute Uhrzeit und nicht auf die Frage, ob das Aufgezeichnete richtig oder rechtmäßig war. Sie sagt: die Einträge stehen in der richtigen Reihenfolge, und nachträglich wurde nichts verändert.",
+      "Zwei Randdaten zeichnen das Bild der politischen Priorität. Der Durchführungsrechtsakt hätte nach Artikel 45l Absatz 3 der eIDAS-Verordnung bis zum 21. Mai 2025 vorliegen müssen. Er erschien am 16. Dezember 2025, sieben Monate später. Und eine Pflicht zur Nutzung existiert nicht, für keine Branche und zu keinem Datum. Die häufig zitierte Frist Ende 2027 betrifft die Akzeptanz der EUDI-Wallet nach Artikel 5f der eIDAS-Verordnung, also die Identifizierung von Personen. Mit dem Journal hat sie nichts zu tun.",
+    ],
   },
   {
-    frage: "Seit wann gelten die technischen Anforderungen?",
-    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: seit 6. Januar 2026, Durchführungsverordnung (EU) 2025/2531 vom 16. Dezember 2025.]",
+    id: "technik",
+    h: "Was die Verordnung technisch verlangt",
+    paras: [
+      "Wer den Dienst anbieten will, muss drei getrennte Anforderungen erfüllen. Sie stehen im Anhang der Durchführungsverordnung (EU) 2025/2531 und werden dort einzeln durchnummeriert.",
+      "Die Herkunft der Datensätze (REQ-7.5-03) wird über fortgeschrittene elektronische Signaturen oder Siegel festgestellt, die auf qualifizierten Zertifikaten beruhen und von den Nutzern des Dienstes erzeugt werden. Genannt sind die Formate CAdES, XAdES und JAdES.",
+      "Die Reihenfolge der Datensätze (REQ-7.5-04) wird über kryptographische Verknüpfungen gesichert, konkret über Hash-Listen oder Hash-Bäume mit einer Ausgabegröße von SHA-256 oder SHA3-256 aufwärts. Alternativ erlaubt die Verordnung ausdrücklich qualifizierte Zeitstempel.",
+      "Die Unversehrtheit der Datensätze (REQ-7.5-05) wird ebenfalls über fortgeschrittene Signaturen oder Siegel auf Basis qualifizierter Zertifikate gesichert, und jede spätere Änderung muss sofort erkennbar sein. Kommen digitale Signaturmechanismen zum Einsatz, gehört der private Schlüssel des Anbieters in ein zertifiziertes Kryptomodul (REQ-7.5-06).",
+      "Die Hash-Verkettung ist also ein Baustein von dreien, nicht der ganze Dienst. Wer sie einsetzt, hat die Reihenfolge im Griff und sonst nichts.",
+    ],
   },
   {
-    frage: "Wo steht das im Gesetz?",
-    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: Artikel 45k und 45l eIDAS-Verordnung, geändert durch Verordnung (EU) 2024/1183.]",
+    id: "zahlen",
+    h: "Angebot und Nachfrage: die Zahlen",
+    paras: [
+      "Der Anbieterbestand lässt sich exakt bestimmen, weil die EU ihre Vertrauensdienste zentral verzeichnet. Grundlage der Auswertung ist die EU List of Trusted Lists (Sequence 390) mit den dahinterliegenden 30 nationalen Vertrauenslisten aus EU und EWR, insgesamt rund 25 Megabyte XML, ausgewertet am 12. August 2026. Zur Kalibrierung der Null lohnt der Blick auf die übrigen Diensttypen:",
+    ],
   },
   {
-    frage: "Was unterscheidet ein einfaches von einem qualifizierten Journal?",
-    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: der Unterschied ist die Zulassung, nicht die Technik. Vermutungswirkung nach Art. 45k Abs. 2 nur beim qualifizierten.]",
+    id: "normen",
+    h: "Die Erklärung liegt nicht bei den Normen",
+    paras: [
+      "Die naheliegende Vermutung wäre, dass die Anbieter noch gar nicht können. Dass eine Norm fehlt, gegen die geprüft werden könnte. Das trifft nicht zu. Alle vier Bausteine der Zulassung liegen vor.",
+      "Erstens die Prüfnorm. Der Anhang der Durchführungsverordnung (EU) 2025/2531 nennt für alle Anbieter qualifizierter Journale die Norm ETSI EN 319 401 in der Fassung v3.1.1, ergänzt um ausformulierte Zusatzanforderungen zu Praxiserklärung, Personal, Kryptographie, Netzsicherheit und Betriebsbeendigung. Wer diese Anforderungen erfüllt, für den vermutet die Aufsicht nach Artikel 45l Absatz 2 der eIDAS-Verordnung, dass die gesetzlichen Anforderungen erfüllt sind.",
+      "Zweitens die europäische Anbieternorm. CEN/TS 18264 „Policy and security requirements on trust services on electronic ledgers“ wurde am 25. März 2026 veröffentlicht. Sie beschreibt die Politik-, Funktions- und Sicherheitsanforderungen an Journal-Vertrauensdienste. Die Durchführungsverordnung verweist noch nicht auf sie. Nach ihrem Erwägungsgrund 5 kann die Kommission ihre Referenzliste an neue Standards anpassen. Ein Zulassungshindernis ist das nicht: Die Verordnung funktioniert mit dem Prüfmaßstab, den sie bereits enthält.",
+      "Drittens der Prüfer. Mit LSTI in Frankreich hat mindestens eine akkreditierte Konformitätsbewertungsstelle ein eigenes Auditangebot für qualifizierte Journale aufgebaut, ohne ausgewiesene Kunden. Ob eine andere eIDAS-Prüfstelle diesen Dienst prüfen darf, hängt an ihrem Akkreditierungsumfang. Es gibt also einen Prüfer mit Angebot, aber bislang niemanden zu prüfen.",
+      "Viertens die Eintragung. Die Norm ETSI TS 119 615 in der Fassung v1.4.1 vom Mai 2026 enthält bereits das Verfahren, mit dem ein qualifizierter Journal-Dienst aus einer nationalen Vertrauensliste bestimmt wird. Die Liste weiß, wie sie einen solchen Eintrag zu behandeln hätte. Sie hat nur keinen.",
+      "Ein Detail lohnt die Aufmerksamkeit, weil es den Zuschnitt des Dienstes verrät. Der Anhang der Durchführungsverordnung ist überschrieben mit „Liste der technischen Spezifikationen und Referenzstandards für qualifizierte verteilte elektronische Journale“, und er definiert Knoten, Netz und Konsensmechanismus. Auch der französische Prüfer beschreibt den Dienst als verteiltes Register. Das spricht dafür, dass beim Schreiben Distributed-Ledger-Architekturen im Blick waren, auch wenn die Definition in der eIDAS-Verordnung selbst keine verteilte Datenhaltung verlangt.",
+    ],
   },
   {
-    frage: "Muss ein qualifiziertes Journal eine Blockchain sein?",
-    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: nein, REQ-7.5-04 verlangt Hash-Listen oder Hash-Bäume; verteilte Architektur zulässig, nicht gefordert.]",
+    id: "nachfrage",
+    h: "Die Nachfrage ist bisher hypothetisch",
+    paras: [
+      "Bleibt die Frage, ob der Markt nur auf seinen ersten Anbieter wartet. Dafür müsste es Akteure geben, deren Problem ein gewöhnliches Log nicht löst. Die Prüfung entlang der plausiblen Nachfragequellen ernüchtert.",
+      "Ein Blick in die Rechtsprechung zeigt zumindest, worauf es ankommt. Das OLG Düsseldorf entschied am 26. Februar 2003, dass ein Webhosting-Anbieter sich bei der Abrechnung von Datenverkehr nicht auf den Anscheinsbeweis berufen kann. Die für die Festnetztelefonie anerkannten Grundsätze ließen sich nicht übertragen, weil sich für dieses Messverfahren noch keine entsprechende allgemeine Überzeugung gebildet hatte. Der Anbieter musste sein Mess- und Aufzeichnungsverfahren im Einzelnen darstellen. Die Entscheidung ist ein Einzelfall und sagt nichts allgemein über den Beweiswert von Log-Files. Sie zeigt aber, wovon er abhängen kann: vom konkreten Verfahren und von dessen gefestigter Anerkennung. Eine erkennbare Nachfrage nach beweisstarken Journalen hat dieser Befund in zwei Jahrzehnten nicht erzeugt.",
+      "Auch sonst findet sich wenig. Aufsichtsbehörden sanktionieren in der Praxis fehlende Protokollierung, nicht manipulierbare. Bei Versicherern ist uns kein Bedingungswerk begegnet, das unabhängige Protokollnachweise verlangt. Der CO2-Grenzausgleich CBAM stützt sich für die Verifizierung auf akkreditierte Prüfstellen.",
+      "Aufschlussreich ist der Blick auf den Digitalen Produktpass. Er benötigt wörtlich, was ein Journal verspricht: Manipulationserkennung und Zurechenbarkeit über Lieferketten hinweg. Die zuständige europäische Normenfamilie umfasst acht Standards. Sechs davon erschienen am 27. Mai 2026. Ausgerechnet die beiden Sicherheitsnormen, EN 18239 zu Zugriffsrechten und EN 18246 zu Datenauthentizität und Integrität, standen bis zum 16. Juli 2026 in der Schlussabstimmung und waren im August 2026 noch nicht veröffentlicht. Der Normungsprozess hat sie also nicht als Startpunkt behandelt, sondern als Nachzügler. Ein qualifiziertes Journal kommt in der bisher veröffentlichten Normenfamilie nicht vor.",
+      "Als Referenzfall dient schließlich die qualifizierte elektronische Archivierung: rechtlich seit Jahren existent, in unserer Auswertung der Vertrauenslisten faktisch ohne Bestand. Ein Vertrauensdienst kann rechtlich existieren und faktisch tot bleiben.",
+    ],
   },
   {
-    frage: "Gibt es in Deutschland bereits Anbieter?",
-    antwort: "[BITTE ERGÄNZEN: Antwort mit Abrufdatum der Bundesnetzagentur-Liste.]",
+    id: "schluss",
+    h: "Drei Schlussfolgerungen",
+    paras: [
+      "Erstens senkt die Verordnung die Hürde für alle verketteten Aufzeichnungen, auch unterhalb der qualifizierten Stufe. Nach Artikel 45k Absatz 1 der eIDAS-Verordnung darf ein elektronisches Journal vor Gericht nicht allein deshalb abgelehnt werden, weil es elektronisch ist oder keine Qualifikation trägt.",
+      "Zweitens hat der Gesetzgeber unabhängig von der Marktentwicklung etwas Bleibendes hinterlassen: eine amtliche Festlegung, welche Technik er für beweisfähige Reihenfolge für richtig hält, nämlich kryptographische Verkettung über Hash-Listen oder Hash-Bäume mit SHA-256 oder stärker. Unsere Aufzeichnung arbeitet mit diesem Verfahren, und die Bauweise stand vor der Regel. Das begründet weder ein Zertifikat noch eine gesetzliche Vermutung noch die Erfüllung der übrigen Anforderungen an einen qualifizierten Dienst, und wir bezeichnen es nicht so. Es ist ein überprüfbarer Qualitätsmaßstab für einen Teilaspekt, mit Amtsblatt-Referenz. Nicht mehr und nicht weniger.",
+      "Drittens existiert im selben Katalog ein Dienst, der heute funktioniert: der qualifizierte Zeitstempel, flächendeckend verfügbar, zu Centbeträgen, mit echter Rechtsfolge nach Artikel 41 Absatz 2 der eIDAS-Verordnung. Dort gilt die Vermutung der Richtigkeit von Datum und Zeit sowie der Unversehrtheit der gestempelten Daten. Die Durchführungsverordnung nennt ihn ausdrücklich als gleichwertigen Weg, die Reihenfolge zu sichern. Für die Praxis ist er derzeit der nützlichste Teil des gesamten eIDAS-Katalogs, und es ist der Pfad, den wir nutzen.",
+    ],
   },
   {
-    frage: "Erfüllt ein qualifiziertes Journal den EU AI Act?",
-    antwort: "[BITTE ERGÄNZEN: Antwort. Kern: andere Frage. Art. 12 EU AI Act verlangt Aufzeichnung, keine Verkettung.]",
+    id: "ausblick",
+    h: "Ausblick: zwei Szenarien",
+    paras: [
+      "Der Rahmen ist fertig. Was fehlt, ist ein Anlass. Der wahrscheinlichste wäre der erste Streitfall, der die Integrität einer maschinellen Aufzeichnung vor ein Gericht trägt, oder eine Fachregulierung, die einen unabhängigen Nachweis verlangt statt nur eine Protokollpflicht. Tritt das ein, kann sich das Register schnell füllen, denn Aufsicht, Prüfstellen und Vertrauenslisten stehen bereit. Bleibt es aus, dürfte das Journal den Weg der qualifizierten Archivierung gehen und als Rechtsfigur ohne Markt fortbestehen, während seine Bauweise als Qualitätsmaßstab in den Architekturen derer weiterlebt, die ohnehin verkettet aufzeichnen.",
+      "Für Entscheider lässt sich der Stand so zusammenfassen: Die eIDAS-Verordnung verpflichtet niemanden zur Nutzung eines qualifizierten elektronischen Journals. Was das eigene Branchenrecht an Nachweisen verlangt, ist eine davon getrennte Frage und muss getrennt geprüft werden. Die Verordnung beschreibt, was jenseits der Pflicht möglich ist, und dort hat der Gesetzgeber immerhin festgelegt, welche Technik er für die Sicherung der Reihenfolge für die richtige hält.",
+    ],
   },
 ];
 
-// Article plus FAQPage, both in German, with a named author. The author is not
-// decoration: on regulatory topics it is one of the few signals a reader has
-// that a person stands behind the text, and models weight it when citing.
+// Der Befund aus den Vertrauenslisten. Die Null steht neben den anderen
+// Diensttypen, weil sie sonst wie ein Auswertungsfehler aussieht.
+const diensttypen = [
+  { typ: "Zertifizierungsstellen", n: "4.252" },
+  { typ: "Qualifizierte Zeitstempeldienste", n: "1.977" },
+  { typ: "Zustelldienste", n: "668" },
+  { typ: "Qualifizierte elektronische Archivierung", n: "faktisch 0" },
+  { typ: "Qualifizierte elektronische Journale", n: "0", null_: true },
+];
+
+const aufEinenBlick = [
+  "Seit dem 6. Januar 2026 gelten die technischen Regeln für das qualifizierte elektronische Journal (Durchführungsverordnung (EU) 2025/2531). Sie verlangen dreierlei: die Herkunft der Datensätze, ihre fortlaufende chronologische Reihenfolge und ihre Unversehrtheit. Für die Reihenfolge sind Hash-Listen oder Hash-Bäume mit SHA-256 oder stärker vorgesehen, alternativ qualifizierte Zeitstempel. Herkunft und Unversehrtheit laufen über Signaturen und Siegel.",
+  "Eine Pflicht zur Nutzung sieht die eIDAS-Verordnung für niemanden vor.",
+  "Die Auswertung aller 30 nationalen Vertrauenslisten in EU und EWR (August 2026) ergibt null eingetragene Anbieter. Die Volltextsuche in der Ausschreibungsdatenbank TED ergibt null Vergaben.",
+  "Am Rahmen liegt es nicht. Die Prüfnorm steht in der Durchführungsverordnung selbst, die europäische Anbieternorm CEN/TS 18264 ist seit März 2026 veröffentlicht, ein Prüfer hat ein Angebot aufgebaut, und die Vertrauenslisten kennen den Diensttyp bereits. Es fehlt die Nachfrage.",
+  "Belege für zahlungsbereite Nachfrage fehlen bislang. Kurzfristig nutzbar ist der qualifizierte Zeitstempel. Die Verordnung taugt heute als Qualitätsmaßstab, nicht als Kaufargument.",
+];
+
+// Antworten sind Verdichtungen der Absätze oben, keine neuen Aussagen. Wenn
+// sich der Fließtext ändert, ändert sich hier etwas mit.
+const faq = [
+  {
+    frage: "Ist ein qualifiziertes elektronisches Journal Pflicht?",
+    antwort:
+      "Nein. Die eIDAS-Verordnung sieht für niemanden eine Pflicht zur Nutzung vor, für keine Branche und zu keinem Datum. Die häufig zitierte Frist Ende 2027 betrifft die Akzeptanz der EUDI-Wallet nach Artikel 5f der eIDAS-Verordnung und hat mit dem Journal nichts zu tun. Was das eigene Branchenrecht an Nachweisen verlangt, ist eine davon getrennte Frage.",
+  },
+  {
+    frage: "Seit wann gelten die technischen Anforderungen?",
+    antwort:
+      "Seit dem 6. Januar 2026. Sie stehen im Anhang der Durchführungsverordnung (EU) 2025/2531 vom 16. Dezember 2025. Vorgesehen war der Rechtsakt nach Artikel 45l Absatz 3 der eIDAS-Verordnung bis zum 21. Mai 2025; er erschien sieben Monate später.",
+  },
+  {
+    frage: "Wo steht das im Gesetz?",
+    antwort:
+      "In den Artikeln 45k und 45l der eIDAS-Verordnung, eingefügt durch die Verordnung (EU) 2024/1183. Artikel 45k regelt die Rechtswirkung, Artikel 45l die Anforderungen an den qualifizierten Dienst und die Ermächtigung für die technischen Regeln.",
+  },
+  {
+    frage: "Was unterscheidet ein einfaches von einem qualifizierten Journal?",
+    antwort:
+      "Die Zulassung. Ein einfaches Journal darf jeder anbieten. Die qualifizierte Stufe ist zugelassenen Vertrauensdiensteanbietern vorbehalten, und nur sie trägt die Vermutung, dass die fortlaufende chronologische Reihenfolge und die Unversehrtheit stimmen. Wer das Gegenteil behauptet, trägt die Beweislast.",
+  },
+  {
+    frage: "Muss ein qualifiziertes Journal eine Blockchain sein?",
+    antwort:
+      "Nein. REQ-7.5-04 verlangt kryptographische Verknüpfungen über Hash-Listen oder Hash-Bäume mit SHA-256 oder stärker, alternativ qualifizierte Zeitstempel. Der Anhang der Durchführungsverordnung spricht zwar von verteilten elektronischen Journalen und definiert Knoten, Netz und Konsensmechanismus; die Definition in der eIDAS-Verordnung selbst verlangt keine verteilte Datenhaltung.",
+  },
+  {
+    frage: "Gibt es in Deutschland bereits Anbieter?",
+    antwort:
+      "Nein. Die Auswertung aller 30 nationalen Vertrauenslisten in EU und EWR am 12. August 2026 ergab null eingetragene Anbieter. Die Bundesnetzagentur schreibt auf ihrer Seite zum qualifizierten elektronischen Journal, abgerufen am 20. August 2026: „Leider gibt es in Deutschland noch keine qualifizierten Anbieter.“",
+  },
+  {
+    frage: "Welche Alternative ist heute verfügbar?",
+    antwort:
+      "Der qualifizierte Zeitstempel. Er ist flächendeckend verfügbar, kostet Centbeträge und trägt nach Artikel 41 Absatz 2 der eIDAS-Verordnung die Vermutung der Richtigkeit von Datum und Zeit sowie der Unversehrtheit der gestempelten Daten. Die Durchführungsverordnung nennt ihn ausdrücklich als gleichwertigen Weg, die Reihenfolge zu sichern.",
+  },
+];
+
+const quellen = [
+  { t: "eIDAS-Verordnung (EU) Nr. 910/2014 in der Fassung der Verordnung (EU) 2024/1183, Artikel 5f, 41, 45k und 45l", u: "https://eur-lex.europa.eu/eli/reg/2014/910/oj" },
+  { t: "Verordnung (EU) 2024/1183 vom 11. April 2024", u: "https://eur-lex.europa.eu/eli/reg/2024/1183/oj" },
+  { t: "Durchführungsverordnung (EU) 2025/2531 vom 16. Dezember 2025 mit Anhang, in Kraft seit 6. Januar 2026", u: "https://eur-lex.europa.eu/eli/reg_impl/2025/2531/oj" },
+  { t: "ETSI EN 319 401 v3.1.1 (2024-06)", u: null },
+  { t: "CEN/TS 18264:2026, veröffentlicht am 25. März 2026", u: null },
+  { t: "ETSI TS 119 615 v1.4.1 (2026-05)", u: null },
+  { t: "Bundesnetzagentur, Seite „Qualifiziertes elektronisches Journal“, abgerufen am 20. August 2026", u: null },
+  { t: "EU List of Trusted Lists (Sequence 390) und 30 nationale Vertrauenslisten aus EU und EWR, eigene Auswertung vom 12. August 2026", u: null },
+  { t: "TED, Volltextauswertung der Bekanntmachungen vom 12. August 2026", u: "https://ted.europa.eu/" },
+  { t: "LSTI, Auditangebot „eIDAS V2 Registres Electroniques Qualifiés“", u: null },
+  { t: "OLG Düsseldorf, Urteil vom 26. Februar 2003, 18 U 192/02", u: null },
+  { t: "CEN-CENELEC, Normenfamilie EN 18216 bis EN 18246 zum Digitalen Produktpass, Stand August 2026", u: null },
+];
+
+const pageTitle = "Qualifizierte elektronische Journale: eine Bestandsaufnahme";
+const pageUrl = "https://kyde.com/de/wissen/qualifiziertes-elektronisches-journal";
+
+// Article und FAQPage, beide auf Deutsch, mit benanntem Autor. Der Autor ist
+// keine Dekoration: bei regulatorischen Themen ist er eines der wenigen
+// Signale, dass eine Person hinter dem Text steht.
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
   inLanguage: "de",
-  headline: "Qualifiziertes elektronisches Journal nach eIDAS",
+  headline: pageTitle,
   description:
-    "Was ein qualifiziertes elektronisches Journal ist, was die Durchführungsverordnung (EU) 2025/2531 technisch verlangt und wie der Stand der Anbieter in Deutschland ist.",
+    "Acht Monate nach Inkrafttreten der technischen Regeln: was die Durchführungsverordnung (EU) 2025/2531 verlangt, wie viele Anbieter in den EU-Vertrauenslisten stehen und warum die Erklärung nicht bei den Normen liegt.",
   datePublished: stand,
   dateModified: stand,
-  author: { "@type": "Person", name: autor.name, url: autor.url },
+  author: author.url
+    ? { "@type": "Person", name: author.name, url: author.url }
+    : { "@type": "Person", name: author.name },
   publisher: { "@type": "Organization", name: "KYDE", url: "https://kyde.com" },
-  mainEntityOfPage: "https://kyde.com/de/wissen/qualifiziertes-elektronisches-journal",
+  mainEntityOfPage: pageUrl,
 };
 
 const faqSchema = {
@@ -93,39 +211,16 @@ const breadcrumbSchema = {
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Start", item: "https://kyde.com/" },
     { "@type": "ListItem", position: 2, name: "Wissen", item: "https://kyde.com/de/wissen/" },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Qualifiziertes elektronisches Journal",
-      item: "https://kyde.com/de/wissen/qualifiziertes-elektronisches-journal",
-    },
+    { "@type": "ListItem", position: 3, name: "Qualifiziertes elektronisches Journal", item: pageUrl },
   ],
 };
 
-// Headings and the claim each section has to land. The order is deliberate:
-// what it is, then what it is not, then what the rules demand, then the market,
-// and only then anything about KYDE.
-const kapitel = [
-  { id: "kurz", h: "Kurz gefasst", claim: "Die ganze Seite in fünf Sätzen: neuer Vertrauensdienst, Rechtsgrundlage, Geltung seit 6. Januar 2026, keine Pflicht, keine Anbieter in Deutschland." },
-  { id: "was-ist-das", h: "Was ist ein elektronisches Journal?", claim: "Fortlaufende Aufzeichnung. Drei Leistungen: Herkunft, Reihenfolge, Erkennbarkeit späterer Änderung." },
-  { id: "einfach-qualifiziert", h: "Einfach und qualifiziert: der Unterschied", claim: "Der Unterschied ist die Zulassung, nicht die Technik." },
-  { id: "rechtsgrundlage", h: "Wo das im Gesetz steht", claim: "eIDAS-Verordnung, geändert durch (EU) 2024/1183. Artikel 45k und 45l. Die Änderungsverordnung ist kein eigenständiger Rechtsakt." },
-  { id: "artikel-45k", h: "Artikel 45k: die Rechtswirkung", claim: "Abs. 1 gilt auch für nicht qualifizierte Journale. Abs. 2 begründet die Vermutung für Reihenfolge und Integrität." },
-  { id: "artikel-45l", h: "Artikel 45l: die vier Anforderungen", claim: "Buchstaben b, c, d sind Technik. Buchstabe a ist eine Zulassung, und damit die eigentliche Hürde." },
-  { id: "technische-anforderungen", h: "Was die technischen Regeln verlangen", claim: "Anhang der Durchführungsverordnung. REQ-7.5-03 bis -06 und REQ-6.1-12. Der Kern: REQ-7.5-04 schreibt kryptografische Verkettung vor." },
-  { id: "rechtswirkung", h: "Was die Rechtswirkung ist, und was nicht", claim: "Keine Vermutung über den Inhalt, keine über die Zeit, keine Aussage über Rechtmäßigkeit." },
-  { id: "keine-pflicht", h: "Besteht eine Pflicht?", claim: "Nein. Und die Frist im Dezember 2027 gehört zur EUDI-Wallet, nicht zu Journalen." },
-  { id: "protokollpflichten", h: "Was heute schon für Protokollierung gilt", claim: "Art. 12 und 19 EU AI Act, § 30 BSIG, DORA. Keine davon verlangt Verkettung." },
-  { id: "anbieter", h: "Stand der Anbieter in Deutschland", claim: "Bundesnetzagentur führt die Liste. Mit Abrufdatum zitieren, nicht als Zustand behaupten." },
-  { id: "agenten", h: "Wer signiert, wenn eine Maschine schreibt?", claim: "REQ-7.5-03 setzt signierende Nutzer voraus. Offene Frage, als offen kennzeichnen." },
-  { id: "faq", h: "Häufige Fragen", claim: null },
-  { id: "quellen", h: "Quellen", claim: null },
-];
+const toc = [...chapters.map(({ id, h }) => ({ id, h })), { id: "faq", h: "Häufige Fragen" }, { id: "quellen", h: "Quellen" }];
 ---
 
 <Base
-  title="Qualifiziertes elektronisches Journal nach eIDAS: Regeln, Anforderungen, Anbieter, KYDE"
-  description="Seit Januar 2026 gelten technische Regeln für qualifizierte elektronische Journale. Was sie verlangen, wer eines braucht, und warum es in Deutschland noch keine Anbieter gibt."
+  title="Qualifizierte elektronische Journale nach eIDAS: eine Bestandsaufnahme, KYDE"
+  description="Seit Januar 2026 gelten die technischen Regeln für qualifizierte elektronische Journale. Die Auswertung aller 30 nationalen Vertrauenslisten in EU und EWR ergibt null Anbieter. Was die Verordnung verlangt und woran es liegt."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -142,21 +237,25 @@ const kapitel = [
           <div class="flex items-center gap-3 mb-3">
             <a href="/de/wissen/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Wissen</a>
             <span class="text-ink-1">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatorik · Referenz</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatorik · Bestandsaufnahme</span>
           </div>
           <div class="h-px w-full bg-line-0"></div>
         </div>
 
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
-            Qualifiziertes elektronisches Journal: was die EU seit Januar 2026 verlangt
+            {pageTitle}
           </h1>
-          <div class="mb-6">
-            <Stand datum={stand} geprueft="Bundesnetzagentur, Liste der qualifizierten Vertrauensdiensteanbieter" />
-          </div>
-          <p class="font-mono text-xs text-ink-1">
-            Von {autor.name}
+          <p class="text-base md:text-lg text-ink-1 leading-relaxed mb-8">
+            Die EU hat mit eIDAS 2.0 einen neuen Vertrauensdienst geschaffen und dafür festgelegt, wie er zu
+            bauen ist. Acht Monate nach Inkrafttreten der technischen Regeln haben wir Angebot, Nachfrage und
+            Normungsstand entlang der Primärquellen ausgewertet. Das Ergebnis in Kürze: Der Rahmen für die
+            Zulassung ist vollständig. Einen einzigen Anbieter hat er trotzdem nicht hervorgebracht.
           </p>
+          <div class="mb-6">
+            <Stand datum={stand} geprueft="EU List of Trusted Lists und 30 nationale Vertrauenslisten, TED" />
+          </div>
+          <p class="font-mono text-xs text-ink-1">Von {author.name}</p>
         </div>
       </div>
     </section>
@@ -166,10 +265,42 @@ const kapitel = [
         <div class="grid md:grid-cols-[minmax(0,42rem)_300px] gap-6 md:gap-16 items-start">
           <article class="prose-kyde min-w-0">
 
+            <!-- Auf einen Blick. Steht vor allem anderen, weil die meisten
+                 Leser genau diese fünf Sätze suchen. -->
             <div class="not-prose mb-10 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Auf einen Blick</p>
+              <ul class="space-y-3">
+                {aufEinenBlick.map((line) => (
+                  <li class="flex items-start gap-3 text-sm text-ink-1 leading-relaxed">
+                    <span class="font-mono text-warn shrink-0 mt-1">—</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Offenlegung. Nicht als Fußnote, sondern vor der ersten
+                 Überschrift: wer Partei ist, sagt es, bevor er argumentiert. -->
+            <div class="not-prose mb-10 border-l-2 border-warn/50 pl-5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1 mb-2">Offenlegung</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-3">
+                Vorab zur Einordnung: Wir sind in dieser Frage Partei. KYDE zeichnet die Handlungen autonomer
+                Systeme kryptographisch verkettet auf, also mit derselben Grundtechnik, die die
+                Durchführungsverordnung für die Sicherung der Reihenfolge in qualifizierten Journalen vorsieht.
+                Die übrigen Anforderungen des Dienstes erfüllen wir damit nicht, und wir behaupten es auch nicht.
+                Die folgende Analyse beruht auf eigener Auswertung der Primärquellen. Die Methodik ist jeweils
+                angegeben.
+              </p>
+              <p class="text-sm text-ink-0 leading-relaxed font-medium">
+                KYDE ist kein qualifizierter Vertrauensdiensteanbieter und betreibt kein qualifiziertes
+                elektronisches Journal.
+              </p>
+            </div>
+
+            <div class="not-prose mb-12 border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Auf dieser Seite</p>
               <ol class="space-y-2">
-                {kapitel.filter((k) => k.claim !== null || k.id === "faq" || k.id === "quellen").map(({ id, h }) => (
+                {toc.map(({ id, h }) => (
                   <li>
                     <a href={`#${id}`} class="group flex items-start gap-2 text-sm text-ink-1 hover:text-ink-0 transition-colors leading-snug">
                       <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
@@ -180,42 +311,89 @@ const kapitel = [
               </ol>
             </div>
 
-            {kapitel.map(({ id, h, claim }) => (
+            {chapters.map(({ id, h, paras }) => (
               <>
                 <h2 id={id}>{h}</h2>
-                {claim && (
-                  <p class="not-prose mb-4 border-l-2 border-warn/50 pl-4 font-mono text-[11px] leading-relaxed text-ink-1">
-                    [BITTE ERGÄNZEN: Fließtext. Aussage, die dieser Abschnitt tragen muss: {claim}]
-                  </p>
+                {paras.map((a) => <p>{a}</p>)}
+
+                {id === "zahlen" && (
+                  <>
+                    <div class="not-prose my-8 overflow-x-auto border border-line-0">
+                      <table class="w-full min-w-[26rem] border-collapse text-sm">
+                        <thead>
+                          <tr class="border-b border-line-0">
+                            <th class="px-4 py-3 text-left font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">Diensttyp</th>
+                            <th class="px-4 py-3 text-right font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">Einträge in den EU-Vertrauenslisten</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {diensttypen.map(({ typ, n, null_ }) => (
+                            <tr class="border-b border-line-0 last:border-b-0">
+                              <td class:list={["px-4 py-3", null_ ? "text-ink-0 font-medium" : "text-ink-1"]}>{typ}</td>
+                              <td class:list={["px-4 py-3 text-right font-mono tabular-nums", null_ ? "text-warn font-bold" : "text-ink-1"]}>{n}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <p>
+                      Die Zeichenkette „ledger“ kommt im gesamten Datenbestand nicht vor. Das Ergebnis ist kein
+                      deutscher Sonderfall, sondern ein europäischer Befund. Die Bundesnetzagentur formuliert ihn
+                      in ihrer Anbieterliste zum Journal selbst:
+                    </p>
+
+                    <Zitat
+                      text="Leider gibt es in Deutschland noch keine qualifizierten Anbieter."
+                      source="Bundesnetzagentur, Seite „Qualifiziertes elektronisches Journal“"
+                      retrieved={stand}
+                    />
+
+                    <p>
+                      Die Nachfrageseite spiegelt das Bild. Die TED-Volltextsuche über alle Bekanntmachungen und
+                      Sprachen ergibt für „electronic ledger“ und alle verwandten Formulierungen null Treffer.
+                      Zur Validierung der Suche: „electronic signature“ liefert 1.456 Bekanntmachungen.
+                    </p>
+                  </>
                 )}
               </>
             ))}
 
-            <!-- Muster, wie ein Zitat aus dem Verordnungstext gesetzt wird.
-                 Wörtlich, mit Fundstelle und Abrufdatum. Ersetzen oder löschen. -->
-            <Zitat
-              text="[BITTE ERGÄNZEN: wörtliches Zitat aus dem Anhang der Durchführungsverordnung]"
-              source="Durchführungsverordnung (EU) 2025/2531, Anhang, REQ-7.5-04"
-              url="https://eur-lex.europa.eu/eli/reg_impl/2025/2531/oj"
-              retrieved={stand}
-            />
+            <h2 id="faq">Häufige Fragen</h2>
+            <div class="not-prose space-y-6 mt-6">
+              {faq.map(({ frage, antwort }) => (
+                <div class="border-t border-line-0 pt-4">
+                  <h3 class="text-sm font-medium text-ink-0 mb-2">{frage}</h3>
+                  <p class="text-sm text-ink-1 leading-relaxed">{antwort}</p>
+                </div>
+              ))}
+            </div>
 
-            <div class="not-prose my-10 border border-line-0 bg-bg-1 p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-3">KYDE und kryptografische Verkettung</p>
-              <p class="text-sm text-ink-1 leading-relaxed mb-3">
-                [BITTE ERGÄNZEN: kurzer Absatz. Kern: KYDE zeichnet Agentenaktivität in einer Hash-Kette auf,
-                der Export ist offline prüfbar. Dasselbe Verfahren, das REQ-7.5-04 vorschreibt.]
-              </p>
-              <p class="text-sm text-ink-0 leading-relaxed font-medium">
-                KYDE ist kein qualifizierter Vertrauensdiensteanbieter und betreibt kein qualifiziertes
-                elektronisches Journal.
+            <h2 id="quellen">Quellen</h2>
+            <ul class="not-prose space-y-3 mt-6">
+              {quellen.map(({ t, u }) => (
+                <li class="flex items-start gap-2 text-sm text-ink-1 leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5">·</span>
+                  {u ? (
+                    <a href={u} target="_blank" rel="noopener" class="underline underline-offset-4 decoration-ink-1/40 hover:decoration-warn hover:text-ink-0 transition-colors">{t}</a>
+                  ) : (
+                    <span>{t}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            <div class="not-prose mt-10 border-t border-line-0 pt-5">
+              <p class="text-sm text-ink-1 leading-relaxed">
+                Eine ausführlichere englische Fassung dieser Analyse steht unter
+                <a href="/qualified-electronic-ledger" class="text-ink-0 underline underline-offset-4 decoration-ink-0/30 hover:decoration-warn">Qualified Electronic Ledger</a>.
               </p>
             </div>
 
             <Rechtshinweis />
           </article>
 
-          <aside class="hidden md:block space-y-5 sticky top-28">
+          <aside aria-label="Eckdaten und Primärquellen" class="hidden md:block space-y-5">
             <div class="border border-line-0 bg-bg-1 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">In Kraft seit</p>
               <p class="font-mono text-xl font-bold text-ink-0">6. Januar 2026</p>
@@ -226,6 +404,12 @@ const kapitel = [
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Pflicht</p>
               <p class="font-mono text-xl font-bold text-ink-0">Keine</p>
               <p class="text-xs text-ink-1 mt-1">Freiwilliger Vertrauensdienst, kein Sektor, keine Frist.</p>
+            </div>
+
+            <div class="border border-line-0 bg-bg-1 p-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Anbieter in EU und EWR</p>
+              <p class="font-mono text-xl font-bold text-warn">0</p>
+              <p class="text-xs text-ink-1 mt-1">Auswertung aller 30 nationalen Vertrauenslisten, 12. August 2026.</p>
             </div>
 
             <div class="border border-line-0 bg-bg-1 p-5">
@@ -259,6 +443,7 @@ const kapitel = [
     color: var(--color-ink-0); font-size: 1.25rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.05em; margin-top: 2.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem;
     border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+    scroll-margin-top: 7rem;
   }
   .prose-kyde a:not(.inline-flex) { color: var(--color-ink-0); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--color-ink-0) 30%, transparent); }
   .prose-kyde a:hover:not(.inline-flex) { text-decoration-color: var(--color-warn); }
