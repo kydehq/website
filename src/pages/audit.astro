@@ -1,0 +1,188 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="The KYDE Audit, Automation Readiness in Two Weeks"
+  description="Two weeks, one process area, 9,800 €. A dated readout of which processes are buildable today, which are waiting and on what, and which stay with a person. Fixed price, credited against your first automation project."
+>
+  <Navbar />
+
+  <main>
+    <!-- ══════════ HERO ══════════ -->
+    <section class="relative bg-bg-1 overflow-hidden">
+      <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-32 pb-20 md:border-x md:border-line-0">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-2 mb-8">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/40 border border-white/15 px-3 py-1">Two weeks · one process area</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-live/80 border border-live/30 px-3 py-1">Fixed price</span>
+          </div>
+          <h1 class="hero-h1 text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05] mb-6">
+            <span class="text-white">Which of your processes</span><br /><span class="text-white/40">can be automated today?</span>
+          </h1>
+          <p class="text-lg text-white/50 leading-relaxed max-w-xl mb-10">
+            We capture one process area, document what we find, and hand you a dated readout: what is buildable today, what is waiting and on what, and what stays with a person. Every waiting item carries an owner and a date.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
+              Start your audit →
+            </button>
+            <a href="/audit-readout" class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all">
+              See a real readout →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ PRICE ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · What it costs</span></div>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12">
+          <div>
+            <p class="font-mono text-2xl md:text-3xl text-white uppercase tracking-[0.06em] mb-6">9,800 €</p>
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
+              Fixed price, not a range, and credited in full against your first automation project. Two weeks, one process area.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed">
+              It costs money on purpose. A free assessment produces a number that exists to sell something, and a number like that is worth nothing to the person who has to defend it internally.
+            </p>
+          </div>
+          <div>
+<p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-6">How the two weeks run</p>
+                        <ol class="space-y-4">
+                            <li class="flex gap-4 border-b border-white/10 pb-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 1</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Kick-off with the works council and data protection, before anything is recorded.</span>
+                            </li>
+                            <li class="flex gap-4 border-b border-white/10 pb-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 2–3</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Recording. Session-scoped, announced and agreed, and the people recorded can review their own sessions.</span>
+                            </li>
+                            <li class="flex gap-4 border-b border-white/10 pb-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 4–8</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Analysis, with the open questions sent back to the department as they surface.</span>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 10</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Readout in your building. A dated document that names the rows every number came from.</span>
+                            </li>
+                        </ol>          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CO-DETERMINATION ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">02 · Before anything is recorded</span></div>
+<div class="border border-white/10 bg-white/[0.02] p-7 lg:p-9">
+                    <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-14 items-start">
+                        <div>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">How the recording is allowed to happen</p>
+                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-4">Recording a person's work is co-determined in Germany. So it is built that way.</h3>
+                            <p class="text-base text-white/55 leading-relaxed max-w-2xl mb-4">
+                                The works council and data protection are in the room on day one, before anything is recorded. Settling the legal basis is theirs, not a claim we make on their behalf. What we bring to that meeting is a product built to survive it: sessions scoped and time-boxed rather than open-ended, and personal data removed locally before anything is stored, so it is not a deletion promise about data we already hold.
+                            </p>
+                            <p class="text-base text-white/55 leading-relaxed max-w-2xl">
+                                Every session is announced and agreed before it starts, and the person recorded can review their own sessions and delete them. Nothing leaves your environment. A recording product that cannot survive a works council meeting is not a product, it is a pilot that quietly dies in March.
+                            </p>
+                        </div>
+                        <ul class="grid gap-3 lg:w-64 shrink-0">
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Never silent</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">Announced and agreed per session</span>
+                            </li>
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Session scoped</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">Not a monitoring tool left running</span>
+                            </li>
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Stripped locally</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">Before storage, not after</span>
+                            </li>
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Reviewable</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">By the person recorded</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="mt-7 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
+                        Day 1 of every audit is the kick-off with the works council and data protection. It is the first line of the offer, not a clause in it.
+                    </p>
+                </div>      </div>
+    </section>
+
+    <!-- ══════════ THE WAITING REASONS ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · Why a process waits</span></div>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold text-ink-0 leading-tight mb-5">A blocker with a name is a date, not a verdict.</h2>
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
+              Not everything that waits is waiting on the same thing, and that difference decides who can move it and when. A process held up by a missing interface belongs on somebody's roadmap. One held up by a single unanswered question belongs in this week's calendar.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed">
+              That is also why the readout is worth re-running. Between two dated readouts, some blockers fall without anybody doing anything, and the ones that stay with a person stay with a person.
+            </p>
+          </div>
+          <div class="border border-line-0 bg-white/[0.02] p-6 md:p-7">
+<p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">Why each one waits</p>
+                        <dl class="space-y-3 text-sm">
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-white/70">Model capability</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">nobody. it turns on its own</dd>
+                            </div>
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-white/70">Interface missing</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">you or the vendor. it can be planned</dd>
+                            </div>
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-ember">Evidence gap</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-ember/70 text-right shrink-0">you, this week. one question</dd>
+                            </div>
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-white/70">Not enough data yet</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">time, or a longer recording</dd>
+                            </div>
+                            <div class="flex justify-between gap-4">
+                                <dt class="text-white/70">Legal</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">nobody. it stays with a person</dd>
+                            </div>
+                        </dl>
+                              </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DESIGN PARTNERSHIP ══════════ -->
+    <section class="border-t border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Design partnership</span></div>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold text-ink-0 leading-tight mb-5">Built with regulated industries. Not for them.</h2>
+            <p class="text-base text-ink-1 leading-relaxed mb-6">
+              Active design partnerships across Finance, Insurance, Healthcare, Public Sector, Critical Infrastructure and Manufacturing in Germany and the EU. Design partners trade the audit fee for a reference we can both publish. It is a trade, not a discount, which is why the price stays what it is.
+            </p>
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all">
+              Apply for design partnership →
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-2 content-start">
+            {["Finance & Banking", "Insurance", "Healthcare", "Public Sector", "Critical Infrastructure", "Manufacturing"].map((industry) => (
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50 border border-white/15 px-3 py-1.5">{industry}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
