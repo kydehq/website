@@ -777,137 +777,123 @@ const websiteSchema = {
         </section>
 
         <!-- ══════════ 5 · START WITH AN AUDIT ══════════ -->
-        <!-- The only place the page asks for money, and the only number on it. The
-             reason taxonomy, the two-week schedule and the works council panel moved
-             to /audit: they answer questions a reader only has once they are already
-             interested, and on the homepage they were answering them too early. -->
+        <!-- Two columns like every figure section on the page: the offer on the left,
+             the readout it produces on the right. The Process/Status/Why table lost
+             its third column in the move to half width. The reason now sits under the
+             process rather than beside it, which reads better narrow and keeps the
+             thing that matters, that no row waits without saying on what. -->
         <section id="audit" class="scroll-mt-20 border-b border-white/10 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Start with an audit</span>
-                    <span class="fig-label">FIG.2</span>
-                </div>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
 
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-6 max-w-4xl">
-                    Two weeks, one process area, one dated readout.
-                </h2>
-                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Fixed price, credited against your first automation project.</p>
-
-                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 mb-14">
-                    <p class="text-lg text-white/55 leading-relaxed">
-                        You get a dated readout: which processes are buildable today, which are waiting and on what, and which stay with a person. Every waiting item carries an owner and a date.
-                    </p>
-                    <p class="text-lg text-white/55 leading-relaxed">
-                        We do not score automation potential. We map what can be automated now, and what has to change before it can. Re-run the readout three months later and see what moved.
-                    </p>
-                </div>
-
-<!-- The readout in miniature -->
-                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7 mb-8">
-                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">From a readout, one process area</span>
-                        <span class="fig-label">FIG.2</span>
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">05 · Start with an audit</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-5">
+                                Two weeks, one process area, one dated readout.
+                            </h2>
+                            <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Fixed price, credited against your first automation project.</p>
+                            <p class="text-lg text-white/55 leading-relaxed mb-6">
+                                You get a dated readout: which processes are buildable today, which are waiting and on what, and which stay with a person. Every waiting item carries an owner and a date.
+                            </p>
+                            <p class="text-lg text-white/55 leading-relaxed mb-10">
+                                We do not score automation potential. We map what can be automated now, and what has to change before it can. Re-run the readout three months later and see what moved.
+                            </p>
+                            <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+                                <button
+                                    onclick="openModal()"
+                                    class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
+                                >
+                                    Start your audit →
+                                </button>
+                                <a
+                                    href="/audit"
+                                    class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
+                                >
+                                    How it works →
+                                </a>
+                                <a
+                                    href="/audit-readout"
+                                    class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
+                                >
+                                    See a real readout →
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full min-w-[560px] text-left">
-                            <thead>
-                                <tr class="border-b border-white/10">
-                                    <th class="font-mono text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">Process</th>
-                                    <th class="font-mono text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">Status</th>
-                                    <th class="font-mono text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3">Why</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-white/10">
-                                <tr>
-                                    <td class="py-3 pr-4 text-sm text-white/80">Check invoice</td>
-                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-live border border-live/30 bg-live/[0.08] px-2 py-0.5 whitespace-nowrap">Buildable today</span></td>
-                                    <td class="py-3 text-sm text-white/35">No blocker</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 pr-4 text-sm text-white/80">Supplier release</td>
-                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap">Waiting</span></td>
-                                    <td class="py-3 text-sm text-white/55">No MCP interface to the ERP</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 pr-4 text-sm text-white/80">Classify damage</td>
-                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap">Waiting</span></td>
-                                    <td class="py-3 text-sm text-white/55">One question open with the department</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 pr-4 text-sm text-white/80">Contract decision</td>
-                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-white/50 border border-white/20 px-2 py-0.5 whitespace-nowrap">Human</span></td>
-                                    <td class="py-3 text-sm text-white/55">Legal discretion</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
-                        FIG.2 · Every waiting row carries an owner and a date, which is what turns an assessment into a work programme. The row that never moves is what makes the others credible.
-                    </p>
-                </div>
 
-                <!-- The re-run, which is the product rather than the follow-up -->
-                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7 mb-14">
-                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">The same area, re-run three months later</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full min-w-[520px] text-left font-mono">
-                            <thead>
-                                <tr class="border-b border-white/10">
-                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4"></th>
-                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">20 Aug 2026</th>
-                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">20 Nov 2026</th>
-                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3">What moved</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-white/10">
-                                <tr>
-                                    <td class="py-3 pr-4 text-xs uppercase tracking-[0.1em] text-white/60">Buildable today</td>
-                                    <td class="py-3 pr-4 text-xl text-white/40">3</td>
-                                    <td class="py-3 pr-4 text-xl font-bold text-live">6</td>
-                                    <td class="py-3 text-[11px] text-white/45">three blockers fell, each with a name</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 pr-4 text-xs uppercase tracking-[0.1em] text-white/60">Waiting</td>
-                                    <td class="py-3 pr-4 text-xl text-white/40">4</td>
-                                    <td class="py-3 pr-4 text-xl font-bold text-ember">1</td>
-                                    <td class="py-3 text-[11px] text-white/45">the last one waits on model capability</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 pr-4 text-xs uppercase tracking-[0.1em] text-white/60">Human</td>
-                                    <td class="py-3 pr-4 text-xl text-white/40">3</td>
-                                    <td class="py-3 pr-4 text-xl font-bold text-white/70">3</td>
-                                    <td class="py-3 text-[11px] text-white/45">never moves, and that is the point</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
-                        You do nothing between the two columns. The message arrives: <span class="text-white/55">supplier release was waiting on an MCP server for your ERP. It is here.</span>
-                    </p>
-                </div>
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-end border-b border-white/10">
+                            <span class="fig-label">FIG.2</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center gap-6 py-10">
 
-                
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button
-                        onclick="openModal()"
-                        class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
-                    >
-                        Start your audit →
-                    </button>
-                    <a
-                        href="/audit-readout"
-                        class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
-                    >
-                        See a real readout →
-                    </a>
-                    <a
-                        href="/audit"
-                        class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
-                    >
-                        How the two weeks run →
-                    </a>
+                            <div class="border border-white/10 bg-white/[0.02] px-5 py-5">
+                                <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 border-b border-white/10 pb-3 mb-4">From a readout, one process area</p>
+                                <ul class="divide-y divide-white/10">
+                                    <li class="py-3 first:pt-0">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="text-sm text-white/80">Check invoice</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-live border border-live/30 bg-live/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Buildable today</span>
+                                        </div>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="text-sm text-white/80">Supplier release</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Waiting</span>
+                                        </div>
+                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">No MCP interface to the ERP</p>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="text-sm text-white/80">Classify damage</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Waiting</span>
+                                        </div>
+                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">One question open with the department</p>
+                                    </li>
+                                    <li class="py-3 last:pb-0">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="text-sm text-white/80">Contract decision</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-white/50 border border-white/20 px-2 py-0.5 whitespace-nowrap shrink-0">Human</span>
+                                        </div>
+                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">Legal discretion</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="border border-white/10 bg-white/[0.02] px-5 py-5">
+                                <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 border-b border-white/10 pb-3 mb-4">The same area, re-run three months later</p>
+                                <ul class="divide-y divide-white/10">
+                                    <li class="py-3 first:pt-0">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Buildable today</span>
+                                            <span class="font-mono text-lg shrink-0"><span class="text-white/35">3</span> <span class="text-white/25">→</span> <span class="font-bold text-live">6</span></span>
+                                        </div>
+                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">three blockers fell, each with a name</p>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Waiting</span>
+                                            <span class="font-mono text-lg shrink-0"><span class="text-white/35">4</span> <span class="text-white/25">→</span> <span class="font-bold text-ember">1</span></span>
+                                        </div>
+                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">the last one waits on model capability</p>
+                                    </li>
+                                    <li class="py-3 last:pb-0">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Human</span>
+                                            <span class="font-mono text-lg shrink-0"><span class="text-white/35">3</span> <span class="text-white/25">→</span> <span class="font-bold text-white/70">3</span></span>
+                                        </div>
+                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">never moves, and that is the point</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · No row waits without saying on what. The row that never moves is what makes the others credible. Aug 2026 to Nov 2026, illustrative.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
