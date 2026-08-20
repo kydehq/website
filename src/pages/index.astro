@@ -37,7 +37,7 @@ const websiteSchema = {
 
 <Base
     title="KYDE · Deploy AI Agents With Confidence"
-    description="Identity, capabilities, real-time enforcement and a tamper-evident record, on every agent action routed through it. The behavioral system of record for autonomous work. Built for GDPR, EU AI Act, NIS-2, DORA."
+    description="Record how work is really done, measure what an agent can already do with it, and automate what holds up. The behavioral system of record for autonomous work. Built for GDPR, EU AI Act, NIS-2, DORA."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -63,14 +63,14 @@ const websiteSchema = {
                      686px and clears every container down to 768px. Base is 2rem rather than
                      text-4xl so it still fits one line on a 375px phone. -->
                 <h1 class="hero-h1 text-[2rem] text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-                    <span id="hero-l1" style="display:block">One Record.</span>
-                    <span id="hero-l2" style="display:block">Every Vendor.</span>
+                    <span id="hero-l1" style="display:block">Work Becomes</span>
+                    <span id="hero-l2" style="display:block">A Record.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
                     The Behavioral System of Record for Autonomous Work.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    Identity, scope, enforcement and a signed record — held outside every platform your agents run on.
+                    Capture how work is done. Learn what holds up. Automate it. Prove what happened. In your own environment, engineered in Germany.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -81,14 +81,14 @@ const websiteSchema = {
                         Talk to Us →
                     </button>
                     <a
-                        href="/starter"
+                        href="#audit"
                         class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
                     >
-                        Start Free →
+                        Start your audit →
                     </a>
                 </div>
                 <p class="mt-8 font-mono text-sm" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-                    <span class="text-live">$</span> <span class="text-white/50">export OPENAI_BASE_URL=https://kyde.intranet/v1</span><span class="cursor-blink" aria-hidden="true"></span>
+                    <span class="text-white/45 tracking-[0.18em] text-[11px] md:text-xs uppercase">Humans <span class="text-white/20">·</span> Agents <span class="text-white/20">·</span> Systems <span class="text-white/20">·</span> Tool calls <span class="text-white/20">·</span> Approvals</span>
                 </p>
             </div>
 
@@ -141,8 +141,8 @@ const websiteSchema = {
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "ONE RECORD.", 200);
-  if (l2) scrambleLine(l2, "EVERY VENDOR.", 200, () => {
+  if (l1) scrambleLine(l1, "WORK BECOMES", 200);
+  if (l2) scrambleLine(l2, "A RECORD.", 200, () => {
     if (eyebrow) eyebrow.style.opacity = "1";
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
@@ -387,32 +387,77 @@ const websiteSchema = {
   }
 </script>
 
-        <!-- ══════════ THE LAYER IN THE MIDDLE ══════════ -->
-        <!-- First thing past the fold. The topology is the argument: a reader has to
-             see that everything crosses one place before "system of record" means
-             anything. FIG.1 is full-width for that reason, like the ladder further
-             down, and it is the only figure on the page that shows the whole shape. -->
+
+        <!-- ══════════ THE KNOWLEDGE NOBODY WROTE DOWN ══════════ -->
+        <!-- The quietest section on the page, and the first thing past the fold. It
+             inherits the shell of the old premise block: no figure, no list, nothing
+             to click, because the reader has to sit with the problem before any
+             mechanism is offered. -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-28 md:py-40 md:border-x md:border-white/10">
+                <div class="max-w-4xl">
+                    <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 mb-10">The knowledge nobody wrote down</p>
+                    <p class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
+                        Your best process exists<br class="hidden md:block" />
+                        in one person's head.
+                    </p>
+                    <div class="mt-10 h-px w-24 bg-white/15"></div>
+                    <p class="mt-8 text-lg text-white/55 leading-relaxed max-w-3xl">
+                        The way a claim is really assessed. Which supplier document is checked twice. What happens when the field is empty. None of it is in the handbook, and the person who knows leaves at the end of March.
+                    </p>
+                    <p class="mt-6 font-mono text-sm md:text-base text-white/70 tracking-[0.02em] leading-relaxed max-w-3xl">
+                        Every attempt to automate that work starts by guessing what it looks like. KYDE starts by recording it.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ ONE RECORDING, FIVE USES ══════════ -->
+        <!-- Framing only. It deliberately lists nothing: each station below carries
+             its own name and maturity in a header you cannot miss, and saying it
+             twice turned the page into a product list the last time it was tried. -->
         <section class="border-b border-white/10 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">What you cannot answer today</span>
-                    <span class="fig-label">FIG.1</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">One record. Different uses.</span>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4 max-w-3xl">
+                    One recording. Five things to do with it.
+                </h2>
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Knowledge · Evaluation · Workflow · Worker · Evidence</p>
+                <p class="text-lg text-white/55 leading-relaxed max-w-3xl">
+                    Built separately, these are five systems that drift apart: five data models, five integrations, and five versions of what the work supposedly looks like. Here they are five readings of one recording. That is why the completeness of the recording is the thing worth arguing about.
+                </p>
+            </div>
+        </section>
+        <!-- ══════════ STATION 01 · KNOWLEDGE ══════════ -->
+        <!-- First thing past the fold. The topology is the argument: a reader has to
+             see that everything crosses one place before "system of record" means
+             anything. FIG.1 is full-width for that reason, like the ladder further
+             down, and it is the only figure on the page that shows the whole shape. -->
+        <section id="capture" class="scroll-mt-20 border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · Knowledge <span class="text-white/25">·</span> KYDE Capture</span>
+                    <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5">With you today</span>
                 </div>
 
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-4 max-w-4xl">
-                    Your agents are doing work you cannot see, stop, attribute or prove.
+                    One record, written where the work passes.
                 </h2>
-                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Everything they do crosses one layer. That is where it stops being traffic.</p>
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Recorded · Reviewed · Yours</p>
                 <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-12">
-                    A company running on agents does not run on one platform. The agents answer to different vendors, and the systems they reach, databases, MCP servers, ERP, payment APIs, belong to nobody in particular either. KYDE sits in the middle of that traffic and writes every action routed through it into a single chain as it passes. That is why the record of that traffic is whole: something standing beside the action only ever sees what happened. This sees what was not allowed to. What comes out the other side is a behavioral system of record.
+                    KYDE records how work is done, across people, software and agents: the screen, the decisions, the tool calls, the approvals. Not a snapshot taken once by a consultant who sat next to somebody for an afternoon. A recording that gets richer every time the work runs, and that keeps the thing a handbook never has, which is what actually happens when the case is not the normal one.
                 </p>
 
                 <!-- The plot frame gives the topology something to stand in, same
                      treatment as the ladder figure. -->
                 <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7">
                     <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">One record, written where the action passes</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">One record, written where the work passes</span>
                         <span class="fig-label">FIG.1</span>
                     </div>
                     <svg id="spine-fig" viewBox="0 0 1000 420" class="w-full h-auto" aria-hidden="true">
@@ -482,7 +527,7 @@ const websiteSchema = {
                         <text x="40" y="410" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">ed25519 · sha-256 · append-only</text>
                     </svg>
                     <p class="mt-4 text-center font-mono text-[10px] text-white/35 leading-relaxed">
-                        FIG.1 · Every crossing appends a link. The chain is the byproduct of the traffic, not a second system someone has to remember to feed.
+                        FIG.1 · Every step appends a link. The record is the byproduct of the work, not a second system someone has to remember to feed.
                     </p>
                 </div>
             </div>
@@ -656,13 +701,370 @@ const websiteSchema = {
             </script>
         </section>
 
+        <!-- ══════════ CONSENT · THE CO-DETERMINATION PANEL ══════════ -->
+        <!-- Static and deliberately unglamorous. For a German buyer this is not fine
+             print at the bottom of a recording product, it is the reason the project
+             is allowed to start at all, so it gets its own panel directly under the
+             station it belongs to. -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-white/10">
+                <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-9">
+                    <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-14 items-start">
+                        <div>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">How the recording is allowed to happen</p>
+                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-4">Recording a person's work is co-determined in Germany. So it is built that way.</h3>
+                            <p class="text-base text-white/55 leading-relaxed max-w-2xl mb-4">
+                                Consent first, and the works council is in the room on day one, before anything is recorded. Sessions are scoped and time-boxed rather than open-ended. Personal data is removed locally, before anything is stored, so it is not a deletion promise about data we already hold.
+                            </p>
+                            <p class="text-base text-white/55 leading-relaxed max-w-2xl">
+                                The person recorded can review their own sessions and delete them. Nothing leaves your environment. A recording product that cannot survive a works council meeting is not a product, it is a pilot that quietly dies in March.
+                            </p>
+                        </div>
+                        <ul class="grid gap-3 lg:w-64 shrink-0">
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Consent first</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">Nothing records without it</span>
+                            </li>
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Session scoped</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">Not a monitoring tool left running</span>
+                            </li>
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Stripped locally</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">Before storage, not after</span>
+                            </li>
+                            <li class="border border-white/10 px-4 py-3">
+                                <span class="block font-mono text-[9px] uppercase tracking-[0.18em] text-live mb-1">Reviewable</span>
+                                <span class="block font-mono text-[10px] text-white/45 leading-relaxed">By the person recorded</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="mt-7 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
+                        Day 1 of every audit is the kick-off with the works council and data protection. It is the first line of the offer, not a clause in it.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ STATION 02 · EVALUATION ══════════ -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-between border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">02 · Evaluation</span>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45 border border-white/20 px-2 py-0.5">Coming soon</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Evaluation</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">A hundred real cases where the right answer is already known.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Can an agent do this reliably today? Count what it got right.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Every recorded process comes with the thing nobody ever has: real cases with a known outcome. That turns the hardest question in enterprise AI from an opinion into a measurement. The agent runs the same cases, and the answer is measured against the outcome in your system of record, not against what the person happened to click. <span class="text-white/35">Not built yet. It needs a fine-tuning partner, and we would rather say so.</span>
+                        </p>
+                        </div>
+                    </div>
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="replay-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AS RECORDED</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">REPLAYED TODAY</text>
+
+                            <line x1="40" y1="130" x2="430" y2="130" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="3 6" />
+                            <line x1="40" y1="230" x2="430" y2="230" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="3 6" />
+                            <text x="30" y="134" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">A</text>
+                            <text x="30" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">B</text>
+
+                            <!-- the divergence is one entry, not a general mismatch -->
+                            <line id="rp-gap" x1="300" y1="130" x2="300" y2="266" stroke="var(--color-warn)" stroke-opacity="0" stroke-width="1" stroke-dasharray="2 3" />
+
+                            {Array.from({ length: 8 }, (_, i) => 60 + i * 48).map((x, i) => (
+                                <>
+                                    <rect class="rp-top" x={x - 5} y="122" width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1.25" />
+                                    <rect class="rp-bot" x={x - 5} y={i === 5 ? 258 : 222} width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1.25" />
+                                </>
+                            ))}
+
+                            <defs>
+                            <radialGradient id="replay-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="replay-blooms"></g>
+                        <line id="rp-head" x1="40" y1="104" x2="40" y2="284" stroke="var(--color-live)" stroke-opacity="0.65" stroke-width="1" />
+
+                            <text id="rp-note" x="300" y="296" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">model changed underneath</text>
+                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">same prompt · same agent · different answer</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Seven cases come out the way the record says they should. The eighth is the one worth finding, and only the recording makes it findable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // replay-fig · a playhead runs the recorded sequence against the replayed one.
+                // Entries light as the head reaches them and burn down to a resting level
+                // rather than switching off. One entry sits lower than its recorded twin:
+                // that is the whole point of the figure, so it is the only thing that
+                // holds its color after the head has gone past.
+                const rpFig = document.getElementById("replay-fig");
+                const rpReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (rpFig) {
+                    const DIVERGE = 5;
+                    const XS = Array.from({ length: 8 }, (_, i) => 60 + i * 48);
+                    const head = document.getElementById("rp-head") as unknown as SVGLineElement;
+                    const gap = document.getElementById("rp-gap") as unknown as SVGLineElement;
+                    const note = document.getElementById("rp-note") as unknown as SVGTextElement;
+                    const tops = Array.from(rpFig.querySelectorAll(".rp-top")) as SVGRectElement[];
+                    const bots = Array.from(rpFig.querySelectorAll(".rp-bot")) as SVGRectElement[];
+                    const NS = "http://www.w3.org/2000/svg";
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("replay-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#replay-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+
+                    const REST = 0.25;
+                    let bright = XS.map(() => ({ t: REST, b: REST }));
+                    let x = 40, gapO = 0, noteO = 0, holdUntil = 0;
+
+                    const paint = () => {
+                        bright.forEach((v, i) => {
+                            const diverged = i === DIVERGE;
+                            tops[i].setAttribute("stroke-opacity", String(v.t));
+                            tops[i].setAttribute("stroke", "var(--color-ink-0)");
+                            bots[i].setAttribute("stroke-opacity", String(v.b));
+                            bots[i].setAttribute("stroke", diverged && v.b > REST + 0.02 ? "var(--color-warn)" : "var(--color-ink-0)");
+                        });
+                        gap.setAttribute("stroke-opacity", String(gapO));
+                        note.setAttribute("fill-opacity", String(noteO));
+                        head.setAttribute("x1", String(x));
+                        head.setAttribute("x2", String(x));
+                    };
+
+                    const tick = () => {
+                        if (performance.now() < holdUntil) {
+                            // hold on the divergence, then let it burn down with the rest
+                            gapO *= 0.994; noteO *= 0.994;
+                            bright.forEach((v, i) => {
+                                v.t = REST + (v.t - REST) * 0.985;
+                                v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.997 : 0.985);
+                            });
+                            paint();
+                            return;
+                        }
+                        x += 1.05;
+                        XS.forEach((xi, i) => {
+                            if (x >= xi && bright[i].t <= REST + 0.01) bright[i].t = 0.95;
+                            if (x >= xi + 14 && bright[i].b <= REST + 0.01) {
+                                bright[i].b = 0.95;
+                                if (i === DIVERGE) { gapO = 0.7; noteO = 0.9; bloom(300, 266, 7, 0.8); }
+                            }
+                        });
+                        bright.forEach((v, i) => {
+                            v.t = REST + (v.t - REST) * 0.97;
+                            v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.995 : 0.97);
+                        });
+                        gapO *= 0.997; noteO *= 0.997;
+                        if (x > 430) { x = 40; holdUntil = performance.now() + 2200; }
+                        stepBlooms();
+                        paint();
+                    };
+
+                    if (rpReduced) {
+                        bright = bright.map((_, i) => ({ t: 0.35, b: i === DIVERGE ? 0.9 : 0.35 }));
+                        gapO = 0.6; noteO = 0.9; x = 430;
+                        paint();
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(rpFig);
+                        const loop = () => {
+                            if (visible) tick();
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ STATION 03 · WORKFLOW ══════════ -->
+        <!-- Static by design. The claim here is legibility, not motion: a recording
+             nobody can read is not documentation, and a still plate showing raw
+             events beside the structured result argues that better than anything
+             that moves. -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-between border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">03 · Workflow</span>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5">With you today</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Workflow</h2>
+                            <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">A recording nobody can read is not documentation.</p>
+                            <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Raw session in. Sequence a person can check out.</p>
+                            <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                                What comes off a session is a stream of events. What a team can work with is an ordered sequence with the decisions named, the exceptions written down, and the point where somebody has to look at it marked as such. That is the artefact a colleague can be handed, an auditor can read, and a model can be pointed at. <span class="text-white/35">We do this with you.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+                            <div class="w-full max-w-md grid grid-cols-2 border border-white/10 divide-x divide-white/10">
+                                <div class="p-4">
+                                    <p class="font-mono text-[9px] uppercase tracking-[0.18em] text-white/35 mb-4">Recorded</p>
+                                    <ul class="space-y-2 font-mono text-[10px] text-white/50 leading-relaxed">
+                                        <li>08:14:02 open · claim 44182</li>
+                                        <li>08:14:20 read · policy history</li>
+                                        <li>08:15:47 open · supplier note</li>
+                                        <li>08:16:03 read · policy history</li>
+                                        <li class="text-white/30">08:16:31 field empty</li>
+                                        <li>08:17:09 call · partner desk</li>
+                                        <li>08:19:55 set · category B</li>
+                                        <li>08:20:14 approve · 1,240.00</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4">
+                                    <p class="font-mono text-[9px] uppercase tracking-[0.18em] text-white/35 mb-4">Written down</p>
+                                    <ol class="space-y-2.5 font-mono text-[10px] text-white/60 leading-relaxed">
+                                        <li><span class="text-gold">1</span> Pull policy history before category</li>
+                                        <li><span class="text-gold">2</span> Read it twice when a supplier note exists</li>
+                                        <li><span class="text-gold">3</span> Empty field is not zero. Ask the desk.</li>
+                                        <li><span class="text-gold">4</span> Category from history, not from amount</li>
+                                        <li><span class="text-live">5</span> Approve under 2,000. Above, escalate.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Step 3 is the one no handbook contains. It exists because the recording caught the pause, and somebody asked what the pause was.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ STATION 04 · WORKER ══════════ -->
+        <!-- Figure alternates to the left. The composition strip is static for now;
+             graphic B animates the same geometry, including the hand-back event,
+             so the markup below is the storyboard rather than a placeholder. -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+                            <svg viewBox="0 0 480 300" class="w-full max-w-md h-auto" aria-hidden="true">
+                                <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <path d="M12 273 L12 288 L27 288" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                                <path d="M468 273 L468 288 L453 288" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+                                <text x="40" y="58" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">ONE RUN</text>
+
+                                <!-- the rail every segment sits on -->
+                                <line x1="40" y1="150" x2="440" y2="150" stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" />
+
+                                <!-- deterministic: a solid run of fixed steps -->
+                                <line x1="40" y1="150" x2="150" y2="150" stroke="var(--color-ink-0)" stroke-opacity="0.70" stroke-width="3" />
+                                <text x="95" y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">deterministic</text>
+                                <text x="95" y="176" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">the steps are fixed</text>
+
+                                <!-- agent: judgement, drawn as discrete decisions -->
+                                <circle cx="176" cy="150" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <circle cx="204" cy="150" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <circle cx="232" cy="150" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <circle cx="260" cy="150" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
+                                <text x="218" y="132" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">agent</text>
+                                <text x="218" y="176" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">judgement is needed</text>
+
+                                <!-- the hand-back: the worker stops rather than guesses -->
+                                <line x1="300" y1="104" x2="300" y2="196" stroke="var(--color-warn)" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="2 3" />
+                                <rect x="292" y="142" width="16" height="16" fill="none" stroke="var(--color-warn)" stroke-opacity="0.85" stroke-width="1.5" />
+                                <text x="300" y="94" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">stops</text>
+                                <text x="300" y="214" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">hands back with what it found</text>
+
+                                <!-- human: the part that is not a product choice -->
+                                <line x1="340" y1="150" x2="440" y2="150" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="3" />
+                                <rect x="384" y="144" width="12" height="12" fill="var(--color-ink-0)" fill-opacity="0.55" />
+                                <text x="390" y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">human</text>
+                                <text x="390" y="176" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">the law says so</text>
+
+                                <text x="40" y="266" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">CAPTURE → MEASURE → AUTOMATE</text>
+                            </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">One run, three kinds of segment. The dashed line is not an error. It is the worker refusing to guess.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-between border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">04 · Worker</span>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5">With you today</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Worker</h2>
+                            <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Turn proven work into a worker you own.</p>
+                            <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Built from how your company already works.</p>
+                            <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                                The fastest way to build an agent is not to guess how the work should happen. Deterministic where the steps are fixed. An agent where judgement is needed. A human where the law says so: a decision left to an official's discretion is not automated, and a decision with legal effect on a person needs a human in it. Those are not product choices. The worker stops rather than guesses, and hands back with everything it found. <span class="text-white/35">We do this with you.</span>
+                            </p>
+                            <p class="mt-6 font-mono text-sm text-white/45 tracking-[0.02em] leading-relaxed">
+                                A specialist retires. Their way of working does not have to.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ══════════ THE PREMISE ══════════ -->
-        <!-- Sits between the topology and the readings on purpose: FIG.1 shows the
-             shape, this says why it has to be that shape. Descends from the older
-             "if the agent can touch the lock, it can pick it" — same figure, but
-             about the record rather than about prevention, which is where the
-             product actually stands now. Deliberately the quietest section on the
-             page: no figure, no list, nothing to click. -->
+        <!-- Moved to sit directly above Evidence, which is the only station it
+             argues for. It says why the record has to be held outside the reach of
+             the thing being recorded, so the station below can get straight to the
+             mechanism. No figure, no list, nothing to click. -->
         <section class="border-b border-white/10 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-28 md:py-40 md:border-x md:border-white/10">
                 <div class="max-w-4xl">
@@ -686,40 +1088,450 @@ const websiteSchema = {
             </div>
         </section>
 
-        <!-- ══════════ ONE RECORD, FIVE READINGS ══════════ -->
-        <!-- Framing only. This exists to stop the five from reading as five products,
-             which is the whole strategic point: competitors build five silos, this
-             reads one recording five ways. It deliberately lists nothing, because each
-             reading below already carries its own category and maturity in a header
-             you cannot miss, and saying it twice made the page a product list. -->
+
+        <!-- ══════════ STATION 05 · EVIDENCE ══════════ -->
+        <section id="prove" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+
+                            <defs>
+                                <radialGradient id="chain-glow">
+                                    <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                    <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                    <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                    <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                                </radialGradient>
+                            </defs>
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">SIGNED ACTION LOG</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OUTSIDE KYDE</text>
+
+                            <!-- the boundary is the argument: everything to the right of it
+                                 happens without us, and nothing crosses back -->
+                            <line x1="300" y1="66" x2="300" y2="304" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="2 6" />
+                            <text x="294" y="86" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">KYDE ENDS HERE</text>
+
+                            <g id="chain-blooms"></g>
+
+                            {[
+                                { h: "a4ce", a: "db.write" },
+                                { h: "a4cf", a: "transfer" },
+                                { h: "a4d0", a: "dlp.mask" },
+                                { h: "a4d1", a: "quote.set" },
+                            ].map(({ h, a }, i) => (
+                                <>
+                                    {i < 3 && (
+                                        <line class="ch-conn" x1={30 + i * 64 + 54} y1="134" x2={30 + (i + 1) * 64} y2="134"
+                                              stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1.5" />
+                                    )}
+                                    <rect class="ch-box" x={30 + i * 64} y="112" width="54" height="44" fill="none"
+                                          stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
+                                    <text x={57 + i * 64} y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;">{h}</text>
+                                    <text x={57 + i * 64} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">{a}</text>
+                                </>
+                            ))}
+
+                            <!-- the export's route out; the token is driven along it -->
+                            <path id="ch-route" d="M249 156 Q 292 196, 356 226" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
+
+                            <rect id="ch-verifier" x="330" y="214" width="110" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                            <text x="385" y="234" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">AUDITOR</text>
+                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">recompute · check signature</text>
+
+                            <rect id="ch-export" x="243" y="150" width="12" height="12" fill="none" stroke="var(--color-live)" stroke-opacity="0" stroke-width="1.5" />
+
+                            <text id="ch-status" x="385" y="292" text-anchor="middle" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HASH MATCHES</text>
+                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">sha-256 chain · public key travels with the export · we are not asked</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The export leaves with the public key. Everything after the boundary happens without us, and nothing comes back.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-between border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">05 · Evidence</span>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-live border border-live/30 bg-live/[0.08] px-2 py-0.5">Running today</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Evidence</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Evidence the other side can check without you.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Who acted, which agent, which model, under which policy.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. KYDE's record is captured at the boundary before anything reaches a provider and hash-chained, so altering one link breaks every link after it. <span class="text-white/35">Running today.</span>
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // chain-fig · the seal runs left to right, one entry at a time, each sealed
+                // by the one before it. Then the export leaves, crosses the boundary and
+                // is checked on the other side. Nothing comes back: that is the claim the
+                // figure has to carry, so the motion only ever travels outward.
+                const chainFig = document.getElementById("chain-fig");
+                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (chainFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const boxes = Array.from(chainFig.querySelectorAll(".ch-box")) as SVGRectElement[];
+                    const conns = Array.from(chainFig.querySelectorAll(".ch-conn")) as SVGLineElement[];
+                    const route = document.getElementById("ch-route") as unknown as SVGPathElement;
+                    const exp = document.getElementById("ch-export") as unknown as SVGRectElement;
+                    const status = document.getElementById("ch-status") as unknown as SVGTextElement;
+                    const recompute = document.getElementById("ch-recompute") as unknown as SVGTextElement;
+                    const bloomLayer = document.getElementById("chain-blooms") as unknown as SVGGElement;
+                    const routeLen = route.getTotalLength();
+
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#chain-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+                    const REST = 0.26, SEALED = 0.6;
+                    let lit = boxes.map(() => REST);
+                    let connLit = conns.map(() => 0.12);
+                    let phase: "seal" | "leave" | "check" | "rest" = "seal";
+                    let sealX = 10, routeT = 0, statusO = 0, waitUntil = 0, sealed = -1;
+
+                    const paint = () => {
+                        boxes.forEach((b, i) => {
+                            b.setAttribute("stroke-opacity", lit[i].toFixed(3));
+                            b.setAttribute("stroke", lit[i] > SEALED + 0.05 ? "var(--color-live)" : "var(--color-ink-0)");
+                        });
+                        conns.forEach((c, i) => c.setAttribute("stroke-opacity", connLit[i].toFixed(3)));
+                        status.setAttribute("fill-opacity", statusO.toFixed(3));
+                        recompute.setAttribute("fill-opacity", (0.4 + statusO * 0.35).toFixed(3));
+                    };
+
+                    const reset = () => {
+                        lit = boxes.map(() => REST);
+                        connLit = conns.map(() => 0.12);
+                        sealX = 10; routeT = 0; statusO = 0; sealed = -1;
+                        exp.setAttribute("stroke-opacity", "0");
+                        phase = "seal";
+                    };
+
+                    const tick = (now: number) => {
+                        if (phase === "seal") {
+                            sealX += 1.15;
+                            const centres = boxes.map((_, i) => 57 + i * 64);
+                            centres.forEach((cx, i) => {
+                                if (sealX >= cx && sealed < i) {
+                                    sealed = i;
+                                    lit[i] = 0.95;
+                                    if (i > 0) connLit[i - 1] = 0.55;
+                                    bloom(cx, 134, 7, 0.8);
+                                }
+                            });
+                            if (sealX > 300) { phase = "leave"; routeT = 0; }
+                        } else if (phase === "leave") {
+                            routeT += 1.5;
+                            const pt = route.getPointAtLength(Math.min(routeT, routeLen));
+                            exp.setAttribute("x", String(pt.x - 6));
+                            exp.setAttribute("y", String(pt.y - 6));
+                            exp.setAttribute("stroke-opacity", "0.8");
+                            if (routeT >= routeLen) { phase = "check"; waitUntil = now + 700; }
+                        } else if (phase === "check") {
+                            if (now > waitUntil && statusO === 0) {
+                                bloom(385, 243, 10, 0.85);
+                                statusO = 0.9;
+                                waitUntil = now + 2600;
+                            }
+                            if (statusO > 0 && now > waitUntil) { phase = "rest"; waitUntil = now + 900; }
+                        } else if (now > waitUntil) {
+                            reset();
+                        }
+
+                        // everything settles rather than switching: sealed entries fall back
+                        // to a resting glow, the verdict fades out on its own
+                        lit = lit.map((v) => SEALED + (v - SEALED) * 0.985);
+                        if (phase === "rest") { statusO *= 0.94; exp.setAttribute("stroke-opacity", String(Math.max(0, statusO))); }
+                        stepBlooms();
+                        paint();
+                    };
+
+                    if (chainReduced) {
+                        lit = boxes.map(() => SEALED);
+                        connLit = conns.map(() => 0.55);
+                        statusO = 0.9;
+                        exp.setAttribute("x", "350"); exp.setAttribute("y", "220"); exp.setAttribute("stroke-opacity", "0.8");
+                        paint();
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
+                        const loop = (now: number) => {
+                            if (visible) tick(now);
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ THE AUDIT ══════════ -->
+        <!-- The centre of the page and the only place it asks for money. The two
+             tables below are the readout in miniature; graphic A replaces the second
+             one with the animated diff of two dated readouts. Deliberately not a
+             score: a percentage would compress exactly the thing that makes this
+             sellable, which is that every waiting row has an owner and a date. -->
+        <section id="audit" class="scroll-mt-20 border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Automation readiness</span>
+                    <span class="fig-label">FIG.4</span>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-4 max-w-4xl">
+                    Seven of ten processes have potential. Three are buildable today.
+                </h2>
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">One number, two states, one list.</p>
+
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 mb-14">
+                    <div>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            We do not score automation potential. We map what can be automated now, and what has to change before it can. A percentage compresses the one thing worth having: four processes waiting is not a verdict, it is four owners and four dates.
+                        </p>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            The three buildable ones pay for the first project. The four waiting ones are the reason there is a second. And the ones that stay with a person stay with a person, which is what makes the rest of the numbers worth believing.
+                        </p>
+                    </div>
+                    <div class="border border-white/10 bg-white/[0.02] p-6 md:p-7">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">Why each one waits</p>
+                        <dl class="space-y-3 text-sm">
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-white/70">Model capability</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">nobody. it turns on its own</dd>
+                            </div>
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-white/70">Interface missing</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">you or the vendor. it can be planned</dd>
+                            </div>
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-ember">Evidence gap</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-ember/70 text-right shrink-0">you, this week. one question</dd>
+                            </div>
+                            <div class="flex justify-between gap-4 border-b border-white/10 pb-3">
+                                <dt class="text-white/70">Not enough data yet</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">time, or a longer recording</dd>
+                            </div>
+                            <div class="flex justify-between gap-4">
+                                <dt class="text-white/70">Legal</dt>
+                                <dd class="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 text-right shrink-0">nobody. it stays with a person</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <!-- The readout in miniature -->
+                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7 mb-8">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">From a readout, one process area</span>
+                        <span class="fig-label">FIG.4</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[560px] text-left">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="font-mono text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">Process</th>
+                                    <th class="font-mono text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">Status</th>
+                                    <th class="font-mono text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3">Why</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/10">
+                                <tr>
+                                    <td class="py-3 pr-4 text-sm text-white/80">Check invoice</td>
+                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-live border border-live/30 bg-live/[0.08] px-2 py-0.5 whitespace-nowrap">Buildable today</span></td>
+                                    <td class="py-3 text-sm text-white/35">No blocker</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 pr-4 text-sm text-white/80">Supplier release</td>
+                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap">Waiting</span></td>
+                                    <td class="py-3 text-sm text-white/55">No MCP interface to the ERP</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 pr-4 text-sm text-white/80">Classify damage</td>
+                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap">Waiting</span></td>
+                                    <td class="py-3 text-sm text-white/55">One question open with the department</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 pr-4 text-sm text-white/80">Contract decision</td>
+                                    <td class="py-3 pr-4"><span class="font-mono text-[9px] uppercase tracking-[0.14em] text-white/50 border border-white/20 px-2 py-0.5 whitespace-nowrap">Human</span></td>
+                                    <td class="py-3 text-sm text-white/55">Legal discretion</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
+                        FIG.4 · Every waiting row carries an owner and a date, which is what turns an assessment into a work programme. The row that never moves is what makes the others credible.
+                    </p>
+                </div>
+
+                <!-- The re-run, which is the product rather than the follow-up -->
+                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7 mb-14">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">The same area, re-run three months later</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[520px] text-left font-mono">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4"></th>
+                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">20 Aug 2026</th>
+                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3 pr-4">20 Nov 2026</th>
+                                    <th class="text-[10px] font-normal uppercase tracking-[0.18em] text-white/40 pb-3">What moved</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/10">
+                                <tr>
+                                    <td class="py-3 pr-4 text-xs uppercase tracking-[0.1em] text-white/60">Buildable today</td>
+                                    <td class="py-3 pr-4 text-xl text-white/40">3</td>
+                                    <td class="py-3 pr-4 text-xl font-bold text-live">6</td>
+                                    <td class="py-3 text-[11px] text-white/45">three blockers fell, each with a name</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 pr-4 text-xs uppercase tracking-[0.1em] text-white/60">Waiting</td>
+                                    <td class="py-3 pr-4 text-xl text-white/40">4</td>
+                                    <td class="py-3 pr-4 text-xl font-bold text-ember">1</td>
+                                    <td class="py-3 text-[11px] text-white/45">the last one waits on model capability</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 pr-4 text-xs uppercase tracking-[0.1em] text-white/60">Human</td>
+                                    <td class="py-3 pr-4 text-xl text-white/40">3</td>
+                                    <td class="py-3 pr-4 text-xl font-bold text-white/70">3</td>
+                                    <td class="py-3 text-[11px] text-white/45">never moves, and that is the point</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
+                        You do nothing between the two columns. The message arrives: <span class="text-white/55">supplier release was waiting on an MCP server for your ERP. It is here.</span>
+                    </p>
+                </div>
+
+                <!-- The offer -->
+                <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-white/10 border-t border-white/10 pt-12 [&>*:last-child]:md:pl-12 lg:[&>*:last-child]:pl-16">
+                    <div class="md:pr-12 lg:pr-16">
+                        <h3 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-white mb-4">The audit</h3>
+                        <p class="font-mono text-base text-white uppercase tracking-[0.1em] mb-6">9,800 € · two weeks · one process area</p>
+                        <p class="text-base text-white/55 leading-relaxed mb-4">
+                            Fixed price, credited against the first automation project. It costs money on purpose: a free number is marketing, which is the opposite of what this sells.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3 mt-8">
+                            <button
+                                onclick="openModal()"
+                                class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
+                            >
+                                Start your audit →
+                            </button>
+                            <a
+                                href="/audit-readout"
+                                class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
+                            >
+                                See a real readout →
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-6">How the two weeks run</p>
+                        <ol class="space-y-4">
+                            <li class="flex gap-4 border-b border-white/10 pb-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 1</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Kick-off with the works council and data protection, before anything is recorded.</span>
+                            </li>
+                            <li class="flex gap-4 border-b border-white/10 pb-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 2–3</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Recording. Consent first, session-scoped, and the people recorded can review their own sessions.</span>
+                            </li>
+                            <li class="flex gap-4 border-b border-white/10 pb-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 4–8</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Analysis, with the open questions sent back to the department as they surface.</span>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-gold shrink-0 w-16">Day 10</span>
+                                <span class="text-sm text-white/60 leading-relaxed">Readout in your building. A dated document that names the rows every number came from.</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ THE PLATFORM UNDERNEATH ══════════ -->
+        <!-- Everything from here to the ladder is the substrate the five stations
+             stand on. It used to be the whole page; it is now the second movement,
+             which is the point of the repositioning. The open-source line is
+             deliberately one quiet sentence: it is true, it is not the argument. -->
         <section class="border-b border-white/10 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">What one record is worth</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">The platform underneath</span>
                 </div>
 
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4 max-w-3xl">
-                    One record. Five readings.
+                    Autonomous work needs more than an API key.
                 </h2>
-                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Not five products. One recording, read five ways.</p>
-                <p class="text-lg text-white/55 leading-relaxed max-w-3xl">
-                    Everything below comes out of the same signed chain. Built separately, these are five data silos and five integrations to keep in step with each other. That is why the completeness of the record is the thing worth arguing about.
-                </p>
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Identity · Scope · Policy · Action</p>
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                    <p class="text-lg text-white/55 leading-relaxed">
+                        Every worker has an identity, a narrow set of capabilities that expire on their own, and policy evaluated at the moment it acts. You see which agents exist, what they can reach, and what they are doing. Deploying a system that does the work makes you its operator under the EU AI Act, with duties to oversee it, keep its logs and tell the people affected. Those duties stay yours. This is the apparatus that lets you meet them.
+                    </p>
+                    <div>
+                        <p class="text-lg text-white/55 leading-relaxed mb-6">
+                            It runs in your environment, on-premise or hosted, and it is the same layer whether the work is done by a person, a workflow or a worker. Nothing above it has to know which.
+                        </p>
+                        <p class="font-mono text-sm text-white/40 leading-relaxed">
+                            The gateway and the ledger are open source. That is a fact about how we build, not a reason to buy.
+                            <a href="https://github.com/kydehq/gateway" target="_blank" rel="noopener" class="text-white/60 hover:text-white underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-colors">github.com/kydehq/gateway →</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- ══════════ READING 01 · GOVERNANCE ══════════ -->
-        <!-- The five readings carry the page, one full section each, figure and text
-             swapping sides so the eye alternates instead of scanning one column. -->
+        <!-- ══════════ PLATFORM · GOVERN ══════════ -->
+        <!-- Platform block. Govern, Enforce and Mandates used to be three of the five
+             readings that carried the page; they are now the substrate under the five
+             stations. Figure and text still swap sides so the eye alternates. -->
         <section class="border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Governance</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">What runs, under whose name, on which model.</p>
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Govern</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">What runs, under whose name, with which reach.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Read out of the record, not off an architecture diagram.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
                             Most agents run under a shared API key, indistinguishable from each other and from the humans whose credentials they borrowed. KYDE gives each one its own identity, so every action carries a name before it happens and the inventory writes itself: which providers, models and tools each agent depends on. <span class="text-white/35">Already in the record.</span>
@@ -895,225 +1707,73 @@ const websiteSchema = {
             </div>
         </section>
 
+        <!-- ══════════ CONTINUOUS VERIFICATION ══════════ -->
+        <!-- Not a fourth platform capability: the four mechanisms that produce the
+             record every station is read from. Still the only place identity and
+             expiring capabilities appear, which makes it load-bearing. -->
+        <section class="border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-24 md:py-28 md:border-x md:border-white/10">
 
-        <!-- ══════════ READING 02 · COMPLIANCE ══════════ -->
-        <section id="prove" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <!-- Figure sits between two hairlines, so the animation reads as a
-                         plate and not as something floating in the column. -->
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 items-center justify-center py-10">
-<svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-
-                            <defs>
-                                <radialGradient id="chain-glow">
-                                    <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                                    <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                                    <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
-                                    <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
-                                </radialGradient>
-                            </defs>
-
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">SIGNED ACTION LOG</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OUTSIDE KYDE</text>
-
-                            <!-- the boundary is the argument: everything to the right of it
-                                 happens without us, and nothing crosses back -->
-                            <line x1="300" y1="66" x2="300" y2="304" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="2 6" />
-                            <text x="294" y="86" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">KYDE ENDS HERE</text>
-
-                            <g id="chain-blooms"></g>
-
+                <!-- The loop around the four -->
+                <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-8">
+                    <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
+                        <div>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">Under all five · How the record is made</p>
+                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">A reading is only worth the recording under it.</h3>
+                            <p class="text-sm text-white/55 leading-relaxed max-w-2xl mb-4">
+                                Four mechanisms produce every entry the five stations are read from: each agent has its own identity, its capabilities are narrow and expire on their own, policy is evaluated before the action goes through, and what happened is sealed into the chain as it passes.
+                            </p>
+                            <p class="text-sm text-white/55 leading-relaxed max-w-2xl">
+                                Control is not a switch you flip at onboarding. Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next.
+                            </p>
+                            <!-- The pattern case: no single action breaks a rule, the sequence does.
+                                 A per-action check cannot see this; a baseline over time can. -->
+                            <p class="mt-4 text-sm text-white/55 leading-relaxed max-w-2xl">
+                                It is also how you catch what no single action reveals. An agent that moves 90 euros on Monday, 140 on Tuesday and 240 on Wednesday is not breaking a rule. It is finding the edge of one. The pattern is in the record, which is what any later judgement about that agent has to rest on.
+                            </p>
+                        </div>
+                        <svg viewBox="0 0 220 220" class="w-40 h-40 lg:w-52 lg:h-52 justify-self-center" aria-hidden="true">
+                            <circle cx="110" cy="110" r="66" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.24" stroke-width="1" />
+                            <circle cx="110" cy="110" r="66" fill="none" stroke="var(--color-live)" stroke-opacity="0.68" stroke-width="1.5"
+                                    stroke-dasharray="48 367" stroke-linecap="round" transform="rotate(-90 110 110)">
+                                <animateTransform attributeName="transform" type="rotate" from="-90 110 110" to="270 110 110" dur="7s" repeatCount="indefinite" />
+                            </circle>
+                            {/* Labels sit above their node except at the bottom, so none of them
+                                runs past the 220-wide viewBox and gets clipped. */}
                             {[
-                                { h: "a4ce", a: "db.write" },
-                                { h: "a4cf", a: "transfer" },
-                                { h: "a4d0", a: "dlp.mask" },
-                                { h: "a4d1", a: "quote.set" },
-                            ].map(({ h, a }, i) => (
+                                { x: 110, y: 44,  ly: 30,  t: "identity"   },
+                                { x: 176, y: 110, ly: 98,  t: "capability" },
+                                { x: 110, y: 176, ly: 194, t: "policy"     },
+                                { x: 44,  y: 110, ly: 98,  t: "evidence"   },
+                            ].map(({ x, y, ly, t }) => (
                                 <>
-                                    {i < 3 && (
-                                        <line class="ch-conn" x1={30 + i * 64 + 54} y1="134" x2={30 + (i + 1) * 64} y2="134"
-                                              stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1.5" />
-                                    )}
-                                    <rect class="ch-box" x={30 + i * 64} y="112" width="54" height="44" fill="none"
-                                          stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
-                                    <text x={57 + i * 64} y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;">{h}</text>
-                                    <text x={57 + i * 64} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">{a}</text>
+                                    <circle cx={x} cy={y} r="3" fill="var(--color-ink-0)" fill-opacity="0.65" />
+                                    <text x={x} y={ly} text-anchor="middle"
+                                          fill="var(--color-ink-0)" fill-opacity="0.60"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">{t}</text>
                                 </>
                             ))}
-
-                            <!-- the export's route out; the token is driven along it -->
-                            <path id="ch-route" d="M249 156 Q 292 196, 356 226" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
-
-                            <rect id="ch-verifier" x="330" y="214" width="110" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-                            <text x="385" y="234" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">AUDITOR</text>
-                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">recompute · check signature</text>
-
-                            <rect id="ch-export" x="243" y="150" width="12" height="12" fill="none" stroke="var(--color-live)" stroke-opacity="0" stroke-width="1.5" />
-
-                            <text id="ch-status" x="385" y="292" text-anchor="middle" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HASH MATCHES</text>
-                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">sha-256 chain · public key travels with the export · we are not asked</text>
                         </svg>
-                        </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The export leaves with the public key. Everything after the boundary happens without us, and nothing comes back.</p>
-                        </div>
                     </div>
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Compliance</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Evidence the other side can check without you.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A signed ledger and exports an auditor can take away.</p>
-                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            Your model provider's log lives on their infrastructure, signed with their keys, read through their console. In a dispute that involves them, it is theirs, not yours. KYDE's record is captured at the boundary before anything reaches a provider and hash-chained, so altering one link breaks every link after it. <span class="text-white/35">Running today.</span>
-                        </p>
-                        </div>
-                    </div>
+                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
+                        FIG.2 · The loop never stops running. Every pass re-establishes the right to act.
+                    </p>
                 </div>
             </div>
-<script>
-                // chain-fig · the seal runs left to right, one entry at a time, each sealed
-                // by the one before it. Then the export leaves, crosses the boundary and
-                // is checked on the other side. Nothing comes back: that is the claim the
-                // figure has to carry, so the motion only ever travels outward.
-                const chainFig = document.getElementById("chain-fig");
-                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                if (chainFig) {
-                    const NS = "http://www.w3.org/2000/svg";
-                    const boxes = Array.from(chainFig.querySelectorAll(".ch-box")) as SVGRectElement[];
-                    const conns = Array.from(chainFig.querySelectorAll(".ch-conn")) as SVGLineElement[];
-                    const route = document.getElementById("ch-route") as unknown as SVGPathElement;
-                    const exp = document.getElementById("ch-export") as unknown as SVGRectElement;
-                    const status = document.getElementById("ch-status") as unknown as SVGTextElement;
-                    const recompute = document.getElementById("ch-recompute") as unknown as SVGTextElement;
-                    const bloomLayer = document.getElementById("chain-blooms") as unknown as SVGGElement;
-                    const routeLen = route.getTotalLength();
-
-                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
-                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
-                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        c.setAttribute("cx", String(bx));
-                        c.setAttribute("cy", String(by));
-                        c.setAttribute("r", String(r0));
-                        c.setAttribute("fill", "url(#chain-glow)");
-                        c.setAttribute("opacity", String(peak));
-                        bloomLayer.appendChild(c);
-                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
-                    };
-                    const stepBlooms = () => {
-                        for (let i = blooms.length - 1; i >= 0; i--) {
-                            const b = blooms[i];
-                            b.r += (b.max - b.r) * 0.045;
-                            b.a *= 0.972;
-                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
-                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
-                        }
-                    };
-
-                    const REST = 0.26, SEALED = 0.6;
-                    let lit = boxes.map(() => REST);
-                    let connLit = conns.map(() => 0.12);
-                    let phase: "seal" | "leave" | "check" | "rest" = "seal";
-                    let sealX = 10, routeT = 0, statusO = 0, waitUntil = 0, sealed = -1;
-
-                    const paint = () => {
-                        boxes.forEach((b, i) => {
-                            b.setAttribute("stroke-opacity", lit[i].toFixed(3));
-                            b.setAttribute("stroke", lit[i] > SEALED + 0.05 ? "var(--color-live)" : "var(--color-ink-0)");
-                        });
-                        conns.forEach((c, i) => c.setAttribute("stroke-opacity", connLit[i].toFixed(3)));
-                        status.setAttribute("fill-opacity", statusO.toFixed(3));
-                        recompute.setAttribute("fill-opacity", (0.4 + statusO * 0.35).toFixed(3));
-                    };
-
-                    const reset = () => {
-                        lit = boxes.map(() => REST);
-                        connLit = conns.map(() => 0.12);
-                        sealX = 10; routeT = 0; statusO = 0; sealed = -1;
-                        exp.setAttribute("stroke-opacity", "0");
-                        phase = "seal";
-                    };
-
-                    const tick = (now: number) => {
-                        if (phase === "seal") {
-                            sealX += 1.15;
-                            const centres = boxes.map((_, i) => 57 + i * 64);
-                            centres.forEach((cx, i) => {
-                                if (sealX >= cx && sealed < i) {
-                                    sealed = i;
-                                    lit[i] = 0.95;
-                                    if (i > 0) connLit[i - 1] = 0.55;
-                                    bloom(cx, 134, 7, 0.8);
-                                }
-                            });
-                            if (sealX > 300) { phase = "leave"; routeT = 0; }
-                        } else if (phase === "leave") {
-                            routeT += 1.5;
-                            const pt = route.getPointAtLength(Math.min(routeT, routeLen));
-                            exp.setAttribute("x", String(pt.x - 6));
-                            exp.setAttribute("y", String(pt.y - 6));
-                            exp.setAttribute("stroke-opacity", "0.8");
-                            if (routeT >= routeLen) { phase = "check"; waitUntil = now + 700; }
-                        } else if (phase === "check") {
-                            if (now > waitUntil && statusO === 0) {
-                                bloom(385, 243, 10, 0.85);
-                                statusO = 0.9;
-                                waitUntil = now + 2600;
-                            }
-                            if (statusO > 0 && now > waitUntil) { phase = "rest"; waitUntil = now + 900; }
-                        } else if (now > waitUntil) {
-                            reset();
-                        }
-
-                        // everything settles rather than switching: sealed entries fall back
-                        // to a resting glow, the verdict fades out on its own
-                        lit = lit.map((v) => SEALED + (v - SEALED) * 0.985);
-                        if (phase === "rest") { statusO *= 0.94; exp.setAttribute("stroke-opacity", String(Math.max(0, statusO))); }
-                        stepBlooms();
-                        paint();
-                    };
-
-                    if (chainReduced) {
-                        lit = boxes.map(() => SEALED);
-                        connLit = conns.map(() => 0.55);
-                        statusO = 0.9;
-                        exp.setAttribute("x", "350"); exp.setAttribute("y", "220"); exp.setAttribute("stroke-opacity", "0.8");
-                        paint();
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
-                        const loop = (now: number) => {
-                            if (visible) tick(now);
-                            requestAnimationFrame(loop);
-                        };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
         </section>
 
-        <!-- ══════════ READING 03 · SECURITY ══════════ -->
+        <!-- ══════════ PLATFORM · ENFORCE ══════════ -->
         <section id="policies" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
                         <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Security</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Stopped at the line, not found in a report.</p>
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Enforce</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Some actions should never happen.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            No discount over 20 percent. No payment over 100 euros without approval. Only HR exports applicant data. You already run on rules like these. KYDE turns them into policy every agent passes before it acts, not a report you read afterwards. <span class="text-white/35">All of this runs in production today.</span>
+                            No customer export. No payment over 100 euros without approval. No HR data to an external service. No MCP tool outside its mandate. You already run on rules like these. KYDE turns them into policy every worker passes before it acts, not a report you read afterwards. Observe first, enforce when ready. <span class="text-white/35">All of this runs in production today.</span>
                         </p>
                         </div>
                     </div>
@@ -1225,7 +1885,7 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ READING 04 · MANDATES ══════════ -->
+        <!-- ══════════ PLATFORM · MANDATES ══════════ -->
         <!-- Every other control on this page answers "was this call allowed". This one
              answers "how much has been used in total", which nothing in the stack can
              answer today because no single system sees the sum. Figure alternates to
@@ -1414,236 +2074,6 @@ const websiteSchema = {
             </script>
         </section>
 
-        <!-- ══════════ READING 05 · REPLAY ══════════ -->
-        <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">Replay</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Run it again. See what changed underneath.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">A recorded run, replayed against what would happen today.</p>
-                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            A model swapped under the same name does not announce itself. Same prompt, same agent, different answer, and the first anyone hears about it is a complaint six weeks later. Replaying a recorded run against the present turns that into a difference you can point at. <span class="text-white/35">Coming soon.</span>
-                        </p>
-                        </div>
-                    </div>
-                    <!-- Figure sits between two hairlines, so the animation reads as a
-                         plate and not as something floating in the column. -->
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 items-center justify-center py-10">
-<svg id="replay-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AS RECORDED</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">REPLAYED TODAY</text>
-
-                            <line x1="40" y1="130" x2="430" y2="130" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="3 6" />
-                            <line x1="40" y1="230" x2="430" y2="230" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="3 6" />
-                            <text x="30" y="134" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">A</text>
-                            <text x="30" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">B</text>
-
-                            <!-- the divergence is one entry, not a general mismatch -->
-                            <line id="rp-gap" x1="300" y1="130" x2="300" y2="266" stroke="var(--color-warn)" stroke-opacity="0" stroke-width="1" stroke-dasharray="2 3" />
-
-                            {Array.from({ length: 8 }, (_, i) => 60 + i * 48).map((x, i) => (
-                                <>
-                                    <rect class="rp-top" x={x - 5} y="122" width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1.25" />
-                                    <rect class="rp-bot" x={x - 5} y={i === 5 ? 258 : 222} width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1.25" />
-                                </>
-                            ))}
-
-                            <defs>
-                            <radialGradient id="replay-glow">
-                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
-                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
-                            </radialGradient>
-                        </defs>
-                        <g id="replay-blooms"></g>
-                        <line id="rp-head" x1="40" y1="104" x2="40" y2="284" stroke="var(--color-live)" stroke-opacity="0.65" stroke-width="1" />
-
-                            <text id="rp-note" x="300" y="296" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">model changed underneath</text>
-                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">same prompt · same agent · different answer</text>
-                        </svg>
-                        </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Seven entries replay identically. The eighth is the one worth finding, and only the recording makes it findable.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<script>
-                // replay-fig · a playhead runs the recorded sequence against the replayed one.
-                // Entries light as the head reaches them and burn down to a resting level
-                // rather than switching off. One entry sits lower than its recorded twin:
-                // that is the whole point of the figure, so it is the only thing that
-                // holds its color after the head has gone past.
-                const rpFig = document.getElementById("replay-fig");
-                const rpReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                if (rpFig) {
-                    const DIVERGE = 5;
-                    const XS = Array.from({ length: 8 }, (_, i) => 60 + i * 48);
-                    const head = document.getElementById("rp-head") as unknown as SVGLineElement;
-                    const gap = document.getElementById("rp-gap") as unknown as SVGLineElement;
-                    const note = document.getElementById("rp-note") as unknown as SVGTextElement;
-                    const tops = Array.from(rpFig.querySelectorAll(".rp-top")) as SVGRectElement[];
-                    const bots = Array.from(rpFig.querySelectorAll(".rp-bot")) as SVGRectElement[];
-                    const NS = "http://www.w3.org/2000/svg";
-
-                    // Bloom borrowed from the hero canvas: expands on an ease-out and
-                    // burns down over roughly two seconds, so a contact glows like an
-                    // ember rather than switching on.
-                    const bloomLayer = document.getElementById("replay-blooms") as unknown as SVGGElement;
-                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
-                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
-                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        c.setAttribute("cx", String(bx));
-                        c.setAttribute("cy", String(by));
-                        c.setAttribute("r", String(r0));
-                        c.setAttribute("fill", "url(#replay-glow)");
-                        c.setAttribute("opacity", String(peak));
-                        bloomLayer.appendChild(c);
-                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
-                    };
-                    const stepBlooms = () => {
-                        for (let i = blooms.length - 1; i >= 0; i--) {
-                            const b = blooms[i];
-                            b.r += (b.max - b.r) * 0.045;
-                            b.a *= 0.972;
-                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
-                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
-                        }
-                    };
-
-
-                    const REST = 0.25;
-                    let bright = XS.map(() => ({ t: REST, b: REST }));
-                    let x = 40, gapO = 0, noteO = 0, holdUntil = 0;
-
-                    const paint = () => {
-                        bright.forEach((v, i) => {
-                            const diverged = i === DIVERGE;
-                            tops[i].setAttribute("stroke-opacity", String(v.t));
-                            tops[i].setAttribute("stroke", "var(--color-ink-0)");
-                            bots[i].setAttribute("stroke-opacity", String(v.b));
-                            bots[i].setAttribute("stroke", diverged && v.b > REST + 0.02 ? "var(--color-warn)" : "var(--color-ink-0)");
-                        });
-                        gap.setAttribute("stroke-opacity", String(gapO));
-                        note.setAttribute("fill-opacity", String(noteO));
-                        head.setAttribute("x1", String(x));
-                        head.setAttribute("x2", String(x));
-                    };
-
-                    const tick = () => {
-                        if (performance.now() < holdUntil) {
-                            // hold on the divergence, then let it burn down with the rest
-                            gapO *= 0.994; noteO *= 0.994;
-                            bright.forEach((v, i) => {
-                                v.t = REST + (v.t - REST) * 0.985;
-                                v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.997 : 0.985);
-                            });
-                            paint();
-                            return;
-                        }
-                        x += 1.05;
-                        XS.forEach((xi, i) => {
-                            if (x >= xi && bright[i].t <= REST + 0.01) bright[i].t = 0.95;
-                            if (x >= xi + 14 && bright[i].b <= REST + 0.01) {
-                                bright[i].b = 0.95;
-                                if (i === DIVERGE) { gapO = 0.7; noteO = 0.9; bloom(300, 266, 7, 0.8); }
-                            }
-                        });
-                        bright.forEach((v, i) => {
-                            v.t = REST + (v.t - REST) * 0.97;
-                            v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.995 : 0.97);
-                        });
-                        gapO *= 0.997; noteO *= 0.997;
-                        if (x > 430) { x = 40; holdUntil = performance.now() + 2200; }
-                        stepBlooms();
-                        paint();
-                    };
-
-                    if (rpReduced) {
-                        bright = bright.map((_, i) => ({ t: 0.35, b: i === DIVERGE ? 0.9 : 0.35 }));
-                        gapO = 0.6; noteO = 0.9; x = 430;
-                        paint();
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(rpFig);
-                        const loop = () => {
-                            if (visible) tick();
-                            requestAnimationFrame(loop);
-                        };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
-        </section>
-
-        <!-- ══════════ CONTINUOUS VERIFICATION ══════════ -->
-        <!-- Not a seventh reading: the four mechanisms that produce the record every
-             reading is read from. Since the readings took over the page, this is the
-             only place identity and expiring capabilities still appear, which makes
-             it load-bearing rather than a footnote. -->
-        <section class="border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-24 md:py-28 md:border-x md:border-white/10">
-
-                <!-- The loop around the four -->
-                <div class="border border-white/10 bg-white/[0.02] p-7 lg:p-8">
-                    <div class="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
-                        <div>
-                            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 mb-5">Under all five · How the record is made</p>
-                            <h3 class="text-xl md:text-2xl font-bold tracking-tight leading-tight text-white mb-3">A reading is only worth the recording under it.</h3>
-                            <p class="text-sm text-white/55 leading-relaxed max-w-2xl mb-4">
-                                Four mechanisms produce every entry the five readings are read from: each agent has its own identity, its capabilities are narrow and expire on their own, policy is evaluated before the action goes through, and what happened is sealed into the chain as it passes.
-                            </p>
-                            <p class="text-sm text-white/55 leading-relaxed max-w-2xl">
-                                Control is not a switch you flip at onboarding. Identity is re-checked, capabilities expire, policies are re-evaluated on every single action, and the evidence feeds straight back into what the agent is allowed to do next.
-                            </p>
-                            <!-- The pattern case: no single action breaks a rule, the sequence does.
-                                 A per-action check cannot see this; a baseline over time can. -->
-                            <p class="mt-4 text-sm text-white/55 leading-relaxed max-w-2xl">
-                                It is also how you catch what no single action reveals. An agent that moves 90 euros on Monday, 140 on Tuesday and 240 on Wednesday is not breaking a rule — it is finding the edge of one. The pattern is in the record, which is what any later judgement about that agent has to rest on.
-                            </p>
-                        </div>
-                        <svg viewBox="0 0 220 220" class="w-40 h-40 lg:w-52 lg:h-52 justify-self-center" aria-hidden="true">
-                            <circle cx="110" cy="110" r="66" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.24" stroke-width="1" />
-                            <circle cx="110" cy="110" r="66" fill="none" stroke="var(--color-live)" stroke-opacity="0.68" stroke-width="1.5"
-                                    stroke-dasharray="48 367" stroke-linecap="round" transform="rotate(-90 110 110)">
-                                <animateTransform attributeName="transform" type="rotate" from="-90 110 110" to="270 110 110" dur="7s" repeatCount="indefinite" />
-                            </circle>
-                            {/* Labels sit above their node except at the bottom, so none of them
-                                runs past the 220-wide viewBox and gets clipped. */}
-                            {[
-                                { x: 110, y: 44,  ly: 30,  t: "identity"   },
-                                { x: 176, y: 110, ly: 98,  t: "capability" },
-                                { x: 110, y: 176, ly: 194, t: "policy"     },
-                                { x: 44,  y: 110, ly: 98,  t: "evidence"   },
-                            ].map(({ x, y, ly, t }) => (
-                                <>
-                                    <circle cx={x} cy={y} r="3" fill="var(--color-ink-0)" fill-opacity="0.65" />
-                                    <text x={x} y={ly} text-anchor="middle"
-                                          fill="var(--color-ink-0)" fill-opacity="0.60"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">{t}</text>
-                                </>
-                            ))}
-                        </svg>
-                    </div>
-                    <p class="mt-6 font-mono text-[10px] text-white/35 leading-relaxed border-t border-white/10 pt-4">
-                        FIG.2 · The loop never stops running. Every pass re-establishes the right to act.
-                    </p>
-                </div>
-            </div>
-        </section>
-
         <!-- ══════════ THE TRUST LADDER ══════════ -->
         <section id="ladder" class="scroll-mt-20 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
@@ -1806,6 +2236,46 @@ const websiteSchema = {
             </div>
         </section>
 
+        <!-- ══════════ THE FOUR REGULATIONS ══════════ -->
+        <!-- Pays off the hero eyebrow, which the page has opened with for a year and
+             never once explained. One line each, no figure: the buyer who needs this
+             already knows what the acts are and wants to see whether we do. -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Built for</span>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-10 max-w-3xl">
+                    The responsibility does not transfer.
+                </h2>
+
+                <div class="border border-white/10 divide-y divide-white/10">
+                    <div class="grid md:grid-cols-[160px_1fr] gap-2 md:gap-8 px-5 py-5 md:px-7 md:py-6">
+                        <span class="font-mono text-xs uppercase tracking-[0.16em] text-white">GDPR</span>
+                        <span class="text-sm md:text-base text-white/55 leading-relaxed">Personal data removed locally before storage. The recording never leaves your environment, and the person recorded can review and delete their own sessions.</span>
+                    </div>
+                    <div class="grid md:grid-cols-[160px_1fr] gap-2 md:gap-8 px-5 py-5 md:px-7 md:py-6">
+                        <span class="font-mono text-xs uppercase tracking-[0.16em] text-white">EU AI Act</span>
+                        <span class="text-sm md:text-base text-white/55 leading-relaxed">Operator duties: oversight of the system, retention of its logs, and information of the people it affects. The apparatus is here; the duties stay with you.</span>
+                    </div>
+                    <div class="grid md:grid-cols-[160px_1fr] gap-2 md:gap-8 px-5 py-5 md:px-7 md:py-6">
+                        <span class="font-mono text-xs uppercase tracking-[0.16em] text-white">NIS-2</span>
+                        <span class="text-sm md:text-base text-white/55 leading-relaxed">Control and traceability of what acts inside your network, including the workers that act without a person watching.</span>
+                    </div>
+                    <div class="grid md:grid-cols-[160px_1fr] gap-2 md:gap-8 px-5 py-5 md:px-7 md:py-6">
+                        <span class="font-mono text-xs uppercase tracking-[0.16em] text-white">DORA</span>
+                        <span class="text-sm md:text-base text-white/55 leading-relaxed">Exit strategy and access to your own records, by construction rather than by contract. The processes and the evidence remain verifiable if we disappear tomorrow.</span>
+                    </div>
+                </div>
+
+                <p class="mt-8 text-lg text-white/55 leading-relaxed max-w-3xl">
+                    An American hyperscaler can sell you capacity. It cannot take that responsibility off your desk. It can only make it harder to discharge, because the record sits on their infrastructure, signed with their keys, readable through their console.
+                </p>
+            </div>
+        </section>
+
 
         <!-- ══════════ INDEPENDENCE ══════════ -->
         <!-- The actual reason to buy: a control layer that lives inside one vendor's
@@ -1852,7 +2322,7 @@ const websiteSchema = {
                             Built With Regulated Industries. Not For Them.
                         </h2>
                         <p class="text-white/55 leading-relaxed mb-8">
-                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, Critical Infrastructure, and Manufacturing in Germany and the EU. Built for NIS-2, DORA, EU AI Act, and GDPR from day one.
+                            Active design partnerships across Finance, Insurance, Healthcare, Public Sector, Critical Infrastructure, and Manufacturing in Germany and the EU. For organizations where AI does not just generate text, it does the work. Design partners trade the audit fee for a reference we can both publish.
                         </p>
                         <button
                             onclick="openModal()"
@@ -1886,29 +2356,20 @@ const websiteSchema = {
             </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">One record · Five readings</p>
+                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Start with one process</p>
                     <div class="mb-12 h-px bg-white/10"></div>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-8">
-                        Your agents will change vendors.<br />Your control shouldn't.
+                        One process today.<br />A workforce tomorrow.
                     </h2>
                     <p class="text-lg text-white/55 leading-relaxed mb-12 mx-auto max-w-2xl">
-                        One layer across every model and provider you route through it, designed to extend to the tools and business systems your agents touch next. Vendor neutral, engineered in Germany, and yours to keep.
+                        Record one real process. See what comes out. Measure what an agent can already do with it. Then do it again. Your models will change, your frameworks will change, your vendors will change. The record stays yours.
                     </p>
-                    <!-- Starter CTA intentionally disabled here — page CTAs stay Talk to Us (SBX-001 gate itself is lifted, navbar has Start Free) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <!--
-                        <a
-                            href="/starter"
-                            class="inline-flex items-center gap-2 bg-bg-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
-                        >
-                            Start Free →
-                        </a>
-                        -->
                         <button
                             onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-bg-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:bg-cta-hover transition-all"
+                            class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
                         >
-                            Talk to Us →
+                            Start your audit →
                         </button>
                     </div>
                 </div>
