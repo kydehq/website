@@ -413,6 +413,35 @@ fall into while writing quickly:
   "which is why there is a second project" describe our revenue, not their
   benefit. Cut them.
 
+**No sentence that describes how the text behaves.** Only what happens and what
+comes out of it. Three patterns give it away every time, and they usually
+arrive together at the end of a paragraph:
+
+- *Saying what it is not.* "It ends with a document, not a dashboard." The
+  reader did not ask about dashboards. Say what the document contains.
+- *Praising your own honesty.* "Where the evidence stops it says so instead of
+  rounding up." A claim of integrity is worth nothing; the behaviour it
+  describes is worth stating plainly, once, as a fact about the deliverable.
+- *Landing on an aphorism.* "Some blockers fall without anybody doing
+  anything." It reads as a writer enjoying the ending rather than a company
+  describing a service.
+
+A negation is fine when it carries product information about time or place:
+"enforced before the action executes, not in a report afterwards" tells the
+reader when. "A document, not a dashboard" tells them nothing.
+
+**The shape of a good block**, and it is the same every time: category as an
+eyebrow, the benefit as a headline with a verb in it, one paragraph with real
+numbers, a link. Nothing after the link.
+
+> **The audit**
+> **See what can run without you, before you build anything**
+> We take one process area and the infrastructure behind it. You get a dated
+> readout: how many steps can be automated today, what each of the others is
+> waiting on, and who owns it. Three days for a team, two weeks for a
+> department. Fixed price, credited against your first automation project.
+> [More about the audit →]
+
 **Never claim to know their business better than they do.** "We know what
 should be automated now" reads as arrogant twice over: it puts us above the
 person running the process, and *should* decides something that is theirs to
