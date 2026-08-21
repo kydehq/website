@@ -33,10 +33,10 @@ const otherHref = alternates[otherLocale];
           <a
             href={href}
             class={[
-              'font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors',
+              'inline-block font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors pb-1.5 border-b',
               (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
-                ? 'text-white'
-                : 'text-white/75 hover:text-white',
+                ? 'text-white border-white'
+                : 'text-white/50 border-transparent hover:text-white hover:border-white/30',
             ].join(' ')}
           >
             {label}
@@ -91,8 +91,8 @@ const otherHref = alternates[otherLocale];
             class={[
               'font-mono text-sm uppercase tracking-widest transition-colors',
               (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
-                ? 'text-white'
-                : 'text-white/75 hover:text-white',
+                ? 'text-white font-bold'
+                : 'text-white/50 hover:text-white',
             ].join(' ')}
           >
             {label}
