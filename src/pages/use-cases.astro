@@ -7,6 +7,9 @@ import Footer from '../components/Footer.astro';
 // there is one product. The last field of every worker entry is "what KYDE
 // records", which is the quiet argument that the workers run on the trust
 // platform rather than beside it.
+// One shape per sector, and the same shape every time. The regulatory notes
+// carry what does not apply as well as what does: a compliance reader checks
+// the negative claim first, and a page that only lists hits reads as marketing.
 const workers = [
   {
     n: '01',
@@ -17,62 +20,91 @@ const workers = [
     worker: 'Pulls the statements, reconciles the covenants, drafts the summary, and names the figures it could not source instead of estimating them.',
     human: 'The credit decision. The committee reads a file that is complete and sourced, and spends its time on the judgement rather than on assembling the evidence for it.',
     record: 'Which documents were read, where each figure came from, which model drafted the summary, and what the analyst changed before it went in.',
-    regs: ['DORA, operational resilience and exit', 'EU AI Act, Annex III §5 creditworthiness', 'BaFin guidance on AI in lending', 'GDPR Art. 22, automated decisions'],
+    regs: [
+      'DORA, operational resilience and ICT third-party risk',
+      'EU AI Act, Annex III point 5(b), creditworthiness. High-risk obligations apply from 2 December 2027',
+      'KI-MIG, the German AI market surveillance act in force since 29 July 2026: BaFin supervises AI used in regulated financial activity',
+      'GDPR Article 22, decisions based solely on automated processing',
+    ],
   },
   {
     n: '02',
     sector: 'Insurance',
     process: 'First assessment of a motor claim',
-    tag: 'EU AI Act · Solvency II · GDPR',
+    tag: 'BaFin · Solvency II · GDPR',
     today: 'A handler reads the report, checks the policy for exclusions, sets a reserve and decides whether to instruct an assessor. The exclusions are in a PDF from 2021 that four people know how to read.',
     worker: 'Reads the report, pulls the policy, proposes a reserve and cites the clause it relied on. Instructs an assessor when the estimate is over the threshold.',
     human: 'Every rejection. A handler makes that call with the whole file already in front of them, which is where their experience is worth most.',
     record: 'The clause the reserve was based on, the estimate, the threshold that applied that day, and whether a person changed the number.',
-    regs: ['EU AI Act, Annex III §5 insurance pricing and risk', 'Solvency II, governance and risk management', 'GDPR Art. 22, automated decision-making', 'NIS-2, operational resilience'],
+    regs: [
+      'Solvency II, system of governance and risk management',
+      'KI-MIG, in force since 29 July 2026: BaFin supervises AI used in regulated financial activity, insurers included',
+      'GDPR Article 22, decisions based solely on automated processing',
+      'EU AI Act: motor claims are not Annex III high-risk. Point 5(c) covers life and health insurance only. The Article 50 transparency duties still apply',
+    ],
   },
   {
     n: '03',
     sector: 'Healthcare',
     process: 'Reimbursement claim preparation',
-    tag: 'EU AI Act · GDPR Art. 9 · MDR',
+    tag: 'GDPR Article 9 · NIS-2',
     today: 'A coder reads the discharge letter, assigns ICD-10 codes, checks them against the payer rules and submits. Rejected claims come back weeks later and get reworked by whoever is free.',
     worker: 'Drafts the coding from the letter, checks it against the payer rules, and holds anything the letter does not clearly support.',
     human: 'The diagnosis, always. The worker codes what a clinician wrote, so clinical time goes to patients rather than to payer rules.',
     record: 'Which letter produced which code, which payer rule applied, and what was held back for a human to look at.',
-    regs: ['EU AI Act, Annex III §5 essential services access', 'GDPR Art. 9, special category health data', 'MDR / IVDR, where diagnosis is involved', 'NIS-2, critical health infrastructure'],
+    regs: [
+      'GDPR Article 9, special category health data',
+      'NIS-2, transposed in Germany by the NIS2UmsuCG since 6 December 2025: health providers are essential entities under the BSIG',
+      'Coding for reimbursement is an administrative task with no medical purpose, so the Medical Device Regulation does not apply to it',
+      'EU AI Act, Article 50 transparency duties in force since 2 August 2026',
+    ],
   },
   {
     n: '04',
     sector: 'Manufacturing',
     process: 'Supplier release',
-    tag: 'EU AI Act · NIS-2 · CSDDD',
+    tag: 'NIS-2 · EU AI Act',
     today: 'A buyer checks the inspection report against the spec, looks up whether this supplier has had deviations before, and releases the batch or holds it. The deviation history lives in one person\'s spreadsheet.',
     worker: 'Matches the report to the spec, pulls the supplier history, and releases within the tolerance band. Holds anything outside it and says which measurement was out.',
     human: 'Releasing a batch that fell outside tolerance. Your quality lead makes that call with the measurements and the supplier\'s full history already assembled.',
     record: 'The measurements, the tolerance in force, the supplier history it read, and every release that went through outside the band.',
-    regs: ['EU AI Act, high-risk in safety components', 'NIS-2, supply chain security', 'CSDDD, supply chain due diligence', 'GDPR Art. 35, DPIA at scale'],
+    regs: [
+      'NIS-2, supply chain security under section 30 of the BSIG, in force in Germany since 6 December 2025',
+      'EU AI Act: a release decision on its own is not high-risk. AI built into a regulated product falls under Annex I, with obligations from 2 August 2028',
+      'GDPR, where supplier records name individuals',
+    ],
   },
   {
     n: '05',
     sector: 'Public sector',
     process: 'Permit completeness check',
-    tag: 'EU AI Act · VwVfG · GDPR',
+    tag: 'VwVfG · GDPR · OZG',
     today: 'A caseworker checks the application against the checklist, writes to the applicant for what is missing, and puts the file back in the queue. Most of the queue is waiting on one document.',
     worker: 'Runs the checklist, drafts the request for the missing documents, and puts the file in front of the caseworker complete.',
-    human: 'The decision. German administrative law leaves discretionary matters with the official, and the file reaches them complete, so the discretion is the only part left to exercise.',
+    human: 'The decision. The file reaches the official complete, so the discretion is the only part left to exercise.',
     record: 'What was checked, what was requested, when the applicant answered, and how long the file waited on each side.',
-    regs: ['EU AI Act, Annex III §5 public benefits and services', 'VwVfG, discretionary administrative decisions', 'GDPR Art. 22, automated decision-making', 'OZG, digital administration'],
+    regs: [
+      'VwVfG, the German administrative procedure act, section 35a: a fully automated administrative act is only allowed where a statute permits it, and never where the authority has discretion or an assessment margin',
+      'VwVfG section 40, the limits of administrative discretion',
+      'GDPR Article 22, decisions based solely on automated processing',
+      'OZG, the German online access act',
+    ],
   },
   {
     n: '06',
     sector: 'Energy',
     process: 'Operational reporting',
-    tag: 'NIS-2 · KRITIS · EU AI Act',
+    tag: 'NIS-2 · KRITIS',
     today: 'After an imbalance, an operator reconstructs what happened from four systems and writes the report. The reconstruction takes longer than the event did.',
     worker: 'Assembles the timeline from the recorded actions, drafts the report, and marks the intervals where the data does not agree with itself.',
     human: 'The dispatch itself. KYDE stays out of the control loop entirely. Your operators keep operating, and get the reconstruction handed to them instead of building it.',
     record: 'Every action in the window, in order, hash-chained, exported as a dated document the regulator recomputes without us.',
-    regs: ['NIS-2, in force in Germany via NIS2UmsuCG', 'KRITIS, operator obligations', 'EU AI Act, high-risk in critical infrastructure', 'Cyber Resilience Act'],
+    regs: [
+      'NIS-2, transposed in Germany by the NIS2UmsuCG, in force since 6 December 2025 with no transition period',
+      'Section 30 of the BSIG, risk management measures, and the 24 hour reporting duty',
+      'KRITIS, operator obligations',
+      'EU AI Act: reporting sits outside the control loop, so it is not a safety component under Annex III point 2',
+    ],
   },
 ];
 
@@ -121,11 +153,29 @@ const trustCases = [
 
 // The four people who have to agree before a worker runs, each with the
 // question they actually ask in the room.
+// The four people who have to agree before a worker runs, each with the
+// question they actually ask in the room.
 const roles = [
-  { role: 'Operations', q: 'What do I get back?', text: 'The process you own, written down properly for the first time, and then the routine part of it running on its own. You keep the exceptions, which is the part you were doing the thinking on anyway.' },
-  { role: 'CIO & CTO', q: 'What am I taking on?', text: 'One layer, on-premise or in your private cloud, in front of whatever models you already use. No agent framework to standardize on and no vendor to be locked into. The workers, the processes and the record are yours.' },
-  { role: 'Compliance & legal', q: 'Can I evidence this?', text: 'Every action is hash-chained at the boundary and exported as a dated document your auditor recomputes offline. Where the EU AI Act assigns deployer obligations, they stay with you. This is the apparatus for meeting them.' },
-  { role: 'Works council & data protection', q: 'What happens to the people?', text: 'Recording how someone works is subject to co-determination, so you are in the room on day one, before anything is recorded. Sessions are scoped and announced, personal data is removed locally before storage.' },
+  {
+    role: 'Operations',
+    q: 'What do I get back?',
+    text: 'The process you own, written down properly for the first time, and then the routine part of it running on its own. You keep the exceptions, which is the part you were doing the thinking on anyway.',
+  },
+  {
+    role: 'CIO & CTO',
+    q: 'What am I taking on?',
+    text: 'One layer, on-premise or in your private cloud, in front of whatever models you already use. No agent framework to standardize on and no vendor to be locked into. The workers, the processes and the record are yours.',
+  },
+  {
+    role: 'Compliance & legal',
+    q: 'Can I evidence this?',
+    text: 'Every action is hash-chained at the boundary and exported as a dated document your auditor recomputes offline. Where the EU AI Act assigns deployer obligations, they stay with you. This is the apparatus for meeting them.',
+  },
+  {
+    role: 'Works council & data protection',
+    q: 'What happens to the people?',
+    text: 'Your works council and data protection officer settle the legal basis. Sessions are scoped and announced, personal data is removed on your systems before storage, and the people recorded can review their own sessions.',
+  },
 ];
 ---
 
@@ -207,8 +257,12 @@ const roles = [
                   </div>
                 </dl>
 
-                <ul class="mt-8 flex flex-wrap gap-2 border-t border-line-0 pt-6">
-                  {regs.map((r) => (<li class="font-mono text-[10px] text-ink-2 border border-line-0 px-2.5 py-1">{r}</li>))}
+                <ul class="mt-8 space-y-2.5 border-t border-line-0 pt-6">
+                  {regs.map((r) => (
+                    <li class="grid grid-cols-[10px_1fr] gap-3 font-mono text-[10px] text-ink-2 leading-relaxed">
+                      <span class="text-ink-3">·</span><span>{r}</span>
+                    </li>
+                  ))}
                 </ul>
               </article>
             ))}
@@ -285,7 +339,7 @@ const roles = [
             Find out which of yours are on this list.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed mb-10 mx-auto max-w-2xl">
-            Two weeks, one process area, one dated readout: what is buildable today, what is waiting and on what, and what stays with a person.
+            Three days to two weeks, one process area, one dated readout: what is buildable today, what is waiting and on what, and what stays with a person.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
