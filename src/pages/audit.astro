@@ -3,37 +3,29 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-// Eight blocks, one job each, and a lot of air between them. The page had
-// grown six sections of mechanism before it had made the argument; this one
-// makes the argument and stops.
-//
-// The number section is typographic rather than animated on purpose. The
-// homepage already carries the moving version of this figure, and a second
-// one here would be the same idea competing with itself.
+// Seven blocks, one job each. The page carries no number at all, which is the
+// point: every figure it could print would be invented, and an audit that
+// sells itself on a made-up percentage is arguing against its own product.
+// What it shows instead is the classification, which is the actual output.
 
-const split = [
-  { n: 3, label: 'run today',              tone: 'live'  },
-  { n: 2, label: 'need a specific change', tone: 'ember' },
-  { n: 2, label: 'likely ready later',     tone: 'ember' },
-  { n: 3, label: 'stay with a person',     tone: 'ink'   },
+const paths = [
+  { k: 'AI',       t: 'Work that benefits from judgement, context and flexibility.',                  tone: 'live'  },
+  { k: 'Software', t: 'Work with clear rules that traditional automation can handle better.',         tone: 'ink'   },
+  { k: 'Human',    t: 'Work that requires judgement, accountability or should remain with a person.', tone: 'plain' },
+  { k: 'Not yet',  t: 'Work that may become automatable, but is not reliable enough today.',          tone: 'ember' },
 ];
 
-// Ten marks, in the order of the split above, so the strip reads as the same
-// ten steps the number is counted from.
-const marks = split.flatMap(({ n, tone }) => Array.from({ length: n }, () => tone));
-
-const holdingBack = [
-  'Technology that is not reliable enough yet',
-  'Access to a system that has none',
-  'Data that does not exist in usable form',
+const blocker = [
+  'A missing integration',
+  'Not enough real cases yet',
   'A business decision nobody has taken',
-  'Judgement that belongs to a person',
+  'A change to access and permissions',
 ];
 ---
 
 <Base
-  title="The KYDE Audit, Which Work Is Ready to Run"
-  description="We take one real business process and map every step to the right way of running it: AI, conventional software, a person, or not yet. A dated readout of what runs today, what is blocking the rest, and what becomes possible next."
+  title="The KYDE Audit, Where the Work Should Run"
+  description="We take one complete business process and map the work inside it: what should run with AI, what belongs in conventional software, what stays with people, and what is not ready yet. Dated, with the blocker and the owner on everything that is held back."
 >
   <Navbar />
 
@@ -50,16 +42,13 @@ const holdingBack = [
             <p>
               AI is entering every company. But the opportunity is not another chatbot. It is giving software the ability to take on real work.
             </p>
-            <p class="text-ink-0">The question is: which work?</p>
+            <p class="text-ink-0">The question is: what work should it actually do?</p>
             <p>
-              KYDE takes one real business process and maps every step to the right way of running it: AI, conventional software, a person, or not yet.
-            </p>
-            <p>
-              You get a dated view of what can run today, what is blocking the rest, and what is likely to become possible next.
+              KYDE takes one complete business process and maps the work inside it. We show what should run with AI, what belongs in traditional software, what should stay with people, and what is simply not ready yet.
             </p>
           </div>
           <p class="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-1">
-            One process area <span class="text-ink-3" aria-hidden="true">·</span> Fixed price <span class="text-ink-3" aria-hidden="true">·</span> Clear answer
+            One process area <span class="text-ink-3" aria-hidden="true">·</span> Fixed price <span class="text-ink-3" aria-hidden="true">·</span> A dated answer
           </p>
           <div class="mt-10">
             <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
@@ -70,115 +59,95 @@ const holdingBack = [
       </div>
     </section>
 
-    <!-- ══════════ 2 · NOT EVERYTHING NEEDS AI ══════════ -->
-    <section class="border-t border-line-0 bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
-        <div class="max-w-3xl">
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8">
-            Not everything needs AI.
-          </h2>
-          <div class="space-y-6 text-lg text-ink-1 leading-relaxed">
-            <p>
-              A real business process is a mixture of structured work, judgement, exceptions and decisions.
-            </p>
-            <p>
-              Some steps are perfect for AI. Others are better handled by conventional software. Some should remain with people. And some are almost ready, but not reliable enough yet.
-            </p>
-            <p class="text-ink-0">We identify the difference.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════ 3 · THE NUMBER ══════════ -->
+    <!-- ══════════ 2 · THE MAP ══════════ -->
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-14">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">A readout</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">The map</span>
           <span class="fig-label">FIG.1</span>
         </div>
 
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
-          7 of 10 steps can run without a person.
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8 max-w-3xl">
+          See what your process can actually run.
         </h2>
-
-        <!-- The ten steps, in the order of the split, so the strip is the number -->
-        <div class="flex flex-wrap gap-1.5 mb-12" aria-hidden="true">
-          {marks.map((tone) => (
-            <span class:list={[
-              "block h-9 w-9",
-              tone === 'live'  ? 'bg-live/85' : '',
-              tone === 'ember' ? 'border border-ember/70' : '',
-              tone === 'ink'   ? 'bg-ink-0/[0.14] relative' : '',
-            ]}>
-              {tone === 'ink' && <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 block h-1.5 w-1.5 rounded-full bg-ink-0/55"></span>}
-            </span>
-          ))}
+        <div class="space-y-6 text-lg text-ink-1 leading-relaxed max-w-3xl mb-14">
+          <p>
+            We follow one process from beginning to end, across the people, decisions and systems involved.
+          </p>
+          <p class="text-ink-0">For each part of the work, we determine the right way to run it.</p>
         </div>
 
-        <div class="border border-line-0 divide-y divide-line-0 md:divide-y-0 md:grid md:grid-cols-4 md:divide-x max-w-4xl">
-          {split.map(({ n, label, tone }) => (
-            <div class="px-6 py-6">
-              <p class:list={[
-                "font-mono text-3xl font-bold leading-none mb-3",
-                tone === 'live' ? 'text-live' : tone === 'ember' ? 'text-ember' : 'text-ink-0',
-              ]}>{n}</p>
-              <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-1 leading-relaxed">{label}</p>
+        <div class="border border-line-0 divide-y divide-line-0 md:divide-y-0 md:grid md:grid-cols-4 md:divide-x">
+          {paths.map(({ k, t, tone }) => (
+            <div class="px-6 py-8 md:px-7">
+              <span class:list={[
+                "inline-block font-mono text-[10px] uppercase tracking-[0.16em] px-2.5 py-1 mb-5",
+                tone === 'live'  ? 'text-live border border-live/30 bg-live/[0.08]' : '',
+                tone === 'ink'   ? 'text-ink-0 border border-line-1' : '',
+                tone === 'ember' ? 'text-ember border border-ember/30 bg-ember/[0.08]' : '',
+                tone === 'plain' ? 'text-ink-1 border border-line-0' : '',
+              ]}>{k}</span>
+              <p class="text-base text-ink-1 leading-relaxed">{t}</p>
             </div>
           ))}
         </div>
 
         <p class="mt-10 text-lg text-ink-1 leading-relaxed max-w-3xl">
-          Every step gets a reason, an owner and a date.
+          The result is a clear map of what can run now, what needs to change, and what is likely to become possible next.
         </p>
-        <p class="mt-6 font-mono text-[10px] text-ink-2 leading-relaxed">
-          FIG.1 · Illustrative. Your numbers come from your own process.
-        </p>
+        <p class="mt-6 font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 · The four paths a piece of work can take.</p>
       </div>
     </section>
 
-    <!-- ══════════ 4 · THE ANSWER CHANGES ══════════ -->
+    <!-- ══════════ 3 · IT HAS A DATE ══════════ -->
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="max-w-3xl">
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8">
-            The answer changes.
+            The answer has a date.
           </h2>
           <div class="space-y-6 text-lg text-ink-1 leading-relaxed">
             <p>
-              AI capabilities move quickly. What is not reliable enough today may be ready in six months.
+              AI is moving quickly. A task that is not reliable enough today may be ready in six months.
             </p>
             <p>
-              So the audit is not a one-time prediction. Every step is dated and can be reassessed as the technology and your business change.
+              So we do not give you a static AI assessment. Every part of the process gets a current status and, where possible, a date to reassess it.
             </p>
-            <p class="text-ink-0">We maintain a map of what your business can actually run.</p>
+            <p>
+              When you come back later, you can see what changed and what became possible.
+            </p>
+            <p class="text-ink-0">A living map of what your business can actually automate.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ 5 · WHAT IS UNDERNEATH ══════════ -->
+    <!-- ══════════ 4 · WHAT IS IN THE WAY ══════════ -->
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
           <div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8">
-              We look at the reality underneath.
+              We look at what has to happen before it can run.
             </h2>
             <div class="space-y-6 text-lg text-ink-1 leading-relaxed">
               <p>
-                We also look at the infrastructure the work would run on: your systems, identity, permissions, network and existing automation.
+                A process may be ready for AI but blocked by a missing integration. It may need more real cases, a business decision or a change to access and permissions.
               </p>
-              <p class="text-ink-0">
-                So you know not only what to automate, but what has to change before it can run.
+              <p class="text-ink-0">We identify the blocker and the owner.</p>
+              <p>
+                At the same time, we look at the infrastructure the work would run on: your systems, identity, network, data and existing automation.
+              </p>
+              <p>
+                So you know what to automate, what to change, and what to leave alone.
               </p>
             </div>
           </div>
           <div class="flex flex-col justify-center">
-            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-6">What is holding a step back</p>
+            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-6">What a blocker looks like</p>
             <ul class="border border-line-0 divide-y divide-line-0">
-              {holdingBack.map((h) => (
-                <li class="px-5 py-4 text-base text-ink-1 leading-relaxed">{h}</li>
+              {blocker.map((b) => (
+                <li class="px-5 py-4 text-base text-ink-1 leading-relaxed">{b}</li>
               ))}
             </ul>
           </div>
@@ -186,25 +155,29 @@ const holdingBack = [
       </div>
     </section>
 
-    <!-- ══════════ 6 · THE READOUT ══════════ -->
+    <!-- ══════════ 5 · THE READOUT ══════════ -->
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="max-w-3xl">
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8">
-            A decision you can take to the board.
+            A plan you can act on.
           </h2>
-          <p class="text-lg text-ink-1 leading-relaxed mb-10">
-            At the end, you receive a dated readout of the process: every step, its recommended path, what runs today, what is blocked, who owns the blocker and when it should be reassessed.
-          </p>
-          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-2 mb-5">It answers one question</p>
+          <div class="space-y-6 text-lg text-ink-1 leading-relaxed mb-12">
+            <p>
+              At the end of the audit, you receive a dated readout of the complete process. It shows where AI, software and people belong, what can run today, what is holding the rest back, and what should be reassessed later.
+            </p>
+            <p>
+              Built to be useful to the people making the investment decision, not only to the people who ran the workshop.
+            </p>
+          </div>
           <p class="text-2xl md:text-3xl font-bold tracking-tight leading-snug text-ink-0">
-            What should we build, what should we wait for, and what should we leave alone?
+            Know what to build. Know what to wait for. Know what to leave alone.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ 7 · START ══════════ -->
+    <!-- ══════════ 6 · START ══════════ -->
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
@@ -214,22 +187,22 @@ const holdingBack = [
             </h2>
             <div class="space-y-6 text-lg text-ink-1 leading-relaxed">
               <p>
-                Choose a process area where people spend significant time moving information, making decisions or working across systems.
+                Choose a process where people spend significant time moving information, making decisions or working across systems.
               </p>
               <p>
-                We scope it with you and give you the price and timeline before anything begins.
+                We scope it with you and give you the timeline and price before anything begins.
               </p>
             </div>
           </div>
           <div class="flex flex-col justify-center">
             <dl class="border border-line-0 divide-y divide-line-0 mb-8">
               <div class="flex items-baseline justify-between gap-6 px-6 py-5">
-                <dt class="text-base text-ink-1">One team</dt>
-                <dd class="font-mono text-sm uppercase tracking-[0.12em] text-ink-0">typically three days</dd>
+                <dt class="text-base text-ink-1">A single team</dt>
+                <dd class="font-mono text-sm uppercase tracking-[0.12em] text-ink-0 whitespace-nowrap">about three days</dd>
               </div>
               <div class="flex items-baseline justify-between gap-6 px-6 py-5">
-                <dt class="text-base text-ink-1">One department</dt>
-                <dd class="font-mono text-sm uppercase tracking-[0.12em] text-ink-0">typically two weeks</dd>
+                <dt class="text-base text-ink-1">A department</dt>
+                <dd class="font-mono text-sm uppercase tracking-[0.12em] text-ink-0 whitespace-nowrap">about two weeks</dd>
               </div>
             </dl>
             <p class="text-base text-ink-1 leading-relaxed mb-10">
@@ -251,7 +224,7 @@ const holdingBack = [
             The next generation of software does not just answer questions.<br />It does the work.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">
-            KYDE helps you understand which work is ready to run, and builds the workers to run it.
+            KYDE helps you understand where that work should run, and builds the workers to run it.
           </p>
           <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
             Talk to us →
