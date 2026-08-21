@@ -448,12 +448,48 @@ const websiteSchema = {
                     <span class="fig-label">FIG.1</span>
                 </div>
 
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-6 max-w-4xl">
-                    What could be automated right now?
-                </h2>
-                <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-14">
-                    Start with the work. We map one process area with the people who run it, and sort what can be automated into three: what an agent does, what is plain code, and what needs something that does not exist yet. Everything in the third group carries what it is waiting on and who can move it. The rest stays with your people, and we say which.
-                </p>
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 mb-16">
+
+                    <div class="flex flex-col justify-center">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-6">
+                            What could be automated right now?
+                        </h2>
+                        <p class="text-lg text-white/55 leading-relaxed">
+                            Start with the work. We map one process area with the people who run it, and sort what can be automated into three: what an agent does, what is plain code, and what needs something that does not exist yet. Everything in the third group carries what it is waiting on and who can move it. The rest stays with your people, and we say which.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <div class="flex flex-1 items-center justify-center py-6 md:py-0">
+                            <svg id="ring-fig" viewBox="0 0 460 440" class="w-full max-w-sm h-auto" aria-hidden="true">
+                                <!-- One process area as a closed ring: ten segments, sorted
+                                     into the four states as the ring assembles itself. The
+                                     circle is the point, that the whole of a process area is
+                                     accounted for and nothing is left off the edge. -->
+                                <g id="ring-segments"></g>
+
+                                <text id="ring-count" x="230" y="205" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:44px;font-weight:700;">0</text>
+                                <text x="230" y="230" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OF 10 STEPS</text>
+                                <text x="230" y="248" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">can be automated</text>
+
+                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;" fill="var(--color-ink-0)" fill-opacity="0.42">
+                                    <rect x="52" y="398" width="8" height="8" fill="var(--color-live)" fill-opacity="0.85" />
+                                    <text x="66" y="405">3 an agent</text>
+                                    <rect x="248" y="398" width="8" height="8" fill="var(--color-ink-0)" fill-opacity="0.72" />
+                                    <text x="262" y="405">3 code</text>
+                                    <rect x="52" y="418" width="8" height="8" fill="none" stroke="var(--color-ember)" stroke-opacity="0.75" stroke-width="1" />
+                                    <text x="66" y="425">1 not yet</text>
+                                    <rect x="248" y="418" width="8" height="8" fill="var(--color-ink-0)" fill-opacity="0.16" />
+                                    <circle cx="252" cy="422" r="1.8" fill="var(--color-ink-0)" fill-opacity="0.8" />
+                                    <text x="262" y="425">3 your people</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · One process area, sorted. Illustrative.</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="border border-white/10 divide-y divide-white/10 mb-16">
                     <div class="grid md:grid-cols-[220px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
@@ -503,7 +539,7 @@ const websiteSchema = {
 
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center justify-end border-b border-white/10">
-                            <span class="fig-label">FIG.1</span>
+                            <span class="fig-label">FIG.2</span>
                         </div>
                         <div class="flex flex-1 items-center justify-center py-10">
                             <svg id="forecast-fig" viewBox="0 0 480 236" class="w-full max-w-md h-auto" aria-hidden="true">
@@ -533,7 +569,7 @@ const websiteSchema = {
                             </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · Ten steps of one process area, ordered by when each becomes available. The row is the next six months. Illustrative.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · Ten steps of one process area, ordered by when each becomes available. The row is the next six months. Illustrative.</p>
                         </div>
                     </div>
                 </div>
@@ -629,6 +665,96 @@ const websiteSchema = {
                         }
                         paint(0);
                         requestAnimationFrame(fcFrame);
+                    }
+                }
+            </script>
+            <script>
+                // ring-fig · a process area is a closed thing, so it is drawn closed.
+                // Ten segments arrive one at a time, each already in the state the
+                // mapping put it in, and the count in the middle only rises for the
+                // seven that can be automated. The three that stay with a person land
+                // like everything else and simply never count, which is the argument.
+                const ringFig = document.getElementById("ring-fig");
+                const ringReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (ringFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const CX = 230, CY = 190, R = 128, GAP = 3, STEP = 360 / 10;
+                    const ARRIVE = 380, HOLD = 2600;
+                    // agent · code · not yet · person, in the order they sit on the ring
+                    const KIND = ["agent","agent","agent","code","code","code","soon","person","person","person"];
+                    const COUNTS = { agent: true, code: true, soon: true, person: false };
+
+                    const layer = document.getElementById("ring-segments");
+                    const count = document.getElementById("ring-count");
+
+                    const pt = (deg, r) => {
+                        const a = (deg - 90) * Math.PI / 180;
+                        return [CX + r * Math.cos(a), CY + r * Math.sin(a)];
+                    };
+
+                    const arcs = KIND.map((kind, i) => {
+                        const a1 = i * STEP + GAP / 2, a2 = (i + 1) * STEP - GAP / 2;
+                        const [x1, y1] = pt(a1, R), [x2, y2] = pt(a2, R);
+                        const el = document.createElementNS(NS, "path");
+                        el.setAttribute("d", `M ${x1} ${y1} A ${R} ${R} 0 0 1 ${x2} ${y2}`);
+                        el.setAttribute("fill", "none");
+                        el.setAttribute("stroke-width", "22");
+                        el.setAttribute("opacity", "0");
+                        if (kind === "agent")       { el.setAttribute("stroke", "var(--color-live)");  el.setAttribute("stroke-opacity", "0.85"); }
+                        else if (kind === "code")   { el.setAttribute("stroke", "var(--color-ink-0)"); el.setAttribute("stroke-opacity", "0.72"); }
+                        else if (kind === "soon")   { el.setAttribute("stroke", "var(--color-ember)"); el.setAttribute("stroke-opacity", "0.6");  el.setAttribute("stroke-dasharray", "2 5"); }
+                        else                       { el.setAttribute("stroke", "var(--color-ink-0)"); el.setAttribute("stroke-opacity", "0.16"); }
+                        layer.appendChild(el);
+                        return el;
+                    });
+
+                    // the three that stay with a person carry a mark, so they read as a
+                    // decision rather than as a gap in the ring
+                    KIND.forEach((kind, i) => {
+                        if (kind !== "person") return;
+                        const [x, y] = pt(i * STEP + STEP / 2, R);
+                        const d = document.createElementNS(NS, "circle");
+                        d.setAttribute("cx", String(x)); d.setAttribute("cy", String(y));
+                        d.setAttribute("r", "3.4");
+                        d.setAttribute("fill", "var(--color-ink-0)");
+                        d.setAttribute("fill-opacity", "0.8");
+                        d.setAttribute("class", "ring-dot");
+                        d.setAttribute("opacity", "0");
+                        layer.appendChild(d);
+                    });
+                    const dots = Array.from(layer.querySelectorAll(".ring-dot"));
+
+                    const show = (n) => {
+                        let c = 0, d = 0;
+                        arcs.forEach((el, i) => {
+                            const on = i < n;
+                            el.setAttribute("opacity", on ? "1" : "0");
+                            if (on && COUNTS[KIND[i]]) c++;
+                            if (KIND[i] === "person") { dots[d].setAttribute("opacity", on ? "1" : "0"); d++; }
+                        });
+                        count.textContent = String(c);
+                    };
+
+                    if (ringReduced) {
+                        show(10);
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ringFig);
+                        let start = 0;
+                        function ringFrame(now) {
+                            if (visible) {
+                                if (!start) start = now;
+                                const el = now - start;
+                                const full = ARRIVE * 10;
+                                if (el < full) show(Math.floor(el / ARRIVE) + 1);
+                                else if (el < full + HOLD) show(10);
+                                else { start = now; show(0); }
+                            }
+                            requestAnimationFrame(ringFrame);
+                        }
+                        show(0);
+                        requestAnimationFrame(ringFrame);
                     }
                 }
             </script>
