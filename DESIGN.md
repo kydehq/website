@@ -413,6 +413,13 @@ fall into while writing quickly:
   "which is why there is a second project" describe our revenue, not their
   benefit. Cut them.
 
+**Never claim to know their business better than they do.** "We know what
+should be automated now" reads as arrogant twice over: it puts us above the
+person running the process, and *should* decides something that is theirs to
+decide. Ask the question they already have and answer it together. "What could
+be automated right now?" is the same page with the customer on the right side
+of it.
+
 **Frame it positively when the positive frame is also the true one.** Work that
 stays with a person is not a limitation to be disclosed, it is the judgement
 your experts were hired for, and automating everything around it is what buys
