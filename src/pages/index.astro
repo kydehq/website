@@ -37,7 +37,7 @@ const websiteSchema = {
 
 <Base
     title="KYDE · Deploy AI Agents With Confidence"
-    description="KYDE identifies the work worth automating, turns it into workers, and runs them on open models inside our Zero Trust infrastructure. Secure, governed and fully under your control. Built for GDPR, EU AI Act, NIS-2, DORA."
+    description="KYDE identifies the work ready for automation, builds it into workers, and runs them on open models inside your own infrastructure. Which processes are buildable now, which are blocked and on what, and which stay with a person. Built for GDPR, EU AI Act, NIS-2, DORA."
 >
     <Fragment slot="head">
         <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -67,10 +67,10 @@ const websiteSchema = {
                     <span id="hero-l2" style="display:block">Intelligence.</span>
                 </h1>
                 <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    Turn your company's processes into workers you own.
+                    Turn your company's processes into AI workers you own.
                 </p>
                 <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    KYDE identifies the work worth automating, turns it into workers, and runs them on open models inside our Zero Trust infrastructure. Secure, governed and fully under your control.
+                    KYDE identifies the work ready for automation, builds it into workers, and runs them on open models inside your own infrastructure.
                 </p>
                 <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
                 <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
@@ -390,449 +390,110 @@ const websiteSchema = {
 
 
 
-        <!-- ══════════ 1 · THE KNOWLEDGE NOBODY WROTE DOWN ══════════ -->
-        <!-- The quietest section on the page and the first thing past the fold. No
-             figure, no list, nothing to click: the reader has to recognize their own
-             company here before any mechanism is worth showing. -->
-        <section class="border-b border-white/10 bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · The knowledge nobody wrote down</span>
-                </div>
-                <div class="max-w-4xl">
-                    <p class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] text-white">
-                        Your best processes live in people's heads.
-                    </p>
-                    <div class="mt-10 h-px w-24 bg-white/15"></div>
-                    <p class="mt-8 text-lg text-white/55 leading-relaxed max-w-3xl">
-                        The claim that gets assessed a certain way. The supplier document that gets checked twice. The step everyone does and nobody wrote down.
-                    </p>
-                    <p class="mt-6 font-mono text-sm md:text-base text-white/70 tracking-[0.02em] leading-relaxed max-w-3xl">
-                        Every automation project starts by guessing how the work happens. KYDE starts by capturing it.
-                    </p>
-                </div>
-            </div>
-        </section>
 
-        <!-- ══════════ 2 · CAPTURE, MEASURE, AUTOMATE ══════════ -->
-        <!-- The whole product arc in one section. It used to be five stations with
-             maturity chips on each, which left a reader counting states instead of
-             following an argument. Three steps, one honest "coming soon", no figure:
-             the three paragraphs already say what a plate here was repeating. -->
-        <section class="border-b border-white/10">
+        <!-- ══════════ WORKERS ══════════ -->
+        <!-- The product, immediately after the vision. Three steps rather than a
+             capability list, because the reader is deciding whether this is a thing
+             that can happen in their company, not what it is made of. The tacit
+             knowledge point that used to be its own section opens it: it is the
+             reason step 01 exists at all, and it did not need a whole screen. -->
+        <section class="border-b border-white/10 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">02 · Capture, measure, automate</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Workers</span>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x md:divide-white/10 [&>*:not(:first-child)]:md:pl-8 [&>*:not(:last-child)]:md:pr-8 lg:[&>*:not(:first-child)]:pl-10 lg:[&>*:not(:last-child)]:pr-10 mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-6 max-w-4xl">
+                    KYDE turns the processes you already run into workers you own.
+                </h2>
+                <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-16">
+                    Your best processes live in people's heads: the claim that gets assessed a certain way, the supplier document that gets checked twice, the step everyone does and nobody wrote down. Every automation project starts by guessing how the work happens. This one starts by watching it.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-12 md:gap-0 md:divide-x md:divide-white/10 [&>*:not(:first-child)]:md:pl-10 [&>*:not(:last-child)]:md:pr-10">
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white leading-none mb-5">Capture</h2>
+                        <span class="block font-mono text-[11px] tracking-[0.1em] text-gold mb-5">01</span>
+                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-tight mb-4">Find the work</h3>
                         <p class="text-base text-white/55 leading-relaxed">
-                            Capture how work is done across people, software and agents: screens, decisions, tool calls, approvals. Every run makes the picture more complete, including the edge cases no handbook covers. Personal data is removed locally, before anything is stored.
+                            We capture how the work is actually done, across people, software and agents: screens, decisions, tool calls, approvals. Including the edge cases no handbook covers, which is where every automation project usually breaks. Personal data is removed locally, before anything is stored.
                         </p>
                     </div>
                     <div>
-                        <div class="flex items-baseline gap-3 mb-5">
-                            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white leading-none">Measure</h2>
-                            <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45 border border-white/20 px-2 py-0.5">Coming soon</span>
-                        </div>
+                        <span class="block font-mono text-[11px] tracking-[0.1em] text-gold mb-5">02</span>
+                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-tight mb-4">Build the worker</h3>
                         <p class="text-base text-white/55 leading-relaxed">
-                            Turn captured work into documented processes: each decision named, each exception written down, each handover marked. Then test agents against real cases where the outcome is already known, and count what they get right.
+                            Code where the steps are fixed. An agent where judgement is needed. A person where the law requires one. The worker is built from how your company already works, not from how somebody guessed it should, and it stops instead of guessing when it meets something it has not seen.
                         </p>
                     </div>
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white leading-none mb-5">Automate</h2>
+                        <span class="block font-mono text-[11px] tracking-[0.1em] text-gold mb-5">03</span>
+                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-tight mb-4">Run the workforce</h3>
                         <p class="text-base text-white/55 leading-relaxed">
-                            Build workers from proven work. Fixed steps run deterministically. Judgement calls go to an agent. Decisions with legal effect stay with a person. Workers stop instead of guessing, and hand back everything they found.
+                            It runs in your environment, on open models, under an identity of its own. You see what it did and what it handed back. Then you do the next process, and the one after that, and the specialist who retires in March leaves their way of working behind.
                         </p>
                     </div>
                 </div>
-
-                <p class="font-mono text-sm text-white/45 tracking-[0.02em]">A specialist retires. Their way of working does not have to.</p>
             </div>
         </section>
 
-        <!-- ══════════ 3 · THE ENVELOPE ══════════ -->
-        <!-- Half width, figure on the right, so the page alternates right, left,
-             right across its three figures. The diagram had to be rebuilt for the
-             narrower column: the flow used to run left to right, it now runs top to
-             bottom, which puts the wall along the bottom edge of the envelope where
-             it reads as the thing everything has to pass through on the way out. -->
-        <section class="border-b border-white/10 bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+        <!-- ══════════ AUTOMATION READINESS ══════════ -->
+        <!-- Not a compliance product bolted on the side: this is where the workforce
+             starts. Three states rather than a percentage, because "82% automation
+             potential" is a number nobody can act on and "this one is waiting on an
+             MCP server for your ERP" is a date in somebody's calendar. -->
+        <section id="audit" class="scroll-mt-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Automation readiness</span>
+                    <span class="fig-label">FIG.1</span>
+                </div>
 
-                    <div class="flex flex-col">
-                        <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">03 · The envelope</span>
-                        </div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-5">
-                                Every worker runs inside KYDE Zero Trust.
-                            </h2>
-                            <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">On-premise or hosted, in your environment.</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-6 max-w-4xl">
+                    We know what should be automated now.
+                </h2>
+                <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-14">
+                    Start with the work. We map one process area and tell you which parts are ready to become a worker today, which are blocked and on what, and which should stay with a person. No score. Nobody can act on 82 percent.
+                </p>
 
-                            <ul class="space-y-3.5">
-                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-16 pt-0.5">Identity</span><span class="text-sm text-white/60 leading-relaxed">Every worker has its own identity, so every action carries a name before it happens.</span></li>
-                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-16 pt-0.5">Data</span><span class="text-sm text-white/60 leading-relaxed">Sensitive data is masked inline, before it reaches a model.</span></li>
-                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-16 pt-0.5">Policy</span><span class="text-sm text-white/60 leading-relaxed">Policy is enforced before an action executes, not in a report afterwards.</span></li>
-                                <li class="flex gap-4 border-b border-white/10 pb-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-warn/70 shrink-0 w-16 pt-0.5">Limits</span><span class="text-sm text-white/60 leading-relaxed">Limits that hold over time, not per call. What two assistants may release together in a month is a question nothing else in the stack can answer. <span class="text-white/35">Coming soon.</span></span></li>
-                                <li class="flex gap-4"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-live/70 shrink-0 w-16 pt-0.5">Evidence</span><span class="text-sm text-white/60 leading-relaxed">Every action is sealed into the record as it happens.</span></li>
-                            </ul>
+                <div class="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x md:divide-white/10 [&>*:not(:first-child)]:md:pl-10 [&>*:not(:last-child)]:md:pr-10 mb-16">
+                    <div>
+                        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-live border border-live/30 bg-live/[0.08] px-2.5 py-1 mb-5">Buildable now</span>
+                        <p class="text-base text-white/55 leading-relaxed">Ready to become a worker in this quarter. These pay for the first project.</p>
+                    </div>
+                    <div>
+                        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2.5 py-1 mb-5">Waiting on</span>
+                        <p class="text-base text-white/55 leading-relaxed">Blocked, and we name the blocker. A missing interface is a roadmap item. An unanswered question is this week. Each one carries an owner and a date, which is why there is a second project.</p>
+                    </div>
+                    <div>
+                        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-white/50 border border-white/20 px-2.5 py-1 mb-5">Stays human</span>
+                        <p class="text-base text-white/55 leading-relaxed">Legal effect, discretion, a decision somebody has to be able to contest. Naming these is what makes the other two believable.</p>
+                    </div>
+                </div>
 
-                            <a href="/zero-trust" class="mt-10 inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                                Explore KYDE Zero Trust →
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 border-t border-white/10 pt-12">
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-white mb-5">Two weeks, one process area, one dated readout.</h3>
+                        <p class="text-base text-white/55 leading-relaxed mb-4">
+                            Fixed price, credited against your first automation project. It ends with a document, not a dashboard: every number names the rows it came from, and where the evidence stops it says so instead of rounding up.
+                        </p>
+                        <p class="text-base text-white/55 leading-relaxed mb-10">
+                            Re-run it three months later and see what moved. Some blockers fall without anybody doing anything.
+                        </p>
+                        <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+                            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all">
+                                Start your audit →
+                            </button>
+                            <a href="/audit" class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all">
+                                How it works →
+                            </a>
+                            <a href="/audit-readout" class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all">
+                                See a real readout →
                             </a>
                         </div>
                     </div>
 
                     <div class="flex flex-col">
-                        <div class="h-7 flex items-center justify-end border-b border-white/10">
-                            <span class="fig-label">FIG.1</span>
-                        </div>
-                        <div class="flex flex-1 items-center justify-center py-10">
-                            <svg viewBox="0 0 480 580" class="w-full max-w-md h-auto" aria-hidden="true">
-                                <path d="M12 27 L12 12 L27 12"     fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                                <path d="M453 12 L468 12 L468 27"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                                <path d="M12 553 L12 568 L27 568"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                                <path d="M468 553 L468 568 L453 568" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-
-                                <!-- the envelope -->
-                                <text x="24" y="46" fill="var(--color-ink-0)" fill-opacity="0.70" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">KYDE ZERO TRUST · YOUR ENVIRONMENT</text>
-                                <rect x="24" y="56" width="432" height="340" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-
-                                <!-- execution, inside -->
-                                <rect x="56" y="88" width="368" height="160" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1" />
-                                <text x="72" y="112" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">WORKER · ONE RUN</text>
-
-                                <line x1="76" y1="182" x2="166" y2="182" stroke="var(--color-ink-0)" stroke-opacity="0.70" stroke-width="3" />
-                                <circle cx="190" cy="182" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
-                                <circle cx="212" cy="182" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
-                                <circle cx="234" cy="182" r="3.5" fill="var(--color-live)" fill-opacity="0.75" />
-                                <rect x="256" y="176" width="12" height="12" fill="var(--color-ink-0)" fill-opacity="0.55" />
-                                <line x1="288" y1="182" x2="404" y2="182" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="3" />
-
-                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;" text-anchor="middle">
-                                    <text x="121" y="208" fill="var(--color-ink-0)" fill-opacity="0.50">deterministic</text>
-                                    <text x="212" y="208" fill="var(--color-live)" fill-opacity="0.70">agent</text>
-                                    <text x="262" y="222" fill="var(--color-ink-0)" fill-opacity="0.50">human</text>
-                                </g>
-
-                                <!-- the wall: five controls, in order, on the way out -->
-                                <line x1="56" y1="284" x2="424" y2="284" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" stroke-dasharray="2 4" />
-                                <text x="56" y="276" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">AT THE BOUNDARY</text>
-
-                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;" text-anchor="middle">
-                                    <rect x="74" y="308" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.60" />
-                                    <text x="76" y="332" fill="var(--color-ink-0)" fill-opacity="0.70">identity</text>
-                                    <rect x="150" y="308" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.60" />
-                                    <text x="152" y="332" fill="var(--color-ink-0)" fill-opacity="0.70">data</text>
-                                    <rect x="226" y="308" width="5" height="5" fill="var(--color-ink-0)" fill-opacity="0.60" />
-                                    <text x="228" y="332" fill="var(--color-ink-0)" fill-opacity="0.70">policy</text>
-                                    <rect x="302" y="308" width="5" height="5" fill="var(--color-warn)" fill-opacity="0.70" />
-                                    <text x="304" y="332" fill="var(--color-warn)" fill-opacity="0.70">limits</text>
-                                    <text x="304" y="346" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-size:7px;letter-spacing:0.1em;">soon</text>
-                                    <rect x="378" y="308" width="5" height="5" fill="var(--color-live)" fill-opacity="0.75" />
-                                    <text x="380" y="332" fill="var(--color-live)" fill-opacity="0.85">evidence</text>
-                                </g>
-
-                                <!-- everything leaves downward, through the wall -->
-                                <line x1="128" y1="368" x2="128" y2="444" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="3 4" />
-                                <line x1="352" y1="368" x2="352" y2="444" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="3 4" />
-
-                                <!-- outside -->
-                                <rect x="24" y="444" width="208" height="80" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
-                                <text x="128" y="478" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">MODELS</text>
-                                <text x="128" y="496" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">any provider, any vendor</text>
-
-                                <rect x="248" y="444" width="208" height="80" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
-                                <text x="352" y="478" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">YOUR SYSTEMS</text>
-                                <text x="352" y="496" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">ERP, databases, MCP</text>
-
-                                <text x="24" y="556" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">NOTHING LEAVES WITHOUT CROSSING THE WALL</text>
-                            </svg>
-                        </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · The wall is the product. Execution can be anything you already run. What makes it governable is that every exit is the same five checks, in the same order.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════ 4 · THE RECORD ══════════ -->
-        <section id="prove" class="scroll-mt-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <!-- Figure sits between two hairlines, so the animation reads as a
-                         plate and not as something floating in the column. -->
-                    <div class="flex flex-col">
-                        <div class="h-7 border-b border-white/10"></div>
-                        <div class="flex flex-1 items-center justify-center py-10">
-<svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-
-                            <defs>
-                                <radialGradient id="chain-glow">
-                                    <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                                    <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                                    <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
-                                    <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
-                                </radialGradient>
-                            </defs>
-
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">HASH-CHAINED ACTION LOG</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OUTSIDE KYDE</text>
-
-                            <!-- the boundary is the argument: everything to the right of it
-                                 happens without us, and nothing crosses back -->
-                            <line x1="300" y1="66" x2="300" y2="304" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="2 6" />
-                            <text x="294" y="86" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">KYDE ENDS HERE</text>
-
-                            <g id="chain-blooms"></g>
-
-                            {[
-                                { h: "a4ce", a: "db.write" },
-                                { h: "a4cf", a: "transfer" },
-                                { h: "a4d0", a: "dlp.mask" },
-                                { h: "a4d1", a: "quote.set" },
-                            ].map(({ h, a }, i) => (
-                                <>
-                                    {i < 3 && (
-                                        <line class="ch-conn" x1={30 + i * 64 + 54} y1="134" x2={30 + (i + 1) * 64} y2="134"
-                                              stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1.5" />
-                                    )}
-                                    <rect class="ch-box" x={30 + i * 64} y="112" width="54" height="44" fill="none"
-                                          stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
-                                    <text x={57 + i * 64} y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;">{h}</text>
-                                    <text x={57 + i * 64} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40"
-                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">{a}</text>
-                                </>
-                            ))}
-
-                            <!-- the export's route out; the token is driven along it -->
-                            <path id="ch-route" d="M249 156 Q 292 196, 356 226" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
-
-                            <rect id="ch-verifier" x="330" y="214" width="110" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-                            <text x="385" y="234" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">AUDITOR</text>
-                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">recompute · check signature</text>
-
-                            <rect id="ch-export" x="243" y="150" width="12" height="12" fill="none" stroke="var(--color-live)" stroke-opacity="0" stroke-width="1.5" />
-
-                            <text id="ch-status" x="385" y="292" text-anchor="middle" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HASH MATCHES</text>
-                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">sha-256 chain · recomputed offline · we are not asked</text>
-                        </svg>
-                        </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The export is recomputed on the other side. Everything after the boundary happens without us, and nothing comes back.</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col">
-                        <div class="h-7 flex items-center justify-between border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">04 · The record</span>
-                        </div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-none">A record no one can rewrite.</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">The behavioral system of record for autonomous work.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Who acted, which agent, which model, under which policy.</p>
-                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            Every entry is hash-chained at the boundary, before anything reaches a provider, and held outside the reach of the thing being recorded. Altering one link breaks every link after it, and an auditor recomputes the chain offline, without us in the room. Your provider's log lives on their infrastructure and is read through their console. In a dispute that involves them, it is theirs, not yours.
-                        </p>
-                        <p class="mt-6 text-base text-white/55 leading-relaxed">
-                            Meet your obligations under GDPR, the EU AI Act, NIS-2 and DORA with records you own, rather than logs on a supplier's infrastructure.
-                        </p>
-                        <p class="mt-6 font-mono text-sm text-white/40 leading-relaxed">
-                            The gateway and the ledger are open source.
-                            <a href="https://github.com/kydehq/gateway" target="_blank" rel="noopener" class="text-white/60 hover:text-white underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-colors">github.com/kydehq/gateway →</a>
-                        </p>
-                        <p class="mt-6 font-mono text-[11px] text-white/35 leading-relaxed">
-                            Ed25519-signing each entry with your own keys, which proves authorship rather than order, is an Enterprise capability.
-                        </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<script>
-                // chain-fig · the seal runs left to right, one entry at a time, each sealed
-                // by the one before it. Then the export leaves, crosses the boundary and
-                // is checked on the other side. Nothing comes back: that is the claim the
-                // figure has to carry, so the motion only ever travels outward.
-                const chainFig = document.getElementById("chain-fig");
-                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                if (chainFig) {
-                    const NS = "http://www.w3.org/2000/svg";
-                    const boxes = Array.from(chainFig.querySelectorAll(".ch-box")) as SVGRectElement[];
-                    const conns = Array.from(chainFig.querySelectorAll(".ch-conn")) as SVGLineElement[];
-                    const route = document.getElementById("ch-route") as unknown as SVGPathElement;
-                    const exp = document.getElementById("ch-export") as unknown as SVGRectElement;
-                    const status = document.getElementById("ch-status") as unknown as SVGTextElement;
-                    const recompute = document.getElementById("ch-recompute") as unknown as SVGTextElement;
-                    const bloomLayer = document.getElementById("chain-blooms") as unknown as SVGGElement;
-                    const routeLen = route.getTotalLength();
-
-                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
-                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
-                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        c.setAttribute("cx", String(bx));
-                        c.setAttribute("cy", String(by));
-                        c.setAttribute("r", String(r0));
-                        c.setAttribute("fill", "url(#chain-glow)");
-                        c.setAttribute("opacity", String(peak));
-                        bloomLayer.appendChild(c);
-                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
-                    };
-                    const stepBlooms = () => {
-                        for (let i = blooms.length - 1; i >= 0; i--) {
-                            const b = blooms[i];
-                            b.r += (b.max - b.r) * 0.045;
-                            b.a *= 0.972;
-                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
-                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
-                        }
-                    };
-
-                    const REST = 0.26, SEALED = 0.6;
-                    let lit = boxes.map(() => REST);
-                    let connLit = conns.map(() => 0.12);
-                    let phase: "seal" | "leave" | "check" | "rest" = "seal";
-                    let sealX = 10, routeT = 0, statusO = 0, waitUntil = 0, sealed = -1;
-
-                    const paint = () => {
-                        boxes.forEach((b, i) => {
-                            b.setAttribute("stroke-opacity", lit[i].toFixed(3));
-                            b.setAttribute("stroke", lit[i] > SEALED + 0.05 ? "var(--color-live)" : "var(--color-ink-0)");
-                        });
-                        conns.forEach((c, i) => c.setAttribute("stroke-opacity", connLit[i].toFixed(3)));
-                        status.setAttribute("fill-opacity", statusO.toFixed(3));
-                        recompute.setAttribute("fill-opacity", (0.4 + statusO * 0.35).toFixed(3));
-                    };
-
-                    const reset = () => {
-                        lit = boxes.map(() => REST);
-                        connLit = conns.map(() => 0.12);
-                        sealX = 10; routeT = 0; statusO = 0; sealed = -1;
-                        exp.setAttribute("stroke-opacity", "0");
-                        phase = "seal";
-                    };
-
-                    const tick = (now: number) => {
-                        if (phase === "seal") {
-                            sealX += 1.15;
-                            const centres = boxes.map((_, i) => 57 + i * 64);
-                            centres.forEach((cx, i) => {
-                                if (sealX >= cx && sealed < i) {
-                                    sealed = i;
-                                    lit[i] = 0.95;
-                                    if (i > 0) connLit[i - 1] = 0.55;
-                                    bloom(cx, 134, 7, 0.8);
-                                }
-                            });
-                            if (sealX > 300) { phase = "leave"; routeT = 0; }
-                        } else if (phase === "leave") {
-                            routeT += 1.5;
-                            const pt = route.getPointAtLength(Math.min(routeT, routeLen));
-                            exp.setAttribute("x", String(pt.x - 6));
-                            exp.setAttribute("y", String(pt.y - 6));
-                            exp.setAttribute("stroke-opacity", "0.8");
-                            if (routeT >= routeLen) { phase = "check"; waitUntil = now + 700; }
-                        } else if (phase === "check") {
-                            if (now > waitUntil && statusO === 0) {
-                                bloom(385, 243, 10, 0.85);
-                                statusO = 0.9;
-                                waitUntil = now + 2600;
-                            }
-                            if (statusO > 0 && now > waitUntil) { phase = "rest"; waitUntil = now + 900; }
-                        } else if (now > waitUntil) {
-                            reset();
-                        }
-
-                        // everything settles rather than switching: sealed entries fall back
-                        // to a resting glow, the verdict fades out on its own
-                        lit = lit.map((v) => SEALED + (v - SEALED) * 0.985);
-                        if (phase === "rest") { statusO *= 0.94; exp.setAttribute("stroke-opacity", String(Math.max(0, statusO))); }
-                        stepBlooms();
-                        paint();
-                    };
-
-                    if (chainReduced) {
-                        lit = boxes.map(() => SEALED);
-                        connLit = conns.map(() => 0.55);
-                        statusO = 0.9;
-                        exp.setAttribute("x", "350"); exp.setAttribute("y", "220"); exp.setAttribute("stroke-opacity", "0.8");
-                        paint();
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
-                        const loop = (now: number) => {
-                            if (visible) tick(now);
-                            requestAnimationFrame(loop);
-                        };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
-        </section>
-
-        <!-- ══════════ 5 · START WITH AN AUDIT ══════════ -->
-        <!-- Two columns like every figure section on the page: the offer on the left,
-             the readout it produces on the right. The Process/Status/Why table lost
-             its third column in the move to half width. The reason now sits under the
-             process rather than beside it, which reads better narrow and keeps the
-             thing that matters, that no row waits without saying on what. -->
-        <section id="audit" class="scroll-mt-20 border-b border-white/10 bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-
-                    <div class="flex flex-col">
-                        <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">05 · Start with an audit</span>
-                        </div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-5">
-                                Two weeks, one process area, one dated readout.
-                            </h2>
-                            <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Fixed price, credited against your first automation project.</p>
-                            <p class="text-lg text-white/55 leading-relaxed mb-6">
-                                You get a dated readout: which processes are buildable today, which are waiting and on what, and which stay with a person. Every waiting item carries an owner and a date.
-                            </p>
-                            <p class="text-lg text-white/55 leading-relaxed mb-10">
-                                We do not score automation potential. We map what can be automated now, and what has to change before it can. Re-run the readout three months later and see what moved.
-                            </p>
-                            <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-                                <button
-                                    onclick="openModal()"
-                                    class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
-                                >
-                                    Start your audit →
-                                </button>
-                                <a
-                                    href="/audit"
-                                    class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
-                                >
-                                    How it works →
-                                </a>
-                                <a
-                                    href="/audit-readout"
-                                    class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
-                                >
-                                    See a real readout →
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col">
-                        <div class="h-7 flex items-center justify-end border-b border-white/10">
-                            <span class="fig-label">FIG.2</span>
-                        </div>
-                        <div class="flex flex-1 flex-col justify-center gap-6 py-10">
-
+                        <div class="flex flex-1 flex-col justify-center gap-6">
                             <div class="border border-white/10 bg-white/[0.02] px-5 py-5">
                                 <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 border-b border-white/10 pb-3 mb-4">From a readout, one process area</p>
                                 <ul class="divide-y divide-white/10">
@@ -893,14 +554,51 @@ const websiteSchema = {
                                 </ul>
                             </div>
                         </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · No row waits without saying on what. The row that never moves is what makes the others credible. Aug 2026 to Nov 2026, illustrative.</p>
+                        </div>
+                        <div class="border-t border-white/10 pt-3 mt-6">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · No row waits without saying on what. The row that never moves is what makes the others credible. Aug 2026 to Nov 2026, illustrative.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- ══════════ BUILT ON KYDE ZERO TRUST ══════════ -->
+        <!-- Compact on purpose. This block has one job: prove that a worker can be
+             let into a regulated company. The argument for it is a whole page, and
+             that page exists, so this one says the five things and gets out of the
+             way. It used to be a full-screen diagram plus five paragraphs, which
+             turned the workers page into half a zero trust site. -->
+        <section class="border-b border-white/10 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Built on KYDE Zero Trust</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
+                            Every worker runs inside the same infrastructure used to control, evaluate and prove AI behavior.
+                        </h2>
+                        <a href="/zero-trust" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                            Explore KYDE Zero Trust →
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-lg text-white/55 leading-relaxed mb-8">
+                            Every action a worker takes crosses the same boundary before it executes, and is sealed into a record that leaves your building only when you send it. On-premise or in your private cloud, in front of whatever models you already run.
+                        </p>
+                        <ul class="border border-white/10 divide-y divide-white/10">
+                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-0.5">Identity</span><span class="text-sm text-white/60 leading-relaxed">Every action carries a name before it happens</span></li>
+                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-0.5">Policy</span><span class="text-sm text-white/60 leading-relaxed">Enforced before the action executes, not in a report afterwards</span></li>
+                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-0.5">Data</span><span class="text-sm text-white/60 leading-relaxed">Sensitive fields masked inline, before they reach a model</span></li>
+                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-warn/70 shrink-0 w-20 pt-0.5">Limits</span><span class="text-sm text-white/60 leading-relaxed">Held over time, not per call. <span class="text-white/35">Coming soon.</span></span></li>
+                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-live/70 shrink-0 w-20 pt-0.5">Evidence</span><span class="text-sm text-white/60 leading-relaxed">Hash-chained at the boundary, recomputed by your auditor without us</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- ══════════ CLOSER ══════════ -->
         <section class="relative overflow-hidden">
             <div class="absolute -right-48 md:-right-24 top-1/2 -translate-y-1/2 w-[520px] md:w-[640px] pointer-events-none" aria-hidden="true">
