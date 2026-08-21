@@ -506,191 +506,128 @@ const websiteSchema = {
                             <span class="fig-label">FIG.1</span>
                         </div>
                         <div class="flex flex-1 items-center justify-center py-10">
-                            <svg id="forecast-fig" viewBox="0 0 480 428" class="w-full max-w-md h-auto" aria-hidden="true">
-                                <path d="M12 27 L12 12 L27 12"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                                <path d="M453 12 L468 12 L468 27"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                                <path d="M12 401 L12 416 L27 416"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                                <path d="M468 401 L468 416 L453 416" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                            <svg id="forecast-fig" viewBox="0 0 480 236" class="w-full max-w-md h-auto" aria-hidden="true">
+                                <!-- One row, read left to right, where a step's position is
+                                     the moment it becomes available. The sweep is six months
+                                     passing. Everything else came off. -->
+                                <text id="fc-count" x="40" y="66" fill="var(--color-live)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:38px;font-weight:700;">3</text>
+                                <text id="fc-of" x="92" y="58" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.14em;">OF 10 STEPS</text>
+                                <text x="92" y="74" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;">running without a person</text>
 
-                                <text x="16" y="42" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">ONE PROCESS AREA · 10 STEPS</text>
+                                <g id="fc-cells"></g>
+                                <line id="fc-head" x1="43" y1="108" x2="43" y2="162" stroke="var(--color-live)" stroke-opacity="0.7" stroke-width="1" />
 
-                                <!-- the count, which is the whole readout in one number -->
-                                <text x="16" y="82" fill="var(--color-live)" fill-opacity="0.9" style="font-family:'JetBrains Mono Variable',monospace;font-size:30px;font-weight:700;" id="fc-count">3</text>
-                                <text x="52" y="82" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.1em;">running</text>
-                                <text x="164" y="82" fill="var(--color-ember)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:14px;font-weight:700;" id="fc-wait">4</text>
-                                <text x="182" y="82" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">not yet</text>
-                                <text x="272" y="82" fill="var(--color-ink-0)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:14px;font-weight:700;">3</text>
-                                <text x="290" y="82" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">your people</text>
+                                <line x1="43" y1="182" x2="437" y2="182" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
+                                <text x="43" y="198" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">TODAY</text>
+                                <text x="437" y="198" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">IN SIX MONTHS</text>
 
-                                <!-- time axis -->
-                                <line x1="160" y1="106" x2="450" y2="106" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
-                                <text x="160" y="99" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.12em;">TODAY</text>
-                                <text x="450" y="99" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.12em;">+6 MONTHS</text>
-
-                                <g id="fc-lanes"></g>
-
-                                <!-- the head sweeps once, and the library re-checks itself as it goes -->
-                                <line id="fc-head" x1="160" y1="112" x2="160" y2="368" stroke="var(--color-live)" stroke-opacity="0.55" stroke-width="1" />
-                                <text id="fc-month" x="160" y="386" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">AUG</text>
-                                <text id="fc-note" x="450" y="42" text-anchor="end" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;"></text>
-
-                                <text x="16" y="410" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.12em;">RE-CHECKED AS MODELS, INTERFACES AND CONNECTORS LAND</text>
+                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;" fill="var(--color-ink-0)" fill-opacity="0.4">
+                                    <rect x="43" y="219" width="8" height="8" fill="var(--color-live)" fill-opacity="0.8" />
+                                    <text x="57" y="226">running</text>
+                                    <rect x="118" y="219" width="8" height="8" fill="none" stroke="var(--color-ember)" stroke-opacity="0.7" stroke-width="1" />
+                                    <text x="132" y="226">not yet</text>
+                                    <rect x="193" y="219" width="8" height="8" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.4" stroke-width="1" />
+                                    <circle cx="197" cy="223" r="1.6" fill="var(--color-ink-0)" fill-opacity="0.6" />
+                                    <text x="207" y="226">stays with a person</text>
+                                </g>
                             </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · Each step and the date it becomes available. Three run today, three more as their blocker falls, and three were never waiting on anything. Illustrative.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · Ten steps of one process area, ordered by when each becomes available. The row is the next six months. Illustrative.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <script>
-                // forecast-fig · ten steps of one process area, laid against the six
-                // months in front of them. Three run on day one. Three more light up
-                // as the head reaches the date their blocker falls, each by a
-                // different hand: an interface someone ships, a question answered
-                // inside the building, a model that arrives on its own. One never
-                // clears in this window, and three were never waiting on anything,
-                // which is why they hold their color while everything moves around
-                // them. The claim is that the list re-checks itself and the reader
-                // does nothing, so the only thing that moves is time.
+                // forecast-fig · ten steps of one process area in a single row, ordered
+                // by the moment each becomes available. The sweep is six months of
+                // calendar passing, so a step lighting up as the line reaches it is the
+                // whole idea: nobody did anything, the date arrived. The last three
+                // never light, and they are the reason the count is worth believing.
                 const fcFig = document.getElementById("forecast-fig");
                 const fcReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
                 if (fcFig) {
                     const NS = "http://www.w3.org/2000/svg";
-                    const X0 = 160, X1 = 450, TOP = 128, GAP = 24;
-                    const SWEEP = 9000, HOLD = 2600;
-
-                    type Lane = { label: string; kind: "run" | "flip" | "never" | "person"; at?: number; note?: string };
-                    const LANES: Lane[] = [
-                        { label: "Triage requests",     kind: "run" },
-                        { label: "File documents",      kind: "run" },
-                        { label: "Reconcile ledgers",   kind: "run" },
-                        { label: "Supplier release",    kind: "flip", at: 0.30, note: "ERP interface shipped" },
-                        { label: "Classify damage",     kind: "flip", at: 0.55, note: "question answered" },
-                        { label: "Draft payer reply",   kind: "flip", at: 0.80, note: "model can hold the case" },
-                        { label: "Reconstruct a case",  kind: "never" },
-                        { label: "Contract decision",   kind: "person" },
-                        { label: "Release outside spec", kind: "person" },
-                        { label: "Clinical sign-off",   kind: "person" },
+                    const X0 = 43, W = 34, GAP = 6, Y = 118, H = 34;
+                    const SWEEP = 7000, HOLD = 2200;
+                    // "at" is when the step becomes available, as a share of the window.
+                    // 0 means it already runs; null means not inside this window at all.
+                    const STEPS = [
+                        { at: 0 }, { at: 0 }, { at: 0 },
+                        { at: 0.30 }, { at: 0.56 }, { at: 0.82 },
+                        { at: null },
+                        { person: true }, { person: true }, { person: true },
                     ];
-                    const MONTHS = ["AUG", "SEP", "OCT", "NOV", "DEC", "JAN", "FEB"];
 
-                    const layer = document.getElementById("fc-lanes")!;
-                    const head = document.getElementById("fc-head") as unknown as SVGLineElement;
-                    const month = document.getElementById("fc-month") as unknown as SVGTextElement;
-                    const note = document.getElementById("fc-note") as unknown as SVGTextElement;
-                    const count = document.getElementById("fc-count") as unknown as SVGTextElement;
-                    const waitCount = document.getElementById("fc-wait") as unknown as SVGTextElement;
+                    const layer = document.getElementById("fc-cells");
+                    const head = document.getElementById("fc-head");
+                    const count = document.getElementById("fc-count");
+                    const cells = [];
 
-                    const mk = (tag: string, attrs: Record<string, string>) => {
-                        const el = document.createElementNS(NS, tag);
-                        for (const k in attrs) el.setAttribute(k, attrs[k]);
-                        return el;
-                    };
-
-                    const fills: (SVGLineElement | null)[] = [];
-                    const marks: SVGRectElement[] = [];
-
-                    LANES.forEach((lane, i) => {
-                        const y = TOP + i * GAP;
-
-                        layer.appendChild(mk("text", {
-                            x: "146", y: String(y + 3), "text-anchor": "end",
-                            fill: "var(--color-ink-0)", "fill-opacity": lane.kind === "person" ? "0.42" : "0.60",
-                            style: "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.04em;",
-                        })).textContent = lane.label;
-
-                        if (lane.kind === "run") {
-                            layer.appendChild(mk("line", { x1: String(X0), y1: String(y), x2: String(X1), y2: String(y),
-                                stroke: "var(--color-live)", "stroke-opacity": "0.5", "stroke-width": "2" }));
-                            fills.push(null);
-                        } else if (lane.kind === "person") {
-                            layer.appendChild(mk("line", { x1: String(X0), y1: String(y), x2: String(X1), y2: String(y),
-                                stroke: "var(--color-ink-0)", "stroke-opacity": "0.22", "stroke-width": "2" }));
-                            fills.push(null);
-                        } else {
-                            layer.appendChild(mk("line", { x1: String(X0), y1: String(y), x2: String(X1), y2: String(y),
-                                stroke: "var(--color-ember)", "stroke-opacity": "0.45", "stroke-width": "1", "stroke-dasharray": "2 4" }));
-                            if (lane.kind === "flip") {
-                                const fx = X0 + (X1 - X0) * lane.at!;
-                                const fill = mk("line", { x1: String(fx), y1: String(y), x2: String(fx), y2: String(y),
-                                    stroke: "var(--color-live)", "stroke-opacity": "0.5", "stroke-width": "2" }) as SVGLineElement;
-                                layer.appendChild(fill);
-                                fills.push(fill);
-                            } else {
-                                fills.push(null);
-                            }
+                    STEPS.forEach((s, i) => {
+                        const x = X0 + i * (W + GAP);
+                        const r = document.createElementNS(NS, "rect");
+                        r.setAttribute("x", String(x));
+                        r.setAttribute("y", String(Y));
+                        r.setAttribute("width", String(W));
+                        r.setAttribute("height", String(H));
+                        r.setAttribute("stroke-width", "1");
+                        layer.appendChild(r);
+                        cells.push(r);
+                        if (s.person) {
+                            const d = document.createElementNS(NS, "circle");
+                            d.setAttribute("cx", String(x + W / 2));
+                            d.setAttribute("cy", String(Y + H / 2));
+                            d.setAttribute("r", "2.5");
+                            d.setAttribute("fill", "var(--color-ink-0)");
+                            d.setAttribute("fill-opacity", "0.55");
+                            layer.appendChild(d);
                         }
-
-                        const mark = mk("rect", { x: String(X0 - 4), y: String(y - 4), width: "8", height: "8",
-                            fill: lane.kind === "run" ? "var(--color-live)" : "none",
-                            "fill-opacity": "0.85",
-                            stroke: lane.kind === "person" ? "var(--color-ink-0)" : lane.kind === "run" ? "none" : "var(--color-ember)",
-                            "stroke-opacity": lane.kind === "person" ? "0.5" : "0.7", "stroke-width": "1" }) as SVGRectElement;
-                        layer.appendChild(mark);
-                        marks.push(mark);
                     });
 
-                    const setHead = (t: number) => {
-                        const x = X0 + (X1 - X0) * t;
-                        head.setAttribute("x1", String(x));
-                        head.setAttribute("x2", String(x));
-                        month.setAttribute("x", String(Math.min(Math.max(x, 172), 430)));
-                        month.textContent = MONTHS[Math.min(MONTHS.length - 1, Math.floor(t * 6))];
-                        let running = 3;
-                        LANES.forEach((lane, i) => {
-                            if (lane.kind !== "flip") return;
-                            const done = t >= lane.at!;
-                            if (done) running++;
-                            const fx = X0 + (X1 - X0) * lane.at!;
-                            fills[i]!.setAttribute("x2", String(done ? x : fx));
-                            marks[i].setAttribute("fill", done ? "var(--color-live)" : "none");
-                            marks[i].setAttribute("stroke", done ? "none" : "var(--color-ember)");
+                    const paint = (t) => {
+                        head.setAttribute("x1", String(X0 + (437 - X0) * t));
+                        head.setAttribute("x2", String(X0 + (437 - X0) * t));
+                        let on = 0;
+                        STEPS.forEach((s, i) => {
+                            const lit = !s.person && s.at !== null && t >= s.at;
+                            if (lit) on++;
+                            const c = cells[i];
+                            if (s.person) {
+                                c.setAttribute("fill", "none");
+                                c.setAttribute("stroke", "var(--color-ink-0)");
+                                c.setAttribute("stroke-opacity", "0.35");
+                            } else if (lit) {
+                                c.setAttribute("fill", "var(--color-live)");
+                                c.setAttribute("fill-opacity", "0.8");
+                                c.setAttribute("stroke", "none");
+                            } else {
+                                c.setAttribute("fill", "none");
+                                c.setAttribute("stroke", "var(--color-ember)");
+                                c.setAttribute("stroke-opacity", "0.6");
+                            }
                         });
-                        count.textContent = String(running);
-                        waitCount.textContent = String(7 - running);
+                        count.textContent = String(on);
                     };
 
                     if (fcReduced) {
-                        setHead(1);
-                        note.setAttribute("fill-opacity", "0");
+                        paint(1);
                     } else {
                         let visible = false;
                         new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fcFig);
-
-                        let start = 0, shown = -1;
-                        function fcFrame(now: number) {
+                        let start = 0;
+                        function fcFrame(now) {
                             if (visible) {
                                 if (!start) start = now;
                                 const el = now - start;
-                                if (el < SWEEP) {
-                                    const t = el / SWEEP;
-                                    setHead(t);
-                                    // the note names who moved it, and fades before the next one
-                                    let idx = -1;
-                                    LANES.forEach((lane, i) => {
-                                        if (lane.kind === "flip" && t >= lane.at! && t < lane.at! + 0.14) idx = i;
-                                    });
-                                    if (idx !== shown) {
-                                        shown = idx;
-                                        note.textContent = idx >= 0 ? LANES[idx].note! : "";
-                                    }
-                                    const o = parseFloat(note.getAttribute("fill-opacity") || "0");
-                                    note.setAttribute("fill-opacity", String(idx >= 0 ? Math.min(o + 0.08, 0.75) : Math.max(o - 0.05, 0)));
-                                } else if (el < SWEEP + HOLD) {
-                                    setHead(1);
-                                    const o = parseFloat(note.getAttribute("fill-opacity") || "0");
-                                    note.setAttribute("fill-opacity", String(Math.max(o - 0.03, 0)));
-                                } else {
-                                    start = now; shown = -1;
-                                    note.setAttribute("fill-opacity", "0");
-                                    setHead(0);
-                                }
+                                if (el < SWEEP) paint(el / SWEEP);
+                                else if (el < SWEEP + HOLD) paint(1);
+                                else { start = now; paint(0); }
                             }
                             requestAnimationFrame(fcFrame);
                         }
-                        setHead(0);
+                        paint(0);
                         requestAnimationFrame(fcFrame);
                     }
                 }
