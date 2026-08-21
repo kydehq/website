@@ -455,7 +455,7 @@ const websiteSchema = {
                             What could be automated right now?
                         </h2>
                         <p class="text-lg text-white/55 leading-relaxed">
-                            Start with the work. We map one process area with the people who run it, and sort what can be automated into three: what an agent does, what is plain code, and what needs something that does not exist yet. Everything in the third group carries what it is waiting on and who can move it. The rest stays with your people, and we say which.
+                            We go through one process area with the people who do the work. Then we tell you, step by step, what AI can take over, what a program can take over, what is not possible yet, and what should stay with your people. For the steps that are not possible yet, you get the reason and the person who can change it.
                         </p>
                     </div>
 
@@ -696,7 +696,7 @@ const websiteSchema = {
                     };
 
                     const N = 10, TAKEN = 7;          // seven a worker can take, three stay
-                    const TRAVEL = 2100, BLOOM = 1500, HOLD = 2600, FADE = 1100;
+                    const TRAVEL = 3000, BLOOM = 1700, HOLD = 3200, FADE = 1200;
                     let W = 0, H = 0, CXp = 0, CYp = 0, R = 0;
 
                     const seeds = Array.from({ length: N }, (_, i) => ({
@@ -704,7 +704,7 @@ const websiteSchema = {
                         a0: hash(i * 13 + 1) * Math.PI * 2,
                         r0: 0.62 + hash(i * 29 + 5) * 0.55,
                         // when it arrives, deliberately uneven
-                        t0: 260 + hash(i * 47 + 11) * 3600,
+                        t0: 300 + i * 860 + hash(i * 47 + 11) * 340,
                         spin: (hash(i * 71 + 3) - 0.5) * 1.6,
                         slot: i,
                     })).sort((p, q) => p.t0 - q.t0);
