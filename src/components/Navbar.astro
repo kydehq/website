@@ -2,11 +2,10 @@
 import { alternatesFor, localeOf } from "../data/locales";
 
 const navLinks = [
-  { label: 'Platform',      href: '/platform'     },
+  { label: 'AI Workforce',  href: '/'             },
+  { label: 'Trust',         href: '/trust'        },
   { label: 'Use Cases',     href: '/use-cases'    },
-  { label: 'Pricing',       href: '/pricing'      },
   { label: 'Resources',     href: '/resources'    },
-  { label: 'Company',       href: '/company'      },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -35,7 +34,7 @@ const otherHref = alternates[otherLocale];
             href={href}
             class={[
               'font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors',
-              currentPath.startsWith(href)
+              (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
                 ? 'text-white'
                 : 'text-white/75 hover:text-white',
             ].join(' ')}
@@ -91,7 +90,7 @@ const otherHref = alternates[otherLocale];
             href={href}
             class={[
               'font-mono text-sm uppercase tracking-widest transition-colors',
-              currentPath.startsWith(href)
+              (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
                 ? 'text-white'
                 : 'text-white/75 hover:text-white',
             ].join(' ')}
