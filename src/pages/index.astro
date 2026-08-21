@@ -452,21 +452,36 @@ const websiteSchema = {
                     We know what should be automated now.
                 </h2>
                 <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-14">
-                    Start with the work. We map one process area and show you which parts are ready to become a worker today, which are blocked and on what, and which should stay with a person. Not a score. A list you can work through.
+                    Start with the work. We map one process area and sort it into three: what an agent can do, what is plain code, and what needs something that does not exist yet. Not a score. A list you can work through.
                 </p>
 
-                <div class="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x md:divide-white/10 [&>*:not(:first-child)]:md:pl-10 [&>*:not(:last-child)]:md:pr-10 mb-16">
-                    <div>
-                        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-live border border-live/30 bg-live/[0.08] px-2.5 py-1 mb-5">Buildable now</span>
-                        <p class="text-base text-white/55 leading-relaxed">Ready to become a worker this quarter. You will recognize them: the same steps, the same sources, done the same way every time.</p>
+                <div class="border border-white/10 divide-y divide-white/10 mb-16">
+                    <div class="grid md:grid-cols-[220px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
+                        <div>
+                            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-live border border-live/30 bg-live/[0.08] px-2.5 py-1 mb-3">An agent does it</span>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/35">Probabilistic</p>
+                        </div>
+                        <p class="text-base md:text-lg text-white/55 leading-relaxed">
+                            Work where the right answer depends on reading the situation: a customer's tone, a claim that does not look like the others, a supplier mail that ignores the template. An agent handles these, and we measure it against cases where your own outcome is already on record.
+                        </p>
                     </div>
-                    <div>
-                        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2.5 py-1 mb-5">Waiting on</span>
-                        <p class="text-base text-white/55 leading-relaxed">Ready, except for one thing, and we name it. A missing interface belongs on a roadmap. An unanswered question belongs in this week. Each one comes with the person who can move it.</p>
+                    <div class="grid md:grid-cols-[220px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
+                        <div>
+                            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ink-0 border border-white/25 px-2.5 py-1 mb-3">Code does it</span>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/35">Deterministic</p>
+                        </div>
+                        <p class="text-base md:text-lg text-white/55 leading-relaxed">
+                            Work where the steps are fixed. Converting the document, reconciling two lists, moving the field from one system into the next. We write that code as part of the build. It runs the same way every time, costs almost nothing to run, and never has an opinion.
+                        </p>
                     </div>
-                    <div>
-                        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-white/50 border border-white/20 px-2.5 py-1 mb-5">Stays human</span>
-                        <p class="text-base text-white/55 leading-relaxed">Some work belongs with people. The judgement calls, the decisions that carry real consequences for someone, the cases where thirty years of experience is the whole job. Automating everything around them is what buys your experts the room to do them properly.</p>
+                    <div class="grid md:grid-cols-[220px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
+                        <div>
+                            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2.5 py-1 mb-3">Not yet</span>
+                            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/35">We keep watching</p>
+                        </div>
+                        <p class="text-base md:text-lg text-white/55 leading-relaxed">
+                            Work that needs something which does not exist today: a model that can hold the whole case, an interface into a system that has none, an MCP server nobody has shipped. These stay in your library and we keep testing them against what has landed since. When one comes free, you hear about it. This is the part that keeps working after we go home.
+                        </p>
                     </div>
                 </div>
 
@@ -499,28 +514,28 @@ const websiteSchema = {
                                 <ul class="divide-y divide-white/10">
                                     <li class="py-3 first:pt-0">
                                         <div class="flex items-baseline justify-between gap-3">
-                                            <span class="text-sm text-white/80">Check invoice</span>
-                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-live border border-live/30 bg-live/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Buildable today</span>
+                                            <span class="text-sm text-white/80">Triage incoming requests</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-live border border-live/30 bg-live/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Agent</span>
                                         </div>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-baseline justify-between gap-3">
+                                            <span class="text-sm text-white/80">Convert and file documents</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-0 border border-white/25 px-2 py-0.5 whitespace-nowrap shrink-0">Code</span>
+                                        </div>
+                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">Fixed steps, written during the build</p>
                                     </li>
                                     <li class="py-3">
                                         <div class="flex items-baseline justify-between gap-3">
                                             <span class="text-sm text-white/80">Supplier release</span>
-                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Waiting</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Not yet</span>
                                         </div>
-                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">No MCP interface to the ERP</p>
-                                    </li>
-                                    <li class="py-3">
-                                        <div class="flex items-baseline justify-between gap-3">
-                                            <span class="text-sm text-white/80">Classify damage</span>
-                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-ember border border-ember/30 bg-ember/[0.08] px-2 py-0.5 whitespace-nowrap shrink-0">Waiting</span>
-                                        </div>
-                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">One question open with the department</p>
+                                        <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">No interface into the ERP yet</p>
                                     </li>
                                     <li class="py-3 last:pb-0">
                                         <div class="flex items-baseline justify-between gap-3">
                                             <span class="text-sm text-white/80">Contract decision</span>
-                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-white/50 border border-white/20 px-2 py-0.5 whitespace-nowrap shrink-0">Human</span>
+                                            <span class="font-mono text-[9px] uppercase tracking-[0.14em] text-white/50 border border-white/20 px-2 py-0.5 whitespace-nowrap shrink-0">Your people</span>
                                         </div>
                                         <p class="mt-1.5 font-mono text-[10px] text-white/40 leading-relaxed">Legal discretion</p>
                                     </li>
@@ -528,25 +543,25 @@ const websiteSchema = {
                             </div>
 
                             <div class="border border-white/10 bg-white/[0.02] px-5 py-5">
-                                <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 border-b border-white/10 pb-3 mb-4">The same area, re-run three months later</p>
+                                <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 border-b border-white/10 pb-3 mb-4">The same area, re-checked three months later</p>
                                 <ul class="divide-y divide-white/10">
                                     <li class="py-3 first:pt-0">
                                         <div class="flex items-baseline justify-between gap-3">
-                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Buildable today</span>
+                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Running as workers</span>
                                             <span class="font-mono text-lg shrink-0"><span class="text-white/35">3</span> <span class="text-white/25">→</span> <span class="font-bold text-live">6</span></span>
                                         </div>
-                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">three blockers fell, each with a name</p>
+                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">two new interfaces, one model that can now hold the case</p>
                                     </li>
                                     <li class="py-3">
                                         <div class="flex items-baseline justify-between gap-3">
-                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Waiting</span>
+                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Not yet</span>
                                             <span class="font-mono text-lg shrink-0"><span class="text-white/35">4</span> <span class="text-white/25">→</span> <span class="font-bold text-ember">1</span></span>
                                         </div>
-                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">the last one waits on model capability</p>
+                                        <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">still waiting, still being re-tested</p>
                                     </li>
                                     <li class="py-3 last:pb-0">
                                         <div class="flex items-baseline justify-between gap-3">
-                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Human</span>
+                                            <span class="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">Your people</span>
                                             <span class="font-mono text-lg shrink-0"><span class="text-white/35">3</span> <span class="text-white/25">→</span> <span class="font-bold text-white/70">3</span></span>
                                         </div>
                                         <p class="mt-1 font-mono text-[10px] text-white/40 leading-relaxed">the work that needed a person still does</p>
@@ -577,14 +592,6 @@ const websiteSchema = {
 
                 <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-6">
-                            Every worker runs inside the same infrastructure used to control, evaluate and prove AI behavior.
-                        </h2>
-                        <a href="/zero-trust" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                            Explore KYDE Zero Trust →
-                        </a>
-                    </div>
-                    <div>
                         <p class="text-lg text-white/55 leading-relaxed mb-8">
                             Every action a worker takes crosses the same boundary before it executes, and is sealed into a record that leaves your building only when you send it. On-premise or in your private cloud, in front of whatever models you already run.
                         </p>
@@ -595,6 +602,13 @@ const websiteSchema = {
                             <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-warn/70 shrink-0 w-20 pt-0.5">Limits</span><span class="text-sm text-white/60 leading-relaxed">Held over time, not per call. <span class="text-white/35">Coming soon.</span></span></li>
                             <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-live/70 shrink-0 w-20 pt-0.5">Evidence</span><span class="text-sm text-white/60 leading-relaxed">Hash-chained at the boundary, recomputed by your auditor without us</span></li>
                         </ul>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-6">
+                            Every worker runs inside the same infrastructure used to control, evaluate and prove AI behavior.
+                        </h2>
+                        <a href="/zero-trust" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                            Explore KYDE Zero Trust →
+                        </a>
                     </div>
                 </div>
             </div>
@@ -616,7 +630,7 @@ const websiteSchema = {
                 <div class="mx-auto max-w-3xl text-center">
                     <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Start with one process</p>
                     <div class="mb-12 h-px bg-white/10"></div>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-8">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-8">
                         One process today.<br />A workforce tomorrow.
                     </h2>
                     <p class="text-lg text-white/55 leading-relaxed mb-12 mx-auto max-w-2xl">

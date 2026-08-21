@@ -303,6 +303,23 @@ Two families, strictly divided by role, identical across both themes:
 
 The signature typographic device is the **numbered section register**: every major surface region opens with a mono eyebrow in the format `01 · Section Name` (`{typography.register}`, ink-1, uppercase), sitting on a 1px `line-0` rule. Numbering restarts per page/screen. In a dashboard, panel headers take the same treatment (see the platform Fleet Status mock: `FLEET HEALTH SCORE`, `AGENTS (3)`, `RECENT SESSIONS (3)` — all mono, uppercase, tracked, small).
 
+**The applied ramp.** The tokens above give the sizes; this is which one a
+heading gets, and there are only four. Every heading on the marketing site is
+one of these, exactly as written. Nothing in between, and no new step without
+changing this list.
+
+| Level | Where it goes | Classes |
+|---|---|---|
+| Home hero | The homepage `h1`, once | `text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl` |
+| Page hero | Every other page's `h1`, once, one step below the home hero | `text-4xl md:text-5xl lg:text-6xl` |
+| Section | The one statement a section exists to make | `text-3xl md:text-4xl lg:text-5xl` |
+| Subsection | A heading inside a section that already has one | `text-2xl md:text-3xl` |
+| Item | One card, step or row in a grid or list | `text-xl md:text-2xl` |
+
+A page reads as a hierarchy when each section makes one statement at Section
+size and everything under it steps down. Two Section-size headings in one
+region is the usual sign that the region is really two.
+
 Scale notes for agents:
 - The `hero` token is the desktop size (72px); it steps down responsively (mobile ≈ 36px, tablet ≈ 48–60px). Dashboards rarely need `hero`; a screen title is `h2` at most.
 - Buttons are always mono, uppercase, small (`label-caps`), with a trailing `→` or `>` glyph. Button text is never Inter, never sentence-case.

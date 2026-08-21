@@ -160,11 +160,11 @@ const roles = [
     <section class="border-t border-line-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
 
-        <div class="flex mb-12 border-b border-line-0 w-fit">
+        <div class="flex mb-12 border-b border-line-0">
           <button id="btn-workers" onclick="showTab('workers')"
-            class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink">Workers</button>
+            class="flex-1 px-6 py-3 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink">Workers</button>
           <button id="btn-trust" onclick="showTab('trust')"
-            class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0">Zero Trust</button>
+            class="flex-1 px-6 py-3 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0 border-l border-line-0">Zero Trust</button>
         </div>
 
         <!-- ── WORKERS ────────────────────────────────────── -->
@@ -223,7 +223,7 @@ const roles = [
               {roles.map(({ role, q, text }, i) => (
                 <div class:list={["p-6 md:p-8 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === roles.length - 1 ? "" : "border-b", i >= roles.length - 2 ? "md:border-b-0" : ""]}>
                   <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{role}</span>
-                  <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-tight mb-4">{q}</h3>
+                  <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-4">{q}</h3>
                   <p class="text-sm text-ink-1 leading-relaxed">{text}</p>
                 </div>
               ))}
@@ -281,7 +281,7 @@ const roles = [
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-line-0">
         <div class="mx-auto max-w-3xl text-center">
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
             Find out which of yours are on this list.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed mb-10 mx-auto max-w-2xl">
@@ -301,13 +301,14 @@ const roles = [
 
     <script is:inline>
       function showTab(tab) {
-        const on  = 'px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink';
-        const off = 'px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0';
+        const base = 'flex-1 px-6 py-3 text-xs font-mono uppercase tracking-widest transition-all';
+        const on  = base + ' bg-white text-cta-ink';
+        const off = base + ' text-ink-1 hover:text-ink-0';
         const isWorkers = tab === 'workers';
         document.getElementById('tab-workers').classList.toggle('hidden', !isWorkers);
         document.getElementById('tab-trust').classList.toggle('hidden', isWorkers);
         document.getElementById('btn-workers').className = isWorkers ? on : off;
-        document.getElementById('btn-trust').className   = isWorkers ? off : on;
+        document.getElementById('btn-trust').className   = (isWorkers ? off : on) + ' border-l border-line-0';
         if (history.replaceState) history.replaceState(null, '', isWorkers ? location.pathname : '#trust');
       }
       // A link that lands on #trust should open that tab, not scroll past it.
