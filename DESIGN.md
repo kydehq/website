@@ -214,15 +214,16 @@ KYDE looks like an **engineering document that happens to be interactive** — a
 
 **Dark is the default and the primary reference.** Light is a second theme with the same components, layout and rules, currently not exposed via a UI toggle on the public marketing site, but the intended surface for product/dashboard UI going forward. Build dashboards so they work correctly in both from day one; do not treat light as an afterthought skin.
 
-**One known gap, checked 21 August 2026.** Markup, type, chips, borders and every static figure flip correctly. The two `<canvas>` figures do not: the hero data-stream and the readiness ring are both tuned for a light-on-dark ground, and on paper the particles nearly disappear while the radial blooms render as grey smudges rather than as light. A bloom is emitted light, so on a dark ground it brightens toward ink and on a light ground it has to tint toward an accent instead; the same gradient stops cannot serve both. Anyone re-exposing the toggle has to fix those two before it ships, and any new canvas figure should branch its palette on the ground rather than assume dark.
+**Both themes are exposed.** A toggle sits in the navbar, dark is the default,
+and the choice persists in `localStorage` with a guard in `Base.astro` that
+applies it before first paint so the page never flashes the wrong ground.
 
-Three ideas govern every design decision:
-
-1. **The border is the design.** Structure comes from 1px lines (`{colors.line-0}`) and stepped background shades, never from shadows, gradients, or rounded corners. Sections sit inside vertical "blueprint rails" — thin left/right borders that run the full height of the page and make the whole product read as one continuous technical drawing.
-2. **Motion is an argument, not decoration.** Every animation enacts a product claim: particles crossing a boundary and getting signed (the firewall), a radar sweep revealing shadow agents, a hash chain visibly breaking when tampered with, a counter racing to show an imbalance. If a proposed animation does not dramatize a specific claim, it does not ship. Everything respects `prefers-reduced-motion` with a static, still-meaningful fallback frame, and every animated figure must re-read its palette from CSS custom properties (never hardcoded rgb triples) so it inverts correctly on theme change.
-3. **Restraint reads as competence.** Body text is grey, not the extreme ink value. Accents are rare and semantic (green = living/verified data, red = blocked/alert). The one place the extreme "white" value appears as a solid fill is the primary CTA button — which is exactly why it works, in both themes.
-
-The product this file exists to skin (dashboards, consoles) already has an in-market reference: the "Fleet Status" mock on kyde.com/platform. When in doubt, build what that mock implies at full fidelity.
+**Canvas figures must branch on the ground.** A bloom is emitted light: on a
+dark ground it brightens toward ink, and on paper the same gradient stops paint
+a grey smudge instead. Both canvases read `--color-bg-0`, compute its luminance
+once per theme change, and use that flag to pick the bloom's colour and to lift
+particle opacities, which are otherwise tuned for light-on-dark and nearly
+vanish on paper. Any new canvas figure has to do the same; do not assume dark.
 
 ## Colors
 

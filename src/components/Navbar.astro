@@ -53,6 +53,14 @@ const otherHref = alternates[otherLocale];
       >
         Start your audit &gt;
       </a>
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Switch between dark and light"
+        class="inline-flex h-[33px] w-[33px] items-center justify-center border border-white/20 font-mono text-[11px] text-white/50 hover:border-white/60 hover:text-white transition-colors"
+      >
+        <span class="theme-glyph-dark">☾</span><span class="theme-glyph-light hidden">☀</span>
+      </button>
       {otherHref && (
         <a
           href={otherHref}
@@ -101,6 +109,14 @@ const otherHref = alternates[otherLocale];
       ))}
     </ul>
     <div class="space-y-3">
+      <button
+        id="theme-toggle-mobile"
+        type="button"
+        class="flex w-full items-center justify-between border border-white/20 px-4 py-3 font-mono text-xs uppercase tracking-[0.1em] text-white/60 hover:border-white/60 hover:text-white transition-colors"
+      >
+        <span>Appearance</span>
+        <span><span class="theme-glyph-dark">Dark ☾</span><span class="theme-glyph-light hidden">Light ☀</span></span>
+      </button>
       <a
         href="/audit"
         class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
@@ -149,11 +165,14 @@ const otherHref = alternates[otherLocale];
       themeColorMeta?.setAttribute('content', '#050505');
     }
     localStorage.setItem(THEME_KEY, theme);
+    document.querySelectorAll('.theme-glyph-dark').forEach((el) => el.classList.toggle('hidden', theme === 'light'));
+    document.querySelectorAll('.theme-glyph-light').forEach((el) => el.classList.toggle('hidden', theme !== 'light'));
     window.dispatchEvent(new CustomEvent('kyde:theme', { detail: { theme } }));
   };
   const toggleTheme = () => {
     setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
   };
+  setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
   document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
   document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
 </script>
