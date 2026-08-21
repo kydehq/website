@@ -461,32 +461,17 @@ const websiteSchema = {
 
                     <div class="flex flex-col">
                         <div class="flex flex-1 items-center justify-center py-6 md:py-0">
-                            <svg id="ring-fig" viewBox="0 0 460 440" class="w-full max-w-sm h-auto" aria-hidden="true">
-                                <!-- One process area as a closed ring: ten segments, sorted
-                                     into the four states as the ring assembles itself. The
-                                     circle is the point, that the whole of a process area is
-                                     accounted for and nothing is left off the edge. -->
-                                <g id="ring-segments"></g>
-
-                                <text id="ring-count" x="230" y="205" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:44px;font-weight:700;">0</text>
-                                <text x="230" y="230" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OF 10 STEPS</text>
-                                <text x="230" y="248" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">can be automated</text>
-
-                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;" fill="var(--color-ink-0)" fill-opacity="0.42">
-                                    <rect x="52" y="398" width="8" height="8" fill="var(--color-live)" fill-opacity="0.85" />
-                                    <text x="66" y="405">3 an agent</text>
-                                    <rect x="248" y="398" width="8" height="8" fill="var(--color-ink-0)" fill-opacity="0.72" />
-                                    <text x="262" y="405">3 code</text>
-                                    <rect x="52" y="418" width="8" height="8" fill="none" stroke="var(--color-ember)" stroke-opacity="0.75" stroke-width="1" />
-                                    <text x="66" y="425">1 not yet</text>
-                                    <rect x="248" y="418" width="8" height="8" fill="var(--color-ink-0)" fill-opacity="0.16" />
-                                    <circle cx="252" cy="422" r="1.8" fill="var(--color-ink-0)" fill-opacity="0.8" />
-                                    <text x="262" y="425">3 your people</text>
-                                </g>
-                            </svg>
+                            <div class="relative w-full aspect-square max-w-sm">
+                                <canvas id="ring-canvas" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                    <span id="ring-count" class="font-mono text-5xl font-bold text-live leading-none">0</span>
+                                    <span class="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">of 10 steps</span>
+                                    <span class="mt-1.5 font-mono text-[9px] tracking-[0.06em] text-white/30">can be automated</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · One process area, sorted. Illustrative.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · One process area. Filled is work a worker can take, open is work that stays with a person. Illustrative.</p>
                         </div>
                     </div>
                 </div>
@@ -523,15 +508,21 @@ const websiteSchema = {
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 border-t border-white/10 pt-12">
                     <div class="flex flex-col justify-center">
-                        <h3 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-white mb-5">See what can run without you, before you build anything.</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-white mb-5">Start your audit.</h3>
                         <p class="text-base text-white/55 leading-relaxed mb-10">
-                            We take one process area and the infrastructure behind it. You get a dated readout: how many steps can be automated today, what each of the others is waiting on, and who owns it. Three days for a team, two weeks for a department. Fixed price, credited against your first automation project.
+                            One process area and the infrastructure behind it. Three days for a team, two weeks for a department. Fixed price, credited against your first automation project.
                         </p>
                         <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-                            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all">
+                            <button
+                                onclick="openModal()"
+                                class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
+                            >
                                 Start your audit →
                             </button>
-                            <a href="/audit" class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all">
+                            <a
+                                href="/audit"
+                                class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
+                            >
                                 How it works →
                             </a>
                         </div>
@@ -542,222 +533,283 @@ const websiteSchema = {
                             <span class="fig-label">FIG.2</span>
                         </div>
                         <div class="flex flex-1 items-center justify-center py-10">
-                            <svg id="forecast-fig" viewBox="0 0 480 236" class="w-full max-w-md h-auto" aria-hidden="true">
-                                <!-- One row, read left to right, where a step's position is
-                                     the moment it becomes available. The sweep is six months
-                                     passing. Everything else came off. -->
-                                <text id="fc-count" x="40" y="66" fill="var(--color-live)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:38px;font-weight:700;">3</text>
-                                <text id="fc-of" x="92" y="58" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.14em;">OF 10 STEPS</text>
-                                <text x="92" y="74" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;">running without a person</text>
+                            <svg id="sieve-fig" viewBox="0 0 480 400" class="w-full max-w-sm h-auto" aria-hidden="true">
+                                <!-- Work as it is falls in, crosses the audit, and lands
+                                     sorted. The colors are the ones the ring above taught,
+                                     so the bins need no labels of their own. -->
+                                <text x="40" y="34" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.16em;">THE WORK AS IT IS</text>
 
-                                <g id="fc-cells"></g>
-                                <line id="fc-head" x1="43" y1="108" x2="43" y2="162" stroke="var(--color-live)" stroke-opacity="0.7" stroke-width="1" />
+                                <g id="sieve-drops"></g>
 
-                                <line x1="43" y1="182" x2="437" y2="182" stroke="var(--color-ink-0)" stroke-opacity="0.18" stroke-width="1" />
-                                <text x="43" y="198" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">TODAY</text>
-                                <text x="437" y="198" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.35" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">IN SIX MONTHS</text>
+                                <line x1="40" y1="206" x2="440" y2="206" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
+                                <text x="40" y="198" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE AUDIT</text>
+                                <text x="440" y="198" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">two weeks · one process area</text>
 
-                                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;" fill="var(--color-ink-0)" fill-opacity="0.4">
-                                    <rect x="43" y="219" width="8" height="8" fill="var(--color-live)" fill-opacity="0.8" />
-                                    <text x="57" y="226">running</text>
-                                    <rect x="118" y="219" width="8" height="8" fill="none" stroke="var(--color-ember)" stroke-opacity="0.7" stroke-width="1" />
-                                    <text x="132" y="226">not yet</text>
-                                    <rect x="193" y="219" width="8" height="8" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.4" stroke-width="1" />
-                                    <circle cx="197" cy="223" r="1.6" fill="var(--color-ink-0)" fill-opacity="0.6" />
-                                    <text x="207" y="226">stays with a person</text>
-                                </g>
+                                <text x="40" y="386" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.16em;">A DATED READOUT</text>
                             </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · Ten steps of one process area, ordered by when each becomes available. The row is the next six months. Illustrative.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · Ten steps in, four states out.</p>
                         </div>
                     </div>
                 </div>
-            </div>
             <script>
-                // forecast-fig · ten steps of one process area in a single row, ordered
-                // by the moment each becomes available. The sweep is six months of
-                // calendar passing, so a step lighting up as the line reaches it is the
-                // whole idea: nobody did anything, the date arrived. The last three
-                // never light, and they are the reason the count is worth believing.
-                const fcFig = document.getElementById("forecast-fig");
-                const fcReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                // sieve-fig · the audit as the thing it is: work goes in the way it
+                // actually exists, unsorted and uneven, crosses one line, and comes
+                // out in states you can act on. The colors are the ones the ring
+                // above established, so nothing down here needs a label.
+                const sieveFig = document.getElementById("sieve-fig");
+                const sieveReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                if (fcFig) {
+                if (sieveFig) {
                     const NS = "http://www.w3.org/2000/svg";
-                    const X0 = 43, W = 34, GAP = 6, Y = 118, H = 34;
-                    const SWEEP = 7000, HOLD = 2200;
-                    // "at" is when the step becomes available, as a share of the window.
-                    // 0 means it already runs; null means not inside this window at all.
-                    const STEPS = [
-                        { at: 0 }, { at: 0 }, { at: 0 },
-                        { at: 0.30 }, { at: 0.56 }, { at: 0.82 },
-                        { at: null },
-                        { person: true }, { person: true }, { person: true },
+                    const LINE = 206, FLOOR = 356, S = 15, BIN = [96, 192, 288, 384];
+                    const EVERY = 420, FALL = 1000, HOLD = 2400;
+                    // start x, and which bin it belongs in: 0 agent 1 code 2 soon 3 people
+                    const DROPS = [
+                        { x: 128, y: 58, bin: 0 }, { x: 236, y: 44, bin: 1 }, { x: 344, y: 62, bin: 3 },
+                        { x:  74, y: 96, bin: 1 }, { x: 190, y: 88, bin: 0 }, { x: 300, y: 104, bin: 3 },
+                        { x: 408, y: 92, bin: 2 }, { x: 152, y: 132, bin: 3 }, { x: 268, y: 140, bin: 0 },
+                        { x: 372, y: 128, bin: 1 },
                     ];
+                    const FILL = ["var(--color-live)", "var(--color-ink-0)", "none", "var(--color-ink-0)"];
+                    const OPACITY = ["0.85", "0.72", "0", "0.16"];
 
-                    const layer = document.getElementById("fc-cells");
-                    const head = document.getElementById("fc-head");
-                    const count = document.getElementById("fc-count");
-                    const cells = [];
-
-                    STEPS.forEach((s, i) => {
-                        const x = X0 + i * (W + GAP);
+                    const layer = document.getElementById("sieve-drops");
+                    const stack = [0, 0, 0, 0];
+                    const items = DROPS.map((d) => {
+                        const g = document.createElementNS(NS, "g");
                         const r = document.createElementNS(NS, "rect");
-                        r.setAttribute("x", String(x));
-                        r.setAttribute("y", String(Y));
-                        r.setAttribute("width", String(W));
-                        r.setAttribute("height", String(H));
-                        r.setAttribute("stroke-width", "1");
-                        layer.appendChild(r);
-                        cells.push(r);
-                        if (s.person) {
-                            const d = document.createElementNS(NS, "circle");
-                            d.setAttribute("cx", String(x + W / 2));
-                            d.setAttribute("cy", String(Y + H / 2));
-                            d.setAttribute("r", "2.5");
-                            d.setAttribute("fill", "var(--color-ink-0)");
-                            d.setAttribute("fill-opacity", "0.55");
-                            layer.appendChild(d);
-                        }
+                        r.setAttribute("width", String(S)); r.setAttribute("height", String(S));
+                        r.setAttribute("x", "0"); r.setAttribute("y", "0");
+                        r.setAttribute("fill", "var(--color-ink-0)");
+                        r.setAttribute("fill-opacity", "0.30");
+                        g.appendChild(r);
+                        const dot = document.createElementNS(NS, "circle");
+                        dot.setAttribute("cx", String(S / 2)); dot.setAttribute("cy", String(S / 2));
+                        dot.setAttribute("r", "2.4");
+                        dot.setAttribute("fill", "var(--color-ink-0)");
+                        dot.setAttribute("fill-opacity", "0");
+                        g.appendChild(dot);
+                        layer.appendChild(g);
+                        return { g, r, dot, d, landed: false, slot: 0 };
                     });
 
-                    const paint = (t) => {
-                        head.setAttribute("x1", String(X0 + (437 - X0) * t));
-                        head.setAttribute("x2", String(X0 + (437 - X0) * t));
-                        let on = 0;
-                        STEPS.forEach((s, i) => {
-                            const lit = !s.person && s.at !== null && t >= s.at;
-                            if (lit) on++;
-                            const c = cells[i];
-                            if (s.person) {
-                                c.setAttribute("fill", "none");
-                                c.setAttribute("stroke", "var(--color-ink-0)");
-                                c.setAttribute("stroke-opacity", "0.35");
-                            } else if (lit) {
-                                c.setAttribute("fill", "var(--color-live)");
-                                c.setAttribute("fill-opacity", "0.8");
-                                c.setAttribute("stroke", "none");
-                            } else {
-                                c.setAttribute("fill", "none");
-                                c.setAttribute("stroke", "var(--color-ember)");
-                                c.setAttribute("stroke-opacity", "0.6");
-                            }
+                    const place = (it, x, y) => it.g.setAttribute("transform", `translate(${x - S / 2},${y - S / 2})`);
+
+                    const reset = () => {
+                        stack.fill(0);
+                        items.forEach((it) => {
+                            it.landed = false;
+                            place(it, it.d.x, it.d.y);
+                            it.r.setAttribute("fill", "var(--color-ink-0)");
+                            it.r.setAttribute("fill-opacity", "0.30");
+                            it.r.setAttribute("stroke", "none");
+                            it.dot.setAttribute("fill-opacity", "0");
                         });
-                        count.textContent = String(on);
                     };
 
-                    if (fcReduced) {
-                        paint(1);
+                    const dress = (it) => {
+                        const b = it.d.bin;
+                        if (b === 2) {
+                            it.r.setAttribute("fill", "none");
+                            it.r.setAttribute("stroke", "var(--color-ember)");
+                            it.r.setAttribute("stroke-opacity", "0.75");
+                            it.r.setAttribute("stroke-width", "1");
+                        } else {
+                            it.r.setAttribute("fill", FILL[b]);
+                            it.r.setAttribute("fill-opacity", OPACITY[b]);
+                        }
+                        if (b === 3) it.dot.setAttribute("fill-opacity", "0.8");
+                    };
+
+                    const frameAt = (t) => {
+                        items.forEach((it, i) => {
+                            const start = i * EVERY;
+                            const p = Math.min(Math.max((t - start) / FALL, 0), 1);
+                            if (p <= 0) { place(it, it.d.x, it.d.y); return; }
+                            if (!it.landed) { it.slot = stack[it.d.bin]++; it.landed = true; }
+                            const tx = BIN[it.d.bin], ty = FLOOR - it.slot * (S + 3);
+                            // ease out, so it settles rather than stops
+                            const e = 1 - Math.pow(1 - p, 3);
+                            place(it, it.d.x + (tx - it.d.x) * e, it.d.y + (ty - it.d.y) * e);
+                            if (it.d.y + (ty - it.d.y) * e > LINE) dress(it);
+                        });
+                    };
+
+                    if (sieveReduced) {
+                        frameAt(DROPS.length * EVERY + FALL);
                     } else {
                         let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fcFig);
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(sieveFig);
                         let start = 0;
-                        function fcFrame(now) {
+                        const total = DROPS.length * EVERY + FALL;
+                        function sieveFrame(now) {
                             if (visible) {
                                 if (!start) start = now;
                                 const el = now - start;
-                                if (el < SWEEP) paint(el / SWEEP);
-                                else if (el < SWEEP + HOLD) paint(1);
-                                else { start = now; paint(0); }
+                                if (el < total) frameAt(el);
+                                else if (el < total + HOLD) frameAt(total);
+                                else { start = now; reset(); }
                             }
-                            requestAnimationFrame(fcFrame);
+                            requestAnimationFrame(sieveFrame);
                         }
-                        paint(0);
-                        requestAnimationFrame(fcFrame);
+                        reset();
+                        requestAnimationFrame(sieveFrame);
                     }
                 }
             </script>
             <script>
-                // ring-fig · a process area is a closed thing, so it is drawn closed.
-                // Ten segments arrive one at a time, each already in the state the
-                // mapping put it in, and the count in the middle only rises for the
-                // seven that can be automated. The three that stay with a person land
-                // like everything else and simply never count, which is the argument.
-                const ringFig = document.getElementById("ring-fig");
-                const ringReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                // ring-canvas · the same physics as the hero stage, in a circle. Work
+                // drifts in from wherever it actually lives, curves toward the place on
+                // the ring the mapping gave it, and the moment it lands there is a bloom
+                // that expands and burns out. Squares are angular because the geometry of
+                // this system is; the light is round because that is how contact behaves.
+                // Monochrome throughout, with live only in the outer stops of a bloom and
+                // on the count, so the one number that matters is the one thing with color.
+                const ringCanvas = document.getElementById("ring-canvas") as HTMLCanvasElement | null;
+                const ringCountEl = document.getElementById("ring-count");
 
-                if (ringFig) {
-                    const NS = "http://www.w3.org/2000/svg";
-                    const CX = 230, CY = 190, R = 128, GAP = 3, STEP = 360 / 10;
-                    const ARRIVE = 380, HOLD = 2600;
-                    // agent · code · not yet · person, in the order they sit on the ring
-                    const KIND = ["agent","agent","agent","code","code","code","soon","person","person","person"];
-                    const COUNTS = { agent: true, code: true, soon: true, person: false };
+                if (ringCanvas) {
+                    const ctx = ringCanvas.getContext("2d")!;
+                    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                    const layer = document.getElementById("ring-segments");
-                    const count = document.getElementById("ring-count");
+                    const C = { ink: "242,242,242", live: "61,220,132" };
+                    const toRgb = (hex: string) => {
+                        const m = hex.trim().replace("#", "");
+                        const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
+                        return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+                    };
+                    const readColors = () => {
+                        const cs = getComputedStyle(document.documentElement);
+                        C.ink = toRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
+                        C.live = toRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+                    };
+                    readColors();
 
-                    const pt = (deg, r) => {
-                        const a = (deg - 90) * Math.PI / 180;
-                        return [CX + r * Math.cos(a), CY + r * Math.sin(a)];
+                    // deterministic jitter, so the drift is uneven but never different
+                    const hash = (n: number) => {
+                        let t = (n + 0x6d2b79f5) | 0;
+                        t = Math.imul(t ^ (t >>> 15), t | 1);
+                        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
                     };
 
-                    const arcs = KIND.map((kind, i) => {
-                        const a1 = i * STEP + GAP / 2, a2 = (i + 1) * STEP - GAP / 2;
-                        const [x1, y1] = pt(a1, R), [x2, y2] = pt(a2, R);
-                        const el = document.createElementNS(NS, "path");
-                        el.setAttribute("d", `M ${x1} ${y1} A ${R} ${R} 0 0 1 ${x2} ${y2}`);
-                        el.setAttribute("fill", "none");
-                        el.setAttribute("stroke-width", "22");
-                        el.setAttribute("opacity", "0");
-                        if (kind === "agent")       { el.setAttribute("stroke", "var(--color-live)");  el.setAttribute("stroke-opacity", "0.85"); }
-                        else if (kind === "code")   { el.setAttribute("stroke", "var(--color-ink-0)"); el.setAttribute("stroke-opacity", "0.72"); }
-                        else if (kind === "soon")   { el.setAttribute("stroke", "var(--color-ember)"); el.setAttribute("stroke-opacity", "0.6");  el.setAttribute("stroke-dasharray", "2 5"); }
-                        else                       { el.setAttribute("stroke", "var(--color-ink-0)"); el.setAttribute("stroke-opacity", "0.16"); }
-                        layer.appendChild(el);
-                        return el;
-                    });
+                    const N = 10, TAKEN = 7;          // seven a worker can take, three stay
+                    const TRAVEL = 2100, BLOOM = 1500, HOLD = 2600, FADE = 1100;
+                    let W = 0, H = 0, CXp = 0, CYp = 0, R = 0;
 
-                    // the three that stay with a person carry a mark, so they read as a
-                    // decision rather than as a gap in the ring
-                    KIND.forEach((kind, i) => {
-                        if (kind !== "person") return;
-                        const [x, y] = pt(i * STEP + STEP / 2, R);
-                        const d = document.createElementNS(NS, "circle");
-                        d.setAttribute("cx", String(x)); d.setAttribute("cy", String(y));
-                        d.setAttribute("r", "3.4");
-                        d.setAttribute("fill", "var(--color-ink-0)");
-                        d.setAttribute("fill-opacity", "0.8");
-                        d.setAttribute("class", "ring-dot");
-                        d.setAttribute("opacity", "0");
-                        layer.appendChild(d);
-                    });
-                    const dots = Array.from(layer.querySelectorAll(".ring-dot"));
+                    const seeds = Array.from({ length: N }, (_, i) => ({
+                        // where the work sits before anybody has looked at it
+                        a0: hash(i * 13 + 1) * Math.PI * 2,
+                        r0: 0.62 + hash(i * 29 + 5) * 0.55,
+                        // when it arrives, deliberately uneven
+                        t0: 260 + hash(i * 47 + 11) * 3600,
+                        spin: (hash(i * 71 + 3) - 0.5) * 1.6,
+                        slot: i,
+                    })).sort((p, q) => p.t0 - q.t0);
 
-                    const show = (n) => {
-                        let c = 0, d = 0;
-                        arcs.forEach((el, i) => {
-                            const on = i < n;
-                            el.setAttribute("opacity", on ? "1" : "0");
-                            if (on && COUNTS[KIND[i]]) c++;
-                            if (KIND[i] === "person") { dots[d].setAttribute("opacity", on ? "1" : "0"); d++; }
+                    const resize = () => {
+                        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                        const w = ringCanvas.clientWidth, h = ringCanvas.clientHeight;
+                        if (!w || !h) return;
+                        W = w; H = h; CXp = w / 2; CYp = h / 2; R = Math.min(w, h) * 0.36;
+                        ringCanvas.width = Math.round(w * dpr);
+                        ringCanvas.height = Math.round(h * dpr);
+                        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    };
+
+                    const slotPos = (i: number) => {
+                        const a = (i / N) * Math.PI * 2 - Math.PI / 2;
+                        return [CXp + R * Math.cos(a), CYp + R * Math.sin(a)];
+                    };
+
+                    const draw = (t: number, alpha: number) => {
+                        ctx.clearRect(0, 0, W, H);
+                        let arrived = 0;
+
+                        // the ring is barely there; the work sitting on it is what shows it
+                        ctx.strokeStyle = `rgba(${C.ink},${0.07 * alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.arc(CXp, CYp, R, 0, Math.PI * 2);
+                        ctx.stroke();
+
+                        seeds.forEach((s, idx) => {
+                            const taken = idx < TAKEN;
+                            const p = Math.min(Math.max((t - s.t0) / TRAVEL, 0), 1);
+                            const ease = 1 - Math.pow(1 - p, 3);
+                            const [tx, ty] = slotPos(s.slot);
+                            // spiral in: the angle closes as the radius does
+                            const a = s.a0 + s.spin * (1 - ease);
+                            const rr = R * (s.r0 + (1 - s.r0) * ease);
+                            const x = p < 1 ? CXp + rr * Math.cos(a) + (tx - (CXp + rr * Math.cos(a))) * ease : tx;
+                            const y = p < 1 ? CYp + rr * Math.sin(a) + (ty - (CYp + rr * Math.sin(a))) * ease : ty;
+
+                            if (p >= 1) arrived += taken ? 1 : 0;
+
+                            // bloom at the moment of contact, expanding and burning out
+                            const since = t - (s.t0 + TRAVEL);
+                            if (since > 0 && since < BLOOM) {
+                                const age = since / BLOOM;
+                                const br = 6 + (1 - Math.pow(1 - age, 2)) * R * 0.48;
+                                const ba = (1 - age) * 0.6 * alpha;
+                                const g = ctx.createRadialGradient(tx, ty, 0, tx, ty, br);
+                                g.addColorStop(0, `rgba(${C.ink},${ba})`);
+                                g.addColorStop(0.22, `rgba(${C.ink},${ba * 0.32})`);
+                                g.addColorStop(0.6, `rgba(${taken ? C.live : C.ink},${ba * (taken ? 0.16 : 0.08)})`);
+                                g.addColorStop(1, `rgba(${taken ? C.live : C.ink},0)`);
+                                ctx.fillStyle = g;
+                                ctx.beginPath();
+                                ctx.arc(tx, ty, br, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+
+                            // the mark itself stays angular
+                            const size = 5;
+                            const settled = p >= 1;
+                            const o = (settled ? 1 : 0.22 + 0.5 * ease) * alpha;
+                            if (taken) {
+                                ctx.fillStyle = `rgba(${C.ink},${(settled ? 0.85 : 0.45) * o})`;
+                                ctx.fillRect(x - size / 2, y - size / 2, size, size);
+                            } else {
+                                ctx.strokeStyle = `rgba(${C.ink},${(settled ? 0.5 : 0.3) * o})`;
+                                ctx.lineWidth = 1;
+                                ctx.strokeRect(x - size / 2, y - size / 2, size, size);
+                            }
                         });
-                        count.textContent = String(c);
+
+                        if (ringCountEl) ringCountEl.textContent = String(arrived);
                     };
 
-                    if (ringReduced) {
-                        show(10);
+                    const LAST = seeds[seeds.length - 1].t0 + TRAVEL + BLOOM;
+
+                    resize();
+                    const ro = "ResizeObserver" in window ? new ResizeObserver(() => resize()) : null;
+                    if (ro) ro.observe(ringCanvas);
+                    window.addEventListener("kyde:theme", readColors);
+
+                    if (reduced) {
+                        draw(LAST + HOLD, 1);
                     } else {
                         let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ringFig);
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ringCanvas);
                         let start = 0;
-                        function ringFrame(now) {
+                        const frame = (now: number) => {
                             if (visible) {
                                 if (!start) start = now;
                                 const el = now - start;
-                                const full = ARRIVE * 10;
-                                if (el < full) show(Math.floor(el / ARRIVE) + 1);
-                                else if (el < full + HOLD) show(10);
-                                else { start = now; show(0); }
+                                if (el < LAST + HOLD) draw(el, 1);
+                                else if (el < LAST + HOLD + FADE) draw(LAST + HOLD, 1 - (el - LAST - HOLD) / FADE);
+                                else start = now;
                             }
-                            requestAnimationFrame(ringFrame);
-                        }
-                        show(0);
-                        requestAnimationFrame(ringFrame);
+                            requestAnimationFrame(frame);
+                        };
+                        requestAnimationFrame(frame);
                     }
                 }
             </script>
+            </div>
         </section>
 
         <!-- ══════════ BUILT ON KYDE ZERO TRUST ══════════ -->
