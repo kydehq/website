@@ -3,18 +3,16 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-// One shape per sector, and the same shape every time: the process as it runs
-// today, the part a worker takes, the part that stays with a person and why,
-// and what the record holds afterwards. The "human" field is not a disclaimer.
-// It is the most load-bearing line in each entry, because a buyer in a
-// regulated house is checking whether we understand where the line is before
-// they believe anything else on the page.
-const cases = [
+// Two tabs because there are two buyers, and one diagram above them because
+// there is one product. The last field of every worker entry is "what KYDE
+// records", which is the quiet argument that the workers run on the trust
+// platform rather than beside it.
+const workers = [
   {
     n: '01',
-    sector: 'Banking & financial services',
+    sector: 'Banking & finance',
+    process: 'Credit file pre-check',
     tag: 'DORA · BaFin · EU AI Act',
-    process: 'Credit file pre-check before committee',
     today: 'An analyst opens the file, pulls three years of statements, reconciles the covenant list against the current facility and writes a one-page summary. Forty minutes when the file is clean. Half a day when it is not.',
     worker: 'Pulls the statements, reconciles the covenants, drafts the summary, and names the figures it could not source instead of estimating them.',
     human: 'The credit decision. It has legal effect on the applicant, so it stays with the committee. The worker prepares the file. It does not vote.',
@@ -23,9 +21,9 @@ const cases = [
   },
   {
     n: '02',
-    sector: 'Insurance & claims',
-    tag: 'EU AI Act · Solvency II · GDPR',
+    sector: 'Insurance',
     process: 'First assessment of a motor claim',
+    tag: 'EU AI Act · Solvency II · GDPR',
     today: 'A handler reads the report, checks the policy for exclusions, sets a reserve and decides whether to instruct an assessor. The exclusions are in a PDF from 2021 that four people know how to read.',
     worker: 'Reads the report, pulls the policy, proposes a reserve and cites the clause it relied on. Instructs an assessor when the estimate is over the threshold.',
     human: 'Every rejection. A refusal is something a policyholder can contest, so it goes to a person with the whole file in front of them.',
@@ -34,9 +32,9 @@ const cases = [
   },
   {
     n: '03',
-    sector: 'Healthcare & pharma',
+    sector: 'Healthcare',
+    process: 'Reimbursement claim preparation',
     tag: 'EU AI Act · GDPR Art. 9 · MDR',
-    process: 'Coding and submitting a reimbursement claim',
     today: 'A coder reads the discharge letter, assigns ICD-10 codes, checks them against the payer rules and submits. Rejected claims come back weeks later and get reworked by whoever is free.',
     worker: 'Drafts the coding from the letter, checks it against the payer rules, and holds anything the letter does not clearly support.',
     human: 'The diagnosis, always. The worker codes what a clinician wrote. It never decides what is wrong with a patient.',
@@ -45,9 +43,9 @@ const cases = [
   },
   {
     n: '04',
-    sector: 'Manufacturing & supply chain',
+    sector: 'Manufacturing',
+    process: 'Supplier release',
     tag: 'EU AI Act · NIS-2 · CSDDD',
-    process: 'Supplier release after incoming inspection',
     today: 'A buyer checks the inspection report against the spec, looks up whether this supplier has had deviations before, and releases the batch or holds it. The deviation history lives in one person\'s spreadsheet.',
     worker: 'Matches the report to the spec, pulls the supplier history, and releases within the tolerance band. Holds anything outside it and says which measurement was out.',
     human: 'Releasing a batch that failed inspection. That is a quality decision with a name attached to it, and it stays with the person whose name that is.',
@@ -57,8 +55,8 @@ const cases = [
   {
     n: '05',
     sector: 'Public sector',
+    process: 'Permit completeness check',
     tag: 'EU AI Act · VwVfG · GDPR',
-    process: 'Completeness check on a permit application',
     today: 'A caseworker checks the application against the checklist, writes to the applicant for what is missing, and puts the file back in the queue. Most of the queue is waiting on one document.',
     worker: 'Runs the checklist, drafts the request for the missing documents, and puts the file in front of the caseworker complete.',
     human: 'The decision. Where German administrative law leaves a matter to an official\'s discretion, it is not automated. The worker prepares the file and stops.',
@@ -67,9 +65,9 @@ const cases = [
   },
   {
     n: '06',
-    sector: 'Energy & critical infrastructure',
+    sector: 'Energy',
+    process: 'Operational reporting',
     tag: 'NIS-2 · KRITIS · EU AI Act',
-    process: 'Balancing-group reporting after a dispatch event',
     today: 'After an imbalance, an operator reconstructs what happened from four systems and writes the report. The reconstruction takes longer than the event did.',
     worker: 'Assembles the timeline from the recorded actions, drafts the report, and marks the intervals where the data does not agree with itself.',
     human: 'The dispatch itself. Nothing in the control loop is automated by KYDE. The worker documents, it does not operate.',
@@ -78,35 +76,62 @@ const cases = [
   },
 ];
 
-// Four people have to agree before a worker runs. Each gets the sentence that
-// answers the question they will actually ask in the room.
+const trustCases = [
+  {
+    n: '01',
+    audience: 'Compliance',
+    name: 'AI audit trail',
+    line: 'Continuous evidence for regulated AI systems.',
+    body: 'Every action is hash-chained at the boundary, before it reaches a provider, and exported as a dated document your auditor recomputes offline. Your provider\'s log lives on their infrastructure and is signed with their keys. In a dispute that involves them, it is theirs.',
+    href: '/trust#evidence',
+  },
+  {
+    n: '02',
+    audience: 'Insurance',
+    name: 'AI telemetry',
+    line: 'Observe how AI actually behaves in production.',
+    body: 'Not what a system was designed to do, and not what a questionnaire says it does. Which actions it took, against which systems, how often, and how much of that was ever recorded in the first place.',
+    href: '/trust#flight-recorder',
+  },
+  {
+    n: '03',
+    audience: 'AI governance',
+    name: 'Continuous evaluation',
+    line: 'Measure whether AI stays reliable as models, data and workflows change.',
+    body: 'A recorded run is a set of real cases where the outcome is already known. Re-run them when a model ships and the drift is a number, not an anecdote that arrives through a support ticket six weeks later.',
+    href: '/trust#replay',
+  },
+  {
+    n: '04',
+    audience: 'Incident & risk',
+    name: 'Replay',
+    line: 'Reconstruct and rerun what happened.',
+    body: 'A model swapped under the same name does not announce itself. Replaying a recorded run against today\'s models and policies turns "something changed" into a difference you can point at.',
+    href: '/trust#replay',
+  },
+  {
+    n: '05',
+    audience: 'Audit & advisory',
+    name: 'Independent evidence',
+    line: 'Evidence your client\'s own vendor cannot edit.',
+    body: 'The record is captured outside the systems being examined and verified with the public key that travels with the export. You check it without us, and without the vendor whose behavior is in question.',
+    href: '/trust#evidence',
+  },
+];
+
+// The four people who have to agree before a worker runs, each with the
+// question they actually ask in the room.
 const roles = [
-  {
-    role: 'Operations',
-    q: 'What do I get back?',
-    text: 'The process you own, written down properly for the first time, and then the routine part of it running on its own. You keep the exceptions, which is the part you were doing the thinking on anyway. Start with one process area and see the readout before you commit to anything.',
-  },
-  {
-    role: 'CIO & CTO',
-    q: 'What am I taking on?',
-    text: 'One layer, on-premise or in your private cloud, in front of whatever models you already use. No agent framework to standardize on and no vendor to be locked into: the workers, the processes and the record are yours, and they keep working if we disappear.',
-  },
-  {
-    role: 'Compliance & legal',
-    q: 'Can I evidence this?',
-    text: 'Every action is hash-chained at the boundary and exported as a dated document your auditor recomputes offline, without us in the room. Where the EU AI Act assigns deployer obligations, they stay with you. This is the apparatus for meeting them, not a claim that they went away.',
-  },
-  {
-    role: 'Works council & data protection',
-    q: 'What happens to the people?',
-    text: 'Recording how someone works is subject to co-determination, so you are in the room on day one, before anything is recorded. Sessions are scoped and announced, personal data is removed locally before storage, and the person recorded can review and delete their own sessions.',
-  },
+  { role: 'Operations', q: 'What do I get back?', text: 'The process you own, written down properly for the first time, and then the routine part of it running on its own. You keep the exceptions, which is the part you were doing the thinking on anyway.' },
+  { role: 'CIO & CTO', q: 'What am I taking on?', text: 'One layer, on-premise or in your private cloud, in front of whatever models you already use. No agent framework to standardize on and no vendor to be locked into. The workers, the processes and the record are yours.' },
+  { role: 'Compliance & legal', q: 'Can I evidence this?', text: 'Every action is hash-chained at the boundary and exported as a dated document your auditor recomputes offline. Where the EU AI Act assigns deployer obligations, they stay with you. This is the apparatus for meeting them.' },
+  { role: 'Works council & data protection', q: 'What happens to the people?', text: 'Recording how someone works is subject to co-determination, so you are in the room on day one, before anything is recorded. Sessions are scoped and announced, personal data is removed locally before storage.' },
 ];
 ---
 
 <Base
   title="Use Cases, KYDE"
-  description="Six real processes, in banking, insurance, healthcare, manufacturing, public sector and energy: what a worker takes over, what stays with a person, and what the record holds afterwards."
+  description="One trust platform, two ways to use it. Build workers for real business processes, or use KYDE Trust to govern, evaluate and prove AI you already run."
 >
   <Navbar />
 
@@ -115,97 +140,183 @@ const roles = [
     <!-- ══════════ HERO ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-24 md:pt-44 md:pb-32 md:border-x md:border-line-0">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-44 md:pb-20 md:border-x md:border-line-0">
 
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-12">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Use cases</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">What can KYDE do for you?</span>
+          <span class="fig-label">FIG.1</span>
         </div>
 
-        <h1 class="hero-h1 max-w-5xl text-4xl text-ink-0 uppercase tracking-tight md:text-5xl lg:text-6xl">
-          Six processes.<br />One of them is yours.
+        <h1 class="hero-h1 max-w-4xl text-4xl text-ink-0 uppercase tracking-tight md:text-5xl lg:text-6xl">
+          One trust platform.<br />Two ways to use it.
         </h1>
+        <p class="mt-8 text-lg text-ink-1 leading-relaxed max-w-3xl">
+          Build workers for your business, or use KYDE Trust to govern, evaluate and prove AI you already run. Most companies start with the first and discover they wanted the second as well.
+        </p>
 
-        <div class="mt-14 border-t border-line-0 pt-10 grid md:grid-cols-2 gap-10 md:gap-16">
-          <p class="text-lg text-ink-1 leading-relaxed">
-            Every one of these is a real process that a person does today, in a house that is regulated, with a step in it that nobody wrote down. None of them get automated end to end, and the entries below say where each one stops.
-          </p>
-          <p class="text-lg text-ink-1 leading-relaxed">
-            The audit finds which of your processes look like these. Two weeks, one process area, and a dated readout of what is buildable now and what is waiting on what.
+        <!-- The relationship between the two, drawn once, above the choice -->
+        <div class="mt-14 border border-line-0 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-6">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">Workers are built on Trust. Trust also runs on its own.</span>
+            <span class="fig-label">FIG.1</span>
+          </div>
+          <svg viewBox="0 0 1000 380" class="w-full h-auto" aria-hidden="true">
+            <path d="M6 21 L6 6 L21 6"          fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+            <path d="M979 6 L994 6 L994 21"     fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+            <path d="M6 359 L6 374 L21 374"     fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+            <path d="M994 359 L994 374 L979 374" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+            <!-- the platform -->
+            <rect x="350" y="34" width="300" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
+            <text x="500" y="60" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.18em;">KYDE TRUST</text>
+            <text x="500" y="79" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">record · control · evaluate · replay · evidence</text>
+
+            <!-- it branches -->
+            <path d="M500 92 L500 118 L250 118 L250 148" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+            <path d="M500 92 L500 118 L750 118 L750 148" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+            <!-- branch one: what we build -->
+            <rect x="100" y="148" width="300" height="86" fill="none" stroke="var(--color-live)" stroke-opacity="0.45" stroke-width="1" />
+            <text x="250" y="176" text-anchor="middle" fill="var(--color-live)" fill-opacity="0.90" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.16em;">KYDE WORKERS</text>
+            <text x="250" y="197" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">automate the work</text>
+            <text x="250" y="215" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">code · agents · people</text>
+
+            <!-- branch two: what you already run -->
+            <rect x="600" y="148" width="300" height="86" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+            <text x="750" y="176" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.80" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.16em;">AI YOU ALREADY RUN</text>
+            <text x="750" y="197" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">govern · record · evaluate · prove</text>
+            <text x="750" y="215" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">someone else built it</text>
+
+            <!-- and they land in the same place -->
+            <path d="M250 234 L250 268 L500 268 L500 292" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+            <path d="M750 234 L750 268 L500 268 L500 292" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" />
+
+            <rect x="350" y="292" width="300" height="52" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.40" stroke-width="1" />
+            <text x="500" y="323" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.70" style="font-family:'JetBrains Mono Variable',monospace;font-size:11px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
+          </svg>
+          <p class="mt-6 font-mono text-[10px] text-ink-2 leading-relaxed border-t border-line-0 pt-4">
+            FIG.1 · The same layer on both branches. That is why two very different buyers are looking at one product.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ USE CASES ══════════ -->
+    <!-- ══════════ TABS ══════════ -->
     <section class="border-t border-line-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
 
         <div class="flex mb-12 border-b border-line-0 w-fit">
-          <button
-            id="btn-industry"
-            onclick="showTab('industry')"
-            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink"
-          >By industry</button>
-          <button
-            id="btn-role"
-            onclick="showTab('role')"
-            class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0"
-          >By role</button>
+          <button id="btn-workers" onclick="showTab('workers')"
+            class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink">Workers</button>
+          <button id="btn-trust" onclick="showTab('trust')"
+            class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0">Trust</button>
         </div>
 
-        <!-- BY INDUSTRY -->
-        <div id="tab-industry" class="border border-line-0 divide-y divide-line-0">
-        {cases.map(({ n, sector, tag, process, today, worker, human, record, regs }) => (
-          <article class="px-6 py-8 md:px-9 md:py-10">
+        <!-- ── WORKERS ────────────────────────────────────── -->
+        <div id="tab-workers">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-4 max-w-3xl">
+            Workers for real business processes.
+          </h2>
+          <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
+            KYDE finds the work worth automating, builds the worker and runs it inside the KYDE Trust Platform. Six processes that people do today, in houses that are regulated, each with a step nobody wrote down.
+          </p>
 
-            <div class="flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6 mb-8">
-              <span class="font-mono text-[11px] tracking-[0.1em] text-gold shrink-0">{n}</span>
-              <div class="flex-1">
-                <h2 class="text-xl md:text-2xl font-bold text-ink-0 leading-tight">{sector}</h2>
-                <p class="mt-1.5 font-mono text-xs uppercase tracking-[0.12em] text-ink-1">{process}</p>
-              </div>
-              <span class="shrink-0 inline-flex items-center border border-line-0 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-2 self-start">
-                {tag}
-              </span>
+          <div class="border border-line-0 divide-y divide-line-0">
+            {workers.map(({ n, sector, process, tag, today, worker, human, record, regs }) => (
+              <article class="px-6 py-8 md:px-9 md:py-10">
+                <div class="flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6 mb-8">
+                  <span class="font-mono text-[11px] tracking-[0.1em] text-gold shrink-0">{n}</span>
+                  <div class="flex-1">
+                    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-2">{sector}</span>
+                    <h3 class="text-xl md:text-2xl font-bold text-ink-0 leading-tight">{process}</h3>
+                  </div>
+                  <span class="shrink-0 inline-flex items-center border border-line-0 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-2 self-start">{tag}</span>
+                </div>
+
+                <dl class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                  <div>
+                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">How it works today</dt>
+                    <dd class="text-sm text-ink-1 leading-relaxed">{today}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-live/80 mb-2">What the worker does</dt>
+                    <dd class="text-sm text-ink-1 leading-relaxed">{worker}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ember mb-2">What stays with a person</dt>
+                    <dd class="text-sm text-ink-1 leading-relaxed">{human}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">What KYDE records</dt>
+                    <dd class="text-sm text-ink-1 leading-relaxed">{record}</dd>
+                  </div>
+                </dl>
+
+                <ul class="mt-8 flex flex-wrap gap-2 border-t border-line-0 pt-6">
+                  {regs.map((r) => (<li class="font-mono text-[10px] text-ink-2 border border-line-0 px-2.5 py-1">{r}</li>))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <!-- who has to agree before any of this starts -->
+          <div class="mt-16">
+            <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+              <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Four people have to agree</span>
             </div>
-
-            <dl class="grid md:grid-cols-2 gap-x-12 gap-y-6">
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">How it runs today</dt>
-                <dd class="text-sm text-ink-1 leading-relaxed">{today}</dd>
-              </div>
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-live/80 mb-2">What the worker takes</dt>
-                <dd class="text-sm text-ink-1 leading-relaxed">{worker}</dd>
-              </div>
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ember mb-2">What stays with a person</dt>
-                <dd class="text-sm text-ink-1 leading-relaxed">{human}</dd>
-              </div>
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">What the record holds</dt>
-                <dd class="text-sm text-ink-1 leading-relaxed">{record}</dd>
-              </div>
-            </dl>
-
-            <ul class="mt-8 flex flex-wrap gap-2 border-t border-line-0 pt-6">
-              {regs.map((r) => (
-                <li class="font-mono text-[10px] text-ink-2 border border-line-0 px-2.5 py-1">{r}</li>
+            <div class="border border-line-0 md:grid md:grid-cols-2">
+              {roles.map(({ role, q, text }, i) => (
+                <div class:list={["p-6 md:p-8 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === roles.length - 1 ? "" : "border-b", i >= roles.length - 2 ? "md:border-b-0" : ""]}>
+                  <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{role}</span>
+                  <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-tight mb-4">{q}</h3>
+                  <p class="text-sm text-ink-1 leading-relaxed">{text}</p>
+                </div>
               ))}
-            </ul>
-          </article>
-        ))}
+            </div>
+          </div>
+
+          <div class="mt-16 border border-line-0 bg-white/[0.02] px-6 py-8 md:px-9 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">Every KYDE worker runs on the same Trust Platform.</p>
+            <a href="/trust" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
+              Explore KYDE Trust →
+            </a>
+          </div>
         </div>
 
-        <!-- BY ROLE -->
-        <div id="tab-role" class="hidden border border-line-0 md:grid md:grid-cols-2">
-          {roles.map(({ role, q, text }, i) => (
-            <div class:list={["p-6 md:p-9 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === roles.length - 1 ? "" : "border-b", i >= roles.length - 2 ? "md:border-b-0" : ""]}>
-              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{role}</span>
-              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-4">{q}</h3>
-              <p class="text-sm text-ink-1 leading-relaxed">{text}</p>
-            </div>
-          ))}
+        <!-- ── TRUST ──────────────────────────────────────── -->
+        <div id="tab-trust" class="hidden">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-4 max-w-3xl">
+            Trust use cases.
+          </h2>
+          <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
+            Use the KYDE Trust Platform with KYDE workers, or independently with AI systems you already run. Nobody searches for this layer with the same words, so here are the five ways people arrive at it.
+          </p>
+
+          <div class="border border-line-0 divide-y divide-line-0">
+            {trustCases.map(({ n, audience, name, line, body, href }) => (
+              <a href={href} class="group block px-6 py-8 md:px-9 md:py-10 hover:bg-bg-1 transition-colors">
+                <div class="grid md:grid-cols-[40px_minmax(0,240px)_1fr] gap-4 md:gap-8 items-start">
+                  <span class="font-mono text-[11px] tracking-[0.1em] text-gold">{n}</span>
+                  <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-2">{audience}</span>
+                    <h3 class="text-xl md:text-2xl font-bold text-ink-0 leading-tight">{name}</h3>
+                  </div>
+                  <div>
+                    <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-3">{line}</p>
+                    <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
+                    <span class="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 group-hover:text-ink-0 transition-colors">Read on →</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div class="mt-16 border border-line-0 bg-white/[0.02] px-6 py-8 md:px-9 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">The same infrastructure that governs KYDE workers can sit underneath your existing AI systems.</p>
+            <a href="/trust" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
+              Explore KYDE Trust →
+            </a>
+          </div>
         </div>
 
       </div>
@@ -235,24 +346,17 @@ const roles = [
 
     <script is:inline>
       function showTab(tab) {
-        const industry = document.getElementById('tab-industry');
-        const role = document.getElementById('tab-role');
-        const btnI = document.getElementById('btn-industry');
-        const btnR = document.getElementById('btn-role');
-        const on = 'bg-white text-cta-ink';
-        const off = 'text-ink-1 hover:text-ink-0';
-        const show = (el) => { el.classList.remove('hidden'); };
-        const hide = (el) => { el.classList.add('hidden'); };
-        if (tab === 'industry') {
-          show(industry); hide(role);
-          btnI.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + on;
-          btnR.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + off;
-        } else {
-          hide(industry); show(role);
-          btnR.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + on;
-          btnI.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + off;
-        }
+        const on  = 'px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink';
+        const off = 'px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0';
+        const isWorkers = tab === 'workers';
+        document.getElementById('tab-workers').classList.toggle('hidden', !isWorkers);
+        document.getElementById('tab-trust').classList.toggle('hidden', isWorkers);
+        document.getElementById('btn-workers').className = isWorkers ? on : off;
+        document.getElementById('btn-trust').className   = isWorkers ? off : on;
+        if (history.replaceState) history.replaceState(null, '', isWorkers ? location.pathname : '#trust');
       }
+      // A link that lands on #trust should open that tab, not scroll past it.
+      if (location.hash === '#trust') showTab('trust');
     </script>
 
   </main>
