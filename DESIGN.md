@@ -212,7 +212,9 @@ components:
 
 KYDE looks like an **engineering document that happens to be interactive** — a spec sheet, a blueprint, a signed audit ledger. Not a SaaS marketing gradient in sight. The aesthetic is monochrome-first, 1px-ruled, and typographically strict, in both themes it ships. Two registers coexist on every screen: **Inter** carries the human argument (headlines, prose), **JetBrains Mono** carries everything machine-adjacent (labels, numbers, statuses, terminals, table headers). The tension between the two *is* the brand.
 
-**Dark is the default and the primary reference.** Light is a fully implemented second theme (same components, same layout, same rules), currently not exposed via a UI toggle on the public marketing site, but the intended surface for product/dashboard UI going forward. Build dashboards so they work correctly in both from day one; do not treat light as an afterthought skin.
+**Dark is the default and the primary reference.** Light is a second theme with the same components, layout and rules, currently not exposed via a UI toggle on the public marketing site, but the intended surface for product/dashboard UI going forward. Build dashboards so they work correctly in both from day one; do not treat light as an afterthought skin.
+
+**One known gap, checked 21 August 2026.** Markup, type, chips, borders and every static figure flip correctly. The two `<canvas>` figures do not: the hero data-stream and the readiness ring are both tuned for a light-on-dark ground, and on paper the particles nearly disappear while the radial blooms render as grey smudges rather than as light. A bloom is emitted light, so on a dark ground it brightens toward ink and on a light ground it has to tint toward an accent instead; the same gradient stops cannot serve both. Anyone re-exposing the toggle has to fix those two before it ships, and any new canvas figure should branch its palette on the ground rather than assume dark.
 
 Three ideas govern every design decision:
 
