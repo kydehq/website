@@ -910,6 +910,168 @@ const entries = [
             </script>
         </section>
 
+        <!-- ══════════ THE TRUST LADDER ══════════ -->
+        <section id="ladder" class="scroll-mt-20 border-t border-line-0 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Autonomy ladder</span>
+                    <span class="fig-label">FIG.3</span>
+                </div>
+                <!-- Autonomy ladder -->
+                <div class="pt-12 pb-24 md:pb-28">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white mb-4">
+                        How much responsibility can this worker handle?
+                        </h2>
+                    <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">AI autonomy should be earned, not assumed.</p>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
+                        Reading? Suggesting? Calling tools? Running workflows? Approving payments? Running unattended? Every one of those is a different amount of trust, and most organizations grant them all at once, on the day the agent is switched on, because there is nothing to grant them against.
+                    </p>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
+                        KYDE ties each step to the record. A rung is held because the record shows it was held, and a worker that stops producing that evidence comes back down. Six levels, L0 to L5, from a worker that only reads to one running unattended.
+                    </p>
+                    <!-- The level-by-level detail lives on /trust-score, beside the measurement
+                         that decides the level. Here it stays a summary. -->
+                    <a href="/trust-score" class="mb-10 inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
+                        How the levels are measured →
+                    </a>
+                    <!-- The staircase is asymmetric by nature, so without a frame and a pair
+                         of axes it floats. The plot frame gives it something to stand on. -->
+                    <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Autonomy is earned, not granted</span>
+                        <span class="fig-label">FIG.3</span>
+                    </div>
+                    <svg id="ladder-fig" viewBox="0 0 1000 268" class="w-full h-auto" aria-hidden="true">
+                        <!-- corner register marks, as on every other figure -->
+                        <path d="M6 21 L6 6 L21 6" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M979 6 L994 6 L994 21" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M6 247 L6 262 L21 262" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M994 247 L994 262 L979 262" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+                        <!-- axes: autonomy climbs, evidence accumulates -->
+                        <line x1="28" y1="34" x2="28" y2="214" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
+                        <line x1="28" y1="214" x2="972" y2="214" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
+                        <text x="16" y="124" text-anchor="middle" transform="rotate(-90 16 124)" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">AUTONOMY</text>
+                        <text x="972" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">EVIDENCE OVER TIME</text>
+
+                        <!-- a grid line at each tread, so the steps read as levels and not as decoration -->
+                        {[206, 174, 142, 110, 78, 46].map((y) => (
+                            <line x1="28" y1={y} x2="972" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.10" stroke-width="1" stroke-dasharray="2 6" />
+                        ))}
+
+                        <!-- ticks where each level begins -->
+                        {[116, 270, 423, 576, 730, 883].map((x) => (
+                            <line x1={x} y1="214" x2={x} y2="220" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        ))}
+
+                        <!-- stairs -->
+                        <path d="M40 206 L193 206 L193 174 L347 174 L347 142 L500 142 L500 110 L653 110 L653 78 L807 78 L807 46 L960 46"
+                              fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
+                        <!-- step labels -->
+                        <text x="116" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L0</text>
+                        <text x="270" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L1</text>
+                        <text x="423" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L2</text>
+                        <text x="576" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L3</text>
+                        <text x="730" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L4</text>
+                        <text x="883" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L5</text>
+                        <text id="lad-sub-0" x="116" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">reads, suggests</text>
+                        <text id="lad-sub-1" x="270" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">calls tools</text>
+                        <text id="lad-sub-2" x="423" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">runs workflows</text>
+                        <text id="lad-sub-3" x="576" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">deploys code</text>
+                        <text id="lad-sub-4" x="730" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">approves payments</text>
+                        <text id="lad-sub-5" x="883" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">runs unattended</text>
+                        <!-- evidence ticks under current step -->
+                        <text id="lad-evidence" x="40" y="30" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">evidence window complete · promoted</text>
+                        <!-- the agent -->
+                        <rect id="lad-agent" x="112" y="197" width="8" height="8" fill="var(--color-ink-0)" />
+                        <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="116" cy="201" />
+                    </svg>
+                    <p class="mt-5 border-t border-white/10 pt-4 font-mono text-[10px] text-white/35 leading-relaxed">
+                        FIG.3 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
+                    </p>
+                    </div>
+                </div>
+
+                <script>
+                    // FIG.3 · the ladder. The agent climbs one level per evidence
+                    // window; a green pulse marks the promotion. At the top it
+                    // holds, then a new agent starts at zero. Autonomy is earned.
+                    const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    const ladFig = document.getElementById("ladder-fig");
+
+                    if (ladFig && !ladReduced) {
+                        const agent = document.getElementById("lad-agent")!;
+                        const pulse = document.getElementById("lad-pulse")!;
+                        const evidence = document.getElementById("lad-evidence")!;
+                        const steps = [
+                            { x: 116, y: 206 }, { x: 270, y: 174 }, { x: 423, y: 142 },
+                            { x: 576, y: 110 }, { x: 730, y: 78 }, { x: 883, y: 46 },
+                        ];
+                        let level = 0;
+                        let phaseStart = performance.now() + 800;
+                        const DWELL = 2200, CLIMB = 700, HOLD_TOP = 3200;
+
+                        let visible = true;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ladFig);
+
+                        const put = (x: number, y: number) => {
+                            agent.setAttribute("x", String(x - 4));
+                            agent.setAttribute("y", String(y - 9));
+                        };
+
+                        function ladFrame(t: number) {
+                            if (visible) {
+                                const el = t - phaseStart;
+                                const atTop = level === steps.length - 1;
+                                const dwell = atTop ? HOLD_TOP : DWELL;
+
+                                if (el < dwell) {
+                                    put(steps[level].x, steps[level].y);
+                                } else if (el < dwell + CLIMB && !atTop) {
+                                    const pr = (el - dwell) / CLIMB;
+                                    const a = steps[level], b = steps[level + 1];
+                                    // step profile: first across, then up
+                                    if (pr < 0.5) {
+                                        put(a.x + (b.x - a.x) * (pr * 2), a.y);
+                                    } else {
+                                        put(b.x, a.y + (b.y - a.y) * ((pr - 0.5) * 2));
+                                    }
+                                } else {
+                                    if (atTop) {
+                                        level = 0;
+                                        put(steps[0].x, steps[0].y);
+                                    } else {
+                                        level++;
+                                        const stp = steps[level];
+                                        put(stp.x, stp.y);
+                                        pulse.setAttribute("cx", String(stp.x));
+                                        pulse.setAttribute("cy", String(stp.y - 5));
+                                        pulse.setAttribute("r", "6");
+                                        pulse.setAttribute("opacity", "0.8");
+                                        evidence.setAttribute("x", String(Math.min(stp.x - 90, 700)));
+                                        evidence.setAttribute("y", String(stp.y - 28));
+                                        evidence.setAttribute("fill-opacity", "0.8");
+                                    }
+                                    phaseStart = t;
+                                }
+
+                                // pulse + evidence fade
+                                const po = parseFloat(pulse.getAttribute("opacity") || "0");
+                                if (po > 0) {
+                                    pulse.setAttribute("opacity", String(Math.max(po - 0.012, 0)));
+                                    pulse.setAttribute("r", String(parseFloat(pulse.getAttribute("r")!) + 0.5));
+                                }
+                                const eo = parseFloat(evidence.getAttribute("fill-opacity") || "0");
+                                if (eo > 0) evidence.setAttribute("fill-opacity", String(Math.max(eo - 0.006, 0)));
+                            }
+                            requestAnimationFrame(ladFrame);
+                        }
+                        requestAnimationFrame(ladFrame);
+                    }
+                </script>
+            </div>
+        </section>
+
     <!-- ══════════ CLOSING CTA ══════════ -->
     <section class="border-t border-line-0 bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">

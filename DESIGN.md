@@ -361,6 +361,29 @@ Iconography is minimal, stroke-based (1.5–2px stroke, no fills), and used spar
 - Rules for all of the above: `requestAnimationFrame` loops gated by `IntersectionObserver` (paused off-screen); an explicit `prefers-reduced-motion` branch rendering one static meaningful frame; palette read live from CSS custom properties (`getComputedStyle`) rather than hardcoded rgb triples, with a listener on theme-change so canvases/SVGs re-read and repaint immediately when the user switches themes; geometry limited to 1–2.5px squares, dots, and 1px lines — never smooth blobby shapes.
 - Ambient micro-motion allowed: scroll-reveal (12px rise + fade, once, 0.4s), bar fills growing to width on reveal (1.2s cubic-bezier), SVG paths drawing themselves (stroke-dashoffset), a 1.1s-blink green terminal cursor, 7s float on hovering detail cards.
 
+## Voice
+
+**Write like Stripe, not like an AI company.** The two are easy to tell apart and the difference is not tone, it is whether a sentence carries information.
+
+The house voice is plain, specific, and unhurried. It states what a thing does, names the constraint, and stops. It assumes the reader is competent and busy. A claim comes with the mechanism that makes it true, or it does not get made.
+
+**Do**
+- Lead with the concrete noun: "a hash-chained record", "one process area", "two weeks".
+- Use numbers, names and limits. "Approve under 2,000, above that escalate" beats "intelligent thresholds".
+- Say what a thing does not do, and where it stops. The boundary is the most credible sentence on any page.
+- Keep sentences short enough to read once. Prefer a period to a comma and a comma to a semicolon.
+- Let the verb do the work: records, blocks, recomputes, hands back, stops.
+
+**Don't**
+- No "empower", "unleash", "seamless", "transform", "revolutionize", "cutting-edge", "next-generation", "supercharge", "effortless", "game-changing".
+- No "AI-powered", "AI-driven", "leveraging AI", "harness the power of". The product is not interesting because AI is in it.
+- No sentence that would survive having the product name swapped for a competitor's. If it fits anyone, it says nothing.
+- No superlatives we cannot show. "The most complete" is a claim about other people's products that we cannot check.
+- No em-dashes (see below), and no exclamation marks anywhere.
+- Do not sell the future in the present tense. A capability that is not built says so, in the same sentence, in the reader's words rather than in a roadmap chip.
+
+The test: read the sentence out loud to somebody who runs the process being described. If they would nod, it ships. If they would wait for the actual point, it does not.
+
 ## Do's and Don'ts
 
 **Do**
