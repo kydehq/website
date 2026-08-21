@@ -117,7 +117,7 @@ const entries = [
         </h2>
         <div class="grid md:grid-cols-2 border border-line-0">
           {entries.map(({ audience, name, line, body, href }, i) => (
-            <a href={href} class:list={["group block p-6 md:p-8 hover:bg-bg-1 transition-colors border-line-0", i % 2 === 0 ? "md:border-r" : "", i < 2 ? "border-b" : ""]}>
+            <a href={href} class:list={["group block p-6 md:p-8 hover:bg-bg-1 transition-colors border-line-0", i % 2 === 0 ? "md:border-r" : "", i === entries.length - 1 ? "" : "border-b", i >= entries.length - 2 ? "md:border-b-0" : ""]}>
               <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{audience}</span>
               <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-2">{name}</h3>
               <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>

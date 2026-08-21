@@ -3,133 +3,110 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
+// One shape per sector, and the same shape every time: the process as it runs
+// today, the part a worker takes, the part that stays with a person and why,
+// and what the record holds afterwards. The "human" field is not a disclaimer.
+// It is the most load-bearing line in each entry, because a buyer in a
+// regulated house is checking whether we understand where the line is before
+// they believe anything else on the page.
 const cases = [
   {
     n: '01',
-    sector: 'Financial Services & Banking',
+    sector: 'Banking & financial services',
     tag: 'DORA · BaFin · EU AI Act',
-    scenario: 'A trading agent autonomously rebalances customer portfolios and accesses the trading API via an internal MCP server.',
-    pillars: [
-      {
-        label: 'PREVENT',
-        q: 'What is blocked, and at what layer?',
-        text: 'No shared trading_api_keys. The agent receives a cryptographic identity ("Wealth-Agent-Alpha") with a hard-coded firebreak: max 5% of portfolio value per day, no margin trading. Any API call that exceeds these limits is blocked by KYDE in under 100ms, before it reaches the exchange. Not rate-limited. Blocked.',
-      },
-      {
-        label: 'PROVE',
-        q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'Every autonomous trade is Ed25519-signed at the point of capture as a 6D fingerprint, who, what, when, where, why, how. The record is hash-chained and stored outside the agent runtime, so altering one entry breaks every entry after it. The ledger and the exports run today, signing each entry with your own keys is an Enterprise capability. BaFin receives a chain it can recompute offline, not an editable server log.',
-      },
-      {
-        label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
-        text: 'The agent sells 1,000 Tesla shares. KYDE traces the complete causal chain: Reuters alert received at 14:23 → customer risk profile read → decision executed at 14:24. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag an agent that deviates from established trading patterns or expands its request scope, is a reading we have not built yet.',
-      },
-    ],
-    regs: ['DORA, Digital Operational Resilience Act', 'EU AI Act, Annex III §5 Credit Scoring', 'BaFin AI Guidance', 'GDPR Art. 35, DPIA'],
+    process: 'Credit file pre-check before committee',
+    today: 'An analyst opens the file, pulls three years of statements, reconciles the covenant list against the current facility and writes a one-page summary. Forty minutes when the file is clean. Half a day when it is not.',
+    worker: 'Pulls the statements, reconciles the covenants, drafts the summary, and names the figures it could not source instead of estimating them.',
+    human: 'The credit decision. It has legal effect on the applicant, so it stays with the committee. The worker prepares the file. It does not vote.',
+    record: 'Which documents were read, where each figure came from, which model drafted the summary, and what the analyst changed before it went in.',
+    regs: ['DORA, operational resilience and exit', 'EU AI Act, Annex III §5 creditworthiness', 'BaFin guidance on AI in lending', 'GDPR Art. 22, automated decisions'],
   },
   {
     n: '02',
-    sector: 'Industry & Supply Chain',
-    tag: 'EU AI Act · NIS-2 · GDPR',
-    scenario: 'A procurement agent monitors global supply chains and autonomously reorders raw materials in the ERP system when shortages are detected.',
-    pillars: [
-      {
-        label: 'PREVENT',
-        q: 'What is blocked, and at what layer?',
-        text: 'The order is not triggered by an anonymous service account, but by a verified agent identity scoped exclusively for the steel procurement department. Hard budget firebreak: max €50,000 per order. If the agent attempts a €500,000 order due to a hallucination, the proxy rejects it in under 100ms, before it reaches the supplier API.',
-      },
-      {
-        label: 'PROVE',
-        q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'The complete negotiation trail with the supplier API and the final order amount are hash-chained as a 6D fingerprint. Every financial commitment routed through the gateway is on the record, written at the point of capture. Signing each entry with your own keys is an Enterprise capability. The CFO has a chain a third party can recompute, not a filtered dashboard export.',
-      },
-      {
-        label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
-        text: 'The agent suddenly orders triple the usual steel quantity. KYDE traces the full chain: internal email about a threatened port strike received → procurement database read → order placed. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag an agent that deviates from normal order volumes or reaches suppliers outside its established scope, is a reading we have not built yet.',
-      },
-    ],
-    regs: ['EU AI Act, High-Risk AI for automated procurement', 'NIS-2, Critical supply chain infrastructure', 'GDPR Art. 35, DPIA for large-scale processing'],
+    sector: 'Insurance & claims',
+    tag: 'EU AI Act · Solvency II · GDPR',
+    process: 'First assessment of a motor claim',
+    today: 'A handler reads the report, checks the policy for exclusions, sets a reserve and decides whether to instruct an assessor. The exclusions are in a PDF from 2021 that four people know how to read.',
+    worker: 'Reads the report, pulls the policy, proposes a reserve and cites the clause it relied on. Instructs an assessor when the estimate is over the threshold.',
+    human: 'Every rejection. A refusal is something a policyholder can contest, so it goes to a person with the whole file in front of them.',
+    record: 'The clause the reserve was based on, the estimate, the threshold that applied that day, and whether a person changed the number.',
+    regs: ['EU AI Act, Annex III §5 insurance pricing and risk', 'Solvency II, governance and risk management', 'GDPR Art. 22, automated decision-making', 'NIS-2, operational resilience'],
   },
   {
     n: '03',
-    sector: 'Healthcare & Pharma',
-    tag: 'EU AI Act · GDPR Art. 9 · HIPAA',
-    scenario: 'A medical billing agent scans patient records, assigns ICD-10 diagnosis codes, and submits reimbursement claims to health insurers.',
-    pillars: [
-      {
-        label: 'PREVENT',
-        q: 'What is blocked, and at what layer?',
-        text: 'The billing agent operates in strict isolation from the triage agent. Role "Billing.Read" is enforced at the proxy, the agent cannot write to clinical findings or delete medical data. Scope is not a policy document. It is a hard firebreak enforced by the Behavioral Firewall on every API call.',
-      },
-      {
-        label: 'PROVE',
-        q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'In GDPR Art. 9 and HIPAA environments, the agent layer has to hold up in an audit. The record shows hospitals exactly which agent processed which patient data, when, and on what basis. Every entry is written as a 6D fingerprint at the point of capture and hash-chained, so altering one entry breaks every entry after it. Signing each entry with your own keys is an Enterprise capability.',
-      },
-      {
-        label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
-        text: 'The agent bills for an expensive specialist treatment. KYDE traces the full causal chain: Dr. Müller\'s clinical letter read at 08:00 → ICD-10 code assigned → claim submitted. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag a billing agent reaching clinical records outside its scope or submitting atypical claim volumes, is a reading we have not built yet.',
-      },
-    ],
-    regs: ['EU AI Act, Annex III §5 Health and Safety (highest risk class)', 'GDPR Art. 9, Special category health data', 'MDR / IVDR, AI-assisted diagnostics', 'NIS-2, Critical health infrastructure'],
+    sector: 'Healthcare & pharma',
+    tag: 'EU AI Act · GDPR Art. 9 · MDR',
+    process: 'Coding and submitting a reimbursement claim',
+    today: 'A coder reads the discharge letter, assigns ICD-10 codes, checks them against the payer rules and submits. Rejected claims come back weeks later and get reworked by whoever is free.',
+    worker: 'Drafts the coding from the letter, checks it against the payer rules, and holds anything the letter does not clearly support.',
+    human: 'The diagnosis, always. The worker codes what a clinician wrote. It never decides what is wrong with a patient.',
+    record: 'Which letter produced which code, which payer rule applied, and what was held back for a human to look at.',
+    regs: ['EU AI Act, Annex III §5 essential services access', 'GDPR Art. 9, special category health data', 'MDR / IVDR, where diagnosis is involved', 'NIS-2, critical health infrastructure'],
   },
   {
     n: '04',
-    sector: 'Insurance & Claims Automation',
-    tag: 'EU AI Act · Solvency II · GDPR',
-    scenario: 'A claims agent evaluates uploaded photos of water damage and scopes payouts to policyholders, autonomously.',
-    pillars: [
-      {
-        label: 'PREVENT',
-        q: 'What is blocked, and at what layer?',
-        text: 'Clear role boundaries enforced at the proxy, not in policy documents. The claims agent does not share rights with the underwriting agent. Hard firebreak: maximum automatic approval = €2,000. Anything above is blocked by the proxy and routed to human escalation. A hard human-in-the-loop, not a configurable soft limit.',
-      },
-      {
-        label: 'PROVE',
-        q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'When a fraud ring floods automated agents with fake images, the record shows on what data basis, at what timestamp, the agent approved each payment. Every decision is written as a 6D fingerprint at the point of capture and hash-chained, so a reordered or edited entry is visible. Signing each entry with your own keys is an Enterprise capability. Evidence for internal fraud investigators, and for the agent layer of Solvency II audits and GDPR Art. 22 challenges.',
-      },
-      {
-        label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
-        text: 'The agent rejects a water damage claim. KYDE traces the full chain: 2021 policy PDF read (elemental damage exclusion noted) → claim evaluated → rejected. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag a claims agent approving at abnormal rates or drifting into patterns consistent with adversarial manipulation, is a reading we have not built yet.',
-      },
-    ],
-    regs: ['EU AI Act, High-Risk AI Annex III §5 Insurance', 'Solvency II, Governance and risk management', 'GDPR Art. 22, Automated decision-making rights', 'NIS-2, Operational resilience'],
+    sector: 'Manufacturing & supply chain',
+    tag: 'EU AI Act · NIS-2 · CSDDD',
+    process: 'Supplier release after incoming inspection',
+    today: 'A buyer checks the inspection report against the spec, looks up whether this supplier has had deviations before, and releases the batch or holds it. The deviation history lives in one person\'s spreadsheet.',
+    worker: 'Matches the report to the spec, pulls the supplier history, and releases within the tolerance band. Holds anything outside it and says which measurement was out.',
+    human: 'Releasing a batch that failed inspection. That is a quality decision with a name attached to it, and it stays with the person whose name that is.',
+    record: 'The measurements, the tolerance in force, the supplier history it read, and every release that went through outside the band.',
+    regs: ['EU AI Act, high-risk in safety components', 'NIS-2, supply chain security', 'CSDDD, supply chain due diligence', 'GDPR Art. 35, DPIA at scale'],
   },
   {
     n: '05',
-    sector: 'Energy & Critical Infrastructure',
+    sector: 'Public sector',
+    tag: 'EU AI Act · VwVfG · GDPR',
+    process: 'Completeness check on a permit application',
+    today: 'A caseworker checks the application against the checklist, writes to the applicant for what is missing, and puts the file back in the queue. Most of the queue is waiting on one document.',
+    worker: 'Runs the checklist, drafts the request for the missing documents, and puts the file in front of the caseworker complete.',
+    human: 'The decision. Where German administrative law leaves a matter to an official\'s discretion, it is not automated. The worker prepares the file and stops.',
+    record: 'What was checked, what was requested, when the applicant answered, and how long the file waited on each side.',
+    regs: ['EU AI Act, Annex III §5 public benefits and services', 'VwVfG, discretionary administrative decisions', 'GDPR Art. 22, automated decision-making', 'OZG, digital administration'],
+  },
+  {
+    n: '06',
+    sector: 'Energy & critical infrastructure',
     tag: 'NIS-2 · KRITIS · EU AI Act',
-    scenario: 'A grid-balancing agent manages electricity procurement and activates local large-scale batteries to compensate for network fluctuations.',
-    pillars: [
-      {
-        label: 'PREVENT',
-        q: 'What is blocked, and at what layer?',
-        text: 'In NIS-2 / KRITIS environments there is no anonymity and no shared accounts. The dispatch agent has a cryptographic identity with assigned substation scope. It cannot accidentally activate the wrong grid segment, API access is limited at the proxy layer, enforced in under 100ms, before any command reaches operational technology.',
-      },
-      {
-        label: 'PROVE',
-        q: 'Signed 6D fingerprint. Hash-chained record.',
-        text: 'When an outage occurs, the Bundesnetzagentur asks what issued the command and on what basis. A vendor cloud log is the vendor\'s own account of it. KYDE captures the action at the boundary, signs it as a 6D fingerprint, and chains it, so altering one entry breaks every entry after it. What regulators receive is a chain they can recompute offline. Signing each entry with your own keys is an Enterprise capability, hardware-backed key storage (TPM/HSM) is planned, not shipped.',
-      },
-      {
-        label: 'RATE',
-        q: 'Behavioral Monitoring. Trust Score™. Coming soon.',
-        text: 'The agent ramps up a local power plant. KYDE traces the full chain: grid frequency drop of 0.1 Hz detected → local weather signal read (solar production declining) → battery activation triggered. That chain is in the record today. The behavioral scoring that would turn it into a baseline per role, and flag a dispatch agent issuing commands outside its assigned grid segments or deviating from established load balancing patterns, is a reading we have not built yet.',
-      },
-    ],
-    regs: ['NIS-2, Network and Information Security (in force · DE: NIS2UmsuCG)', 'EU AI Act, High-Risk AI for critical infrastructure', 'KRITIS, German critical infrastructure protection', 'Cyber Resilience Act'],
+    process: 'Balancing-group reporting after a dispatch event',
+    today: 'After an imbalance, an operator reconstructs what happened from four systems and writes the report. The reconstruction takes longer than the event did.',
+    worker: 'Assembles the timeline from the recorded actions, drafts the report, and marks the intervals where the data does not agree with itself.',
+    human: 'The dispatch itself. Nothing in the control loop is automated by KYDE. The worker documents, it does not operate.',
+    record: 'Every action in the window, in order, hash-chained, exported as a dated document the regulator recomputes without us.',
+    regs: ['NIS-2, in force in Germany via NIS2UmsuCG', 'KRITIS, operator obligations', 'EU AI Act, high-risk in critical infrastructure', 'Cyber Resilience Act'],
+  },
+];
+
+// Four people have to agree before a worker runs. Each gets the sentence that
+// answers the question they will actually ask in the room.
+const roles = [
+  {
+    role: 'Operations',
+    q: 'What do I get back?',
+    text: 'The process you own, written down properly for the first time, and then the routine part of it running on its own. You keep the exceptions, which is the part you were doing the thinking on anyway. Start with one process area and see the readout before you commit to anything.',
+  },
+  {
+    role: 'CIO & CTO',
+    q: 'What am I taking on?',
+    text: 'One layer, on-premise or in your private cloud, in front of whatever models you already use. No agent framework to standardize on and no vendor to be locked into: the workers, the processes and the record are yours, and they keep working if we disappear.',
+  },
+  {
+    role: 'Compliance & legal',
+    q: 'Can I evidence this?',
+    text: 'Every action is hash-chained at the boundary and exported as a dated document your auditor recomputes offline, without us in the room. Where the EU AI Act assigns deployer obligations, they stay with you. This is the apparatus for meeting them, not a claim that they went away.',
+  },
+  {
+    role: 'Works council & data protection',
+    q: 'What happens to the people?',
+    text: 'Recording how someone works is subject to co-determination, so you are in the room on day one, before anything is recorded. Sessions are scoped and announced, personal data is removed locally before storage, and the person recorded can review and delete their own sessions.',
   },
 ];
 ---
 
 <Base
   title="Use Cases, KYDE"
-  description="The behavioral system of record for autonomous work. One hash-chained record of every agent action routed through KYDE, for any organization running AI agents in production, in any sector."
+  description="Six real processes, in banking, insurance, healthcare, manufacturing, public sector and energy: what a worker takes over, what stays with a person, and what the record holds afterwards."
 >
   <Navbar />
 
@@ -138,155 +115,95 @@ const cases = [
     <!-- ══════════ HERO ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-24 md:pt-48 md:pb-36 md:border-x md:border-line-0">
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-24 md:pt-44 md:pb-32 md:border-x md:border-line-0">
 
-        <div class="mb-10">
-          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Use Cases</span></div>
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-12">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Use cases</span>
         </div>
 
-        <h1 class="hero-h1 max-w-5xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl">
-          Every regulated industry deploys AI agents.<br />
-          <span class="gradient-text">None of them are optional to govern.</span>
+        <h1 class="hero-h1 max-w-5xl text-4xl text-ink-0 uppercase tracking-tight md:text-5xl lg:text-6xl">
+          Six processes.<br />One of them is yours.
         </h1>
 
-        <div class="mt-16 border-t border-line-1 pt-10 grid md:grid-cols-[200px_1fr] gap-8 items-start">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-[0.15em] text-ink-0">Coverage</p>
-            <p class="mt-2 font-mono text-xs text-ink-1">[ALL SECTORS]</p>
-          </div>
-          <div class="space-y-6">
-            <p class="text-sm uppercase tracking-wide leading-relaxed text-ink-1">
-              KYDE is the behavioral system of record for autonomous work. One record of every agent action routed through it, for any organization running AI agents in production, in any sector.
-            </p>
-            <p class="text-sm uppercase tracking-wide leading-relaxed text-ink-1">
-              The <span class="font-mono text-ink-1">EU AI Act</span>, <span class="font-mono text-ink-1">NIS-2</span>, <span class="font-mono text-ink-1">DORA</span>, and <span class="font-mono text-ink-1">GDPR</span> don't care which LLM vendor you chose. They care whether you can show what your agents did, explain why, and demonstrate that the record has not been altered since it was written.
-            </p>
-          </div>
+        <div class="mt-14 border-t border-line-0 pt-10 grid md:grid-cols-2 gap-10 md:gap-16">
+          <p class="text-lg text-ink-1 leading-relaxed">
+            Every one of these is a real process that a person does today, in a house that is regulated, with a step in it that nobody wrote down. None of them get automated end to end, and the entries below say where each one stops.
+          </p>
+          <p class="text-lg text-ink-1 leading-relaxed">
+            The audit finds which of your processes look like these. Two weeks, one process area, and a dated readout of what is buildable now and what is waiting on what.
+          </p>
         </div>
-
       </div>
     </section>
 
     <!-- ══════════ USE CASES ══════════ -->
-    <section class="border-t border-line-1">
+    <section class="border-t border-line-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
 
-        <!-- Toggle -->
-        <div class="flex gap-1 mb-10 border-b border-line-1 p-0 pb-0 w-fit gap-0">
+        <div class="flex mb-12 border-b border-line-0 w-fit">
           <button
             id="btn-industry"
             onclick="showTab('industry')"
             class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink"
-          >By Industry</button>
+          >By industry</button>
           <button
             id="btn-role"
             onclick="showTab('role')"
             class="px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0"
-          >By Role</button>
+          >By role</button>
         </div>
 
         <!-- BY INDUSTRY -->
-        <div id="tab-industry" class="space-y-6">
-        {cases.map(({ n, sector, tag, scenario, pillars, regs }) => (
-          <div class="">
+        <div id="tab-industry" class="border border-line-0 divide-y divide-line-0">
+        {cases.map(({ n, sector, tag, process, today, worker, human, record, regs }) => (
+          <article class="px-6 py-8 md:px-9 md:py-10">
 
-            <!-- Header -->
-            <div class="flex flex-col sm:flex-row sm:items-start gap-4 px-6 sm:px-8 py-6">
-              <span class="font-mono text-2xl font-bold text-ink-1 shrink-0">{n}</span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6 mb-8">
+              <span class="font-mono text-[11px] tracking-[0.1em] text-gold shrink-0">{n}</span>
               <div class="flex-1">
-                <h2 class="text-xl font-bold text-ink-0 mb-2">{sector}</h2>
-                <p class="text-sm text-ink-1 leading-relaxed">{scenario}</p>
+                <h2 class="text-xl md:text-2xl font-bold text-ink-0 leading-tight">{sector}</h2>
+                <p class="mt-1.5 font-mono text-xs uppercase tracking-[0.12em] text-ink-1">{process}</p>
               </div>
-              <span class="shrink-0 inline-flex items-center border border-line-0 bg-transparent px-3 py-1 text-xs font-mono text-ink-1 self-start">
+              <span class="shrink-0 inline-flex items-center border border-line-0 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-2 self-start">
                 {tag}
               </span>
             </div>
 
-            <!-- 3 Guarantees -->
-            <div class="divide-y divide-line-0">
-              {pillars.map(({ label, q, text }) => (
-                <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 px-6 sm:px-8 py-5">
-                  <div class="shrink-0">
-                    <span class={`inline-block font-mono text-[10px] font-bold uppercase tracking-widest mb-1 ${label === 'PREVENT' ? 'text-ember' : label === 'RATE' ? 'text-live' : 'text-ink-0/70'}`}>{label}</span>
-                    {label === 'OBSERVE'
-                      ? <p class="font-mono text-xs mt-1 leading-relaxed"><span class="font-semibold text-ink-0">{q}</span></p>
-                      : <p class="font-mono text-xs text-ink-1 mt-1 leading-relaxed">{q}</p>
-                    }
-                  </div>
-                  <p class="text-sm leading-relaxed text-ink-1">{text}</p>
-                </div>
-              ))}
-            </div>
+            <dl class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">How it runs today</dt>
+                <dd class="text-sm text-ink-1 leading-relaxed">{today}</dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-live/80 mb-2">What the worker takes</dt>
+                <dd class="text-sm text-ink-1 leading-relaxed">{worker}</dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ember mb-2">What stays with a person</dt>
+                <dd class="text-sm text-ink-1 leading-relaxed">{human}</dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">What the record holds</dt>
+                <dd class="text-sm text-ink-1 leading-relaxed">{record}</dd>
+              </div>
+            </dl>
 
-            <!-- Regs -->
-            <div class="px-6 sm:px-8 py-5 flex flex-wrap gap-2">
-              {regs.map((r: string) => (
-                <span class="border border-line-0 px-3 py-1 text-xs font-mono text-ink-1">{r}</span>
+            <ul class="mt-8 flex flex-wrap gap-2 border-t border-line-0 pt-6">
+              {regs.map((r) => (
+                <li class="font-mono text-[10px] text-ink-2 border border-line-0 px-2.5 py-1">{r}</li>
               ))}
-            </div>
-
-          </div>
+            </ul>
+          </article>
         ))}
         </div>
 
         <!-- BY ROLE -->
-        <div id="tab-role" class="hidden grid gap-6 md:grid-cols-2">
-          {[
-            {
-              role: "CISO",
-              label: "Chief Information Security Officer",
-              quote: "Your vendor's log isn't an independent record.",
-              bullets: [
-                "A tamper-evident record signed by Anthropic's keys, stored on Anthropic's infrastructure, is a vendor report. A compromised host can rewrite it silently. KYDE's records are hash-chained at the point of capture, on your own infrastructure. Alter any entry, every subsequent link breaks. Signing each entry with your own keys is an Enterprise capability.",
-                "Your audit trail is yours. Not locked to a provider console, not dependent on vendor uptime, not subject to vendor retention policies.",
-                "Evidence you can hand to a regulator, a lawyer, or your own InfoSec review, written before an incident, not assembled after one.",
-              ],
-            },
-            {
-              role: "CTO",
-              label: "Chief Technology Officer",
-              quote: "Your governance layer shouldn't depend on your LLM choice.",
-              bullets: [
-                "One environment variable, or an egress rule that makes the gateway the only route to a provider, which covers agents nobody registered. No SDK dependency. No code changes. Minutes to deploy, and your agents see no difference.",
-                "Models change monthly. Add a local model for sensitive data, route cheap tasks to a cheaper provider, switch frontier models entirely. Governance follows automatically. No re-integration required.",
-                "No per-agent installation. No framework lock-in. Architecture that outlasts your current LLM stack, by design.",
-              ],
-            },
-            {
-              role: "Compliance & Legal",
-              label: "GC · DPO · CCO",
-              quote: "One framework won't be enough. One evidence trail has to cover all of them.",
-              bullets: [
-                "EU AI Act High-Risk logging, NIS-2, DORA, GDPR Art. 35, regulators don't coordinate their requirements around your roadmap. One hash-chained trail, built to serve as evidence for the agent layer of all of those duties from day one.",
-                "Verifiable audit exports on demand, unfiltered, machine-generated, hash-chained. Not a screenshot. Not a filtered vendor report.",
-                "Every challenged decision can be traced through the record: what the agent was asked, what it decided, which sources it called. The record exists before the challenge arrives.",
-              ],
-            },
-            {
-              role: "CFO & Ops",
-              label: "Chief Financial Officer · Operations",
-              quote: "An agent with no budget ceiling is a liability with no ceiling.",
-              bullets: [
-                "Hard token and cost limits per agent, per role, per day. Enforced before the call is made, not flagged after the bill arrives.",
-                "Governance shouldn't force you onto expensive frontier models for every task. Route classification and low-stakes workloads to cheap local models. Reserve frontier capacity for decisions that justify it.",
-                "Priority assignment means your production agents never queue behind an intern's research bot. Fleet efficiency is a governance decision.",
-              ],
-            },
-          ].map(({ role, label, quote, bullets }) => (
-            <div class="p-8">
-              <div class="mb-6 pb-6 border-b border-line-1">
-                <h2 class="font-mono text-2xl font-bold text-ink-0">{role}</h2>
-                <p class="mt-1 text-xs text-ink-1 uppercase tracking-widest">{label}</p>
-              </div>
-              <p class="mb-6 font-mono text-sm text-ink-1 border-l-2 border-line-0 pl-4 leading-relaxed">"{quote}"</p>
-              <ul class="space-y-4">
-                {bullets.map((b: string) => (
-                  <li class="flex gap-4 text-sm leading-relaxed text-ink-1">
-                    <span class="font-mono text-ink-1 shrink-0 mt-0.5">→</span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
+        <div id="tab-role" class="hidden border border-line-0 md:grid md:grid-cols-2">
+          {roles.map(({ role, q, text }, i) => (
+            <div class:list={["p-6 md:p-9 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === roles.length - 1 ? "" : "border-b", i >= roles.length - 2 ? "md:border-b-0" : ""]}>
+              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{role}</span>
+              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-4">{q}</h3>
+              <p class="text-sm text-ink-1 leading-relaxed">{text}</p>
             </div>
           ))}
         </div>
@@ -294,53 +211,49 @@ const cases = [
       </div>
     </section>
 
-    <script is:inline>
-      function showTab(tab) {
-        const industry = document.getElementById('tab-industry');
-        const role = document.getElementById('tab-role');
-        const btnIndustry = document.getElementById('btn-industry');
-        const btnRole = document.getElementById('btn-role');
-        if (tab === 'industry') {
-          industry?.classList.remove('hidden');
-          role?.classList.add('hidden');
-          btnIndustry?.classList.add('bg-white', 'text-cta-ink');
-          btnIndustry?.classList.remove('text-ink-1');
-          btnRole?.classList.remove('bg-white', 'text-cta-ink');
-          btnRole?.classList.add('text-ink-1');
-        } else {
-          role?.classList.remove('hidden');
-          industry?.classList.add('hidden');
-          btnRole?.classList.add('bg-white', 'text-cta-ink');
-          btnRole?.classList.remove('text-ink-1');
-          btnIndustry?.classList.remove('bg-white', 'text-cta-ink');
-          btnIndustry?.classList.add('text-ink-1');
-        }
-      }
-    </script>
-
-    <!-- ══════════ CLOSING CTA ══════════ -->
-    <section class="">
-      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
-        <div class="border-b border-line-1 p-12 md:p-20">
-          <div class="max-w-3xl">
-            <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Get started</p>
-            <div class="mb-8 h-px bg-bg-1/40"></div>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
-              Your industry. Your agents.<br />Your critical infrastructure.
-            </h2>
-            <p class="text-lg text-ink-1 mb-10">
-              One record, across every sector, and across every provider and framework you route through KYDE. Governance isn't the brake. It's what lets you accelerate.
-            </p>
-            <button
-              onclick="openModal()"
-              class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
-            >
-              Talk to Us →
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-line-0 bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-line-0">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+            Find out which of yours are on this list.
+          </h2>
+          <p class="text-lg text-ink-1 leading-relaxed mb-10 mx-auto max-w-2xl">
+            Two weeks, one process area, one dated readout: what is buildable today, what is waiting and on what, and what stays with a person.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+              Start your audit →
             </button>
+            <a href="/audit" class="inline-flex items-center gap-2 border border-line-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all">
+              How it works →
+            </a>
           </div>
         </div>
       </div>
     </section>
+
+    <script is:inline>
+      function showTab(tab) {
+        const industry = document.getElementById('tab-industry');
+        const role = document.getElementById('tab-role');
+        const btnI = document.getElementById('btn-industry');
+        const btnR = document.getElementById('btn-role');
+        const on = 'bg-white text-cta-ink';
+        const off = 'text-ink-1 hover:text-ink-0';
+        const show = (el) => { el.classList.remove('hidden'); };
+        const hide = (el) => { el.classList.add('hidden'); };
+        if (tab === 'industry') {
+          show(industry); hide(role);
+          btnI.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + on;
+          btnR.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + off;
+        } else {
+          hide(industry); show(role);
+          btnR.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + on;
+          btnI.className = 'px-5 py-2 text-xs font-mono uppercase tracking-widest transition-all ' + off;
+        }
+      }
+    </script>
 
   </main>
 
