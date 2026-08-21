@@ -243,13 +243,6 @@ const guides = [
     },
 ];
 
-const comingSoon = [
-    { category: "Technical", title: "Why Software Logs Are Not Tamper-Evident, And Why It Matters for AI Agents" },
-    { category: "Technical", title: "MCP Servers and Governance: Every Tool Call Is an Audit Event" },
-    { category: "Technical", title: "The Case Against Provider-Native AI Governance" },
-    { category: "Thought Leadership", title: "Your AI Agents Are Your Workforce. Courts Already Agree." },
-    { category: "Thought Leadership", title: "From Deploy-and-Hope to Govern-by-Design" },
-];
 
 const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -400,17 +393,6 @@ const breadcrumbSchema = {
                                 <span class="font-mono text-ink-2 text-sm group-hover:translate-x-1 group-hover:text-ink-0 transition-all">→</span>
                             </div>
                         </a>
-                    ))}
-                </div>
-
-                <!-- Coming soon -->
-                <div class="divide-y divide-line-0">
-                    {comingSoon.map(({ category, title }) => (
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-5 sm:px-8 py-5">
-                            <span class="font-mono text-xs uppercase tracking-widest text-ink-1 sm:w-32 shrink-0">{category}</span>
-                            <span class="text-sm text-ink-1 flex-1">{title}</span>
-                            <span class="font-mono text-xs text-blue-700 shrink-0">Coming Soon</span>
-                        </div>
                     ))}
                 </div>
 
