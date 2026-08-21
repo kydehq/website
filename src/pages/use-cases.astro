@@ -83,7 +83,7 @@ const trustCases = [
     name: 'AI audit trail',
     line: 'Continuous evidence for regulated AI systems.',
     body: 'Every action is hash-chained at the boundary, before it reaches a provider, and exported as a dated document your auditor recomputes offline. Your provider\'s log lives on their infrastructure and is signed with their keys. In a dispute that involves them, it is theirs.',
-    href: '/trust#evidence',
+    href: '/zero-trust#evidence',
   },
   {
     n: '02',
@@ -91,7 +91,7 @@ const trustCases = [
     name: 'AI telemetry',
     line: 'Observe how AI actually behaves in production.',
     body: 'Not what a system was designed to do, and not what a questionnaire says it does. Which actions it took, against which systems, how often, and how much of that was ever recorded in the first place.',
-    href: '/trust#flight-recorder',
+    href: '/zero-trust#flight-recorder',
   },
   {
     n: '03',
@@ -99,7 +99,7 @@ const trustCases = [
     name: 'Continuous evaluation',
     line: 'Measure whether AI stays reliable as models, data and workflows change.',
     body: 'A recorded run is a set of real cases where the outcome is already known. Re-run them when a model ships and the drift is a number, not an anecdote that arrives through a support ticket six weeks later.',
-    href: '/trust#replay',
+    href: '/zero-trust#replay',
   },
   {
     n: '04',
@@ -107,7 +107,7 @@ const trustCases = [
     name: 'Replay',
     line: 'Reconstruct and rerun what happened.',
     body: 'A model swapped under the same name does not announce itself. Replaying a recorded run against today\'s models and policies turns "something changed" into a difference you can point at.',
-    href: '/trust#replay',
+    href: '/zero-trust#replay',
   },
   {
     n: '05',
@@ -115,7 +115,7 @@ const trustCases = [
     name: 'Independent evidence',
     line: 'Evidence your client\'s own vendor cannot edit.',
     body: 'The record is captured outside the systems being examined and verified with the public key that travels with the export. You check it without us, and without the vendor whose behavior is in question.',
-    href: '/trust#evidence',
+    href: '/zero-trust#evidence',
   },
 ];
 
@@ -131,7 +131,7 @@ const roles = [
 
 <Base
   title="Use Cases, KYDE"
-  description="One trust platform, two ways to use it. Build workers for real business processes, or use KYDE Trust to govern, evaluate and prove AI you already run."
+  description="One zero trust layer, two ways to use it. Build workers for real business processes, or use KYDE Zero Trust to secure, govern, evaluate and prove the AI you already run."
 >
   <Navbar />
 
@@ -147,10 +147,10 @@ const roles = [
         </div>
 
         <h1 class="hero-h1 max-w-4xl text-4xl text-ink-0 uppercase tracking-tight md:text-5xl lg:text-6xl">
-          One trust platform.<br />Two ways to use it.
+          One zero trust layer.<br />Two ways to use it.
         </h1>
         <p class="mt-8 text-lg text-ink-1 leading-relaxed max-w-3xl">
-          Build workers for your business, or use KYDE Trust to govern, evaluate and prove AI you already run. Workers are built on Trust. Trust also runs on its own, underneath AI somebody else built.
+          Build workers for your business, or use KYDE Zero Trust to secure, govern, evaluate and prove the AI you already run. The same zero trust layer powers every KYDE worker, and runs on its own underneath AI somebody else built.
         </p>
 
       </div>
@@ -164,16 +164,16 @@ const roles = [
           <button id="btn-workers" onclick="showTab('workers')"
             class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink">Workers</button>
           <button id="btn-trust" onclick="showTab('trust')"
-            class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0">Trust</button>
+            class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0">Zero Trust</button>
         </div>
 
         <!-- ── WORKERS ────────────────────────────────────── -->
         <div id="tab-workers">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-4 max-w-3xl">
-            Workers for real business processes.
+            Automate the work your company already does.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-            KYDE finds the work worth automating, builds the worker and runs it inside the KYDE Trust Platform. Six processes that people do today, in houses that are regulated, each with a step nobody wrote down.
+            KYDE finds the work worth automating, builds the worker and runs it inside KYDE Zero Trust. Six processes that people do today, in houses that are regulated, each with a step nobody wrote down.
           </p>
 
           <div class="border border-line-0 divide-y divide-line-0">
@@ -231,9 +231,9 @@ const roles = [
           </div>
 
           <div class="mt-16 border border-line-0 bg-white/[0.02] px-6 py-8 md:px-9 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">Every KYDE worker runs on the same Trust Platform.</p>
-            <a href="/trust" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
-              Explore KYDE Trust →
+            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">Every KYDE worker runs on KYDE Zero Trust.</p>
+            <a href="/zero-trust" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
+              Explore KYDE Zero Trust →
             </a>
           </div>
         </div>
@@ -241,10 +241,10 @@ const roles = [
         <!-- ── TRUST ──────────────────────────────────────── -->
         <div id="tab-trust" class="hidden">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-4 max-w-3xl">
-            Trust use cases.
+            Secure, govern, evaluate and prove the AI you already run.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-            Use the KYDE Trust Platform with KYDE workers, or independently with AI systems you already run. Nobody searches for this layer with the same words, so here are the five ways people arrive at it.
+            Use KYDE Zero Trust with KYDE workers, or independently with AI systems you already run. Nobody searches for this layer with the same words, so here are the five ways people arrive at it.
           </p>
 
           <div class="border border-line-0 divide-y divide-line-0">
@@ -267,9 +267,9 @@ const roles = [
           </div>
 
           <div class="mt-16 border border-line-0 bg-white/[0.02] px-6 py-8 md:px-9 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">The same infrastructure that governs KYDE workers can sit underneath your existing AI systems.</p>
-            <a href="/trust" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
-              Explore KYDE Trust →
+            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">The same zero trust layer that governs KYDE workers can sit underneath your existing AI systems.</p>
+            <a href="/zero-trust" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
+              Explore KYDE Zero Trust →
             </a>
           </div>
         </div>
