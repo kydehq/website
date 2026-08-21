@@ -15,7 +15,7 @@ const workers = [
     tag: 'DORA · BaFin · EU AI Act',
     today: 'An analyst opens the file, pulls three years of statements, reconciles the covenant list against the current facility and writes a one-page summary. Forty minutes when the file is clean. Half a day when it is not.',
     worker: 'Pulls the statements, reconciles the covenants, drafts the summary, and names the figures it could not source instead of estimating them.',
-    human: 'The credit decision. It has legal effect on the applicant, so it stays with the committee. The worker prepares the file. It does not vote.',
+    human: 'The credit decision. The committee reads a file that is complete and sourced, and spends its time on the judgement rather than on assembling the evidence for it.',
     record: 'Which documents were read, where each figure came from, which model drafted the summary, and what the analyst changed before it went in.',
     regs: ['DORA, operational resilience and exit', 'EU AI Act, Annex III §5 creditworthiness', 'BaFin guidance on AI in lending', 'GDPR Art. 22, automated decisions'],
   },
@@ -26,7 +26,7 @@ const workers = [
     tag: 'EU AI Act · Solvency II · GDPR',
     today: 'A handler reads the report, checks the policy for exclusions, sets a reserve and decides whether to instruct an assessor. The exclusions are in a PDF from 2021 that four people know how to read.',
     worker: 'Reads the report, pulls the policy, proposes a reserve and cites the clause it relied on. Instructs an assessor when the estimate is over the threshold.',
-    human: 'Every rejection. A refusal is something a policyholder can contest, so it goes to a person with the whole file in front of them.',
+    human: 'Every rejection. A handler makes that call with the whole file already in front of them, which is where their experience is worth most.',
     record: 'The clause the reserve was based on, the estimate, the threshold that applied that day, and whether a person changed the number.',
     regs: ['EU AI Act, Annex III §5 insurance pricing and risk', 'Solvency II, governance and risk management', 'GDPR Art. 22, automated decision-making', 'NIS-2, operational resilience'],
   },
@@ -37,7 +37,7 @@ const workers = [
     tag: 'EU AI Act · GDPR Art. 9 · MDR',
     today: 'A coder reads the discharge letter, assigns ICD-10 codes, checks them against the payer rules and submits. Rejected claims come back weeks later and get reworked by whoever is free.',
     worker: 'Drafts the coding from the letter, checks it against the payer rules, and holds anything the letter does not clearly support.',
-    human: 'The diagnosis, always. The worker codes what a clinician wrote. It never decides what is wrong with a patient.',
+    human: 'The diagnosis, always. The worker codes what a clinician wrote, so clinical time goes to patients rather than to payer rules.',
     record: 'Which letter produced which code, which payer rule applied, and what was held back for a human to look at.',
     regs: ['EU AI Act, Annex III §5 essential services access', 'GDPR Art. 9, special category health data', 'MDR / IVDR, where diagnosis is involved', 'NIS-2, critical health infrastructure'],
   },
@@ -48,7 +48,7 @@ const workers = [
     tag: 'EU AI Act · NIS-2 · CSDDD',
     today: 'A buyer checks the inspection report against the spec, looks up whether this supplier has had deviations before, and releases the batch or holds it. The deviation history lives in one person\'s spreadsheet.',
     worker: 'Matches the report to the spec, pulls the supplier history, and releases within the tolerance band. Holds anything outside it and says which measurement was out.',
-    human: 'Releasing a batch that failed inspection. That is a quality decision with a name attached to it, and it stays with the person whose name that is.',
+    human: 'Releasing a batch that fell outside tolerance. Your quality lead makes that call with the measurements and the supplier\'s full history already assembled.',
     record: 'The measurements, the tolerance in force, the supplier history it read, and every release that went through outside the band.',
     regs: ['EU AI Act, high-risk in safety components', 'NIS-2, supply chain security', 'CSDDD, supply chain due diligence', 'GDPR Art. 35, DPIA at scale'],
   },
@@ -59,7 +59,7 @@ const workers = [
     tag: 'EU AI Act · VwVfG · GDPR',
     today: 'A caseworker checks the application against the checklist, writes to the applicant for what is missing, and puts the file back in the queue. Most of the queue is waiting on one document.',
     worker: 'Runs the checklist, drafts the request for the missing documents, and puts the file in front of the caseworker complete.',
-    human: 'The decision. Where German administrative law leaves a matter to an official\'s discretion, it is not automated. The worker prepares the file and stops.',
+    human: 'The decision. German administrative law leaves discretionary matters with the official, and the file reaches them complete, so the discretion is the only part left to exercise.',
     record: 'What was checked, what was requested, when the applicant answered, and how long the file waited on each side.',
     regs: ['EU AI Act, Annex III §5 public benefits and services', 'VwVfG, discretionary administrative decisions', 'GDPR Art. 22, automated decision-making', 'OZG, digital administration'],
   },
@@ -70,7 +70,7 @@ const workers = [
     tag: 'NIS-2 · KRITIS · EU AI Act',
     today: 'After an imbalance, an operator reconstructs what happened from four systems and writes the report. The reconstruction takes longer than the event did.',
     worker: 'Assembles the timeline from the recorded actions, drafts the report, and marks the intervals where the data does not agree with itself.',
-    human: 'The dispatch itself. Nothing in the control loop is automated by KYDE. The worker documents, it does not operate.',
+    human: 'The dispatch itself. KYDE stays out of the control loop entirely. Your operators keep operating, and get the reconstruction handed to them instead of building it.',
     record: 'Every action in the window, in order, hash-chained, exported as a dated document the regulator recomputes without us.',
     regs: ['NIS-2, in force in Germany via NIS2UmsuCG', 'KRITIS, operator obligations', 'EU AI Act, high-risk in critical infrastructure', 'Cyber Resilience Act'],
   },
@@ -173,7 +173,7 @@ const roles = [
             Automate the work your company already does.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-            KYDE finds the work worth automating, builds the worker and runs it inside KYDE Zero Trust. Six processes that people do today, in houses that are regulated, each with a step nobody wrote down.
+            KYDE finds the work worth automating, builds the worker and runs it inside KYDE Zero Trust. Six processes people do today in regulated companies, each with a step nobody wrote down.
           </p>
 
           <div class="border border-line-0 divide-y divide-line-0">
@@ -244,7 +244,7 @@ const roles = [
             Secure, govern, evaluate and prove the AI you already run.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-            Use KYDE Zero Trust with KYDE workers, or independently with AI systems you already run. Nobody searches for this layer with the same words, so here are the five ways people arrive at it.
+            Use KYDE Zero Trust with KYDE workers, or independently with AI systems you already run. Five jobs it does, depending on which one you came for.
           </p>
 
           <div class="border border-line-0 divide-y divide-line-0">

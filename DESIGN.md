@@ -382,6 +382,27 @@ The house voice is plain, specific, and unhurried. It states what a thing does, 
 - No em-dashes (see below), and no exclamation marks anywhere.
 - Do not sell the future in the present tense. A capability that is not built says so, in the same sentence, in the reader's words rather than in a roadmap chip.
 
+**Write to the reader, never about them.** The people reading are running the
+business being described. Three habits break that, and all three are easy to
+fall into while writing quickly:
+
+- *Explaining your own rhetoric.* "Naming these is what makes the other two
+  believable" tells the reader why they should be convinced, which is the one
+  argument that cannot work on somebody who is reading it. State the fact and
+  let it do its own work.
+- *Talking about them in the third person.* "The person who has to defend it
+  internally" is the reader. Say "you".
+- *Narrating your own sales motion.* "These pay for the first project" and
+  "which is why there is a second project" describe our revenue, not their
+  benefit. Cut them.
+
+**Frame it positively when the positive frame is also the true one.** Work that
+stays with a person is not a limitation to be disclosed, it is the judgement
+your experts were hired for, and automating everything around it is what buys
+them the room to do it. Say that, rather than listing legal risks. The negative
+version is not more honest, it is just colder, and it makes an expensive
+decision feel like a liability review.
+
 The test: read the sentence out loud to somebody who runs the process being described. If they would nod, it ships. If they would wait for the actual point, it does not.
 
 ## Do's and Don'ts
