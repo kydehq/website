@@ -3,12 +3,6 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-const costAnchors = [
-  { k: "NIS-2",        v: "Fines up to €10M or 2% of global turnover. Management is personally liable." },
-  { k: "DORA",         v: "Gives financial supervisors direct enforcement power over operational resilience failures." },
-  { k: "EU AI Act",    v: "High-risk violations reach €15M or 3% of turnover once enforcement begins, December 2, 2027." },
-  { k: "A failed audit", v: "Consumes more senior time than a year of governance infrastructure." },
-];
 
 const pricingFaqs = [
   { q: "Can we start free and upgrade later?", a: "Yes. That is the intended path. Deploy Starter, see your agent landscape, then turn on enforcement where liability lives. Your ledger history carries over." },
@@ -282,34 +276,11 @@ const pricingFaqSchema = {
       </div>
     </section>
 
-    <!-- ══════════ COST ANCHOR ══════════ -->
-    <section class="border-t border-line-1">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
-        <div class="mb-10">
-          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · The comparison that actually matters</span></div>
-        </div>
-        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-10">
-          The honest benchmark for this budget line is not another tool. It is the cost of not being able to prove what your agents did.
-        </p>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {costAnchors.map(({ k, v }) => (
-            <div class="border border-line-0 bg-bg-1 p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-alert mb-2">{k}</p>
-              <p class="text-sm text-ink-0 leading-relaxed">{v}</p>
-            </div>
-          ))}
-        </div>
-        <p class="text-sm text-ink-2 max-w-3xl">
-          Against a single incident where you cannot produce evidence, every tier on this page is a rounding error.
-        </p>
-      </div>
-    </section>
-
     <!-- ══════════ PRICING FAQ ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="mb-10">
-          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Pricing FAQ</span></div>
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Pricing FAQ</span></div>
         </div>
         <div class="max-w-3xl space-y-px">
           {pricingFaqs.map(({ q, a }) => (
