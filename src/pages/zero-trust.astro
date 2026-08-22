@@ -3,25 +3,26 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-// The five capabilities, in the order the page argues them. Kept as data so the
-// scan list at the top and the deep sections below cannot drift apart.
+// Four capabilities, not a feature list. Flight recorder, inventory, DLP,
+// evaluation and the ledger are the proof inside these four, which is why they
+// are named here as what they let you do rather than as modules of their own.
 const capabilities = [
-  { n: '01', name: 'Flight recorder', line: 'Record every AI action.',                                    href: '#flight-recorder' },
-  { n: '02', name: 'Control',         line: 'Govern every action before it happens.',                     href: '#control'         },
-  { n: '03', name: 'Evaluate',        line: 'Continuously test AI against real-world behavior.',           href: '#replay'          },
-  { n: '04', name: 'Replay',          line: "Rerun historical work against today's models and policies.", href: '#replay'      },
-  { n: '05', name: 'Evidence',        line: 'Produce independently verifiable evidence.',                  href: '#evidence'        },
+  { n: '01', name: 'See',     line: 'See every AI action.',                              sub: 'Flight recorder · Inventory', href: '#see'     },
+  { n: '02', name: 'Control', line: 'Stop actions that violate policy.',                 sub: 'Identity · Policy · Data · Limits', href: '#control' },
+  { n: '03', name: 'Replay',  line: "Run past work against today's AI.",                 sub: 'Evaluation · Replay',         href: '#replay'  },
+  { n: '04', name: 'Prove',   line: 'Produce evidence that can be verified without us.', sub: 'Ledger · Offline recompute',  href: '#prove'   },
 ];
 
-// The five dimensions, phrased as the questions a reader already has. This is
-// the plain-language definition of what zero trust means here, and it comes
-// before the capability list, which is the same argument for a technical reader.
+// The five dimensions the layer checks on every action. One line each, in plain
+// language, then the concrete version for a reader who wants it. This is one
+// chapter of the page, not five: the proof sits further down under whichever
+// capability it belongs to.
 const dimensions = [
-  { name: 'Identity', q: 'Who is acting?',         a: 'Every worker and every agent carries a name of its own, not a shared key that four systems use.' },
-  { name: 'Policy',   q: 'What can it do?',        a: 'Rules are checked before the action executes, not written up in a report afterwards.' },
-  { name: 'Data',     q: 'What can it access?',    a: 'Sensitive fields are masked inline, before they ever reach a model.' },
-  { name: 'Limits',   q: 'How far can it go?',     a: 'Spend, volume and reach held across a run, not just per call.', soon: true },
-  { name: 'Evidence', q: 'What actually happened?', a: 'A hash-chained record written at the boundary, which your auditor recomputes without us.' },
+  { name: 'Identity', q: 'Know who is acting.',        a: 'Every worker and every agent carries a name of its own, not a shared key that four systems use.' },
+  { name: 'Policy',   q: 'Decide what it can do.',     a: 'Rules are checked before the action executes, not written up in a report afterwards.' },
+  { name: 'Data',     q: 'Control what it can see.',   a: 'Sensitive fields are masked inline, before they ever reach a model.' },
+  { name: 'Limits',   q: 'Control how far it can go.', a: 'Spend, volume and reach held across a run, not just per call.', soon: true },
+  { name: 'Evidence', q: 'Prove what happened.',       a: 'A hash-chained record written at the boundary, which your auditor recomputes without us.' },
 ];
 
 // Four ways in. A compliance partner and an underwriter want the same platform
@@ -32,14 +33,14 @@ const entries = [
     name: 'AI audit trail',
     line: 'Continuous evidence for regulated AI systems.',
     body: 'A hash-chained record written at the boundary, exported as a dated document an auditor recomputes offline. Built against GDPR, the EU AI Act, NIS-2 and DORA.',
-    href: '#evidence',
+    href: '#prove',
   },
   {
     audience: 'For insurance',
     name: 'AI telemetry',
     line: 'Observe how AI actually behaves in production.',
     body: 'Not what a system was designed to do, and not what a questionnaire says it does. What it did: which actions, against which systems, how often, and how much of that was ever recorded.',
-    href: '#flight-recorder',
+    href: '#see',
   },
   {
     audience: 'For AI governance',
@@ -80,7 +81,7 @@ const entries = [
             AI can act. Make sure every action is under control.
           </p>
           <p class="text-lg text-white/50 leading-relaxed max-w-2xl mb-6">
-            The zero trust layer for AI workers and agents. KYDE sits between them and the models, tools and business systems they reach. Every worker has an identity. Every action crosses the boundary. Every action leaves a record.
+            The zero trust layer for AI workers and agents. KYDE sits between them and the models, tools and business systems they reach.
           </p>
           <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em] mb-10">
             Identity <span class="text-white/20">·</span> Policy <span class="text-white/20">·</span> Data <span class="text-white/20">·</span> Limits <span class="text-white/20">·</span> Evidence
@@ -97,35 +98,19 @@ const entries = [
       </div>
     </section>
 
-    <!-- ══════════ THE FIVE QUESTIONS ══════════ -->
-    <!-- Zero trust is a term most readers have heard and few could define. Before
-         the page argues anything, it says what it means here, as five questions
-         somebody already has about an AI that can act on their systems. -->
+    <!-- ══════════ 01 · WHY ══════════ -->
+    <!-- The page opens on the gap, not on the product. A reader who knows NIST
+         SP 800-207 will check this claim in the first ten seconds, so the page
+         states the difference itself rather than letting them find it. We are not
+         a network access product. The boundary is the action. -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">What zero trust asks</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Why</span>
         </div>
-        <ul class="border border-line-0 divide-y divide-line-0">
-          {dimensions.map(({ name, q, a, soon }) => (
-            <li class="grid md:grid-cols-[minmax(0,160px)_minmax(0,260px)_1fr] gap-2 md:gap-8 items-baseline px-5 py-5 md:px-7 md:py-6">
-              <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-0">{name}</span>
-              <span class="text-base md:text-lg text-ink-0 leading-relaxed">{q}</span>
-              <span class="text-base text-ink-1 leading-relaxed">
-                {a}{soon && <span class="text-ink-2"> Coming soon.</span>}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- ══════════ WHAT IT EXTENDS ══════════ -->
-    <!-- A reader who knows NIST SP 800-207 will check this claim in the first ten
-         seconds, so the page states the difference itself rather than letting them
-         find it. We are not a network access product. The boundary is the action. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+          Traditional security was built around access.
+        </h2>
         <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
           <div>
             <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-5">Zero trust today</span>
@@ -143,52 +128,30 @@ const entries = [
       </div>
     </section>
 
-    <!-- ══════════ WHAT THE PLATFORM DOES ══════════ -->
-    <!-- The fifteen-second read. A partner at an audit firm should be able to scan
-         this and know whether the rest of the page is worth their time. These are
-         capabilities, not the five dimensions above: that list is what zero trust
-         checks, this list is what you get. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">What the platform does</span>
-        </div>
-        <ul class="border border-line-0 divide-y divide-line-0">
-          {capabilities.map(({ n, name, line, href }) => (
-            <li>
-              <a href={href} class="group grid md:grid-cols-[56px_minmax(0,220px)_1fr_auto] gap-2 md:gap-8 items-baseline px-5 py-5 md:px-7 md:py-6 hover:bg-bg-1 transition-colors">
-                <span class="font-mono text-[11px] tracking-[0.1em] text-gold">{n}</span>
-                <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-0">{name}</span>
-                <span class="text-base md:text-lg text-ink-1 leading-relaxed">{line}</span>
-                <span class="hidden md:inline font-mono text-xs text-ink-2 group-hover:text-ink-0 transition-colors">→</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-
-    <!-- ══════════ WHERE IT SITS ══════════ -->
-    <!-- Half width, figure right, opening the alternation the rest of the page
-         follows. The drawing turned portrait to fit: the two things that act sit
-         side by side on top, the layer is a slab wider than both of them, and the
-         systems are the ground. Everything leaves downward through the slab. -->
+    <!-- ══════════ 02 · PRINCIPLE ══════════ -->
+    <!-- The thesis of the whole page, and the only place the architecture is
+         drawn. The three beats sit under the heading rather than in the hero,
+         because here there is a figure next to them that shows what they mean. -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
         <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
 
           <div class="flex flex-col">
             <div class="h-7 flex items-center border-b border-line-0">
-              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">Where it sits</span>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">02 · Principle</span>
             </div>
             <div class="flex flex-1 flex-col justify-center py-10">
               <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
-                Under everything that acts. Above everything it can reach.
+                Trust every action, not just every connection.
               </h2>
-              <p class="text-lg text-ink-1 leading-relaxed">
+              <p class="text-lg text-ink-1 leading-relaxed mb-8">
                 Workers we build and AI you already run cross the same layer. Whichever you start with, the controls and the record are the same.
               </p>
+              <ul class="border-t border-line-0">
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every worker has an identity.</li>
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every action is checked.</li>
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every action is recorded.</li>
+              </ul>
             </div>
           </div>
 
@@ -244,38 +207,88 @@ const entries = [
       </div>
     </section>
 
-    <!-- ══════════ FOUR WAYS IN ══════════ -->
+    <!-- ══════════ 03 · PLATFORM ══════════ -->
+    <!-- One chapter, not five. The five dimensions are what the layer checks on
+         every action, and they get a single screen with one line each. The proof
+         for each of them is further down, under the capability it belongs to. -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Four ways in</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · Platform</span>
         </div>
         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
-          One layer. Five jobs, depending on what brought you here.
+          One control layer for every AI action.
         </h2>
-        <div class="grid md:grid-cols-2 border border-line-0">
-          {entries.map(({ audience, name, line, body, href }, i) => (
-            <a href={href} class:list={["group block p-6 md:p-8 hover:bg-bg-1 transition-colors border-line-0", i % 2 === 0 ? "md:border-r" : "", i === entries.length - 1 ? "" : "border-b", i >= entries.length - 2 ? "md:border-b-0" : ""]}>
-              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{audience}</span>
-              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-2">{name}</h3>
-              <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>
-              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
-              <span class="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 group-hover:text-ink-0 transition-colors">Read on →</span>
-            </a>
+        <!-- Laid out across the page rather than down it. The capability list
+             below is a stacked list of links, and two stacked lists in a row read
+             as one list the page contradicts itself about. This one is a path an
+             action travels, so it runs left to right and the order is the point. -->
+        <div class="mb-px hidden lg:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2 pb-4">
+          <span class="text-ink-0">AI action</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span>Identity</span><span class="text-ink-2/50">→</span>
+          <span>Policy</span><span class="text-ink-2/50">→</span>
+          <span>Data</span><span class="text-ink-2/50">→</span>
+          <span>Limits</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span class="text-ink-0">System</span>
+          <span class="text-ink-2/50">→</span>
+          <span class="text-live">Record</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line-0">
+          {dimensions.map(({ name, q, a, soon }) => (
+            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-4">{name}</span>
+              <p class="text-base md:text-lg text-ink-0 leading-snug mb-3">{q}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                {a}{soon && <span class="text-ink-2"> Coming soon.</span>}
+              </p>
+            </div>
           ))}
         </div>
       </div>
     </section>
+
+    <!-- ══════════ 04 · CAPABILITIES ══════════ -->
+    <!-- The fifteen-second read, and the map for everything below it. Four things
+         rather than five modules, so the sections that follow read as the proof of
+         a claim the reader has already accepted instead of as another feature. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Capabilities</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+          From control to proof.
+        </h2>
+        <ul class="border border-line-0 divide-y divide-line-0">
+          {capabilities.map(({ n, name, line, sub, href }) => (
+            <li>
+              <a href={href} class="group grid md:grid-cols-[56px_minmax(0,180px)_1fr_auto] gap-2 md:gap-8 items-baseline px-5 py-5 md:px-7 md:py-6 hover:bg-bg-1 transition-colors">
+                <span class="font-mono text-[11px] tracking-[0.1em] text-gold">{n}</span>
+                <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-0">{name}</span>
+                <span>
+                  <span class="block text-base md:text-lg text-ink-1 leading-relaxed">{line}</span>
+                  <span class="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">{sub}</span>
+                </span>
+                <span class="hidden md:inline font-mono text-xs text-ink-2 group-hover:text-ink-0 transition-colors">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
         <!-- ══════════ 01 · FLIGHT RECORDER ══════════ -->
         <!-- First thing past the fold. The topology is the argument: a reader has to
              see that everything crosses one place before "system of record" means
              anything. FIG.2 is full-width for that reason, like the ladder further
              down, and it is the only figure on the page that shows the whole shape. -->
-        <section id="flight-recorder" class="scroll-mt-20 bg-bg-0">
+        <section id="see" class="scroll-mt-20 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">01 · Flight recorder</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">See · Flight recorder</span>
                     <span class="fig-label">FIG.2</span>
                 </div>
 
@@ -534,6 +547,7 @@ const entries = [
                 }
             </script>
         </section>
+
         <!-- ══════════ FLIGHT RECORDER · INVENTORY ══════════ -->
         <!-- Platform block. Govern, Enforce and Mandates used to be three of the five
              readings that carried the page; they are now the substrate under the five
@@ -597,7 +611,7 @@ const entries = [
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Inventory</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">See · Inventory</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-none">Find the agents nobody put on a list.</h2>
@@ -728,7 +742,7 @@ const entries = [
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">02 · Control</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Control</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-none">Govern every action before it happens.</h2>
@@ -846,6 +860,7 @@ const entries = [
                 }
             </script>
         </section>
+
         <!-- ══════════ 03 · EVALUATE & REPLAY ══════════ -->
         <section id="replay" class="scroll-mt-20">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
@@ -900,7 +915,7 @@ const entries = [
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center justify-between border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">03 · Evaluate &amp; replay</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Replay · Evaluate</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-none">Rerun the past against the present.</h2>
@@ -1021,29 +1036,22 @@ const entries = [
                 }
             </script>
         </section>
+
         <!-- ══════════ 04 · EVIDENCE ══════════ -->
-        <section id="evidence" class="scroll-mt-20">
+        <section id="prove" class="scroll-mt-20">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <!-- Figure sits between two hairlines, so the animation reads as a
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center justify-between border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">04 · Evidence</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Prove · Evidence</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-none">Evidence the other side can check without you.</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">The behavioral system of record for autonomous work.</p>
                         <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Who acted, which agent, which model, under which policy.</p>
                         <p class="mt-8 text-lg text-white/55 leading-relaxed">
                             Every entry is hash-chained at the boundary, before anything reaches a provider, and held outside the reach of the thing being recorded. Altering one link breaks every link after it, and an auditor recomputes the chain offline, without us in the room. Your provider's log lives on their infrastructure and is read through their console. In a dispute that involves them, it is theirs, not yours.
-                        </p>
-                        <p class="mt-6 font-mono text-sm text-white/40 leading-relaxed">
-                            The gateway and the ledger are open source.
-                            <a href="https://github.com/kydehq/gateway" target="_blank" rel="noopener" class="text-white/60 hover:text-white underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-colors">github.com/kydehq/gateway →</a>
-                        </p>
-                        <p class="mt-6 font-mono text-[11px] text-white/35 leading-relaxed">
-                            Ed25519-signing each entry with your own keys, which proves authorship rather than order, is an Enterprise capability.
                         </p>
                         </div>
                     </div>
@@ -1236,19 +1244,95 @@ const entries = [
             </script>
         </section>
 
+    <!-- ══════════ 05 · OUTCOMES ══════════ -->
+    <!-- This used to sit near the top as "four ways in", which turned the page
+         into a landing page with four personas before it had made an argument.
+         It belongs here: the reader now knows what the thing is, so the question
+         worth answering is what it is worth to them. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Outcomes</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+          One layer. Four things it is worth.
+        </h2>
+        <div class="grid md:grid-cols-2 border border-line-0">
+          {entries.map(({ audience, name, line, body, href }, i) => (
+            <a href={href} class:list={["group block p-6 md:p-8 hover:bg-bg-1 transition-colors border-line-0", i % 2 === 0 ? "md:border-r" : "", i === entries.length - 1 ? "" : "border-b", i >= entries.length - 2 ? "md:border-b-0" : ""]}>
+              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{audience}</span>
+              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-2">{name}</h3>
+              <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
+              <span class="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 group-hover:text-ink-0 transition-colors">Read on →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 06 · PROOF ══════════ -->
+    <!-- The technical floor, and deliberately the last thing before the vision.
+         By now the reader knows what the layer is and what it is worth, so this
+         section answers the only question left: why trust the platform itself.
+         A spec table rather than prose, and visually a third thing again, so it
+         does not read as another capability list. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">06 · Proof</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6 max-w-3xl">
+          Built for independent verification.
+        </h2>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
+          Evidence you cannot check yourself is a claim. Every part of the record is built so somebody outside this company, and outside your company, can arrive at the same answer without asking either of us.
+        </p>
+        <dl class="grid md:grid-cols-2 gap-x-16 gap-y-0">
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Hash chain</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Each entry carries the hash of the one before it. Altering a single entry breaks every link after it.</dd>
+          </div>
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Append-only</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Entries are written at the boundary as the action passes, and held outside the reach of the system being recorded.</dd>
+          </div>
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Offline recomputation</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">An auditor recomputes the chain from the exported document, on their own machine, with us not in the room.</dd>
+          </div>
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Open-source gateway</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">
+              The gateway and the ledger are open source, so the thing writing the record can be read.
+              <a href="https://github.com/kydehq/gateway" target="_blank" rel="noopener" class="text-ink-0 hover:text-ink-0 underline underline-offset-4 decoration-line-0 hover:decoration-current transition-colors">github.com/kydehq/gateway →</a>
+            </dd>
+          </div>
+          <div class="border-t border-b border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Ed25519 signing</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Signing each entry proves authorship rather than order. <span class="text-ink-2">An Enterprise capability.</span></dd>
+          </div>
+          <div class="border-t border-b border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Your keys</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Signing keys are yours and stay in your environment. A record we could produce on your behalf is a record we could also alter.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
         <!-- ══════════ THE TRUST LADDER ══════════ -->
         <section id="ladder" class="scroll-mt-20 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">05 · Autonomy ladder</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Autonomy</span>
                     <span class="fig-label">FIG.3</span>
                 </div>
                 <!-- Autonomy ladder -->
                 <div class="pt-12 pb-24 md:pb-28">
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white mb-4">
-                        How much responsibility can this worker handle?
+                        AI should earn autonomy.
                         </h2>
-                    <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">AI autonomy should be earned, not assumed.</p>
+                    <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Start with limited responsibility. Increase it as the worker proves it can operate reliably.</p>
                     <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
                         Reading? Suggesting? Calling tools? Running workflows? Approving payments? Running unattended? Every one of those is a different amount of trust, and most organizations grant them all at once, on the day the agent is switched on, because there is nothing to grant them against.
                     </p>
@@ -1257,9 +1341,6 @@ const entries = [
                     </p>
                     <!-- The level-by-level detail lives on /trust-score, beside the measurement
                          that decides the level. Here it stays a summary. -->
-                    <a href="/zero-trust#ladder" class="mb-10 inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                        How the levels are measured →
-                    </a>
                     <!-- The staircase is asymmetric by nature, so without a frame and a pair
                          of axes it floats. The plot frame gives it something to stand on. -->
                     <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">
@@ -1418,6 +1499,7 @@ const entries = [
         </div>
       </div>
     </section>
+
   </main>
 
   <Footer />
