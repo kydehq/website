@@ -461,6 +461,29 @@ decision feel like a liability review.
 
 The test: read the sentence out loud to somebody who runs the process being described. If they would nod, it ships. If they would wait for the actual point, it does not.
 
+## Legal notice on articles
+
+Every article carries the standing disclaimer, and it comes from one place:
+`src/components/LegalNotice.astro`. Import it and drop `<LegalNotice />` in as
+the last thing inside `<main>`. It picks German or English from the path, so an
+article never has to know which language it is in, and the wording cannot drift
+one page at a time.
+
+It goes on articles: blog posts, glossary entries, guides, whitepapers,
+comparisons, the regulatory explainers and everything under `/de/wissen/`.
+Glossary entries inherit it through `GlossaryEntry.astro` and need nothing.
+It does **not** go on product pages. A disclaimer under a price or a feature
+list reads as a warning about the product rather than about a text.
+
+Where a page needs more than the standard wording, pass it as a child rather
+than editing the component: the two German regulatory articles add that the
+official wording of the cited acts governs. Anything that would apply to every
+article belongs in the component.
+
+One accessibility consequence worth knowing: the notice is an `<aside>`, so any
+page that already had an unnamed `<aside>` now has two landmarks and needs
+`aria-label` on both. `npm run qa:html` catches this.
+
 ## Do's and Don'ts
 
 **Do**

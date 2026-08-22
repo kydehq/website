@@ -1,0 +1,28 @@
+---
+import { localeOf } from "../data/locales";
+
+// Standing disclaimer under every article on the site.
+//
+// It exists in two languages and picks the right one from the path, so an
+// article never has to remember which it is. New articles get it by importing
+// this file and dropping <LegalNotice /> in as the last thing inside <main>.
+//
+// The slot is for the addition a page genuinely needs on top: a regulatory
+// explainer that quotes legal text should also say that the official wording
+// governs. Everything that applies to every article belongs here, not there,
+// or the wording drifts one page at a time.
+const de = localeOf(Astro.url.pathname) === "de";
+
+const heading = de ? "Rechtlicher Hinweis" : "Legal notice";
+const body = de
+  ? "Der Inhalt dieses Artikels dient ausschließlich allgemeinen Informations- und Bildungszwecken und stellt keine Rechts-, Steuer- oder sonstige Fachberatung dar. KYDE übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit oder Aktualität der enthaltenen Informationen; Gesetze, Verordnungen und Marktverhältnisse können sich seit der Veröffentlichung geändert haben. Für Ihre konkrete Situation lassen Sie sich bitte von einem in Ihrer Jurisdiktion zugelassenen Rechtsbeistand beraten."
+  : "The content of this article is provided for general informational and educational purposes only and does not constitute legal, tax, or other professional advice. KYDE makes no representations or warranties as to the accuracy, completeness, or timeliness of the information contained in this article; laws, regulations, and market conditions may have changed since publication. You should consult a qualified legal advisor licensed in your jurisdiction for advice on your specific situation.";
+---
+
+<aside aria-label={heading} class="border-t border-line-0 bg-bg-0">
+  <div class="mx-auto max-w-7xl px-6 py-10 md:border-x md:border-line-0">
+    <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1 mb-3">{heading}</p>
+    <p class="text-sm text-ink-2 leading-relaxed max-w-3xl">{body}</p>
+    <slot />
+  </div>
+</aside>

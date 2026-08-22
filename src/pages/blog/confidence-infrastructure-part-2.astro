@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
@@ -207,7 +208,7 @@ import Footer from '../../components/Footer.astro';
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block space-y-6 sticky top-28">
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
 
             <div class="border border-warn/50 bg-warn/5 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-3">Series</p>
@@ -274,6 +275,7 @@ import Footer from '../../components/Footer.astro';
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />

@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import LegalNotice from '../components/LegalNotice.astro';
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -352,7 +353,7 @@ const faqSchema = {
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block space-y-5 sticky top-28">
+          <aside aria-label="Related" class="hidden md:block space-y-5 sticky top-28">
 
             <div class="border border-alert/30 bg-alert/5 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-alert mb-2">Active risk</p>
@@ -425,6 +426,7 @@ const faqSchema = {
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />

@@ -4,7 +4,7 @@ import Navbar from "../../../components/Navbar.astro";
 import Footer from "../../../components/Footer.astro";
 import Stand from "../../../components/Stand.astro";
 import Zitat from "../../../components/Zitat.astro";
-import Rechtshinweis from "../../../components/Rechtshinweis.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
 
 // Deutsche Prosa, geschrieben von Jörg Radehaus. Nicht übersetzt.
 //
@@ -283,7 +283,7 @@ const articleSchema = {
               <p class="text-xs text-ink-1 leading-relaxed">{quellen}</p>
             </div>
 
-            <Rechtshinweis />
+            
           </article>
 
           <aside aria-label="Weiterführend" class="hidden md:block sticky top-28">
@@ -302,6 +302,13 @@ const articleSchema = {
         </div>
       </div>
     </section>
+  <LegalNotice>
+      <p class="text-sm text-ink-2 leading-relaxed max-w-3xl mt-4">
+      Diese Seite beschreibt, was die genannten Rechtsakte verlangen, und trifft keine Aussage darüber,
+      welche Pflichten im Einzelfall bestehen. Maßgeblich ist ausschließlich der amtliche Wortlaut der
+      zitierten Rechtsakte.
+    </p>
+    </LegalNotice>
   </main>
 
   <Footer />
