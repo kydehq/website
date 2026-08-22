@@ -47,6 +47,27 @@ Note: "Behavioral Firewall" stays inside the articles under Zero Trust
       linked from the footer. Decide: rewrite, or delete like the other
       seven contradicting pages.
 
+## Deleted pages: decide before merging
+
+Eight pages that contradicted the new positioning were removed. They are
+live today and answer 200. After the merge they answer 404. Nothing links
+to them internally any more (checked across all 69 pages, including
+absolute `https://kyde.com/...` links, which the lychee config excludes),
+but external links and search index entries stay where they are.
+
+**Open decision, blocks the merge:** do `/pricing` and `/trust-score` get
+a redirect to their successor page, or is the 404 wanted? They are the two
+with the most likely inbound links.
+
+- [ ] `/pricing` → redirect to ? or 404
+- [ ] `/trust-score` → redirect to ? or 404
+- [ ] `/starter`, `/sandbox`, `/lp/trust-boundary`, `/audit-readout`,
+      `/blog/trust-is-a-number`, `/who-its-for` → 404 unless someone
+      objects
+
+Note: GitHub Pages serves static files, so a redirect here means a small
+HTML stub with a meta refresh plus a canonical, not a server rule.
+
 ## Deploy
 
 - [ ] Three canonical URLs 404 until the new pages are live: `/audit`,
@@ -54,3 +75,14 @@ Note: "Behavioral Firewall" stays inside the articles under Zero Trust
       deploy. Re-run `./scripts/qa.sh` afterwards to confirm.
 - [ ] Homepage `<title>` and Organization schema were rewritten on
       2026-08-22. Check the search result snippet after the first crawl.
+- [ ] After deploy, re-check the deleted URLs above in Search Console and
+      submit the removals or the redirects, whichever was decided.
+
+## QA notes
+
+- lychee 0.24.2 is installed via Homebrew, so `./scripts/qa.sh` no longer
+  skips the link check. It runs against `dist/`.
+- The two redirects lychee reports are a hint, not a finding: it suggests
+  writing the resolved target URLs directly.
+- lychee excludes `^https://kyde\.com`, so absolute self-links are not
+  covered by the automated run and need checking by hand when pages move.
