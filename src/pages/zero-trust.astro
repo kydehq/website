@@ -13,6 +13,17 @@ const capabilities = [
   { n: '05', name: 'Evidence',        line: 'Produce independently verifiable evidence.',                  href: '#evidence'        },
 ];
 
+// The five dimensions, phrased as the questions a reader already has. This is
+// the plain-language definition of what zero trust means here, and it comes
+// before the capability list, which is the same argument for a technical reader.
+const dimensions = [
+  { name: 'Identity', q: 'Who is acting?',         a: 'Every worker and every agent carries a name of its own, not a shared key that four systems use.' },
+  { name: 'Policy',   q: 'What can it do?',        a: 'Rules are checked before the action executes, not written up in a report afterwards.' },
+  { name: 'Data',     q: 'What can it access?',    a: 'Sensitive fields are masked inline, before they ever reach a model.' },
+  { name: 'Limits',   q: 'How far can it go?',     a: 'Spend, volume and reach held across a run, not just per call.', soon: true },
+  { name: 'Evidence', q: 'What actually happened?', a: 'A hash-chained record written at the boundary, which your auditor recomputes without us.' },
+];
+
 // Four ways in. A compliance partner and an underwriter want the same platform
 // and will never search for it with the same words.
 const entries = [
@@ -66,10 +77,10 @@ const entries = [
             KYDE<br />Zero Trust
           </h1>
           <p class="text-lg md:text-xl text-white uppercase tracking-[0.12em] leading-snug mb-5">
-            The zero trust layer for AI workers and agents.
+            AI can act. Make sure every action is under control.
           </p>
           <p class="text-lg text-white/50 leading-relaxed max-w-2xl mb-6">
-            Control every action. Record every decision. Prove what happened. KYDE sits between AI workers, models, tools and business systems, and every action crosses the same boundary before it executes.
+            The zero trust layer for AI workers and agents. KYDE sits between them and the models, tools and business systems they reach. Every worker has an identity. Every action crosses the boundary. Every action leaves a record.
           </p>
           <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em] mb-10">
             Identity <span class="text-white/20">·</span> Policy <span class="text-white/20">·</span> Data <span class="text-white/20">·</span> Limits <span class="text-white/20">·</span> Evidence
@@ -83,6 +94,29 @@ const entries = [
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ══════════ THE FIVE QUESTIONS ══════════ -->
+    <!-- Zero trust is a term most readers have heard and few could define. Before
+         the page argues anything, it says what it means here, as five questions
+         somebody already has about an AI that can act on their systems. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">What zero trust asks</span>
+        </div>
+        <ul class="border border-line-0 divide-y divide-line-0">
+          {dimensions.map(({ name, q, a, soon }) => (
+            <li class="grid md:grid-cols-[minmax(0,160px)_minmax(0,260px)_1fr] gap-2 md:gap-8 items-baseline px-5 py-5 md:px-7 md:py-6">
+              <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-0">{name}</span>
+              <span class="text-base md:text-lg text-ink-0 leading-relaxed">{q}</span>
+              <span class="text-base text-ink-1 leading-relaxed">
+                {a}{soon && <span class="text-ink-2"> Coming soon.</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
@@ -109,9 +143,11 @@ const entries = [
       </div>
     </section>
 
-    <!-- ══════════ THE FIVE ══════════ -->
+    <!-- ══════════ WHAT THE PLATFORM DOES ══════════ -->
     <!-- The fifteen-second read. A partner at an audit firm should be able to scan
-         this and know whether the rest of the page is worth their time. -->
+         this and know whether the rest of the page is worth their time. These are
+         capabilities, not the five dimensions above: that list is what zero trust
+         checks, this list is what you get. -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
