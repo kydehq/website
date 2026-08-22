@@ -47,26 +47,31 @@ Note: "Behavioral Firewall" stays inside the articles under Zero Trust
       linked from the footer. Decide: rewrite, or delete like the other
       seven contradicting pages.
 
-## Deleted pages: decide before merging
+## Deleted pages: decided, no redirects
 
-Eight pages that contradicted the new positioning were removed. They are
-live today and answer 200. After the merge they answer 404. Nothing links
-to them internally any more (checked across all 69 pages, including
-absolute `https://kyde.com/...` links, which the lychee config excludes),
-but external links and search index entries stay where they are.
+Eight pages that contradicted the new positioning were removed: `/pricing`,
+`/starter`, `/sandbox`, `/trust-score`, `/lp/trust-boundary`,
+`/audit-readout`, `/blog/trust-is-a-number`, `/who-its-for`. They are live
+today and answer 200; after the merge they answer 404.
 
-**Open decision, blocks the merge:** do `/pricing` and `/trust-score` get
-a redirect to their successor page, or is the 404 wanted? They are the two
-with the most likely inbound links.
+**Decision (Joerg, 2026-08-22): no redirect stubs.** External links point
+at the homepage, not at subpages, so there is nothing worth preserving.
+`/trust-score` in particular should not be kept alive, since the term is
+deliberately out of the positioning.
 
-- [ ] `/pricing` → redirect to ? or 404
-- [ ] `/trust-score` → redirect to ? or 404
-- [ ] `/starter`, `/sandbox`, `/lp/trust-boundary`, `/audit-readout`,
-      `/blog/trust-is-a-number`, `/who-its-for` → 404 unless someone
-      objects
+Nothing links to them internally (checked across all 69 pages, including
+the absolute `https://kyde.com/...` links that the lychee config excludes),
+and `/404` does not offer any of them either.
 
-Note: GitHub Pages serves static files, so a redirect here means a small
-HTML stub with a meta refresh plus a canonical, not a server rule.
+This lands softer than a bare 404: `src/pages/404.astro` counts down and
+sends the reader to the homepage after five seconds, while GitHub Pages
+still returns a real 404 status, so search engines get the correct signal
+and people get routed on. Nothing more to build.
+
+- [ ] Optional, cosmetic: the 404 headline is "Lost in the agentic
+      wilderness" and the block is dressed as a fake terminal with traffic
+      light dots, which is neither the current vocabulary nor the figure
+      grammar in DESIGN.md.
 
 ## Deploy
 
