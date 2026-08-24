@@ -13,6 +13,9 @@ readers get two different companies depending on which page they land on.
 **Page meta descriptions** (highest priority, these are what shows in search
 results):
 
+- [ ] `layouts/Base.astro` default title and description, which every page
+      without its own falls back to
+
 - [ ] `company.astro`
 - [ ] `platform.astro`
 - [ ] `labs.astro`
@@ -80,6 +83,10 @@ and people get routed on. Nothing more to build.
       deploy. Re-run `./scripts/qa.sh` afterwards to confirm.
 - [ ] Homepage `<title>` and Organization schema were rewritten on
       2026-08-22. Check the search result snippet after the first crawl.
+- [ ] `/receipts` needs real targets for two links. "View on GitHub" points
+      at the `kydehq` org for now, not at a receipts repository, because none
+      is referenced anywhere in this codebase. There is also no URL for the
+      specification, so that CTA is not on the page yet.
 - [ ] After deploy, re-check the deleted URLs above in Search Console and
       submit the removals or the redirects, whichever was decided.
 

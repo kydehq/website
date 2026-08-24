@@ -1,0 +1,771 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+// What a receipt binds. Kept as data so the hero register and the section that
+// argues it cannot drift apart.
+const binds = ["Principal", "Agent", "Authorization", "Action"];
+
+// The four properties, in the order the boundary produces them.
+const properties = [
+  { name: "Wire-level evidence",     line: "Taken from what actually crossed the boundary, not from what the agent reports afterwards." },
+  { name: "External signing",        line: "Signed outside the agent's process, by a key the agent cannot reach." },
+  { name: "Tamper-evident history",  line: "Each receipt links to the one before it, so a silent edit breaks the chain." },
+  { name: "Independent verification", line: "Checked by the recipient alone, offline, with no account and no access to your systems." },
+];
+
+const cases = [
+  {
+    name: "AI commerce",
+    line: "Give every agent purchase a verifiable receipt.",
+    body: "The merchant can confirm the authorization, the action and the sequence without relying on the buyer's internal logs.",
+  },
+  {
+    name: "Legal AI",
+    line: "Give clients evidence of consequential actions performed by an AI worker.",
+    body: "Not a screenshot. Not an internal log. A receipt they can verify themselves.",
+  },
+  {
+    name: "Insurance",
+    line: "Create a verifiable record of the actions relevant to a claim.",
+    body: "Coverage can become measurable, because a missing receipt is something you can detect rather than something you argue about.",
+  },
+  {
+    name: "Regulated AI",
+    line: "Turn agent activity into signed evidence for auditors, customers and counterparties.",
+    body: "Evidence of controls, actions, blocks, budgets and authorization, without claiming that a receipt by itself proves real-world truth.",
+  },
+];
+
+// One bundle, drawn as a grid of receipts. Illustrative: the count is a shape on
+// a page, not a measurement from a customer.
+const BUNDLE_N = 37;
+const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
+---
+
+<Base
+  title="KYDE Receipts, Cryptographic Evidence for AI Actions"
+  description="An independent, cryptographically signed receipt for consequential AI actions, created at the execution boundary and outside the agent's control. Anyone who receives one can verify it without a KYDE account and without access to your systems."
+>
+  <Navbar />
+
+  <main>
+    <!-- ══════════ HERO ══════════ -->
+    <!-- The canvas mints receipts as actions cross the line, which is the whole
+         page in one motion. Same grammar as the figures on /zero-trust: square
+         forms, round blooms, palette read from the theme at paint time. -->
+    <section class="relative bg-bg-1 overflow-hidden">
+      <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
+      <canvas id="mint-canvas" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
+      <!-- Same scrim as the homepage hero: the motion belongs to the right half,
+           where the boundary is, and the copy needs a quiet ground. -->
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-1 via-bg-1/70 to-transparent"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-20 md:pt-48 md:pb-24 md:border-x md:border-line-0">
+        <div class="max-w-3xl">
+          <p class="font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.2em] mb-6">
+            Apache-2.0 <span class="text-white/30" aria-hidden="true">·</span> No account required <span class="text-white/30" aria-hidden="true">·</span> Offline verification
+          </p>
+          <h1 class="hero-h1 text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05] mb-6">
+            KYDE<br />Receipts
+          </h1>
+          <p class="text-lg md:text-xl text-white uppercase tracking-[0.12em] leading-snug mb-5">
+            Cryptographic evidence for AI actions.
+          </p>
+          <p class="text-lg text-white/50 leading-relaxed max-w-2xl mb-5">
+            AI agents make decisions, call tools, move money, sign documents and change records. The system that takes the action usually also controls the record of what happened.
+          </p>
+          <p class="text-lg text-white/70 leading-relaxed max-w-2xl mb-6">
+            KYDE Receipts creates an independent, cryptographically signed receipt for consequential AI actions, at the execution boundary and outside the agent's control.
+          </p>
+          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em] mb-10">
+            {binds.map((b, i) => (
+              <>{i > 0 && <span class="text-white/20"> → </span>}{b}</>
+            ))}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
+              Get started →
+            </button>
+            <a href="https://github.com/kydehq" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all">
+              View on GitHub →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 01 · THE PROBLEM ══════════ -->
+    <!-- Figure right. The argument is the boundary: the agent writes to the left
+         of it and cannot reach across, so the attempted rewrite is drawn failing
+         rather than described in a sentence nobody would check. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+
+          <div class="flex flex-col">
+            <div class="h-7 flex items-center border-b border-line-0">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">01 · The problem</span>
+            </div>
+            <div class="flex flex-1 flex-col justify-center py-10">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+                The agent should not write its own evidence.
+              </h2>
+              <p class="text-lg text-ink-1 leading-relaxed mb-5">
+                Logs are useful for debugging. They are weaker as evidence when the same system that acted also controls the record. KYDE Receipts separates the two.
+              </p>
+              <p class="text-lg text-ink-1 leading-relaxed mb-8">
+                Every receipt binds principal, agent, authorization and action. It is signed outside the agent's process and linked into a tamper-evident chain.
+              </p>
+              <ul class="border-t border-line-0">
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">An agent can correct an action.</li>
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">It cannot silently rewrite the history.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-col">
+            <div class="h-7 flex items-center justify-end border-b border-line-0">
+              <span class="fig-label">FIG.1</span>
+            </div>
+            <div class="flex flex-1 items-center justify-center py-10">
+              <svg id="boundary-fig" viewBox="0 0 480 360" class="w-full max-w-md h-auto" aria-hidden="true">
+                <path d="M12 27 L12 12 L27 12"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                <path d="M453 12 L468 12 L468 27"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                <path d="M12 333 L12 348 L27 348"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                <path d="M468 333 L468 348 L453 348" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+                <defs>
+                  <radialGradient id="mint-glow">
+                    <stop offset="0%"   stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                    <stop offset="25%"  stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                    <stop offset="60%"  stop-color="var(--color-live)"  stop-opacity="0.2" />
+                    <stop offset="100%" stop-color="var(--color-live)"  stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+
+                <text x="30" y="42" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE AGENT</text>
+                <text x="450" y="42" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE RECORD</text>
+
+                <!-- the agent's own space -->
+                <rect x="30" y="58" width="150" height="106" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
+                <text x="105" y="98"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.72" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">AGENT PROCESS</text>
+                <text x="105" y="118" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">its own logs live here</text>
+                <text x="105" y="134" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">it can edit all of it</text>
+
+                <!-- the boundary. everything right of it is out of reach -->
+                <line id="bd-line" x1="240" y1="52" x2="240" y2="330" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
+                <text x="234" y="322" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">EXECUTION BOUNDARY</text>
+
+                <!-- the action crossing, and the receipt it mints -->
+                <line x1="180" y1="111" x2="240" y2="111" stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="3 5" />
+                <rect id="bd-action" x="168" y="103" width="16" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.75" stroke-width="1.5" />
+                <g id="bd-bloom"></g>
+
+                <!-- the chain the receipts land in -->
+                {[0, 1, 2, 3].map((i) => (
+                  <>
+                    {i < 3 && (
+                      <line class="bd-conn" x1={272 + i * 52 + 38} y1="196" x2={272 + (i + 1) * 52} y2="196"
+                            stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1.5" />
+                    )}
+                    <rect class="bd-box" x={272 + i * 52} y="176" width="38" height="40" fill="none"
+                          stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
+                    <text class="bd-hash" x={291 + i * 52} y="194" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.62"
+                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.04em;">{["7f3a", "7f3b", "7f3c", "7f3d"][i]}</text>
+                    <text class="bd-seq" x={291 + i * 52} y="208" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.34"
+                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.04em;">{`#${i + 1}`}</text>
+                  </>
+                ))}
+
+                <!-- the rewrite that does not land -->
+                <path id="bd-reach" d="M186 250 L300 250" fill="none" stroke="var(--color-alert)" stroke-opacity="0" stroke-width="1.5" stroke-dasharray="3 4" />
+                <text id="bd-reach-label" x="30" y="254" fill="var(--color-ink-0)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">rewrite entry #2</text>
+                <text id="bd-reach-verdict" x="272" y="278" fill="var(--color-alert)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.12em;">refused at the boundary</text>
+              </svg>
+            </div>
+            <div class="border-t border-line-0 pt-3">
+              <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 · The receipt is written on the far side of the line. What is already there cannot be reached back into.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 02 · THE HANDOFF ══════════ -->
+    <!-- Figure left this time, keeping the alternation. The receipt is rendered as
+         the thing itself rather than described, because the whole claim is that
+         the other side holds a document they can act on. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+
+          <div class="flex flex-col">
+            <div class="h-7 flex items-center border-b border-line-0">
+              <span class="fig-label">FIG.2</span>
+            </div>
+            <div class="flex flex-1 items-center justify-center py-10">
+              <div class="w-full max-w-sm border border-line-0 bg-bg-1">
+                <div class="flex items-center justify-between border-b border-line-0 px-5 py-3">
+                  <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-1">Your AI receipt</span>
+                  <span class="font-mono text-[10px] text-ink-2">KYDE</span>
+                </div>
+                <dl class="px-5 py-5 space-y-3">
+                  <div class="flex gap-4">
+                    <dt class="w-28 shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2 pt-0.5">Agent</dt>
+                    <dd class="text-sm text-ink-0">Contract Review Agent</dd>
+                  </div>
+                  <div class="flex gap-4">
+                    <dt class="w-28 shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2 pt-0.5">Action</dt>
+                    <dd class="text-sm text-ink-0">Contract review</dd>
+                  </div>
+                  <div class="flex gap-4">
+                    <dt class="w-28 shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2 pt-0.5">Authorized by</dt>
+                    <dd class="text-sm text-ink-0">Acme Legal</dd>
+                  </div>
+                  <div class="flex gap-4">
+                    <dt class="w-28 shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2 pt-0.5">Time</dt>
+                    <dd class="font-mono text-sm text-ink-0">14:32 UTC</dd>
+                  </div>
+                  <div class="flex gap-4">
+                    <dt class="w-28 shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2 pt-0.5">Receipt ID</dt>
+                    <dd class="font-mono text-sm text-ink-0">KYDE-7F3A…</dd>
+                  </div>
+                </dl>
+                <div class="border-t border-line-0 px-5 py-3.5 flex items-center gap-3">
+                  <span id="rc-dot" class="h-1.5 w-1.5 shrink-0 bg-live/40"></span>
+                  <span id="rc-verdict" class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2">Verify receipt →</span>
+                </div>
+              </div>
+            </div>
+            <div class="border-t border-line-0 pt-3">
+              <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.2 · Illustrative. Verification runs on the recipient's machine, against the receipt alone.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col">
+            <div class="h-7 flex items-center justify-end border-b border-line-0">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">02 · The handoff</span>
+            </div>
+            <div class="flex flex-1 flex-col justify-center py-10">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+                A receipt you can hand to the other side.
+              </h2>
+              <p class="text-lg text-ink-1 leading-relaxed mb-8">
+                A customer should not need access to your logs to verify what an AI did. An insurer should not need access to your infrastructure. An auditor should not need your account. The party affected by an AI action gets the evidence directly, and verifies it independently, offline if necessary.
+              </p>
+              <ul class="border-t border-line-0">
+                <li class="border-b border-line-0 py-3 text-base text-ink-1 leading-snug">No KYDE account.</li>
+                <li class="border-b border-line-0 py-3 text-base text-ink-1 leading-snug">No access to the company's systems.</li>
+                <li class="border-b border-line-0 py-3 text-base text-ink-1 leading-snug">No need to trust the agent.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 03 · THE BOUNDARY ══════════ -->
+    <!-- Four properties across the page, the same treatment the five dimensions
+         get on /zero-trust, so the two pages read as one system. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · The boundary</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6 max-w-3xl">
+          Built at the execution boundary.
+        </h2>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
+          A receipt is not produced by asking the agent to report what it did. It is created where the action crosses a controlled execution boundary, so the evidence can represent what was actually transmitted rather than what the agent later says happened.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-line-0">
+          {properties.map(({ name, line }) => (
+            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-4">{name}</span>
+              <p class="text-sm text-ink-1 leading-relaxed">{line}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 04 · BUNDLES ══════════ -->
+    <!-- Full width, because the argument is a count: the gap is the finding, and a
+         gap is only visible against the whole set. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-12">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Bundles</span>
+          <span class="fig-label">FIG.3</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start mb-12">
+          <div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+              One receipt. One shared record.
+            </h2>
+            <p class="text-lg text-ink-1 leading-relaxed">
+              Receipts can be bundled by transaction, matter, case or claim.
+            </p>
+          </div>
+          <div>
+            <p class="text-lg text-ink-1 leading-relaxed mb-6">
+              A bundle can carry the relevant external evidence alongside the receipts: payment-provider signatures, emails, mandates, other signed references. The result is a single package the parties verify independently.
+            </p>
+            <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-2">
+              Bundle by <span class="text-ink-0">transaction</span> <span class="text-ink-2/50">·</span> <span class="text-ink-0">matter</span> <span class="text-ink-2/50">·</span> <span class="text-ink-0">case</span> <span class="text-ink-2/50">·</span> <span class="text-ink-0">claim</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border border-line-0 bg-bg-1 px-6 py-6 md:px-8 md:py-7">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-6">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">One claim, verified as a set</span>
+            <span class="fig-label">FIG.3</span>
+          </div>
+          <div id="bundle-grid" class="flex flex-wrap gap-1.5 mb-6">
+            {bundle.map((i) => (
+              <span class="bundle-cell h-4 w-4 border border-line-0" data-i={i}></span>
+            ))}
+          </div>
+          <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-line-0 pt-4">
+            <span class="font-mono text-sm text-live" id="bundle-count">0 of {BUNDLE_N} receipts valid</span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2">No gaps</span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2">No KYDE account required</span>
+          </div>
+          <p class="mt-4 font-mono text-[10px] text-ink-2 leading-relaxed">FIG.3 · Illustrative. A bundle is checked as a set, so a missing receipt reads as a gap rather than as silence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 05 · WHERE IT MATTERS ══════════ -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Where it matters</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+          For the moments that matter.
+        </h2>
+        <div class="grid md:grid-cols-2 border border-line-0">
+          {cases.map(({ name, line, body }, i) => (
+            <div class:list={["p-6 md:p-8 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === cases.length - 1 ? "" : "border-b", i >= cases.length - 2 ? "md:border-b-0" : ""]}>
+              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-3">{name}</h3>
+              <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 06 · WHAT A RECEIPT IS NOT ══════════ -->
+    <!-- The page would be dishonest without this, and it is stronger with it: a
+         claim that stops somewhere specific is easier to believe than one that
+         does not. Deliberately given its own screen rather than a footnote. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">06 · The limit</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+          Receipts prove the record, not reality.
+        </h2>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+          <div>
+            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-live mb-5">What it proves</span>
+            <p class="text-xl md:text-2xl text-ink-0 leading-snug">
+              That a particular key committed a particular statement, at a particular time, at a particular position in the chain.
+            </p>
+          </div>
+          <div>
+            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-5">What it does not prove</span>
+            <p class="text-xl md:text-2xl text-ink-1 leading-snug">
+              That the real-world event happened. That link comes from external evidence: the payment record, the counterparty's signature, the signed mandate, the email. The distinction is fundamental.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 07 · OPEN BY DESIGN ══════════ -->
+    <section id="open" class="scroll-mt-20 bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">07 · Open by design</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+          <div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+              Open by design.
+            </h2>
+            <p class="text-lg text-ink-1 leading-relaxed mb-6">
+              The receipt format is separate from the KYDE implementation. Anyone can issue or verify compatible receipts.
+            </p>
+            <p class="font-mono text-sm uppercase tracking-[0.14em] text-ink-0">Apache-2.0</p>
+          </div>
+          <ul class="border-t border-line-0">
+            <li class="border-b border-line-0 py-4 text-base text-ink-1 leading-relaxed">No proprietary database.</li>
+            <li class="border-b border-line-0 py-4 text-base text-ink-1 leading-relaxed">No proprietary verifier.</li>
+            <li class="border-b border-line-0 py-4 text-base text-ink-1 leading-relaxed">No blockchain required.</li>
+            <li class="border-b border-line-0 py-4 text-base text-ink-1 leading-relaxed">
+              Optional external anchoring, for additional proof that a chain existed by a particular point in time.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CLOSER ══════════ -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">The agent acts · KYDE records · The recipient verifies</p>
+          <div class="mb-12 h-px bg-line-0"></div>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8">
+            Start with one action.
+          </h2>
+          <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">
+            Run KYDE Receipts for the actions where a dispute would matter. Install the open-source implementation, create a receipt, hand it to the other side, and let them verify it themselves.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+              Get started →
+            </button>
+            <a href="https://github.com/kydehq" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-line-0 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-1 hover:text-ink-0 transition-all">
+              View on GitHub →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  // ── shared plumbing, same contract as the figures on /zero-trust ───────────
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function palette() {
+    const cs = getComputedStyle(document.documentElement);
+    const rgb = (v: string) => {
+      const m = cs.getPropertyValue(v).trim();
+      const d = document.createElement("span");
+      d.style.color = m;
+      document.body.appendChild(d);
+      const out = getComputedStyle(d).color.match(/\d+/g)!.map(Number);
+      d.remove();
+      return out;
+    };
+    const bg = rgb("--color-bg-0");
+    return {
+      ink: rgb("--color-ink-0"),
+      live: rgb("--color-live"),
+      // A bloom painted in ink on paper is a grey smudge, so the figures have to
+      // know which ground they are standing on.
+      light: bg[0] * 0.299 + bg[1] * 0.587 + bg[2] * 0.114 > 128,
+    };
+  }
+
+  function onceVisible(el: Element, run: () => void) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          run();
+          io.disconnect();
+        }
+      }
+    }, { threshold: 0.25 });
+    io.observe(el);
+  }
+
+  // ── hero: actions crossing the line, minting receipts ─────────────────────
+  (() => {
+    const canvas = document.getElementById("mint-canvas") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let C = palette();
+    let W = 0, H = 0, boundaryX = 0;
+
+    type Act = { x: number; y: number; v: number; minted: boolean; bloom: number };
+    let acts: Act[] = [];
+    let chain: { x: number; y: number; a: number }[] = [];
+
+    const resize = () => {
+      const r = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = r.width; H = r.height;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // The line sits under the right edge of the text column, so the copy reads
+      // as being on the agent's side of it.
+      boundaryX = Math.max(W * 0.62, W - 520);
+    };
+
+    const spawn = () => ({
+      x: -40 - Math.random() * 260,
+      y: 60 + Math.random() * (H - 120),
+      v: 0.7 + Math.random() * 0.9,
+      minted: false,
+      bloom: 0,
+    });
+
+    // Seeded across the whole run rather than all at the left edge, so the field
+    // is already populated on the first frame instead of empty for half a minute.
+    const seed = () => {
+      acts = Array.from({ length: 9 }, () => {
+        const a = spawn();
+        a.x = -60 + Math.random() * (boundaryX + 60);
+        return a;
+      });
+      chain = [];
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      const [ir, ig, ib] = C.ink;
+      const [lr, lg, lb] = C.live;
+
+      // the boundary
+      ctx.strokeStyle = `rgba(${ir},${ig},${ib},${C.light ? 0.18 : 0.22})`;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 7]);
+      ctx.beginPath();
+      ctx.moveTo(boundaryX, 40);
+      ctx.lineTo(boundaryX, H - 40);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // receipts already minted, drifting right and fading
+      for (const c of chain) {
+        ctx.strokeStyle = `rgba(${ir},${ig},${ib},${c.a * (C.light ? 0.5 : 0.42)})`;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(c.x - 4, c.y - 4, 8, 8);
+      }
+
+      // actions in flight
+      for (const a of acts) {
+        if (a.bloom > 0) {
+          const rad = 4 + a.bloom * 34;
+          const g = ctx.createRadialGradient(boundaryX, a.y, 0, boundaryX, a.y, rad);
+          const peak = (1 - a.bloom) * (C.light ? 0.5 : 0.75);
+          g.addColorStop(0, `rgba(${lr},${lg},${lb},${peak})`);
+          g.addColorStop(0.45, `rgba(${lr},${lg},${lb},${peak * 0.25})`);
+          g.addColorStop(1, `rgba(${lr},${lg},${lb},0)`);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(boundaryX, a.y, rad, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (a.minted) continue;
+        ctx.strokeStyle = `rgba(${ir},${ig},${ib},${C.light ? 0.42 : 0.5})`;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(a.x - 3.5, a.y - 3.5, 7, 7);
+      }
+    };
+
+    const step = () => {
+      for (let i = 0; i < acts.length; i++) {
+        const a = acts[i];
+        if (!a.minted) {
+          a.x += a.v;
+          if (a.x >= boundaryX) {
+            a.minted = true;
+            a.bloom = 0.001;
+            chain.push({ x: boundaryX + 10, y: a.y, a: 1 });
+          }
+        }
+        if (a.bloom > 0) {
+          a.bloom += 0.018;
+          if (a.bloom >= 1) {
+            a.bloom = 0;
+            acts[i] = spawn();
+          }
+        }
+      }
+      for (const c of chain) {
+        c.x += 0.28;
+        c.a -= 0.004;
+      }
+      chain = chain.filter((c) => c.a > 0 && c.x < W + 20);
+      draw();
+      raf = requestAnimationFrame(step);
+    };
+
+    let raf = 0;
+    const start = () => {
+      resize();
+      seed();
+      if (reduced) {
+        // Static reading of the same idea: a few actions waiting, a few minted.
+        for (const a of acts) a.x = boundaryX - 60 - Math.random() * 180;
+        chain = acts.slice(0, 4).map((a, i) => ({ x: boundaryX + 14 + i * 16, y: a.y, a: 0.6 }));
+        draw();
+        return;
+      }
+      raf = requestAnimationFrame(step);
+    };
+
+    window.addEventListener("resize", () => {
+      resize();
+      if (reduced) draw();
+    });
+    window.addEventListener("kyde:theme", () => {
+      C = palette();
+      if (reduced) draw();
+    });
+
+    onceVisible(canvas, start);
+    document.addEventListener("visibilitychange", () => {
+      if (reduced) return;
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(step);
+    });
+  })();
+
+  // ── FIG.1: the crossing, then the rewrite that gets refused ───────────────
+  (() => {
+    const fig = document.getElementById("boundary-fig");
+    if (!fig) return;
+
+    const action = fig.querySelector("#bd-action") as SVGRectElement | null;
+    const bloomG = fig.querySelector("#bd-bloom") as SVGGElement | null;
+    const boxes = Array.from(fig.querySelectorAll(".bd-box")) as SVGRectElement[];
+    const conns = Array.from(fig.querySelectorAll(".bd-conn")) as SVGLineElement[];
+    const reach = fig.querySelector("#bd-reach") as SVGPathElement | null;
+    const reachLabel = fig.querySelector("#bd-reach-label") as SVGTextElement | null;
+    const verdict = fig.querySelector("#bd-reach-verdict") as SVGTextElement | null;
+    if (!action || !bloomG) return;
+
+    const settle = () => {
+      boxes.forEach((b) => b.setAttribute("stroke-opacity", "0.5"));
+      conns.forEach((c) => c.setAttribute("stroke-opacity", "0.32"));
+    };
+
+    if (reduced) {
+      settle();
+      reach?.setAttribute("stroke-opacity", "0.45");
+      reachLabel?.setAttribute("fill-opacity", "0.4");
+      verdict?.setAttribute("fill-opacity", "0.75");
+      return;
+    }
+
+    boxes.forEach((b) => b.setAttribute("stroke-opacity", "0.12"));
+    conns.forEach((c) => c.setAttribute("stroke-opacity", "0.08"));
+
+    const run = () => {
+      let t0 = 0;
+      const AX = 176, BX = 240;
+
+      const frame = (now: number) => {
+        if (!t0) t0 = now;
+        const t = now - t0;
+
+        // 0 → 1400: the action travels to the line
+        if (t < 1400) {
+          const p = t / 1400;
+          action.setAttribute("x", String(AX - 8 + (BX - AX) * p));
+          action.setAttribute("stroke-opacity", "0.75");
+        } else if (t < 2600) {
+          // 1400 → 2600: it blooms into a receipt, and the chain lights up
+          const p = (t - 1400) / 1200;
+          action.setAttribute("stroke-opacity", String(0.75 * (1 - p)));
+          const r = 4 + p * 40;
+          bloomG.innerHTML = `<circle cx="240" cy="111" r="${r}" fill="url(#mint-glow)" opacity="${(1 - p).toFixed(3)}" />`;
+          const lit = Math.min(boxes.length, Math.floor(p * (boxes.length + 1)));
+          boxes.forEach((b, i) => b.setAttribute("stroke-opacity", i < lit ? "0.5" : "0.12"));
+          conns.forEach((c, i) => c.setAttribute("stroke-opacity", i < lit - 1 ? "0.32" : "0.08"));
+        } else if (t < 3200) {
+          bloomG.innerHTML = "";
+          settle();
+        } else if (t < 4600) {
+          // 3200 → 4600: the agent reaches for entry #2 and does not get there
+          const p = (t - 3200) / 1400;
+          const stop = Math.min(p * 2, 1);
+          reach?.setAttribute("stroke-opacity", String(0.5 * Math.min(p * 3, 1)));
+          reach?.setAttribute("d", `M186 250 L${186 + (240 - 186) * stop} 250`);
+          reachLabel?.setAttribute("fill-opacity", String(0.4 * Math.min(p * 3, 1)));
+          if (p > 0.5) verdict?.setAttribute("fill-opacity", String(Math.min((p - 0.5) * 3, 1) * 0.85));
+        } else if (t < 6600) {
+          // hold, so the refusal is readable
+        } else {
+          t0 = now;
+          action.setAttribute("x", String(AX - 8));
+          reach?.setAttribute("stroke-opacity", "0");
+          reachLabel?.setAttribute("fill-opacity", "0");
+          verdict?.setAttribute("fill-opacity", "0");
+          boxes.forEach((b) => b.setAttribute("stroke-opacity", "0.12"));
+          conns.forEach((c) => c.setAttribute("stroke-opacity", "0.08"));
+        }
+        requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    };
+
+    onceVisible(fig, run);
+  })();
+
+  // ── FIG.2 + FIG.3: the receipt verifies, the bundle counts up ─────────────
+  (() => {
+    const dot = document.getElementById("rc-dot");
+    const verdict = document.getElementById("rc-verdict");
+    const card = dot?.closest("div.border") ?? null;
+    if (card && dot && verdict) {
+      const run = () => {
+        if (reduced) {
+          dot.classList.remove("bg-live/40");
+          dot.classList.add("bg-live");
+          verdict.textContent = "Receipt valid · signature and position verified";
+          verdict.classList.remove("text-ink-2");
+          verdict.classList.add("text-live");
+          return;
+        }
+        setTimeout(() => {
+          verdict.textContent = "Verifying…";
+          setTimeout(() => {
+            dot.classList.remove("bg-live/40");
+            dot.classList.add("bg-live");
+            verdict.textContent = "Receipt valid · signature and position verified";
+            verdict.classList.remove("text-ink-2");
+            verdict.classList.add("text-live");
+          }, 900);
+        }, 500);
+      };
+      onceVisible(card, run);
+    }
+
+    const grid = document.getElementById("bundle-grid");
+    const count = document.getElementById("bundle-count");
+    if (!grid || !count) return;
+    const cells = Array.from(grid.querySelectorAll(".bundle-cell")) as HTMLElement[];
+    const total = cells.length;
+
+    const fill = (n: number) => {
+      cells.forEach((c, i) => {
+        c.style.borderColor = i < n ? "var(--color-live)" : "";
+        c.style.backgroundColor = i < n ? "color-mix(in srgb, var(--color-live) 18%, transparent)" : "";
+      });
+      count.textContent = `${n} of ${total} receipts valid`;
+    };
+
+    const run = () => {
+      if (reduced) { fill(total); return; }
+      let n = 0;
+      const tick = () => {
+        n++;
+        fill(n);
+        if (n < total) setTimeout(tick, 45);
+      };
+      setTimeout(tick, 250);
+    };
+    onceVisible(grid, run);
+  })();
+</script>
