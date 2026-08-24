@@ -42,6 +42,40 @@ const cases = [
 // a page, not a measurement from a customer.
 const BUNDLE_N = 37;
 const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
+
+// ── FIG.1, the dome ────────────────────────────────────────────────────────
+// The agent sits at the center of a closed shell. Everything it sends outward
+// has to cross the shell, and the receipt is written on the far surface. The
+// geometry lives here rather than in the animation so the drawing and the motion
+// cannot drift apart: the script reads the same numbers off the svg.
+const DOME = { cx: 240, cy: 302, r: 188 };
+
+const pt = (deg: number, rad: number = DOME.r) => ({
+  x: DOME.cx + rad * Math.cos((deg * Math.PI) / 180),
+  y: DOME.cy - rad * Math.sin((deg * Math.PI) / 180),
+});
+
+// Drawn as a dense polyline rather than an arc command, so there is no sweep
+// flag to get backwards and the shell can be dashed or split later if needed.
+const SEGMENTS = 84;
+const domePath = Array.from({ length: SEGMENTS + 1 }, (_, i) => {
+  const p = pt(180 - (i * 180) / SEGMENTS);
+  return `${i === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
+}).join(" ");
+
+// Where receipts come to rest, just outside the shell. Spread rather than even,
+// because an even fan reads as decoration and this is a sequence.
+const SLOT_ANGLES = [154, 122, 90, 58, 26];
+const RECEIPT_R = DOME.r + 17;
+const slots = SLOT_ANGLES.map((a, i) => ({
+  a,
+  i,
+  hit: pt(a),
+  seat: pt(a, RECEIPT_R),
+  // Rotated so each receipt sits square to the surface it was written on.
+  tilt: 90 - a,
+  tag: ["7f3a", "7f3b", "7f3c", "7f3d", "7f3e"][i],
+}));
 ---
 
 <Base
@@ -129,7 +163,8 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
               <span class="fig-label">FIG.1</span>
             </div>
             <div class="flex flex-1 items-center justify-center py-10">
-              <svg id="boundary-fig" viewBox="0 0 480 360" class="w-full max-w-md h-auto" aria-hidden="true">
+              <svg id="dome-fig" viewBox="0 0 480 360" class="w-full max-w-md h-auto"
+                   data-cx={DOME.cx} data-cy={DOME.cy} data-r={DOME.r} aria-hidden="true">
                 <path d="M12 27 L12 12 L27 12"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
                 <path d="M453 12 L468 12 L468 27"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
                 <path d="M12 333 L12 348 L27 348"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
@@ -137,55 +172,59 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
 
                 <defs>
                   <radialGradient id="mint-glow">
-                    <stop offset="0%"   stop-color="var(--color-ink-0)" stop-opacity="0.9" />
-                    <stop offset="25%"  stop-color="var(--color-ink-0)" stop-opacity="0.32" />
-                    <stop offset="60%"  stop-color="var(--color-live)"  stop-opacity="0.2" />
+                    <stop offset="0%"   stop-color="var(--color-ink-0)" stop-opacity="0.95" />
+                    <stop offset="22%"  stop-color="var(--color-ink-0)" stop-opacity="0.34" />
+                    <stop offset="58%"  stop-color="var(--color-live)"  stop-opacity="0.22" />
                     <stop offset="100%" stop-color="var(--color-live)"  stop-opacity="0" />
                   </radialGradient>
                 </defs>
 
-                <text x="30" y="42" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE AGENT</text>
-                <text x="450" y="42" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE RECORD</text>
+                <text x="240" y="26" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE RECORD</text>
 
-                <!-- the agent's own space -->
-                <rect x="30" y="58" width="150" height="106" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1" />
-                <text x="105" y="98"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.72" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">AGENT PROCESS</text>
-                <text x="105" y="118" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">its own logs live here</text>
-                <text x="105" y="134" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">it can edit all of it</text>
+                <!-- the shell. everything the agent sends outward has to cross it -->
+                <path id="dome-arc" d={domePath} fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" stroke-linecap="round" />
+                <line x1={DOME.cx - DOME.r} y1={DOME.cy} x2={DOME.cx + DOME.r} y2={DOME.cy} stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                <text x={DOME.cx + DOME.r - 4} y={DOME.cy - 10} text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">KYDE</text>
 
-                <!-- the boundary. everything right of it is out of reach -->
-                <line id="bd-line" x1="240" y1="52" x2="240" y2="330" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-                <text x="234" y="322" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">EXECUTION BOUNDARY</text>
+                <!-- the agent, enclosed. it can reach the shell and no further -->
+                <rect x={DOME.cx - 9} y={DOME.cy - 9} width="18" height="18" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.7" stroke-width="1.5" />
+                <text x={DOME.cx} y={DOME.cy + 30} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">AGENT</text>
+                <text x={DOME.cx} y={DOME.cy + 44} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">its own logs live in here</text>
 
-                <!-- the action crossing, and the receipt it mints -->
-                <line x1="180" y1="111" x2="240" y2="111" stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="3 5" />
-                <rect id="bd-action" x="168" y="103" width="16" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.75" stroke-width="1.5" />
-                <g id="bd-bloom"></g>
-
-                <!-- the chain the receipts land in -->
-                {[0, 1, 2, 3].map((i) => (
-                  <>
-                    {i < 3 && (
-                      <line class="bd-conn" x1={272 + i * 52 + 38} y1="196" x2={272 + (i + 1) * 52} y2="196"
-                            stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1.5" />
-                    )}
-                    <rect class="bd-box" x={272 + i * 52} y="176" width="38" height="40" fill="none"
-                          stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
-                    <text class="bd-hash" x={291 + i * 52} y="194" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.62"
-                          style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.04em;">{["7f3a", "7f3b", "7f3c", "7f3d"][i]}</text>
-                    <text class="bd-seq" x={291 + i * 52} y="208" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.34"
-                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.04em;">{`#${i + 1}`}</text>
-                  </>
+                <!-- the chain, following the surface it was written on -->
+                {slots.slice(0, -1).map(({ seat }, i) => (
+                  <line class="dm-link" x1={seat.x.toFixed(1)} y1={seat.y.toFixed(1)}
+                        x2={slots[i + 1].seat.x.toFixed(1)} y2={slots[i + 1].seat.y.toFixed(1)}
+                        stroke="var(--color-ink-0)" stroke-opacity="0" stroke-width="1.5" />
                 ))}
 
-                <!-- the rewrite that does not land -->
-                <path id="bd-reach" d="M186 250 L300 250" fill="none" stroke="var(--color-alert)" stroke-opacity="0" stroke-width="1.5" stroke-dasharray="3 4" />
-                <text id="bd-reach-label" x="30" y="254" fill="var(--color-ink-0)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">rewrite entry #2</text>
-                <text id="bd-reach-verdict" x="272" y="278" fill="var(--color-alert)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.12em;">refused at the boundary</text>
+                <!-- actions in flight, each starting at the agent -->
+                {slots.map(({ a }) => (
+                  <rect class="dm-act" data-angle={a} x={DOME.cx - 4} y={DOME.cy - 4} width="8" height="8"
+                        fill="none" stroke="var(--color-ink-0)" stroke-opacity="0" stroke-width="1.5" />
+                ))}
+
+                <g id="dm-bloom"></g>
+
+                <!-- receipts, seated on the outside of the shell -->
+                {slots.map(({ seat, tilt, tag }) => (
+                  <g class="dm-receipt" opacity="0" transform={`rotate(${tilt.toFixed(1)} ${seat.x.toFixed(1)} ${seat.y.toFixed(1)})`}>
+                    <rect x={(seat.x - 15).toFixed(1)} y={(seat.y - 9).toFixed(1)} width="30" height="18"
+                          fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                    <text x={seat.x.toFixed(1)} y={(seat.y + 3).toFixed(1)} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.62"
+                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.04em;">{tag}</text>
+                  </g>
+                ))}
+
+                <!-- the reach back, which does not arrive -->
+                <line id="dm-reach" x1={DOME.cx} y1={DOME.cy} x2={DOME.cx} y2={DOME.cy}
+                      stroke="var(--color-alert)" stroke-opacity="0" stroke-width="1.5" stroke-dasharray="3 4" />
+                <text id="dm-reach-label" x="30" y="344" fill="var(--color-ink-0)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">rewrite 7f3b</text>
+                <text id="dm-reach-verdict" x="450" y="344" text-anchor="end" fill="var(--color-alert)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.12em;">the shell does not open inward</text>
               </svg>
             </div>
             <div class="border-t border-line-0 pt-3">
-              <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 · The receipt is written on the far side of the line. What is already there cannot be reached back into.</p>
+              <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 · Everything the agent sends outward crosses the shell, and the receipt is written on the far surface. The agent can reach the boundary. It cannot reach through it.</p>
             </div>
           </div>
 
@@ -656,85 +695,147 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
     });
   })();
 
-  // ── FIG.1: the crossing, then the rewrite that gets refused ───────────────
+  // ── FIG.1: the dome ──────────────────────────────────────────────────────
+  // Five actions leave the agent radially. Each one crosses the shell, blooms at
+  // the crossing point, and seats a receipt on the outside. Then the agent
+  // reaches back for one of them and stops dead at the inner surface, which is
+  // the only claim on this page that a reader cannot check from a sentence.
   (() => {
-    const fig = document.getElementById("boundary-fig");
+    const fig = document.getElementById("dome-fig");
     if (!fig) return;
 
-    const action = fig.querySelector("#bd-action") as SVGRectElement | null;
-    const bloomG = fig.querySelector("#bd-bloom") as SVGGElement | null;
-    const boxes = Array.from(fig.querySelectorAll(".bd-box")) as SVGRectElement[];
-    const conns = Array.from(fig.querySelectorAll(".bd-conn")) as SVGLineElement[];
-    const reach = fig.querySelector("#bd-reach") as SVGPathElement | null;
-    const reachLabel = fig.querySelector("#bd-reach-label") as SVGTextElement | null;
-    const verdict = fig.querySelector("#bd-reach-verdict") as SVGTextElement | null;
-    if (!action || !bloomG) return;
+    const cx = Number(fig.getAttribute("data-cx"));
+    const cy = Number(fig.getAttribute("data-cy"));
+    const R = Number(fig.getAttribute("data-r"));
 
-    const settle = () => {
-      boxes.forEach((b) => b.setAttribute("stroke-opacity", "0.5"));
-      conns.forEach((c) => c.setAttribute("stroke-opacity", "0.32"));
+    const acts = Array.from(fig.querySelectorAll(".dm-act")) as SVGRectElement[];
+    const receipts = Array.from(fig.querySelectorAll(".dm-receipt")) as SVGGElement[];
+    const links = Array.from(fig.querySelectorAll(".dm-link")) as SVGLineElement[];
+    const bloom = fig.querySelector("#dm-bloom") as SVGGElement | null;
+    const reach = fig.querySelector("#dm-reach") as SVGLineElement | null;
+    const reachLabel = fig.querySelector("#dm-reach-label") as SVGTextElement | null;
+    const verdict = fig.querySelector("#dm-reach-verdict") as SVGTextElement | null;
+    if (!bloom) return;
+
+    const rad = (deg: number) => (deg * Math.PI) / 180;
+    const angles = acts.map((a) => Number(a.getAttribute("data-angle")));
+
+    // The reach targets the second receipt. Its own tile never changes: the
+    // stillness is the point, so nothing about it is animated.
+    const TARGET = 1;
+
+    const OUT = 1500;     // an action travels to the shell
+    const STAGGER = 380;  // and they leave one after another, not as a volley
+    const MINT = 900;     // the bloom, and the receipt seating
+    const SETTLE = 700;
+    const REACH = 1500;
+    const HOLD = 2100;
+    const LAST = (acts.length - 1) * STAGGER;
+    const T_MINTED = LAST + OUT + MINT;
+    const T_REACH = T_MINTED + SETTLE;
+    const T_END = T_REACH + REACH + HOLD;
+
+    const place = (el: SVGRectElement, deg: number, r: number) => {
+      el.setAttribute("x", String(cx + r * Math.cos(rad(deg)) - 4));
+      el.setAttribute("y", String(cy - r * Math.sin(rad(deg)) - 4));
+    };
+
+    const seat = (i: number, on: boolean) => {
+      receipts[i]?.setAttribute("opacity", on ? "1" : "0");
+      if (i > 0) links[i - 1]?.setAttribute("stroke-opacity", on ? "0.28" : "0");
+    };
+
+    const rest = () => {
+      acts.forEach((a) => a.setAttribute("stroke-opacity", "0"));
+      receipts.forEach((_, i) => seat(i, true));
+      bloom.innerHTML = "";
     };
 
     if (reduced) {
-      settle();
-      reach?.setAttribute("stroke-opacity", "0.45");
+      rest();
+      const tp = { x: cx + R * Math.cos(rad(angles[TARGET])), y: cy - R * Math.sin(rad(angles[TARGET])) };
+      reach?.setAttribute("x2", String(tp.x));
+      reach?.setAttribute("y2", String(tp.y));
+      reach?.setAttribute("stroke-opacity", "0.55");
       reachLabel?.setAttribute("fill-opacity", "0.4");
-      verdict?.setAttribute("fill-opacity", "0.75");
+      verdict?.setAttribute("fill-opacity", "0.85");
       return;
     }
 
-    boxes.forEach((b) => b.setAttribute("stroke-opacity", "0.12"));
-    conns.forEach((c) => c.setAttribute("stroke-opacity", "0.08"));
-
     const run = () => {
       let t0 = 0;
-      const AX = 176, BX = 240;
-
       const frame = (now: number) => {
         if (!t0) t0 = now;
         const t = now - t0;
 
-        // 0 → 1400: the action travels to the line
-        if (t < 1400) {
-          const p = t / 1400;
-          action.setAttribute("x", String(AX - 8 + (BX - AX) * p));
-          action.setAttribute("stroke-opacity", "0.75");
-        } else if (t < 2600) {
-          // 1400 → 2600: it blooms into a receipt, and the chain lights up
-          const p = (t - 1400) / 1200;
-          action.setAttribute("stroke-opacity", String(0.75 * (1 - p)));
-          const r = 4 + p * 40;
-          bloomG.innerHTML = `<circle cx="240" cy="111" r="${r}" fill="url(#mint-glow)" opacity="${(1 - p).toFixed(3)}" />`;
-          const lit = Math.min(boxes.length, Math.floor(p * (boxes.length + 1)));
-          boxes.forEach((b, i) => b.setAttribute("stroke-opacity", i < lit ? "0.5" : "0.12"));
-          conns.forEach((c, i) => c.setAttribute("stroke-opacity", i < lit - 1 ? "0.32" : "0.08"));
-        } else if (t < 3200) {
-          bloomG.innerHTML = "";
-          settle();
-        } else if (t < 4600) {
-          // 3200 → 4600: the agent reaches for entry #2 and does not get there
-          const p = (t - 3200) / 1400;
-          const stop = Math.min(p * 2, 1);
-          reach?.setAttribute("stroke-opacity", String(0.5 * Math.min(p * 3, 1)));
-          reach?.setAttribute("d", `M186 250 L${186 + (240 - 186) * stop} 250`);
-          reachLabel?.setAttribute("fill-opacity", String(0.4 * Math.min(p * 3, 1)));
-          if (p > 0.5) verdict?.setAttribute("fill-opacity", String(Math.min((p - 0.5) * 3, 1) * 0.85));
-        } else if (t < 6600) {
-          // hold, so the refusal is readable
-        } else {
+        // ── outward, one action at a time ──────────────────────────────────
+        acts.forEach((el, i) => {
+          const local = t - i * STAGGER;
+          if (local < 0) {
+            el.setAttribute("stroke-opacity", "0");
+            place(el, angles[i], 0);
+            return;
+          }
+          if (local < OUT) {
+            // eased so it leaves quickly and arrives calmly
+            const p = local / OUT;
+            const e = 1 - Math.pow(1 - p, 2.2);
+            place(el, angles[i], 14 + (R - 14) * e);
+            el.setAttribute("stroke-opacity", String(0.2 + 0.55 * Math.min(p * 3, 1)));
+          } else if (local < OUT + MINT) {
+            const p = (local - OUT) / MINT;
+            el.setAttribute("stroke-opacity", String(0.75 * (1 - p)));
+            place(el, angles[i], R);
+            seat(i, p > 0.35);
+          } else {
+            el.setAttribute("stroke-opacity", "0");
+            seat(i, true);
+          }
+        });
+
+        // ── the blooms, drawn where each action met the shell ──────────────
+        let svg = "";
+        acts.forEach((_, i) => {
+          const local = t - i * STAGGER - OUT;
+          if (local < 0 || local > MINT) return;
+          const p = local / MINT;
+          const hx = cx + R * Math.cos(rad(angles[i]));
+          const hy = cy - R * Math.sin(rad(angles[i]));
+          svg += `<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="${(5 + p * 38).toFixed(1)}" fill="url(#mint-glow)" opacity="${(1 - p).toFixed(3)}" />`;
+        });
+        bloom.innerHTML = svg;
+
+        // ── the reach back, stopped at the inner surface ───────────────────
+        if (t > T_REACH && t < T_REACH + REACH) {
+          const p = (t - T_REACH) / REACH;
+          // Arrives at the shell at 60% and then simply stops, which reads as
+          // being held rather than as the animation running out.
+          const e = Math.min(p / 0.6, 1);
+          const deg = angles[TARGET];
+          reach?.setAttribute("x2", String(cx + R * e * Math.cos(rad(deg))));
+          reach?.setAttribute("y2", String(cy - R * e * Math.sin(rad(deg))));
+          reach?.setAttribute("stroke-opacity", String(0.6 * Math.min(p * 4, 1)));
+          reachLabel?.setAttribute("fill-opacity", String(0.4 * Math.min(p * 4, 1)));
+          if (p > 0.6) verdict?.setAttribute("fill-opacity", String(Math.min((p - 0.6) * 4, 1) * 0.85));
+        } else if (t >= T_REACH + REACH && t < T_END) {
+          rest();
+          verdict?.setAttribute("fill-opacity", "0.85");
+        } else if (t >= T_END) {
           t0 = now;
-          action.setAttribute("x", String(AX - 8));
           reach?.setAttribute("stroke-opacity", "0");
+          reach?.setAttribute("x2", String(cx));
+          reach?.setAttribute("y2", String(cy));
           reachLabel?.setAttribute("fill-opacity", "0");
           verdict?.setAttribute("fill-opacity", "0");
-          boxes.forEach((b) => b.setAttribute("stroke-opacity", "0.12"));
-          conns.forEach((c) => c.setAttribute("stroke-opacity", "0.08"));
+          receipts.forEach((_, i) => seat(i, false));
         }
+
         requestAnimationFrame(frame);
       };
       requestAnimationFrame(frame);
     };
 
+    receipts.forEach((_, i) => seat(i, false));
     onceVisible(fig, run);
   })();
 
