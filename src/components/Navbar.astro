@@ -153,16 +153,16 @@ const otherHref = alternates[otherLocale];
 
   (window as any).closeMobileMenu = () => setOpen(false);
 
-  // Theme toggle: dark is the default; light is an explicit, persisted opt-in.
+  // Theme toggle: light is the default; dark is an explicit, persisted opt-in.
   const THEME_KEY = 'kyde_theme';
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
   const setTheme = (theme: 'dark' | 'light') => {
-    if (theme === 'light') {
-      document.documentElement.dataset.theme = 'light';
-      themeColorMeta?.setAttribute('content', '#F7F6F3');
+    if (theme === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+      themeColorMeta?.setAttribute('content', '#050505');
     } else {
       delete document.documentElement.dataset.theme;
-      themeColorMeta?.setAttribute('content', '#050505');
+      themeColorMeta?.setAttribute('content', '#F7F6F3');
     }
     localStorage.setItem(THEME_KEY, theme);
     document.querySelectorAll('.theme-glyph-dark').forEach((el) => el.classList.toggle('hidden', theme === 'light'));
@@ -170,9 +170,10 @@ const otherHref = alternates[otherLocale];
     window.dispatchEvent(new CustomEvent('kyde:theme', { detail: { theme } }));
   };
   const toggleTheme = () => {
-    setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   };
-  setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+  // Match the pre-paint guard, so the glyph agrees with the ground on load.
+  setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
   document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
 </script>

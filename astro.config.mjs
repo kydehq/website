@@ -41,7 +41,7 @@ export default defineConfig({
     sitemap({
       // Ad-test landing pages (noindex), the /sandbox redirect stub, and
       // password-gated investor decks (noindex) stay out
-      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides'),
+      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts'),
     }),
   ],
   vite: {

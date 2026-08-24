@@ -212,11 +212,13 @@ components:
 
 KYDE looks like an **engineering document that happens to be interactive** — a spec sheet, a blueprint, a signed audit ledger. Not a SaaS marketing gradient in sight. The aesthetic is monochrome-first, 1px-ruled, and typographically strict, in both themes it ships. Two registers coexist on every screen: **Inter** carries the human argument (headlines, prose), **JetBrains Mono** carries everything machine-adjacent (labels, numbers, statuses, terminals, table headers). The tension between the two *is* the brand.
 
-**Dark is the default and the primary reference.** Light is a second theme with the same components, layout and rules, currently not exposed via a UI toggle on the public marketing site, but the intended surface for product/dashboard UI going forward. Build dashboards so they work correctly in both from day one; do not treat light as an afterthought skin.
+**Light is the default on the marketing site; dark is an explicit opt-in.** This is the reverse of how the system first shipped, and only the resting state changed: both themes carry the same components, layout and rules, and the dark palette is unchanged. In CSS, light lives on bare `:root` and dark is reapplied under `:root[data-theme="dark"]`, so anything keyed on "the page is light" must match `:root:not([data-theme="dark"])` rather than an attribute that is no longer stamped. Dark remains the reference for product and dashboard UI. Build both from day one; neither is an afterthought skin.
 
-**Both themes are exposed.** A toggle sits in the navbar, dark is the default,
+**Both themes are exposed.** A toggle sits in the navbar, light is the default,
 and the choice persists in `localStorage` with a guard in `Base.astro` that
-applies it before first paint so the page never flashes the wrong ground.
+applies it before first paint so the page never flashes the wrong ground. The
+guard and the toggle both have to agree on the default; if they disagree the
+glyph shows one theme while the page renders the other.
 
 **Canvas figures must branch on the ground.** A bloom is emitted light: on a
 dark ground it brightens toward ink, and on paper the same gradient stops paint
