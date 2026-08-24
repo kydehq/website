@@ -220,6 +220,18 @@ applies it before first paint so the page never flashes the wrong ground. The
 guard and the toggle both have to agree on the default; if they disagree the
 glyph shows one theme while the page renders the other.
 
+**A canvas has to be measured by a ResizeObserver, not once at startup.** A
+canvas sized from a single `getBoundingClientRect()` at init draws into a
+backing store that stops matching its box the moment the layout settles: web
+fonts land, the hero grows, and the drawing renders stretched, oversized and
+too slow, because every speed in it is expressed in the old coordinate space.
+A window `resize` listener does not catch this, since the window never
+resized. Read `clientWidth`/`clientHeight`, bail out while they are zero, and
+re-measure from a `ResizeObserver` held in a variable, since an observer with
+no reference of its own can be garbage collected and then silently stops
+firing. The hero canvas on `/` does this and carries the note; anything new
+has to do the same.
+
 **Canvas figures must branch on the ground.** A bloom is emitted light: on a
 dark ground it brightens toward ink, and on paper the same gradient stops paint
 a grey smudge instead. Both canvases read `--color-bg-0`, compute its luminance

@@ -87,15 +87,11 @@ const slots = SLOT_ANGLES.map((a, i) => ({
 
   <main>
     <!-- ══════════ HERO ══════════ -->
-    <!-- The canvas mints receipts as actions cross the line, which is the whole
-         page in one motion. Same grammar as the figures on /zero-trust: square
-         forms, round blooms, palette read from the theme at paint time. -->
+    <!-- Deliberately still. The page carries three figures already, and the one
+         in section 01 makes the same argument properly; a fourth motion behind
+         the headline was decoration competing with it. -->
     <section class="relative bg-bg-1 overflow-hidden">
       <div class="absolute inset-0 bg-grid opacity-[0.06] pointer-events-none"></div>
-      <canvas id="mint-canvas" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
-      <!-- Same scrim as the homepage hero: the motion belongs to the right half,
-           where the boundary is, and the copy needs a quiet ground. -->
-      <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-1 via-bg-1/70 to-transparent"></div>
       <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-20 md:pt-48 md:pb-24 md:border-x md:border-line-0">
         <div class="max-w-3xl">
           <p class="font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.2em] mb-6">
@@ -548,153 +544,6 @@ const slots = SLOT_ANGLES.map((a, i) => ({
     }, { threshold: 0.25 });
     io.observe(el);
   }
-
-  // ── hero: actions crossing the line, minting receipts ─────────────────────
-  (() => {
-    const canvas = document.getElementById("mint-canvas") as HTMLCanvasElement | null;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let C = palette();
-    let W = 0, H = 0, boundaryX = 0;
-
-    type Act = { x: number; y: number; v: number; minted: boolean; bloom: number };
-    let acts: Act[] = [];
-    let chain: { x: number; y: number; a: number }[] = [];
-
-    const resize = () => {
-      const r = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = r.width; H = r.height;
-      canvas.width = W * dpr;
-      canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      // The line sits under the right edge of the text column, so the copy reads
-      // as being on the agent's side of it.
-      boundaryX = Math.max(W * 0.62, W - 520);
-    };
-
-    const spawn = () => ({
-      x: -40 - Math.random() * 260,
-      y: 60 + Math.random() * (H - 120),
-      v: 0.7 + Math.random() * 0.9,
-      minted: false,
-      bloom: 0,
-    });
-
-    // Seeded across the whole run rather than all at the left edge, so the field
-    // is already populated on the first frame instead of empty for half a minute.
-    const seed = () => {
-      acts = Array.from({ length: 9 }, () => {
-        const a = spawn();
-        a.x = -60 + Math.random() * (boundaryX + 60);
-        return a;
-      });
-      chain = [];
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      const [ir, ig, ib] = C.ink;
-      const [lr, lg, lb] = C.live;
-
-      // the boundary
-      ctx.strokeStyle = `rgba(${ir},${ig},${ib},${C.light ? 0.18 : 0.22})`;
-      ctx.lineWidth = 1;
-      ctx.setLineDash([2, 7]);
-      ctx.beginPath();
-      ctx.moveTo(boundaryX, 40);
-      ctx.lineTo(boundaryX, H - 40);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // receipts already minted, drifting right and fading
-      for (const c of chain) {
-        ctx.strokeStyle = `rgba(${ir},${ig},${ib},${c.a * (C.light ? 0.5 : 0.42)})`;
-        ctx.lineWidth = 1;
-        ctx.strokeRect(c.x - 4, c.y - 4, 8, 8);
-      }
-
-      // actions in flight
-      for (const a of acts) {
-        if (a.bloom > 0) {
-          const rad = 4 + a.bloom * 34;
-          const g = ctx.createRadialGradient(boundaryX, a.y, 0, boundaryX, a.y, rad);
-          const peak = (1 - a.bloom) * (C.light ? 0.5 : 0.75);
-          g.addColorStop(0, `rgba(${lr},${lg},${lb},${peak})`);
-          g.addColorStop(0.45, `rgba(${lr},${lg},${lb},${peak * 0.25})`);
-          g.addColorStop(1, `rgba(${lr},${lg},${lb},0)`);
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(boundaryX, a.y, rad, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        if (a.minted) continue;
-        ctx.strokeStyle = `rgba(${ir},${ig},${ib},${C.light ? 0.42 : 0.5})`;
-        ctx.lineWidth = 1;
-        ctx.strokeRect(a.x - 3.5, a.y - 3.5, 7, 7);
-      }
-    };
-
-    const step = () => {
-      for (let i = 0; i < acts.length; i++) {
-        const a = acts[i];
-        if (!a.minted) {
-          a.x += a.v;
-          if (a.x >= boundaryX) {
-            a.minted = true;
-            a.bloom = 0.001;
-            chain.push({ x: boundaryX + 10, y: a.y, a: 1 });
-          }
-        }
-        if (a.bloom > 0) {
-          a.bloom += 0.018;
-          if (a.bloom >= 1) {
-            a.bloom = 0;
-            acts[i] = spawn();
-          }
-        }
-      }
-      for (const c of chain) {
-        c.x += 0.28;
-        c.a -= 0.004;
-      }
-      chain = chain.filter((c) => c.a > 0 && c.x < W + 20);
-      draw();
-      raf = requestAnimationFrame(step);
-    };
-
-    let raf = 0;
-    const start = () => {
-      resize();
-      seed();
-      if (reduced) {
-        // Static reading of the same idea: a few actions waiting, a few minted.
-        for (const a of acts) a.x = boundaryX - 60 - Math.random() * 180;
-        chain = acts.slice(0, 4).map((a, i) => ({ x: boundaryX + 14 + i * 16, y: a.y, a: 0.6 }));
-        draw();
-        return;
-      }
-      raf = requestAnimationFrame(step);
-    };
-
-    window.addEventListener("resize", () => {
-      resize();
-      if (reduced) draw();
-    });
-    window.addEventListener("kyde:theme", () => {
-      C = palette();
-      if (reduced) draw();
-    });
-
-    onceVisible(canvas, start);
-    document.addEventListener("visibilitychange", () => {
-      if (reduced) return;
-      if (document.hidden) cancelAnimationFrame(raf);
-      else raf = requestAnimationFrame(step);
-    });
-  })();
 
   // ── FIG.1: the dome ──────────────────────────────────────────────────────
   // Five actions leave the agent radially. Each one crosses the shell, blooms at

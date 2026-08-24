@@ -41,7 +41,10 @@ const ogImage = new URL(image, Astro.site).href;
         <script is:inline>
             // Theme pre-paint: light is the default; dark only on explicit opt-in.
             // Runs before first paint so there is no flash-of-wrong-theme.
-            if (localStorage.getItem("kyde_theme") === "dark") {
+            // Key versioned: the old one was written on every page load rather
+            // than on a choice, so returning visitors all carry a "dark" they
+            // never picked. See the note in Navbar.astro.
+            if (localStorage.getItem("kyde_theme_choice") === "dark") {
                 document.documentElement.dataset.theme = "dark";
                 document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#050505");
             }

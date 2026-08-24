@@ -154,9 +154,16 @@ const otherHref = alternates[otherLocale];
   (window as any).closeMobileMenu = () => setOpen(false);
 
   // Theme toggle: light is the default; dark is an explicit, persisted opt-in.
-  const THEME_KEY = 'kyde_theme';
+  //
+  // The key is versioned on purpose. The first version of this wrote to storage
+  // on every page load, not just on a click, so every visitor to the old
+  // dark-default site is carrying a stored "dark" they never chose. Reading that
+  // key now would pin all of them to dark forever and none of them would ever
+  // see the new default. A fresh key ignores it, and this one is only written
+  // when somebody actually presses the button.
+  const THEME_KEY = 'kyde_theme_choice';
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-  const setTheme = (theme: 'dark' | 'light') => {
+  const setTheme = (theme: 'dark' | 'light', persist = false) => {
     if (theme === 'dark') {
       document.documentElement.dataset.theme = 'dark';
       themeColorMeta?.setAttribute('content', '#050505');
@@ -164,13 +171,13 @@ const otherHref = alternates[otherLocale];
       delete document.documentElement.dataset.theme;
       themeColorMeta?.setAttribute('content', '#F7F6F3');
     }
-    localStorage.setItem(THEME_KEY, theme);
+    if (persist) localStorage.setItem(THEME_KEY, theme);
     document.querySelectorAll('.theme-glyph-dark').forEach((el) => el.classList.toggle('hidden', theme === 'light'));
     document.querySelectorAll('.theme-glyph-light').forEach((el) => el.classList.toggle('hidden', theme !== 'light'));
     window.dispatchEvent(new CustomEvent('kyde:theme', { detail: { theme } }));
   };
   const toggleTheme = () => {
-    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
   };
   // Match the pre-paint guard, so the glyph agrees with the ground on load.
   setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
