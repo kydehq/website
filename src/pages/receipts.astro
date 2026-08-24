@@ -108,7 +108,7 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
               <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">01 · The problem</span>
             </div>
             <div class="flex flex-1 flex-col justify-center py-10">
-              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
                 The agent should not write its own evidence.
               </h2>
               <p class="text-lg text-ink-1 leading-relaxed mb-5">
@@ -249,7 +249,7 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
               <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">02 · The handoff</span>
             </div>
             <div class="flex flex-1 flex-col justify-center py-10">
-              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
                 A receipt you can hand to the other side.
               </h2>
               <p class="text-lg text-ink-1 leading-relaxed mb-8">
@@ -275,7 +275,7 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
           <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · The boundary</span>
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6 max-w-3xl">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
           Built at the execution boundary.
         </h2>
         <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
@@ -304,7 +304,7 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
 
         <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start mb-12">
           <div>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
               One receipt. One shared record.
             </h2>
             <p class="text-lg text-ink-1 leading-relaxed">
@@ -347,13 +347,13 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
           <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Where it matters</span>
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
           For the moments that matter.
         </h2>
         <div class="grid md:grid-cols-2 border border-line-0">
           {cases.map(({ name, line, body }, i) => (
             <div class:list={["p-6 md:p-8 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === cases.length - 1 ? "" : "border-b", i >= cases.length - 2 ? "md:border-b-0" : ""]}>
-              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-tight mb-3">{name}</h3>
+              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">{name}</h3>
               <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>
               <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
             </div>
@@ -371,7 +371,7 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
           <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">06 · The limit</span>
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-10 max-w-3xl">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
           Receipts prove the record, not reality.
         </h2>
         <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
@@ -399,7 +399,7 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
         </div>
         <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
           <div>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-6">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
               Open by design.
             </h2>
             <p class="text-lg text-ink-1 leading-relaxed mb-6">
@@ -419,13 +419,38 @@ const bundle = Array.from({ length: BUNDLE_N }, (_, i) => i);
       </div>
     </section>
 
+    <!-- ══════════ 08 · WHERE IT COMES FROM ══════════ -->
+    <!-- The question a reader arriving from a link asks first, and the footer only
+         hints at it. Two sentences, and the route to the page that explains the
+         rest, so the origin is on the page rather than in somebody's reply. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">08 · Where it comes from</span>
+        </div>
+        <div class="grid md:grid-cols-[minmax(0,320px)_1fr] gap-8 md:gap-16 items-start">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.03] text-ink-0">
+            Born in a zero trust layer for AI workers.
+          </h2>
+          <div>
+            <p class="text-lg text-ink-1 leading-relaxed mb-6">
+              KYDE Receipts came out of the zero trust environment we build for AI workers, where every action already crosses a controlled boundary and is written into a tamper-evident record before it reaches a system. Receipts are the part of that record designed to leave the building: the piece you can hand to a customer, an insurer or an auditor, who verifies it without an account and without us.
+            </p>
+            <a href="/zero-trust" class="inline-flex items-center gap-2 border border-line-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-1 hover:text-ink-0 transition-all w-fit">
+              See KYDE Zero Trust →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ══════════ CLOSER ══════════ -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="mx-auto max-w-3xl text-center">
           <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">The agent acts · KYDE records · The recipient verifies</p>
           <div class="mb-12 h-px bg-line-0"></div>
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-ink-0 mb-8">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8">
             Start with one action.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">

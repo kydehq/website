@@ -301,7 +301,8 @@ Accent fills are almost always transparent washes of the accent at 5–10% opaci
 
 Two families, strictly divided by role, identical across both themes:
 
-- **Inter Variable** — the voice. Hero statements, section headings, body prose. Headlines are bold, tightly tracked (−0.02em), and set at a compressed line-height (0.92–1.05). Hero headlines are UPPERCASE.
+- **Inter Variable** — the voice. Hero statements, section headings, body prose. Headlines are bold, tightly tracked (−0.02em), and set at a compressed line-height. Hero headlines are UPPERCASE.
+- **Headline line-height, in Tailwind terms.** `leading-tight` is 1.25 and is body spacing, not headline spacing; it is never right on a headline. Hero `h1`: `leading-none` or `leading-[1.05]`. Section headline (`text-3xl md:text-4xl lg:text-5xl`) and subsection (`text-2xl md:text-3xl`): `leading-[1.03]`. Item heading (`text-xl md:text-2xl`): `leading-[1.08]`, marginally looser because it sits closest to body copy. The whole site had drifted to `leading-tight` on all four; if a new headline looks airy next to its neighbors, this is why.
 - **JetBrains Mono Variable** — the machine. Everything that represents data, structure, or interface chrome: eyebrow/section labels, buttons, table headers, statuses, timestamps, IDs, terminal content, figure labels, numbers in stat tiles. Mono labels are UPPERCASE with wide tracking (0.1em–0.2em); mono data (IDs, values) is normal case with tight tracking.
 
 The signature typographic device is the **numbered section register**: every major surface region opens with a mono eyebrow in the format `01 · Section Name` (`{typography.register}`, ink-1, uppercase), sitting on a 1px `line-0` rule. Numbering restarts per page/screen. In a dashboard, panel headers take the same treatment (see the platform Fleet Status mock: `FLEET HEALTH SCORE`, `AGENTS (3)`, `RECENT SESSIONS (3)` — all mono, uppercase, tracked, small).
