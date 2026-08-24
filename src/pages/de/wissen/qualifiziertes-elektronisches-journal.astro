@@ -4,7 +4,7 @@ import Navbar from "../../../components/Navbar.astro";
 import Footer from "../../../components/Footer.astro";
 import Stand from "../../../components/Stand.astro";
 import Zitat from "../../../components/Zitat.astro";
-import Rechtshinweis from "../../../components/Rechtshinweis.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
 
 // German prose, written by Jörg Radehaus. Not translated, not machine-written:
 // this cluster is aimed at readers who spot translated legalese immediately,
@@ -238,7 +238,7 @@ const toc = [...chapters.map(({ id, h }) => ({ id, h })), { id: "faq", h: "Häuf
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
             {pageTitle}
           </h1>
           <p class="text-base md:text-lg text-ink-1 leading-relaxed mb-8">
@@ -385,7 +385,7 @@ const toc = [...chapters.map(({ id, h }) => ({ id, h })), { id: "faq", h: "Häuf
               </p>
             </div>
 
-            <Rechtshinweis />
+            
           </article>
 
           <aside aria-label="Eckdaten und Primärquellen" class="hidden md:block space-y-5">
@@ -426,6 +426,13 @@ const toc = [...chapters.map(({ id, h }) => ({ id, h })), { id: "faq", h: "Häuf
         </div>
       </div>
     </section>
+  <LegalNotice>
+      <p class="text-sm text-ink-2 leading-relaxed max-w-3xl mt-4">
+      Diese Seite beschreibt, was die genannten Rechtsakte verlangen, und trifft keine Aussage darüber,
+      welche Pflichten im Einzelfall bestehen. Maßgeblich ist ausschließlich der amtliche Wortlaut der
+      zitierten Rechtsakte.
+    </p>
+    </LegalNotice>
   </main>
 
   <Footer />

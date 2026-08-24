@@ -38,10 +38,15 @@ export default defineConfig({
         { label: 'Reference', slug: 'docs/reference' },
       ],
     }),
+    // /platform argued the old positioning end to end and was deleted rather
+    // than rewritten, which would have produced a third story. Its material
+    // lives on in the zero trust sections, so it has a natural heir and gets a
+    // redirect instead of a bare 404. Static output, so this emits a meta
+    // refresh page with a canonical, not a 301.
     sitemap({
       // Ad-test landing pages (noindex), the /sandbox redirect stub, and
       // password-gated investor decks (noindex) stay out
-      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides'),
+      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts'),
     }),
   ],
   vite: {

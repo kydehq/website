@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
 
 const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
 ---
@@ -29,7 +30,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
             The Missing Layer in Every Agent Architecture
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
@@ -130,7 +131,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is the behavioral system of record for autonomous work, the governance harness for enterprise agent fleets: identity, cost controls, policy enforcement, and a hash-chained, tamper-evident record across every agent and every provider routed through it, without touching agent code.
+                KYDE is a zero trust layer for AI workers and the AI you already run, the governance harness for enterprise agent fleets: identity, cost controls, policy enforcement, and a hash-chained, tamper-evident record across every agent and every provider routed through it, without touching agent code.
               </p>
               <button
                 onclick="openModal()"
@@ -143,7 +144,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block space-y-6 sticky top-28">
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Core vs. Harness</p>
               <div class="space-y-3">
@@ -192,6 +193,7 @@ const samVideoUrl = "https://www.youtube.com/watch?v=lLz_Kzy-tSw";
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />

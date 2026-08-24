@@ -30,7 +30,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "qualified-electronic-ledger",
     de: "de/wissen/qualifiziertes-elektronisches-journal",
-    sourceHash: "76fc395deb3c6627",
+    sourceHash: "1e03ac63859c50a0",
     note: "Nicht übersetzt, sondern eigenständig geschrieben: die deutsche Fassung ist eine Bestandsaufnahme mit eigener Auswertung der Vertrauenslisten, die englische eine Referenz zum Rechtsakt. Der Hash steht trotzdem, weil beide Seiten dieselben Rechtsaussagen tragen und nicht auseinanderlaufen dürfen.",
   },
 ];

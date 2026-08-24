@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import LegalNotice from '../components/LegalNotice.astro';
 
 const groups = [
   {
@@ -50,8 +51,8 @@ const groups = [
         a: "An API gateway routes and rate-limits calls between endpoints. It generally has no concept of agent identity, delegation, or policy tied to what an agent is allowed to do. Kyde adds that governance layer on top of the same network position.",
       },
       {
-        q: "Does the free 30-day audit produce evidence on its own?",
-        a: "The Starter audit records every action routed through the gateway into a hash-chained, tamper-evident ledger, real evidence of sequence and content. Signing each entry with your own Ed25519 keys and managed key infrastructure, the piece auditors typically ask about for non-repudiation, are Enterprise capabilities.",
+        q: "Does the audit produce evidence on its own?",
+        a: "The audit records every action routed through the gateway into a hash-chained, tamper-evident ledger, real evidence of sequence and content. Signing each entry with your own Ed25519 keys and managed key infrastructure, the piece auditors typically ask about for non-repudiation, are Enterprise capabilities.",
       },
       {
         q: "Why not wait until our AI provider builds this?",
@@ -140,6 +141,7 @@ const faqSchema = {
       </div>
     </section>
 
+  <LegalNotice />
   </main>
   <Footer />
 </Base>

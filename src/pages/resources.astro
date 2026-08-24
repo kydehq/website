@@ -39,14 +39,6 @@ const regulations = [
 
 const articles = [
     {
-        category: "Product · Strategic",
-        title: "Trust Is a Number. It Always Has Been.",
-        summary: "Introducing the KYDE Trust Score, a behavioral rating for AI agents computed on four inputs: identity, mandate, baseline, and benchmark. Why behavior at the boundary is the only thing that ever qualifies for a score, what coverage means, and where the Trust Score goes next.",
-        href: "/blog/trust-is-a-number",
-        readTime: "9 min read",
-        live: true,
-    },
-    {
         category: "Insurance · Liability · Complete Guide",
         title: "AI Agent Insurance: Liability, Coverage, and the Evidence Infrastructure",
         summary: "How liability is assigned under EU law (AI Act, PLD 2024, DORA), what AI agent coverage exists today (AIUC-1, Munich Re aiSure, HSB), why certification alone isn't enough, and what behavioral monitoring infrastructure makes AI agents insurable, including the four evidence requirements every enterprise must meet.",
@@ -251,13 +243,6 @@ const guides = [
     },
 ];
 
-const comingSoon = [
-    { category: "Technical", title: "Why Software Logs Are Not Tamper-Evident, And Why It Matters for AI Agents" },
-    { category: "Technical", title: "MCP Servers and Governance: Every Tool Call Is an Audit Event" },
-    { category: "Technical", title: "The Case Against Provider-Native AI Governance" },
-    { category: "Thought Leadership", title: "Your AI Agents Are Your Workforce. Courts Already Agree." },
-    { category: "Thought Leadership", title: "From Deploy-and-Hope to Govern-by-Design" },
-];
 
 const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -311,7 +296,7 @@ const breadcrumbSchema = {
                     </p>
                     <div class="mt-6 flex flex-col sm:flex-row gap-3">
                         <a
-                            href="/starter"
+                            href="/audit"
                             class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-sm font-semibold text-cta-ink hover:bg-cta-hover transition-all"
                         >
                             Deploy the Gateway →
@@ -411,17 +396,6 @@ const breadcrumbSchema = {
                     ))}
                 </div>
 
-                <!-- Coming soon -->
-                <div class="divide-y divide-line-0">
-                    {comingSoon.map(({ category, title }) => (
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-5 sm:px-8 py-5">
-                            <span class="font-mono text-xs uppercase tracking-widest text-ink-1 sm:w-32 shrink-0">{category}</span>
-                            <span class="text-sm text-ink-1 flex-1">{title}</span>
-                            <span class="font-mono text-xs text-blue-700 shrink-0">Coming Soon</span>
-                        </div>
-                    ))}
-                </div>
-
             </div>
         </section>
 
@@ -474,7 +448,6 @@ const breadcrumbSchema = {
 
                 <div class="grid md:grid-cols-3 gap-4">
                     {[
-                        { title: "Who Kyde Is For",       summary: "For whom Kyde is built, and for whom it is not. A two-minute self check.", href: "/who-its-for" },
                         { title: "Zero Trust for AI Agents", summary: "Never trust, always verify, per action: the six dimensions and how to enforce them.", href: "/zero-trust-for-ai-agents" },
                         { title: "Glossary",              summary: "The vocabulary of agent governance, defined precisely: firewall, attestation, egress, and more.", href: "/glossary" },
                         { title: "Kyde vs WitnessAI",     summary: "Enforcement vs inference: an honest, named comparison for 2026.", href: "/compare/kyde-vs-witnessai" },
@@ -508,7 +481,7 @@ const breadcrumbSchema = {
                 <div class="border-b border-line-1 p-12 md:p-20 max-w-2xl">
                     <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Questions?</p>
                     <div class="mb-6 h-px bg-bg-1/40"></div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-3">
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-3">
                         Questions before the docs arrive?
                     </h2>
                     <p class="text-ink-1 mb-6 text-sm leading-relaxed">We respond to every message.</p>

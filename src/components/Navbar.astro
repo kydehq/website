@@ -2,12 +2,10 @@
 import { alternatesFor, localeOf } from "../data/locales";
 
 const navLinks = [
-  { label: 'Platform',      href: '/platform'     },
-  { label: 'Trust',         href: '/trust-score'  },
+  { label: 'Workers',       href: '/'             },
+  { label: 'Zero Trust',    href: '/zero-trust'   },
   { label: 'Use Cases',     href: '/use-cases'    },
-  { label: 'Pricing',       href: '/pricing'      },
   { label: 'Resources',     href: '/resources'    },
-  { label: 'Company',       href: '/company'      },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -35,10 +33,10 @@ const otherHref = alternates[otherLocale];
           <a
             href={href}
             class={[
-              'font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors',
-              currentPath.startsWith(href)
-                ? 'text-white'
-                : 'text-white/75 hover:text-white',
+              'inline-block font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors pb-1.5 border-b',
+              (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
+                ? 'text-white border-white'
+                : 'text-white/50 border-transparent hover:text-white hover:border-white/30',
             ].join(' ')}
           >
             {label}
@@ -50,11 +48,19 @@ const otherHref = alternates[otherLocale];
     <!-- CTAs (desktop) -->
     <div class="hidden lg:flex items-center gap-3">
       <a
-        href="/starter"
+        href="/audit"
         class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-cta-ink transition-colors hover:bg-cta-hover"
       >
-        Start Free &gt;
+        Start your audit &gt;
       </a>
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Switch between dark and light"
+        class="inline-flex h-[33px] w-[33px] items-center justify-center border border-white/20 font-mono text-[11px] text-white/50 hover:border-white/60 hover:text-white transition-colors"
+      >
+        <span class="theme-glyph-dark">☾</span><span class="theme-glyph-light hidden">☀</span>
+      </button>
       {otherHref && (
         <a
           href={otherHref}
@@ -92,9 +98,9 @@ const otherHref = alternates[otherLocale];
             href={href}
             class={[
               'font-mono text-sm uppercase tracking-widest transition-colors',
-              currentPath.startsWith(href)
-                ? 'text-white'
-                : 'text-white/75 hover:text-white',
+              (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
+                ? 'text-white font-bold'
+                : 'text-white/50 hover:text-white',
             ].join(' ')}
           >
             {label}
@@ -103,11 +109,19 @@ const otherHref = alternates[otherLocale];
       ))}
     </ul>
     <div class="space-y-3">
+      <button
+        id="theme-toggle-mobile"
+        type="button"
+        class="flex w-full items-center justify-between border border-white/20 px-4 py-3 font-mono text-xs uppercase tracking-[0.1em] text-white/60 hover:border-white/60 hover:text-white transition-colors"
+      >
+        <span>Appearance</span>
+        <span><span class="theme-glyph-dark">Dark ☾</span><span class="theme-glyph-light hidden">Light ☀</span></span>
+      </button>
       <a
-        href="/starter"
+        href="/audit"
         class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
       >
-        Start Free &gt;
+        Start your audit &gt;
       </a>
     </div>
   </div>
@@ -139,23 +153,34 @@ const otherHref = alternates[otherLocale];
 
   (window as any).closeMobileMenu = () => setOpen(false);
 
-  // Theme toggle: dark is the default; light is an explicit, persisted opt-in.
-  const THEME_KEY = 'kyde_theme';
+  // Theme toggle: light is the default; dark is an explicit, persisted opt-in.
+  //
+  // The key is versioned on purpose. The first version of this wrote to storage
+  // on every page load, not just on a click, so every visitor to the old
+  // dark-default site is carrying a stored "dark" they never chose. Reading that
+  // key now would pin all of them to dark forever and none of them would ever
+  // see the new default. A fresh key ignores it, and this one is only written
+  // when somebody actually presses the button.
+  const THEME_KEY = 'kyde_theme_choice';
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-  const setTheme = (theme: 'dark' | 'light') => {
-    if (theme === 'light') {
-      document.documentElement.dataset.theme = 'light';
-      themeColorMeta?.setAttribute('content', '#F7F6F3');
+  const setTheme = (theme: 'dark' | 'light', persist = false) => {
+    if (theme === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+      themeColorMeta?.setAttribute('content', '#050505');
     } else {
       delete document.documentElement.dataset.theme;
-      themeColorMeta?.setAttribute('content', '#050505');
+      themeColorMeta?.setAttribute('content', '#F7F6F3');
     }
-    localStorage.setItem(THEME_KEY, theme);
+    if (persist) localStorage.setItem(THEME_KEY, theme);
+    document.querySelectorAll('.theme-glyph-dark').forEach((el) => el.classList.toggle('hidden', theme === 'light'));
+    document.querySelectorAll('.theme-glyph-light').forEach((el) => el.classList.toggle('hidden', theme !== 'light'));
     window.dispatchEvent(new CustomEvent('kyde:theme', { detail: { theme } }));
   };
   const toggleTheme = () => {
-    setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
   };
+  // Match the pre-paint guard, so the glyph agrees with the ground on load.
+  setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
   document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
 </script>

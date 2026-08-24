@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
 
 const rows = [
   { axis: "Category",                              x: "Compliance automation and GRC (program level)",                     kyde: "Agent governance infrastructure (runtime level)" },
@@ -193,24 +194,25 @@ const faqSchema = {
               Your program is documented. Now prove the actions.
             </h2>
             <p class="text-lg text-ink-1 mb-10">
-              Deploy the Kyde Gateway Starter in five minutes, or talk to us.
+              Start with one process area. Two weeks, a dated readout, and a fixed price in writing.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href="/starter" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
-                Start Free →
+              <a href="/audit" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+                Start your audit →
               </a>
               <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
                 Talk to Us →
               </button>
             </div>
             <p class="mt-8 font-mono text-xs text-ink-2">
-              <a href="/who-its-for" class="hover:text-ink-0 transition-colors">Who it's for</a> · <a href="/pricing" class="hover:text-ink-0 transition-colors">Pricing</a> · <a href="/faq" class="hover:text-ink-0 transition-colors">FAQ</a> · <a href="/compare/kyde-vs-witnessai" class="hover:text-ink-0 transition-colors">Kyde vs WitnessAI</a>
+              <a href="/faq" class="hover:text-ink-0 transition-colors">FAQ</a> · <a href="/compare/kyde-vs-witnessai" class="hover:text-ink-0 transition-colors">Kyde vs WitnessAI</a>
             </p>
           </div>
         </div>
       </div>
     </section>
 
+  <LegalNotice />
   </main>
   <Footer />
 </Base>

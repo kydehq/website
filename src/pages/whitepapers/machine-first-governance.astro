@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
@@ -31,7 +32,7 @@ import Footer from '../../components/Footer.astro';
             <span class="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
             <span class="font-mono text-xs text-warn uppercase tracking-widest">KYDE Whitepaper</span>
           </div>
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
             Machine-First Governance: A Taxonomy of Enterprise AI Agent Roles
           </h1>
           <p class="text-lg text-ink-1 leading-relaxed mb-8 max-w-2xl">
@@ -542,7 +543,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block sticky top-24 space-y-6">
+          <aside aria-label="Related" class="hidden md:block sticky top-24 space-y-6">
 
             <!-- Meta -->
             <div class="border-b border-line-0 pb-6">
@@ -604,7 +605,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
         <div class="max-w-2xl">
           <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">About Kyde</p>
           <p class="text-ink-1 text-sm leading-relaxed">
-            Kyde is the behavioral system of record for autonomous work. The Kyde governance proxy is built along the Machine-First Governance framework described in this paper: cryptographic agent identity, role-based scope enforcement, real-time budget limits, and a tamper-evident SHA-256 hash-chained audit ledger over what is routed through it, deployed in under five minutes via a single environment variable.
+            KYDE is a zero trust layer for AI workers and the AI you already run. The Kyde governance proxy is built along the Machine-First Governance framework described in this paper: cryptographic agent identity, role-based scope enforcement, real-time budget limits, and a tamper-evident SHA-256 hash-chained audit ledger over what is routed through it, deployed in under five minutes via a single environment variable.
           </p>
           <div class="mt-6 flex items-center gap-4">
             <button
@@ -613,7 +614,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
             >
               Get Early Access →
             </button>
-            <a href="/platform" class="inline-flex items-center gap-2 text-sm font-semibold text-ink-1 hover:text-ink-1 transition-colors">
+            <a href="/zero-trust" class="inline-flex items-center gap-2 text-sm font-semibold text-ink-1 hover:text-ink-1 transition-colors">
               Learn about KYDE →
             </a>
           </div>
@@ -621,6 +622,7 @@ api_blocklist:  ["personnel.write", "payroll.*", "contracts.sign"]</code></pre>
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />

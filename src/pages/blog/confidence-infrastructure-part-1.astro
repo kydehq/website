@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
@@ -31,7 +32,7 @@ import Footer from '../../components/Footer.astro';
             <span class="inline-flex items-center border border-warn/60 bg-warn/5 px-3 py-1 text-xs font-mono text-ink-0">Part I of III</span>
             <span class="inline-flex items-center border border-line-0 bg-bg-1 px-3 py-1 text-xs font-mono text-ink-1">The Confidence Infrastructure for Autonomous AI</span>
           </div>
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
             Trust Is Not a Property of Technology. It Is a Property of Infrastructure.
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
@@ -188,7 +189,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-6 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is the behavioral system of record for autonomous work, a continuous, hash-chained record of every agent action routed through it, independent of every model provider it fronts. Signing each entry with your own keys is an Enterprise capability.
+                KYDE is a zero trust layer for AI workers and the AI you already run. It writes a continuous, hash-chained record of every agent action routed through it, independent of every model provider it fronts. Signing each entry with your own keys is an Enterprise capability.
               </p>
               <div class="flex flex-col sm:flex-row gap-3">
                 <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all">
@@ -203,7 +204,7 @@ import Footer from '../../components/Footer.astro';
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block space-y-6 sticky top-28">
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
 
             <div class="border border-warn/50 bg-warn/5 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-3">Series</p>
@@ -270,6 +271,7 @@ import Footer from '../../components/Footer.astro';
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />

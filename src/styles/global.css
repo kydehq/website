@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Dark-only design tokens (design doc §2) ─────────────── */
+  /* ── The token scale Tailwind generates classes from ─────── */
+  /* Values here are the dark theme. Light is the default and overrides
+     them on :root below; dark is reapplied under [data-theme="dark"]. */
   /* Backgrounds */
   --color-bg-0: #050505;   /* page canvas */
   --color-bg-1: #0C0C0C;   /* section panels */
@@ -55,9 +57,12 @@
      all flip correctly without touching markup.
    - Accents are darkened to hold WCAG AA on light ground.
    - Figures, terminals and dashboard mocks opt out via .dark-island. */
-:root { color-scheme: dark; }
-
-:root[data-theme="light"] {
+/* Light is the default. Dark is an explicit, persisted opt-in, which is the
+   reverse of how this shipped first: the marketing site reads better on paper,
+   and the dark palette stays intact for the product surfaces and for anyone who
+   picks it in the navbar. Nothing in the markup changes, because "white" is the
+   semantic max-contrast token rather than a literal colour. */
+:root {
   color-scheme: light;
 
   --color-bg-0: #F7F6F3;   /* warm paper canvas */
@@ -86,10 +91,41 @@
   --color-white: #191919;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg-0: #050505;
+  --color-bg-1: #0C0C0C;
+  --color-bg-2: #141414;
+  --color-bg-3: #1C1C1C;
+
+  --color-line-0: #1F1F1F;
+  --color-line-1: #2E2E2E;
+
+  --color-ink-0: #F2F2F2;
+  --color-ink-1: #A8A8A8;
+  --color-ink-2: #6B6B6B;
+  --color-ink-3: #3D3D3D;
+
+  --color-gold: #FEC106;
+  --color-ember: #D77657;
+  --color-live: #3DDC84;
+  --color-alert: #FF5C5C;
+  --color-warn: #FFB84D;
+
+  --color-cta-ink: #0A0A0A;
+  --color-cta-hover: #E5E5E5;
+
+  --color-black: #050505;
+  --color-white: #F2F2F2;
+}
+
 /* Dark islands: terminals, dashboard mocks, canvas/SVG figures keep the
    dark palette inside a light page — a deliberate design decision, like
-   dark code blocks in documentation. Apply .dark-island to the wrapper. */
-:root[data-theme="light"] .dark-island {
+   dark code blocks in documentation. Apply .dark-island to the wrapper.
+   Keyed on "not dark" rather than on [data-theme="light"], because light is
+   now the un-stamped default and carries no attribute to match on. */
+:root:not([data-theme="dark"]) .dark-island {
   color-scheme: dark;
 
   --color-bg-0: #050505;
@@ -318,8 +354,8 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
 
 /* Logo asset is a white-on-transparent SVG; invert it on light ground.
    Excluded inside .dark-island, which stays dark regardless of theme. */
-:root[data-theme="light"] .logo-mark { filter: invert(1); }
-:root[data-theme="light"] .dark-island .logo-mark { filter: none; }
+:root:not([data-theme="dark"]) .logo-mark { filter: invert(1); }
+:root:not([data-theme="dark"]) .dark-island .logo-mark { filter: none; }
 
 .hero-noise {
   opacity: 0.04;

@@ -1,0 +1,315 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import Zitat from "../../../components/Zitat.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Prosa, geschrieben von Jörg Radehaus. Nicht übersetzt.
+//
+// Der Text ist eine Marktanalyse, keine Rechtsauskunft, und er nennt eine
+// Zahl nur mit ihrer Quelle. Wo eine Angabe von einem Unternehmen stammt oder
+// aus einem Medienbericht, steht das im Satz und nicht in der Fußzeile.
+//
+// Zwei Dinge stehen bewusst drin, die man weglassen könnte: die Offenlegung,
+// dass wir Partei sind, und die Ironie, dass der wirksamste Hebel aus den USA
+// und China kommt. Beides vor dem Argument, nicht danach.
+
+const stand = "2026-08-21";
+const author = { name: "Jörg Radehaus" };
+const pageTitle = "Souveräne KI: eine Bestandsaufnahme";
+
+const aufEinenBlick = [
+  "Die Nachfrage dreht messbar: Gartner beziffert die weltweiten Ausgaben für Sovereign-Cloud-IaaS 2026 auf 80,4 Mrd. $, für Europa auf 12,6 Mrd. $ bei 83 Prozent Wachstum. Zugleich zeigt der Bitkom Cloud Report 2026 das Paradox der Praxis: 85 Prozent der deutschen Unternehmen halten das Land für zu abhängig von US-Anbietern, 71 Prozent nutzen sie trotzdem.",
+  "Das Angebot ist 2026 von der Ankündigung in den Betrieb gewechselt: AWS hat im Januar seine European Sovereign Cloud in Brandenburg gestartet, Microsoft liefert ein eigenes Souveränitätspaket, der Bund hat seine KI-Cloud im Mai an zwei deutsch geführte Konsortien vergeben. Der Marktanteil europäischer Cloud-Anbieter im eigenen Markt liegt dennoch seit 2022 stabil bei rund 15 Prozent.",
+  "Die staatliche Ebene hinkt der eigenen Rhetorik hinterher: Von den bis zu sieben geplanten EU-AI-Gigafactories ist im August 2026 keine einzige vergeben, die formale Ausschreibung startete erst Ende Juli. Wirksamer als der Beton könnte die Beschaffung werden: Der Kommissionsvorschlag für den Cloud and AI Development Act will Souveränität EU-weit zu einem abgestuften Vergabekriterium machen.",
+  "Für ein einzelnes Unternehmen entscheidet sich Souveränität nicht an der Flagge des Rechenzentrums, sondern an zwei Fragen: Wo liegen die Daten, und wer kontrolliert das, was aus der eigenen Arbeit gelernt wird. Die erste Frage beantworten inzwischen viele Anbieter. Die zweite wird durch offene Modellgewichte erstmals praktisch zugänglich, und sie ist die wirtschaftlich größere.",
+];
+
+const chronik = [
+  { d: "15.01.2026", e: "AWS European Sovereign Cloud wird allgemein verfügbar, erste Region in Brandenburg; AWS plant mehr als 7,8 Mrd. € Investment (Unternehmensangabe)" },
+  { d: "04.02.2026", e: "Telekom und Nvidia nehmen die „Industrial AI Cloud“ in München in Betrieb, rund 10.000 Blackwell-GPUs" },
+  { d: "17.04.2026", e: "EU-Kommission vergibt Rahmenvertrag für souveräne Cloud über bis zu 180 Mio. € an vier Konsortien mit Sitz in der EU; eines davon nutzt Technologie des Thales-Google-Joint-Ventures S3NS" },
+  { d: "24.04.2026", e: "Cohere kündigt die Übernahme von Aleph Alpha an; kombinierte Bewertung laut Handelsblatt rund 20 Mrd. $; Schwarz-Gruppe will 500 Mio. € (rund 600 Mio. $) investieren; Abschluss steht aus" },
+  { d: "21.05.2026", e: "Der Bund vergibt seine souveräne KI-Cloud (knapp 250 Mio. €) an zwei Konsortien: T-Systems/SAP als Erstplatzierte, dahinter SVA mit Schwarz Digits und Codesphere" },
+  { d: "03.06.2026", e: "Kommission legt den Entwurf des Cloud and AI Development Act vor: vier abgestufte Souveränitätsniveaus als Beschaffungskriterium" },
+  { d: "30.07.2026", e: "EuroHPC startet die Ausschreibung für bis zu sieben AI-Gigafactories; Frist 12.11.2026" },
+];
+
+const folgerungen = [
+  {
+    n: "Erstens",
+    t: "Souveränität ist kein Zustand, sondern ein Spektrum, und wer einkauft, sollte benennen, welche Stufe er kauft. Datenstandort, Rechtsraum des Betreibers, Betriebshoheit, Kontrolle über die Modellgewichte, Rückfluss des Gelernten, Exit-Fähigkeit: Das sind sechs verschiedene Zusagen, und ein Angebot kann die erste erfüllen und die übrigen fünf offenlassen.",
+  },
+  {
+    n: "Zweitens",
+    t: "Das Etikett beweist nichts. Die nützlichsten Prüffragen stammen aus der Branche selbst: Wer kann die Infrastruktur abschalten, und wer kann Zugriff auf die Daten erzwingen? Wer wissen will, wie souverän ein Angebot ist, fragt nicht, wo die Server stehen, sondern wer im Konfliktfall die Herausgabe verweigern kann und wer das Gelernte behält.",
+  },
+  {
+    n: "Drittens",
+    t: "Der günstigste Souveränitätsgewinn liegt derzeit nicht im Warten auf europäische Infrastruktur, sondern auf der Unternehmensebene. Offene Gewichte, eigene Daten, eigene Aufzeichnung der Arbeit: Diese Kombination ist heute verfügbar, sie skaliert mit der Organisation statt mit der Industriepolitik, und sie bleibt gültig, egal welcher Anbieter den nächsten Rahmenvertrag gewinnt.",
+  },
+];
+
+const chapters = [
+  {
+    id: "ebenen",
+    h: "Ein Begriff, drei Ebenen",
+    paras: [
+      "Ein Teil der Verwirrung um souveräne KI entsteht, weil derselbe Begriff auf drei Ebenen gleichzeitig verwendet wird. Auf der staatlichen Ebene meint er Rechenkapazität und industriepolitische Unabhängigkeit: Gigafactories, Chips, nationale Modelle. Auf der Anbieterebene meint er ein Produktmerkmal: Datenstandort, EU-Personal, rechtliche Abschirmung gegen Zugriffe aus Drittstaaten. Auf der Unternehmensebene meint er etwas Drittes: die Kontrolle einer Firma über ihre eigenen Daten, ihre Prozesse und das, was aus beiden gelernt wird.",
+      "Die öffentliche Debatte findet fast vollständig auf den ersten beiden Ebenen statt. Kaufentscheidungen fallen auf der dritten. Diese Verschiebung erklärt einen großen Teil der Widersprüche, die im Folgenden auftauchen.",
+    ],
+  },
+  {
+    id: "nachfrage",
+    h: "Die Nachfrage ist real, das Verhalten hinkt",
+    paras: [
+      "Dass es sich nicht um eine Stimmungsdebatte handelt, zeigen die Ausgaben. Gartner erwartet für 2026 weltweit 80,4 Mrd. $ an Ausgaben für Sovereign-Cloud-IaaS, ein Plus von 36 Prozent; für Europa 12,6 Mrd. $, ein Plus von 83 Prozent. Gegenüber 2025 soll sich der europäische Wert bis 2027 mehr als verdreifachen, Europa überholt dann nach Gartner-Prognose Nordamerika. Bei IONOS wuchs die Public Cloud im zweiten Quartal 2026 um 48 Prozent im Jahresvergleich, von kleiner Basis auf 19 Mio. € Quartalsumsatz, und das Management nennt das gestiegene Souveränitätsinteresse ausdrücklich als Treiber.",
+      "Der Auslöser ist weniger Ideologie als Rechtslage. Der US CLOUD Act verpflichtet Anbieter unter US-Jurisdiktion zur Herausgabe von Daten in ihrem Besitz oder unter ihrer Kontrolle, unabhängig vom Speicherort. Wie belastbar diese Pflicht ist, hat am 18. Juni 2025 ein Microsoft-Manager im französischen Senat protokolliert.",
+    ],
+    parasNach: [
+      "Der US-Kongress hat die Stabilität des Rechtsrahmens nicht vergrößert: Abschnitt 702 des Foreign Intelligence Surveillance Act wurde im Frühjahr 2026 nur über Kurzzeitbeschlüsse verlängert und lief am 12. Juni 2026 aus. Bestehende Zertifizierungen des FISA-Gerichts können bestimmte laufende Erfassungen bis März 2027 weiter tragen; eine geltende gesetzliche Ermächtigung ist das nicht.",
+      "Und doch zeigt dieselbe Nachfrageseite das Paradox, das den Markt bisher prägt. Im Bitkom Cloud Report 2026 halten 85 Prozent der deutschen Unternehmen das Land für zu abhängig von US-Cloud-Anbietern, nach 78 Prozent im Vorjahr. 91 Prozent würden deutsche Anbieter bevorzugen. 71 Prozent nutzen trotzdem US-Dienste, und nur 37 Prozent würden für einen Datenstandort ausschließlich in Deutschland Abstriche in Kauf nehmen, etwa weniger Funktionen oder längere Wartezeiten; im Vorjahr waren es 27 Prozent. Einen um 10 bis 20 Prozent höheren Preis akzeptieren 12 Prozent. Die Bereitschaft wächst, sie hat sich binnen eines Jahres deutlich erhöht. Aber zwischen Überzeugung und Beschaffung liegt weiterhin eine Lücke, und in dieser Lücke leben die Hyperscaler gut.",
+    ],
+  },
+  {
+    id: "angebot",
+    h: "Das Angebot wächst, die Anteile nicht",
+    paras: [
+      "2026 ist das Jahr, in dem aus Souveränitätsankündigungen Produkte wurden. Eine Auswahl der Ereignisse:",
+    ],
+    parasNach: [
+      "Gegen diese Dynamik steht eine Zahl, die sich nicht bewegt. Nach der letzten verfügbaren Synergy-Research-Auswertung vom Juli 2025 halten europäische Cloud-Anbieter rund 15 Prozent ihres Heimatmarkts; 2017 waren es 29, seit 2022 ist der Wert weitgehend stabil. AWS, Microsoft und Google kommen zusammen auf etwa 70 Prozent. Die Kommission selbst zitiert dieselben Zahlen in der Begründung ihres Gesetzentwurfs. Der Markt wächst, die europäischen Umsätze wachsen mit, der Anteil stagniert. Souveränität ist bisher ein Wachstumssegment innerhalb der bestehenden Machtverteilung, keine Verschiebung der Machtverteilung selbst.",
+      "Dazu kommt ein Definitionsproblem, das die Branche selbst benennt. Der europäische Cloud-Verband CISPE kritisiert, das Bewertungsraster der Kommission beantworte zwei Fragen nicht: Was passiert, wenn eine fremde Regierung die Infrastruktur abschalten will, und was, wenn sie Zugriff auf die Daten verlangt. Die Einstufung eines auf Google-Technologie basierenden Angebots als souverän nannte der Verband ein Eigentor. Das prominenteste deutsche Beispiel für die Spannweite des Etiketts ist „OpenAI for Germany“: OpenAI-Modelle auf Microsoft-Azure-Technologie, angekündigt für 2026 über die SAP-Tochter Delos Cloud für die deutsche Verwaltung. Das ist als Datenstandortlösung legitim und für viele Behörden ein Fortschritt. Nur beantwortet es von den drei Ebenen des Begriffs genau eine, und die Wertschöpfung des Modells bleibt, wo sie war. Wer das Etikett prüft, sollte nach der Kontrolle fragen, nicht nach der Postleitzahl.",
+    ],
+  },
+  {
+    id: "staat",
+    h: "Der Staat kündigt an, der Beton fehlt",
+    paras: [
+      "Die staatliche Ebene liefert derzeit vor allem eine messbare Differenz zwischen Rhetorik und Vollzug. Die InvestAI-Initiative der Kommission nennt seit Februar 2025 die Zahl von 200 Mrd. €, wovon der größte Teil erhoffte Privatinvestitionen sind. Die AI-Gigafactories, das sichtbarste Symbol des „AI-Kontinents“, wurden im Februar 2025 angekündigt; nach einer Interessenbekundung 2025 begann die formale Ausschreibung am 30. Juli 2026, die Bewerbungsfrist läuft bis November, die Auswahl ist für Anfang 2027 geplant, der Betrieb soll binnen 18 Monaten danach beginnen, also frühestens Mitte 2028. Stand heute ist keine einzige Anlage vergeben. Wer den Abstand zwischen Ankündigung und Ausschreibung misst, misst anderthalb Jahre.",
+      "Parallel konsolidiert sich die europäische Modelllandschaft statt sich zu vermehren. Aleph Alpha, lange als deutscher Hoffnungsträger gehandelt, soll im kanadischen Anbieter Cohere aufgehen; die Übernahme wurde im April angekündigt, der Abschluss zog sich nach Handelsblatt-Berichten bis in den Sommer. Das öffentlich geförderte Projekt OpenGPT-X ist abgeschlossen; sein Modell Teuken bleibt verfügbar, ein vergleichbares Folgeprojekt aus derselben Förderlinie ist bislang nicht öffentlich hervorgetreten, die EU-Initiative OpenEuroLLM ist noch in Entwicklung. Mistral bleibt der prominenteste europäische kommerzielle Anbieter mit Anspruch auf die vorderste Reihe, seit September 2025 mit 1,7 Mrd. € finanziert unter Führung von ASML.",
+      "Fair bleibt: Die Ebene ist nicht wirkungslos, sie wirkt nur woanders als angekündigt. Die Kommission hat mit ihrem Cloud Sovereignty Framework bereits Souveränitätskriterien für die eigene Beschaffung angewendet; der Vorschlag für den Cloud and AI Development Act würde einen abgestuften Rahmen EU-weit gesetzlich verankern. Beschaffungsregeln sind unspektakulärer als Gigafactories. Sie verändern Märkte erfahrungsgemäß schneller.",
+    ],
+  },
+  {
+    id: "unternehmen",
+    h: "Die Ebene, auf der sich Souveränität entscheidet",
+    paras: [
+      "Für ein einzelnes Unternehmen reduziert sich die Debatte auf zwei Fragen. Die erste lautet: Wo liegen die Daten, und wessen Recht gilt für den Zugriff darauf? Diese Frage adressieren die Sovereign Clouds, mit unterschiedlicher Tiefe, aber wachsender Auswahl. Sie ist notwendig, und sie ist die einfachere der beiden.",
+      "Die zweite Frage wird seltener gestellt: Wer kontrolliert das, was aus der eigenen Arbeit gelernt wird? Ein Auftragsverarbeitungsvertrag regelt, wer Daten sehen darf. Er regelt nicht, wem das Gelernte gehört und ob es unabhängig vom Anbieter weiterbetrieben werden kann. Auch geschlossene Modelle lassen sich heute anpassen, mit Fine-Tuning, Adaptern oder angebundenem Wissen. Die entstehenden Gewichte und Anpassungen bleiben aber technisch oder vertraglich an die Plattform gebunden, auf der sie entstanden sind. Was eine Organisation an Kontext, Korrekturen und Prozesswissen einbringt, verbessert dann ein System, das sie nicht mitnehmen kann. Das ist kein Datenschutzproblem, sondern ein Wissenstransferproblem, und es bleibt auch dann bestehen, wenn das Rechenzentrum in Brandenburg steht.",
+      "Genau diese Frage ist 2026 erstmals praktisch zugänglich geworden, und zwar nicht durch europäische Industriepolitik, sondern durch offene Modellgewichte. Seit OpenAI im August 2025 nach Jahren wieder Open-Weight-Modelle veröffentlicht hat und chinesische Anbieter wie DeepSeek und Qwen in schneller Folge nachlegen, entfällt nach einer Auswertung des Mozilla-Reports „State of Open Source AI“ auf Basis von OpenRouter-Daten dort inzwischen die Mehrheit des vermittelten Token-Volumens auf Open-Weight-Modelle. Nach Zahl der Anfragen führen weiterhin geschlossene US-Anbieter, der Vorsprung liegt im Volumen und konzentriert sich auf Coding und Agenten. Das ist eine Messung auf einer Plattform, kein Gesamtmarktanteil; als Trendaussage ist sie deutlich. Offene Gewichte kann ein Unternehmen dort betreiben, wo seine Daten liegen, auf ihnen mit den eigenen Vorgängen weitertrainieren und die daraus entstehenden Gewichte unabhängig vom ursprünglichen Anbieter behalten. Gelöst ist damit nicht alles: Herkunft der Trainingsdaten, Lizenzbedingungen, Hardware, Betrieb und Sicherheit bleiben eigene Fragen. Die Ironie der Lage gehört zur ehrlichen Bilanz: Der wirksamste Souveränitätshebel, den ein europäisches Unternehmen heute ziehen kann, stammt überwiegend aus Amerika und China.",
+      "Dass die Verhaltensebene sich bewegt, zeigen die Vorreiter der Verwaltung. Schleswig-Holstein hat bis Ende 2025 auf fast 80 Prozent der Arbeitsplätze in der Landesverwaltung außerhalb der Steuerverwaltung Microsoft Office durch LibreOffice ersetzt, mit der Abhängigkeit von einzelnen Herstellern als Begründung. Das Land spart nach eigenen Angaben mehr als 15 Mio. € Lizenzkosten im Jahr, dem stehen 2026 einmalig 9 Mio. € für Migration und Weiterentwicklung gegenüber. Solche Fälle sind noch Ausnahmen. Aber sie sind keine Absichtserklärungen mehr.",
+      "Unser eigener Platz in diesem Bild, der Vollständigkeit halber: KYDE baut keine Modelle und betreibt keine Rechenzentren. Wir bauen die Schicht darunter, die Aufzeichnung der Arbeit an der Grenze des Unternehmens, kryptographisch verkettet, im Tenant des Kunden, ohne dass KYDE Zugriff auf die Rohdaten braucht. Souveränität heißt auf dieser Schicht schlicht: Der Rohstoff, aus dem gelernt wird, und der Nachweis, was geschah, verlassen das Haus nicht. Das ist kein Ersatz für die Standortfrage. Es ist ein Teil der Antwort auf die zweite Frage, die nach dem Lernen.",
+    ],
+  },
+  {
+    id: "folgt",
+    h: "Was daraus folgt",
+    paras: [],
+  },
+  {
+    id: "ausblick",
+    h: "Ausblick: zwei Szenarien",
+    paras: [
+      "Wie es weitergeht, hängt weniger an den Gigafactories als an zwei Variablen: ob der Cloud and AI Development Act mit seinen Souveränitätsstufen in Kraft tritt und die öffentliche Beschaffung tatsächlich bindet, und ob die Bereitschaft der Unternehmen zu Abstrichen weiter in dem Tempo wächst, das Bitkom seit zwei Jahren misst. Treten beide ein, verschiebt sich erstmals nicht nur das Volumen, sondern der Anteil, und die 15 Prozent bekommen Bewegung. Bleiben sie aus, wird souveräne KI das, was Kritiker heute schon vermuten: ein Premiumsegment im Katalog der immer gleichen Anbieter, während die eigentliche Souveränitätsarbeit dezentral passiert, in Unternehmen, die offene Modelle auf eigene Daten setzen, ohne dafür ein Etikett zu brauchen.",
+      "Für Entscheider lässt sich der Stand in zwei Sätzen zusammenfassen. Die Standortfrage ist 2026 lösbar geworden, in wachsender Auswahl und auch bei amerikanischen Anbietern. Die Souveränitätsfrage, die über Wettbewerbsfähigkeit entscheidet, lautet dagegen, wer das behält, was aus der eigenen Arbeit gelernt wird, und sie wird nicht in Brüssel beantwortet, sondern im eigenen Haus.",
+    ],
+  },
+];
+
+const toc = chapters.map(({ id, h }) => ({ id, h }));
+
+const quellen = "Gartner, Pressemitteilung 09.02.2026 (Sovereign-Cloud-IaaS-Prognose) · Bitkom, Cloud Report 2026 und Presseinformation 17.06.2026 (n=603) · Synergy Research Group, 24.07.2025 (EU-Cloud-Marktanteile) · EuroHPC JU, AI-Gigafactories-Call, 30.07.2026 · Europäische Kommission, Vorschlag Cloud and AI Development Act, 03.06.2026, und Mitteilung zur Cloud-Vergabe, 17.04.2026 · AWS-Pressemitteilung 15.01.2026 (European Sovereign Cloud) · Deutsche Telekom, Pressemitteilungen zur Industrial AI Cloud (04.02.2026) und zur Bundesplattform (21.05.2026); heise, 21.05.2026 (Vergabe an zwei Konsortien) · IONOS Group, Halbjahresbericht 2026, 06.08.2026 · The Register, 20.04.2026 (CISPE) und 25.07.2025 (Anhörung im französischen Senat, 18.06.2025) · Brennan Center und Congress.gov zu FISA Section 702 (Stand Juni 2026) · SAP News, 24.09.2025 (OpenAI for Germany) · CNBC und TechCrunch, 24. und 25.04.2026, Handelsblatt, 07/2026 (Cohere/Aleph Alpha) · Fraunhofer IAIS, OpenGPT-X (Projektabschluss) · Mistral AI, 09/2025 (Series C) · Landesregierung Schleswig-Holstein, 04.12.2025 (LibreOffice-Umstellung) · Mozilla, „The State of Open Source AI“ v1.0.1, Juli 2026 (OpenRouter-Auswertung).";
+
+const url = "https://kyde.com/de/wissen/souveraene-ki";
+const breadcrumbSchema = {
+  "@context": "https://schema.org", "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Wissen", item: "https://kyde.com/de/wissen/" },
+    { "@type": "ListItem", position: 2, name: pageTitle, item: url },
+  ],
+};
+const articleSchema = {
+  "@context": "https://schema.org", "@type": "Article",
+  headline: pageTitle,
+  description: "Was Staaten angekündigt und geliefert haben, was Anbieter unter dem Etikett verkaufen und was die Nachfrageseite tut. Eine Bestandsaufnahme entlang der Primärquellen, Stand August 2026.",
+  inLanguage: "de-DE",
+  datePublished: stand,
+  dateModified: stand,
+  author: { "@type": "Person", name: author.name },
+  publisher: { "@type": "Organization", name: "KYDE", url: "https://kyde.com" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": url },
+};
+---
+
+<Base
+  title="Souveräne KI: eine Bestandsaufnahme, KYDE"
+  description="Ausgaben, Anbieter, Marktanteile und Gesetzgebung zur souveränen KI, entlang der Primärquellen ausgewertet. Warum sich Souveränität nicht am Rechenzentrum entscheidet, sondern daran, wer das Gelernte behält."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
+  <Navbar />
+
+  <main>
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Markt · Bestandsaufnahme</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            {pageTitle}
+          </h1>
+          <p class="text-base md:text-lg text-ink-1 leading-relaxed mb-8">
+            Kaum ein Begriff hat 2026 so viel Konjunktur wie souveräne KI. Wir haben die Debatte entlang der
+            Primärquellen sortiert: was Staaten angekündigt und geliefert haben, was die Anbieter unter dem
+            Etikett verkaufen, und was die Nachfrageseite tatsächlich tut. Das Ergebnis in Kürze: Die Debatte
+            wird auf der Ebene von Staaten und Rechenzentren geführt. Entscheiden wird sich Souveränität auf
+            einer anderen Ebene, nämlich im einzelnen Unternehmen, und dort an zwei Fragen, von denen die
+            Branche bisher nur eine beantwortet.
+          </p>
+          <div class="mb-6">
+            <Stand datum={stand} geprueft="Gartner, Bitkom, Synergy Research, EuroHPC, Kommissionsdokumente" />
+          </div>
+          <p class="font-mono text-xs text-ink-1">Von {author.name}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_300px] gap-6 md:gap-16 items-start">
+          <article class="prose-kyde min-w-0">
+
+            <div class="not-prose mb-10 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Auf einen Blick</p>
+              <ul class="space-y-3">
+                {aufEinenBlick.map((line) => (
+                  <li class="flex items-start gap-3 text-sm text-ink-1 leading-relaxed">
+                    <span class="font-mono text-warn shrink-0 mt-1">—</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Offenlegung vor dem Argument, nicht danach. -->
+            <div class="not-prose mb-10 border-l-2 border-warn/50 pl-5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1 mb-2">Offenlegung</p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                Zur Einordnung vorab: Wir sind in dieser Debatte Partei. KYDE baut die Ebene, auf der
+                aufgezeichnete Arbeit, Nachweis und Lernen im Tenant des Kunden bleiben, on-prem oder online.
+                Eine Welt, die Souveränität ernst nimmt, ist für uns ein günstigeres Umfeld als eine, die es
+                nicht tut. Die folgende Analyse stützt sich auf eigene Auswertung der Primärquellen; wo eine
+                Zahl eine Unternehmensangabe oder ein Medienbericht ist, steht es dabei.
+              </p>
+            </div>
+
+            <div class="not-prose mb-12 border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Auf dieser Seite</p>
+              <ol class="space-y-2">
+                {toc.map(({ id, h }) => (
+                  <li>
+                    <a href={`#${id}`} class="group flex items-start gap-2 text-sm text-ink-1 hover:text-ink-0 transition-colors leading-snug">
+                      <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                      <span>{h}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {chapters.map(({ id, h, paras, parasNach }) => (
+              <>
+                <h2 id={id}>{h}</h2>
+                {paras.map((a) => <p>{a}</p>)}
+
+                {id === "nachfrage" && (
+                  <Zitat
+                    text="Nein, das kann ich nicht garantieren, aber es ist noch nie vorgekommen."
+                    source="Anton Carniaux, Leiter Public and Legal Affairs, Microsoft Frankreich, Anhörung im französischen Senat, 18. Juni 2025, auf die Frage, ob er unter Eid garantieren könne, dass Daten französischer Bürger nicht ohne Zustimmung der französischen Regierung an US-Behörden übermittelt werden"
+                  />
+                )}
+
+                {id === "angebot" && (
+                  <div class="not-prose my-8 overflow-x-auto border border-line-0">
+                    <table class="w-full min-w-[30rem] border-collapse text-sm">
+                      <thead>
+                        <tr class="border-b border-line-0">
+                          <th class="px-4 py-3 text-left font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1 whitespace-nowrap">Datum</th>
+                          <th class="px-4 py-3 text-left font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">Ereignis</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {chronik.map(({ d, e }) => (
+                          <tr class="border-b border-line-0 last:border-b-0 align-top">
+                            <td class="px-4 py-3 font-mono text-xs text-ink-0 whitespace-nowrap">{d}</td>
+                            <td class="px-4 py-3 text-sm text-ink-1 leading-relaxed">{e}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {id === "folgt" && (
+                  <div class="not-prose my-8 border border-line-0 divide-y divide-line-0">
+                    {folgerungen.map(({ n, t }) => (
+                      <div class="grid md:grid-cols-[110px_1fr] gap-2 md:gap-8 px-6 py-6">
+                        <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-warn">{n}</p>
+                        <p class="text-sm text-ink-1 leading-relaxed">{t}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {parasNach && parasNach.map((a) => <p>{a}</p>)}
+              </>
+            ))}
+
+            <div class="not-prose mt-16 border-t border-line-0 pt-6">
+              <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1 mb-2">Quellen</p>
+              <p class="text-xs text-ink-1 leading-relaxed">{quellen}</p>
+            </div>
+
+            
+          </article>
+
+          <aside aria-label="Weiterführend" class="hidden md:block sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-4">Die zweite Frage</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-5">
+                Ein Auftragsverarbeitungsvertrag regelt, wer Daten sehen darf. Er regelt nicht, wem das
+                Gelernte gehört. KYDE zeichnet die Arbeit an der Grenze des Unternehmens auf, verkettet sie
+                kryptographisch und lässt sie im Tenant des Kunden.
+              </p>
+              <a href="/zero-trust" class="inline-flex items-center gap-2 border border-line-1 px-5 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-colors">
+                KYDE Zero Trust →
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  <LegalNotice>
+      <p class="text-sm text-ink-2 leading-relaxed max-w-3xl mt-4">
+      Diese Seite beschreibt, was die genannten Rechtsakte verlangen, und trifft keine Aussage darüber,
+      welche Pflichten im Einzelfall bestehen. Maßgeblich ist ausschließlich der amtliche Wortlaut der
+      zitierten Rechtsakte.
+    </p>
+    </LegalNotice>
+  </main>
+
+  <Footer />
+</Base>

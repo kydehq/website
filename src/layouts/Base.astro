@@ -14,8 +14,8 @@ interface Props {
 }
 
 const {
-    title = "KYDE · The Behavioral System of Record for Autonomous Work",
-    description = "Identity, scope, enforcement at the boundary, and a hash-chained record of every agent action routed through it. Built for the agent layer of GDPR, EU AI Act, NIS-2 and DORA duties.",
+    title = "KYDE, AI Workers You Own and Run Yourself",
+    description = "KYDE builds AI workers from the processes a company already runs, and runs them on a zero trust layer: identity, policy, data, limits and a hash-chained record of every action, in your own environment. Built for GDPR, EU AI Act, NIS-2 and DORA.",
     image = "/og-image-v2.png",
     noindex = false,
 } = Astro.props;
@@ -37,13 +37,16 @@ const ogImage = new URL(image, Astro.site).href;
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="color-scheme" content="dark light" />
-        <meta name="theme-color" content="#050505" />
+        <meta name="theme-color" content="#F7F6F3" />
         <script is:inline>
-            // Theme pre-paint: dark is the default; light only on explicit opt-in.
+            // Theme pre-paint: light is the default; dark only on explicit opt-in.
             // Runs before first paint so there is no flash-of-wrong-theme.
-            if (localStorage.getItem("kyde_theme") === "light") {
-                document.documentElement.dataset.theme = "light";
-                document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#F7F6F3");
+            // Key versioned: the old one was written on every page load rather
+            // than on a choice, so returning visitors all carry a "dark" they
+            // never picked. See the note in Navbar.astro.
+            if (localStorage.getItem("kyde_theme_choice") === "dark") {
+                document.documentElement.dataset.theme = "dark";
+                document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#050505");
             }
         </script>
         <meta name="description" content={description} />

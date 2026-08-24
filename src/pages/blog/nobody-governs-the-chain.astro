@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
@@ -27,7 +28,7 @@ import Footer from '../../components/Footer.astro';
         </div>
 
         <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
             Every Vendor Governs Their Stack. Nobody Governs the Chain.
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
@@ -186,7 +187,7 @@ import Footer from '../../components/Footer.astro';
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is the behavioral system of record for autonomous work. The KYDE Gateway sits between your agents and the systems they act on, across every vendor, provider, and platform routed through it. One identity layer. One policy enforcement point. One record of every action routed through it, regardless of which system it touched.
+                KYDE is a zero trust layer for AI workers and the AI you already run. The KYDE Gateway sits between your agents and the systems they act on, across every vendor, provider, and platform routed through it. One identity layer. One policy enforcement point. One record of every action routed through it, regardless of which system it touched.
               </p>
               <button
                 onclick="openModal()"
@@ -199,7 +200,7 @@ import Footer from '../../components/Footer.astro';
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block space-y-6 sticky top-28">
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Four requirements</p>
               <div class="space-y-2">
@@ -251,6 +252,7 @@ import Footer from '../../components/Footer.astro';
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />

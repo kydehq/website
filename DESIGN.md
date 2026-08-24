@@ -212,15 +212,32 @@ components:
 
 KYDE looks like an **engineering document that happens to be interactive** — a spec sheet, a blueprint, a signed audit ledger. Not a SaaS marketing gradient in sight. The aesthetic is monochrome-first, 1px-ruled, and typographically strict, in both themes it ships. Two registers coexist on every screen: **Inter** carries the human argument (headlines, prose), **JetBrains Mono** carries everything machine-adjacent (labels, numbers, statuses, terminals, table headers). The tension between the two *is* the brand.
 
-**Dark is the default and the primary reference.** Light is a fully implemented second theme (same components, same layout, same rules), currently not exposed via a UI toggle on the public marketing site, but the intended surface for product/dashboard UI going forward. Build dashboards so they work correctly in both from day one; do not treat light as an afterthought skin.
+**Light is the default on the marketing site; dark is an explicit opt-in.** This is the reverse of how the system first shipped, and only the resting state changed: both themes carry the same components, layout and rules, and the dark palette is unchanged. In CSS, light lives on bare `:root` and dark is reapplied under `:root[data-theme="dark"]`, so anything keyed on "the page is light" must match `:root:not([data-theme="dark"])` rather than an attribute that is no longer stamped. Dark remains the reference for product and dashboard UI. Build both from day one; neither is an afterthought skin.
 
-Three ideas govern every design decision:
+**Both themes are exposed.** A toggle sits in the navbar, light is the default,
+and the choice persists in `localStorage` with a guard in `Base.astro` that
+applies it before first paint so the page never flashes the wrong ground. The
+guard and the toggle both have to agree on the default; if they disagree the
+glyph shows one theme while the page renders the other.
 
-1. **The border is the design.** Structure comes from 1px lines (`{colors.line-0}`) and stepped background shades, never from shadows, gradients, or rounded corners. Sections sit inside vertical "blueprint rails" — thin left/right borders that run the full height of the page and make the whole product read as one continuous technical drawing.
-2. **Motion is an argument, not decoration.** Every animation enacts a product claim: particles crossing a boundary and getting signed (the firewall), a radar sweep revealing shadow agents, a hash chain visibly breaking when tampered with, a counter racing to show an imbalance. If a proposed animation does not dramatize a specific claim, it does not ship. Everything respects `prefers-reduced-motion` with a static, still-meaningful fallback frame, and every animated figure must re-read its palette from CSS custom properties (never hardcoded rgb triples) so it inverts correctly on theme change.
-3. **Restraint reads as competence.** Body text is grey, not the extreme ink value. Accents are rare and semantic (green = living/verified data, red = blocked/alert). The one place the extreme "white" value appears as a solid fill is the primary CTA button — which is exactly why it works, in both themes.
+**A canvas has to be measured by a ResizeObserver, not once at startup.** A
+canvas sized from a single `getBoundingClientRect()` at init draws into a
+backing store that stops matching its box the moment the layout settles: web
+fonts land, the hero grows, and the drawing renders stretched, oversized and
+too slow, because every speed in it is expressed in the old coordinate space.
+A window `resize` listener does not catch this, since the window never
+resized. Read `clientWidth`/`clientHeight`, bail out while they are zero, and
+re-measure from a `ResizeObserver` held in a variable, since an observer with
+no reference of its own can be garbage collected and then silently stops
+firing. The hero canvas on `/` does this and carries the note; anything new
+has to do the same.
 
-The product this file exists to skin (dashboards, consoles) already has an in-market reference: the "Fleet Status" mock on kyde.com/platform. When in doubt, build what that mock implies at full fidelity.
+**Canvas figures must branch on the ground.** A bloom is emitted light: on a
+dark ground it brightens toward ink, and on paper the same gradient stops paint
+a grey smudge instead. Both canvases read `--color-bg-0`, compute its luminance
+once per theme change, and use that flag to pick the bloom's colour and to lift
+particle opacities, which are otherwise tuned for light-on-dark and nearly
+vanish on paper. Any new canvas figure has to do the same; do not assume dark.
 
 ## Colors
 
@@ -298,10 +315,28 @@ Accent fills are almost always transparent washes of the accent at 5–10% opaci
 
 Two families, strictly divided by role, identical across both themes:
 
-- **Inter Variable** — the voice. Hero statements, section headings, body prose. Headlines are bold, tightly tracked (−0.02em), and set at a compressed line-height (0.92–1.05). Hero headlines are UPPERCASE.
+- **Inter Variable** — the voice. Hero statements, section headings, body prose. Headlines are bold, tightly tracked (−0.02em), and set at a compressed line-height. Hero headlines are UPPERCASE.
+- **Headline line-height, in Tailwind terms.** `leading-tight` is 1.25 and is body spacing, not headline spacing; it is never right on a headline. Hero `h1`: `leading-none` or `leading-[1.05]`. Section headline (`text-3xl md:text-4xl lg:text-5xl`) and subsection (`text-2xl md:text-3xl`): `leading-[1.03]`. Item heading (`text-xl md:text-2xl`): `leading-[1.08]`, marginally looser because it sits closest to body copy. The whole site had drifted to `leading-tight` on all four; if a new headline looks airy next to its neighbors, this is why.
 - **JetBrains Mono Variable** — the machine. Everything that represents data, structure, or interface chrome: eyebrow/section labels, buttons, table headers, statuses, timestamps, IDs, terminal content, figure labels, numbers in stat tiles. Mono labels are UPPERCASE with wide tracking (0.1em–0.2em); mono data (IDs, values) is normal case with tight tracking.
 
 The signature typographic device is the **numbered section register**: every major surface region opens with a mono eyebrow in the format `01 · Section Name` (`{typography.register}`, ink-1, uppercase), sitting on a 1px `line-0` rule. Numbering restarts per page/screen. In a dashboard, panel headers take the same treatment (see the platform Fleet Status mock: `FLEET HEALTH SCORE`, `AGENTS (3)`, `RECENT SESSIONS (3)` — all mono, uppercase, tracked, small).
+
+**The applied ramp.** The tokens above give the sizes; this is which one a
+heading gets, and there are only four. Every heading on the marketing site is
+one of these, exactly as written. Nothing in between, and no new step without
+changing this list.
+
+| Level | Where it goes | Classes |
+|---|---|---|
+| Home hero | The homepage `h1`, once | `text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl` |
+| Page hero | Every other page's `h1`, once, one step below the home hero | `text-4xl md:text-5xl lg:text-6xl` |
+| Section | The one statement a section exists to make | `text-3xl md:text-4xl lg:text-5xl` |
+| Subsection | A heading inside a section that already has one | `text-2xl md:text-3xl` |
+| Item | One card, step or row in a grid or list | `text-xl md:text-2xl` |
+
+A page reads as a hierarchy when each section makes one statement at Section
+size and everything under it steps down. Two Section-size headings in one
+region is the usual sign that the region is really two.
 
 Scale notes for agents:
 - The `hero` token is the desktop size (72px); it steps down responsively (mobile ≈ 36px, tablet ≈ 48–60px). Dashboards rarely need `hero`; a screen title is `h2` at most.
@@ -312,7 +347,9 @@ Scale notes for agents:
 
 - **Container:** max-width 1280px (80rem), centered, 24px side padding. On desktop the container carries **1px vertical borders on both sides** (`line-0`) — the blueprint rails. In a dashboard context the equivalent is: every panel region is explicitly ruled; nothing floats in undefined space.
 - **Section rhythm:** generous — 64–96px vertical padding between major regions on marketing pages, proportionally tighter (24–48px) inside dashboard panels. When in doubt, add more air: the system's density comes from fine lines and small mono type, not from cramming.
-- **Separation by border, not by gap:** adjacent regions share a single 1px `line-0` border (`border-top`), and lists/grids of cards use single-border wrappers with internal 1px dividers (divide-x / divide-y) rather than per-card borders with gaps. The result reads as one ruled sheet, not floating cards.
+- **Sections separate by whitespace, structure separates by border.** Top-level sections carry no full-width rule between them: the vertical padding (`py-16 md:py-24`, `py-24 md:py-32`) does the separating. A rule that repeats at every section boundary stops carrying information and just reads as clutter. Inside a section, borders still do real work: lists and grids of cards use a single-border wrapper with internal 1px dividers (divide-x / divide-y) rather than per-card borders with gaps, and a register line (`01 · Section` over a 1px `line-0` rule) marks a column head. The result reads as one ruled sheet, not floating cards.
+- **One border convention:** where a rule is used, set it as `border-top` on the lower element. Never mix `border-b` on one region with `border-t` on the next, which doubles the rule in some places and drops it in others.
+- **Page heroes start at the same height:** every page below the homepage opens its hero container with `pt-36 md:pt-48`. The navbar is fixed and ~66px tall, so this is the only thing holding the first line of every page on one baseline. Bottom padding varies with what follows; top padding does not. The homepage is the exception: its hero is `h-screen` and vertically centered, so it uses `pt-20` purely to clear the navbar.
 - **The dotted grid:** hero/empty regions may carry a subtle dot-matrix background — 1px dots of `ink-0` at ~13% opacity on a 28px grid, masked to fade out radially. This is the "graph paper" of the blueprint language. Use sparingly; one region per screen. Works unchanged in both themes since it references `ink-0`.
 - **Grids:** 2–5 columns, collapsing to one column below 768px. Sidebars in dashboard layouts are fixed-width (~176px), `bg-2`, hidden on mobile so the main panel gets full width.
 - **Figures get labels:** every diagram, chart, or mock carries a `fig-label` (mono, 10px, 0.2em tracking, ink-2, uppercase) in the format `FIG.1 · Fleet view`, positioned at the region's top corner. This one detail does a large share of the "engineering document" feel.
@@ -360,6 +397,109 @@ Iconography is minimal, stroke-based (1.5–2px stroke, no fills), and used spar
 - *The hash chain:* mono chain of `#a4d1 ── #a4d2 ✓` cells appending on a ~2s tick; periodically a tamper attempt turns one cell red and visibly breaks every link after it (`─╳─`), with a status line announcing the rejection, then heals.
 - Rules for all of the above: `requestAnimationFrame` loops gated by `IntersectionObserver` (paused off-screen); an explicit `prefers-reduced-motion` branch rendering one static meaningful frame; palette read live from CSS custom properties (`getComputedStyle`) rather than hardcoded rgb triples, with a listener on theme-change so canvases/SVGs re-read and repaint immediately when the user switches themes; geometry limited to 1–2.5px squares, dots, and 1px lines — never smooth blobby shapes.
 - Ambient micro-motion allowed: scroll-reveal (12px rise + fade, once, 0.4s), bar fills growing to width on reveal (1.2s cubic-bezier), SVG paths drawing themselves (stroke-dashoffset), a 1.1s-blink green terminal cursor, 7s float on hovering detail cards.
+
+## Voice
+
+**Write like Stripe, not like an AI company.** The two are easy to tell apart and the difference is not tone, it is whether a sentence carries information.
+
+The house voice is plain, specific, and unhurried. It states what a thing does, names the constraint, and stops. It assumes the reader is competent and busy. A claim comes with the mechanism that makes it true, or it does not get made.
+
+**Do**
+- Lead with the concrete noun: "a hash-chained record", "one process area", "two weeks".
+- Use numbers, names and limits. "Approve under 2,000, above that escalate" beats "intelligent thresholds".
+- Say what a thing does not do, and where it stops. The boundary is the most credible sentence on any page.
+- Keep sentences short enough to read once. Prefer a period to a comma and a comma to a semicolon.
+- Let the verb do the work: records, blocks, recomputes, hands back, stops.
+
+**Don't**
+- No "empower", "unleash", "seamless", "transform", "revolutionize", "cutting-edge", "next-generation", "supercharge", "effortless", "game-changing".
+- No "AI-powered", "AI-driven", "leveraging AI", "harness the power of". The product is not interesting because AI is in it.
+- No sentence that would survive having the product name swapped for a competitor's. If it fits anyone, it says nothing.
+- No superlatives we cannot show. "The most complete" is a claim about other people's products that we cannot check.
+- No em-dashes (see below), and no exclamation marks anywhere.
+- Do not sell the future in the present tense. A capability that is not built says so, in the same sentence, in the reader's words rather than in a roadmap chip.
+
+**Write to the reader, never about them.** The people reading are running the
+business being described. Three habits break that, and all three are easy to
+fall into while writing quickly:
+
+- *Explaining your own rhetoric.* "Naming these is what makes the other two
+  believable" tells the reader why they should be convinced, which is the one
+  argument that cannot work on somebody who is reading it. State the fact and
+  let it do its own work.
+- *Talking about them in the third person.* "The person who has to defend it
+  internally" is the reader. Say "you".
+- *Narrating your own sales motion.* "These pay for the first project" and
+  "which is why there is a second project" describe our revenue, not their
+  benefit. Cut them.
+
+**No sentence that describes how the text behaves.** Only what happens and what
+comes out of it. Three patterns give it away every time, and they usually
+arrive together at the end of a paragraph:
+
+- *Saying what it is not.* "It ends with a document, not a dashboard." The
+  reader did not ask about dashboards. Say what the document contains.
+- *Praising your own honesty.* "Where the evidence stops it says so instead of
+  rounding up." A claim of integrity is worth nothing; the behaviour it
+  describes is worth stating plainly, once, as a fact about the deliverable.
+- *Landing on an aphorism.* "Some blockers fall without anybody doing
+  anything." It reads as a writer enjoying the ending rather than a company
+  describing a service.
+
+A negation is fine when it carries product information about time or place:
+"enforced before the action executes, not in a report afterwards" tells the
+reader when. "A document, not a dashboard" tells them nothing.
+
+**The shape of a good block**, and it is the same every time: category as an
+eyebrow, the benefit as a headline with a verb in it, one paragraph with real
+numbers, a link. Nothing after the link.
+
+> **The audit**
+> **See what can run without you, before you build anything**
+> We take one process area and the infrastructure behind it. You get a dated
+> readout: how many steps can be automated today, what each of the others is
+> waiting on, and who owns it. Three days for a team, two weeks for a
+> department. Fixed price, credited against your first automation project.
+> [More about the audit →]
+
+**Never claim to know their business better than they do.** "We know what
+should be automated now" reads as arrogant twice over: it puts us above the
+person running the process, and *should* decides something that is theirs to
+decide. Ask the question they already have and answer it together. "What could
+be automated right now?" is the same page with the customer on the right side
+of it.
+
+**Frame it positively when the positive frame is also the true one.** Work that
+stays with a person is not a limitation to be disclosed, it is the judgement
+your experts were hired for, and automating everything around it is what buys
+them the room to do it. Say that, rather than listing legal risks. The negative
+version is not more honest, it is just colder, and it makes an expensive
+decision feel like a liability review.
+
+The test: read the sentence out loud to somebody who runs the process being described. If they would nod, it ships. If they would wait for the actual point, it does not.
+
+## Legal notice on articles
+
+Every article carries the standing disclaimer, and it comes from one place:
+`src/components/LegalNotice.astro`. Import it and drop `<LegalNotice />` in as
+the last thing inside `<main>`. It picks German or English from the path, so an
+article never has to know which language it is in, and the wording cannot drift
+one page at a time.
+
+It goes on articles: blog posts, glossary entries, guides, whitepapers,
+comparisons, the regulatory explainers and everything under `/de/wissen/`.
+Glossary entries inherit it through `GlossaryEntry.astro` and need nothing.
+It does **not** go on product pages. A disclaimer under a price or a feature
+list reads as a warning about the product rather than about a text.
+
+Where a page needs more than the standard wording, pass it as a child rather
+than editing the component: the two German regulatory articles add that the
+official wording of the cited acts governs. Anything that would apply to every
+article belongs in the component.
+
+One accessibility consequence worth knowing: the notice is an `<aside>`, so any
+page that already had an unnamed `<aside>` now has two landmarks and needs
+`aria-label` on both. `npm run qa:html` catches this.
 
 ## Do's and Don'ts
 

@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import LegalNotice from '../components/LegalNotice.astro';
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -86,7 +87,7 @@ const faqSchema = {
             <span class="inline-flex items-center border border-line-0 bg-bg-1 px-3 py-1 text-xs font-mono text-ink-1">Complete Guide</span>
             <span class="inline-flex items-center border border-warn/60 bg-warn/5 px-3 py-1 text-xs font-mono text-ink-0">Deadline: Dec 2, 2027</span>
           </div>
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-tight mb-6">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
             EU AI Act Compliance for AI Agents
           </h1>
           <p class="text-base text-ink-1 leading-relaxed max-w-2xl">
@@ -414,7 +415,7 @@ const faqSchema = {
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
               <p class="text-base font-semibold text-ink-0 mb-2">Built for the agent layer of EU AI Act duties.</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE is the behavioral system of record for autonomous work, a model-agnostic gateway that sits between your agents and the LLM providers they call. It writes a hash-chained, tamper-evident record of every agent action routed through it, capturing causal context, not just inputs and outputs, without touching a single line of agent code. One environment variable. Any provider you route through it. Day one.
+                KYDE is a zero trust layer for AI workers and the AI you already run, a model-agnostic gateway that sits between your agents and the LLM providers they call. It writes a hash-chained, tamper-evident record of every agent action routed through it, capturing causal context, not just inputs and outputs, without touching a single line of agent code. One environment variable. Any provider you route through it. Day one.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
@@ -424,7 +425,7 @@ const faqSchema = {
                   Talk to Us →
                 </button>
                 <a
-                  href="/platform"
+                  href="/zero-trust"
                   class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3 text-xs font-mono uppercase tracking-[0.1em] hover:border-line-1 transition-all"
                 >
                   See the Platform →
@@ -435,7 +436,7 @@ const faqSchema = {
           </article>
 
           <!-- Sidebar -->
-          <aside class="hidden md:block space-y-5 sticky top-28">
+          <aside aria-label="Related" class="hidden md:block space-y-5 sticky top-28">
 
             <div class="border border-warn/50 bg-warn/5 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-3">Key deadline</p>
@@ -515,6 +516,7 @@ const faqSchema = {
       </div>
     </section>
 
+  <LegalNotice />
   </main>
 
   <Footer />
