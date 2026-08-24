@@ -3,78 +3,37 @@
 Open items that have to be closed before kyde.com goes live with the new
 positioning. Written down so nothing gets carried over by accident.
 
-## Copy still on the old positioning
+## Copy on the old positioning — done 2026-08-24
 
 The sentence "KYDE is the behavioral system of record for autonomous work"
-was the old one-line pitch. It is still the closing boilerplate paragraph
-in the articles and the meta description on four pages. Search engines and
-readers get two different companies depending on which page they land on.
+is gone from the site. 21 files: the closing paragraph in 17 articles, the
+meta descriptions on `/company`, `/labs` and the docs index, and the
+fallback title and description in `layouts/Base.astro` that every page
+without its own falls back to.
 
-**Page meta descriptions** (highest priority, these are what shows in search
-results):
+The clause is now "a zero trust layer for AI workers and the AI you
+already run", which follows the umbrella decision: Zero Trust is the roof,
+Workers and Receipts are the two bets under it. Each article kept its own
+second half, since gateway, hash chain and boundary enforcement are all
+still accurate. Four appositives had to be rewritten rather than swapped,
+because they equated the layer with the record it writes.
 
-- [ ] `layouts/Base.astro` default title and description, which every page
-      without its own falls back to
+"Behavioral Firewall" stays inside the articles, per the earlier decision.
+It names the enforcement layer, not the company.
 
-- [ ] `company.astro`
-- [ ] `platform.astro`
-- [ ] `labs.astro`
-- [ ] `content/docs/docs/index.md`
+## /platform — deleted 2026-08-24
 
-**Closing boilerplate in articles** (same paragraph, roughly 17 files):
+Deleted rather than rewritten: it argued the old positioning end to end,
+and a rewrite would have produced a third story. Its material lives on in
+the zero trust sections, so it had a natural heir.
 
-- [ ] `ai-agent-governance.astro`
-- [ ] `ai-agent-insurance.astro`
-- [ ] `eu-ai-act-compliance.astro`
-- [ ] `shadow-ai.astro`
-- [ ] `shadow-ai-trilogy.astro`
-- [ ] `compare/kyde-vs-witnessai.astro`
-- [ ] `glossary/behavioral-firewall.astro`
-- [ ] `whitepapers/machine-first-governance.astro`
-- [ ] `blog/confidence-infrastructure-part-1.astro`
-- [ ] `blog/confidence-infrastructure-part-2.astro`
-- [ ] `blog/confidence-infrastructure-part-3.astro`
-- [ ] `blog/drcf-agentic-ai-foresight.astro`
-- [ ] `blog/eu-ai-act-audit-trails.astro`
-- [ ] `blog/eu-ai-act-omnibus-collapse.astro`
-- [ ] `blog/hbr-ai-agents-infrastructure.astro`
-- [ ] `blog/missing-layer-agent-architecture.astro`
-- [ ] `blog/nobody-governs-the-chain.astro`
-
-Note: "Behavioral Firewall" stays inside the articles under Zero Trust
-(decision Joerg). What has to go is the company pitch, not the term.
-
-## Pages
-
-- [ ] `/platform` still argues the old positioning end to end and is not
-      linked from the footer. Decide: rewrite, or delete like the other
-      seven contradicting pages.
-
-## Deleted pages: decided, no redirects
-
-Eight pages that contradicted the new positioning were removed: `/pricing`,
-`/starter`, `/sandbox`, `/trust-score`, `/lp/trust-boundary`,
-`/audit-readout`, `/blog/trust-is-a-number`, `/who-its-for`. They are live
-today and answer 200; after the merge they answer 404.
-
-**Decision (Joerg, 2026-08-22): no redirect stubs.** External links point
-at the homepage, not at subpages, so there is nothing worth preserving.
-`/trust-score` in particular should not be kept alive, since the term is
-deliberately out of the positioning.
-
-Nothing links to them internally (checked across all 69 pages, including
-the absolute `https://kyde.com/...` links that the lychee config excludes),
-and `/404` does not offer any of them either.
-
-This lands softer than a bare 404: `src/pages/404.astro` counts down and
-sends the reader to the homepage after five seconds, while GitHub Pages
-still returns a real 404 status, so search engines get the correct signal
-and people get routed on. Nothing more to build.
-
-- [ ] Optional, cosmetic: the 404 headline is "Lost in the agentic
-      wilderness" and the block is dressed as a fake terminal with traffic
-      light dots, which is neither the current vocabulary nor the figure
-      grammar in DESIGN.md.
+`public/platform/index.html` is a hand-written redirect to `/zero-trust`
+(meta refresh plus canonical, since GitHub Pages serves static files).
+Written by hand rather than via Astro's `redirects` config, because that
+emits a lowercase doctype while every other page on the site emits an
+uppercase one, and it was the only html-validate failure. Seven pages that
+linked to `/platform` now link straight to `/zero-trust`; the stub is for
+inbound links we cannot edit.
 
 ## Deploy
 

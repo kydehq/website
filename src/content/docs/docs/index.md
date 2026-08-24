@@ -1,6 +1,6 @@
 ---
 title: "Kyde Gateway Documentation"
-description: "The gateway behind the behavioral system of record for autonomous work: a drop-in, OpenAI-compatible proxy with a hash-chained behavioral ledger. Quickstart, user manual, deployment, and reference."
+description: "The gateway behind the KYDE Zero Trust layer: a drop-in, OpenAI-compatible proxy that checks every action at the boundary and writes a hash-chained record of it. Quickstart, user manual, deployment, and reference."
 ---
 
 Nobody hands real responsibility to an agent nobody can trust. Agents
@@ -19,7 +19,7 @@ it, and a third party can recompute that offline. And while it records, it sees 
 upstream: your prompts, traces, and corrections, before they become
 someone else's training data.
 
-**One record. Every vendor. The behavioral system of record for autonomous work.**
+**One record. Every vendor. One zero trust layer for AI workers and the AI you already run.**
 
 **Two ways to start, same install, one switch:**
 
