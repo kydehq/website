@@ -1,6 +1,6 @@
 ---
 title: "Kyde Gateway Documentation"
-description: "The gateway behind the KYDE Zero Trust layer: a drop-in, OpenAI-compatible proxy that checks every action at the boundary and writes a hash-chained record of it. Quickstart, user manual, deployment, and reference."
+description: "The gateway behind the Kyde Zero Trust layer: a drop-in, OpenAI-compatible proxy that checks every action at the boundary and writes a hash-chained record of it. Quickstart, user manual, deployment, and reference."
 ---
 
 Nobody hands real responsibility to an agent nobody can trust. Agents
@@ -9,7 +9,7 @@ something goes wrong, nobody can prove what happened. The provider's
 log lives on their infrastructure, signed with their keys, and can only
 be read back through their console.
 
-KYDE Gateway is a drop-in, OpenAI-compatible proxy that sits outside
+Kyde Gateway is a drop-in, OpenAI-compatible proxy that sits outside
 the agent, in the path itself. Every action routed through it is recorded
 into a hash-chained ledger (Ed25519-signed on the Enterprise edition),
 independent of every model provider it fronts and written outside the

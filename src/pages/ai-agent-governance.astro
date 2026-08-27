@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: "What is a behavioral firewall for AI agents?",
-    a: "A behavioral firewall is the enforcement layer of a governance proxy that sits between agent and provider. It enforces a behavioral policy, permitting requests that are within scope, blocking requests that violate scope, before they reach the LLM. In KYDE, that layer sits in front of the record: every permitted and blocked action routed through the gateway is written to a hash-chained record at the moment of capture, and each agent carries a cryptographic identity so every action is attributable. The term 'behavioral' distinguishes it from input/output security filters (which inspect content), a behavioral firewall governs what the agent is permitted to do, not just what it outputs."
+    a: "A behavioral firewall is the enforcement layer of a governance proxy that sits between agent and provider. It enforces a behavioral policy, permitting requests that are within scope, blocking requests that violate scope, before they reach the LLM. In Kyde, that layer sits in front of the record: every permitted and blocked action routed through the gateway is written to a hash-chained record at the moment of capture, and each agent carries a cryptographic identity so every action is attributable. The term 'behavioral' distinguishes it from input/output security filters (which inspect content), a behavioral firewall governs what the agent is permitted to do, not just what it outputs."
   },
   {
     q: "How does MCP (Model Context Protocol) affect AI agent governance?",
@@ -263,7 +263,7 @@ const faqSchema = {
             <ul>
               <li><strong>AI Security tools (e.g., Zenity, Lakera, Prompt Security)</strong>, Inspect inputs and outputs for prompt injection, data exfiltration attempts, and malicious content. These are security tools. They catch adversarial attacks. They do not produce a hash-chained record a third party can recompute, enforce behavioral scope, or provide agent identity. Think: antivirus for AI agents.</li>
               <li><strong>Observability and monitoring tools (e.g., LangSmith, Langfuse, Arize)</strong>, Capture traces of agent execution for debugging and performance analysis. These are development tools. They require framework-specific instrumentation, produce developer-facing output, and have no enforcement capability. Think: APM for AI agents.</li>
-              <li><strong>Governance infrastructure (e.g., KYDE)</strong>, Enforce behavioral policy in real time, write a hash-chained record of every action routed through them, and operate out-of-band from the governed agents. These are the tools built for the evidence the regulations ask a deployer to produce. Think: Corporate Law for AI agents, the infrastructure that makes real economic authority governable.</li>
+              <li><strong>Governance infrastructure (e.g., Kyde)</strong>, Enforce behavioral policy in real time, write a hash-chained record of every action routed through them, and operate out-of-band from the governed agents. These are the tools built for the evidence the regulations ask a deployer to produce. Think: Corporate Law for AI agents, the infrastructure that makes real economic authority governable.</li>
             </ul>
             <p>
               The three categories are not substitutes for each other. Security tools do not replace governance infrastructure. Observability tools do not replace compliance audit trails. Understanding which problem each tool solves is the prerequisite for building a governance stack that is actually complete.
@@ -369,7 +369,7 @@ const faqSchema = {
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
               <p class="text-base font-semibold text-ink-0 mb-2">A zero trust layer for AI workers and the AI you already run.</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Enterprises use KYDE to deploy AI agents with real decision-making authority and still show, to regulators and stakeholders, what those agents did and under what mandate. Identity, behavioral scope, real-time blocking, and a hash-chained ledger of every action routed through it. The enforcement layer is the Behavioral Firewall. Out-of-band, provider-agnostic, zero code changes required.
+                Enterprises use Kyde to deploy AI agents with real decision-making authority and still show, to regulators and stakeholders, what those agents did and under what mandate. Identity, behavioral scope, real-time blocking, and a hash-chained ledger of every action routed through it. The enforcement layer is the Behavioral Firewall. Out-of-band, provider-agnostic, zero code changes required.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <button

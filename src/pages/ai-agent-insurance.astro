@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: "How does parametric AI agent insurance work in practice?",
-    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance depends on infrastructure like KYDE. Without the monitoring layer, there's no reliable trigger signal. The recording runs today. The insurance reading built on top of it is not shipped yet.",
+    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance depends on infrastructure like Kyde. Without the monitoring layer, there's no reliable trigger signal. The recording runs today. The insurance reading built on top of it is not shipped yet.",
   },
   {
     q: "What does the Moffatt v. Air Canada precedent mean for AI agent liability?",
@@ -132,7 +132,7 @@ const faqSchema = {
               ["The certification layer (AIUC-1)", "#aiuc-certification"],
               ["Why certification alone isn't enough", "#certification-limits"],
               ["The four evidence requirements", "#evidence-requirements"],
-              ["What KYDE contributes to insurability", "#kyde-role"],
+              ["What Kyde contributes to insurability", "#kyde-role"],
               ["FAQ", "#faq"],
             ].map(([label, href]) => (
               <a href={href} class="font-mono text-xs text-ink-1 hover:text-ink-0 transition-colors">{label}</a>
@@ -380,10 +380,10 @@ const faqSchema = {
               </div>
               <div class="prose-kyde">
                 <p>
-                  KYDE is a zero trust layer for AI workers and the AI you already run. It writes a continuous, tamper-evident record of every agent action routed through it, which is what the confidence infrastructure depends on.
+                  Kyde is a zero trust layer for AI workers and the AI you already run. It writes a continuous, tamper-evident record of every agent action routed through it, which is what the confidence infrastructure depends on.
                 </p>
                 <p>
-                  KYDE Gateway sits in the data path between the agents and the systems they act on. What you route through the Gateway is captured before it reaches the downstream system, chained to the previous entry so that altering one entry breaks every entry after it, and forwarded unchanged, without modifying agent behavior, without requiring changes to the agent or model provider, in under 100 milliseconds. Signing each entry with your own Ed25519 keys is an Enterprise capability. What the Gateway does not see, it does not record, which is why coverage is reported alongside the record rather than assumed.
+                  Kyde Gateway sits in the data path between the agents and the systems they act on. What you route through the Gateway is captured before it reaches the downstream system, chained to the previous entry so that altering one entry breaks every entry after it, and forwarded unchanged, without modifying agent behavior, without requiring changes to the agent or model provider, in under 100 milliseconds. Signing each entry with your own Ed25519 keys is an Enterprise capability. What the Gateway does not see, it does not record, which is why coverage is reported alongside the record rather than assumed.
                 </p>
                 <p>
                   The insurance reading itself, a behavioral record an underwriter prices, is not shipped. What runs today is the recording it would be priced from.

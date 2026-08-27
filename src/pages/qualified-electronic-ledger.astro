@@ -399,19 +399,19 @@ const faqSchema = {
 
             <h3 class="text-base font-bold text-ink-0 mt-6 mb-3 uppercase tracking-wide">KYDE and cryptographic chaining</h3>
             <p>
-              KYDE records agent activity in a cryptographic hash chain. Each entry carries its own hash and an Ed25519 signature. The export ships the canonicalised bytes, the entry hash, the signature and the public key.
+              Kyde records agent activity in a cryptographic hash chain. Each entry carries its own hash and an Ed25519 signature. The export ships the canonicalised bytes, the entry hash, the signature and the public key.
             </p>
             <p>
               This means the recipient verifies without asking us. An auditor, an insurer or opposing counsel recomputes the hash and checks the signature offline. We do not need to be present, and we cannot influence the result. Self-reported evidence is worth what the reporter is worth. This kind isn't.
             </p>
             <p>
-              This is the same technique that Implementing Regulation (EU) 2025/2531 prescribes in REQ-7.5-04 for qualified electronic ledgers. <strong>KYDE is not a qualified trust service provider and does not operate a qualified electronic ledger.</strong> The architecture follows the specification the European legislator chose for defensible recording.
+              This is the same technique that Implementing Regulation (EU) 2025/2531 prescribes in REQ-7.5-04 for qualified electronic ledgers. <strong>Kyde is not a qualified trust service provider and does not operate a qualified electronic ledger.</strong> The architecture follows the specification the European legislator chose for defensible recording.
             </p>
             <p>
               For key storage, REQ-7.5-06 of the same regulation sets the benchmark: a certified cryptographic device at Common Criteria EAL 4 or above, or FIPS 140-3 Level 3 until the end of 2030. That is the standard our hardware roadmap is measured against.
             </p>
             <p>
-              <a href="/zero-trust#prove">See how the recording works: KYDE Zero Trust, evidence →</a>
+              <a href="/zero-trust#prove">See how the recording works: Kyde Zero Trust, evidence →</a>
             </p>
 
             <!-- FAQ -->
@@ -495,7 +495,7 @@ const faqSchema = {
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3 inline-block">KYDE Gateway</p>
               <p class="text-base font-semibold text-ink-0 mb-2">A chained record of every agent action, verifiable without us.</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                KYDE sits between your agents and every LLM provider and writes an Ed25519-signed, SHA-256 hash-chained entry for every action. Exports verify offline, against the public key, by whoever is asking. KYDE is not a qualified trust service provider. The recording technique is the one the European legislator selected.
+                Kyde sits between your agents and every LLM provider and writes an Ed25519-signed, SHA-256 hash-chained entry for every action. Exports verify offline, against the public key, by whoever is asking. Kyde is not a qualified trust service provider. The recording technique is the one the European legislator selected.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
@@ -562,7 +562,7 @@ const faqSchema = {
                   { href: "/blog/eu-ai-act-audit-trails", label: "Audit Trail Requirements" },
                   { href: "/glossary/ai-agent-audit-trail", label: "AI Agent Audit Trail" },
                   { href: "/blog/dora-ai-agents", label: "DORA + AI Agents" },
-                  { href: "/zero-trust", label: "KYDE Zero Trust" },
+                  { href: "/zero-trust", label: "Kyde Zero Trust" },
                 ].map(({ href, label }) => (
                   <a href={href} class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors leading-snug">
                     <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>

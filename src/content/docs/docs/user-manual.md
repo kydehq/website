@@ -52,7 +52,7 @@ were issued.
 ### Anatomy of the dashboard
 
 Every page uses the same layout: a left sidebar with nav, a main pane
-with the page content. The header carries the KYDE logo, a
+with the page content. The header carries the Kyde logo, a
 notifications bell, a chain-status chip (VERIFIED / BROKEN), and a user
 menu in the footer.
 
@@ -972,7 +972,7 @@ Email notifications
 |  Password         [••••••••] [Replace]      |
 |                                             |
 |  From address     [alerts@company.com    ]  |
-|  From display     [Kyde Gateway Alerts   ]  |
+|  From display     [KYDE Gateway Alerts   ]  |
 |  Reply-To         [security@company.com  ]  |
 |  Timeout (sec)    [10]                      |
 |                                             |
