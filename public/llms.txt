@@ -1,19 +1,27 @@
-# KYDE
+# Kyde
 
-> KYDE is the behavioral firewall between AI agents and the real world. Three functions: **Prevent** what must not happen (deterministic guardrails, deny-by-default enforcement at the boundary). **Prove** what did (cryptographically signed, vendor-independent audit trail — the suspect can't write the police report). **Rate** agent behavior (KYDE Trust Score™ across every provider, in one currency). Deployed via a single environment variable. No agent code changes. Any LLM provider.
+> Kyde is the zero trust layer for AI. Traditional zero trust controls people, devices and networks; Kyde extends it to what AI actually does, checking every action at the boundary rather than every connection at the start of a session. Five dimensions per action: **identity** (who is acting), **policy** (what it may do), **data** (what it may see), **limits** (how far it may go), **evidence** (a hash-chained record of what happened). It runs in the customer's own environment — on-premise, private cloud or EU-hosted. On top of that layer, Kyde also builds AI workers out of the processes a company already runs.
 
-## Product
+## Two things Kyde offers
 
-**Kyde Gateway** is a model-agnostic governance proxy that sits between AI agents and every LLM provider. It intercepts every inference call, verifies agent identity, enforces behavioral scope, blocks out-of-policy actions before they execute, and signs every entry into a hash-chained audit ledger.
+**Kyde Zero Trust** — the platform (https://kyde.com). The control and evidence layer for AI workers and for the AI a company already runs. It sits between them and the models, tools and business systems they reach. Both cross the same layer, so the controls and the record are the same whichever a company starts with.
 
-Three tiers:
-- **Kyde Gateway Starter** (free) — Observe layer: hash-chained ledger, compliance dashboard, post-hoc DLP alerts. Audit and traction entry point.
-- **Kyde Gateway Business** (pilot pricing on request) — Govern layer: real-time blocking, custom policies, signed (Ed25519) compliance export, 30-day log retention.
-- **Kyde Gateway Enterprise / Defense** (custom pricing) — Everything in Business, plus unlimited retention, agent identity enforcement, MCP per-tool policy, RBAC, air-gapped operation, Silicon Leash (TPM/HSM).
+**Kyde AI Workers** — the build service (https://kyde.com/services). Kyde captures a process area with the people who run it, builds the part that holds up into a worker, and runs it on the layer above. Three steps: find the work (the audit), build the worker, run the workforce. The automation layer and the control layer are built together rather than integrated afterwards.
 
-Every audit entry captures: who acted (cryptographic agent identity + role), what happened (prompt, tool calls, response), why it decided (causal context: full retrieval and reasoning chain), when (millisecond-precise timestamp), and cryptographic proof (Ed25519 signature + SHA-256 hash chain).
+The long-term intent is two businesses under one roof: the platform, and the service that builds on it.
 
-## Core problem KYDE solves
+## Four capabilities of the layer
+
+- **See** — every AI action. Flight recorder and inventory: what is acting, against which systems, how often, and how much of it was ever recorded. Finds agents nobody put on a list.
+- **Control** — stop actions that violate policy. Identity, policy, data and limits, checked before the action executes rather than written up in a report afterwards.
+- **Replay** — run past work against today's AI. A recorded run is a set of real cases with known outcomes; re-run them when a model ships and drift becomes a number instead of an anecdote.
+- **Prove** — produce evidence that can be verified without Kyde. A hash-chained record written at the boundary, exported as a dated document an auditor recomputes offline.
+
+## Autonomy is earned, not granted
+
+Six levels, L0 to L5, from a worker that only reads to one running unattended. Each rung is tied to the record: a rung is held because the record shows it was held, and a worker that stops producing that evidence comes back down. From L4 upwards, observation alone no longer qualifies.
+
+## Core problem Kyde solves
 
 Enterprises deploying AI agents face four unanswered questions:
 1. **Who acted?** — Agents share service accounts with no traceable identity or role boundaries.
@@ -21,45 +29,40 @@ Enterprises deploying AI agents face four unanswered questions:
 3. **What are the boundaries?** — No behavioral scope enforcement. Agents can exceed their mandate without detection.
 4. **What happened?** — Vendor-provided logs are software-only, mutable, and controlled by the provider — not an independent audit trail.
 
-The structural reason governance fails when built inside agents: capable agents can bypass their own rules. KYDE sits outside the agent, in the data path, and cannot be overridden by agent logic.
+The structural reason governance fails when built inside agents: capable agents can bypass their own rules. Enforcement has to sit at a boundary the agent cannot route around. Kyde sits outside the agent, in the data path, and cannot be overridden by agent logic.
 
-## Three functions: Prevent · Prove · Rate
+A second problem sits underneath the automation side: nobody has written down how the work is actually done, so every automation project starts by guessing where the knowledge lives. The audit exists to answer that before anything is built.
 
-**PREVENT** — Deterministic guardrails at the boundary. Deny-by-default.
-- Cryptographic agent identity and role scoping — no shared service accounts
-- Behavioral scope enforcement: blocks out-of-policy actions before execution
-- API allowlists, DLP prevention, MCP per-tool policy, circuit breakers per role
-- Agent blocking and RBAC
-- The buy reason today: NIS-2 board liability. DORA.
+## Kyde Gateway
 
-**PROVE** — The suspect can't write the police report.
-- Every action signed as a tamper-evident 6D fingerprint (who / what / when / where / why / how)
-- Architecturally independent of LLM provider infrastructure — captured outside the agent runtime
-- Ed25519-signed, SHA-256 hash-chained append-only ledger
-- Tamper-evident: alter any entry, every subsequent link breaks
-- Compliance PDF exports. EU AI Act Articles 12, 14, 26 — DORA Article 30 — GDPR Article 35
+**Kyde Gateway** is the model-agnostic governance proxy that implements the layer. It is OpenAI-compatible and drop-in: it intercepts every inference call, verifies agent identity, enforces behavioral scope, blocks out-of-policy actions before they execute, and writes every entry into a hash-chained ledger.
 
-**RATE** — Behavior scored across every provider, in one currency.
-- KYDE Trust Score™ — behavioral rating normalized across all providers
-- Behavioral baseline per agent role; continuous drift & anomaly detection
-- Industry-benchmarked scoring model
-- Foundation for insurance underwriting signals and compliance rating
-- Vendors grade their own homework. We grade behavior.
+Every entry captures: who acted (agent identity + role), what happened (prompt, tool calls, response), why it decided (causal context: retrieval and reasoning chain), when (millisecond-precise timestamp), and the hash-chain link that makes tampering detectable.
+
+Two editions, the same compose files, switched by one env-file setting:
+- **Starter** — the public images from the open GitHub repository (github.com/kydehq/gateway): hash-chained but unsigned ledger, observe-only DLP.
+- **Enterprise** — adds Ed25519/TPM audit signing (hardware-rootable via PKCS#11 / HSM) and inline enforcement, plus unlimited retention, agent identity enforcement, MCP per-tool policy, RBAC and air-gapped operation.
+
+## The audit
+
+The entry point into the build service. Kyde takes one complete business process and maps the work inside it, with the people who do it: what should run with AI, what belongs in conventional software, what stays with a person, and what is not reliable enough yet. Everything held back carries the blocker and the owner who can change it. The readout is dated, because a task that is not ready today may be ready in six months. One process area, fixed price, credited against the first automation project. Three days for a team, two weeks for a department.
 
 ## Deployment
 
 Three modes, all requiring zero code changes to agent logic:
 - **Environment variable**: `export OPENAI_BASE_URL=https://gateway.kyde.com/v1`
 - **Group Policy (GPO)**: enterprise fleet deployment, no developer action required
-- **Hosted proxy**: managed SaaS, EU data residency
+- **Hosted proxy**: managed, EU data residency
 
-Target latency overhead: under 100ms. Provider coverage: all major LLM providers.
+On-premise, private cloud or EU-hosted. Target latency overhead: under 100ms. The record leaves the customer's building only when they send it.
 
 ## Provider compatibility
 
-OpenAI (GPT-4o, o1, o3), Anthropic (Claude Sonnet, Opus, Haiku), Azure OpenAI, Google Gemini, Mistral, DeepSeek, Ollama, local models via LMStudio/vLLM, MCP routing.
+OpenAI (GPT-4o, o1, o3), Anthropic (Claude Sonnet, Opus, Haiku), Azure OpenAI, Google Gemini, Mistral, DeepSeek, Ollama, local models via LMStudio/vLLM, MCP routing. Workers can run on open models, private models or a system the company already uses.
 
 ## Regulatory context
+
+Kyde is **built for** these regimes — a product cannot make an organization compliant, since that depends on the deployment.
 
 **EU AI Act (Regulation 2024/1689)**
 High-Risk AI system enforcement deadline for Annex III (employment, credit, insurance, education, critical infrastructure, essential services): **December 2, 2027** (Digital Omnibus agreement, May 2026). Annex I embedded AI products: August 2028.
@@ -70,36 +73,55 @@ Key obligations for enterprises deploying AI agents:
 - Article 26: Deployer obligations — the enterprise bears compliance responsibility, not the LLM provider
 - Article 49: Registration in EU database before deployment
 
-Vendor-native logs (OpenAI, Anthropic consoles) do not satisfy Article 26's independence requirement. KYDE's out-of-band ledger is architecturally independent of the providers it logs.
+Vendor-native logs (OpenAI, Anthropic consoles) do not satisfy Article 26's independence requirement. Kyde's out-of-band ledger is architecturally independent of the providers it logs.
 
 **DORA (EU Regulation 2022/2554)**
-In force since January 2025. Applies to financial entities. Article 30 requires ICT-related incident logs, up to two-year retention, independent of ICT third-party providers. KYDE's provider-independent ledger directly addresses this requirement.
+In force since January 2025. Applies to financial entities. Article 30 requires ICT-related incident logs, up to two-year retention, independent of ICT third-party providers. Kyde's provider-independent ledger directly addresses this requirement.
 
-**GDPR Article 22 / 35**
-Automated decision-making requirements and DPIA obligations apply to AI agent deployments in HR, credit, insurance, and healthcare. Causal context capture supports Article 22 explainability requirements.
+**NIS-2**
+Makes management personally liable for security controls, which is the buy reason in most conversations today.
+
+**GDPR Articles 22 / 35**
+Automated decision-making requirements and DPIA obligations apply to AI agent deployments in HR, credit, insurance and healthcare. Causal context capture supports Article 22 explainability requirements. Personal data captured during an audit is removed locally, before anything is stored.
+
+**KI-MIG**
+The German AI market surveillance act, in force since 29 July 2026: BaFin supervises AI used in regulated financial activity.
 
 **UK DRCF (CMA, FCA, ICO, Ofcom)**
-Joint foresight paper on agentic AI: organizational accountability is unchanged regardless of agent autonomy. "My agent did it" is not a defense. KYDE provides the audit infrastructure to demonstrate organizational control.
+Joint foresight paper on agentic AI: organizational accountability is unchanged regardless of agent autonomy. "My agent did it" is not a defense.
 
-**NIST AI RMF**
-US framework converging on identical requirements: traceable identity, causal context capture, tamper-evident records in a governance layer independent of the agents it governs.
+**NIST AI RMF and SP 800-207**
+SP 800-207 defines zero trust architecture for users and devices; agents inherit the principles but are not its subject. NIST's AI work converges on the same requirements: traceable identity, causal context capture, tamper-evident records in a layer independent of the systems it governs.
 
 ## Target verticals (EU AI Act Annex III)
 
-- HR Technology / Recruiting (employment decisions)
-- Fintech / BNPL / Banking (credit scoring, risk assessment)
+- Banking and finance (credit scoring, risk assessment)
 - Insurance (risk classification, claims, pricing)
 - Healthcare administration (essential services)
-- Critical infrastructure (energy, transport, water)
+- Critical infrastructure (energy, transport, water) — see Kyde Labs
+- HR technology / recruiting (employment decisions)
+- Public sector, manufacturing
 - Education technology (assessment, admission)
 
 ## Key differentiator vs. adjacent solutions
 
-- **vs. AI security tools (Zenity, Lakera, Prompt Security)**: Those are semantic firewalls — they inspect inputs/outputs for adversarial content. KYDE is governance infrastructure — it enforces behavioral policy, provides agent identity, and produces compliance-grade audit trails. Analogous to: antivirus vs. corporate law.
-- **vs. observability tools (LangSmith, Langfuse, Arize)**: Those require framework-specific instrumentation and produce developer debug output. KYDE is framework-agnostic, out-of-band, and produces regulator-ready audit records with enforcement capability.
-- **vs. platform-native governance (Microsoft Copilot Studio, AWS Bedrock Guardrails)**: Those govern within a single vendor's stack. KYDE governs the chain across all providers and platforms — the gap every hyperscaler leaves open because they cannot govern their competitors' infrastructure.
+- **vs. AI security tools (Zenity, Lakera, Prompt Security)**: Those are semantic firewalls — they inspect inputs and outputs for adversarial content. Kyde enforces behavioral policy, provides agent identity, and produces audit-grade records. Analogous to: antivirus vs. corporate law.
+- **vs. observability tools (LangSmith, Langfuse, Arize)**: Those require framework-specific instrumentation and produce developer debug output. Kyde is framework-agnostic, out-of-band, and produces regulator-ready records with enforcement capability.
+- **vs. platform-native governance (Microsoft Copilot Studio, AWS Bedrock Guardrails)**: Those govern within a single vendor's stack. Kyde governs the chain across all providers and platforms — the gap every hyperscaler leaves open because they cannot govern their competitors' infrastructure.
+- **vs. agent platforms and automation consultancies**: Those build the worker and leave the control layer to somebody else. Kyde builds both, so there is no agent platform and security product to make meet in the middle.
 
 ## Content resources
+
+### Site
+
+- [Kyde Zero Trust](https://kyde.com/): The platform page and the front door. Why access-based security stops short of what AI does, the five dimensions checked per action, the four capabilities (see, control, replay, prove), the autonomy ladder, and what the layer is worth to compliance, insurance, AI governance and incident teams.
+- [Kyde AI Workers](https://kyde.com/services): The build service. Capturing the tacit knowledge a process runs on, deciding per step between AI, code and a person, and running the result on the zero trust layer. Includes the automation-readiness model.
+- [The Kyde Audit](https://kyde.com/audit): One complete business process mapped end to end — what should run with AI, what belongs in conventional software, what stays with people, what is not ready yet, and the blocker and owner on everything held back. Dated readout.
+- [Use Cases](https://kyde.com/use-cases): One layer, two ways to use it. Worked examples per sector — the process today, what the worker takes, what stays with a person, what gets recorded, and which regulations apply and which do not.
+- [Company](https://kyde.com/company): What Kyde builds and why. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.
+- [Kyde Labs](https://kyde.com/labs): The layer applied to agents that act on physical infrastructure — grid dispatch, battery storage, industrial automation. What is being built, and what is not built yet.
+- [FAQ](https://kyde.com/faq): What security and compliance teams ask before deploying the gateway — latency, data privacy, audit evidence, and how it differs from a SIEM or an API gateway.
+- [Resources](https://kyde.com/resources): Hub for documentation, regulatory analysis and technical guides.
 
 ### Product documentation
 
@@ -121,7 +143,14 @@ The vocabulary of AI agent governance, each term defined in under 60 words with 
 - [EU AI Act Compliance for AI Agents](https://kyde.com/eu-ai-act-compliance): Annex III classification, Articles 12/14/26/49 obligations, December 2027 deadline, three structural compliance gaps, six-step action plan, FAQ.
 - [AI Agent Governance: The Complete Enterprise Guide](https://kyde.com/ai-agent-governance): What governance is, why existing approaches fail, the four requirements (identity, scope, enforcement, ledger), regulatory context, architecture, vendor landscape, FAQ.
 - [Shadow AI: What It Is, Why It's a Risk, and How to Stop It](https://kyde.com/shadow-ai): Entry vectors, security/compliance/liability implications, EU AI Act exposure, detection methods, governance-without-blocking approach, FAQ.
+- [Qualified Electronic Ledger (eIDAS)](https://kyde.com/qualified-electronic-ledger): What eIDAS 2.0 and the qualified electronic ledger regime require, the REQ-7.5 key-storage benchmark, and how a boundary-written hash chain maps onto it.
 - [AI Agent Insurance: Liability, Coverage, and the Evidence Infrastructure](https://kyde.com/ai-agent-insurance): Legal liability framework (EU AI Act, PLD 2024, DORA), coverage landscape (AIUC-1, Munich Re aiSure, HSB), why certification alone isn't enough, the four evidence requirements (complete, continuous, independent, tamper-evident), how KYDE enables insurability, FAQ.
+
+### German (de)
+
+- [Wissen](https://kyde.com/de/wissen): German-language hub.
+- [Souveräne KI](https://kyde.com/de/wissen/souveraene-ki): Digital sovereignty for AI — what "sovereign" means beyond hosting location, and where the record has to live.
+- [Qualifiziertes elektronisches Journal](https://kyde.com/de/wissen/qualifiziertes-elektronisches-journal): The eIDAS ledger regime, in German.
 
 ### Named comparisons
 
@@ -136,9 +165,6 @@ Honest, dated vendor comparisons: two genuine strengths of the competitor, a sid
 - [Kyde vs Zenity](https://kyde.com/compare/kyde-vs-zenity): Estate-by-estate platform connectors (SaaS, cloud, device) vs one unavoidable network boundary with deterministic policy and a hash-chained ledger.
 - [Kyde vs Noma Security](https://kyde.com/compare/kyde-vs-noma-security): AI security lifecycle platform (posture to runtime threat protection) vs deterministic agent mandates with tamper-evident boundary evidence.
 - [Kyde vs Vanta](https://kyde.com/compare/kyde-vs-vanta): Program-level compliance automation (GRC) vs runtime enforcement and action-level evidence; positioned as a stack, not a choice.
-
-### Product announcements
-
 
 ### Insurance and confidence infrastructure series
 
@@ -165,6 +191,7 @@ Honest, dated vendor comparisons: two genuine strengths of the competitor, a sid
 - [HBR Described the Problem. Here's the Infrastructure That Solves It.](https://kyde.com/blog/hbr-ai-agents-infrastructure): Identity, context, control, accountability — the four enterprise frictions and the governance answer.
 - [Agent Goal Hijacking: The Risk Enterprises Can't Detect](https://kyde.com/blog/agent-goal-hijacking): OWASP ASI01, how prompt injection hijacks agents, what forensic infrastructure is required.
 - [What Happens When an AI Agent Gets Compromised — And There Are No Logs](https://kyde.com/blog/compromised-agent-no-logs): The forensics gap when agent actions cannot be reconstructed.
+- [The Shadow AI Trilogy](https://kyde.com/shadow-ai-trilogy): The three shadow-AI articles above, read as one argument.
 
 ### Guides
 
@@ -178,4 +205,8 @@ Honest, dated vendor comparisons: two genuine strengths of the competitor, a sid
 
 ## Company
 
-KYDE is an enterprise AI governance infrastructure company founded in 2026, building the trust layer for the agentic economy. Website: kyde.com — Contact: kyde.com
+Kyde builds the zero trust layer for AI, and the AI workers that run on it. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.
+
+Website: https://kyde.com — Contact: hello@kyde.com
+
+Naming: **Kyde** in running text, **KYDE** as the wordmark. The platform is *Kyde Zero Trust*; the gateway that implements it is the *Kyde Gateway*; the build service is *Kyde AI Workers*. "Behavioral firewall" names the enforcement layer in the articles, not the company.
