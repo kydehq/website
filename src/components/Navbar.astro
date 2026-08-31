@@ -1,9 +1,12 @@
 ---
 import { alternatesFor, localeOf } from "../data/locales";
 
+// The home page is the platform, so "Zero Trust" points at it rather than at a
+// page of its own. "Workers" used to sit in this slot and told a first-time
+// reader nothing; the build service now has its own name and its own page.
 const navLinks = [
-  { label: 'Workers',       href: '/'             },
-  { label: 'Zero Trust',    href: '/zero-trust'   },
+  { label: 'Zero Trust',    href: '/'             },
+  { label: 'Services',      href: '/services'     },
   { label: 'Use Cases',     href: '/use-cases'    },
   { label: 'Resources',     href: '/resources'    },
 ];

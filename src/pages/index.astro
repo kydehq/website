@@ -1,100 +1,143 @@
 ---
-import Base from "../layouts/Base.astro";
-import Navbar from "../components/Navbar.astro";
-import Footer from "../components/Footer.astro";
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
-// Orthographic dot-sphere for the closing ornament
-const SPHERE_R = 290;
-const sphereDots: { x: number; y: number; a: number }[] = [];
-for (let lat = -80; lat <= 80; lat += 8) {
-    for (let lon = -80; lon <= 80; lon += 8) {
-        const la = (lat * Math.PI) / 180;
-        const lo = (lon * Math.PI) / 180;
-        sphereDots.push({
-            x: 320 + SPHERE_R * Math.sin(lo) * Math.cos(la),
-            y: 320 + SPHERE_R * Math.sin(la),
-            a: 0.04 + 0.16 * Math.cos(lo) * Math.cos(la),
-        });
-    }
-}
+// Four capabilities, not a feature list. Flight recorder, inventory, DLP,
+// evaluation and the ledger are the proof inside these four, which is why they
+// are named here as what they let you do rather than as modules of their own.
+const capabilities = [
+  { n: '01', name: 'See',     line: 'See every AI action.',                              sub: 'Flight recorder · Inventory', href: '#see'     },
+  { n: '02', name: 'Control', line: 'Stop actions that violate policy.',                 sub: 'Identity · Policy · Data · Limits', href: '#control' },
+  { n: '03', name: 'Replay',  line: "Run past work against today's AI.",                 sub: 'Evaluation · Replay',         href: '#replay'  },
+  { n: '04', name: 'Prove',   line: 'Produce evidence that can be verified without us.', sub: 'Ledger · Offline recompute',  href: '#prove'   },
+];
 
+// The five dimensions the layer checks on every action. One line each, in plain
+// language, then the concrete version for a reader who wants it. This is one
+// chapter of the page, not five: the proof sits further down under whichever
+// capability it belongs to.
+const dimensions = [
+  { name: 'Identity', q: 'Know who is acting.',        a: 'Every worker and every agent carries a name of its own, not a shared key that four systems use.' },
+  { name: 'Policy',   q: 'Decide what it can do.',     a: 'Rules are checked before the action executes, not written up in a report afterwards.' },
+  { name: 'Data',     q: 'Control what it can see.',   a: 'Sensitive fields are masked inline, before they ever reach a model.' },
+  { name: 'Limits',   q: 'Control how far it can go.', a: 'Spend, volume and reach held across a run, not just per call.', soon: true },
+  { name: 'Evidence', q: 'Prove what happened.',       a: 'A hash-chained record written at the boundary, which your auditor recomputes without us.' },
+];
+
+// Four ways in. A compliance partner and an underwriter want the same platform
+// and will never search for it with the same words.
+const entries = [
+  {
+    audience: 'For compliance',
+    name: 'AI audit trail',
+    line: 'Continuous evidence for regulated AI systems.',
+    body: 'A hash-chained record written at the boundary, exported as a dated document an auditor recomputes offline. Built against GDPR, the EU AI Act, NIS-2 and DORA.',
+    href: '#prove',
+  },
+  {
+    audience: 'For insurance',
+    name: 'AI telemetry',
+    line: 'Observe how AI actually behaves in production.',
+    body: 'Not what a system was designed to do, and not what a questionnaire says it does. What it did: which actions, against which systems, how often, and how much of that was ever recorded.',
+    href: '#see',
+  },
+  {
+    audience: 'For AI governance',
+    name: 'Continuous evals',
+    line: 'Measure whether AI stays reliable as models, data and workflows change.',
+    body: 'A recorded run is a set of real cases with known outcomes. Re-run them when a model ships and the drift is a number rather than an anecdote from a support ticket.',
+    href: '#replay',
+  },
+  {
+    audience: 'For incident & risk',
+    name: 'Replay',
+    line: 'Reconstruct and rerun what happened.',
+    body: 'A model swapped under the same name does not announce itself. Replaying a recorded run against the present turns "something changed" into a difference you can point at.',
+    href: '#replay',
+  },
+];
+
+// Organization and WebSite schema live on the home page, which is now the
+// platform page. The description leads with the layer and names the build
+// service second, in the order the site itself now argues them.
 const orgSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Kyde",
-    url: "https://kyde.com",
-    logo: "https://kyde.com/kyde-logo.svg",
-    description: "Kyde builds AI workers out of the processes a company already runs, and runs them on the Kyde Zero Trust layer: identity, policy, data boundaries, limits, and a hash-chained record of every action, in the customer's own environment.",
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Kyde",
+  url: "https://kyde.com",
+  logo: "https://kyde.com/kyde-logo.svg",
+  description: "Kyde is the zero trust layer for AI: identity, policy, data boundaries, limits, and a hash-chained record of every action, in the customer's own environment. On top of it Kyde builds AI workers out of the processes a company already runs.",
 };
 
 const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Kyde",
-    url: "https://kyde.com",
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Kyde",
+  url: "https://kyde.com",
 };
 ---
 
 <Base
-    title="KYDE, AI Workers You Own and Run Yourself"
-    description="Kyde identifies the work ready for automation, builds it into AI workers you own, and runs them on top of the Kyde Zero Trust infrastructure, in your own environment. Which processes are buildable now, which are blocked and on what, and which stay with a person. Built for GDPR, EU AI Act, NIS-2, DORA."
+  title="KYDE, Zero Trust for AI in Your Own Infrastructure"
+  description="Kyde is the zero trust layer for AI. Identity, policy, data boundaries and limits checked at the moment of action, and a record anyone can verify afterwards, in your own environment. On top of it we build the AI workers that run your processes."
 >
-    <Fragment slot="head">
-        <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
-        <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-    </Fragment>
-    <Navbar />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  </Fragment>
+  <Navbar />
 
-    <main>
-        <!-- ══════════ HERO STAGE ══════════ -->
-        <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 bg-bg-0">
-            <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
-            <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-bg-0/45 to-transparent"></div>
-            <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
+  <main>
+    <!-- ══════════ HERO STAGE ══════════ -->
+    <!-- The stage came over from the workers page when the two swapped places.
+         It was always a picture of this argument rather than of the build
+         service: unordered agents drift, cross a gate, and come out in a
+         lattice. It belongs to the page that sells the gate. -->
+    <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 bg-bg-0">
+      <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
+      <div class="absolute inset-0 pointer-events-none hero-noise"></div>
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-bg-0/45 to-transparent"></div>
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
 
-            <div class="relative max-w-7xl mx-auto px-6 w-full">
-                <!-- Regulation register: the one above-fold cue for why a buyer needs us.
-                     Wording mirrors the design-partner line further down, so the claim is repeated, not re-opened. -->
-                <p id="hero-eyebrow" class="mb-4 md:mb-5 font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.16em] md:tracking-[0.2em]" style="opacity:0;transition:opacity 0.9s ease;">
-                    Built for GDPR <span class="text-white/30" aria-hidden="true">·</span> EU AI Act <span class="text-white/30" aria-hidden="true">·</span> NIS-2 <span class="text-white/30" aria-hidden="true">·</span> DORA
-                </p>
-                <!-- Short headline again: the widest line is ~9.5px per font-px, so 72px needs
-                     686px and clears every container down to 768px. Base is 2rem rather than
-                     text-4xl so it still fits one line on a 375px phone. -->
-                <h1 class="hero-h1 text-[2rem] text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-                    <span id="hero-l1" style="display:block">Own Your</span>
-                    <span id="hero-l2" style="display:block">Intelligence.</span>
-                </h1>
-                <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-                    AI workers on your own infrastructure. Built for regulated European companies.
-                </p>
-                <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-                    We find the work worth automating, build it into workers, and run them behind the Kyde Zero Trust layer. Your environment, your models, your record.
-                </p>
-                <!-- Hero CTAs mirror the navbar: download is the primary goal, contact stays one click away -->
-                <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
-                    <button
-                        onclick="openModal()"
-                        class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
-                    >
-                        Talk to Us →
-                    </button>
-                    <a
-                        href="/audit"
-                        class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
-                    >
-                        Start your audit →
-                    </a>
-                </div>
-                <div class="mt-8 space-y-1.5" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-                    <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">On-premise <span class="text-white/20">·</span> Private cloud <span class="text-white/20">·</span> EU-hosted</p>
-                    <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">Open models <span class="text-white/20">·</span> Open standards <span class="text-white/20">·</span> Your systems</p>
-                </div>
-            </div>
-
-        </section>
-
+      <div class="relative max-w-7xl mx-auto px-6 w-full">
+        <!-- Regulation register: the one above-fold cue for why a buyer needs us. -->
+        <p id="hero-eyebrow" class="mb-4 md:mb-5 font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.16em] md:tracking-[0.2em]" style="opacity:0;transition:opacity 0.9s ease;">
+          Built for GDPR <span class="text-white/30" aria-hidden="true">·</span> EU AI Act <span class="text-white/30" aria-hidden="true">·</span> NIS-2 <span class="text-white/30" aria-hidden="true">·</span> DORA
+        </p>
+        <!-- The headline outlived the repositioning. It was never a claim about
+             workers: owning your intelligence is what the layer underneath is
+             for, so it stays and the subline carries the change. -->
+        <h1 class="hero-h1 text-[2rem] text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
+          <span id="hero-l1" style="display:block">Own Your</span>
+          <span id="hero-l2" style="display:block">Intelligence.</span>
+        </h1>
+        <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
+          Zero trust for AI. In your own infrastructure.
+        </p>
+        <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
+          Kyde sits between your AI and the models, tools and business systems it reaches. Identity, policy, data, limits and a record you can verify. Your environment, your models, your record.
+        </p>
+        <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
+          <button
+            onclick="openModal()"
+            class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
+          >
+            Talk to us →
+          </button>
+          <a
+            href="/services"
+            class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
+          >
+            See the workers we build →
+          </a>
+        </div>
+        <div class="mt-8 space-y-1.5" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
+          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">Identity <span class="text-white/20">·</span> Policy <span class="text-white/20">·</span> Data <span class="text-white/20">·</span> Limits <span class="text-white/20">·</span> Evidence</p>
+          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">On-premise <span class="text-white/20">·</span> Private cloud <span class="text-white/20">·</span> EU-hosted</p>
+        </div>
+      </div>
+    </section>
 
 <script>
   const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -401,512 +444,1453 @@ const websiteSchema = {
 </script>
 
 
+    <!-- ══════════ 01 · WHY ══════════ -->
+    <!-- The page opens on the gap, not on the product. A reader who knows NIST
+         SP 800-207 will check this claim in the first ten seconds, so the page
+         states the difference itself rather than letting them find it. We are not
+         a network access product. The boundary is the action. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Why</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
+          Traditional security was built around access.
+        </h2>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+          <div>
+            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-5">Zero trust today</span>
+            <p class="text-xl md:text-2xl text-ink-1 leading-snug">
+              Controls people, devices and networks. Verifies who is connecting, from what, to which resource.
+            </p>
+          </div>
+          <div>
+            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-5">What KYDE extends it to</span>
+            <p class="text-xl md:text-2xl text-ink-0 leading-snug">
+              What the AI actually does. The connection was authorized hours ago. The action is the thing that needs verifying, every time, on its own.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- ══════════ 02 · PRINCIPLE ══════════ -->
+    <!-- The thesis of the whole page, and the only place the architecture is
+         drawn. The three beats sit under the heading rather than in the hero,
+         because here there is a figure next to them that shows what they mean. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
 
-        <!-- ══════════ WORKERS ══════════ -->
-        <!-- The product, immediately after the vision. Three steps rather than a
-             capability list, because the reader is deciding whether this is a thing
-             that can happen in their company, not what it is made of. The tacit
-             knowledge point that used to be its own section opens it: it is the
-             reason step 01 exists at all, and it did not need a whole screen. -->
-        <section class="bg-bg-0">
+          <div class="flex flex-col">
+            <div class="h-7 flex items-center border-b border-line-0">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">02 · Principle</span>
+            </div>
+            <div class="flex flex-1 flex-col justify-center py-10">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
+                Trust every action, not just every connection.
+              </h2>
+              <p class="text-lg text-ink-1 leading-relaxed mb-8">
+                Workers we build and AI you already run cross the same layer. Whichever you start with, the controls and the record are the same.
+              </p>
+              <ul class="border-t border-line-0">
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every worker has an identity.</li>
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every action is checked.</li>
+                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every action is recorded.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-col">
+            <div class="h-7 flex items-center justify-end border-b border-line-0">
+              <span class="fig-label">FIG.1</span>
+            </div>
+            <div class="flex flex-1 items-center justify-center py-10">
+              <svg viewBox="0 0 480 390" class="w-full max-w-md h-auto" aria-hidden="true">
+                <path d="M12 27 L12 12 L27 12"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                <path d="M453 12 L468 12 L468 27"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                <path d="M12 363 L12 378 L27 378"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                <path d="M468 363 L468 378 L453 378" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+                <!-- the two things that act -->
+                <rect x="20" y="36" width="208" height="92" fill="none" stroke="var(--color-live)" stroke-opacity="0.45" stroke-width="1" />
+                <text x="124" y="66"  text-anchor="middle" fill="var(--color-live)" fill-opacity="0.90" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">KYDE WORKERS</text>
+                <text x="124" y="86"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">code · agents · people</text>
+                <text x="124" y="104" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">we build these with you</text>
+
+                <rect x="252" y="36" width="208" height="92" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                <text x="356" y="66"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.80" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">AI YOU ALREADY RUN</text>
+                <text x="356" y="86"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">agents · copilots · pipelines</text>
+                <text x="356" y="104" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">somebody else built these</text>
+
+                <line x1="124" y1="128" x2="124" y2="168" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
+                <line x1="356" y1="128" x2="356" y2="168" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
+
+                <!-- the slab, wider than what stands on it -->
+                <rect x="12" y="168" width="456" height="104" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.70" stroke-width="2" />
+                <text x="240" y="200" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.90" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.2em;">KYDE ZERO TRUST</text>
+                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55">
+                  <text x="60"  y="230">identity</text>
+                  <text x="148" y="230">policy</text>
+                  <text x="240" y="230">data</text>
+                  <text x="332" y="230">limits</text>
+                  <text x="420" y="230">evidence</text>
+                </g>
+                <text x="240" y="254" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">nothing reaches a system without crossing this</text>
+
+                <line x1="240" y1="272" x2="240" y2="312" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
+
+                <rect x="12" y="312" width="456" height="62" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.40" stroke-width="1" />
+                <text x="240" y="340" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.70" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">YOUR SYSTEMS</text>
+                <text x="240" y="358" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">ERP · databases · MCP servers · payment APIs</text>
+              </svg>
+            </div>
+            <div class="border-t border-line-0 pt-3">
+              <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 · The layer is wider than what stands on it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 03 · PLATFORM ══════════ -->
+    <!-- One chapter, not five. The five dimensions are what the layer checks on
+         every action, and they get a single screen with one line each. The proof
+         for each of them is further down, under the capability it belongs to. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · Platform</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
+          One control layer for every AI action.
+        </h2>
+        <!-- Laid out across the page rather than down it. The capability list
+             below is a stacked list of links, and two stacked lists in a row read
+             as one list the page contradicts itself about. This one is a path an
+             action travels, so it runs left to right and the order is the point. -->
+        <div class="mb-px hidden lg:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2 pb-4">
+          <span class="text-ink-0">AI action</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span>Identity</span><span class="text-ink-2/50">→</span>
+          <span>Policy</span><span class="text-ink-2/50">→</span>
+          <span>Data</span><span class="text-ink-2/50">→</span>
+          <span>Limits</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span class="text-ink-0">System</span>
+          <span class="text-ink-2/50">→</span>
+          <span class="text-live">Record</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line-0">
+          {dimensions.map(({ name, q, a, soon }) => (
+            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-4">{name}</span>
+              <p class="text-base md:text-lg text-ink-0 leading-snug mb-3">{q}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                {a}{soon && <span class="text-ink-2"> Coming soon.</span>}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 04 · CAPABILITIES ══════════ -->
+    <!-- The fifteen-second read, and the map for everything below it. Four things
+         rather than five modules, so the sections that follow read as the proof of
+         a claim the reader has already accepted instead of as another feature. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Capabilities</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
+          From control to proof.
+        </h2>
+        <ul class="border border-line-0 divide-y divide-line-0">
+          {capabilities.map(({ n, name, line, sub, href }) => (
+            <li>
+              <a href={href} class="group grid md:grid-cols-[56px_minmax(0,180px)_1fr_auto] gap-2 md:gap-8 items-baseline px-5 py-5 md:px-7 md:py-6 hover:bg-bg-1 transition-colors">
+                <span class="font-mono text-[11px] tracking-[0.1em] text-gold">{n}</span>
+                <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-0">{name}</span>
+                <span>
+                  <span class="block text-base md:text-lg text-ink-1 leading-relaxed">{line}</span>
+                  <span class="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">{sub}</span>
+                </span>
+                <span class="hidden md:inline font-mono text-xs text-ink-2 group-hover:text-ink-0 transition-colors">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+        <!-- ══════════ 01 · FLIGHT RECORDER ══════════ -->
+        <!-- First thing past the fold. The topology is the argument: a reader has to
+             see that everything crosses one place before "system of record" means
+             anything. FIG.2 is full-width for that reason, like the ladder further
+             down, and it is the only figure on the page that shows the whole shape. -->
+        <section id="see" class="scroll-mt-20 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
+
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Workers</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">See · Flight recorder</span>
+                    <span class="fig-label">FIG.2</span>
                 </div>
 
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-6 max-w-4xl">
-                    The knowledge is already there. We capture it.
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-4 max-w-4xl">
+                    Record every AI action.
                 </h2>
-                <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-16">
-                    Your best processes live in people's heads: the claim that gets assessed a certain way, the supplier document that gets checked twice, the step everyone does and nobody wrote down. Every automation project starts by guessing how the work happens and where the knowledge lives. This one starts by capturing both, and turns it into workers you own.
+                <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Humans · Agents · Tool calls · Approvals</p>
+                <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-12">
+                    Every action an AI system takes crosses one layer, and that is where it stops being traffic and becomes a record. Who acted, under whose identity, against which model, reaching which system. Written as it passes, not reconstructed afterwards from four vendor consoles that each saw a different part of it.
                 </p>
 
-                <div class="grid md:grid-cols-3 gap-12 md:gap-0 md:divide-x md:divide-white/10 [&>*:not(:first-child)]:md:pl-10 [&>*:not(:last-child)]:md:pr-10">
-                    <div>
-                        <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-gold mb-5">01 <span class="text-white/25">·</span> Find the work</span>
-                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-[1.08] mb-4">Start with the work, not the AI.</h3>
-                        <p class="text-base text-white/55 leading-relaxed">
-                            We capture the work and the intelligence behind it: screens, decisions, tool calls, approvals, documents, rules and exceptions. Structured for AI, so workers can use what your company already knows, down to the edge cases no handbook covers. Personal data is removed locally, before anything is stored.
-                        </p>
+                <!-- The plot frame gives the topology something to stand in, same
+                     treatment as the ladder figure. -->
+                <div class="border border-white/10 bg-white/[0.02] px-4 py-5 md:px-8 md:py-7">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">One record, written where the work passes</span>
+                        <span class="fig-label">FIG.2</span>
                     </div>
-                    <div>
-                        <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-gold mb-5">02 <span class="text-white/25">·</span> Build the worker</span>
-                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-[1.08] mb-4">The right automation for each step.</h3>
-                        <p class="text-base text-white/55 leading-relaxed">
-                            Code where the steps are fixed. An AI worker where judgement is needed. A person where the decision carries weight. The worker is built from how your company already works, not from an assumption about how it should, and it stops instead of guessing when it meets something it has not seen.
-                        </p>
+                    <svg id="spine-fig" viewBox="0 0 1000 420" class="w-full h-auto" aria-hidden="true">
+                        <!-- corner register marks, as on every other figure -->
+                        <path d="M6 21 L6 6 L21 6" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M979 6 L994 6 L994 21" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M6 399 L6 414 L21 414" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M994 399 L994 414 L979 414" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+                        <text x="40" y="34" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">A COMPANY THAT RUNS ON AGENTS</text>
+                        <text x="960" y="34" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">THE SYSTEMS THEY REACH</text>
+
+                        <!-- left: the agent fleet, by function rather than by three
+                             generic boxes, so "a whole company" is visible at a glance -->
+                        {[
+                            { y: 96,  l: "CODING" },
+                            { y: 148, l: "SUPPORT" },
+                            { y: 200, l: "FINANCE" },
+                            { y: 252, l: "HR" },
+                            { y: 304, l: "OPS" },
+                        ].map(({ y, l }) => (
+                            <>
+                                <rect x="40" y={y - 16} width="132" height="32" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                                <text x="106" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">{l}</text>
+                                <line x1="172" y1={y} x2="436" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                                <line x1="564" y1={y} x2="828" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                            </>
+                        ))}
+
+                        <!-- right: the systems, which belong to as many vendors as the agents do -->
+                        {[
+                            { y: 96,  l: "POSTGRES" },
+                            { y: 148, l: "MCP SERVERS" },
+                            { y: 200, l: "SAP · ERP" },
+                            { y: 252, l: "STRIPE" },
+                            { y: 304, l: "S3" },
+                        ].map(({ y, l }) => (
+                            <>
+                                <rect x="828" y={y - 16} width="132" height="32" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                                <text x="894" y={y + 4} text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">{l}</text>
+                            </>
+                        ))}
+
+                        <!-- the spine: one layer, full height, nothing routes around it -->
+                        <rect x="436" y="64" width="128" height="276" fill="var(--color-bg-0)" stroke="var(--color-ink-0)" stroke-opacity="0.60" stroke-width="1.5" />
+                        <text x="500" y="190" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.9" style="font-family:'JetBrains Mono Variable',monospace;font-size:19px;font-weight:700;letter-spacing:0.22em;">KYDE</text>
+                        <text x="500" y="212" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">one record</text>
+
+                        <!-- what leaves the spine downward is the chain itself -->
+                        <line x1="500" y1="340" x2="500" y2="366" stroke="var(--color-live)" stroke-opacity="0.50" stroke-width="1" stroke-dasharray="3 4" />
+
+                        <defs>
+                            <radialGradient id="spine-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="spine-blooms"></g>
+                        <g id="spine-actions"></g>
+                        <!-- the chain scrolls under a clip, so links leave the frame
+                             instead of piling up at the left edge -->
+                        <clipPath id="spine-chain-clip"><rect x="30" y="348" width="940" height="48" /></clipPath>
+                        <g clip-path="url(#spine-chain-clip)"><g id="spine-chain"></g></g>
+
+                        <text x="40" y="410" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">sha-256 · append-only · recomputed offline</text>
+                    </svg>
+                    <p class="mt-4 text-center font-mono text-[10px] text-white/35 leading-relaxed">
+                        FIG.2 · Every step appends a link. The work writes the record as it happens.
+                    </p>
+                </div>
+            </div>
+            <script>
+                // FIG.2 · actions cross from the fleet to the systems through the spine.
+                // The chain below grows by exactly one link per crossing, because that is
+                // the claim: the record is not assembled afterwards from someone's logs,
+                // it is a side effect of the traffic passing through.
+                const spineFig = document.getElementById("spine-fig");
+                const spineReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (spineFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const LANES = [96, 148, 200, 252, 304];
+                    const START = 176, CROSS = 500, END = 824;
+                    const CHAIN_Y = 372, LINK_W = 46, LINK_X0 = 60, VISIBLE = 17;
+
+                    const actLayer = document.getElementById("spine-actions") as unknown as SVGGElement;
+                    const chainLayer = document.getElementById("spine-chain") as unknown as SVGGElement;
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("spine-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#spine-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+
+                    type Act = { el: SVGCircleElement; x: number; lane: number; signed: boolean };
+                    type Link = { g: SVGGElement; x: number };
+                    const acts: Act[] = [];
+                    let links: Link[] = [];
+                    // Absolute position of every link ever written. The chain never
+                    // restarts: it slides continuously left while new links are appended
+                    // on the right, so the ledger reads as endless rather than as a
+                    // buffer that fills up and jumps.
+                    let written = 0;
+                    let scrollX = 0;
+
+                    const appendLink = () => {
+                        const g = document.createElementNS(NS, "g");
+                        const conn = document.createElementNS(NS, "line");
+                        conn.setAttribute("x1", String(-LINK_W + 26));
+                        conn.setAttribute("y1", String(CHAIN_Y));
+                        conn.setAttribute("x2", "0");
+                        conn.setAttribute("y2", String(CHAIN_Y));
+                        conn.setAttribute("stroke", "var(--color-ink-0)");
+                        conn.setAttribute("stroke-opacity", "0.4");
+                        conn.setAttribute("stroke-width", "1");
+                        g.appendChild(conn);
+
+                        const box = document.createElementNS(NS, "rect");
+                        box.setAttribute("x", "0");
+                        box.setAttribute("y", String(CHAIN_Y - 9));
+                        box.setAttribute("width", "26");
+                        box.setAttribute("height", "18");
+                        box.setAttribute("fill", "none");
+                        box.setAttribute("stroke", "var(--color-live)");
+                        box.setAttribute("stroke-opacity", "0.85");
+                        box.setAttribute("stroke-width", "1.5");
+                        g.appendChild(box);
+
+                        chainLayer.appendChild(g);
+                        links.push({ g, x: written * LINK_W });
+                        written += 1;
+
+                        // the newest link is the bright one; everything behind it settles
+                        links.forEach((l, i) => {
+                            const r = l.g.children[1] as SVGRectElement;
+                            const fresh = i === links.length - 1;
+                            r.setAttribute("stroke", fresh ? "var(--color-live)" : "var(--color-ink-0)");
+                            r.setAttribute("stroke-opacity", fresh ? "0.9" : "0.42");
+                            r.setAttribute("stroke-width", fresh ? "1.5" : "1");
+                        });
+                    };
+
+                    // Scroll target is derived from how many links exist, not from a fixed
+                    // speed, so the chain self-corrects instead of drifting out of step
+                    // with the crossings that feed it.
+                    const advanceChain = () => {
+                        const target = Math.max(0, (written - VISIBLE) * LINK_W);
+                        scrollX += (target - scrollX) * 0.08;
+                        for (let i = links.length - 1; i >= 0; i--) {
+                            const screenX = LINK_X0 + links[i].x - scrollX;
+                            if (screenX < -LINK_W * 2) {
+                                links[i].g.remove();
+                                links.splice(i, 1);
+                            } else {
+                                links[i].g.setAttribute("transform", `translate(${screenX},0)`);
+                            }
+                        }
+                    };
+
+                    const spawn = (lane: number) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("cx", String(START));
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("r", "4");
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.62");
+                        actLayer.appendChild(el);
+                        acts.push({ el, x: START, lane, signed: false });
+                    };
+
+                    const step = (a: Act) => {
+                        a.x += 1.5;
+                        // the crossing is the event: this is the moment a link exists
+                        if (!a.signed && a.x >= CROSS) {
+                            a.signed = true;
+                            a.el.setAttribute("fill", "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.9");
+                            appendLink();
+                            bloom(CROSS, LANES[a.lane]);
+                        }
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.x < END;
+                    };
+
+                    if (spineReduced) {
+                        // Static equivalent: a settled chain and one action on each side.
+                        for (let i = 0; i < VISIBLE; i++) appendLink();
+                        advanceChain();
+                        links.forEach((l) => l.g.setAttribute("transform", `translate(${LINK_X0 + l.x},0)`));
+                        [0, 2, 4].forEach((lane) => {
+                            spawn(lane);
+                            const a = acts[acts.length - 1];
+                            a.x = lane === 2 ? END - 120 : START + 90;
+                            a.el.setAttribute("cx", String(a.x));
+                        });
+                    } else {
+                        let visible = false;
+                        let spawnAt = 0;
+                        let n = 0;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(spineFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length);
+                                    n += 1;
+                                    spawnAt = now + 1000;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                                advanceChain();
+                                stepBlooms();
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ FLIGHT RECORDER · INVENTORY ══════════ -->
+        <!-- Platform block. Govern, Enforce and Mandates used to be three of the five
+             readings that carried the page; they are now the substrate under the five
+             stations. Figure and text still swap sides so the eye alternates. -->
+        <section id="inventory" class="scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="radar-fig" viewBox="0 0 480 480" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <!-- corner register marks -->
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 453 L12 468 L27 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 453 L468 468 L453 468" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+
+                            <!-- concentric rings + crosshair -->
+                            <circle cx="240" cy="240" r="228" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.09" stroke-width="1" />
+                            <circle cx="240" cy="240" r="210" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.24" stroke-width="1" />
+                            <circle cx="240" cy="240" r="150" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="90" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
+                            <circle cx="240" cy="240" r="68" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.22" stroke-width="1" />
+                            <line x1="240" y1="26" x2="240" y2="454" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" />
+                            <line x1="26" y1="240" x2="454" y2="240" stroke="var(--color-ink-0)" stroke-opacity="0.12" stroke-width="1" />
+
+                            <!-- degree ticks -->
+                            {Array.from({ length: 24 }, (_, i) => {
+                                const a = (i * 15 * Math.PI) / 180;
+                                return (
+                                    <line
+                                        x1={240 + Math.cos(a) * 204}
+                                        y1={240 + Math.sin(a) * 204}
+                                        x2={240 + Math.cos(a) * 210}
+                                        y2={240 + Math.sin(a) * 210}
+                                        stroke="var(--color-ink-0)" stroke-opacity="0.45"
+                                        stroke-width="1"
+                                    />
+                                );
+                            })}
+
+                            <!-- sweep trail + line (rotated in JS) -->
+                            <g id="radar-sweep">
+                                <path d="M240 240 L240 30 A210 210 0 0 0 172 41 Z" fill="var(--color-ink-0)" fill-opacity="0.04" />
+                                <line x1="240" y1="240" x2="240" y2="30" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                            </g>
+
+                            <!-- blips + labels (lit by the sweep, from JS) -->
+                            <g id="radar-blips"></g>
+
+                            <!-- the observer at the center -->
+                            <circle cx="240" cy="240" r="4.5" fill="var(--color-ink-0)" />
+                            <text x="240" y="262" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.6" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.2em;">KYDE</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Five of these seven run under an id nobody has claimed.</p>
+                        </div>
                     </div>
-                    <div>
-                        <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-gold mb-5">03 <span class="text-white/25">·</span> Run the workforce</span>
-                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-[1.08] mb-4">One worker at a time. One workforce over time.</h3>
-                        <p class="text-base text-white/55 leading-relaxed">
-                            It runs in your environment, on open models, under an identity of its own. You see what it did and what it handed back. Then the next process, and the one after that.
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">See · Inventory</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Find the agents nobody put on a list.</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Scanning does not stop after the first sweep.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Identity · Provider · Model · Reach</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Most agents run under a shared API key, indistinguishable from each other and from the people whose credentials they borrowed. Kyde gives each one an identity of its own, so every action carries a name before it happens and the inventory builds itself: which providers, which models, which tools each agent reaches. A new agent appears on the board the first time it acts.
                         </p>
+                        </div>
                     </div>
                 </div>
             </div>
+<script>
+                    // radar-fig · Shadow agents sit almost invisible in
+                        // the field; the sweep reveals them: blip flashes, the
+                        // identity label appears with its ownership state, then the
+                        // afterglow fades until the next pass.
+                        const radarReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const radar = document.getElementById("radar-fig");
+
+                        if (radar) {
+                            const NS = "http://www.w3.org/2000/svg";
+                            const sweep = document.getElementById("radar-sweep")!;
+                            const blipsG = document.getElementById("radar-blips")!;
+                            const CX = 240, CY = 240;
+
+                            // Theme-aware palette (ditto elsewhere on this page): read the
+                            // ink/live tokens from CSS instead of hardcoding rgb triples.
+                            const RC = { ink: "242,242,242", live: "61,220,132", warn: "255,184,77" };
+                            function hexToRgb(hex: string): string {
+                                const m = hex.trim().replace("#", "");
+                                const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
+                                return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+                            }
+                            function readRadarColors() {
+                                const cs = getComputedStyle(document.documentElement);
+                                RC.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
+                                RC.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
+                                RC.warn = hexToRgb(cs.getPropertyValue("--color-warn") || "#FFB84D");
+                            }
+                            readRadarColors();
+
+                            // The state a first install actually reports is named versus
+                            // unclaimed, not signed: signing is an Enterprise capability, and
+                            // the unclaimed ones are the finding worth showing.
+                            const AGENTS = [
+                                { id: "agent:crm-04",    r: 178, a: 0.4, claimed: true  },
+                                { id: "agent:hr-11",     r: 120, a: 1.3, claimed: false },
+                                { id: "ci-runner",       r: 195, a: 2.2, claimed: false },
+                                { id: "agent:support-2", r: 68,  a: 2.9, claimed: true  },
+                                { id: "etl-worker",      r: 150, a: 3.8, claimed: false },
+                                { id: "agent:proc-7",    r: 104, a: 4.6, claimed: false },
+                                { id: "mail-drafter",    r: 186, a: 5.4, claimed: false },
+                            ];
+
+                            const blips = AGENTS.map((ag) => {
+                                const x = CX + Math.cos(ag.a) * ag.r;
+                                const y = CY + Math.sin(ag.a) * ag.r;
+                                const dot = document.createElementNS(NS, "rect");
+                                dot.setAttribute("x", String(x - 2));
+                                dot.setAttribute("y", String(y - 2));
+                                dot.setAttribute("width", "4");
+                                dot.setAttribute("height", "4");
+                                const label = document.createElementNS(NS, "text");
+                                label.setAttribute("x", String(x + 9));
+                                label.setAttribute("y", String(y - 7));
+                                label.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.08em;");
+                                label.textContent = ag.id;
+                                const sig = document.createElementNS(NS, "text");
+                                sig.setAttribute("x", String(x + 9));
+                                sig.setAttribute("y", String(y + 6));
+                                sig.setAttribute("style", "font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;");
+                                sig.setAttribute("fill", ag.claimed ? `rgb(${RC.live})` : `rgb(${RC.warn})`);
+                                sig.textContent = ag.claimed ? "✓ named" : "unclaimed · no owner";
+                                blipsG.append(dot, label, sig);
+                                return { ...ag, dot, label, sig, lastLit: -1e9 };
+                            });
+
+                            window.addEventListener("kyde:theme", () => {
+                                readRadarColors();
+                                if (radarReduced) paintStatic();
+                            });
+
+                            function paintStatic() {
+                                // static frame: everything mid-bright
+                                for (const b of blips) {
+                                    b.dot.setAttribute("fill", `rgba(${RC.ink},0.7)`);
+                                    b.label.setAttribute("fill", `rgba(${RC.ink},0.55)`);
+                                    b.sig.setAttribute("fill", `rgba(${RC.live},0.6)`);
+                                }
+                            }
+
+                            if (radarReduced) {
+                                paintStatic();
+                            } else {
+                                const PERIOD = 32000; // one revolution
+                                let visible = true;
+                                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(radar);
+
+                                function frame(t: number) {
+                                    if (visible) {
+                                        const ang = ((t % PERIOD) / PERIOD) * Math.PI * 2 - Math.PI / 2;
+                                        sweep.setAttribute("transform", `rotate(${(ang * 180) / Math.PI + 90} ${CX} ${CY})`);
+
+                                        for (const b of blips) {
+                                            // sweep just passed this blip?
+                                            let diff = (ang - b.a) % (Math.PI * 2);
+                                            if (diff < 0) diff += Math.PI * 2;
+                                            if (diff < 0.06) b.lastLit = t;
+
+                                            const glow = Math.exp(-(t - b.lastLit) / 2400);
+                                            b.dot.setAttribute("fill", `rgba(${RC.ink},${0.12 + glow * 0.88})`);
+                                            b.label.setAttribute("fill", `rgba(${RC.ink},${glow * 0.8})`);
+                                            b.sig.setAttribute("fill", `rgba(${RC.live},${Math.max(glow - 0.25, 0)})`);
+                                        }
+                                    }
+                                    requestAnimationFrame(frame);
+                                }
+                                requestAnimationFrame(frame);
+                            }
+                        }
+                </script>
         </section>
 
-        <!-- ══════════ AUTOMATION READINESS ══════════ -->
-        <!-- Not a compliance product bolted on the side: this is where the workforce
-             starts. Three states rather than a percentage, because "82% automation
-             potential" is a number nobody can act on and "this one is waiting on an
-             MCP server for your ERP" is a date in somebody's calendar. -->
-        <section id="audit" class="scroll-mt-20">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Automation readiness</span>
-                    <span class="fig-label">FIG.1</span>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 mb-16">
-
-                    <div class="flex flex-col justify-center">
-                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-6">
-                            What can AI take over today?
-                        </h2>
-                        <p class="text-lg text-white/55 leading-relaxed">
-                            We assess the real work with the people who do it, step by step, and show you what an AI worker can take over, what can be turned into code, what is not reliable enough yet, and what belongs with your people. For every step that is not ready, you get the reason and the person who can change it.
-                        </p>
-                    </div>
-
+        <!-- ══════════ 02 · CONTROL ══════════ -->
+        <section id="control" class="scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
-                        <div class="flex flex-1 items-center justify-center py-6 md:py-0">
-                            <div class="relative w-full aspect-square max-w-sm">
-                                <canvas id="ring-canvas" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
-                                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                    <span id="ring-count" class="font-mono text-5xl font-bold text-live leading-none">0</span>
-                                    <span class="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">of 10 steps</span>
-                                    <span class="mt-1.5 font-mono text-[9px] tracking-[0.06em] text-white/30">can be automated</span>
-                                </div>
-                            </div>
+                        <div class="h-7 flex items-center border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Control</span>
                         </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · One process area. Filled is work a worker can take, open is work that stays with a person. Illustrative.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-white/10 divide-y divide-white/10 mb-16">
-                    <div class="grid md:grid-cols-[264px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
-                        <div>
-                            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-live border border-live/30 bg-live/[0.08] px-2.5 py-1 mb-3">AI worker</span>
-                            <p class="text-sm text-white/45 leading-snug">Judgement and variable work.</p>
-                            <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/30">Probabilistic</p>
-                        </div>
-                        <p class="text-base md:text-lg text-white/55 leading-relaxed">
-                            Work where the right answer depends on reading the situation: a customer's tone, a claim that does not look like the others, a supplier mail that ignores the template. An AI worker handles these, and we measure it against cases where your own outcome is already on record.
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Govern every action before it happens.</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Policy is evaluated at the point of action, not in a report afterwards.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            No customer export. No payment over 100 euros without approval. No HR data to an external service. No MCP tool outside its mandate. You already run on rules like these. Kyde turns them into policy every worker passes before it acts, not a report you read afterwards. Observe first, enforce when ready. <span class="text-white/35">All of this runs in production today.</span>
                         </p>
-                    </div>
-                    <div class="grid md:grid-cols-[264px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
-                        <div>
-                            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ink-0 border border-white/25 px-2.5 py-1 mb-3">Code</span>
-                            <p class="text-sm text-white/45 leading-snug">Fixed, repeatable work.</p>
-                            <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/30">Deterministic</p>
-                        </div>
-                        <p class="text-base md:text-lg text-white/55 leading-relaxed">
-                            Work where the steps are fixed. Converting the document, reconciling two lists, moving the field from one system into the next. An AI worker writes that code during the build, and then the code runs, not the model. It runs the same way every time and costs almost nothing to run.
-                        </p>
-                    </div>
-                    <div class="grid md:grid-cols-[264px_1fr] gap-4 md:gap-12 px-6 py-7 md:px-8 md:py-8">
-                        <div>
-                            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-ember border border-ember/30 bg-ember/[0.08] px-2.5 py-1 mb-3">Not yet</span>
-                            <p class="text-sm text-white/45 leading-snug">Not reliable enough today.</p>
-                            <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/30">We keep testing</p>
-                        </div>
-                        <p class="text-base md:text-lg text-white/55 leading-relaxed">
-                            Work that needs something which does not exist today: a model that can hold the whole case, an interface into a system that has none, an MCP server nobody has shipped. These stay in your library and we keep testing them against what has landed since. When one comes free, you hear about it.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16 border-t border-white/10 pt-12">
-                    <div class="flex flex-col justify-center">
-                        <h3 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.03] text-white mb-5">Start your audit.</h3>
-                        <p class="text-base text-white/55 leading-relaxed mb-10">
-                            One process area and the infrastructure behind it. Three days for a team, two weeks for a department. Fixed price, credited against your first automation project.
-                        </p>
-                        <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-                            <button
-                                onclick="openModal()"
-                                class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
-                            >
-                                Start your audit →
-                            </button>
-                            <a
-                                href="/audit"
-                                class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white/60 hover:text-white/90 transition-all"
-                            >
-                                How it works →
-                            </a>
                         </div>
                     </div>
-
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
                     <div class="flex flex-col">
-                        <div class="h-7 flex items-center justify-end border-b border-white/10">
-                            <span class="fig-label">FIG.2</span>
-                        </div>
+                        <div class="h-7 border-b border-white/10"></div>
                         <div class="flex flex-1 items-center justify-center py-10">
-                            <svg id="sieve-fig" viewBox="0 0 480 400" class="w-full max-w-sm h-auto" aria-hidden="true">
-                                <!-- Work as it is falls in, crosses the audit, and lands
-                                     sorted. The colors are the ones the ring above taught,
-                                     so the bins need no labels of their own. -->
-                                <text x="40" y="34" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.16em;">THE WORK AS IT IS</text>
+<svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
 
-                                <g id="sieve-drops"></g>
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AGENT ACTIONS</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">YOUR SYSTEMS</text>
 
-                                <line x1="40" y1="206" x2="440" y2="206" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-                                <text x="40" y="198" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.16em;">THE AUDIT</text>
-                                <text x="440" y="198" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">two weeks · one process area</text>
+                            <!-- three lanes running into the policy line -->
+                            {[110, 170, 230].map((y) => (
+                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                            ))}
 
-                                <text x="40" y="386" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.16em;">A DATED READOUT</text>
-                            </svg>
+                            <!-- the policy line itself: everything crosses here or not at all -->
+                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
+                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">POLICY</text>
+
+                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
+                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
+
+                            <g id="gate-actions"></g>
+                        </svg>
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · Ten steps in, four states out.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The blocked action stops at the policy line, not inside your systems.</p>
                         </div>
                     </div>
                 </div>
-            <script>
-                // sieve-fig · the audit as the thing it is: work goes in the way it
-                // actually exists, unsorted and uneven, crosses one line, and comes
-                // out in states you can act on. The colors are the ones the ring
-                // above established, so nothing down here needs a label.
-                const sieveFig = document.getElementById("sieve-fig");
-                const sieveReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                if (sieveFig) {
+            </div>
+<script>
+                // gate-fig · actions travel their lane toward the policy line. Most cross and
+                // continue into the systems boundary; one in four hits the line, flashes
+                // red and is turned back. Nothing is "inspected afterwards" here.
+                const gateFig = document.getElementById("gate-fig");
+                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (gateFig) {
+                    const layer = document.getElementById("gate-actions")!;
                     const NS = "http://www.w3.org/2000/svg";
-                    const LINE = 206, FLOOR = 356, S = 15, BIN = [96, 192, 288, 384];
-                    const EVERY = 420, FALL = 1000, HOLD = 2400;
-                    // start x, and which bin it belongs in: 0 agent 1 code 2 soon 3 people
-                    const DROPS = [
-                        { x: 128, y: 58, bin: 0 }, { x: 236, y: 44, bin: 1 }, { x: 344, y: 62, bin: 3 },
-                        { x:  74, y: 96, bin: 1 }, { x: 190, y: 88, bin: 0 }, { x: 300, y: 104, bin: 3 },
-                        { x: 408, y: 92, bin: 2 }, { x: 152, y: 132, bin: 3 }, { x: 268, y: 140, bin: 0 },
-                        { x: 372, y: 128, bin: 1 },
-                    ];
-                    const FILL = ["var(--color-live)", "var(--color-ink-0)", "none", "var(--color-ink-0)"];
-                    const OPACITY = ["0.85", "0.72", "0", "0.16"];
+                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
+                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
+                    const acts: Act[] = [];
+                    let spawnAt = 0, n = 0;
 
-                    const layer = document.getElementById("sieve-drops");
-                    const stack = [0, 0, 0, 0];
-                    const items = DROPS.map((d) => {
-                        const g = document.createElementNS(NS, "g");
-                        const r = document.createElementNS(NS, "rect");
-                        r.setAttribute("width", String(S)); r.setAttribute("height", String(S));
-                        r.setAttribute("x", "0"); r.setAttribute("y", "0");
-                        r.setAttribute("fill", "var(--color-ink-0)");
-                        r.setAttribute("fill-opacity", "0.30");
-                        g.appendChild(r);
-                        const dot = document.createElementNS(NS, "circle");
-                        dot.setAttribute("cx", String(S / 2)); dot.setAttribute("cy", String(S / 2));
-                        dot.setAttribute("r", "2.4");
-                        dot.setAttribute("fill", "var(--color-ink-0)");
-                        dot.setAttribute("fill-opacity", "0");
-                        g.appendChild(dot);
-                        layer.appendChild(g);
-                        return { g, r, dot, d, landed: false, slot: 0 };
-                    });
+                    const spawn = (lane: number, blocked: boolean) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("r", "4");
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.55");
+                        layer.appendChild(el);
+                        acts.push({ el, x: START, lane, blocked, back: false });
+                    };
 
-                    const place = (it, x, y) => it.g.setAttribute("transform", `translate(${x - S / 2},${y - S / 2})`);
+                    const step = (a: Act) => {
+                        if (a.back) {
+                            a.x -= 3.4;
+                        } else {
+                            a.x += 2.2;
+                            if (a.blocked && a.x >= GATE - 6) {
+                                a.back = true;
+                                a.el.setAttribute("fill", "var(--color-alert)");
+                                a.el.setAttribute("fill-opacity", "0.9");
+                            } else if (!a.blocked && a.x >= GATE + 6) {
+                                a.el.setAttribute("fill", "var(--color-live)");
+                                a.el.setAttribute("fill-opacity", "0.85");
+                            }
+                        }
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.back ? a.x > START - 10 : a.x < END;
+                    };
+
+                    if (gateReduced) {
+                        // Static reading of the same story: two through, one turned back.
+                        spawn(0, false); spawn(1, true); spawn(2, false);
+                        acts.forEach((a, i) => {
+                            a.x = a.blocked ? GATE - 20 : GATE + 60;
+                            a.el.setAttribute("cx", String(a.x));
+                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.85");
+                        });
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length, n % 4 === 2);
+                                    n += 1;
+                                    spawnAt = now + 900;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ 03 · EVALUATE & REPLAY ══════════ -->
+        <section id="replay" class="scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="replay-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">AS RECORDED</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">REPLAYED TODAY</text>
+
+                            <line x1="40" y1="130" x2="430" y2="130" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="3 6" />
+                            <line x1="40" y1="230" x2="430" y2="230" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="3 6" />
+                            <text x="30" y="134" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">A</text>
+                            <text x="30" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;">B</text>
+
+                            <!-- the divergence is one entry, not a general mismatch -->
+                            <line id="rp-gap" x1="300" y1="130" x2="300" y2="266" stroke="var(--color-warn)" stroke-opacity="0" stroke-width="1" stroke-dasharray="2 3" />
+
+                            {Array.from({ length: 8 }, (_, i) => 60 + i * 48).map((x, i) => (
+                                <>
+                                    <rect class="rp-top" x={x - 5} y="122" width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1.25" />
+                                    <rect class="rp-bot" x={x - 5} y={i === 5 ? 258 : 222} width="10" height="16" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.25" stroke-width="1.25" />
+                                </>
+                            ))}
+
+                            <defs>
+                            <radialGradient id="replay-glow">
+                                <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                        <g id="replay-blooms"></g>
+                        <line id="rp-head" x1="40" y1="104" x2="40" y2="284" stroke="var(--color-live)" stroke-opacity="0.65" stroke-width="1" />
+
+                            <text id="rp-note" x="300" y="296" text-anchor="middle" fill="var(--color-warn)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">model changed underneath</text>
+                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.12em;">same prompt · same agent · different answer</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">Seven cases come out the way the record says they should. The eighth is the one worth finding, and only the recording makes it findable.</p>
+                        </div>
+                    </div>
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-between border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Replay · Evaluate</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Rerun the past against the present.</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Models change under the same name. Policies change. Nothing announces it.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Replay a recorded run against today's models and policies.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            A recorded run is a hundred real cases where the right answer is already known. Replay it against what would happen today and the difference is something you can point at, instead of a complaint that arrives six weeks later. The same recording is what continuous evaluation runs on: measured against the outcome in your system of record, not against what a person happened to click. <span class="text-white/35">Replay runs today. Continuous evaluation is coming soon.</span>
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // replay-fig · a playhead runs the recorded sequence against the replayed one.
+                // Entries light as the head reaches them and burn down to a resting level
+                // rather than switching off. One entry sits lower than its recorded twin:
+                // that is the whole point of the figure, so it is the only thing that
+                // holds its color after the head has gone past.
+                const rpFig = document.getElementById("replay-fig");
+                const rpReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (rpFig) {
+                    const DIVERGE = 5;
+                    const XS = Array.from({ length: 8 }, (_, i) => 60 + i * 48);
+                    const head = document.getElementById("rp-head") as unknown as SVGLineElement;
+                    const gap = document.getElementById("rp-gap") as unknown as SVGLineElement;
+                    const note = document.getElementById("rp-note") as unknown as SVGTextElement;
+                    const tops = Array.from(rpFig.querySelectorAll(".rp-top")) as SVGRectElement[];
+                    const bots = Array.from(rpFig.querySelectorAll(".rp-bot")) as SVGRectElement[];
+                    const NS = "http://www.w3.org/2000/svg";
+
+                    // Bloom borrowed from the hero canvas: expands on an ease-out and
+                    // burns down over roughly two seconds, so a contact glows like an
+                    // ember rather than switching on.
+                    const bloomLayer = document.getElementById("replay-blooms") as unknown as SVGGElement;
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#replay-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+
+                    const REST = 0.25;
+                    let bright = XS.map(() => ({ t: REST, b: REST }));
+                    let x = 40, gapO = 0, noteO = 0, holdUntil = 0;
+
+                    const paint = () => {
+                        bright.forEach((v, i) => {
+                            const diverged = i === DIVERGE;
+                            tops[i].setAttribute("stroke-opacity", String(v.t));
+                            tops[i].setAttribute("stroke", "var(--color-ink-0)");
+                            bots[i].setAttribute("stroke-opacity", String(v.b));
+                            bots[i].setAttribute("stroke", diverged && v.b > REST + 0.02 ? "var(--color-warn)" : "var(--color-ink-0)");
+                        });
+                        gap.setAttribute("stroke-opacity", String(gapO));
+                        note.setAttribute("fill-opacity", String(noteO));
+                        head.setAttribute("x1", String(x));
+                        head.setAttribute("x2", String(x));
+                    };
+
+                    const tick = () => {
+                        if (performance.now() < holdUntil) {
+                            // hold on the divergence, then let it burn down with the rest
+                            gapO *= 0.994; noteO *= 0.994;
+                            bright.forEach((v, i) => {
+                                v.t = REST + (v.t - REST) * 0.985;
+                                v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.997 : 0.985);
+                            });
+                            paint();
+                            return;
+                        }
+                        x += 1.05;
+                        XS.forEach((xi, i) => {
+                            if (x >= xi && bright[i].t <= REST + 0.01) bright[i].t = 0.95;
+                            if (x >= xi + 14 && bright[i].b <= REST + 0.01) {
+                                bright[i].b = 0.95;
+                                if (i === DIVERGE) { gapO = 0.7; noteO = 0.9; bloom(300, 266, 7, 0.8); }
+                            }
+                        });
+                        bright.forEach((v, i) => {
+                            v.t = REST + (v.t - REST) * 0.97;
+                            v.b = REST + (v.b - REST) * (i === DIVERGE ? 0.995 : 0.97);
+                        });
+                        gapO *= 0.997; noteO *= 0.997;
+                        if (x > 430) { x = 40; holdUntil = performance.now() + 2200; }
+                        stepBlooms();
+                        paint();
+                    };
+
+                    if (rpReduced) {
+                        bright = bright.map((_, i) => ({ t: 0.35, b: i === DIVERGE ? 0.9 : 0.35 }));
+                        gapO = 0.6; noteO = 0.9; x = 430;
+                        paint();
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(rpFig);
+                        const loop = () => {
+                            if (visible) tick();
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- ══════════ 04 · EVIDENCE ══════════ -->
+        <section id="prove" class="scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center justify-between border-b border-white/10">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Prove · Evidence</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Evidence the other side can check without you.</h2>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Who acted, which agent, which model, under which policy.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Every entry is hash-chained at the boundary, before anything reaches a provider, and held outside the reach of the thing being recorded. Altering one link breaks every link after it, and an auditor recomputes the chain offline, without us in the room. Your provider's log lives on their infrastructure and is read through their console. In a dispute that involves them, it is theirs, not yours.
+                        </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="h-7 border-b border-white/10"></div>
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="chain-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+
+                            <defs>
+                                <radialGradient id="chain-glow">
+                                    <stop offset="0%" stop-color="var(--color-ink-0)" stop-opacity="0.9" />
+                                    <stop offset="25%" stop-color="var(--color-ink-0)" stop-opacity="0.32" />
+                                    <stop offset="60%" stop-color="var(--color-live)" stop-opacity="0.2" />
+                                    <stop offset="100%" stop-color="var(--color-live)" stop-opacity="0" />
+                                </radialGradient>
+                            </defs>
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">HASH-CHAINED ACTION LOG</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.16em;">OUTSIDE KYDE</text>
+
+                            <!-- the boundary is the argument: everything to the right of it
+                                 happens without us, and nothing crosses back -->
+                            <line x1="300" y1="66" x2="300" y2="304" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="2 6" />
+                            <text x="294" y="86" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">KYDE ENDS HERE</text>
+
+                            <g id="chain-blooms"></g>
+
+                            {[
+                                { h: "a4ce", a: "db.write" },
+                                { h: "a4cf", a: "transfer" },
+                                { h: "a4d0", a: "dlp.mask" },
+                                { h: "a4d1", a: "quote.set" },
+                            ].map(({ h, a }, i) => (
+                                <>
+                                    {i < 3 && (
+                                        <line class="ch-conn" x1={30 + i * 64 + 54} y1="134" x2={30 + (i + 1) * 64} y2="134"
+                                              stroke="var(--color-ink-0)" stroke-opacity="0.20" stroke-width="1.5" />
+                                    )}
+                                    <rect class="ch-box" x={30 + i * 64} y="112" width="54" height="44" fill="none"
+                                          stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
+                                    <text x={57 + i * 64} y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;">{h}</text>
+                                    <text x={57 + i * 64} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40"
+                                          style="font-family:'JetBrains Mono Variable',monospace;font-size:7px;letter-spacing:0.05em;">{a}</text>
+                                </>
+                            ))}
+
+                            <!-- the export's route out; the token is driven along it -->
+                            <path id="ch-route" d="M249 156 Q 292 196, 356 226" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.17" stroke-width="1" stroke-dasharray="2 5" />
+
+                            <rect id="ch-verifier" x="330" y="214" width="110" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+                            <text x="385" y="234" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.14em;">AUDITOR</text>
+                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">recompute · check signature</text>
+
+                            <rect id="ch-export" x="243" y="150" width="12" height="12" fill="none" stroke="var(--color-live)" stroke-opacity="0" stroke-width="1.5" />
+
+                            <text id="ch-status" x="385" y="292" text-anchor="middle" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">HASH MATCHES</text>
+                            <text x="30" y="318" fill="var(--color-ink-0)" fill-opacity="0.42" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.1em;">sha-256 chain · recomputed offline · we are not asked</text>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The export is recomputed on the other side. Everything after the boundary happens without us, and nothing comes back.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // chain-fig · the seal runs left to right, one entry at a time, each sealed
+                // by the one before it. Then the export leaves, crosses the boundary and
+                // is checked on the other side. Nothing comes back: that is the claim the
+                // figure has to carry, so the motion only ever travels outward.
+                const chainFig = document.getElementById("chain-fig");
+                const chainReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                if (chainFig) {
+                    const NS = "http://www.w3.org/2000/svg";
+                    const boxes = Array.from(chainFig.querySelectorAll(".ch-box")) as SVGRectElement[];
+                    const conns = Array.from(chainFig.querySelectorAll(".ch-conn")) as SVGLineElement[];
+                    const route = document.getElementById("ch-route") as unknown as SVGPathElement;
+                    const exp = document.getElementById("ch-export") as unknown as SVGRectElement;
+                    const status = document.getElementById("ch-status") as unknown as SVGTextElement;
+                    const recompute = document.getElementById("ch-recompute") as unknown as SVGTextElement;
+                    const bloomLayer = document.getElementById("chain-blooms") as unknown as SVGGElement;
+                    const routeLen = route.getTotalLength();
+
+                    const blooms: { el: SVGCircleElement; r: number; a: number; max: number }[] = [];
+                    const bloom = (bx: number, by: number, r0 = 8, peak = 0.85) => {
+                        const c = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        c.setAttribute("cx", String(bx));
+                        c.setAttribute("cy", String(by));
+                        c.setAttribute("r", String(r0));
+                        c.setAttribute("fill", "url(#chain-glow)");
+                        c.setAttribute("opacity", String(peak));
+                        bloomLayer.appendChild(c);
+                        blooms.push({ el: c, r: r0, a: peak, max: r0 + 54 });
+                    };
+                    const stepBlooms = () => {
+                        for (let i = blooms.length - 1; i >= 0; i--) {
+                            const b = blooms[i];
+                            b.r += (b.max - b.r) * 0.045;
+                            b.a *= 0.972;
+                            if (b.a < 0.02) { b.el.remove(); blooms.splice(i, 1); }
+                            else { b.el.setAttribute("r", b.r.toFixed(1)); b.el.setAttribute("opacity", b.a.toFixed(3)); }
+                        }
+                    };
+
+                    const REST = 0.26, SEALED = 0.6;
+                    let lit = boxes.map(() => REST);
+                    let connLit = conns.map(() => 0.12);
+                    let phase: "seal" | "leave" | "check" | "rest" = "seal";
+                    let sealX = 10, routeT = 0, statusO = 0, waitUntil = 0, sealed = -1;
+
+                    const paint = () => {
+                        boxes.forEach((b, i) => {
+                            b.setAttribute("stroke-opacity", lit[i].toFixed(3));
+                            b.setAttribute("stroke", lit[i] > SEALED + 0.05 ? "var(--color-live)" : "var(--color-ink-0)");
+                        });
+                        conns.forEach((c, i) => c.setAttribute("stroke-opacity", connLit[i].toFixed(3)));
+                        status.setAttribute("fill-opacity", statusO.toFixed(3));
+                        recompute.setAttribute("fill-opacity", (0.4 + statusO * 0.35).toFixed(3));
+                    };
 
                     const reset = () => {
-                        stack.fill(0);
-                        items.forEach((it) => {
-                            it.landed = false;
-                            place(it, it.d.x, it.d.y);
-                            it.r.setAttribute("fill", "var(--color-ink-0)");
-                            it.r.setAttribute("fill-opacity", "0.30");
-                            it.r.setAttribute("stroke", "none");
-                            it.dot.setAttribute("fill-opacity", "0");
-                        });
+                        lit = boxes.map(() => REST);
+                        connLit = conns.map(() => 0.12);
+                        sealX = 10; routeT = 0; statusO = 0; sealed = -1;
+                        exp.setAttribute("stroke-opacity", "0");
+                        phase = "seal";
                     };
 
-                    const dress = (it) => {
-                        const b = it.d.bin;
-                        if (b === 2) {
-                            it.r.setAttribute("fill", "none");
-                            it.r.setAttribute("stroke", "var(--color-ember)");
-                            it.r.setAttribute("stroke-opacity", "0.75");
-                            it.r.setAttribute("stroke-width", "1");
-                        } else {
-                            it.r.setAttribute("fill", FILL[b]);
-                            it.r.setAttribute("fill-opacity", OPACITY[b]);
+                    const tick = (now: number) => {
+                        if (phase === "seal") {
+                            sealX += 1.15;
+                            const centres = boxes.map((_, i) => 57 + i * 64);
+                            centres.forEach((cx, i) => {
+                                if (sealX >= cx && sealed < i) {
+                                    sealed = i;
+                                    lit[i] = 0.95;
+                                    if (i > 0) connLit[i - 1] = 0.55;
+                                    bloom(cx, 134, 7, 0.8);
+                                }
+                            });
+                            if (sealX > 300) { phase = "leave"; routeT = 0; }
+                        } else if (phase === "leave") {
+                            routeT += 1.5;
+                            const pt = route.getPointAtLength(Math.min(routeT, routeLen));
+                            exp.setAttribute("x", String(pt.x - 6));
+                            exp.setAttribute("y", String(pt.y - 6));
+                            exp.setAttribute("stroke-opacity", "0.8");
+                            if (routeT >= routeLen) { phase = "check"; waitUntil = now + 700; }
+                        } else if (phase === "check") {
+                            if (now > waitUntil && statusO === 0) {
+                                bloom(385, 243, 10, 0.85);
+                                statusO = 0.9;
+                                waitUntil = now + 2600;
+                            }
+                            if (statusO > 0 && now > waitUntil) { phase = "rest"; waitUntil = now + 900; }
+                        } else if (now > waitUntil) {
+                            reset();
                         }
-                        if (b === 3) it.dot.setAttribute("fill-opacity", "0.8");
+
+                        // everything settles rather than switching: sealed entries fall back
+                        // to a resting glow, the verdict fades out on its own
+                        lit = lit.map((v) => SEALED + (v - SEALED) * 0.985);
+                        if (phase === "rest") { statusO *= 0.94; exp.setAttribute("stroke-opacity", String(Math.max(0, statusO))); }
+                        stepBlooms();
+                        paint();
                     };
 
-                    const frameAt = (t) => {
-                        items.forEach((it, i) => {
-                            const start = i * EVERY;
-                            const p = Math.min(Math.max((t - start) / FALL, 0), 1);
-                            if (p <= 0) { place(it, it.d.x, it.d.y); return; }
-                            if (!it.landed) { it.slot = stack[it.d.bin]++; it.landed = true; }
-                            const tx = BIN[it.d.bin], ty = FLOOR - it.slot * (S + 3);
-                            // ease out, so it settles rather than stops
-                            const e = 1 - Math.pow(1 - p, 3);
-                            place(it, it.d.x + (tx - it.d.x) * e, it.d.y + (ty - it.d.y) * e);
-                            if (it.d.y + (ty - it.d.y) * e > LINE) dress(it);
-                        });
-                    };
-
-                    if (sieveReduced) {
-                        frameAt(DROPS.length * EVERY + FALL);
+                    if (chainReduced) {
+                        lit = boxes.map(() => SEALED);
+                        connLit = conns.map(() => 0.55);
+                        statusO = 0.9;
+                        exp.setAttribute("x", "350"); exp.setAttribute("y", "220"); exp.setAttribute("stroke-opacity", "0.8");
+                        paint();
                     } else {
                         let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(sieveFig);
-                        let start = 0;
-                        const total = DROPS.length * EVERY + FALL;
-                        function sieveFrame(now) {
-                            if (visible) {
-                                if (!start) start = now;
-                                const el = now - start;
-                                if (el < total) frameAt(el);
-                                else if (el < total + HOLD) frameAt(total);
-                                else { start = now; reset(); }
-                            }
-                            requestAnimationFrame(sieveFrame);
-                        }
-                        reset();
-                        requestAnimationFrame(sieveFrame);
-                    }
-                }
-            </script>
-            <script>
-                // ring-canvas · the same physics as the hero stage, in a circle. Work
-                // drifts in from wherever it actually lives, curves toward the place on
-                // the ring the mapping gave it, and the moment it lands there is a bloom
-                // that expands and burns out. Squares are angular because the geometry of
-                // this system is; the light is round because that is how contact behaves.
-                // Monochrome throughout, with live only in the outer stops of a bloom and
-                // on the count, so the one number that matters is the one thing with color.
-                const ringCanvas = document.getElementById("ring-canvas") as HTMLCanvasElement | null;
-                const ringCountEl = document.getElementById("ring-count");
-
-                if (ringCanvas) {
-                    const ctx = ringCanvas.getContext("2d")!;
-                    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                    const C = { ink: "242,242,242", live: "61,220,132", light: false };
-                    const toRgb = (hex: string) => {
-                        const m = hex.trim().replace("#", "");
-                        const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
-                        return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
-                    };
-                    const readColors = () => {
-                        const cs = getComputedStyle(document.documentElement);
-                        C.ink = toRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
-                        C.live = toRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
-                        const bg = toRgb(cs.getPropertyValue("--color-bg-0") || "#050505").split(",").map(Number);
-                        C.light = (bg[0] * 0.299 + bg[1] * 0.587 + bg[2] * 0.114) > 128;
-                    };
-                    readColors();
-
-                    // deterministic jitter, so the drift is uneven but never different
-                    const hash = (n: number) => {
-                        let t = (n + 0x6d2b79f5) | 0;
-                        t = Math.imul(t ^ (t >>> 15), t | 1);
-                        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-                        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-                    };
-
-                    const N = 10, TAKEN = 7;          // seven a worker can take, three stay
-                    const TRAVEL = 3000, BLOOM = 1700, HOLD = 3200, FADE = 1200;
-                    let W = 0, H = 0, CXp = 0, CYp = 0, R = 0;
-
-                    const seeds = Array.from({ length: N }, (_, i) => ({
-                        // where the work sits before anybody has looked at it
-                        a0: hash(i * 13 + 1) * Math.PI * 2,
-                        r0: 0.62 + hash(i * 29 + 5) * 0.55,
-                        // when it arrives, deliberately uneven
-                        t0: 300 + i * 860 + hash(i * 47 + 11) * 340,
-                        spin: (hash(i * 71 + 3) - 0.5) * 1.6,
-                        slot: i,
-                    })).sort((p, q) => p.t0 - q.t0);
-
-                    const resize = () => {
-                        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                        const w = ringCanvas.clientWidth, h = ringCanvas.clientHeight;
-                        if (!w || !h) return;
-                        W = w; H = h; CXp = w / 2; CYp = h / 2; R = Math.min(w, h) * 0.36;
-                        ringCanvas.width = Math.round(w * dpr);
-                        ringCanvas.height = Math.round(h * dpr);
-                        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                    };
-
-                    const slotPos = (i: number) => {
-                        const a = (i / N) * Math.PI * 2 - Math.PI / 2;
-                        return [CXp + R * Math.cos(a), CYp + R * Math.sin(a)];
-                    };
-
-                    const draw = (t: number, alpha: number) => {
-                        ctx.clearRect(0, 0, W, H);
-                        let arrived = 0;
-
-                        // the ring is barely there; the work sitting on it is what shows it
-                        ctx.strokeStyle = `rgba(${C.ink},${(C.light ? 0.14 : 0.07) * alpha})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.arc(CXp, CYp, R, 0, Math.PI * 2);
-                        ctx.stroke();
-
-                        seeds.forEach((s, idx) => {
-                            const taken = idx < TAKEN;
-                            const p = Math.min(Math.max((t - s.t0) / TRAVEL, 0), 1);
-                            const ease = 1 - Math.pow(1 - p, 3);
-                            const [tx, ty] = slotPos(s.slot);
-                            // spiral in: the angle closes as the radius does
-                            const a = s.a0 + s.spin * (1 - ease);
-                            const rr = R * (s.r0 + (1 - s.r0) * ease);
-                            const x = p < 1 ? CXp + rr * Math.cos(a) + (tx - (CXp + rr * Math.cos(a))) * ease : tx;
-                            const y = p < 1 ? CYp + rr * Math.sin(a) + (ty - (CYp + rr * Math.sin(a))) * ease : ty;
-
-                            if (p >= 1) arrived += taken ? 1 : 0;
-
-                            // bloom at the moment of contact, expanding and burning out
-                            const since = t - (s.t0 + TRAVEL);
-                            if (since > 0 && since < BLOOM) {
-                                const age = since / BLOOM;
-                                const br = 6 + (1 - Math.pow(1 - age, 2)) * R * 0.48;
-                                const ba = (1 - age) * 0.6 * alpha;
-                                const g = ctx.createRadialGradient(tx, ty, 0, tx, ty, br);
-                                const c = C.light ? (taken ? C.live : C.ink) : C.ink;
-                                const k = C.light ? (taken ? 0.5 : 0.16) : 1;
-                                g.addColorStop(0, `rgba(${c},${ba * k})`);
-                                g.addColorStop(0.22, `rgba(${c},${ba * k * 0.32})`);
-                                g.addColorStop(0.6, `rgba(${taken ? C.live : C.ink},${ba * k * (taken ? 0.16 : 0.08)})`);
-                                g.addColorStop(1, `rgba(${taken ? C.live : C.ink},0)`);
-                                ctx.fillStyle = g;
-                                ctx.beginPath();
-                                ctx.arc(tx, ty, br, 0, Math.PI * 2);
-                                ctx.fill();
-                            }
-
-                            // the mark itself stays angular
-                            const size = 5;
-                            const settled = p >= 1;
-                            const o = (settled ? 1 : 0.22 + 0.5 * ease) * alpha;
-                            if (taken) {
-                                ctx.fillStyle = `rgba(${C.ink},${(settled ? 0.85 : (C.light ? 0.55 : 0.45)) * o})`;
-                                ctx.fillRect(x - size / 2, y - size / 2, size, size);
-                            } else {
-                                ctx.strokeStyle = `rgba(${C.ink},${(settled ? (C.light ? 0.65 : 0.5) : (C.light ? 0.4 : 0.3)) * o})`;
-                                ctx.lineWidth = 1;
-                                ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-                            }
-                        });
-
-                        if (ringCountEl) ringCountEl.textContent = String(arrived);
-                    };
-
-                    const LAST = seeds[seeds.length - 1].t0 + TRAVEL + BLOOM;
-
-                    resize();
-                    const ro = "ResizeObserver" in window ? new ResizeObserver(() => resize()) : null;
-                    if (ro) ro.observe(ringCanvas);
-                    window.addEventListener("kyde:theme", readColors);
-
-                    if (reduced) {
-                        draw(LAST + HOLD, 1);
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ringCanvas);
-                        let start = 0;
-                        const frame = (now: number) => {
-                            if (visible) {
-                                if (!start) start = now;
-                                const el = now - start;
-                                if (el < LAST + HOLD) draw(el, 1);
-                                else if (el < LAST + HOLD + FADE) draw(LAST + HOLD, 1 - (el - LAST - HOLD) / FADE);
-                                else start = now;
-                            }
-                            requestAnimationFrame(frame);
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(chainFig);
+                        const loop = (now: number) => {
+                            if (visible) tick(now);
+                            requestAnimationFrame(loop);
                         };
-                        requestAnimationFrame(frame);
+                        requestAnimationFrame(loop);
                     }
                 }
             </script>
-            </div>
         </section>
 
-        <!-- ══════════ BUILT ON KYDE ZERO TRUST ══════════ -->
-        <!-- Compact on purpose. This block has one job: prove that a worker can be
-             let into a regulated company. The argument for it is a whole page, and
-             that page exists, so this one says the five things and gets out of the
-             way. It used to be a full-screen diagram plus five paragraphs, which
-             turned the workers page into half a zero trust site. -->
-        <section class="bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Built on KYDE Zero Trust</span>
-                </div>
+    <!-- ══════════ 05 · OUTCOMES ══════════ -->
+    <!-- This used to sit near the top as "four ways in", which turned the page
+         into a landing page with four personas before it had made an argument.
+         It belongs here: the reader now knows what the thing is, so the question
+         worth answering is what it is worth to them. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Outcomes</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
+          One layer. Four things it is worth.
+        </h2>
+        <div class="grid md:grid-cols-2 border border-line-0">
+          {entries.map(({ audience, name, line, body, href }, i) => (
+            <a href={href} class:list={["group block p-6 md:p-8 hover:bg-bg-1 transition-colors border-line-0", i % 2 === 0 ? "md:border-r" : "", i === entries.length - 1 ? "" : "border-b", i >= entries.length - 2 ? "md:border-b-0" : ""]}>
+              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{audience}</span>
+              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-2">{name}</h3>
+              <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
+              <span class="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 group-hover:text-ink-0 transition-colors">Read on →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
 
-                <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-                    <div>
-                        <p class="text-lg text-white/55 leading-relaxed mb-8">
-                            The same infrastructure controls every action, protects sensitive data and keeps a verifiable record, whether the worker runs on an open model, a private model or a system you already use. On-premise or in your private cloud, and the record leaves your building only when you send it.
-                        </p>
-                        <ul class="border border-white/10 divide-y divide-white/10">
-                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-0.5">Identity</span><span class="text-sm text-white/60 leading-relaxed">Every action carries a name before it happens</span></li>
-                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-0.5">Policy</span><span class="text-sm text-white/60 leading-relaxed">Enforced before the action executes, not in a report afterwards</span></li>
-                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40 shrink-0 w-20 pt-0.5">Data</span><span class="text-sm text-white/60 leading-relaxed">Sensitive fields masked inline, before they reach a model</span></li>
-                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-warn/70 shrink-0 w-20 pt-0.5">Limits</span><span class="text-sm text-white/60 leading-relaxed">Held over time, not per call. <span class="text-white/35">Coming soon.</span></span></li>
-                            <li class="flex gap-5 px-5 py-3.5"><span class="font-mono text-[10px] uppercase tracking-[0.14em] text-live/70 shrink-0 w-20 pt-0.5">Evidence</span><span class="text-sm text-white/60 leading-relaxed">Hash-chained at the boundary, recomputed by your auditor without us</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-6">
-                            Every worker runs on Kyde Zero Trust.
+    <!-- ══════════ 06 · PROOF ══════════ -->
+    <!-- The technical floor, and deliberately the last thing before the vision.
+         By now the reader knows what the layer is and what it is worth, so this
+         section answers the only question left: why trust the platform itself.
+         A spec table rather than prose, and visually a third thing again, so it
+         does not read as another capability list. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">06 · Proof</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
+          Built for independent verification.
+        </h2>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
+          Evidence you cannot check yourself is a claim. Every part of the record is built so somebody outside this company, and outside your company, can arrive at the same answer without asking either of us.
+        </p>
+        <dl class="grid md:grid-cols-2 gap-x-16 gap-y-0">
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Hash chain</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Each entry carries the hash of the one before it. Altering a single entry breaks every link after it.</dd>
+          </div>
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Append-only</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Entries are written at the boundary as the action passes, and held outside the reach of the system being recorded.</dd>
+          </div>
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Offline recomputation</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">An auditor recomputes the chain from the exported document, on their own machine, with us not in the room.</dd>
+          </div>
+          <div class="border-t border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Open-source gateway</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">
+              The gateway and the ledger are open source, so the thing writing the record can be read.
+              <a href="https://github.com/kydehq/gateway" target="_blank" rel="noopener" class="text-ink-0 hover:text-ink-0 underline underline-offset-4 decoration-line-0 hover:decoration-current transition-colors">github.com/kydehq/gateway →</a>
+            </dd>
+          </div>
+          <div class="border-t border-b border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Ed25519 signing</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Signing each entry proves authorship rather than order. <span class="text-ink-2">An Enterprise capability.</span></dd>
+          </div>
+          <div class="border-t border-b border-line-0 py-5">
+            <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-0 mb-2">Your keys</dt>
+            <dd class="text-base text-ink-1 leading-relaxed">Signing keys are yours and stay in your environment. A record we could produce on your behalf is a record we could also alter.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+        <!-- ══════════ THE TRUST LADDER ══════════ -->
+        <section id="ladder" class="scroll-mt-20 bg-bg-0">
+            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
+                <div class="flex items-end justify-between border-b border-white/10 pb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Autonomy</span>
+                    <span class="fig-label">FIG.3</span>
+                </div>
+                <!-- Autonomy ladder -->
+                <div class="pt-12 pb-24 md:pb-28">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-4">
+                        AI should earn autonomy.
                         </h2>
-                        <p class="text-lg text-white/55 leading-relaxed mb-8">
-                            The automation layer and the control layer are built together. You are not buying an agent platform and a security product and hoping they meet.
-                        </p>
-                        <a href="/zero-trust" class="inline-flex items-center gap-2 border border-white/25 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white transition-all w-fit">
-                            Explore Kyde Zero Trust →
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- ══════════ CLOSER ══════════ -->
-        <section class="relative overflow-hidden">
-            <div class="absolute -right-48 md:-right-24 top-1/2 -translate-y-1/2 w-[520px] md:w-[640px] pointer-events-none" aria-hidden="true">
-                <svg viewBox="0 0 640 640" class="w-full h-auto">
-                    {sphereDots.map(({ x, y, a }) => (
-                        <circle cx={x} cy={y} r="1.5" fill="var(--color-ink-0)" fill-opacity={a} />
-                    ))}
-                    <circle cx="424" cy="238" r="2.5" fill="var(--color-ink-0)" />
-                    <path d="M424 238 L500 200" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" fill="none" />
-                    <text x="506" y="196" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.1em;">gateway.kyde.com</text>
-                    <text x="506" y="212" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">52.52° N · 13.40° E</text>
-                </svg>
-            </div>
-            <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
-                <div class="mx-auto max-w-3xl text-center">
-                    <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Start with one process</p>
-                    <div class="mb-12 h-px bg-white/10"></div>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-8">
-                        One process today.<br />A workforce tomorrow.
-                    </h2>
-                    <p class="text-lg text-white/55 leading-relaxed mb-12 mx-auto max-w-2xl">
-                        Find one process. Build the worker. Run it. Then take the next one. Your models and your vendors will change. The record stays yours.
+                    <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Start with limited responsibility. Increase it as the worker proves it can operate reliably.</p>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
+                        Reading? Suggesting? Calling tools? Running workflows? Approving payments? Running unattended? Every one of those is a different amount of trust, and most organizations grant them all at once, on the day the agent is switched on, because there is nothing to grant them against.
                     </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button
-                            onclick="openModal()"
-                            class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
-                        >
-                            Start your audit →
-                        </button>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
+                        Kyde ties each step to the record. A rung is held because the record shows it was held, and a worker that stops producing that evidence comes back down. Six levels, L0 to L5, from a worker that only reads to one running unattended.
+                    </p>
+                    <!-- The level-by-level detail lives on /trust-score, beside the measurement
+                         that decides the level. Here it stays a summary. -->
+                    <!-- The staircase is asymmetric by nature, so without a frame and a pair
+                         of axes it floats. The plot frame gives it something to stand on. -->
+                    <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Autonomy is earned, not granted</span>
+                        <span class="fig-label">FIG.3</span>
+                    </div>
+                    <svg id="ladder-fig" viewBox="0 0 1000 268" class="w-full h-auto" aria-hidden="true">
+                        <!-- corner register marks, as on every other figure -->
+                        <path d="M6 21 L6 6 L21 6" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M979 6 L994 6 L994 21" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M6 247 L6 262 L21 262" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        <path d="M994 247 L994 262 L979 262" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+                        <!-- axes: autonomy climbs, evidence accumulates -->
+                        <line x1="28" y1="34" x2="28" y2="214" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
+                        <line x1="28" y1="214" x2="972" y2="214" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
+                        <text x="16" y="124" text-anchor="middle" transform="rotate(-90 16 124)" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">AUTONOMY</text>
+                        <text x="972" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">EVIDENCE OVER TIME</text>
+
+                        <!-- a grid line at each tread, so the steps read as levels and not as decoration -->
+                        {[206, 174, 142, 110, 78, 46].map((y) => (
+                            <line x1="28" y1={y} x2="972" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.10" stroke-width="1" stroke-dasharray="2 6" />
+                        ))}
+
+                        <!-- ticks where each level begins -->
+                        {[116, 270, 423, 576, 730, 883].map((x) => (
+                            <line x1={x} y1="214" x2={x} y2="220" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+                        ))}
+
+                        <!-- stairs -->
+                        <path d="M40 206 L193 206 L193 174 L347 174 L347 142 L500 142 L500 110 L653 110 L653 78 L807 78 L807 46 L960 46"
+                              fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
+                        <!-- step labels -->
+                        <text x="116" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L0</text>
+                        <text x="270" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L1</text>
+                        <text x="423" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L2</text>
+                        <text x="576" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L3</text>
+                        <text x="730" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L4</text>
+                        <text x="883" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L5</text>
+                        <text id="lad-sub-0" x="116" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">reads, suggests</text>
+                        <text id="lad-sub-1" x="270" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">calls tools</text>
+                        <text id="lad-sub-2" x="423" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">runs workflows</text>
+                        <text id="lad-sub-3" x="576" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">deploys code</text>
+                        <text id="lad-sub-4" x="730" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">approves payments</text>
+                        <text id="lad-sub-5" x="883" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">runs unattended</text>
+                        <!-- evidence ticks under current step -->
+                        <text id="lad-evidence" x="40" y="30" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">evidence window complete · promoted</text>
+                        <!-- the agent -->
+                        <rect id="lad-agent" x="112" y="197" width="8" height="8" fill="var(--color-ink-0)" />
+                        <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="116" cy="201" />
+                    </svg>
+                    <p class="mt-5 border-t border-white/10 pt-4 font-mono text-[10px] text-white/35 leading-relaxed">
+                        FIG.3 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
+                    </p>
                     </div>
                 </div>
+
+                <script>
+                    // FIG.3 · the ladder. The agent climbs one level per evidence
+                    // window; a green pulse marks the promotion. At the top it
+                    // holds, then a new agent starts at zero. Autonomy is earned.
+                    const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    const ladFig = document.getElementById("ladder-fig");
+
+                    if (ladFig && !ladReduced) {
+                        const agent = document.getElementById("lad-agent")!;
+                        const pulse = document.getElementById("lad-pulse")!;
+                        const evidence = document.getElementById("lad-evidence")!;
+                        const steps = [
+                            { x: 116, y: 206 }, { x: 270, y: 174 }, { x: 423, y: 142 },
+                            { x: 576, y: 110 }, { x: 730, y: 78 }, { x: 883, y: 46 },
+                        ];
+                        let level = 0;
+                        let phaseStart = performance.now() + 800;
+                        const DWELL = 2200, CLIMB = 700, HOLD_TOP = 3200;
+
+                        let visible = true;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ladFig);
+
+                        const put = (x: number, y: number) => {
+                            agent.setAttribute("x", String(x - 4));
+                            agent.setAttribute("y", String(y - 9));
+                        };
+
+                        function ladFrame(t: number) {
+                            if (visible) {
+                                const el = t - phaseStart;
+                                const atTop = level === steps.length - 1;
+                                const dwell = atTop ? HOLD_TOP : DWELL;
+
+                                if (el < dwell) {
+                                    put(steps[level].x, steps[level].y);
+                                } else if (el < dwell + CLIMB && !atTop) {
+                                    const pr = (el - dwell) / CLIMB;
+                                    const a = steps[level], b = steps[level + 1];
+                                    // step profile: first across, then up
+                                    if (pr < 0.5) {
+                                        put(a.x + (b.x - a.x) * (pr * 2), a.y);
+                                    } else {
+                                        put(b.x, a.y + (b.y - a.y) * ((pr - 0.5) * 2));
+                                    }
+                                } else {
+                                    if (atTop) {
+                                        level = 0;
+                                        put(steps[0].x, steps[0].y);
+                                    } else {
+                                        level++;
+                                        const stp = steps[level];
+                                        put(stp.x, stp.y);
+                                        pulse.setAttribute("cx", String(stp.x));
+                                        pulse.setAttribute("cy", String(stp.y - 5));
+                                        pulse.setAttribute("r", "6");
+                                        pulse.setAttribute("opacity", "0.8");
+                                        evidence.setAttribute("x", String(Math.min(stp.x - 90, 700)));
+                                        evidence.setAttribute("y", String(stp.y - 28));
+                                        evidence.setAttribute("fill-opacity", "0.8");
+                                    }
+                                    phaseStart = t;
+                                }
+
+                                // pulse + evidence fade
+                                const po = parseFloat(pulse.getAttribute("opacity") || "0");
+                                if (po > 0) {
+                                    pulse.setAttribute("opacity", String(Math.max(po - 0.012, 0)));
+                                    pulse.setAttribute("r", String(parseFloat(pulse.getAttribute("r")!) + 0.5));
+                                }
+                                const eo = parseFloat(evidence.getAttribute("fill-opacity") || "0");
+                                if (eo > 0) evidence.setAttribute("fill-opacity", String(Math.max(eo - 0.006, 0)));
+                            }
+                            requestAnimationFrame(ladFrame);
+                        }
+                        requestAnimationFrame(ladFrame);
+                    }
+                </script>
             </div>
         </section>
-    </main>
 
-    <Footer />
+    <!-- ══════════ 07 · SERVICES ══════════ -->
+    <!-- The second half of the company, stated once and stated late. A reader
+         who came for the layer should not meet a build service in the first
+         screen, and a reader who wants workers built should not have to guess
+         that we build them. Three steps, the same three the service page opens
+         with, so the two pages agree without repeating each other. -->
+    <section class="bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">07 · Services</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
+          And we build the workers that run on it.
+        </h2>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
+          Kyde is the layer. On top of it we build AI workers out of the processes your company already runs: captured with the people who do the work, built to your rules, running in your environment under the same identity, the same policy and the same record as everything else on the layer.
+        </p>
+        <div class="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:not(:first-child)]:md:pl-10 [&>*:not(:last-child)]:md:pr-10 mb-12">
+          <div>
+            <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-ember mb-4">01 <span class="text-ink-2">·</span> Find the work</span>
+            <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">Start with the work, not the AI.</h3>
+            <p class="text-base text-ink-1 leading-relaxed">An audit of one process area with the people who run it: what an AI worker can take today, what belongs in code, what is not reliable enough yet, and what stays with a person.</p>
+          </div>
+          <div>
+            <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-ember mb-4">02 <span class="text-ink-2">·</span> Build the worker</span>
+            <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">Built from how your company works.</h3>
+            <p class="text-base text-ink-1 leading-relaxed">Code where the steps are fixed, an AI worker where judgement is needed, a person where the decision carries weight. It stops instead of guessing when it meets something it has not seen.</p>
+          </div>
+          <div>
+            <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-ember mb-4">03 <span class="text-ink-2">·</span> Run the workforce</span>
+            <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">On this layer, from day one.</h3>
+            <p class="text-base text-ink-1 leading-relaxed">It runs in your environment under an identity of its own, inside policy, behind the data boundary, on the record. The automation and the control were built together, so there is nothing to make meet in the middle.</p>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="/services" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
+            Kyde AI Workers →
+          </a>
+          <a href="/audit" class="inline-flex items-center gap-2 border border-line-1 text-ink-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 hover:text-ink-0 transition-all">
+            Start your audit →
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- ══════════ CLOSING CTA ══════════ -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">The record belongs to you</p>
+          <div class="mb-12 h-px bg-line-0"></div>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8">
+            Your models will change.<br />Your record shouldn't.
+          </h2>
+          <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">
+            Models change, frameworks change, vendors change, people leave. Kyde sits in your layer rather than theirs. What matters on the day a provider disappears is whether your work keeps running and the record is still yours to produce.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+              Talk to us →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
 </Base>
-
-
