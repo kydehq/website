@@ -17,7 +17,7 @@ interface Props {
 const {
     title = "Kyde, AI Workers You Own and Run Yourself",
     description = "Kyde builds AI workers from the processes a company already runs, and runs them on a zero trust layer: identity, policy, data, limits and a hash-chained record of every action, in your own environment. Built for GDPR, EU AI Act, NIS-2 and DORA.",
-    image = "/og-image-v2.png",
+    image = "/og-image-v3.png",
     noindex = false,
 } = Astro.props;
 
@@ -70,18 +70,28 @@ const ogImage = new URL(image, Astro.site).href;
         )}
 
         <!-- Open Graph -->
+        <!-- The dimensions are declared rather than left to be discovered. A
+             crawler that has to fetch and measure the image before it can pick
+             a card layout will often render the small card, or a placeholder,
+             which is what X was doing. They are hardcoded because every page
+             shares one card; the day a page brings its own, they become props. -->
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Kyde" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalURL} />
         <meta property="og:image" content={ogImage} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="KYDE" />
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content="KYDE" />
 
         <!-- Favicon (?v=2 busts browser favicon caches still holding the pre-July design) -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
