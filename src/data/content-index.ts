@@ -30,9 +30,9 @@ export type GlossaryTerm = {
 
 export const ARTICLES: Article[] = [
     {
-        category: "Research · Complete Guide",
-        title: "Behavioral Drift in AI Agents: The Seven Forms and What Your Logs Can Show",
-        summary: "Seven distinct processes travel under one name, with different causes and different remedies. Drift is inherited between agents, models stop too early rather than too late, and in 72 percent of reward hacking cases the rationale sits in the reasoning trace. Which forms you can read out of your own call logs without access to the model, sorted by what each one costs.",
+        category: "Research · Note",
+        title: "Behavioral Drift in AI Agents: Seven Forms and What Your Logs Can Show",
+        summary: "Behavioral drift is not a single, well-defined phenomenon. At least seven related ways agent behavior can change, our synthesis rather than an established taxonomy: drift can be inherited between agents, agents can stop before the work is done, and reward hacking is related but different. Which signals are visible in production logs, at what cost, and where the evidence is still missing.",
         href: "/behavioral-drift",
     },
     {

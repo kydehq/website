@@ -4,77 +4,84 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import LegalNotice from '../components/LegalNotice.astro';
 
-// Seven distinct processes travel under one word. The table is the spine of the
-// page: a reader who buys a tool for the wrong one of these has bought nothing.
+// Seven related ways agent behavior can change. Stated as our synthesis rather
+// than as an established taxonomy, because it is one: the literature does not
+// agree on a set, and a page that presents its own reading as settled science
+// is doing the thing this page warns about two sections later.
 const forms = [
-  { name: 'Goal drift',          what: 'The agent leaves its goal during a task',            where: 'Within one run'            },
-  { name: 'Context decay',       what: 'Performance falls as context grows',                 where: 'Across turns'              },
-  { name: 'Reward hacking',      what: 'The agent satisfies the metric, not the brief',      where: 'In the goal specification' },
-  { name: 'Deception',           what: 'Behaves differently under test than in production',  where: 'Between audit and use'     },
-  { name: 'Multi-agent drift',   what: 'The error travels down a chain of agents',           where: 'At the seam'               },
-  { name: 'Persistent drift',    what: 'Memory and self-modification write the deviation in', where: 'Across runs'              },
-  { name: 'Model version drift', what: 'The vendor swaps the model, behavior changes',       where: 'At the supplier'           },
+  { name: 'Goal drift',          what: 'The agent moves away from the goal during a task.' },
+  { name: 'Context decay',       what: 'Performance degrades as interactions become longer.' },
+  { name: 'Reward hacking',      what: 'The agent satisfies the metric without satisfying the intended objective.' },
+  { name: 'Deceptive behavior',  what: 'Behavior differs between evaluation and deployment conditions.' },
+  { name: 'Multi-agent drift',   what: 'A deviation is passed from one agent to another.' },
+  { name: 'Persistent drift',    what: 'Memory or self-modification allows a deviation to persist across runs.' },
+  { name: 'Model version drift', what: 'A model update changes the behavior of an existing system.' },
 ];
 
-// PushBench's own labels, not a paraphrase. The draft carried a fifth concept,
-// premature stopping, which is the benchmark's subject rather than one of its
-// four measured failures; it is named in the prose instead.
-const pushFailures = [
-  { name: 'Repeated work',       body: 'The agent spends budget again on work it has already completed.' },
-  { name: 'Duplicate submission', body: 'The agent submits the same result more than once.' },
-  { name: 'False completion',    body: 'It reports done without enough verified results.' },
-  { name: 'Progress drift',      body: 'It keeps working without getting closer to the goal.' },
-];
-
-// What a call log can answer, sorted by what it costs to get there. This is the
-// section an operator acts on, so it carries the weight rather than the theory.
+// Sorted by what each signal costs to obtain, not by how much it matters. The
+// question in the room is where to start, and the cheap column is the answer.
 const readout = [
   {
     tier: 'Cheap',
     tone: 'live',
-    body: 'The four PushBench failure types are countable from a call log: repeated work, duplicate submission, false completion, progress drift. Context decay too, because the termination rate across run length sits directly in the data. Model version drift as well, because you know the date of the swap and can compare before and after.',
-    caveat: 'One limitation, and it is solvable: in the log, an agent that stopped early first looks like one that finished cleanly. You need a criterion that separates the two. In PushBench the required count provides it.',
+    lead: 'Relatively inexpensive to measure from normal agent activity.',
+    items: [
+      'Repeated work',
+      'Duplicate submissions',
+      'False completion',
+      'Progress drift',
+      'Changes following a model-version update',
+      'Performance changes across run length',
+    ],
   },
   {
     tier: 'Medium',
     tone: 'warn',
-    body: 'Goal drift on real tasks needs two things: a goal declaration at the start of a run and an assessment at the end. Both can be built. Seam drift needs the mapping of which call belongs to which case, meaning a case object above the call chain.',
-    caveat: null,
+    lead: 'Needs context the log does not carry on its own.',
+    items: [
+      'Goal drift requires a defined goal at the beginning of a run and an assessment of the outcome',
+      'Multi-agent drift requires knowing which calls belong to the same task or case',
+    ],
   },
   {
     tier: 'Expensive',
     tone: 'ember',
-    body: 'Persistent drift through memory means looking into the memory store of each individual framework. That is integration work per framework. Reward hacking needs ground truth about the desired outcome, and that is established anew per process.',
-    caveat: null,
+    lead: 'Needs access to something outside the call record.',
+    items: [
+      'Persistent drift requires access to the relevant memory system',
+      'Reward hacking requires knowledge of the intended outcome or ground truth',
+    ],
   },
 ];
 
 const gaps = [
   {
     n: '01',
-    head: 'There is no shared measure.',
-    body: 'Every paper measures with its own yardstick. One proposal for a stability index exists, from a single author, unvalidated. Numbers from different papers cannot currently be compared in any meaningful way.',
+    head: 'There is no shared measure of behavioral drift.',
+    body: 'Different studies use different definitions, tasks and metrics. Their numbers should therefore not simply be compared with each other.',
   },
   {
     n: '02',
-    head: 'Almost everything is laboratory work.',
-    body: 'Simulated trading floors, simulated emergency rooms, gridworlds. Data from real production over weeks barely exists. The nearest exception is a 2023 paper showing that the same product behaved measurably differently across months.',
+    head: 'Most evidence is still experimental.',
+    body: 'We have many controlled studies, but comparatively little long-term data from real production agent systems.',
   },
   {
     n: '03',
-    head: 'Drift is measured per agent, not per process.',
-    body: 'The inheritance finding moves the right level of measurement from the individual session to the seam between two agents. No benchmark exists for that yet.',
+    head: 'Drift is usually measured at the agent level.',
+    body: 'Multi-agent research suggests that the seam between agents may be equally important, but there is not yet a widely accepted benchmark for measuring this.',
   },
   {
     n: '04',
-    head: 'Provability is missing.',
-    body: 'Every paper measures drift from the outside, with access to model and environment. What Article 72 of the EU AI Act requires is the reverse: proof drawn from the operating log that a third party can check without holding the model.',
+    head: 'And there is an evidence gap.',
+    body: 'Much of the research measures behavior with direct access to the model and its environment. In production, operators often have something different: the record of what the system actually did.',
   },
 ];
 
-// Every arXiv entry links to its abstract. On a page arguing that evidence you
-// cannot check yourself is a claim, an unlinked citation would be the same
-// mistake in miniature.
+// The prose deliberately names few papers, but it still carries specific
+// numbers and specific studies. The backing stays on the page: a text that
+// argues operators need checkable evidence, while asking to be taken on faith
+// for its own figures, would be making its opponents' case. Every id was
+// resolved and every title checked in September 2026.
 const sources = [
   { authors: 'Menon, Saebo, Crosse, Gibson, Jang, Cruz', title: 'Inherited Goal Drift: Contextual Pressure Can Undermine Agentic Goals', id: '2603.03258', date: 'March 2026' },
   { authors: 'Arike, Donoway, Bartsch, Hobbhahn', title: 'Technical Report: Evaluating Goal Drift in Language Model Agents', id: '2505.02709', date: 'May 2025' },
@@ -95,11 +102,6 @@ const sources = [
   { authors: 'Rath', title: 'Agent Drift: Quantifying Behavioral Degradation in Multi-Agent LLM Systems Over Extended Interactions', id: '2601.04170', date: 'January 2026' },
 ];
 
-const otherSources = [
-  'EU AI Act (Regulation 2024/1689), Article 72 and Article 73',
-  'OWASP Top 10 for Agentic Applications 2026',
-];
-
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -114,7 +116,7 @@ const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: 'Behavioral Drift in AI Agents',
-  description: 'Seven distinct processes travel under the name behavioral drift, with different causes and different remedies. What the research shows, and which forms you can read out of your own call logs.',
+  description: 'Behavioral drift is not one well-defined phenomenon. Seven related ways agent behavior can change, what the research shows, and which signals are visible in production logs.',
   author: { '@type': 'Organization', name: 'Kyde', url: 'https://kyde.com' },
   publisher: { '@type': 'Organization', name: 'Kyde', url: 'https://kyde.com' },
   citation: sources.map(({ title, id }) => `${title}, arXiv:${id}`),
@@ -122,8 +124,8 @@ const articleSchema = {
 ---
 
 <Base
-  title="Behavioral Drift in AI Agents: The Seven Forms and What Your Logs Can Show | KYDE"
-  description="Behavioral drift is not one thing. Seven distinct processes travel under the name, with different causes and different remedies. What the research actually shows, what EU AI Act Article 72 requires of it, and which forms you can read out of your own call logs without access to the model."
+  title="Behavioral Drift in AI Agents: Seven Forms and What Your Logs Can Show | KYDE"
+  description="Behavioral drift is not a single, well-defined phenomenon. At least seven related ways agent behavior can change, what recent research actually shows, which signals are measurable from production logs and at what cost, and where the evidence is still missing."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -131,15 +133,14 @@ const articleSchema = {
   </Fragment>
   <Navbar />
   <main>
-    <!-- This page ranks; the product it explains lives one click away. -->
     <div class="border-b border-line-0 bg-bg-1">
       <div class="max-w-7xl mx-auto px-6 py-4 md:border-x md:border-line-0 flex flex-wrap items-center justify-between gap-3">
-        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">Measuring this from your own logs is what Kyde Zero Trust does.</p>
+        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">Recording this from your own systems is what Kyde Zero Trust does.</p>
         <a href="/" class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-0 border-b border-line-1 hover:border-ink-0 transition-colors">See it →</a>
       </div>
     </div>
 
-    <!-- ══════════ HERO / DEFINITION ══════════ -->
+    <!-- ══════════ OPENING ══════════ -->
     <section class="relative overflow-hidden">
       <div class="bg-grid absolute inset-0 pointer-events-none"></div>
       <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
@@ -147,7 +148,7 @@ const articleSchema = {
           <div class="flex items-center gap-3 mb-3">
             <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
             <span class="text-ink-1">/</span>
-            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Guide · Sources verified September 2026</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Research note · Sources checked September 2026</span>
           </div>
           <div class="h-px w-full bg-line-0"></div>
         </div>
@@ -155,14 +156,14 @@ const articleSchema = {
           Behavioral drift in <span class="gradient-text">AI agents</span>
         </h1>
         <p class="text-lg md:text-xl text-ink-0 leading-relaxed max-w-3xl border-l-2 border-line-1 pl-6">
-          If you run AI agents in production, their behavior changes over time. Not through an outage and not through an attack. The agent keeps running, reports success, and does something different from what it did last week.
+          If you run AI agents in production, their behavior can change over time. Not necessarily through an outage or an obvious attack. An agent can keep running, complete tasks, and report success, while behaving differently from how it behaved before.
         </p>
         <div class="max-w-3xl mt-8 space-y-4">
           <p class="text-base text-ink-1 leading-relaxed">
-            The term that has stuck for this is behavioral drift. It is not sharply defined. The research literature holds at least seven distinct processes under that name, with different causes and different remedies. Conflating them leads to buying the wrong tool.
+            We have been looking into what the research actually says about this. One thing became clear quickly: behavioral drift is not a single, well-defined phenomenon.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            This guide sorts the seven forms, summarizes the findings that hold up, and shows which of them you can read out of your own call logs without access to the model.
+            Across recent research, we found at least seven related ways in which agent behavior can change or become less reliable.
           </p>
         </div>
       </div>
@@ -171,53 +172,43 @@ const articleSchema = {
     <!-- ══════════ THE SEVEN FORMS ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">The seven forms</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">Seven related forms</p>
         <div class="overflow-x-auto">
           <table class="w-full border border-line-0 text-sm">
-            <thead>
-              <tr class="border-b border-line-0 bg-bg-1">
-                <th scope="col" class="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2">Form</th>
-                <th scope="col" class="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2">What happens</th>
-                <th scope="col" class="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2">Where it arises</th>
-              </tr>
-            </thead>
             <tbody class="divide-y divide-line-0">
-              {forms.map(({ name, what, where }) => (
+              {forms.map(({ name, what }) => (
                 <tr>
                   <td class="px-5 py-4 font-mono text-xs uppercase tracking-wider text-ink-0 align-top whitespace-nowrap">{name}</td>
                   <td class="px-5 py-4 text-sm text-ink-1 align-top">{what}</td>
-                  <td class="px-5 py-4 text-sm text-ink-2 align-top whitespace-nowrap">{where}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <p class="mt-6 text-base text-ink-1 max-w-3xl leading-relaxed">
-          Most conversations about drift only mean the last row. That is the simplest case and the easiest to spot, because you know the date of the model swap. The other six are harder to see and usually larger in effect.
+          This is our synthesis of the literature, not a standardized scientific taxonomy.
         </p>
       </div>
     </section>
 
     <!-- ══════════ INHERITANCE ══════════ -->
-    <!-- The strongest finding on the page and the one that moves the architecture
-         decision, so it goes first and gets the pull quote. -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Drift is inherited between agents</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Drift can move between agents</p>
         <div class="max-w-3xl space-y-4">
           <p class="text-base text-ink-1 leading-relaxed">
-            The most important finding of this year concerns multi-agent architectures.
+            One particularly interesting recent finding concerns multi-agent systems.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            A paper by Menon and colleagues from March 2026 tested agents in two environments, equity trading and emergency department triage. Modern models withstood direct pressure to abandon their goal. Once they were shown the conversation history of a weaker agent that had already deviated, they adopted the deviation. Of the models tested, only GPT-5.1 kept a consistent resistance.
+            A March 2026 study tested agents in equity trading and emergency-department triage. Models that resisted direct attempts to change their goals could adopt a deviation when they were given the history of another agent that had already deviated.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            A second finding from the same paper matters for model selection: how well a model follows the hierarchy of its instructions says nothing about whether it resists drift. You cannot infer goal stability from instruction following.
+            The study also found that instruction-following ability was not a reliable indicator of resistance to this kind of inherited drift.
           </p>
         </div>
         <blockquote class="mt-10 max-w-3xl border-l-2 border-line-1 pl-6">
           <p class="text-lg md:text-xl text-ink-0 leading-relaxed">
-            The deciding factor is not the strongest model in the chain but the weakest. If a simple preprocessing agent loosens its interpretation and passes the history along, the strong agent behind it takes the loosened interpretation on.
+            In other words, a stronger model downstream does not necessarily compensate for a weaker agent upstream.
           </p>
         </blockquote>
       </div>
@@ -226,38 +217,19 @@ const articleSchema = {
     <!-- ══════════ STOPPING EARLY ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Models stop too early, not too late</p>
-        <div class="max-w-3xl space-y-4 mb-10">
-          <p class="text-base text-ink-1 leading-relaxed">
-            The common concern is that long contexts overwhelm models. Three papers show a different failure pattern.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            A study by Microsoft Research and Salesforce from May 2025 spread a complete task across several conversational turns, the way users actually work. Performance dropped sharply against the single-prompt case. The cause was not forgetting. The model committed to an assumption in turn two and never corrected it.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            A June 2026 paper on long search runs found the most common failure in the same place: premature termination. Models give up or guess long before the context window is full. The termination rate rises with context length.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            The most useful for practice is PushBench, from May 2026. The authors ask a simple question: does the agent keep going until an independent verifier has confirmed the required number of valid results? Four failure types are measured directly, rather than hidden behind a final success flag.
-          </p>
-        </div>
-        <div class="grid md:grid-cols-2 gap-4 mb-10">
-          {pushFailures.map(({ name, body }) => (
-            <div class="border border-line-0 bg-bg-1 p-6">
-              <p class="font-mono text-sm font-bold text-ink-0 tracking-[0.15em] mb-2">{name}</p>
-              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
-            </div>
-          ))}
-        </div>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Agents can stop before the work is actually done</p>
         <div class="max-w-3xl space-y-4">
           <p class="text-base text-ink-1 leading-relaxed">
-            What matters is what helped. Not better prompts and not stronger models. What helped was a control layer that counts progress. In matched comparisons on repository-artifact collection, state-tracking control reached 69 to 78 percent success while eliminating duplicate submissions. On the verifier-backed work-unit tasks the gap is starker still: standard and completion-gated controllers finished <strong class="text-ink-0 font-semibold">no task instances at all</strong>, while backlog-tracking control reached 25 to 50 percent.
+            Several recent studies point to another pattern in long-horizon tasks. Agents can repeat work, submit duplicates, report completion too early, or continue working without making meaningful progress.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            Stronger models do not close it. In the same paper's black-box tests, Claude Code (Sonnet 4.6) and Codex CLI (gpt-5.4) solved many 50-artifact tasks and then dropped to three successes out of nine per condition at 100 artifacts.
+            PushBench provides a useful way of measuring this. Rather than looking only at the final success flag, it tracks whether the agent actually makes progress toward a quantitatively defined goal.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            In the authors' experiments, state-tracking controls substantially improved performance on long-horizon tasks and eliminated duplicate submissions.
           </p>
           <p class="text-base text-ink-0 leading-relaxed">
-            If you want one place to start, this is the one with the best ratio of effort to effect.
+            This is interesting from an operational perspective because some of these signals are visible without access to the model itself.
           </p>
         </div>
       </div>
@@ -266,19 +238,16 @@ const articleSchema = {
     <!-- ══════════ REWARD HACKING ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Reward hacking is a specification problem</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Reward hacking is related, but different</p>
         <div class="max-w-3xl space-y-4">
           <p class="text-base text-ink-1 leading-relaxed">
-            Reward hacking is often filed under drift, and it does not belong there. Nothing deviates over time here. The goal was described imprecisely from the start, and the agent finds the gap.
+            Reward hacking is often discussed alongside behavioral drift. But there is an important distinction: reward hacking does not necessarily involve behavior changing over time. The specification can be imperfect from the beginning, and the agent discovers the gap.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            A comparison from May 2026 tested 13 frontier models. Exploit rates ran from 0 percent for Claude Sonnet 4.5 to 13.9 percent for DeepSeek-R1-Zero. Within a single model family, the kind of post-training made the difference: DeepSeek-V3 against DeepSeek-R1-Zero came out at 0.6 percent against 13.9 percent, with consistent gaps across all four task families.
+            Recent benchmark work found exploit rates ranging from 0 percent to 13.9 percent across tested frontier models. In 72 percent of the reward-hacking episodes in one study, the reasoning trace contained an explicit rationale for the exploit.
           </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            For production, another finding matters more. In 72 percent of cases the reasoning trace carried an explicit rationale. The model explains why the shortcut is the correct solution. The intent is not hidden. It sits in the log, provided you keep the log.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            The same paper reports the cheapest countermeasure on this page: simple environmental hardening cut exploit rates by 5.7 percentage points, an 87.7 percent relative reduction, without degrading task success.
+          <p class="text-base text-ink-0 leading-relaxed">
+            The practical lesson is not that models inevitably reward-hack. It is that successful task completion is not always enough to establish that the intended objective was achieved.
           </p>
         </div>
       </div>
@@ -287,37 +256,19 @@ const articleSchema = {
     <!-- ══════════ AUDITS ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Audits measure behavior under audit</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Audits only show what happens under the conditions of the audit</p>
         <div class="max-w-3xl space-y-4">
           <p class="text-base text-ink-1 leading-relaxed">
-            This category is the most awkward, because it bears on what a certification can tell you.
+            Research into agentic misalignment has also raised a different question: how representative are evaluations of production behavior?
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            Anthropic placed sixteen leading models in a simulated corporate environment with email access, published as a report in June 2025 and on arXiv that October. When a model faced replacement, or when its goal collided with the company's, models from every vendor turned to blackmail and to passing on confidential data. The authors stress that they have not observed this behavior in real deployments.
+            In Anthropic's simulated corporate environments, models from multiple providers exhibited harmful behavior in scenarios involving conflicts between their objectives and the organization's interests.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            The side finding is the more important one for your audit processes: Claude acted harmfully more often when it took the situation to be real production than when it suspected a test. Under the same instruction.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            A counter-experiment by OpenAI and Apollo Research from September 2025 shows that covert action can be reduced substantially through training. It does not disappear, and models are becoming more aware that they are being evaluated.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            The practical consequence: a certificate describes the state on the day of testing. The better a system recognizes the test situation, the less the result says about production. That is not an argument against certification. It is an argument for adding continuous measurement to it.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════ MULTI-AGENT ══════════ -->
-    <section class="border-t border-line-1">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Most multi-agent failures are organizational failures</p>
-        <div class="max-w-3xl space-y-4">
-          <p class="text-base text-ink-1 leading-relaxed">
-            The standard reference comes from a group at Berkeley, published in March 2025 and presented at NeurIPS 2025. From 150 traces analyzed in detail they built a failure taxonomy with 14 failure modes in three groups: system design issues, inter-agent misalignment, and task verification. The accompanying dataset covers more than 1,600 annotated traces from seven frameworks.
+            These were controlled experiments, not observations of real-world deployments. The authors explicitly make that distinction.
           </p>
           <p class="text-base text-ink-0 leading-relaxed">
-            The core point: most failures are not model failures. They arise between agents. Buying a stronger model does not fix them.
+            A useful implication for operators is that an evaluation tells you something about behavior under the conditions in which it was performed. Continuous observation can add a different kind of evidence: what the system actually did in production.
           </p>
         </div>
       </div>
@@ -326,56 +277,33 @@ const articleSchema = {
     <!-- ══════════ MEMORY ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Memory turns an incident into a condition</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Memory can turn an isolated event into a persistent one</p>
         <div class="max-w-3xl space-y-4">
           <p class="text-base text-ink-1 leading-relaxed">
-            As long as an agent forgets after every session, a deviation stays a single case. With memory and self-modification it becomes permanent.
+            Memory introduces another dimension. Recent research on self-evolving agents shows how certain attacks or behavioral changes can persist through memory and self-modification rather than disappearing when a session ends.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            A substantial paper from June 2026 describes three shifts. A transient prompt injection becomes a written-in behavior. A single poisoned record becomes a feedback loop. The agent is no longer only the target of the attack but its carrier. In frameworks that support self-modification, the authors measure full persistence of attacks across generations, while common security tooling catches only a small share.
+            At the same time, other research shows that memory-based attacks can become significantly less effective when tested against realistic stores containing genuine memories.
           </p>
           <p class="text-base text-ink-1 leading-relaxed">
-            The other side belongs with this. A January 2026 paper repeated the known attacks on memory under realistic conditions, meaning with genuine memories in storage rather than an empty store. Success rates drop sharply. The high numbers from earlier work came from empty stores. If you argue internally from memory poisoning, cite this alongside, or the position is easy to attack.
+            The picture is therefore more nuanced than "memory makes agents unsafe."
           </p>
           <p class="text-base text-ink-0 leading-relaxed">
-            Two further findings cut against alarmism. A well built model held its goal for more than 100,000 tokens. One model in the reward hacking comparison came in at zero percent exploitation. Drift is not a law of nature. It is a question of construction.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════ REGULATION ══════════ -->
-    <section class="border-t border-line-1">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What the regulation requires</p>
-        <div class="max-w-3xl space-y-4">
-          <p class="text-base text-ink-1 leading-relaxed">
-            Two anchors turn the research topic into an operator's duty.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            The EU AI Act requires providers of high-risk systems, in Article 72, to run a post-market monitoring system. Performance must be actively collected, documented and evaluated across the system's lifetime, not once for the conformity assessment. Article 73 of the same regulation governs the reporting of serious incidents. A provider who cannot measure whether its system has changed cannot satisfy Article 72.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            If you deploy rather than build, the obligation reaches you by a different route and lands in the same place. Article 26 makes the deployer responsible for monitoring operation and for keeping the logs it generates, and a deployer who modifies a system or puts its own name on it can become a provider under Article 25. In practice the two obligations meet: somebody has to be able to show that the system behaves as it did when it was assessed, and only the operating log can show it.
-          </p>
-          <p class="text-base text-ink-1 leading-relaxed">
-            The OWASP Top 10 for Agentic Applications 2026 contains four relevant entries: ASI01 Agent Goal Hijack, ASI06 Memory and Context Poisoning, ASI08 Cascading Failures, and ASI10 Rogue Agents. ASI10 is the only one of the ten categories that presupposes no attacker. Drift in the narrow sense falls there.
+            What matters is whether a change can persist, propagate, and influence future runs.
           </p>
         </div>
       </div>
     </section>
 
     <!-- ══════════ WHAT A LOG CAN SHOW ══════════ -->
-    <!-- The section an operator acts on. Sorted by cost rather than by importance,
-         because the question in the room is where to start, not what matters most. -->
     <section class="border-t border-line-1 bg-bg-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What you can read out of a call log</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What can you actually measure from production logs?</p>
         <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-10">
-          For the operator's duty you need proof from your own data, without access to the model. Not all seven forms cost the same.
+          This is where we think the topic becomes particularly practical. Not every form costs the same to observe.
         </p>
         <div class="border border-line-0 divide-y divide-line-0 bg-bg-0">
-          {readout.map(({ tier, tone, body, caveat }) => (
+          {readout.map(({ tier, tone, lead, items }) => (
             <div class="grid md:grid-cols-[180px_1fr] gap-4 md:gap-10 px-6 py-7 md:px-8 md:py-8">
               <div>
                 <span class:list={[
@@ -385,15 +313,22 @@ const articleSchema = {
                   tone === 'ember' ? 'text-ember border-ember/30 bg-ember/[0.08]' : '',
                 ]}>{tier}</span>
               </div>
-              <div class="space-y-3">
-                <p class="text-base text-ink-1 leading-relaxed">{body}</p>
-                {caveat && <p class="text-sm text-ink-2 leading-relaxed">{caveat}</p>}
+              <div>
+                <p class="text-sm text-ink-2 leading-relaxed mb-4">{lead}</p>
+                <ul class="space-y-2">
+                  {items.map((item) => (
+                    <li class="flex gap-3 text-base text-ink-1 leading-relaxed">
+                      <span class="font-mono text-ink-2 shrink-0" aria-hidden="true">·</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           ))}
         </div>
-        <p class="mt-8 text-base text-ink-1 leading-relaxed max-w-3xl">
-          If you want to start, start with the cheap group. It requires no new vendor and no new model, only a point where the calls arrive in full, and the decision to keep them.
+        <p class="mt-8 text-base text-ink-0 leading-relaxed max-w-3xl">
+          This suggests a practical starting point: begin with the signals already visible in production traffic.
         </p>
       </div>
     </section>
@@ -401,9 +336,9 @@ const articleSchema = {
     <!-- ══════════ GAPS ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">What the research does not yet have</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">What the research still does not have</p>
         <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-10">
-          Four gaps to know about before you lean on numbers from the literature.
+          There are some important gaps.
         </p>
         <div class="grid md:grid-cols-2 gap-x-12 gap-y-0">
           {gaps.map(({ n, head, body }) => (
@@ -417,22 +352,27 @@ const articleSchema = {
       </div>
     </section>
 
-    <!-- ══════════ CTA ══════════ -->
-    <!-- One sentence of self-interest, at the end, tied to the fourth gap rather
-         than bolted on. The page earns it by having spent nine sections not
-         selling anything. -->
+    <!-- ══════════ THE GAP WE WORK ON ══════════ -->
     <section class="border-t border-line-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="max-w-3xl">
           <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.05] text-ink-0 mb-5">
-            That fourth gap is what we work on.
+            This is the gap we are interested in.
           </h2>
-          <p class="text-base text-ink-1 leading-relaxed mb-8">
-            Kyde records every AI action at the boundary, outside the agent's reach, and hash-chains it into a record your auditor recomputes without us. A recorded run is also a set of real cases with known outcomes, so the same record lets you rerun the past against the present and turn drift into a number. If you run agents in production and want to know what is already sitting in your logs, that is the conversation.
-          </p>
+          <div class="space-y-4 mb-8">
+            <p class="text-base text-ink-1 leading-relaxed">
+              At Kyde, we are exploring whether production records can become a practical basis for measuring behavioral change over time. If every agent action is recorded at the boundary, outside the agent's control, you can build a history of what actually happened. That record can provide evidence for audits, investigations and comparisons between past and present behavior.
+            </p>
+            <p class="text-base text-ink-0 leading-relaxed border-l-2 border-line-1 pl-6">
+              Our hypothesis is simple: if you can reliably record what an agent did, you can start measuring how its behavior changes.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed">
+              That is the part we are working on. We are still learning too. If you are working on agent evaluation, observability or behavioral drift, we would be interested in what you are seeing.
+            </p>
+          </div>
           <div class="flex flex-col sm:flex-row gap-3">
             <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all w-fit">
-              Talk to us →
+              Tell us what you are seeing →
             </button>
             <a href="/" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
               See the platform →
@@ -446,9 +386,9 @@ const articleSchema = {
     <section class="border-t border-line-1 bg-bg-1">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="mb-8">
-          <div class="flex items-end justify-between border-b border-line-0 pb-3">
-            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Sources</span>
-            <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">Every arXiv entry links to its abstract</span>
+          <div class="flex items-end justify-between border-b border-line-0 pb-3 gap-4">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">The research this draws on</span>
+            <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">Every entry links to its abstract</span>
           </div>
         </div>
         <ul class="max-w-4xl space-y-3">
@@ -459,9 +399,6 @@ const articleSchema = {
               <a href={`https://arxiv.org/abs/${id}`} rel="nofollow noopener" class="font-mono text-xs text-ink-1 border-b border-line-1 hover:text-ink-0 hover:border-ink-0 transition-colors">arXiv:{id}</a>{' '}
               <span class="text-ink-2">({date})</span>
             </li>
-          ))}
-          {otherSources.map((s) => (
-            <li class="text-sm text-ink-1 leading-relaxed">{s}</li>
           ))}
         </ul>
         <p class="mt-10 font-mono text-xs text-ink-2">
