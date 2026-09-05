@@ -2,59 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import { GLOSSARY_TERMS } from '../../data/content-index';
 
-const terms = [
-  {
-    term: "AI Agent Governance",
-    slug: "ai-agent-governance",
-    teaser: "The infrastructure that controls what agents may do, enforces it at runtime, and produces verifiable evidence.",
-  },
-  {
-    term: "Behavioral Firewall",
-    slug: "behavioral-firewall",
-    teaser: "Enforcement between agents and the systems they act on: what is not allowed does not execute.",
-  },
-  {
-    term: "Observability vs Governance",
-    slug: "agent-observability-vs-governance",
-    teaser: "Telemetry describes behavior after the fact; governance constrains it before execution. The difference, side by side.",
-  },
-  {
-    term: "AI Agent Audit Trail",
-    slug: "ai-agent-audit-trail",
-    teaser: "A tamper-evident record of every action across six dimensions: who, what, when, where, why, how.",
-  },
-  {
-    term: "Agent Attestation",
-    slug: "agent-attestation",
-    teaser: "Signed, verifiable proof that an agent operated within its mandate, checkable by third parties without raw data.",
-  },
-  {
-    term: "Trust Score for AI Agents",
-    slug: "ai-agent-trust-score",
-    teaser: "A behavioral rating of the deployed agent, normalized across providers. Conduct, not capability.",
-  },
-  {
-    term: "Levels of Agent Autonomy",
-    slug: "agent-autonomy-levels",
-    teaser: "The ladder from read-only to self-directed, and why promotion should be earned with evidence.",
-  },
-  {
-    term: "Human-in-the-Loop Approval",
-    slug: "human-in-the-loop-ai-agents",
-    teaser: "Explicit human sign-off before designated actions execute, and why it must be recorded to count.",
-  },
-  {
-    term: "AI Governance Proxy (AI Gateway)",
-    slug: "ai-governance-proxy",
-    teaser: "One network control point for the agent traffic you route through it: identity, policy, evidence, zero code changes.",
-  },
-  {
-    term: "Knowledge Egress",
-    slug: "knowledge-egress",
-    teaser: "The continuous outflow of proprietary information through AI usage, invisible to classic DLP.",
-  },
-];
+const terms = GLOSSARY_TERMS;
 
 const termSetSchema = {
   "@context": "https://schema.org",

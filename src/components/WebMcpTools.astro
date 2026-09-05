@@ -1,0 +1,199 @@
+---
+// WebMCP: the two things an agent can do on this site, declared rather than
+// guessed at from the DOM.
+//
+// Both are read-only, and that is the whole point of starting here. The site's
+// only consequential action is the contact form, and an unauthenticated,
+// agent-callable form submission on a company that sells "every agent action
+// needs identity, policy and a record" would argue against us better than any
+// competitor could. If that ever ships it ships behind a confirmation step,
+// which the spec supports and which is the interesting part, not an add-on.
+//
+// The API is mid-migration: the getter moved from `navigator.modelContext` to
+// `document.modelContext` in the May 2026 spec draft, on the reasoning that
+// tools belong to a page rather than to the browser, and Chrome deprecated the
+// old name in 150. Chrome 146-149 only has the old one. So: detect both, use
+// whichever exists, and treat neither existing as the normal case, because for
+// almost every visitor it is. Everything here is progressive enhancement — no
+// visitor without the API pays more than one property lookup.
+//
+// Status when written (September 2026): W3C Web Machine Learning Community
+// Group, not yet on the standards track, Chrome-only, behind an origin trial
+// token in production and `chrome://flags/#enable-webmcp-testing` locally.
+// Expect to revisit this file when it stabilizes.
+---
+
+<script>
+  type ToolResult = { content: Array<{ type: "text"; text: string }> };
+
+  type IndexEntry = { title: string; url: string; kind: string; summary: string };
+  type SiteIndex = { count: number; entries: IndexEntry[] };
+
+  // The registry is not in lib.dom yet, and the shape differs between the two
+  // names, so this is the one place that reaches for `any`. Everything past the
+  // guard is ordinary typed code.
+  type ModelContext = {
+    registerTool?: (descriptor: unknown) => Promise<unknown> | unknown;
+  };
+
+  const registry: ModelContext | undefined =
+    (document as unknown as { modelContext?: ModelContext }).modelContext ??
+    (navigator as unknown as { modelContext?: ModelContext }).modelContext;
+
+  if (registry && typeof registry.registerTool === "function") {
+    // Fetched on first tool call, not on page load. A visitor who never gets
+    // asked a question never pays for the index.
+    let cached: Promise<SiteIndex> | null = null;
+    const loadIndex = (): Promise<SiteIndex> =>
+      (cached ??= fetch("/site-index.json").then((r) => {
+        if (!r.ok) throw new Error(`site-index.json: ${r.status}`);
+        return r.json() as Promise<SiteIndex>;
+      }));
+
+    const text = (s: string): ToolResult => ({ content: [{ type: "text", text: s }] });
+
+    const render = (e: IndexEntry) => `${e.title}\n${e.url}\n${e.kind} — ${e.summary}`;
+
+    // Without this, a question phrased as a question scores worse than a bare
+    // keyword: "what does the audit cost" let `the` and `does` match nearly
+    // every summary on the site and flatten the ranking. Length alone does not
+    // catch them — `the` is three characters, same as `EU AI Act` is not.
+    //
+    // "kyde" is deliberately NOT in here, though it appears on every page. It
+    // was, briefly, and that made "what is Kyde" — the likeliest question an
+    // agent arrives with — return nothing at all. Kept in, it does the right
+    // thing on its own: the pages with Kyde in the title are the product pages,
+    // and the title weight floats them to the top.
+    const STOPWORDS = new Set([
+      "the", "and", "for", "are", "but", "not", "you", "your", "our", "with",
+      "what", "when", "where", "which", "who", "why", "how", "does", "did",
+      "can", "should", "would", "will", "from", "into", "about", "that", "this",
+      "there", "their", "them", "have", "has", "had", "was", "were", "been",
+      "any", "all", "get", "use", "using", "than", "then",
+    ]);
+
+    // Deliberately a plain term-frequency score rather than anything cleverer.
+    // Forty-three entries do not need an index structure, and a scoring rule a
+    // reader can hold in their head is one that can be argued with when it
+    // ranks something oddly. It ranks by word overlap, not by meaning: a query
+    // whose words do not appear on the page it wants will miss it.
+    const score = (entry: IndexEntry, terms: string[]): number => {
+      const title = entry.title.toLowerCase();
+      const kind = entry.kind.toLowerCase();
+      const summary = entry.summary.toLowerCase();
+      let n = 0;
+      for (const t of terms) {
+        if (title.includes(t)) n += 3;
+        if (kind.includes(t)) n += 2;
+        if (summary.includes(t)) n += 1;
+      }
+      return n;
+    };
+
+    const searchTool = {
+      name: "search_kyde_content",
+      description:
+        "Search kyde.com for pages about AI agent governance, zero trust for AI, the EU AI Act, audit trails, behavioral drift and related topics. Returns matching page titles, URLs and summaries. Read-only: it retrieves published content and changes nothing.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description:
+              "What to look for, in words. For example 'EU AI Act logging obligations', 'behavioral drift', 'how the audit works', or 'zero trust for agents'.",
+          },
+          limit: {
+            type: "number",
+            description: "Maximum number of results to return. Defaults to 6, capped at 20.",
+          },
+        },
+        required: ["query"],
+      },
+      async execute({ query, limit }: { query?: string; limit?: number }): Promise<ToolResult> {
+        const q = (query ?? "").trim();
+        if (!q) return text("Give me something to search for.");
+
+        const index = await loadIndex();
+        const terms = q
+          .toLowerCase()
+          .split(/[^a-z0-9]+/)
+          .filter((t) => t.length > 2 && !STOPWORDS.has(t));
+        if (terms.length === 0) {
+          return text(
+            `Nothing searchable in "${q}" — it is all common words. Try the distinctive terms: 'behavioral drift', 'EU AI Act audit trail', 'agent autonomy levels'.`,
+          );
+        }
+
+        const cap = Math.min(Math.max(Math.trunc(limit ?? 6) || 6, 1), 20);
+        const hits = index.entries
+          .map((entry) => ({ entry, n: score(entry, terms) }))
+          .filter(({ n }) => n > 0)
+          .sort((a, b) => b.n - a.n)
+          .slice(0, cap);
+
+        if (hits.length === 0) {
+          return text(
+            `Nothing on kyde.com matched "${q}". The full prose index is at https://kyde.com/llms.txt and the machine-readable one at https://kyde.com/site-index.json.`,
+          );
+        }
+
+        return text(
+          `${hits.length} of ${index.count} pages on kyde.com matched "${q}":\n\n` +
+            hits.map(({ entry }) => render(entry)).join("\n\n"),
+        );
+      },
+    };
+
+    const glossaryTool = {
+      name: "get_kyde_glossary_term",
+      description:
+        "Look up how Kyde defines a term of art in AI agent governance — for example behavioral firewall, agent attestation, knowledge egress, agent autonomy levels, or AI agent audit trail. Returns the definition and a link to the full entry. Read-only.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          term: {
+            type: "string",
+            description: "The term to define, for example 'behavioral firewall' or 'knowledge egress'.",
+          },
+        },
+        required: ["term"],
+      },
+      async execute({ term }: { term?: string }): Promise<ToolResult> {
+        const wanted = (term ?? "").trim().toLowerCase();
+        if (!wanted) return text("Which term?");
+
+        const index = await loadIndex();
+        const glossary = index.entries.filter((e) => e.kind.startsWith("Glossary"));
+        const all = glossary.map((e) => e.title).join(", ");
+
+        const exact = glossary.find((e) => e.title.toLowerCase() === wanted);
+        const partial =
+          exact ??
+          glossary.find((e) => e.title.toLowerCase().includes(wanted)) ??
+          glossary.find((e) => wanted.includes(e.title.toLowerCase()));
+
+        if (!partial) {
+          return text(`Kyde's glossary does not define "${term}". It defines: ${all}.`);
+        }
+
+        return text(
+          `${partial.title}\n\n${partial.summary}\n\nFull entry: ${partial.url}\n\nOther defined terms: ${all}.`,
+        );
+      },
+    };
+
+    // registerTool is async and per-tool since the spec dropped
+    // provideContext({tools}). A rejection here must stay contained: this is an
+    // experimental API on a marketing page, and it does not get to break the
+    // page's other scripts if its shape moves again. Not awaited — top-level
+    // await is not available inside this guard, and nothing below depends on
+    // registration having finished.
+    for (const tool of [searchTool, glossaryTool]) {
+      try {
+        Promise.resolve(registry.registerTool(tool)).catch(() => {});
+      } catch {
+        /* API present but shaped differently than this build expects */
+      }
+    }
+  }
+</script>

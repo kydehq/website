@@ -5,6 +5,7 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import DemoModal from "../components/DemoModal.astro";
 import CookieBanner from "../components/CookieBanner.astro";
+import WebMcpTools from "../components/WebMcpTools.astro";
 
 interface Props {
     title?: string;
@@ -98,6 +99,7 @@ const ogImage = new URL(image, Astro.site).href;
         <DemoModal />
         <slot />
         <CookieBanner />
+        <WebMcpTools />
         <script>
             // Scroll reveal (design doc §6) · staggered, once, JS-progressive
             const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
