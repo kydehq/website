@@ -1,5 +1,6 @@
 ---
 import { alternatesFor, localeOf } from "../data/locales";
+import { entryForPath, ogSlug } from "../data/content-index";
 import "../styles/global.css";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
@@ -17,11 +18,21 @@ interface Props {
 const {
     title = "Kyde, AI Workers You Own and Run Yourself",
     description = "Kyde builds AI workers from the processes a company already runs, and runs them on a zero trust layer: identity, policy, data, limits and a hash-chained record of every action, in your own environment. Built for GDPR, EU AI Act, NIS-2 and DORA.",
-    image = "/og-image-v3.png",
+    image,
     noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+
+// Link preview card. Pages listed in the content index get one drawn with their
+// own title at /og/<slug>.png; everything else falls back to the wordmark card.
+// A page can still override with the `image` prop, and none currently does.
+//
+// The alt text follows the same split: a card that says something deserves to
+// say it to a reader who cannot see it.
+const indexed = entryForPath(Astro.url.pathname);
+const cardPath = image ?? (indexed ? `/og/${ogSlug(indexed.href)}.png` : "/og-image-v3.png");
+const cardAlt = !image && indexed ? indexed.title : "KYDE";
 
 // Language and its counterparts come from the URL and one shared table, not
 // from per-page props, so a page cannot claim a counterpart that does not
@@ -29,7 +40,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 const locale = localeOf(Astro.url.pathname);
 const alternates = alternatesFor(Astro.url.pathname);
 const hasAlternates = Object.keys(alternates).length > 0;
-const ogImage = new URL(image, Astro.site).href;
+const ogImage = new URL(cardPath, Astro.site).href;
 ---
 
 <!doctype html>
@@ -84,14 +95,14 @@ const ogImage = new URL(image, Astro.site).href;
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="KYDE" />
+        <meta property="og:image:alt" content={cardAlt} />
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
-        <meta name="twitter:image:alt" content="KYDE" />
+        <meta name="twitter:image:alt" content={cardAlt} />
 
         <!-- Favicon (?v=2 busts browser favicon caches still holding the pre-July design) -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />

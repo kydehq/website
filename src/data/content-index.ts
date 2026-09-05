@@ -340,3 +340,85 @@ export const KEY_PAGES: Article[] = [
     href: "/faq",
   },
 ];
+
+// One flat list, derived from the four above. Three readers now: the JSON index
+// at /site-index.json, the per-page card images at /og/<slug>.png, and the
+// WebMCP search that reads the JSON. Deriving it here rather than in each of
+// them is the same rule the file opens with.
+export type IndexEntry = {
+  title: string;
+  href: string;
+  kind: string;
+  summary: string;
+};
+
+const asEntries = (rows: Article[], kind: string): IndexEntry[] =>
+  rows.map(({ title, summary, href, category }) => ({
+    title,
+    href,
+    kind: `${kind} · ${category}`,
+    summary,
+  }));
+
+export const ALL_ENTRIES: IndexEntry[] = [
+  ...asEntries(KEY_PAGES, "Page"),
+  ...asEntries(ARTICLES, "Article"),
+  ...asEntries(GUIDES, "Guide"),
+  ...GLOSSARY_TERMS.map(({ term, slug, teaser }) => ({
+    title: term,
+    href: `/glossary/${slug}`,
+    kind: "Glossary",
+    summary: teaser,
+  })),
+];
+
+// German pages get a card but not an index entry. The JSON index and the WebMCP
+// search are the English site; dropping four German rows into them would put
+// results a caller cannot read in front of an English question. A shared card
+// image has no such problem, and a German article showing the generic wordmark
+// while its English counterpart shows its own title is exactly the asymmetry
+// the locale pairing exists to avoid.
+export const DE_PAGES: IndexEntry[] = [
+  {
+    title: "Wissen",
+    href: "/de/wissen",
+    kind: "Wissen",
+    summary: "Der deutschsprachige Wissens-Cluster.",
+  },
+  {
+    title: "Behavioral Drift bei AI Agents",
+    href: "/de/wissen/behavioral-drift",
+    kind: "Wissen · Forschung",
+    summary: "Sieben verwandte Formen, in denen sich Agent-Verhalten verändern kann.",
+  },
+  {
+    title: "Souveräne KI: eine Bestandsaufnahme",
+    href: "/de/wissen/souveraene-ki",
+    kind: "Wissen · Markt",
+    summary: "Wo sich Souveränität entscheidet, und wo nicht.",
+  },
+  {
+    title: "Qualifizierte elektronische Journale",
+    href: "/de/wissen/qualifiziertes-elektronisches-journal",
+    kind: "Wissen · Regulatorik",
+    summary: "Was die Durchführungsverordnung verlangt und wer sie bislang erfüllt.",
+  },
+];
+
+/** Everything that gets a card image of its own. Not the search index. */
+export const CARD_PAGES: IndexEntry[] = [...ALL_ENTRIES, ...DE_PAGES];
+
+// A path becomes a filename: "/" is home, everything else flattens its slashes.
+// Kept trivial and reversible on purpose — the card for a page has to be
+// findable from the page's own URL, at build time, with no lookup table.
+export const ogSlug = (href: string): string => {
+  const trimmed = href.replace(/^\/+|\/+$/g, "");
+  return trimmed === "" ? "home" : trimmed.replace(/\//g, "-");
+};
+
+/** The entry a URL belongs to, or undefined when the page is not in the index. */
+export const entryForPath = (pathname: string): IndexEntry | undefined => {
+  const norm = (p: string) => "/" + p.replace(/^\/+|\/+$/g, "");
+  const want = norm(pathname);
+  return CARD_PAGES.find((e) => norm(e.href) === want);
+};
