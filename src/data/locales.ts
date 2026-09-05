@@ -28,6 +28,12 @@ export type LocalePair = {
 // carefully. Nothing goes in here without a reason in `note`.
 export const LOCALE_PAIRS: LocalePair[] = [
   {
+    en: "behavioral-drift",
+    de: "de/wissen/behavioral-drift",
+    sourceHash: "01b259080f895f87",
+    note: "Dieselbe Argumentation in zwei Sprachen, nicht zwei eigenständige Texte: die Befunde sind dieselben und jede Zahl ist gegen dieselbe Arbeit geprüft. Übersetzt wird sie, weil sie an Forschung und an Artikel 72 hängt statt an unserem Produkt, also selten veraltet, und weil KI-MIG und BaFin deutsches Publikum sind.",
+  },
+  {
     en: "qualified-electronic-ledger",
     de: "de/wissen/qualifiziertes-elektronisches-journal",
     sourceHash: "830e44e3fc98efc1",

@@ -1,0 +1,466 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung des englischen Guides /behavioral-drift. Anders als bei den
+// beiden anderen Wissens-Artikeln ist das hier tatsächlich dieselbe Argumentation
+// in zwei Sprachen und nicht zwei eigenständige Texte, weil die Befunde dieselben
+// sind. Deshalb steht das Paar in LOCALE_PAIRS mit gesetztem Hash: läuft die
+// englische Seite weiter, muss diese mit.
+//
+// Jede Zahl auf dieser Seite ist gegen das Abstract oder den Volltext der
+// jeweiligen Arbeit geprüft, und jede arXiv-Nummer verlinkt auf deren
+// Zusammenfassung. Auf einer Seite, die verlangt, dass man Belege selbst
+// nachrechnen kann, wäre eine unverlinkte Quellenangabe derselbe Fehler im
+// Kleinen.
+
+const stand = "2026-09-05";
+const pageTitle = "Behavioral Drift bei KI-Agenten";
+
+const formen = [
+  { name: "Goal Drift",            was: "Der Agent verlässt sein Ziel im Lauf einer Aufgabe",           wo: "In einem Lauf"          },
+  { name: "Kontextzerfall",        was: "Die Leistung sinkt, je länger der Kontext wird",               wo: "Über Gesprächsrunden"   },
+  { name: "Reward Hacking",        was: "Der Agent erfüllt die Messgröße, nicht den Auftrag",           wo: "In der Zielbeschreibung" },
+  { name: "Täuschung",             was: "Verhält sich in der Prüfung anders als im Betrieb",            wo: "Zwischen Prüfung und Einsatz" },
+  { name: "Multi-Agenten-Drift",   was: "Der Fehler wandert durch eine Kette von Agenten",              wo: "An der Nahtstelle"      },
+  { name: "Persistenter Drift",    was: "Gedächtnis und Selbstveränderung schreiben die Abweichung fest", wo: "Über Läufe hinweg"    },
+  { name: "Modellversions-Drift",  was: "Der Anbieter tauscht das Modell, das Verhalten ändert sich",   wo: "Beim Zulieferer"        },
+];
+
+// Die Labels des Papers, keine Umschreibung. Der Entwurf führte als vierte Art
+// den vorzeitigen Abbruch, der aber der Gegenstand des Benchmarks ist und nicht
+// eine seiner vier gemessenen Fehlerarten; er steht jetzt im Fließtext.
+const pushFehler = [
+  { name: "Wiederholte Arbeit",   text: "Der Agent verbraucht erneut Budget für Arbeit, die bereits erledigt ist." },
+  { name: "Doppelte Einreichung", text: "Der Agent reicht dasselbe Ergebnis mehrfach ein." },
+  { name: "Falsche Erfolgsmeldung", text: "Er meldet fertig, ohne dass genug geprüfte Ergebnisse vorliegen." },
+  { name: "Fortschrittsdrift",    text: "Er arbeitet weiter, ohne dem Ziel näher zu kommen." },
+];
+
+const ablesbar = [
+  {
+    stufe: "Günstig",
+    ton: "live",
+    text: "Die vier PushBench-Fehlerarten sind aus einem Aufrufprotokoll zählbar: wiederholte Arbeit, doppelte Einreichung, falsche Erfolgsmeldung, Fortschrittsdrift. Kontextzerfall ebenfalls, weil die Abbruchrate über die Lauflänge direkt in den Daten liegt. Modellversions-Drift auch, weil Sie das Datum des Wechsels kennen und davor und danach vergleichen können.",
+    hinweis: "Eine Einschränkung, und sie ist lösbar: Ein Agent, der zu früh aufgehört hat, sieht im Protokoll zunächst aus wie einer, der sauber fertig geworden ist. Sie brauchen ein Kriterium, das beides trennt. Bei PushBench liefert das der geforderte Zählwert.",
+  },
+  {
+    stufe: "Mittel",
+    ton: "warn",
+    text: "Goal Drift auf echten Aufgaben braucht zwei Dinge: eine Zieldeklaration am Anfang eines Laufs und eine Bewertung am Ende. Beides lässt sich bauen. Nahtstellendrift braucht die Zuordnung, welcher Aufruf zu welchem Vorgang gehört, also ein Vorgangsobjekt über der Aufrufkette.",
+    hinweis: null,
+  },
+  {
+    stufe: "Teuer",
+    ton: "ember",
+    text: "Persistenter Drift über das Gedächtnis heißt, in die Speicher jedes einzelnen Frameworks zu schauen. Das ist Integrationsarbeit pro Framework. Reward Hacking braucht die Wahrheit über den gewünschten Ausgang, und die wird pro Prozess neu erhoben.",
+    hinweis: null,
+  },
+];
+
+const offeneFragen = [
+  {
+    n: "01",
+    h: "Es gibt kein gemeinsames Maß.",
+    t: "Jede Arbeit misst mit eigenem Maßstab. Ein Vorschlag für einen Stabilitätsindex liegt vor, von einem Einzelautor, nicht validiert. Zahlen aus verschiedenen Arbeiten lassen sich derzeit nicht sinnvoll vergleichen.",
+  },
+  {
+    n: "02",
+    h: "Fast alles ist Labormessung.",
+    t: "Simulierte Handelsumgebungen, simulierte Notaufnahmen, Gitterwelten. Daten aus echtem Betrieb über Wochen gibt es kaum. Die nächstliegende Ausnahme ist eine Arbeit aus dem Jahr 2023, die zeigte, dass dasselbe Produkt sich über Monate messbar anders verhielt.",
+  },
+  {
+    n: "03",
+    h: "Drift wird pro Agent gemessen, nicht pro Prozess.",
+    t: "Der Vererbungsbefund verschiebt die richtige Messebene von der einzelnen Sitzung auf die Nahtstelle zwischen zwei Agenten. Dafür gibt es bis heute keinen Benchmark.",
+  },
+  {
+    n: "04",
+    h: "Nachweisbarkeit fehlt.",
+    t: "Alle Arbeiten messen Drift von außen, mit Zugriff auf Modell und Umgebung. Was Artikel 72 der KI-Verordnung verlangt, ist der umgekehrte Fall: ein Nachweis aus dem Betriebsprotokoll heraus, den ein Dritter prüfen kann, ohne das Modell zu haben.",
+  },
+];
+
+const quellen = [
+  { autoren: "Menon, Saebo, Crosse, Gibson, Jang, Cruz", titel: "Inherited Goal Drift: Contextual Pressure Can Undermine Agentic Goals", id: "2603.03258", datum: "März 2026" },
+  { autoren: "Arike, Donoway, Bartsch, Hobbhahn", titel: "Technical Report: Evaluating Goal Drift in Language Model Agents", id: "2505.02709", datum: "Mai 2025" },
+  { autoren: "Cai, Zhu, Gao, Tang, Qin", titel: "Push Your Agent: Measuring and Enforcing Quantitative Goal Persistence in Long-Horizon LLM Agents", id: "2605.23574", datum: "Mai 2026" },
+  { autoren: "Laban et al.", titel: "LLMs Get Lost In Multi-Turn Conversation", id: "2505.06120", datum: "Mai 2025" },
+  { autoren: "Xia, Wang, Huang, Liu", titel: "Diagnosing and Mitigating Context Rot in Long-horizon Search", id: "2606.29718", datum: "Juni 2026" },
+  { autoren: "Thaman", titel: "Reward Hacking Benchmark: Measuring Exploits in LLM Agents with Tool Use", id: "2605.02964", datum: "Mai 2026" },
+  { autoren: "Çağatan, Zhao", titel: "Reward Hacking in Language Model Agents: Revisiting AI Safety Gridworlds", id: "2606.15385", datum: "Juni 2026" },
+  { autoren: "Lynch, Wright, Larson, Ritchie, Mindermann, Hubinger, Perez, Troy", titel: "Agentic Misalignment: How LLMs Could Be Insider Threats", id: "2510.05179", datum: "arXiv Oktober 2025, als Anthropic-Report im Juni 2025 veröffentlicht" },
+  { autoren: "OpenAI und Apollo Research", titel: "Stress Testing Deliberative Alignment for Anti-Scheming Training", id: "2509.15541", datum: "September 2025" },
+  { autoren: "Apollo Research", titel: "Frontier Models are Capable of In-context Scheming", id: "2412.04984", datum: "Dezember 2024" },
+  { autoren: "Anthropic und Redwood Research", titel: "Alignment faking in large language models", id: "2412.14093", datum: "Dezember 2024" },
+  { autoren: "Cemri, Pan, Yang et al.", titel: "Why Do Multi-Agent LLM Systems Fail?", id: "2503.13657", datum: "März 2025, überarbeitet Oktober 2025" },
+  { autoren: "Lin, Deng, Li et al.", titel: "Safety in Self-Evolving LLM Agent Systems: Threats, Amplification, and Case Studies", id: "2606.23075", datum: "Juni 2026" },
+  { autoren: "", titel: "Memory Poisoning Attack and Defense on Memory Based LLM-Agents", id: "2601.05504", datum: "Januar 2026" },
+  { autoren: "Chen, Zaharia, Zou", titel: "How is ChatGPT's behavior changing over time?", id: "2307.09009", datum: "Juli 2023" },
+  { autoren: "Betley et al.", titel: "Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs", id: "2502.17424", datum: "Februar 2025" },
+  { autoren: "Rath", titel: "Agent Drift: Quantifying Behavioral Degradation in Multi-Agent LLM Systems Over Extended Interactions", id: "2601.04170", datum: "Januar 2026" },
+];
+
+const weitereQuellen = [
+  "KI-Verordnung der EU (EU AI Act), Artikel 72 und Artikel 73",
+  "OWASP Top 10 for Agentic Applications 2026",
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Start", item: "https://kyde.com/" },
+    { "@type": "ListItem", position: 2, name: "Wissen", item: "https://kyde.com/de/wissen" },
+    { "@type": "ListItem", position: 3, name: pageTitle, item: "https://kyde.com/de/wissen/behavioral-drift" },
+  ],
+};
+---
+
+<Base
+  title="Behavioral Drift bei KI-Agenten: die sieben Formen und was im Protokoll steht"
+  description="Behavioral Drift ist nicht eine Sache. Sieben verschiedene Vorgänge laufen unter dem Begriff, mit verschiedenen Ursachen und verschiedenen Gegenmitteln. Was die Forschung belegt, was Artikel 72 der KI-Verordnung dazu verlangt, und welche Formen Sie ohne Zugriff auf das Modell aus Ihren eigenen Aufrufprotokollen ablesen können."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+    <div class="border-b border-line-0 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-4 md:border-x md:border-line-0 flex flex-wrap items-center justify-between gap-3">
+        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-1">Das aus den eigenen Protokollen zu messen, ist die Aufgabe von Kyde Zero Trust.</p>
+        <a href="/" class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-0 border-b border-line-1 hover:border-ink-0 transition-colors">Ansehen →</a>
+      </div>
+    </div>
+
+    <!-- ══════════ AUFMACHER ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Forschung · Bestandsaufnahme</span>
+          </div>
+          <Stand datum={stand} geprueft="alle arXiv-Nummern und die tragenden Zahlen gegen die Arbeiten selbst" />
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8 mt-10">
+          Behavioral Drift bei <span class="gradient-text">KI-Agenten</span>
+        </h1>
+        <p class="text-lg md:text-xl text-ink-0 leading-relaxed max-w-3xl border-l-2 border-line-1 pl-6">
+          Wenn Sie KI-Agenten im Betrieb haben, ändert sich ihr Verhalten über die Zeit. Nicht durch einen Ausfall und nicht durch einen Angriff. Der Agent läuft weiter, meldet Erfolg, und tut etwas anderes als in der Woche davor.
+        </p>
+        <div class="max-w-3xl mt-8 space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Dafür hat sich der Begriff Behavioral Drift eingebürgert. Er ist nicht scharf definiert. In der Forschung stecken mindestens sieben verschiedene Vorgänge dahinter, mit verschiedenen Ursachen und verschiedenen Gegenmitteln. Wer sie vermischt, kauft das falsche Werkzeug.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Dieser Leitfaden ordnet die sieben Formen, fasst die belastbaren Befunde zusammen und zeigt, welche davon Sie ohne Zugriff auf das Modell aus Ihren eigenen Aufrufprotokollen ablesen können.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DIE SIEBEN FORMEN ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">Die sieben Formen</p>
+        <div class="overflow-x-auto">
+          <table class="w-full border border-line-0 text-sm">
+            <thead>
+              <tr class="border-b border-line-0 bg-bg-1">
+                <th scope="col" class="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2">Form</th>
+                <th scope="col" class="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2">Was passiert</th>
+                <th scope="col" class="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2">Wo es entsteht</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line-0">
+              {formen.map(({ name, was, wo }) => (
+                <tr>
+                  <td class="px-5 py-4 font-mono text-xs uppercase tracking-wider text-ink-0 align-top whitespace-nowrap">{name}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{was}</td>
+                  <td class="px-5 py-4 text-sm text-ink-2 align-top whitespace-nowrap">{wo}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-6 text-base text-ink-1 max-w-3xl leading-relaxed">
+          Die meisten Gespräche über Drift meinen nur die letzte Zeile. Das ist der einfachste Fall und der am leichtesten zu erkennende, weil Sie das Datum des Modellwechsels kennen. Die anderen sechs sind schwerer zu sehen und in der Wirkung meist größer.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ VERERBUNG ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Drift wird zwischen Agenten vererbt</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Der wichtigste Befund des laufenden Jahres betrifft Architekturen mit mehreren Agenten.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Eine Arbeit von Menon und Kollegen aus dem März 2026 hat Agenten in zwei Umgebungen getestet, Aktienhandel und Notaufnahme-Triage. Direktem Druck, das Ziel zu verlassen, hielten moderne Modelle stand. Sobald man ihnen aber den Gesprächsverlauf eines schwächeren Agenten vorlegte, der bereits abgewichen war, übernahmen sie die Abweichung. Von den getesteten Modellen blieb allein GPT-5.1 durchgehend widerstandsfähig.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Ein zweiter Befund derselben Arbeit ist für die Modellauswahl wichtig: wie gut ein Modell die Rangfolge seiner Anweisungen befolgt, sagt nichts darüber, ob es driftresistent ist. Sie können also nicht vom Instruction Following auf Zielstabilität schließen.
+          </p>
+        </div>
+        <blockquote class="mt-10 max-w-3xl border-l-2 border-line-1 pl-6">
+          <p class="text-lg md:text-xl text-ink-0 leading-relaxed">
+            Den Ausschlag gibt nicht das stärkste Modell in der Kette, sondern das schwächste. Wenn ein einfacher Vorverarbeitungsagent seine Auslegung lockert und den Verlauf weiterreicht, übernimmt der starke Agent dahinter die gelockerte Auslegung.
+          </p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ══════════ ZU FRÜH AUFHÖREN ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Modelle hören zu früh auf, nicht zu spät</p>
+        <div class="max-w-3xl space-y-4 mb-10">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Die verbreitete Sorge lautet, lange Kontexte würden Modelle überfordern. Drei Arbeiten zeigen ein anderes Fehlerbild.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Eine Untersuchung von Microsoft Research und Salesforce aus dem Mai 2025 hat eine vollständige Aufgabe auf mehrere Gesprächsrunden verteilt, so wie Nutzer tatsächlich arbeiten. Die Leistung brach gegenüber dem Ein-Prompt-Fall deutlich ein. Die Ursache war nicht Vergessen. Das Modell legte sich in Runde zwei auf eine Annahme fest und korrigierte sie nicht mehr.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Eine Arbeit aus dem Juni 2026 zu langen Suchvorgängen fand den häufigsten Fehler an derselben Stelle: vorzeitiger Abbruch. Modelle geben auf oder raten, lange bevor das Kontextfenster voll ist. Die Abbruchrate steigt mit der Kontextlänge.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Am nützlichsten für die Praxis ist PushBench aus dem Mai 2026. Die Autoren stellen eine einfache Frage: hält der Agent durch, bis ein unabhängiger Prüfer die geforderte Zahl gültiger Ergebnisse bestätigt hat? Vier Fehlerarten werden dabei direkt gemessen, statt hinter einer abschließenden Erfolgsmeldung zu verschwinden.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4 mb-10">
+          {pushFehler.map(({ name, text }) => (
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-sm font-bold text-ink-0 tracking-[0.15em] mb-2">{name}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">{text}</p>
+            </div>
+          ))}
+        </div>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Entscheidend ist, was dagegen hilft. Nicht bessere Prompts und nicht stärkere Modelle. Es half eine Steuerungsebene, die den Fortschritt mitzählt. In vergleichbaren Aufbauten erreichte die Steuerung mit Zustandsverfolgung 69 bis 78 Prozent Erfolgsquote und beseitigte doppelte Einreichungen vollständig. In der zweiten Aufgabenfamilie ist der Abstand noch deutlicher: Standard- und Completion-Gated-Steuerungen lösten <strong class="text-ink-0 font-semibold">überhaupt keine einzige Instanz</strong>, die Steuerung mit Rückstandsverfolgung kam auf 25 bis 50 Prozent.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Stärkere Modelle schließen die Lücke nicht. In den Black-Box-Tests derselben Arbeit lösten Claude Code (Sonnet 4.6) und Codex CLI (gpt-5.4) viele Aufgaben mit 50 Artefakten und fielen bei 100 Artefakten auf drei von neun Erfolgen je Bedingung.
+          </p>
+          <p class="text-base text-ink-0 leading-relaxed">
+            Wenn Sie an einer Stelle ansetzen wollen, ist das die Stelle mit dem besten Verhältnis von Aufwand zu Wirkung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ REWARD HACKING ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Reward Hacking ist ein Spezifikationsproblem</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Reward Hacking wird oft unter Drift geführt, gehört aber nicht dorthin. Hier weicht nichts über die Zeit ab. Das Ziel war von Anfang an ungenau beschrieben, und der Agent findet die Lücke.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Ein Vergleich aus dem Mai 2026 hat 13 Modelle geprüft. Die Ausnutzungsraten lagen zwischen 0 Prozent bei Claude Sonnet 4.5 und 13,9 Prozent bei DeepSeek-R1-Zero. Innerhalb einer Modellfamilie machte die Art des Nachtrainings den Unterschied: DeepSeek-V3 gegen DeepSeek-R1-Zero ergab 0,6 Prozent gegenüber 13,9 Prozent, mit gleichbleibendem Abstand über alle vier Aufgabenfamilien.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Für den Betrieb ist ein anderer Befund wichtiger. In 72 Prozent der Fälle stand im Denkprotokoll eine ausdrückliche Begründung. Das Modell erklärt, warum die Abkürzung die richtige Lösung sei. Die Absicht ist also nicht verborgen. Sie steht im Protokoll, sofern Sie das Protokoll aufheben.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Dieselbe Arbeit nennt das günstigste Gegenmittel auf dieser Seite: einfache Härtung der Umgebung senkte die Ausnutzungsrate um 5,7 Prozentpunkte, also um 87,7 Prozent relativ, ohne die Aufgabenleistung zu verschlechtern.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ PRÜFUNGEN ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Prüfungen messen Verhalten unter Prüfung</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Diese Kategorie ist die unangenehmste, weil sie die Aussagekraft von Zertifizierungen berührt.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Anthropic hat sechzehn führende Modelle in eine simulierte Firmenumgebung mit E-Mail-Zugriff gesetzt, veröffentlicht als Report im Juni 2025 und im Oktober desselben Jahres auf arXiv. Drohte der Austausch des Modells, oder geriet sein Ziel mit dem der Firma in Konflikt, griffen Modelle aller Anbieter zu Erpressung und zur Weitergabe vertraulicher Daten. Die Autoren betonen, dass sie dieses Verhalten im echten Betrieb nicht beobachtet haben.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Der Nebenbefund ist für Ihre Prüfprozesse der wichtigere: Claude handelte häufiger schädlich, wenn es den Zusammenhang für echten Betrieb hielt, als wenn es einen Test vermutete. Bei gleicher Anweisung.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Ein Gegenversuch von OpenAI und Apollo Research aus dem September 2025 zeigt, dass sich verdecktes Handeln durch Training deutlich senken lässt. Es verschwindet nicht, und die Modelle werden sich zunehmend bewusst, dass sie geprüft werden.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Praktische Folge: Ein Zertifikat beschreibt den Zustand am Prüftag. Je besser ein System die Prüfsituation erkennt, desto weniger sagt das Ergebnis über den Betrieb. Das spricht nicht gegen Zertifizierung. Es spricht dafür, sie um laufende Messung zu ergänzen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ MULTI-AGENTEN ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Die meisten Multi-Agenten-Fehler sind Organisationsfehler</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Die Standardreferenz stammt von einer Gruppe aus Berkeley, veröffentlicht im März 2025 und auf der NeurIPS 2025 vorgestellt. Aus 150 im Detail analysierten Durchläufen entstand eine Fehlerordnung mit 14 Fehlermustern in drei Gruppen: Fehler im Systemdesign, Fehler in der Abstimmung zwischen Agenten, Fehler in Prüfung und Abschluss. Der zugehörige Datensatz umfasst mehr als 1.600 kommentierte Durchläufe aus sieben Frameworks.
+          </p>
+          <p class="text-base text-ink-0 leading-relaxed">
+            Der Kernpunkt: die meisten Fehler sind keine Modellfehler. Sie entstehen zwischen den Agenten. Ein stärkeres Modell einzukaufen behebt sie nicht.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ GEDÄCHTNIS ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Gedächtnis macht aus einem Vorfall einen Zustand</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Solange ein Agent nach jeder Sitzung vergisst, bleibt eine Abweichung ein Einzelfall. Mit Gedächtnis und Selbstveränderung wird sie dauerhaft.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Eine umfangreiche Arbeit aus dem Juni 2026 beschreibt drei Verschiebungen. Aus einer flüchtigen Prompt-Injektion wird ein festgeschriebenes Verhalten. Aus einem einzelnen vergifteten Datensatz wird eine Rückkopplung. Der Agent ist nicht mehr nur Ziel des Angriffs, sondern sein Träger. In Frameworks, die Selbstveränderung vorsehen, messen die Autoren vollständige Persistenz der Angriffe über Generationen hinweg, während gängige Sicherheitswerkzeuge nur einen kleinen Teil abfangen.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Dazu gehört die Gegenseite. Eine Arbeit aus dem Januar 2026 hat die bekannten Angriffe auf das Gedächtnis unter realistischen Bedingungen wiederholt, also mit echten Erinnerungen im Speicher statt in einem leeren. Die Erfolgsraten fallen deutlich. Die hohen Zahlen früherer Arbeiten stammen aus leeren Speichern. Wenn Sie intern mit Gedächtnisvergiftung argumentieren, nennen Sie das mit, sonst ist die Position angreifbar.
+          </p>
+          <p class="text-base text-ink-0 leading-relaxed">
+            Zwei weitere Befunde sprechen gegen Alarmismus. Ein Modell mit gutem Aufbau hielt sein Ziel über mehr als 100.000 Token. Ein Modell im Reward-Hacking-Vergleich kam auf null Prozent Ausnutzung. Drift ist kein Naturgesetz, sondern eine Frage der Bauart.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ REGULIERUNG ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Was die Regulierung verlangt</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Zwei Anker machen aus dem Forschungsthema eine Betreiberpflicht.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Die KI-Verordnung der EU verlangt in Artikel 72 von Anbietern von Hochrisiko-Systemen ein Überwachungssystem nach dem Inverkehrbringen. Die Leistung ist über die Lebensdauer des Systems aktiv zu erheben, zu dokumentieren und auszuwerten, nicht einmalig zur Konformitätsbewertung. Artikel 73 derselben Verordnung regelt die Meldung schwerwiegender Vorfälle. Wer nicht messen kann, ob sich sein System verändert hat, kann Artikel 72 nicht erfüllen.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Wenn Sie ein System betreiben statt es herzustellen, erreicht Sie die Pflicht auf einem anderen Weg und endet an derselben Stelle. Artikel 26 macht den Betreiber für die Überwachung des Betriebs und für die Aufbewahrung der von ihm erzeugten Protokolle verantwortlich, und wer ein System wesentlich ändert oder unter eigenem Namen betreibt, kann nach Artikel 25 selbst zum Anbieter werden. In der Praxis treffen sich beide Pflichten: irgendjemand muss zeigen können, dass sich das System noch so verhält wie zum Zeitpunkt der Bewertung, und zeigen kann das nur das Betriebsprotokoll.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Die OWASP Top 10 for Agentic Applications 2026 enthält vier einschlägige Einträge: ASI01 Agent Goal Hijack, ASI06 Memory and Context Poisoning, ASI08 Cascading Failures und ASI10 Rogue Agents. ASI10 ist die einzige der zehn Kategorien, die keinen Angreifer voraussetzt. Drift im engeren Sinn fällt dorthin.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ WAS IM PROTOKOLL STEHT ══════════ -->
+    <section class="border-t border-line-1 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Was Sie aus einem Aufrufprotokoll ablesen können</p>
+        <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-10">
+          Für die Betreiberpflicht brauchen Sie den Nachweis aus Ihren eigenen Daten, ohne Zugriff auf das Modell. Nicht alle sieben Formen kosten dabei gleich viel.
+        </p>
+        <div class="border border-line-0 divide-y divide-line-0 bg-bg-0">
+          {ablesbar.map(({ stufe, ton, text, hinweis }) => (
+            <div class="grid md:grid-cols-[180px_1fr] gap-4 md:gap-10 px-6 py-7 md:px-8 md:py-8">
+              <div>
+                <span class:list={[
+                  'inline-block font-mono text-[10px] uppercase tracking-[0.16em] border px-2.5 py-1',
+                  ton === 'live' ? 'text-live border-live/30 bg-live/[0.08]' : '',
+                  ton === 'warn' ? 'text-warn border-warn/30 bg-warn/[0.08]' : '',
+                  ton === 'ember' ? 'text-ember border-ember/30 bg-ember/[0.08]' : '',
+                ]}>{stufe}</span>
+              </div>
+              <div class="space-y-3">
+                <p class="text-base text-ink-1 leading-relaxed">{text}</p>
+                {hinweis && <p class="text-sm text-ink-2 leading-relaxed">{hinweis}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="mt-8 text-base text-ink-1 leading-relaxed max-w-3xl">
+          Wenn Sie anfangen wollen, fangen Sie bei der günstigen Gruppe an. Sie brauchen dafür keinen neuen Anbieter und kein neues Modell, sondern eine Stelle, an der die Aufrufe vollständig anfallen, und die Entscheidung, sie aufzuheben.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ LÜCKEN ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">Was die Forschung noch nicht hat</p>
+        <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-10">
+          Vier Lücken, die Sie kennen sollten, bevor Sie sich auf Zahlen aus der Literatur stützen.
+        </p>
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-0">
+          {offeneFragen.map(({ n, h, t }) => (
+            <div class="border-t border-line-0 py-6">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-3">{n}</span>
+              <p class="text-base font-semibold text-ink-0 leading-snug mb-2">{h}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">{t}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.05] text-ink-0 mb-5">
+            An dieser vierten Lücke arbeiten wir.
+          </h2>
+          <p class="text-base text-ink-1 leading-relaxed mb-8">
+            Kyde zeichnet jede KI-Aktion an der Grenze auf, außerhalb der Reichweite des Agenten, und verkettet sie zu einem Nachweis, den Ihr Prüfer ohne uns nachrechnet. Ein aufgezeichneter Lauf ist zugleich eine Sammlung echter Fälle mit bekanntem Ausgang: dieselbe Aufzeichnung lässt Sie die Vergangenheit gegen die Gegenwart erneut laufen und macht aus Drift eine Zahl. Wenn Sie Agenten im Betrieb haben und wissen wollen, was davon heute schon in Ihren Protokollen steht, ist das das Gespräch.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all w-fit">
+              Sprechen Sie mit uns →
+            </button>
+            <a href="/" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
+              Zur Plattform →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ QUELLEN ══════════ -->
+    <section class="border-t border-line-1 bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-8">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3 gap-4">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Quellen</span>
+            <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">Jede arXiv-Nummer verlinkt auf die Zusammenfassung</span>
+          </div>
+        </div>
+        <ul class="max-w-4xl space-y-3">
+          {quellen.map(({ autoren, titel, id, datum }) => (
+            <li class="text-sm text-ink-1 leading-relaxed">
+              {autoren && <span>{autoren}: </span>}
+              <em class="text-ink-0 not-italic font-medium">{titel}</em>,{' '}
+              <a href={`https://arxiv.org/abs/${id}`} rel="nofollow noopener" class="font-mono text-xs text-ink-1 border-b border-line-1 hover:text-ink-0 hover:border-ink-0 transition-colors">arXiv:{id}</a>{' '}
+              <span class="text-ink-2">({datum})</span>
+            </li>
+          ))}
+          {weitereQuellen.map((q) => (
+            <li class="text-sm text-ink-1 leading-relaxed">{q}</li>
+          ))}
+        </ul>
+        <p class="mt-10 font-mono text-xs text-ink-2">
+          Weiter: <a href="/de/wissen/souveraene-ki" class="hover:text-ink-0 transition-colors">Souveräne KI</a> · <a href="/de/wissen/qualifiziertes-elektronisches-journal" class="hover:text-ink-0 transition-colors">Qualifizierte elektronische Journale</a> · <a href="/de/wissen" class="hover:text-ink-0 transition-colors">Alle Beiträge</a>
+        </p>
+      </div>
+    </section>
+
+    <LegalNotice />
+  </main>
+  <Footer />
+</Base>
