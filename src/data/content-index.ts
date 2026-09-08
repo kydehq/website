@@ -299,9 +299,15 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
 export const KEY_PAGES: Article[] = [
   {
     category: "Platform",
-    title: "Kyde Zero Trust",
-    summary: "The zero trust layer for AI. Identity, policy, data boundaries and limits checked at the moment of action, and a record anyone can verify afterwards, in your own environment.",
+    title: "Kyde Drift Detection",
+    summary: "Agents drift. Kyde watches what they actually do, measures it against the agent's own baseline, and can quarantine a deviating agent before the deviation becomes an incident.",
     href: "/",
+  },
+  {
+    category: "Platform",
+    title: "Kyde Zero Trust",
+    summary: "The enforcement layer under the detection. Identity, policy, data boundaries and limits checked at the moment of action, a flight recorder for every call, and a record anyone can verify afterwards, in your own environment.",
+    href: "/platform",
   },
   {
     category: "Service",

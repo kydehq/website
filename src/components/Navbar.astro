@@ -1,13 +1,14 @@
 ---
 import { alternatesFor, localeOf } from "../data/locales";
 
-// The home page is the platform, so "Zero Trust" points at it rather than at a
-// page of its own. "Workers" used to sit in this slot and told a first-time
-// reader nothing; the build service now has its own name and its own page.
+// Nav is the catalogue, the home page is the story. "Zero Trust" used to sit
+// first and point at "/", which meant the chrome sold the mechanism while the
+// first sentence sold the category, and a visitor believes the chrome. The
+// mechanism lives on /platform now and the label names what it is.
 const navLinks = [
-  { label: 'Zero Trust',    href: '/'             },
-  { label: 'Services',      href: '/services'     },
+  { label: 'Platform',      href: '/platform'     },
   { label: 'Use Cases',     href: '/use-cases'    },
+  { label: 'Services',      href: '/services'     },
   { label: 'Resources',     href: '/resources'    },
 ];
 
@@ -50,12 +51,12 @@ const otherHref = alternates[otherLocale];
 
     <!-- CTAs (desktop) -->
     <div class="hidden lg:flex items-center gap-3">
-      <a
-        href="/audit"
+      <button
+        onclick="openModal()"
         class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-cta-ink transition-colors hover:bg-cta-hover"
       >
-        Start your audit &gt;
-      </a>
+        Design partner &gt;
+      </button>
       <button
         id="theme-toggle"
         type="button"
@@ -120,12 +121,12 @@ const otherHref = alternates[otherLocale];
         <span>Appearance</span>
         <span><span class="theme-glyph-dark">Dark ☾</span><span class="theme-glyph-light hidden">Light ☀</span></span>
       </button>
-      <a
-        href="/audit"
+      <button
+        onclick="openModal()"
         class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
       >
-        Start your audit &gt;
-      </a>
+        Become a design partner &gt;
+      </button>
     </div>
   </div>
 </header>
