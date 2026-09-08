@@ -3,59 +3,47 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-// Four capabilities, not a feature list. Flight recorder, inventory, DLP,
-// evaluation and the ledger are the proof inside these four, which is why they
-// are named here as what they let you do rather than as modules of their own.
-const capabilities = [
-  { n: '01', name: 'See',     line: 'See every AI action.',                              sub: 'Flight recorder · Inventory', href: '#see'     },
-  { n: '02', name: 'Control', line: 'Stop actions that violate policy.',                 sub: 'Identity · Policy · Data · Limits', href: '#control' },
-  { n: '03', name: 'Replay',  line: "Run past work against today's AI.",                 sub: 'Evaluation · Replay',         href: '#replay'  },
-  { n: '04', name: 'Prove',   line: 'Produce evidence that can be verified without us.', sub: 'Ledger · Offline recompute',  href: '#prove'   },
+// The five steps of the mechanic, in the order an incident actually runs
+// through them. The order is the argument: you cannot detect what you never
+// observed, and you cannot quarantine on a signal nobody can investigate
+// afterwards. Each one names the concrete thing underneath it.
+const flow = [
+  {
+    n: '01', name: 'Observe',
+    line: 'Every action an agent takes crosses Kyde.',
+    body: 'One line of configuration in front of the model, no code changes in the agent. It records everything and blocks nothing until you decide otherwise.',
+  },
+  {
+    n: '02', name: 'Detect',
+    line: "Behavior is measured against the agent's own baseline.",
+    body: 'Not a content filter. What the agent does: which tools it reaches for, which systems it touches, how often, how long it runs, and how far that has moved from the way it worked before.',
+  },
+  {
+    n: '03', name: 'Quarantine',
+    line: 'A deviating agent loses reach before it does damage.',
+    body: 'Autonomy is cut back for a high-risk agent at the boundary, rather than after somebody notices it in a support ticket three weeks later.',
+  },
+  {
+    n: '04', name: 'Investigate',
+    line: 'Reconstruct what actually happened.',
+    body: "The record is written at the boundary, outside the agent's control, so a deviation can be traced through the actions that produced it instead of guessed at.",
+  },
+  {
+    n: '05', name: 'Prove',
+    line: 'Show a third party, without us in the room.',
+    body: 'Hash-chained and signed as it is written, exported as a dated document your auditor recomputes on their own machine.',
+  },
 ];
 
 // The five dimensions the layer checks on every action. One line each, in plain
-// language, then the concrete version for a reader who wants it. This is one
-// chapter of the page, not five: the proof sits further down under whichever
-// capability it belongs to.
+// language, then the concrete version for a reader who wants it. This is what a
+// baseline is measured against and what a quarantine is enforced with.
 const dimensions = [
   { name: 'Identity', q: 'Know who is acting.',        a: 'Every worker and every agent carries a name of its own, not a shared key that four systems use.' },
   { name: 'Policy',   q: 'Decide what it can do.',     a: 'Rules are checked before the action executes, not written up in a report afterwards.' },
   { name: 'Data',     q: 'Control what it can see.',   a: 'Sensitive fields are masked inline, before they ever reach a model.' },
   { name: 'Limits',   q: 'Control how far it can go.', a: 'Spend, volume and reach held across a run, not just per call.', soon: true },
   { name: 'Evidence', q: 'Prove what happened.',       a: 'A hash-chained record written at the boundary, which your auditor recomputes without us.' },
-];
-
-// Four ways in. A compliance partner and an underwriter want the same platform
-// and will never search for it with the same words.
-const entries = [
-  {
-    audience: 'For compliance',
-    name: 'AI audit trail',
-    line: 'Continuous evidence for regulated AI systems.',
-    body: 'A hash-chained record written at the boundary, exported as a dated document an auditor recomputes offline. Built against GDPR, the EU AI Act, NIS-2 and DORA.',
-    href: '#prove',
-  },
-  {
-    audience: 'For insurance',
-    name: 'AI telemetry',
-    line: 'Observe how AI actually behaves in production.',
-    body: 'Not what a system was designed to do, and not what a questionnaire says it does. What it did: which actions, against which systems, how often, and how much of that was ever recorded.',
-    href: '#see',
-  },
-  {
-    audience: 'For AI governance',
-    name: 'Continuous evals',
-    line: 'Measure whether AI stays reliable as models, data and workflows change.',
-    body: 'A recorded run is a set of real cases with known outcomes. Re-run them when a model ships and the drift is a number rather than an anecdote from a support ticket.',
-    href: '#replay',
-  },
-  {
-    audience: 'For incident & risk',
-    name: 'Replay',
-    line: 'Reconstruct and rerun what happened.',
-    body: 'A model swapped under the same name does not announce itself. Replaying a recorded run against the present turns "something changed" into a difference you can point at.',
-    href: '#replay',
-  },
 ];
 
 // Organization and WebSite schema live on the home page, which is now the
@@ -67,7 +55,7 @@ const orgSchema = {
   name: "Kyde",
   url: "https://kyde.com",
   logo: "https://kyde.com/kyde-logo.svg",
-  description: "Kyde is the zero trust layer for AI: identity, policy, data boundaries, limits, and a hash-chained record of every action, in the customer's own environment. On top of it Kyde builds AI workers out of the processes a company already runs.",
+  description: "Kyde detects behavioral drift in AI agents. Every action crosses Kyde, is measured against the agent's own baseline, and a deviating agent can be quarantined before the deviation becomes an incident, on a zero trust enforcement layer in the customer's own environment.",
 };
 
 const websiteSchema = {
@@ -79,8 +67,8 @@ const websiteSchema = {
 ---
 
 <Base
-  title="KYDE, Zero Trust for AI in Your Own Infrastructure"
-  description="Kyde is the zero trust layer for AI. Identity, policy, data boundaries and limits checked at the moment of action, and a record anyone can verify afterwards, in your own environment. On top of it we build the AI workers that run your processes."
+  title="KYDE, Behavioral Drift Detection for AI Agents"
+  description="AI agents drift. Kyde watches what your agents actually do, detects the deviation, and can quarantine them before it becomes an incident, whether they go off on their own, are pushed off course by prompt injection, or get stuck in a loop burning money. On a zero trust enforcement layer in your own infrastructure."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -94,47 +82,56 @@ const websiteSchema = {
          It was always a picture of this argument rather than of the build
          service: unordered agents drift, cross a gate, and come out in a
          lattice. It belongs to the page that sells the gate. -->
-    <section class="relative overflow-hidden h-screen min-h-[600px] flex flex-col justify-center pt-20 bg-bg-0">
+    <section class="relative overflow-hidden min-h-screen flex flex-col justify-center pt-28 pb-16 bg-bg-0">
       <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
       <div class="absolute inset-0 pointer-events-none hero-noise"></div>
       <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-bg-0/45 to-transparent"></div>
       <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
 
       <div class="relative max-w-7xl mx-auto px-6 w-full">
-        <!-- Regulation register: the one above-fold cue for why a buyer needs us. -->
+        <!-- Category register. The regulation line moved down to the terminal:
+             it is why a buyer signs, but it is not why they read on, and the
+             page now opens on the problem rather than on the compliance frame. -->
         <p id="hero-eyebrow" class="mb-4 md:mb-5 font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.16em] md:tracking-[0.2em]" style="opacity:0;transition:opacity 0.9s ease;">
-          Built for GDPR <span class="text-white/30" aria-hidden="true">·</span> EU AI Act <span class="text-white/30" aria-hidden="true">·</span> NIS-2 <span class="text-white/30" aria-hidden="true">·</span> DORA
+          Behavioral drift detection for AI agents
         </p>
-        <!-- The headline outlived the repositioning. It was never a claim about
-             workers: owning your intelligence is what the layer underneath is
-             for, so it stays and the subline carries the change. -->
+        <!-- The problem, then us. Own Your Intelligence was well branded and
+             said nothing a reader could act on; it survives as the closing
+             argument at the bottom of the page. Two lines of equal length,
+             which is what makes the scramble land. -->
         <h1 class="hero-h1 text-[2rem] text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-          <span id="hero-l1" style="display:block">Own Your</span>
-          <span id="hero-l2" style="display:block">Intelligence.</span>
+          <span id="hero-l1" style="display:block">AI Agents Drift.</span>
+          <span id="hero-l2" style="display:block">Kyde Detects It.</span>
         </h1>
-        <p id="hero-sub" class="mt-5 md:mt-7 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-          Zero trust for AI. In your own infrastructure.
+        <p id="hero-sub" class="mt-5 md:mt-6 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
+          How do you know an agent is still behaving the way it was supposed to?
         </p>
         <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-          Kyde sits between your AI and the models, tools and business systems it reaches. Identity, policy, data, limits and a record you can verify. Your environment, your models, your record.
+          Kyde watches what your agents actually do. When they drift, we detect it and can quarantine them, whether they go off on their own, get pushed off course by prompt injection, or get stuck in a loop burning money.
         </p>
-        <div id="hero-ctas" class="mt-8 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
+        <div id="hero-sectors" class="mt-5 border-l-2 border-white/25 pl-5 max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.3s;">
+          <p class="text-sm md:text-base text-white leading-snug">From experiments to critical environments.</p>
+          <p class="mt-1.5 font-mono text-[10px] md:text-[11px] text-white/50 uppercase tracking-[0.18em]">Factories <span class="text-white/20">·</span> Energy <span class="text-white/20">·</span> Infrastructure <span class="text-white/20">·</span> Finance</p>
+        </div>
+        <div id="hero-ctas" class="mt-7 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
           <button
             onclick="openModal()"
             class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
           >
-            Talk to us →
+            Become a design partner →
           </button>
           <a
-            href="/services"
+            href="/behavioral-drift"
             class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
           >
-            See the workers we build →
+            Read the research →
           </a>
         </div>
-        <div class="mt-8 space-y-1.5" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">Identity <span class="text-white/20">·</span> Policy <span class="text-white/20">·</span> Data <span class="text-white/20">·</span> Limits <span class="text-white/20">·</span> Evidence</p>
+        <div class="mt-7 space-y-1.5" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
+          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">Observe <span class="text-white/20">·</span> Detect <span class="text-white/20">·</span> Quarantine <span class="text-white/20">·</span> Investigate <span class="text-white/20">·</span> Prove</p>
           <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">On-premise <span class="text-white/20">·</span> Private cloud <span class="text-white/20">·</span> EU-hosted</p>
+          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">Built for GDPR <span class="text-white/20">·</span> EU AI Act <span class="text-white/20">·</span> NIS-2 <span class="text-white/20">·</span> DORA</p>
+          <!-- three registers: what we do, where it runs, what it is built against -->
         </div>
       </div>
     </section>
@@ -184,12 +181,14 @@ const websiteSchema = {
   const h1 = l1?.closest("h1") as HTMLElement;
   if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
   const explainer = document.getElementById("hero-explainer") as HTMLElement;
+  const sectors = document.getElementById("hero-sectors") as HTMLElement;
   const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "OWN YOUR", 200);
-  if (l2) scrambleLine(l2, "INTELLIGENCE.", 200, () => {
+  if (l1) scrambleLine(l1, "AI AGENTS DRIFT.", 200);
+  if (l2) scrambleLine(l2, "KYDE DETECTS IT.", 200, () => {
     if (eyebrow) eyebrow.style.opacity = "1";
     if (sub) sub.style.opacity = "1";
     if (explainer) explainer.style.opacity = "1";
+    if (sectors) sectors.style.opacity = "1";
     if (ctas) ctas.style.opacity = "1";
     const term = document.getElementById("hero-terminal");
     if (term) term.style.opacity = "1";
@@ -444,7 +443,230 @@ const websiteSchema = {
 </script>
 
 
-    <!-- ══════════ 01 · WHY ══════════ -->
+    <!-- ══════════ 01 · THE MECHANIC ══════════ -->
+    <!-- Directly under the hero, because the hero makes a claim and a reader who
+         came from a message that made the same claim wants the shape of it
+         before anything else. Laid out left to right: this is a path an incident
+         travels, not a list of modules, and the order carries the argument. -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · The mechanic</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8 max-w-3xl">
+          Know what your agents are actually doing.
+        </h2>
+        <div class="max-w-3xl space-y-4 mb-12">
+          <p class="text-lg text-ink-1 leading-relaxed">
+            Every action crosses Kyde. We build a behavioral baseline for each agent and continuously test what actually happens against it.
+          </p>
+          <p class="text-lg text-ink-1 leading-relaxed">
+            When behavior changes, Kyde detects the deviation. A high-risk agent can be quarantined before that deviation becomes an incident. The record underneath stays available for investigation and for independent verification.
+          </p>
+        </div>
+        <div class="mb-px hidden lg:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2 pb-4">
+          <span class="text-ink-0">Agent action</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span>Observe</span><span class="text-ink-2/50">→</span>
+          <span>Detect</span><span class="text-ink-2/50">→</span>
+          <span class="text-ember">Quarantine</span><span class="text-ink-2/50">→</span>
+          <span>Investigate</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span class="text-live">Prove</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line-0">
+          {flow.map(({ n, name, line, body }) => (
+            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
+              <div class="flex items-baseline gap-2 mb-4">
+                <span class="font-mono text-[10px] tracking-[0.1em] text-ink-2">{n}</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">{name}</span>
+              </div>
+              <p class="text-base md:text-lg text-ink-0 leading-snug mb-3">{line}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mt-8 text-base text-ink-1 leading-relaxed max-w-3xl">
+          You do not have to start at step three. Observe first: point one agent at the gateway, block nothing, and in week one you already know what your agents do, what leaves your house, and what it costs. Enforcement is a switch you flip when you are ready.
+        </p>
+
+        <!-- The picture of the whole claim, and the only one on the page that
+             shows time passing. Every other figure is a topology: what sits
+             where. Drift is not a topology, it is a line leaving a band, so it
+             gets a plot. The ghost continuation is the point of the figure, not
+             decoration: it is the incident that did not happen. -->
+        <div class="mt-14 border border-line-0 bg-bg-1 px-5 py-5 md:px-8 md:py-7">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-6">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">One agent, watched across its runs</span>
+            <span class="fig-label">FIG.1</span>
+          </div>
+          <svg id="drift-fig" viewBox="0 0 1000 330" class="w-full h-auto" aria-hidden="true">
+            <path d="M6 21 L6 6 L21 6"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+            <path d="M979 6 L994 6 L994 21"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+            <path d="M6 309 L6 324 L21 324"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+            <path d="M994 309 L994 324 L979 324" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+
+            <!-- axes -->
+            <line x1="90" y1="45" x2="90" y2="255" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+            <line x1="90" y1="255" x2="940" y2="255" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
+            <text x="80" y="150" text-anchor="middle" transform="rotate(-90 80 150)" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">DISTANCE FROM BASELINE</text>
+            <text x="515" y="278" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">THE AGENT'S RUNS, OVER TIME</text>
+
+            <!-- the envelope the agent is supposed to stay inside -->
+            <rect x="90" y="215" width="850" height="40" fill="var(--color-live)" fill-opacity="0.07" stroke="var(--color-live)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="4 4" />
+            <text x="930" y="240" text-anchor="end" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">BASELINE ENVELOPE</text>
+
+            <!-- the line that decides -->
+            <line x1="90" y1="160" x2="940" y2="160" stroke="var(--color-ember)" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="6 5" />
+            <text x="102" y="152" fill="var(--color-ember)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">DETECTION THRESHOLD</text>
+
+            <!-- what the agent would have gone on to do -->
+            <g id="drift-ghost" opacity="0">
+              <path id="drift-ghost-path" d="M770 118 L810 99 L850 87 L890 73 L930 60"
+                    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1.5" stroke-dasharray="3 5" />
+              <text x="930" y="46" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">THE INCIDENT THAT DID NOT HAPPEN</text>
+            </g>
+
+            <!-- observed behavior -->
+            <path id="drift-path"
+                  d="M90 240 L130 234 L170 243 L210 232 L250 241 L290 231 L330 238 L370 229 L410 236 L450 226 L490 221 L530 211 L570 199 L610 184 L650 172 L690 157 L730 139 L770 118"
+                  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <!-- the moment it is caught -->
+            <g id="drift-detect" opacity="0">
+              <line x1="686" y1="160" x2="686" y2="255" stroke="var(--color-ember)" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="3 4" />
+              <circle cx="686" cy="160" r="5" fill="none" stroke="var(--color-ember)" stroke-width="1.5" />
+              <text x="676" y="199" text-anchor="end" fill="var(--color-ember)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">DEVIATION DETECTED</text>
+            </g>
+
+            <!-- and stopped -->
+            <g id="drift-stop" opacity="0">
+              <rect x="763" y="111" width="14" height="14" fill="var(--color-alert)" fill-opacity="0.20" stroke="var(--color-alert)" stroke-width="1.5" />
+              <line x1="770" y1="125" x2="770" y2="255" stroke="var(--color-alert)" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3 4" />
+              <text x="786" y="138" fill="var(--color-alert)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">QUARANTINED</text>
+              <text x="786" y="152" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">autonomy cut, record kept</text>
+            </g>
+          </svg>
+          <div class="border-t border-line-0 pt-3 mt-6">
+            <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 &middot; The deviation is visible in what the agent does long before it is visible in what the agent produces.</p>
+          </div>
+        </div>
+        <script>
+          // FIG.1 · the line leaves the envelope, crosses the threshold, and is
+          // cut. Drawn rather than faded in, because the argument is that the
+          // deviation is gradual and the catch is not. Loops, like the ladder.
+          {
+            const fig = document.getElementById("drift-fig");
+            if (fig) {
+              const path = document.getElementById("drift-path") as unknown as SVGPathElement;
+              const ghost = document.getElementById("drift-ghost-path") as unknown as SVGPathElement;
+              const ghostG = document.getElementById("drift-ghost")!;
+              const detect = document.getElementById("drift-detect")!;
+              const stop = document.getElementById("drift-stop")!;
+              const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+              const L = path.getTotalLength();
+              const GL = ghost.getTotalLength();
+
+              function paintStatic() {
+                path.style.strokeDasharray = "none";
+                path.style.strokeDashoffset = "0";
+                ghost.style.strokeDasharray = "3 5";
+                ghost.style.strokeDashoffset = "0";
+                ghostG.setAttribute("opacity", "1");
+                detect.setAttribute("opacity", "1");
+                stop.setAttribute("opacity", "1");
+              }
+
+              if (reduced) {
+                paintStatic();
+              } else {
+                let visible = false;
+                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
+
+                const DRAW = 3200;   // the slow drift
+                const GHOST_DRAW = 1100; // the counterfactual
+                const HOLD = 2600;   // long enough to read the labels
+                const CYCLE = DRAW + GHOST_DRAW + HOLD;
+                let t0 = 0;
+
+                path.style.strokeDasharray = String(L);
+                ghost.style.strokeDasharray = String(GL);
+
+                function frame(t: number) {
+                  if (!t0) t0 = t;
+                  if (visible) {
+                    const e = (t - t0) % CYCLE;
+
+                    // the observed line draws left to right
+                    const dp = Math.min(e / DRAW, 1);
+                    path.style.strokeDashoffset = String(L * (1 - dp));
+
+                    // the threshold crossing sits at ~82% of the drawn line
+                    detect.setAttribute("opacity", String(Math.max(0, Math.min((dp - 0.82) / 0.10, 1))));
+                    // the cut lands as the line arrives at its end
+                    stop.setAttribute("opacity", String(Math.max(0, Math.min((dp - 0.97) / 0.03, 1))));
+
+                    // then the ghost, dashed, showing where it was going
+                    const gp = Math.max(0, Math.min((e - DRAW) / GHOST_DRAW, 1));
+                    ghostG.setAttribute("opacity", String(gp > 0 ? 1 : 0));
+                    ghost.style.strokeDashoffset = String(GL * (1 - gp));
+                  } else {
+                    t0 = 0;
+                  }
+                  requestAnimationFrame(frame);
+                }
+                requestAnimationFrame(frame);
+              }
+            }
+          }
+        </script>
+      </div>
+    </section>
+
+    <!-- ══════════ 02 · RESEARCH ══════════ -->
+    <!-- The claim above this section is a product claim; this is where it gets a
+         foundation that is not our own marketing. It sits high on purpose. The
+         research note is hedged and names its own gaps, and that is exactly what
+         makes it worth putting in front of somebody who has heard a pitch. -->
+    <section class="bg-bg-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">02 · Research</span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">Sources checked September 2026</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
+          We research the problem we are building for.
+        </h2>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+          <div>
+            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-5">Research note</span>
+            <p class="text-xl md:text-2xl text-ink-0 leading-snug mb-6">
+              Behavioral Drift in AI Agents: Seven Forms and What Your Logs Can Show
+            </p>
+            <blockquote class="border-l-2 border-line-1 pl-6">
+              <p class="text-lg text-ink-0 leading-relaxed">
+                Can we detect when an agent stops behaving like itself, from the actions it actually takes?
+              </p>
+            </blockquote>
+          </div>
+          <div>
+            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-5">What is in it</span>
+            <p class="text-base text-ink-1 leading-relaxed mb-4">
+              Behavioral drift is not one phenomenon. Across recent research we found at least seven related ways agent behavior changes, from goal drift and context decay to a deviation one agent inherits from another upstream.
+            </p>
+            <p class="text-base text-ink-1 leading-relaxed mb-8">
+              Seventeen papers, a table of which signals are measurable from production logs and at what cost, and an honest account of where the evidence is still missing.
+            </p>
+            <a href="/behavioral-drift" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
+              Read the research →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 03 · WHY ══════════ -->
     <!-- The page opens on the gap, not on the product. A reader who knows NIST
          SP 800-207 will check this claim in the first ten seconds, so the page
          states the difference itself rather than letting them find it. We are not
@@ -452,119 +674,43 @@ const websiteSchema = {
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · Why</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · Why</span>
         </div>
         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          Traditional security was built around access.
+          Nothing you already own is watching for this.
         </h2>
         <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
           <div>
             <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-5">Zero trust today</span>
             <p class="text-xl md:text-2xl text-ink-1 leading-snug">
-              Controls people, devices and networks. Verifies who is connecting, from what, to which resource.
+              Controls people, devices and networks. Verifies who is connecting, from what, to which resource. It answers the question once, at the door.
             </p>
           </div>
           <div>
             <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-5">What KYDE extends it to</span>
             <p class="text-xl md:text-2xl text-ink-0 leading-snug">
-              What the AI actually does. The connection was authorized hours ago. The action is the thing that needs verifying, every time, on its own.
+              What the agent actually does, and whether it is still doing what it did last week. The connection was authorized hours ago. The behavior has had every hour since to move.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ 02 · PRINCIPLE ══════════ -->
-    <!-- The thesis of the whole page, and the only place the architecture is
-         drawn. The three beats sit under the heading rather than in the hero,
-         because here there is a figure next to them that shows what they mean. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
-        <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-line-0 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-
-          <div class="flex flex-col">
-            <div class="h-7 flex items-center border-b border-line-0">
-              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">02 · Principle</span>
-            </div>
-            <div class="flex flex-1 flex-col justify-center py-10">
-              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
-                Trust every action, not just every connection.
-              </h2>
-              <p class="text-lg text-ink-1 leading-relaxed mb-8">
-                Workers we build and AI you already run cross the same layer. Whichever you start with, the controls and the record are the same.
-              </p>
-              <ul class="border-t border-line-0">
-                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every worker has an identity.</li>
-                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every action is checked.</li>
-                <li class="border-b border-line-0 py-3 text-base md:text-lg text-ink-0 leading-snug">Every action is recorded.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="flex flex-col">
-            <div class="h-7 flex items-center justify-end border-b border-line-0">
-              <span class="fig-label">FIG.1</span>
-            </div>
-            <div class="flex flex-1 items-center justify-center py-10">
-              <svg viewBox="0 0 480 390" class="w-full max-w-md h-auto" aria-hidden="true">
-                <path d="M12 27 L12 12 L27 12"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                <path d="M453 12 L468 12 L468 27"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                <path d="M12 363 L12 378 L27 378"    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                <path d="M468 363 L468 378 L453 378" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-
-                <!-- the two things that act -->
-                <rect x="20" y="36" width="208" height="92" fill="none" stroke="var(--color-live)" stroke-opacity="0.45" stroke-width="1" />
-                <text x="124" y="66"  text-anchor="middle" fill="var(--color-live)" fill-opacity="0.90" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">KYDE WORKERS</text>
-                <text x="124" y="86"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">code · agents · people</text>
-                <text x="124" y="104" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">we build these with you</text>
-
-                <rect x="252" y="36" width="208" height="92" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-                <text x="356" y="66"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.80" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">AI YOU ALREADY RUN</text>
-                <text x="356" y="86"  text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">agents · copilots · pipelines</text>
-                <text x="356" y="104" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.28" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">somebody else built these</text>
-
-                <line x1="124" y1="128" x2="124" y2="168" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
-                <line x1="356" y1="128" x2="356" y2="168" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
-
-                <!-- the slab, wider than what stands on it -->
-                <rect x="12" y="168" width="456" height="104" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.70" stroke-width="2" />
-                <text x="240" y="200" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.90" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.2em;">KYDE ZERO TRUST</text>
-                <g style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.06em;" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55">
-                  <text x="60"  y="230">identity</text>
-                  <text x="148" y="230">policy</text>
-                  <text x="240" y="230">data</text>
-                  <text x="332" y="230">limits</text>
-                  <text x="420" y="230">evidence</text>
-                </g>
-                <text x="240" y="254" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">nothing reaches a system without crossing this</text>
-
-                <line x1="240" y1="272" x2="240" y2="312" stroke="var(--color-ink-0)" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4" />
-
-                <rect x="12" y="312" width="456" height="62" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.40" stroke-width="1" />
-                <text x="240" y="340" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.70" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.14em;">YOUR SYSTEMS</text>
-                <text x="240" y="358" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.30" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.06em;">ERP · databases · MCP servers · payment APIs</text>
-              </svg>
-            </div>
-            <div class="border-t border-line-0 pt-3">
-              <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 · The layer is wider than what stands on it.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════ 03 · PLATFORM ══════════ -->
+    <!-- ══════════ 04 · THE LAYER ══════════ -->
     <!-- One chapter, not five. The five dimensions are what the layer checks on
          every action, and they get a single screen with one line each. The proof
          for each of them is further down, under the capability it belongs to. -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">03 · Platform</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · The layer</span>
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          One control layer for every AI action.
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
+          Powered by a zero trust enforcement layer.
         </h2>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-10">
+          Detection is only worth as much as the thing standing behind it. Every action an agent takes is checked on five dimensions before it executes, and written down as it passes. That is what makes a baseline measurable in the first place, and what makes a quarantine hold.
+        </p>
         <!-- Laid out across the page rather than down it. The capability list
              below is a stacked list of links, and two stacked lists in a row read
              as one list the page contradicts itself about. This one is a path an
@@ -595,36 +741,6 @@ const websiteSchema = {
       </div>
     </section>
 
-    <!-- ══════════ 04 · CAPABILITIES ══════════ -->
-    <!-- The fifteen-second read, and the map for everything below it. Four things
-         rather than five modules, so the sections that follow read as the proof of
-         a claim the reader has already accepted instead of as another feature. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Capabilities</span>
-        </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          From control to proof.
-        </h2>
-        <ul class="border border-line-0 divide-y divide-line-0">
-          {capabilities.map(({ n, name, line, sub, href }) => (
-            <li>
-              <a href={href} class="group grid md:grid-cols-[56px_minmax(0,180px)_1fr_auto] gap-2 md:gap-8 items-baseline px-5 py-5 md:px-7 md:py-6 hover:bg-bg-1 transition-colors">
-                <span class="font-mono text-[11px] tracking-[0.1em] text-gold">{n}</span>
-                <span class="font-mono text-xs uppercase tracking-[0.16em] text-ink-0">{name}</span>
-                <span>
-                  <span class="block text-base md:text-lg text-ink-1 leading-relaxed">{line}</span>
-                  <span class="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">{sub}</span>
-                </span>
-                <span class="hidden md:inline font-mono text-xs text-ink-2 group-hover:text-ink-0 transition-colors">→</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
         <!-- ══════════ 01 · FLIGHT RECORDER ══════════ -->
         <!-- First thing past the fold. The topology is the argument: a reader has to
              see that everything crosses one place before "system of record" means
@@ -634,7 +750,7 @@ const websiteSchema = {
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">See · Flight recorder</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Observe · Flight recorder</span>
                     <span class="fig-label">FIG.2</span>
                 </div>
 
@@ -957,7 +1073,7 @@ const websiteSchema = {
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">See · Inventory</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Observe · Inventory</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Find the agents nobody put on a list.</h2>
@@ -1088,7 +1204,7 @@ const websiteSchema = {
                 <div class="grid md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-white/10 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Control</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Quarantine · Control</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Govern every action before it happens.</h2>
@@ -1261,7 +1377,7 @@ const websiteSchema = {
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center justify-between border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Replay · Evaluate</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Detect · Replay</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Rerun the past against the present.</h2>
@@ -1590,34 +1706,7 @@ const websiteSchema = {
             </script>
         </section>
 
-    <!-- ══════════ 05 · OUTCOMES ══════════ -->
-    <!-- This used to sit near the top as "four ways in", which turned the page
-         into a landing page with four personas before it had made an argument.
-         It belongs here: the reader now knows what the thing is, so the question
-         worth answering is what it is worth to them. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Outcomes</span>
-        </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          One layer. Four things it is worth.
-        </h2>
-        <div class="grid md:grid-cols-2 border border-line-0">
-          {entries.map(({ audience, name, line, body, href }, i) => (
-            <a href={href} class:list={["group block p-6 md:p-8 hover:bg-bg-1 transition-colors border-line-0", i % 2 === 0 ? "md:border-r" : "", i === entries.length - 1 ? "" : "border-b", i >= entries.length - 2 ? "md:border-b-0" : ""]}>
-              <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{audience}</span>
-              <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-2">{name}</h3>
-              <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-4">{line}</p>
-              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
-              <span class="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 group-hover:text-ink-0 transition-colors">Read on →</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════ 06 · PROOF ══════════ -->
+    <!-- ══════════ 05 · PROOF ══════════ -->
     <!-- The technical floor, and deliberately the last thing before the vision.
          By now the reader knows what the layer is and what it is worth, so this
          section answers the only question left: why trust the platform itself.
@@ -1626,7 +1715,7 @@ const websiteSchema = {
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">06 · Proof</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · Proof</span>
         </div>
         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
           Built for independent verification.
@@ -1670,8 +1759,8 @@ const websiteSchema = {
         <section id="ladder" class="scroll-mt-20 bg-bg-0">
             <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
                 <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">07 · Autonomy</span>
-                    <span class="fig-label">FIG.3</span>
+                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">06 · Autonomy</span>
+                    <span class="fig-label">FIG.2</span>
                 </div>
                 <!-- Autonomy ladder -->
                 <div class="pt-12 pb-24 md:pb-28">
@@ -1685,6 +1774,9 @@ const websiteSchema = {
                     <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
                         Kyde ties each step to the record. A rung is held because the record shows it was held, and a worker that stops producing that evidence comes back down. Six levels, L0 to L5, from a worker that only reads to one running unattended.
                     </p>
+                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
+                        This is what drift detection is <em class="text-white/80 not-italic">for</em>. Detect the deviation, restrict the autonomy, investigate the record, restore the rung when the behavior is proven again. An agent does not become trustworthy because somebody switched it on. It earns the next rung by operating inside its intended behavior long enough to show it.
+                    </p>
                     <!-- The level-by-level detail lives on /trust-score, beside the measurement
                          that decides the level. Here it stays a summary. -->
                     <!-- The staircase is asymmetric by nature, so without a frame and a pair
@@ -1692,7 +1784,7 @@ const websiteSchema = {
                     <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">
                     <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
                         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Autonomy is earned, not granted</span>
-                        <span class="fig-label">FIG.3</span>
+                        <span class="fig-label">FIG.2</span>
                     </div>
                     <svg id="ladder-fig" viewBox="0 0 1000 268" class="w-full h-auto" aria-hidden="true">
                         <!-- corner register marks, as on every other figure -->
@@ -1740,13 +1832,13 @@ const websiteSchema = {
                         <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="116" cy="201" />
                     </svg>
                     <p class="mt-5 border-t border-white/10 pt-4 font-mono text-[10px] text-white/35 leading-relaxed">
-                        FIG.3 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
+                        FIG.2 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
                     </p>
                     </div>
                 </div>
 
                 <script>
-                    // FIG.3 · the ladder. The agent climbs one level per evidence
+                    // FIG.2 · the ladder. The agent climbs one level per evidence
                     // window; a green pulse marks the promotion. At the top it
                     // holds, then a new agent starts at zero. Autonomy is earned.
                     const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1825,66 +1917,28 @@ const websiteSchema = {
             </div>
         </section>
 
-    <!-- ══════════ 07 · SERVICES ══════════ -->
-    <!-- The second half of the company, stated once and stated late. A reader
-         who came for the layer should not meet a build service in the first
-         screen, and a reader who wants workers built should not have to guess
-         that we build them. Three steps, the same three the service page opens
-         with, so the two pages agree without repeating each other. -->
-    <section class="bg-bg-1">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">07 · Services</span>
-        </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
-          And we build the workers that run on it.
-        </h2>
-        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-          Kyde is the layer. On top of it we build AI workers out of the processes your company already runs: captured with the people who do the work, built to your rules, running in your environment under the same identity, the same policy and the same record as everything else on the layer.
-        </p>
-        <div class="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:not(:first-child)]:md:pl-10 [&>*:not(:last-child)]:md:pr-10 mb-12">
-          <div>
-            <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-ember mb-4">01 <span class="text-ink-2">·</span> Find the work</span>
-            <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">Start with the work, not the AI.</h3>
-            <p class="text-base text-ink-1 leading-relaxed">An audit of one process area with the people who run it: what an AI worker can take today, what belongs in code, what is not reliable enough yet, and what stays with a person.</p>
-          </div>
-          <div>
-            <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-ember mb-4">02 <span class="text-ink-2">·</span> Build the worker</span>
-            <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">Built from how your company works.</h3>
-            <p class="text-base text-ink-1 leading-relaxed">Code where the steps are fixed, an AI worker where judgement is needed, a person where the decision carries weight. It stops instead of guessing when it meets something it has not seen.</p>
-          </div>
-          <div>
-            <span class="block font-mono text-[11px] uppercase tracking-[0.14em] text-ember mb-4">03 <span class="text-ink-2">·</span> Run the workforce</span>
-            <h3 class="text-xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-3">On this layer, from day one.</h3>
-            <p class="text-base text-ink-1 leading-relaxed">It runs in your environment under an identity of its own, inside policy, behind the data boundary, on the record. The automation and the control were built together, so there is nothing to make meet in the middle.</p>
-          </div>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/services" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
-            Kyde AI Workers →
-          </a>
-          <a href="/audit" class="inline-flex items-center gap-2 border border-line-1 text-ink-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 hover:text-ink-0 transition-all">
-            Start your audit →
-          </a>
-        </div>
-      </div>
-    </section>
     <!-- ══════════ CLOSING CTA ══════════ -->
     <section class="bg-bg-0">
       <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">The record belongs to you</p>
+          <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">Design partners</p>
           <div class="mb-12 h-px bg-line-0"></div>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8">
-            Your models will change.<br />Your record shouldn't.
+            We are looking for a few<br />companies already running agents.
           </h2>
+          <p class="text-lg text-ink-1 leading-relaxed mb-6 mx-auto max-w-2xl">
+            Kyde is pre-seed and the product is close. We want to build the detection side with people who already have agents in production and a real reason to care what those agents are doing.
+          </p>
           <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">
-            Models change, frameworks change, vendors change, people leave. Kyde sits in your layer rather than theirs. What matters on the day a provider disappears is whether your work keeps running and the record is still yours to produce.
+            If that is you, we would like to talk. Bring the agent you are least sure about.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
-              Talk to us →
+              Become a design partner →
             </button>
+            <a href="/behavioral-drift" class="inline-flex items-center gap-2 border border-line-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all">
+              Read the research →
+            </a>
           </div>
         </div>
       </div>
