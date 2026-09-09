@@ -97,6 +97,12 @@ const articleSchema = datePublished
                 document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#050505");
             }
         </script>
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Kyde"
+            href={new URL("/rss.xml", Astro.site).href}
+        />
         <meta name="description" content={description} />
         <title>{title}</title>
         {noindex ? (
