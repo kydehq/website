@@ -13,6 +13,11 @@ interface Props {
     description?: string;
     image?: string;
     noindex?: boolean;
+    /** ISO date, YYYY-MM-DD. Set on an article to emit BlogPosting schema. */
+    datePublished?: string;
+    /** Overrides the headline in that schema; defaults to the title with its
+     *  ", KYDE" suffix trimmed, which is a page title rather than a headline. */
+    headline?: string;
 }
 
 const {
@@ -20,6 +25,8 @@ const {
     description = "Kyde builds AI workers from the processes a company already runs, and runs them on a zero trust layer: identity, policy, data, limits and a hash-chained record of every action, in your own environment. Built for GDPR, EU AI Act, NIS-2 and DORA.",
     image,
     noindex = false,
+    datePublished,
+    headline,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
@@ -41,6 +48,35 @@ const locale = localeOf(Astro.url.pathname);
 const alternates = alternatesFor(Astro.url.pathname);
 const hasAlternates = Object.keys(alternates).length > 0;
 const ogImage = new URL(cardPath, Astro.site).href;
+
+// Article schema, emitted only where a page says it is an article by giving a
+// date. Seventeen posts carried their publication month as display text and
+// nothing a machine could read, which is why none of them ever showed a date in
+// a search result.
+//
+// datePublished only, no dateModified: bumping a modified date because a link
+// was repointed or a typo fixed is the kind of freshness signal search engines
+// discount, and none of these have been revised in substance. It goes in when
+// one of them actually is.
+const articleSchema = datePublished
+    ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: headline ?? title.replace(/,\s*KYDE$/, ""),
+          description,
+          datePublished,
+          image: ogImage,
+          inLanguage: locale,
+          mainEntityOfPage: { "@type": "WebPage", "@id": canonicalURL },
+          author: { "@type": "Organization", name: "Kyde", url: "https://kyde.com" },
+          publisher: {
+              "@type": "Organization",
+              name: "Kyde",
+              url: "https://kyde.com",
+              logo: { "@type": "ImageObject", url: "https://kyde.com/kyde-logo.svg" },
+          },
+      }
+    : null;
 ---
 
 <!doctype html>
@@ -113,6 +149,9 @@ const ogImage = new URL(cardPath, Astro.site).href;
         <link rel="manifest" href="/site.webmanifest" />
 
         <!-- Additional head slot -->
+        {articleSchema && (
+            <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+        )}
         <slot name="head" />
 
     </head>
