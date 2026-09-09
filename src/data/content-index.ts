@@ -38,6 +38,11 @@ export const ARTICLES: Article[] = [
         title: "Behavioral Drift in AI Agents: Seven Forms and What Your Logs Can Show",
         summary: "Behavioral drift is not a single, well-defined phenomenon. At least seven related ways agent behavior can change, our synthesis rather than an established taxonomy: drift can be inherited between agents, agents can stop before the work is done, and reward hacking is related but different. Which signals are visible in production logs, at what cost, and where the evidence is still missing.",
         href: "/behavioral-drift",
+        // Dated for the feed only. The page itself stays visually undated: it
+        // hangs off research and Article 72 rather than off the product, so a
+        // byline would make it look stale long before it is. Nothing but
+        // rss.xml.ts reads this field.
+        date: "2026-09-05",
     },
     {
         category: "Insurance · Liability · Complete Guide",
