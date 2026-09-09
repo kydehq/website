@@ -1,0 +1,60 @@
+---
+// Starlight's ThemeSelect, replaced with the same two-state toggle the marketing
+// navbar uses, writing the same key. Starlight's own select would write to
+// `starlight-theme` and the two halves of the site would then disagree about
+// what the reader picked.
+//
+// Starlight renders this component twice, once in the header and once in the
+// mobile menu, so the button carries a class rather than an id and the script
+// guards against binding its listener twice.
+---
+<button
+    type="button"
+    aria-label="Switch between dark and light"
+    class="docs-theme-toggle"
+>
+    <span class="theme-glyph-dark">☾</span><span class="theme-glyph-light hidden">☀</span>
+</button>
+
+<style>
+    .docs-theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid var(--sl-color-gray-5);
+        background: transparent;
+        color: var(--sl-color-gray-2);
+        font-size: 0.8125rem;
+        line-height: 1;
+        cursor: pointer;
+    }
+    .docs-theme-toggle:hover {
+        color: var(--sl-color-white);
+        border-color: var(--sl-color-gray-3);
+    }
+    .hidden { display: none; }
+</style>
+
+<script is:inline>
+    if (!window.__kydeDocsThemeBound) {
+        window.__kydeDocsThemeBound = true;
+        const KEY = "kyde_theme_choice";
+        const apply = (theme, persist) => {
+            // Always written, never deleted: Starlight's light values key off
+            // data-theme="light", so an absent attribute falls back to dark.
+            document.documentElement.dataset.theme = theme;
+            if (persist) localStorage.setItem(KEY, theme);
+            document.querySelectorAll(".theme-glyph-dark").forEach((el) => el.classList.toggle("hidden", theme === "light"));
+            document.querySelectorAll(".theme-glyph-light").forEach((el) => el.classList.toggle("hidden", theme !== "light"));
+        };
+        // Match the pre-paint guard, so the glyph agrees with the ground on load.
+        apply(document.documentElement.dataset.theme === "dark" ? "dark" : "light", false);
+        // Delegated, because both copies of the button are equivalent.
+        document.addEventListener("click", (e) => {
+            if (!(e.target instanceof Element) || !e.target.closest(".docs-theme-toggle")) return;
+            apply(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
+        });
+    }
+</script>

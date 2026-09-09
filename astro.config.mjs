@@ -24,9 +24,9 @@ export default defineConfig({
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kydehq/gateway' }],
       customCss: ['./src/styles/starlight-kyde.css'],
       components: {
-        // Dark-only, matching the marketing site
-        ThemeProvider: './src/components/starlight/ThemeProviderDark.astro',
-        ThemeSelect: './src/components/starlight/ThemeSelectNone.astro',
+        // Same light default and same stored choice as the marketing site
+        ThemeProvider: './src/components/starlight/ThemeProviderKyde.astro',
+        ThemeSelect: './src/components/starlight/ThemeSelectKyde.astro',
         // KYDE logo top-left, linking back to the marketing site
         SiteTitle: './src/components/starlight/SiteTitleKyde.astro',
       },
