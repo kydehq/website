@@ -28,7 +28,7 @@ const otherLocale = locale === "de" ? "en" : "de";
 const otherHref = alternates[otherLocale];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-paper/95 backdrop-blur-md">
+<header id="site-nav" class="site-nav fixed top-0 left-0 right-0 z-50">
   <nav aria-label="Main" class="mx-auto flex max-w-[1440px] items-center justify-between px-[clamp(20px,5.5vw,80px)] py-4">
     <!-- Logo -->
     <a href="/" class="inline-flex items-center shrink-0">
@@ -146,4 +146,31 @@ const otherHref = alternates[otherLocale];
 
   (window as any).closeMobileMenu = () => setOpen(false);
 
+  // The bar takes the colour of whatever section is under it, so it never
+  // reads as a separate strip: blush over the hero and the pink bands, paper
+  // everywhere else. Sections opt in with data-surface.
+  const nav = document.getElementById('site-nav');
+  let navTick = false;
+  const syncNav = () => {
+    navTick = false;
+    if (!nav) return;
+    const y = nav.offsetHeight;
+    const under = Array.from(document.querySelectorAll<HTMLElement>('main > section')).find((sec) => {
+      const r = sec.getBoundingClientRect();
+      return r.top <= y && r.bottom > y;
+    });
+    nav.dataset.surface = under?.dataset.surface ?? 'paper';
+    nav.classList.toggle('scrolled', window.scrollY > 4);
+  };
+  window.addEventListener('scroll', () => { if (!navTick) { navTick = true; requestAnimationFrame(syncNav); } }, { passive: true });
+  window.addEventListener('resize', syncNav);
+  syncNav();
+
 </script>
+
+<style>
+  .site-nav { background: var(--color-paper); transition: background-color .25s ease, border-color .25s ease; border-bottom: 1px solid transparent; }
+  .site-nav[data-surface="blush"] { background: var(--color-blush); }
+  .site-nav.scrolled:not([data-surface="blush"]) { border-bottom-color: color-mix(in srgb, var(--color-ink) 12%, transparent); }
+  #mobile-menu { background: inherit; }
+</style>

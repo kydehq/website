@@ -27,7 +27,8 @@
   --color-ink: #1C1A1B;
   --color-ink-pink: #2B2226; /* text and lines on a pink surface */
   --color-card: #1E1E1E;     /* dark cards and tags; never a whole section */
-  --color-pink: #F389A3;
+  --color-pink: #F389A3;      /* accent only: marks, pink text on dark, tags */
+  --color-blush: #F8D9D4;     /* full-bleed surfaces: hero, one mid-page band, the close */
   --color-neon: #DEFD7E;
 
   /* The old accent names, folded into the new system. Numbering and
@@ -298,6 +299,10 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
 /* Logo asset is a white-on-transparent SVG; invert it on light ground.
    Excluded inside .dark-island, which stays dark regardless of theme. */
 .logo-mark { filter: invert(1); }
+
+/* Footer: the one dark full-bleed surface on the site, the anchor at the
+   end. The deck forbids dark slides; a website needs a floor. */
+.site-footer .wordmark-dot { fill: var(--color-blush); }
 .dark-island .logo-mark { filter: none; }
 
 .hero-noise {

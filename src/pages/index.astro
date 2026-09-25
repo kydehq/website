@@ -131,7 +131,7 @@ const websiteSchema = {
 
   <main class="kx">
     <!-- ══════════ HERO ══════════ -->
-    <section class="surface-pink hero">
+    <section data-surface="blush" class="surface-pink hero">
       <div class="wrap hero-inner">
         <p class="mono label">(Behavioral monitoring for AI agents)</p>
         <div class="brackets">
@@ -312,7 +312,9 @@ const websiteSchema = {
     </section>
 
     <!-- ══════════ WHY KYDE ══════════ -->
-    <section class="surface-paper">
+    <!-- The mid-page colour band: the one argument that gets a full surface
+         between the hero and the close. -->
+    <section data-surface="blush" class="surface-pink">
       <div class="wrap sec">
         <div class="kicker"><span class="num">04</span><span class="mono">Why Kyde</span></div>
         <h2 class="h1">The problem isn't that agents make mistakes. It's that nobody sees them happening.</h2>
@@ -382,7 +384,7 @@ const websiteSchema = {
     </section>
 
     <!-- ══════════ CLOSE ══════════ -->
-    <section class="surface-pink">
+    <section data-surface="blush" class="surface-pink">
       <div class="wrap sec close">
         <div class="brackets">
           <h2 class="display-2">Before you give your agents more access, know how they behave.</h2>
@@ -489,7 +491,7 @@ const websiteSchema = {
   .wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--pad); }
   .sec { padding-block: clamp(72px, 9vw, 136px); }
   .surface-paper { background: var(--color-paper); color: var(--color-ink); }
-  .surface-pink { background: var(--color-pink); color: var(--color-ink-pink); --color-ink: var(--color-ink-pink); }
+  .surface-pink { background: var(--color-blush); color: var(--color-ink-pink); --color-ink: var(--color-ink-pink); }
   /* consecutive paper sections are split by an ink rule, not by a tint */
   .surface-paper + .surface-paper .sec { border-top: var(--rule); }
 
