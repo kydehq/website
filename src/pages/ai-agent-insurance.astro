@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: "What does DORA's 'independent audit trail' requirement actually mean technically?",
-    a: "DORA Article 30 requires that audit trails of third-party ICT provider interactions be stored independently of the provider, not on their infrastructure, not requiring their cooperation to access, not subject to their retention policies. For AI agents, every LLM API call is an ICT provider interaction. The audit trail must be stored in infrastructure the financial entity controls, signed with keys the financial entity holds, and accessible without the model provider's involvement. A log stored in OpenAI's console does not satisfy this requirement.",
+    a: "Under DORA an LLM provider is an ICT third-party service provider. Article 28 keeps the financial entity responsible for that risk, and Article 30 requires its contracts to secure access, inspection and audit rights. For AI agents, every LLM API call is an interaction with that provider. A log that exists only in the provider's console depends on the provider's cooperation to produce; a record the financial entity writes and keeps in its own infrastructure does not.",
   },
   {
     q: "How does parametric AI agent insurance work in practice?",

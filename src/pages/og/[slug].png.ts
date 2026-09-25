@@ -18,20 +18,25 @@ import { CARD_PAGES, ogSlug } from "../../data/content-index";
 //
 // The fonts are the .woff builds from @fontsource: satori reads ttf, otf and
 // woff, and specifically not woff2, which is all @fontsource-variable ships.
-// That is why two extra font packages are dev dependencies.
+// That is why the static font packages are dev dependencies.
 export const prerender = true;
 
 const FONTS = "node_modules/@fontsource";
-const inter = (weight: number) => readFileSync(`${FONTS}/inter/files/inter-latin-${weight}-normal.woff`);
-const mono = readFileSync(`${FONTS}/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff`);
+const grotesk = readFileSync(`${FONTS}/schibsted-grotesk/files/schibsted-grotesk-latin-500-normal.woff`);
+const mono = readFileSync(`${FONTS}/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff`);
 
-// The mark itself, not a re-creation of it in a similar typeface.
-const logo = readFileSync("public/kyde-logo.svg").toString("base64");
+// The mark itself, not a re-creation of it in a similar typeface. The asset is
+// white on transparent; the card is blush, so it is recoloured to ink here.
+const logo = Buffer.from(
+  readFileSync("public/kyde-logo.svg", "utf8").replace(/#FFFDFD|white/gi, "#2B2226"),
+).toString("base64");
 
+// Since the September 2026 rebrand: the blush surface, ink type, the deck's
+// mono label in parentheses and its corner brackets around the title.
 const W = 1200;
 const H = 630;
-const BG = "#050505";
-const INK = "#F2F2F2";
+const BG = "#F8D9D4";
+const INK = "#2B2226";
 
 // Long titles get smaller type rather than more lines. Four lines at 60px is
 // the point where the card stops reading as a headline and starts reading as a
@@ -71,14 +76,18 @@ export const GET: APIRoute = async ({ props }) => {
         padding: "72px",
       },
       [
-        el("div", { display: "flex", fontFamily: "JetBrains Mono", fontSize: 22, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(242,242,242,0.45)" }, kind),
-        el("div", { display: "flex", fontFamily: "Inter", fontWeight: 700, fontSize: titleSize(title), lineHeight: 1.12, letterSpacing: "-0.02em", color: INK, maxWidth: 1000 }, title),
-        el("div", { display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }, [
+        el("div", { display: "flex", fontFamily: "IBM Plex Mono", fontSize: 24, color: INK }, `(${kind})`),
+        el("div", { display: "flex", position: "relative", paddingLeft: 40, paddingTop: 18, paddingBottom: 18 }, [
+          el("div", { position: "absolute", left: 0, top: 0, width: 22, height: 22, borderLeft: `3px solid ${INK}`, borderTop: `3px solid ${INK}` }),
+          el("div", { position: "absolute", left: 0, bottom: 0, width: 22, height: 22, borderLeft: `3px solid ${INK}`, borderBottom: `3px solid ${INK}` }),
+          el("div", { display: "flex", fontFamily: "Schibsted Grotesk", fontWeight: 500, fontSize: titleSize(title) + 6, lineHeight: 0.98, letterSpacing: -0.045 * (titleSize(title) + 6), color: INK, maxWidth: 1000 }, title),
+        ]),
+        el("div", { display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", borderTop: `3px solid ${INK}`, paddingTop: 24 }, [
           {
             type: "img",
-            props: { src: `data:image/svg+xml;base64,${logo}`, width: 198, height: 66 },
+            props: { src: `data:image/svg+xml;base64,${logo}`, width: 150, height: 50 },
           },
-          el("div", { display: "flex", fontFamily: "JetBrains Mono", fontSize: 22, letterSpacing: "0.14em", color: "rgba(242,242,242,0.4)" }, "kyde.com"),
+          el("div", { display: "flex", fontFamily: "IBM Plex Mono", fontSize: 22, color: "#F389A3", backgroundColor: "#1E1E1E", padding: "4px 12px 6px" }, "(kyde.com)"),
         ]),
       ],
     ),
@@ -86,9 +95,8 @@ export const GET: APIRoute = async ({ props }) => {
       width: W,
       height: H,
       fonts: [
-        { name: "Inter", data: inter(400), weight: 400, style: "normal" },
-        { name: "Inter", data: inter(700), weight: 700, style: "normal" },
-        { name: "JetBrains Mono", data: mono, weight: 400, style: "normal" },
+        { name: "Schibsted Grotesk", data: grotesk, weight: 500, style: "normal" },
+        { name: "IBM Plex Mono", data: mono, weight: 500, style: "normal" },
       ],
     },
   );

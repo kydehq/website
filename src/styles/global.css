@@ -36,9 +36,9 @@
   --color-acid: #DEFD7E;
   --color-gold: #1C1A1B;
   --color-ember: #1C1A1B;
-  --color-live: #0B8A50;   /* status only: live data, a passing check */
+  --color-live: #1C1A1B;   /* status: on paper a positive state is a neon tag, not green */
   --color-alert: #C4263A;
-  --color-warn: #955F00;
+  --color-warn: #6F6A6C;    /* "not yet" states read as grey on paper; the palette has no orange */
 
   --color-cta-ink: #F7F5F2;    /* text on the primary (ink) button */
   --color-cta-hover: #3A3638;
@@ -310,3 +310,131 @@ section.revealed path.draw, .no-reveal path.draw { stroke-dashoffset: 0; }
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
+
+/* ── Translation layer, September 2026 rebrand ──────────────────
+   Most pages were written in the old engineering-blueprint idiom: mono
+   labels in uppercase with wide tracking, bold headlines, 10–11px meta,
+   1px grey hairlines, side rails framing every section, soft status
+   pills. Rather than touching eighty files one by one, the idiom is
+   translated here into the one the home is built in, so every page shares
+   its rules: 2px ink lines, square boxes, weight 500 headlines at tight
+   tracking, mono at zero tracking and a readable size, one button shape.
+   Unlayered on purpose, so it wins over Tailwind's utilities. */
+
+/* type */
+.uppercase { text-transform: none; }
+.font-mono { letter-spacing: 0 !important; font-weight: 500; }
+.font-mono.text-\[9px\], .font-mono.text-\[10px\], .font-mono.text-\[11px\], .font-mono.text-xs { font-size: 13px; }
+:is(h1, h2, h3, h4), .hero-h1 { font-weight: 500; }
+h1:not(.display):not(.display-2), .hero-h1 { letter-spacing: -0.05em; line-height: 0.92; }
+main h2:is(.text-2xl, .text-3xl, .text-4xl, .text-5xl) { font-size: clamp(2.1rem, 4.2vw, 4.4rem); line-height: 0.96; letter-spacing: -0.048em; }
+main h3:is(.text-xl, .text-2xl, .text-3xl) { font-size: clamp(1.45rem, 2vw, 2.1rem); line-height: 1.02; letter-spacing: -0.04em; }
+main h3:is(.text-base, .text-lg) { font-size: 1.3rem; letter-spacing: -0.03em; line-height: 1.1; }
+main p.text-lg, main p.text-xl { letter-spacing: -0.015em; line-height: 1.35; }
+.fig-label { text-transform: none; letter-spacing: 0; font-size: 13px; }
+svg text { letter-spacing: 0 !important; }
+
+/* lines and boxes: every rule and every frame is 2px ink, as on the home */
+:root { --kx-line: var(--color-ink-0); }
+.border { border-width: 2px; }
+.border-t { border-top-width: 2px; }
+.border-b { border-bottom-width: 2px; }
+.border-l { border-left-width: 2px; }
+.border-r { border-right-width: 2px; }
+.border-y { border-top-width: 2px; border-bottom-width: 2px; }
+.border-x { border-left-width: 2px; border-right-width: 2px; }
+@media (min-width: 768px) {
+  .md\:border-l { border-left-width: 2px; } .md\:border-r { border-right-width: 2px; }
+  .md\:border-t { border-top-width: 2px; } .md\:border-b { border-bottom-width: 2px; }
+  .md\:border-x { border-left-width: 0; border-right-width: 0; } /* the old side rails go */
+}
+@media (min-width: 1024px) {
+  .lg\:border-l { border-left-width: 2px; } .lg\:border-r { border-right-width: 2px; }
+  .lg\:border-t { border-top-width: 2px; } .lg\:border-b { border-bottom-width: 2px; }
+}
+main :is(.border-line-0, .border-line-1, [class*="border-white/"], [class*="border-ink-"]),
+main :is(.divide-line-0, .divide-line-1, [class*="divide-white/"]) > * { border-color: var(--kx-line); }
+main [class*="divide-"] > * { border-width: 0; }
+main .divide-y > * + * { border-top-width: 2px; }
+main .divide-x > * + * { border-left-width: 2px; }
+@media (min-width: 768px) { main .md\:divide-x > * + * { border-left-width: 2px; } }
+[class*="rounded"]:not(.rounded-full) { border-radius: 0; }
+main [class*="shadow"] { box-shadow: none; }
+/* panels were tinted recesses; now they are paper inside an ink frame */
+main :is([class*="bg-white/["], .bg-bg-1, .bg-bg-2) { background-color: transparent; }
+main .dark-island, main .dark-island .bg-bg-1, main .dark-island .bg-bg-2 { background-color: var(--color-card); }
+
+/* status pills: positive = neon tag, warning/gap = dark tag with pink,
+   alert stays red (it is a function, not a brand colour) */
+main [class*="border-live"] { background: var(--color-neon); border-color: transparent; color: #1C1A1B; }
+main :is([class*="border-ember"], [class*="border-gold"]) { background: var(--color-card); border-color: transparent; color: var(--color-pink); }
+.text-live { color: var(--color-ink-0); }
+main [class*="bg-live"]:not([class*="border-live"]) { background-color: var(--color-neon); }
+
+/* body copy: the old pages shade ink by opacity; the home uses two greys */
+main :is(.text-white\/50, .text-white\/55, .text-white\/60, .text-white\/65, .text-white\/70, .text-white\/75, .text-white\/80) { color: var(--color-ink-1); }
+main :is(.text-white\/25, .text-white\/30, .text-white\/35, .text-white\/40, .text-white\/45) { color: var(--color-ink-2); }
+
+/* figures: the blueprint drew in faint hairlines; the deck draws in 2px
+   ink. Opacity goes, frames get the house weight, labels are full ink. */
+main svg :is(rect, circle, path, line, polyline, polygon)[stroke] { stroke-opacity: 1; }
+main svg rect[stroke]:not([stroke="none"]) { stroke-width: 2; }
+main svg path[stroke]:not([stroke-dasharray]) { stroke-width: max(2px, 1px); }
+main svg text { fill-opacity: 1; font-family: var(--font-mono); font-weight: 500; }
+main svg [fill-opacity]:not(text) { fill-opacity: 1; }
+main svg rect[fill*="live"], main svg circle[fill*="live"] { fill: var(--color-neon); stroke: var(--color-ink-0); }
+
+/* buttons: one shape, the home's */
+main :is(a, button).inline-flex.items-center.gap-2:is([class*="px-6"], [class*="px-8"], [class*="px-5"]) {
+  font-family: var(--font-mono); font-weight: 500; font-size: 1rem; letter-spacing: 0;
+  padding: 14px 22px 15px; border-width: 2px;
+}
+main :is(a, button).bg-white { background-color: var(--color-card); color: #fff; border-color: transparent; }
+main :is(a, button).bg-white:hover { background-color: #000; }
+
+/* kicker: the home's dark tag with the pink number */
+.kicker-tag { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-weight: 500; font-size: 15px; color: var(--color-ink-0); }
+.kicker-num { background: var(--color-card); color: var(--color-pink); padding: 2px 9px 3px; }
+
+/* Page hero: the first section of every catalogue page is blush with the
+   deck's corner brackets around the headline, so each page opens on the
+   brand the way the home does. Articles stay on paper. */
+.page-hero { background: var(--color-blush); --color-ink-0: #2B2226; --color-line-0: color-mix(in srgb, #2B2226 22%, transparent); --color-line-1: #2B2226; }
+.page-hero .bg-grid { display: none; }
+.page-hero h1 { position: relative; padding: 0.28em 0 0.28em 0.55em; }
+.page-hero h1::before, .page-hero h1::after {
+  content: ''; position: absolute; left: 0; width: 20px; height: 20px;
+  border-left: 2px solid currentColor;
+}
+.page-hero h1::before { top: 0; border-top: 2px solid currentColor; }
+.page-hero h1::after { bottom: 0; border-bottom: 2px solid currentColor; }
+.page-hero + section { border-top: 0; }
+
+/* Page close: the last section of every catalogue page is blush, the way
+   the home ends, so no page runs out in white before the footer. */
+.page-close { background: var(--color-blush); --color-ink-0: #2B2226; --color-line-0: color-mix(in srgb, #2B2226 22%, transparent); --color-line-1: #2B2226; }
+.page-close, .page-close :is(.border-t, .md\:border-x) { border-top-color: transparent; }
+.page-close :is(.border-b):last-child { border-bottom-color: transparent; }
+main .text-warn { color: var(--color-ink-2); }
+
+/* Articles: every post and guide styles its prose locally, in the old
+   idiom (uppercase h2 with a grey hairline, links and bullets in warn
+   orange). One rule here brings all of them onto the home's system. The
+   !important is deliberate: the local rules are scoped, so they carry an
+   attribute selector this sheet cannot outweigh any other way. */
+.prose-kyde { --color-warn: var(--color-ink-0); --color-gold: var(--color-ink-1); font-size: 1.0625rem !important; line-height: 1.6 !important; }
+.prose-kyde h2 {
+  text-transform: none !important; letter-spacing: -0.04em !important; font-weight: 500 !important;
+  font-size: clamp(1.7rem, 2.6vw, 2.4rem) !important; line-height: 1.02 !important;
+  border-bottom: 0 !important; border-top: 2px solid var(--color-ink-0) !important;
+  padding: 0.9rem 0 0 !important; margin-top: 3rem !important;
+}
+.prose-kyde h3 { text-transform: none !important; letter-spacing: -0.03em !important; font-weight: 500 !important; font-size: 1.4rem !important; line-height: 1.1 !important; }
+.prose-kyde h4 { text-transform: none !important; letter-spacing: 0 !important; font-family: var(--font-mono) !important; font-weight: 500 !important; }
+.prose-kyde a:not(.inline-flex) { color: var(--color-ink-0) !important; text-decoration-thickness: 2px !important; }
+.prose-kyde strong { color: var(--color-ink-0) !important; }
+.prose-kyde blockquote { border-left: 2px solid var(--color-ink-0) !important; }
+.prose-kyde :is(table, th, td) { border-color: var(--color-ink-0) !important; }
+.prose-kyde :is(th, td) { border-width: 0 0 2px 0 !important; }
+/* the old pages draw some rules as 1px-tall divs rather than borders */
+main .h-px:is(.bg-line-0, .bg-line-1, [class*="bg-white/"]) { height: 2px; background-color: var(--color-ink-0); }

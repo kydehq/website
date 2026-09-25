@@ -155,7 +155,9 @@ const otherHref = alternates[otherLocale];
     navTick = false;
     if (!nav) return;
     const y = nav.offsetHeight;
-    const under = Array.from(document.querySelectorAll<HTMLElement>('main > section')).find((sec) => {
+    // Any section, however deeply nested, that marks its surface and sits
+    // under the bar's bottom edge decides; everything else is paper.
+    const under = Array.from(document.querySelectorAll<HTMLElement>('main [data-surface]')).find((sec) => {
       const r = sec.getBoundingClientRect();
       return r.top <= y && r.bottom > y;
     });

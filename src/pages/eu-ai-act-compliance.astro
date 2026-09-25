@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "What is the difference between the EU AI Act and DORA for AI agents?",
-    a: "DORA (Digital Operational Resilience Act) applies to financial entities specifically and focuses on ICT risk management and resilience. The EU AI Act applies to AI systems broadly, across all regulated verticals. An AI agent deployed in a financial context must satisfy both: DORA Article 30 (ICT-related incident logs, two-year retention) and EU AI Act Articles 12 and 26. The requirements overlap but are not identical."
+    a: "DORA (Digital Operational Resilience Act) applies to financial entities specifically and focuses on ICT risk management and resilience. The EU AI Act applies to AI systems broadly, across all regulated verticals. An AI agent deployed in a financial context must satisfy both: DORA Articles 17, 28 and 30 (ICT incident management, third-party ICT risk, contractual access and audit rights) and EU AI Act Articles 12 and 26. The requirements overlap but are not identical."
   },
   {
     q: "Does the AI Act apply to open-source AI models?",
@@ -229,7 +229,7 @@ const faqSchema = {
             <ul>
               <li>Logging must be automatic, not manually triggered or opt-in</li>
               <li>Logs must enable post-hoc verification of system behavior</li>
-              <li>Retention: minimum six months; longer where sectoral law requires it (DORA Article 30 requires two years for financial entities)</li>
+              <li>Retention: at least six months for deployers (Art. 26(6)); longer where other Union or national law requires it, as financial-sector record-keeping rules often do</li>
               <li>For credit, insurance, and employment decisions: the log must capture sufficient context to reconstruct the decision chain</li>
             </ul>
             <p>
