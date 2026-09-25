@@ -2,8 +2,9 @@
 import { alternatesFor, localeOf } from "../data/locales";
 import { entryForPath, ogSlug } from "../data/content-index";
 import "../styles/global.css";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/schibsted-grotesk";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
 import DemoModal from "../components/DemoModal.astro";
 import CookieBanner from "../components/CookieBanner.astro";
 import WebMcpTools from "../components/WebMcpTools.astro";
@@ -84,19 +85,11 @@ const articleSchema = datePublished
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="light dark" />
-        <meta name="theme-color" content="#F7F6F3" />
-        <script is:inline>
-            // Theme pre-paint: light is the default; dark only on explicit opt-in.
-            // Runs before first paint so there is no flash-of-wrong-theme.
-            // Key versioned: the old one was written on every page load rather
-            // than on a choice, so returning visitors all carry a "dark" they
-            // never picked. See the note in Navbar.astro.
-            if (localStorage.getItem("kyde_theme_choice") === "dark") {
-                document.documentElement.dataset.theme = "dark";
-                document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#050505");
-            }
-        </script>
+        <!-- Light only, since the September 2026 rebrand: the deck forbids dark
+             full-bleed surfaces and so does the site. The old dark opt-in is
+             gone with its toggle; a stored choice from before is ignored. -->
+        <meta name="color-scheme" content="light" />
+        <meta name="theme-color" content="#F7F5F2" />
         <link
             rel="alternate"
             type="application/rss+xml"

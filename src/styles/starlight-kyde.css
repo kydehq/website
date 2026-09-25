@@ -10,8 +10,9 @@
    go to maximum contrast, never gold fills. */
 
 /* Same self-hosted fonts as the marketing site (no third-party font CDN) */
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/schibsted-grotesk';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 
 /* Starlight names its ramp for the dark theme, where "white" is the highest
    contrast ink. In light that inverts, exactly as --color-white does in
@@ -19,39 +20,39 @@
 :root {
   color-scheme: light;
 
-  --sl-color-accent-low: #E6E4DE;  /* bg-3 */
-  --sl-color-accent: #191919;      /* ink-0 */
+  --sl-color-accent-low: #FBD3DD;  /* bg-3 */
+  --sl-color-accent: #1C1A1B;      /* ink-0 */
   --sl-color-accent-high: #000000;
 
-  --sl-color-white: #191919;   /* ink-0, the highest-contrast ink */
+  --sl-color-white: #1C1A1B;   /* ink-0, the highest-contrast ink */
   --sl-color-gray-1: #2B2B2B;
-  --sl-color-gray-2: #4F4F4F;  /* ink-1 */
-  --sl-color-gray-3: #767676;  /* ink-2 */
-  --sl-color-gray-4: #BFBCB2;  /* line-1 */
-  --sl-color-gray-5: #DAD7CF;  /* line-0 */
-  --sl-color-gray-6: #EEEDE8;  /* bg-2 */
-  --sl-color-black: #F7F6F3;   /* bg-0, the page ground */
+  --sl-color-gray-2: #4A4547;  /* ink-1 */
+  --sl-color-gray-3: #6F6A6C;  /* ink-2 */
+  --sl-color-gray-4: #1C1A1B;  /* line-1 */
+  --sl-color-gray-5: #D8D3CE;  /* line-0 */
+  --sl-color-gray-6: #EFECE8;  /* bg-2 */
+  --sl-color-black: #F7F5F2;   /* bg-0, the page ground */
 
-  --sl-color-bg: #F7F6F3;             /* warm paper canvas = bg-0 */
-  --sl-color-bg-nav: #F3F2EE;         /* bg-1 */
-  --sl-color-bg-sidebar: #F3F2EE;     /* bg-1 */
-  --sl-color-bg-inline-code: #EEEDE8; /* bg-2 */
-  --sl-color-hairline-light: #BFBCB2;
-  --sl-color-hairline: #DAD7CF;
-  --sl-color-hairline-shade: #DAD7CF;
+  --sl-color-bg: #F7F5F2;             /* warm paper canvas = bg-0 */
+  --sl-color-bg-nav: #F7F5F2;         /* bg-1 */
+  --sl-color-bg-sidebar: #F7F5F2;     /* bg-1 */
+  --sl-color-bg-inline-code: #EFECE8; /* bg-2 */
+  --sl-color-hairline-light: #1C1A1B;
+  --sl-color-hairline: #D8D3CE;
+  --sl-color-hairline-shade: #D8D3CE;
 
-  --sl-color-text: #4F4F4F;        /* ink-1 body text */
-  --sl-color-text-accent: #191919; /* current items: ink-0, not gold */
+  --sl-color-text: #4A4547;        /* ink-1 body text */
+  --sl-color-text-accent: #1C1A1B; /* current items: ink-0, not gold */
 
   /* Semantic accents, carried separately because the aside borders need them
      and Starlight has no token of its own for them. */
-  --kyde-panel: #EEEDE8;  /* bg-2 */
+  --kyde-panel: #EFECE8;  /* bg-2 */
   --kyde-live:  #0B8A50;
   --kyde-warn:  #955F00;
   --kyde-alert: #D93036;
 
-  --sl-font: 'Inter Variable', system-ui, sans-serif;
-  --sl-font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --sl-font: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+  --sl-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
 :root[data-theme='dark'] {

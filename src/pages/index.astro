@@ -3,48 +3,112 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-// The five steps of the mechanic, in the order an incident actually runs
-// through them. The order is the argument: you cannot detect what you never
-// observed, and you cannot quarantine on a signal nobody can investigate
-// afterwards. Each one names the concrete thing underneath it.
-const flow = [
+// September 2026 rebrand. The story is the website draft (money and security
+// first, drift as the mechanism underneath), in the pitch deck's design
+// language: paper, ink, pink, neon, mono labels, 2px rules. The deck's 1920s
+// futurism survives only as small marks (corner brackets, the dot band, a
+// tilted tag, one row of phases); the pictures on this page are the product,
+// not illustrations.
+//
+// Pink full-bleed sections: the hero and the close. Everything else is paper.
+// One highlight mark per section at most.
+
+// A fleet, because nobody runs one agent. Illustrative names and numbers,
+// labelled as such on the panel. The row with `turns` is the one that starts
+// looping.
+const fleet = [
+  { id: 'invoice-reconciler-07', score: 96, cost: '€0.41/h' },
+  { id: 'support-triage-12',     score: 94, cost: '€0.18/h' },
+  { id: 'procurement-agent-03',  score: 91, cost: '€0.66/h', turns: { score: 34, cost: '€212/h', note: 'Looping · 1,400 calls in 20 min' } },
+  { id: 'contract-review-21',    score: 97, cost: '€0.22/h' },
+  { id: 'crm-enrichment-44',     score: 89, cost: '€0.09/h' },
+];
+
+const wrongs = [
+  { tag: '(Objective)', line: 'Its goal can be wrong from the start.' },
+  { tag: '(Reward)',    line: 'A reward can teach it the wrong behavior.' },
+  { tag: '(Vendor)',    line: 'A vendor can change the model underneath it.' },
+  { tag: '(Memory)',    line: 'Its context and memory can change what it does.' },
+  { tag: '(Attack)',    line: 'An attacker can inject instructions and hijack a legitimate task.' },
+];
+
+// Four ways it goes wrong, each with what Kyde actually does about it. The
+// answers are held to what ships: enforcement is a switch (Enterprise), and
+// Kyde does not claim to recognize every injection, it sees the behavior.
+const cases = [
   {
-    n: '01', name: 'Observe',
-    line: 'Every action an agent takes crosses Kyde.',
-    body: 'One line of configuration in front of the model, no code changes in the agent. It records everything and blocks nothing until you decide otherwise.',
+    tag: '(Money)',
+    name: 'Runaway execution',
+    lead: 'The agent starts spending.',
+    body: 'It retries. It loops. It calls tools again and again. Compute, tokens and API costs keep piling up while nobody is watching, and the invoice is the first alert anyone sees.',
+    kyde: "Detects abnormal execution against the agent's own baseline and can stop the run before the cost runs away.",
   },
   {
-    n: '02', name: 'Detect',
-    line: "Behavior is measured against the agent's own baseline.",
-    body: 'Not a content filter. What the agent does: which tools it reaches for, which systems it touches, how often, how long it runs, and how far that has moved from the way it worked before.',
+    tag: '(Security)',
+    name: 'Prompt injection',
+    lead: "The agent is made to do something it wasn't supposed to.",
+    body: 'A document, a website, an email or a tool response carries instructions. The agent follows them, with your credentials, inside a task that looked legitimate.',
+    kyde: 'Does not have to recognize the injection. It sees what the agent does next, and enforces boundaries where actions cross into your systems.',
   },
   {
-    n: '03', name: 'Quarantine',
-    line: 'A deviating agent loses reach before it does damage.',
-    body: 'Autonomy is cut back for a high-risk agent at the boundary, rather than after somebody notices it in a support ticket three weeks later.',
+    tag: '(Drift)',
+    name: 'Behavioral drift',
+    lead: 'The agent stops behaving like itself.',
+    body: 'Its tools, sequences, timing or actions change, suddenly or gradually. A model update can cause it. Growing context, memory or a changed environment can too.',
+    kyde: 'Detects meaningful change against a frozen behavioral baseline.',
   },
   {
-    n: '04', name: 'Investigate',
-    line: 'Reconstruct what actually happened.',
-    body: "The record is written at the boundary, outside the agent's control, so a deviation can be traced through the actions that produced it instead of guessed at.",
-  },
-  {
-    n: '05', name: 'Prove',
-    line: 'Show a third party, without us in the room.',
-    body: 'Hash-chained and signed as it is written, exported as a dated document your auditor recomputes on their own machine.',
+    tag: '(Objective)',
+    name: 'Wrong from the start',
+    lead: 'Not every failure is drift.',
+    body: 'An agent can optimize the wrong objective from its very first run, and satisfy a proxy instead of the outcome you wanted. A baseline learned from that agent is a wrong baseline.',
+    kyde: 'Adds task and policy boundaries to the behavioral picture: what the agent is expected to do, and what it may never do.',
   },
 ];
 
-// Organization and WebSite schema live on the home page, which is now the
-// platform page. The description leads with the layer and names the build
-// service second, in the order the site itself now argues them.
+const steps = [
+  { n: '01', name: 'Observe', body: 'Capture every consequential action that crosses the boundary. Gateway or SDK, no changes to the agent.' },
+  { n: '02', name: 'Score',   body: 'Measure behavior against a frozen, recomputable baseline, per agent, across the whole fleet.' },
+  { n: '03', name: 'Enforce', body: 'Block actions when an agent crosses a defined boundary. Humans approve the critical ones.' },
+  { n: '04', name: 'Prove',   body: 'Keep a tamper-evident, hash-chained record of what happened. Your auditor recomputes it.' },
+];
+
+const compare = [
+  { q: 'When is it checked?',              old: 'Once, or per request', kyde: 'Continuously' },
+  { q: 'What is it judged against?',       old: 'Hand-written rules',   kyde: 'Observed behavior' },
+  { q: 'Can behavior change be detected?', old: 'Limited',              kyde: 'Yes' },
+  { q: 'Can actions be stopped?',          old: 'Sometimes',            kyde: 'At the boundary' },
+  { q: 'Can the result be recomputed?',    old: 'Limited',              kyde: 'Yes' },
+];
+
+// Articles as the existing compliance pages cite them (AI Act 12, 14, 26), plus
+// the NIS-2 and DORA articles that ask for noticing rather than for logging.
+// "Built for", never "compliant": that depends on the deployment.
+const regs = [
+  {
+    tag: '(EU AI Act)', arts: 'Art. 12 · 14 · 26',
+    line: 'Logs, oversight, monitoring after go-live.',
+    body: 'A record written outside the agent, a stop a human can actually pull, and monitoring that does not end on the day the system is switched on.',
+  },
+  {
+    tag: '(NIS-2)', arts: 'Art. 21 · 23',
+    line: 'An early warning within 24 hours.',
+    body: 'You cannot report within a day what nobody noticed. The baseline is the noticing, and the record is what goes into the report.',
+  },
+  {
+    tag: '(DORA)', arts: 'Art. 17 · 28',
+    line: 'Incidents and third-party ICT risk.',
+    body: 'When a provider changes the model underneath your agent, that is third-party risk arriving without a change request. The score shows it moved.',
+  },
+];
+
 const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Kyde",
   url: "https://kyde.com",
   logo: "https://kyde.com/kyde-logo.svg",
-  description: "Kyde detects behavioral drift in AI agents. Every action crosses Kyde, is measured against the agent's own baseline, and a deviating agent can be quarantined before the deviation becomes an incident, on a zero trust enforcement layer in the customer's own environment.",
+  description: "Kyde continuously monitors how AI agents behave. Every action crosses Kyde and is scored against the agent's own baseline, so runaway execution, prompt injection and behavioral drift are caught before they become costly or dangerous, with a tamper-evident record, in the customer's own environment.",
 };
 
 const websiteSchema = {
@@ -56,8 +120,8 @@ const websiteSchema = {
 ---
 
 <Base
-  title="KYDE, Behavioral Drift Detection for AI Agents"
-  description="AI agents drift. Kyde watches what your agents actually do, detects the deviation, and can quarantine them before it becomes an incident, whether they go off on their own, are pushed off course by prompt injection, or get stuck in a loop burning money. On a zero trust enforcement layer in your own infrastructure."
+  title="KYDE, Behavioral Monitoring for AI Agents"
+  description="AI agents don't fail loudly, they fail expensively. Kyde continuously monitors how your agents behave and catches runaway execution, prompt injection and behavioral drift before they become costly or dangerous. On-premise, private cloud or EU-hosted. Built for EU AI Act, NIS-2 and DORA."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -65,843 +129,541 @@ const websiteSchema = {
   </Fragment>
   <Navbar />
 
-  <main>
-    <!-- ══════════ HERO STAGE ══════════ -->
-    <!-- The stage came over from the workers page when the two swapped places.
-         It was always a picture of this argument rather than of the build
-         service: unordered agents drift, cross a gate, and come out in a
-         lattice. It belongs to the page that sells the gate. -->
-    <section class="relative overflow-hidden min-h-screen flex flex-col justify-center pt-28 pb-16 bg-bg-0">
-      <canvas id="hero-datastream" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
-      <div class="absolute inset-0 pointer-events-none hero-noise"></div>
-      <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg-0 via-bg-0/45 to-transparent"></div>
-      <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-bg-0"></div>
-
-      <div class="relative max-w-7xl mx-auto px-6 w-full">
-        <!-- Category register. The regulation line moved down to the terminal:
-             it is why a buyer signs, but it is not why they read on, and the
-             page now opens on the problem rather than on the compliance frame. -->
-        <p id="hero-eyebrow" class="mb-4 md:mb-5 font-mono text-[10px] md:text-[11px] text-white/55 uppercase tracking-[0.16em] md:tracking-[0.2em]" style="opacity:0;transition:opacity 0.9s ease;">
-          Behavioral drift detection for AI agents
-        </p>
-        <!-- The problem, then us. Own Your Intelligence was well branded and
-             said nothing a reader could act on; it survives as the closing
-             argument at the bottom of the page. Two lines of equal length,
-             which is what makes the scramble land. -->
-        <h1 class="hero-h1 text-[2rem] text-white uppercase tracking-tight leading-none sm:text-5xl md:text-6xl lg:text-7xl" style="opacity:0;">
-          <span id="hero-l1" style="display:block">AI Agents Drift.</span>
-          <span id="hero-l2" style="display:block">Kyde Detects It.</span>
-        </h1>
-        <p id="hero-sub" class="mt-5 md:mt-6 text-sm md:text-base lg:text-lg text-white uppercase tracking-[0.12em] leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease;">
-          How do you know an agent is still behaving the way it was supposed to?
-        </p>
-        <p id="hero-explainer" class="mt-3 text-sm md:text-base text-white/70 leading-snug max-w-xs md:max-w-md lg:max-w-xl" style="opacity:0;transition:opacity 0.9s ease 0.15s;">
-          Kyde watches what your agents actually do. When they drift, we detect it and can quarantine them, whether they go off on their own, get pushed off course by prompt injection, or get stuck in a loop burning money.
-        </p>
-        <div id="hero-ctas" class="mt-7 flex flex-col sm:flex-row gap-4" style="opacity:0;transition:opacity 0.9s ease 0.5s;">
-          <button
-            onclick="openModal()"
-            class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:bg-cta-hover transition-all"
-          >
-            Become a design partner →
-          </button>
-          <a
-            href="/behavioral-drift"
-            class="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] hover:border-white hover:bg-white/10 transition-all"
-          >
-            Read the research →
-          </a>
+  <main class="kx">
+    <!-- ══════════ HERO ══════════ -->
+    <section class="surface-pink hero">
+      <div class="wrap hero-inner">
+        <p class="mono label">(Behavioral monitoring for AI agents)</p>
+        <div class="brackets">
+          <h1 class="display">
+            AI agents don't fail loudly.<br />They fail <span class="hl hl-neon">expensively</span><span class="nowrap">.</span>
+          </h1>
         </div>
-        <div class="mt-7 space-y-1.5" style="opacity:0;transition:opacity 0.9s ease 0.7s;" id="hero-terminal">
-          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">On-premise <span class="text-white/20">·</span> Private cloud <span class="text-white/20">·</span> EU-hosted</p>
-          <p class="font-mono text-[10px] md:text-[11px] text-white/45 uppercase tracking-[0.18em]">Built for GDPR <span class="text-white/20">·</span> EU AI Act <span class="text-white/20">·</span> NIS-2 <span class="text-white/20">·</span> DORA</p>
-          <!-- two registers only: where it runs, what it is built against. The
-               five steps were here too and repeated the section directly below. -->
+        <div class="hero-grid">
+          <div>
+            <p class="lead">
+              Kyde continuously monitors how your AI agents behave, detecting runaway execution, hijacking and behavioral drift before they become costly or dangerous.
+            </p>
+            <p class="triad">
+              See what your agents are doing.<br />Know when something changes.<br />Stop it when it matters.
+            </p>
+            <div class="ctas">
+              <button onclick="openModal()" class="btn btn-ink">Watch your agents →</button>
+              <a href="#how" class="link-u mono">How it works</a>
+            </div>
+          </div>
+
+          <!-- One agent, scored live. It starts looping, the score falls and it
+               is restricted. The picture is the product, not a metaphor. -->
+          <div class="score-card" id="score-card" data-state="ok">
+            <div class="sc-head mono">
+              <span>(Agent) invoice-reconciler-07</span>
+              <span>*Illustrative</span>
+            </div>
+            <div class="sc-main">
+              <span class="sc-num" id="sc-num">96</span>
+              <span class="tag sc-tag" id="sc-tag">Trusted</span>
+            </div>
+            <dl class="sc-rows">
+              <div><dt>Tool usage</dt><dd>Normal</dd></div>
+              <div><dt>Action sequence</dt><dd data-alt="Repeating">Normal</dd></div>
+              <div><dt>Execution time</dt><dd data-alt="+740%">Normal</dd></div>
+              <div><dt>Cost behavior</dt><dd data-alt="Runaway">Normal</dd></div>
+            </dl>
+            <p class="sc-foot mono" id="sc-foot">Within baseline · 312 runs</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dots-band">
+        <div class="wrap band-row">
+          <span class="tag tag-ink">On-premise</span>
+          <span class="tag tag-ink">Private cloud</span>
+          <span class="tag tag-ink">EU-hosted</span>
+          <span class="band-gap"></span>
+          <span class="tag tag-dark">Built for EU AI Act · NIS-2 · DORA · GDPR</span>
         </div>
       </div>
     </section>
 
-<script>
-  const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  const SPEED = 0.22;
+    <!-- ══════════ NOBODY IS WATCHING ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <h2 class="h1">Your agents are acting when nobody is watching.</h2>
+        <ul class="four">
+          <li><span class="mono small">(01)</span>They can spend.</li>
+          <li><span class="mono small">(02)</span>They can be hijacked.</li>
+          <li><span class="mono small">(03)</span>They can drift.</li>
+          <li><span class="mono small">(04)</span>They can get stuck.</li>
+        </ul>
+        <p class="punch">
+          The dangerous part is not always that they fail. It's that <span class="hl hl-pink">nobody notices</span><span class="nowrap">.</span>
+        </p>
+      </div>
+    </section>
 
-  function scrambleLine(el: HTMLElement, target: string, delay: number, onDone?: () => void) {
-    let frame = 0;
-    setTimeout(() => {
-      el.innerText = target;
-      const finalH = el.offsetHeight;
-      el.style.height = finalH + "px";
-      el.style.overflow = "hidden";
-
-      function tick() {
-        let out = "";
-        for (let i = 0; i < target.length; i++) {
-          if (i < frame) {
-            out += target[i];
-          } else if (target[i] === " " || target[i] === ".") {
-            out += target[i];
-          } else {
-            out += CHARS[Math.floor(Math.random() * CHARS.length)];
-          }
-        }
-        el.innerText = out;
-        frame += SPEED;
-        if (frame < target.length) {
-          requestAnimationFrame(tick);
-        } else {
-          el.innerText = target;
-          el.style.height = "";
-          el.style.overflow = "";
-          if (onDone) onDone();
-        }
-      }
-      tick();
-    }, delay);
-  }
-
-  const l1 = document.getElementById("hero-l1") as HTMLElement;
-  const l2 = document.getElementById("hero-l2") as HTMLElement;
-  const sub = document.getElementById("hero-sub") as HTMLElement;
-  const eyebrow = document.getElementById("hero-eyebrow") as HTMLElement;
-  const h1 = l1?.closest("h1") as HTMLElement;
-  if (h1) { h1.style.animation = "none"; h1.style.opacity = "0"; }
-  const explainer = document.getElementById("hero-explainer") as HTMLElement;
-  const ctas = document.getElementById("hero-ctas") as HTMLElement;
-  if (l1) scrambleLine(l1, "AI AGENTS DRIFT.", 200);
-  if (l2) scrambleLine(l2, "KYDE DETECTS IT.", 200, () => {
-    if (eyebrow) eyebrow.style.opacity = "1";
-    if (sub) sub.style.opacity = "1";
-    if (explainer) explainer.style.opacity = "1";
-    if (ctas) ctas.style.opacity = "1";
-    const term = document.getElementById("hero-terminal");
-    if (term) term.style.opacity = "1";
-  });
-  setTimeout(() => { if (h1) h1.style.opacity = "1"; }, 200);
-
-  // ── Boundary-gate figure ────────────────────────────────────────
-  // Geometric, not "rain": unordered agents drift on the left,
-  // cross the vertical gate line, and snap into a strict lattice , 
-  // ungoverned chaos becomes governed order. Rare green pulse at
-  // crossing (recorded), rare red flash bouncing off (blocked).
-  const canvas = document.getElementById("hero-datastream") as HTMLCanvasElement | null;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (canvas) {
-    const ctx = canvas.getContext("2d")!;
-    let W = 0, H = 0, GATE = 0, ROW = 26;
-
-    // Theme-aware palette: the figure is drawn from CSS tokens, not literal
-    // rgb triples, so it inverts cleanly (light ink on dark, dark ink on
-    // light) instead of staying a fixed dark box when the theme toggles.
-    const C = { ink: "242,242,242", live: "61,220,132", alert: "255,92,92", light: false };
-    function hexToRgb(hex: string): string {
-      const m = hex.trim().replace("#", "");
-      const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
-      return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
-    }
-    function readColors() {
-      const cs = getComputedStyle(document.documentElement);
-      C.ink = hexToRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
-      C.live = hexToRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
-      C.alert = hexToRgb(cs.getPropertyValue("--color-alert") || "#FF5C5C");
-      // A bloom is emitted light. On a dark ground it brightens toward ink; on
-      // paper the same stops paint a grey smudge, so it has to tint toward the
-      // accent instead. Everything downstream branches on this one flag.
-      const bg = hexToRgb(cs.getPropertyValue("--color-bg-0") || "#050505").split(",").map(Number);
-      C.light = (bg[0] * 0.299 + bg[1] * 0.587 + bg[2] * 0.114) > 128;
-    }
-    readColors();
-
-    function hash(n: number): number {
-      let t = (n + 0x6d2b79f5) | 0;
-      t = Math.imul(t ^ (t >>> 15), t | 1);
-      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    }
-
-    type P = {
-      x: number; y: number; vx: number; seed: number;
-      state: "wild" | "signed" | "blocked";
-      rowY: number; pulse: number;
-    };
-    let parts: P[] = [];
-
-    // occasional bloom when a particle crosses the gate
-    type Flare = { x: number; y: number; t0: number };
-    let flares: Flare[] = [];
-    let lastFlare = 0;
-
-    function spawn(p: P, i: number, initial = false) {
-      p.x = initial ? hash(i * 7 + 1) * GATE : -10 - hash(i * 13) * 60;
-      p.y = 40 + hash(i * 31 + performance.now() % 9973) * (H - 80);
-      p.vx = 12 + hash(i * 17) * 22;
-      p.seed = i * 7919 + Math.floor(performance.now());
-      p.state = "wild";
-      p.pulse = 0;
-    }
-
-    // Measuring once at script time is not enough: on a reload the module can run
-    // before layout has settled, and a canvas that is measured at zero keeps its
-    // default 300x150 buffer while CSS stretches it to full width. Everything then
-    // looks scaled up and, because the particles cross a much smaller space, far
-    // too fast. Only a real window resize used to fix it.
-    function resize() {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-      if (!w || !h) return;                       // not laid out yet, try again later
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      if (w === W && h === H && canvas.width === Math.round(w * dpr)) return;
-      W = w;
-      H = h;
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      GATE = W * 0.68;
-      parts = [];
-      const n = Math.max(40, Math.floor(W / 16));
-      for (let i = 0; i < n; i++) {
-        const p = {} as P;
-        spawn(p, i, true);
-        parts.push(p);
-      }
-    }
-
-    let last = 0;
-    function draw(t: number) {
-      const dt = Math.min((t - last) / 1000, 0.05) || 0.016;
-      last = t;
-      ctx.clearRect(0, 0, W, H);
-
-      // lattice on the governed side, faint, strict
-      ctx.fillStyle = `rgba(${C.ink},${C.light ? 0.16 : 0.08})`;
-      for (let x = GATE + ROW; x < W; x += ROW)
-        for (let y = ROW; y < H; y += ROW)
-          ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
-
-      // gate line, nearly invisible at the ends, a faint shimmer mid-height;
-      // it reveals itself through interaction (blooms, blocks), not presence
-      const gateGrad = ctx.createLinearGradient(0, 0, 0, H);
-      gateGrad.addColorStop(0, `rgba(${C.ink},0)`);
-      gateGrad.addColorStop(0.5, `rgba(${C.ink},${C.light ? 0.22 : 0.13})`);
-      gateGrad.addColorStop(1, `rgba(${C.ink},0)`);
-      ctx.fillStyle = gateGrad;
-      ctx.fillRect(GATE, 0, 1, H);
-      for (let y = 0; y < H; y += ROW * 2) {
-        const env = Math.sin((Math.PI * y) / H);
-        ctx.fillStyle = `rgba(${C.ink},${(C.light ? 0.26 : 0.16) * env * env})`;
-        ctx.fillRect(GATE - 3, y, 7, 1);
-      }
-
-      for (const p of parts) {
-        const jitterSeed = p.seed + Math.floor(t / 300);
-
-        if (p.state === "wild") {
-          // brownian drift with slow right bias
-          p.x += p.vx * dt;
-          p.y += (hash(jitterSeed) - 0.5) * 34 * dt * 2.2;
-
-          if (p.x >= GATE) {
-            if (hash(p.seed + 5) > 0.93) {
-              p.state = "blocked";
-              p.pulse = 1;
-              p.vx = -18;
-            } else {
-              p.state = "signed";
-              p.pulse = hash(p.seed + 9) > 0.7 ? 1 : 0;
-              p.rowY = Math.round(p.y / ROW) * ROW;
-              p.vx = 26 + hash(p.seed + 3) * 18;
-              // every few seconds, one crossing blooms
-              if (t - lastFlare > 2100 && hash(p.seed + 11) > 0.4) {
-                flares.push({ x: GATE, y: p.rowY, t0: t });
-                lastFlare = t;
-              }
-            }
-          }
-          ctx.fillStyle = `rgba(${C.ink},${C.light ? 0.42 : 0.32})`;
-          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
-        } else if (p.state === "signed") {
-          p.x += p.vx * dt;
-          p.y += (p.rowY - p.y) * Math.min(dt * 6, 1); // snap to lattice row
-
-          if (p.pulse > 0) {
-            ctx.strokeStyle = `rgba(${C.live},${p.pulse * 0.7})`;
-            ctx.lineWidth = 1;
-            ctx.strokeRect(p.x - 4, p.y - 4, 8, 8);
-            p.pulse -= dt * 1.4;
-          }
-          ctx.fillStyle = `rgba(${C.ink},${C.light ? 0.82 : 0.68})`;
-          ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
-
-          if (p.x > W + 10) spawn(p, Math.floor(p.seed / 7919));
-        } else {
-          // blocked: red flash at the gate, drift back, fade
-          p.x += p.vx * dt;
-          if (p.pulse > 0) {
-            ctx.strokeStyle = `rgba(${C.alert},${p.pulse * 0.8})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(p.x + 4, p.y - 4); ctx.lineTo(p.x - 4, p.y + 4);
-            ctx.moveTo(p.x - 4, p.y - 4); ctx.lineTo(p.x + 4, p.y + 4);
-            ctx.stroke();
-            p.pulse -= dt * 0.9;
-          } else {
-            spawn(p, Math.floor(p.seed / 7919));
-          }
-        }
-      }
-
-      // flares, soft light bloom at the gate, expanding and fading
-      flares = flares.filter((f) => t - f.t0 < 1600);
-      for (const f of flares) {
-        const age = (t - f.t0) / 1600; // 0 → 1
-        const ease = 1 - Math.pow(1 - age, 2);
-        const r = 16 + ease * 130;
-        const a = (1 - age) * 0.85;
-
-        const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r);
-        if (C.light) {
-          g.addColorStop(0, `rgba(${C.live},${a * 0.55})`);
-          g.addColorStop(0.25, `rgba(${C.live},${a * 0.22})`);
-          g.addColorStop(0.6, `rgba(${C.live},${a * 0.08})`);
-          g.addColorStop(1, `rgba(${C.live},0)`);
-        } else {
-          g.addColorStop(0, `rgba(${C.ink},${a})`);
-          g.addColorStop(0.25, `rgba(${C.ink},${a * 0.35})`);
-          g.addColorStop(0.6, `rgba(${C.live},${a * 0.22})`);
-          g.addColorStop(1, `rgba(${C.live},0)`);
-        }
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
-        ctx.fill();
-
-        // bright core that snuffs out quickly
-        if (age < 0.35) {
-          ctx.fillStyle = `rgba(${C.ink},${(1 - age / 0.35) * 0.9})`;
-          ctx.fillRect(f.x - 2, f.y - 2, 4, 4);
-        }
-
-        // brief brightening of the gate line around the bloom
-        const gl = ctx.createLinearGradient(f.x, f.y - r, f.x, f.y + r);
-        gl.addColorStop(0, `rgba(${C.ink},0)`);
-        gl.addColorStop(0.5, `rgba(${C.ink},${a * 0.8})`);
-        gl.addColorStop(1, `rgba(${C.ink},0)`);
-        ctx.fillStyle = gl;
-        ctx.fillRect(GATE, f.y - r, 1, r * 2);
-      }
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    // Held in a variable on purpose: an observer with no reference of its own can
-    // be collected, and then it silently stops firing. Measured that happening.
-    const canvasObserver = "ResizeObserver" in window ? new ResizeObserver(() => resize()) : null;
-    if (canvasObserver) canvasObserver.observe(canvas);
-
-    // Belt and braces for the first paint. The observer covers later changes, but
-    // the very first measurement can land before layout is final, and the guard
-    // above makes each of these free once the size is already right.
-    requestAnimationFrame(() => resize());
-    window.addEventListener("load", () => resize());
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => resize());
-
-    // Re-read the palette on theme toggle. The running rAF loop repaints
-    // every frame anyway and will pick the new colors up on its own; the
-    // reduced-motion path only ever draws once, so it needs an explicit nudge.
-    window.addEventListener("kyde:theme", () => {
-      readColors();
-      if (reduced) draw(performance.now());
-    });
-
-    if (reduced) {
-      draw(1);
-    } else {
-      let heroVisible = true;
-      new IntersectionObserver((es) => { heroVisible = es[0].isIntersecting; }).observe(canvas);
-      const loop = (t: number) => { if (heroVisible) draw(t); requestAnimationFrame(loop); };
-      requestAnimationFrame(loop);
-    }
-  }
-</script>
-
-
-    <!-- ══════════ 01 · THE MECHANIC ══════════ -->
-    <!-- Directly under the hero, because the hero makes a claim and a reader who
-         came from a message that made the same claim wants the shape of it
-         before anything else. Laid out left to right: this is a path an incident
-         travels, not a list of modules, and the order carries the argument. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">01 · The mechanic</span>
+    <!-- ══════════ DAY ONE OR LATER ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec split">
+        <div>
+          <h2 class="h1">An agent can go wrong from day one. Or change later.</h2>
+          <p class="subline">It does not have to slowly drift into trouble.</p>
+          <!-- the one futurist mark on the page: a body in phases, fading -->
+          <div class="phases" aria-hidden="true">
+            <i></i><i></i><i class="dash"></i><i class="dash"></i><i class="dot"></i><i class="end"></i>
+          </div>
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8 max-w-3xl">
-          Know what your agents are actually doing.
-        </h2>
-        <div class="max-w-3xl space-y-4 mb-12">
-          <p class="text-lg text-ink-1 leading-relaxed">
-            Every action crosses Kyde. We build a behavioral baseline for each agent and continuously test what actually happens against it.
-          </p>
-          <p class="text-lg text-ink-1 leading-relaxed">
-            When behavior changes, Kyde detects the deviation. A high-risk agent can be quarantined before that deviation becomes an incident. The record underneath stays available for investigation and for independent verification.
-          </p>
+        <div>
+          <ol class="rule-list">
+            {wrongs.map((w) => (
+              <li><span class="mono label">{w.tag}</span><span>{w.line}</span></li>
+            ))}
+          </ol>
+          <p class="strong-line">Kyde watches the behavior at the boundary, from the first action onward.</p>
         </div>
-        <div class="mb-px hidden lg:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2 pb-4">
-          <span class="text-ink-0">Agent action</span>
-          <span class="flex-1 h-px bg-line-0"></span>
-          <span>Observe</span><span class="text-ink-2/50">→</span>
-          <span>Detect</span><span class="text-ink-2/50">→</span>
-          <span class="text-ember">Quarantine</span><span class="text-ink-2/50">→</span>
-          <span>Investigate</span>
-          <span class="flex-1 h-px bg-line-0"></span>
-          <span class="text-live">Prove</span>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT CAN GO WRONG ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">01</span><span class="mono">What can go wrong?</span></div>
+        <div class="cases">
+          {cases.map((c) => (
+            <article class="case">
+              <p class="mono label">{c.tag}</p>
+              <h3 class="h2">{c.name}</h3>
+              <p class="col-lead">{c.lead}</p>
+              <p class="body">{c.body}</p>
+              <p class="kyde-does"><span class="tag tag-ink">Kyde</span> {c.kyde}</p>
+            </article>
+          ))}
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line-0">
-          {flow.map(({ n, name, line, body }) => (
-            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
-              <div class="flex items-baseline gap-2 mb-4">
-                <span class="font-mono text-[10px] tracking-[0.1em] text-ink-2">{n}</span>
-                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">{name}</span>
+      </div>
+    </section>
+
+    <!-- ══════════ THE SCORE ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">02</span><span class="mono">The score</span></div>
+        <div class="score-split">
+          <div>
+            <h2 class="h1">Every agent gets a behavioral score. Not once. Continuously.</h2>
+            <p class="lead-dark">Kyde learns how an agent behaves and scores its actions against an established baseline. Not a model's opinion. Not a one-time assessment. Observed behavior.</p>
+            <p class="strong-line">When the score changes, something changed.</p>
+            <div class="pairs">
+              <div class="col">
+                <p class="mono label">(Gradual drift)</p>
+                <p class="body">Behavior slowly moves away from its established baseline.</p>
               </div>
-              <p class="text-base md:text-lg text-ink-0 leading-snug mb-3">{line}</p>
-              <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
+              <div class="col">
+                <p class="mono label">(Abrupt change)</p>
+                <p class="body">Behavior suddenly changes after an event, an input or a system change.</p>
+              </div>
+            </div>
+            <p class="body">Different signals need different detectors. One baseline, several ways to detect the deviation.</p>
+          </div>
+
+          <!-- Every agent, because nobody runs one. One of them starts looping
+               and gets restricted while the rest stay within baseline. -->
+          <div class="fleet" id="fleet" role="group" aria-label="Illustrative fleet view: five agents with behavioral scores">
+            <div class="fleet-head mono">
+              <span>(Fleet) 214 agents</span>
+              <span class="fleet-dim">*Illustrative</span>
+            </div>
+            <div class="fleet-cols mono" aria-hidden="true">
+              <span>Agent</span><span class="col-cost">Cost</span><span>Score</span>
+            </div>
+            <ul>
+              {fleet.map((a) => (
+                <li class="fleet-row" data-turns={a.turns ? JSON.stringify(a.turns) : undefined}>
+                  <span class="fleet-id mono">{a.id}</span>
+                  <span class="fleet-cost mono">{a.cost}</span>
+                  <span class="fleet-score"><b>{a.score}</b><span class="fleet-tag mono">Trusted</span></span>
+                  {a.turns && <span class="fleet-note mono" aria-hidden="true"></span>}
+                </li>
+              ))}
+            </ul>
+            <p class="fleet-foot mono" id="fleet-foot">209 more within baseline</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ HOW IT WORKS ══════════ -->
+    <section class="surface-paper" id="how">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">03</span><span class="mono">How it works</span></div>
+        <h2 class="h1">See it. Score it. Stop it. Prove it.</h2>
+        <div class="steps">
+          {steps.map((s) => (
+            <div class="col">
+              <p class="mono label">{s.n}</p>
+              <h3 class="h3">{s.name}</h3>
+              <p class="body">{s.body}</p>
             </div>
           ))}
         </div>
-        <p class="mt-8 text-base text-ink-1 leading-relaxed max-w-3xl">
-          You do not have to start at step three. Observe first: point one agent at the gateway, block nothing, and in week one you already know what your agents do, what leaves your house, and what it costs. Enforcement is a switch you flip when you are ready.
-        </p>
-
-        <!-- The picture of the whole claim, and the only one on the page that
-             shows time passing. Every other figure is a topology: what sits
-             where. Drift is not a topology, it is a line leaving a band, so it
-             gets a plot. The ghost continuation is the point of the figure, not
-             decoration: it is the incident that did not happen. -->
-        <div class="mt-14 border border-line-0 bg-bg-1 px-5 py-5 md:px-8 md:py-7">
-          <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-6">
-            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">One agent, watched across its runs</span>
-            <span class="fig-label">FIG.1</span>
-          </div>
-          <svg id="drift-fig" viewBox="0 0 1000 330" class="w-full h-auto" aria-hidden="true">
-            <path d="M6 21 L6 6 L21 6"       fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-            <path d="M979 6 L994 6 L994 21"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-            <path d="M6 309 L6 324 L21 324"  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-            <path d="M994 309 L994 324 L979 324" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-
-            <!-- axes -->
-            <line x1="90" y1="45" x2="90" y2="255" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-            <line x1="90" y1="255" x2="940" y2="255" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
-            <text x="80" y="150" text-anchor="middle" transform="rotate(-90 80 150)" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">DISTANCE FROM BASELINE</text>
-            <text x="515" y="278" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">THE AGENT'S RUNS, OVER TIME</text>
-
-            <!-- the envelope the agent is supposed to stay inside -->
-            <rect x="90" y="215" width="850" height="40" fill="var(--color-live)" fill-opacity="0.07" stroke="var(--color-live)" stroke-opacity="0.30" stroke-width="1" stroke-dasharray="4 4" />
-            <text x="930" y="240" text-anchor="end" fill="var(--color-live)" fill-opacity="0.75" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">BASELINE ENVELOPE</text>
-
-            <!-- the line that decides -->
-            <line x1="90" y1="160" x2="940" y2="160" stroke="var(--color-ember)" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="6 5" />
-            <text x="102" y="152" fill="var(--color-ember)" fill-opacity="0.85" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.14em;">DETECTION THRESHOLD</text>
-
-            <!-- what the agent would have gone on to do -->
-            <g id="drift-ghost" opacity="0">
-              <path id="drift-ghost-path" d="M770 118 L810 99 L850 87 L890 73 L930 60"
-                    fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.28" stroke-width="1.5" stroke-dasharray="3 5" />
-              <text x="930" y="46" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">THE INCIDENT THAT DID NOT HAPPEN</text>
-            </g>
-
-            <!-- observed behavior -->
-            <path id="drift-path"
-                  d="M90 240 L130 234 L170 243 L210 232 L250 241 L290 231 L330 238 L370 229 L410 236 L450 226 L490 221 L530 211 L570 199 L610 184 L650 172 L690 157 L730 139 L770 118"
-                  fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-
-            <!-- the moment it is caught -->
-            <g id="drift-detect" opacity="0">
-              <line x1="686" y1="160" x2="686" y2="255" stroke="var(--color-ember)" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="3 4" />
-              <circle cx="686" cy="160" r="5" fill="none" stroke="var(--color-ember)" stroke-width="1.5" />
-              <text x="676" y="199" text-anchor="end" fill="var(--color-ember)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">DEVIATION DETECTED</text>
-            </g>
-
-            <!-- and stopped -->
-            <g id="drift-stop" opacity="0">
-              <rect x="763" y="111" width="14" height="14" fill="var(--color-alert)" fill-opacity="0.20" stroke="var(--color-alert)" stroke-width="1.5" />
-              <line x1="770" y1="125" x2="770" y2="255" stroke="var(--color-alert)" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3 4" />
-              <text x="786" y="138" fill="var(--color-alert)" fill-opacity="0.95" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">QUARANTINED</text>
-              <text x="786" y="152" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:8px;letter-spacing:0.08em;">autonomy cut, record kept</text>
-            </g>
-          </svg>
-          <div class="border-t border-line-0 pt-3 mt-6">
-            <p class="font-mono text-[10px] text-ink-2 leading-relaxed">FIG.1 &middot; The deviation is visible in what the agent does long before it is visible in what the agent produces.</p>
-          </div>
+        <div class="row-end">
+          <p class="mono note">*Observe and score from day one, blocking nothing. Enforcement is a switch you flip when you are ready.</p>
+          <a href="/platform" class="link-u mono">The platform in detail</a>
         </div>
-        <script>
-          // FIG.1 · the line leaves the envelope, crosses the threshold, and is
-          // cut. Drawn rather than faded in, because the argument is that the
-          // deviation is gradual and the catch is not. Loops, like the ladder.
-          {
-            const fig = document.getElementById("drift-fig");
-            if (fig) {
-              const path = document.getElementById("drift-path") as unknown as SVGPathElement;
-              const ghost = document.getElementById("drift-ghost-path") as unknown as SVGPathElement;
-              const ghostG = document.getElementById("drift-ghost")!;
-              const detect = document.getElementById("drift-detect")!;
-              const stop = document.getElementById("drift-stop")!;
-              const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-              const L = path.getTotalLength();
-              const GL = ghost.getTotalLength();
-
-              function paintStatic() {
-                path.style.strokeDasharray = "none";
-                path.style.strokeDashoffset = "0";
-                ghost.style.strokeDasharray = "3 5";
-                ghost.style.strokeDashoffset = "0";
-                ghostG.setAttribute("opacity", "1");
-                detect.setAttribute("opacity", "1");
-                stop.setAttribute("opacity", "1");
-              }
-
-              if (reduced) {
-                paintStatic();
-              } else {
-                let visible = false;
-                new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(fig);
-
-                const DRAW = 3200;   // the slow drift
-                const GHOST_DRAW = 1100; // the counterfactual
-                const HOLD = 2600;   // long enough to read the labels
-                const CYCLE = DRAW + GHOST_DRAW + HOLD;
-                let t0 = 0;
-
-                path.style.strokeDasharray = String(L);
-                ghost.style.strokeDasharray = String(GL);
-
-                function frame(t: number) {
-                  if (!t0) t0 = t;
-                  if (visible) {
-                    const e = (t - t0) % CYCLE;
-
-                    // the observed line draws left to right
-                    const dp = Math.min(e / DRAW, 1);
-                    path.style.strokeDashoffset = String(L * (1 - dp));
-
-                    // the threshold crossing sits at ~82% of the drawn line
-                    detect.setAttribute("opacity", String(Math.max(0, Math.min((dp - 0.82) / 0.10, 1))));
-                    // the cut lands as the line arrives at its end
-                    stop.setAttribute("opacity", String(Math.max(0, Math.min((dp - 0.97) / 0.03, 1))));
-
-                    // then the ghost, dashed, showing where it was going
-                    const gp = Math.max(0, Math.min((e - DRAW) / GHOST_DRAW, 1));
-                    ghostG.setAttribute("opacity", String(gp > 0 ? 1 : 0));
-                    ghost.style.strokeDashoffset = String(GL * (1 - gp));
-                  } else {
-                    t0 = 0;
-                  }
-                  requestAnimationFrame(frame);
-                }
-                requestAnimationFrame(frame);
-              }
-            }
-          }
-        </script>
       </div>
     </section>
 
-    <!-- ══════════ 02 · RESEARCH ══════════ -->
-    <!-- The claim above this section is a product claim; this is where it gets a
-         foundation that is not our own marketing. It sits high on purpose. The
-         research note is hedged and names its own gaps, and that is exactly what
-         makes it worth putting in front of somebody who has heard a pitch. -->
-    <section class="bg-bg-1">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">02 · Research</span>
-          <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">Sources checked September 2026</span>
+    <!-- ══════════ WHY KYDE ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">04</span><span class="mono">Why Kyde</span></div>
+        <h2 class="h1">The problem isn't that agents make mistakes. It's that nobody sees them happening.</h2>
+        <p class="subline">Traditional controls check permissions. Guardrails check requests. AI judges check outputs. Kyde checks behavior, continuously.</p>
+        <div class="table-scroll">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only">Question</span></th>
+                <th scope="col" class="mono">Traditional controls</th>
+                <th scope="col" class="mono">Kyde</th>
+              </tr>
+            </thead>
+            <tbody>
+              {compare.map((r) => (
+                <tr>
+                  <th scope="row">{r.q}</th>
+                  <td>{r.old}</td>
+                  <td class="k">{r.kyde}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          We research the problem we are building for.
-        </h2>
-        <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-          <div>
-            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-5">Research note</span>
-            <p class="text-xl md:text-2xl text-ink-0 leading-snug mb-6">
-              Behavioral Drift in AI Agents: Seven Forms and What Your Logs Can Show
-            </p>
-            <blockquote class="border-l-2 border-line-1 pl-6">
-              <p class="text-lg text-ink-0 leading-relaxed">
-                Can we detect when an agent stops behaving like itself, from the actions it actually takes?
-              </p>
-            </blockquote>
-          </div>
-          <div>
-            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-5">What is in it</span>
-            <p class="text-base text-ink-1 leading-relaxed mb-4">
-              Behavioral drift is not one phenomenon. Across recent research we found at least seven related ways agent behavior changes, from goal drift and context decay to a deviation one agent inherits from another upstream.
-            </p>
-            <p class="text-base text-ink-1 leading-relaxed mb-8">
-              Seventeen papers, a table of which signals are measurable from production logs and at what cost, and an honest account of where the evidence is still missing.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-3">
-              <a href="/behavioral-drift" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
-                Read the research →
-              </a>
-              <a href="https://github.com/kydehq/behavioral-drift-detection" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-line-1 text-ink-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
-                The full survey →
-              </a>
+      </div>
+    </section>
+
+    <!-- ══════════ REGULATION ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">05</span><span class="mono">Regulation</span></div>
+        <h2 class="h1">The regulators are asking the same question.</h2>
+        <p class="subline">Can you show what your agents did, that a human could have stepped in, and that you would have noticed?</p>
+        <div class="cols3">
+          {regs.map((r) => (
+            <div class="col">
+              <p class="mono label">{r.tag} <span class="muted">{r.arts}</span></p>
+              <h3 class="h3">{r.line}</h3>
+              <p class="body">{r.body}</p>
             </div>
-          </div>
+          ))}
+        </div>
+        <div class="row-end">
+          <p class="mono note">*Built for these frameworks. Whether a deployment complies depends on how it is run, not on a product.</p>
+          <a href="/eu-ai-act-compliance" class="link-u mono">How the record maps to the articles</a>
         </div>
       </div>
     </section>
 
-        <!-- ══════════ THE TRUST LADDER ══════════ -->
-        <section id="ladder" class="scroll-mt-20 bg-bg-0">
-            <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-32 md:pb-0 md:border-x md:border-white/10">
-                <div class="flex items-end justify-between border-b border-white/10 pb-3">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">03 · Autonomy</span>
-                    <span class="fig-label">FIG.2</span>
-                </div>
-                <!-- Autonomy ladder -->
-                <div class="pt-12 pb-24 md:pb-28">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-white mb-4">
-                        AI should earn autonomy.
-                        </h2>
-                    <p class="font-mono text-sm text-white/70 uppercase tracking-[0.12em] mb-8">Start with limited responsibility. Increase it as the worker proves it can operate reliably.</p>
-                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-6">
-                        Reading? Suggesting? Calling tools? Running workflows? Approving payments? Running unattended? Every one of those is a different amount of trust, and most organizations grant them all at once, on the day the agent is switched on, because there is nothing to grant them against.
-                    </p>
-                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
-                        Kyde ties each step to the record. A rung is held because the record shows it was held, and a worker that stops producing that evidence comes back down. Six levels, L0 to L5, from a worker that only reads to one running unattended.
-                    </p>
-                    <p class="text-lg text-white/55 leading-relaxed max-w-3xl mb-8">
-                        This is what drift detection is <em class="text-white/80 not-italic">for</em>. Detect the deviation, restrict the autonomy, investigate the record, restore the rung when the behavior is proven again. An agent does not become trustworthy because somebody switched it on. It earns the next rung by operating inside its intended behavior long enough to show it.
-                    </p>
-                    <!-- The level-by-level detail lives on /trust-score, beside the measurement
-                         that decides the level. Here it stays a summary. -->
-                    <!-- The staircase is asymmetric by nature, so without a frame and a pair
-                         of axes it floats. The plot frame gives it something to stand on. -->
-                    <div class="border border-white/10 bg-white/[0.02] px-6 py-6 md:px-8 md:py-7">
-                    <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-6">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Autonomy is earned, not granted</span>
-                        <span class="fig-label">FIG.2</span>
-                    </div>
-                    <svg id="ladder-fig" viewBox="0 0 1000 268" class="w-full h-auto" aria-hidden="true">
-                        <!-- corner register marks, as on every other figure -->
-                        <path d="M6 21 L6 6 L21 6" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        <path d="M979 6 L994 6 L994 21" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        <path d="M6 247 L6 262 L21 262" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        <path d="M994 247 L994 262 L979 262" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
+    <!-- ══════════ YOUR ENVIRONMENT ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec split">
+        <div>
+          <h2 class="h1">Your AI agents already have access. Now know what they are doing with it.</h2>
+        </div>
+        <div>
+          <p class="lead-dark">Kyde sits between your agents and the systems they can affect, continuously observing behavior, detecting change and enforcing boundaries.</p>
+          <div class="deploy">
+            <span class="tag tag-ink">Private cloud</span>
+            <span class="tag tag-ink">On-premise</span>
+            <span class="tag tag-ink">EU-hosted</span>
+          </div>
+          <p class="strong-line">Your data stays with you.</p>
+          <p class="body">Behind the detection is research we publish: seventeen papers, seven forms of drift, and what your logs can actually show. <a href="/behavioral-drift" class="link-u mono">Read the research</a></p>
+        </div>
+      </div>
+    </section>
 
-                        <!-- axes: autonomy climbs, evidence accumulates -->
-                        <line x1="28" y1="34" x2="28" y2="214" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
-                        <line x1="28" y1="214" x2="972" y2="214" stroke="var(--color-ink-0)" stroke-opacity="0.32" stroke-width="1" />
-                        <text x="16" y="124" text-anchor="middle" transform="rotate(-90 16 124)" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">AUTONOMY</text>
-                        <text x="972" y="234" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.45" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.18em;">EVIDENCE OVER TIME</text>
-
-                        <!-- a grid line at each tread, so the steps read as levels and not as decoration -->
-                        {[206, 174, 142, 110, 78, 46].map((y) => (
-                            <line x1="28" y1={y} x2="972" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.10" stroke-width="1" stroke-dasharray="2 6" />
-                        ))}
-
-                        <!-- ticks where each level begins -->
-                        {[116, 270, 423, 576, 730, 883].map((x) => (
-                            <line x1={x} y1="214" x2={x} y2="220" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" />
-                        ))}
-
-                        <!-- stairs -->
-                        <path d="M40 206 L193 206 L193 174 L347 174 L347 142 L500 142 L500 110 L653 110 L653 78 L807 78 L807 46 L960 46"
-                              fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
-                        <!-- step labels -->
-                        <text x="116" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L0</text>
-                        <text x="270" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L1</text>
-                        <text x="423" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L2</text>
-                        <text x="576" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L3</text>
-                        <text x="730" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L4</text>
-                        <text x="883" y="236" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.7" style="font-family:'JetBrains Mono Variable',monospace;font-size:12px;letter-spacing:0.14em;">L5</text>
-                        <text id="lad-sub-0" x="116" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">reads, suggests</text>
-                        <text id="lad-sub-1" x="270" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">calls tools</text>
-                        <text id="lad-sub-2" x="423" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">runs workflows</text>
-                        <text id="lad-sub-3" x="576" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">deploys code</text>
-                        <text id="lad-sub-4" x="730" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">approves payments</text>
-                        <text id="lad-sub-5" x="883" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.50" style="font-family:'JetBrains Mono Variable',monospace;font-size:9px;letter-spacing:0.1em;">runs unattended</text>
-                        <!-- evidence ticks under current step -->
-                        <text id="lad-evidence" x="40" y="30" fill="var(--color-live)" fill-opacity="0" style="font-family:'JetBrains Mono Variable',monospace;font-size:10px;letter-spacing:0.12em;">evidence window complete · promoted</text>
-                        <!-- the agent -->
-                        <rect id="lad-agent" x="112" y="197" width="8" height="8" fill="var(--color-ink-0)" />
-                        <circle id="lad-pulse" r="0" fill="none" stroke="var(--color-live)" stroke-width="1" opacity="0" cx="116" cy="201" />
-                    </svg>
-                    <p class="mt-5 border-t border-white/10 pt-4 font-mono text-[10px] text-white/35 leading-relaxed">
-                        FIG.2 · Six levels, L0 to L5. Every step climbed on evidence, every step recorded, and from L4 upwards observation alone no longer qualifies.
-                    </p>
-                    </div>
-                </div>
-
-                <script>
-                    // FIG.2 · the ladder. The agent climbs one level per evidence
-                    // window; a green pulse marks the promotion. At the top it
-                    // holds, then a new agent starts at zero. Autonomy is earned.
-                    const ladReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                    const ladFig = document.getElementById("ladder-fig");
-
-                    if (ladFig && !ladReduced) {
-                        const agent = document.getElementById("lad-agent")!;
-                        const pulse = document.getElementById("lad-pulse")!;
-                        const evidence = document.getElementById("lad-evidence")!;
-                        const steps = [
-                            { x: 116, y: 206 }, { x: 270, y: 174 }, { x: 423, y: 142 },
-                            { x: 576, y: 110 }, { x: 730, y: 78 }, { x: 883, y: 46 },
-                        ];
-                        let level = 0;
-                        let phaseStart = performance.now() + 800;
-                        const DWELL = 2200, CLIMB = 700, HOLD_TOP = 3200;
-
-                        let visible = true;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ladFig);
-
-                        const put = (x: number, y: number) => {
-                            agent.setAttribute("x", String(x - 4));
-                            agent.setAttribute("y", String(y - 9));
-                        };
-
-                        function ladFrame(t: number) {
-                            if (visible) {
-                                const el = t - phaseStart;
-                                const atTop = level === steps.length - 1;
-                                const dwell = atTop ? HOLD_TOP : DWELL;
-
-                                if (el < dwell) {
-                                    put(steps[level].x, steps[level].y);
-                                } else if (el < dwell + CLIMB && !atTop) {
-                                    const pr = (el - dwell) / CLIMB;
-                                    const a = steps[level], b = steps[level + 1];
-                                    // step profile: first across, then up
-                                    if (pr < 0.5) {
-                                        put(a.x + (b.x - a.x) * (pr * 2), a.y);
-                                    } else {
-                                        put(b.x, a.y + (b.y - a.y) * ((pr - 0.5) * 2));
-                                    }
-                                } else {
-                                    if (atTop) {
-                                        level = 0;
-                                        put(steps[0].x, steps[0].y);
-                                    } else {
-                                        level++;
-                                        const stp = steps[level];
-                                        put(stp.x, stp.y);
-                                        pulse.setAttribute("cx", String(stp.x));
-                                        pulse.setAttribute("cy", String(stp.y - 5));
-                                        pulse.setAttribute("r", "6");
-                                        pulse.setAttribute("opacity", "0.8");
-                                        evidence.setAttribute("x", String(Math.min(stp.x - 90, 700)));
-                                        evidence.setAttribute("y", String(stp.y - 28));
-                                        evidence.setAttribute("fill-opacity", "0.8");
-                                    }
-                                    phaseStart = t;
-                                }
-
-                                // pulse + evidence fade
-                                const po = parseFloat(pulse.getAttribute("opacity") || "0");
-                                if (po > 0) {
-                                    pulse.setAttribute("opacity", String(Math.max(po - 0.012, 0)));
-                                    pulse.setAttribute("r", String(parseFloat(pulse.getAttribute("r")!) + 0.5));
-                                }
-                                const eo = parseFloat(evidence.getAttribute("fill-opacity") || "0");
-                                if (eo > 0) evidence.setAttribute("fill-opacity", String(Math.max(eo - 0.006, 0)));
-                            }
-                            requestAnimationFrame(ladFrame);
-                        }
-                        requestAnimationFrame(ladFrame);
-                    }
-                </script>
+    <!-- ══════════ CLOSE ══════════ -->
+    <section class="surface-pink">
+      <div class="wrap sec close">
+        <div class="brackets">
+          <h2 class="display-2">Before you give your agents more access, know how they behave.</h2>
+        </div>
+        <div class="close-grid">
+          <p class="triad">
+            See their baselines.<br />Watch what changes.<br />Stop what shouldn't happen.
+          </p>
+          <div>
+            <div class="ctas">
+              <button onclick="openModal()" class="btn btn-ink">Watch your agents →</button>
+              <a href="/docs/quickstart" class="link-u mono">Run it yourself</a>
             </div>
-        </section>
-
-    <!-- ══════════ 04 · WHY ══════════ -->
-    <!-- The page opens on the gap, not on the product. A reader who knows NIST
-         SP 800-207 will check this claim in the first ten seconds, so the page
-         states the difference itself rather than letting them find it. We are not
-         a network access product. The boundary is the action. -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">04 · Why</span>
-        </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          Nothing you already own is watching for this.
-        </h2>
-        <div class="grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x md:divide-line-0 [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-          <div>
-            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 mb-5">Zero trust today</span>
-            <p class="text-xl md:text-2xl text-ink-1 leading-snug">
-              Controls people, devices and networks. Verifies who is connecting, from what, to which resource. It answers the question once, at the door.
-            </p>
-          </div>
-          <div>
-            <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-5">What KYDE extends it to</span>
-            <p class="text-xl md:text-2xl text-ink-0 leading-snug">
-              What the agent actually does, and whether it is still doing what it did last week. The connection was authorized hours ago. The behavior has had every hour since to move.
-            </p>
+            <p class="mono note close-note">*Start with the agents you are least sure about. Kyde is pre-seed and works closely with a small number of design partners.</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ══════════ 05 · THE LAYER ══════════ -->
-    <!-- Six lines and a door. The whole mechanism used to stand here, which made
-         the second half of the page argue a different category than the first:
-         zero trust with a feature catalogue behind it, rather than drift
-         detection with a layer underneath. It lives on /platform now. -->
-    <section class="bg-bg-1">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">05 · The layer</span>
-        </div>
-        <div class="max-w-3xl">
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8">
-            Detection is only worth as much as the thing standing behind it.
-          </h2>
-          <p class="text-lg text-ink-1 leading-relaxed mb-6">
-            Every action crosses a boundary Kyde controls: a named agent rather than a shared key, policy checked before the call executes, a data boundary, limits held across a whole run, and a record that is not the agent's to edit.
-          </p>
-          <p class="text-lg text-ink-0 leading-relaxed mb-10">
-            That is what makes a baseline measurable, and what makes a quarantine hold.
-          </p>
-          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-2 mb-10">Powered by a zero trust enforcement layer</p>
-          <a href="/platform" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
-            How the layer works →
-          </a>
+      <div class="dots-band">
+        <div class="wrap band-row">
+          <span class="tag tag-dark tilt">*Watched in motion</span>
         </div>
       </div>
     </section>
-
-    <!-- ══════════ CLOSING CTA ══════════ -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-line-0">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">Design partners</p>
-          <div class="mb-12 h-px bg-line-0"></div>
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8">
-            We are looking for a few<br />companies already running agents.
-          </h2>
-          <p class="text-lg text-ink-1 leading-relaxed mb-6 mx-auto max-w-2xl">
-            Kyde is pre-seed and the product is close. We want to build the detection side with people who already have agents in production and a real reason to care what those agents are doing.
-          </p>
-          <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">
-            If that is you, we would like to talk. Bring the agent you are least sure about.
-          </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
-              Become a design partner →
-            </button>
-            <a href="/behavioral-drift" class="inline-flex items-center gap-2 border border-line-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all">
-              Read the research →
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <Footer />
 </Base>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const watch = (el: Element, cb: (v: boolean) => void) =>
+    new IntersectionObserver((es) => cb(es[0].isIntersecting), { threshold: 0.4 }).observe(el);
+
+  // Fleet: one agent starts looping, its score falls, it is restricted, then
+  // the loop resets. Only while visible, never under reduced motion.
+  const fleet = document.getElementById('fleet');
+  if (fleet && !reduced) {
+    const row = fleet.querySelector<HTMLElement>('.fleet-row[data-turns]');
+    const foot = document.getElementById('fleet-foot')!;
+    if (row) {
+      const turns = JSON.parse(row.dataset.turns!);
+      const b = row.querySelector('b')!;
+      const cost = row.querySelector('.fleet-cost')!;
+      const tag = row.querySelector('.fleet-tag')!;
+      const note = row.querySelector('.fleet-note')!;
+      const orig = { score: b.textContent!, cost: cost.textContent! };
+      let visible = false, bad = false;
+      watch(fleet, (v) => (visible = v));
+      setInterval(() => {
+        if (!visible) return;
+        bad = !bad;
+        row.classList.toggle('bad', bad);
+        b.textContent = bad ? String(turns.score) : orig.score;
+        cost.textContent = bad ? turns.cost : orig.cost;
+        tag.textContent = bad ? 'Restricted' : 'Trusted';
+        note.textContent = bad ? turns.note : '';
+        foot.textContent = bad ? '1 agent restricted · run stopped, record kept' : '209 more within baseline';
+      }, 3400);
+    }
+  }
+
+  // Score card: the same agent, normal and then looping.
+  const card = document.getElementById('score-card');
+  if (card && !reduced) {
+    const num = document.getElementById('sc-num')!;
+    const tag = document.getElementById('sc-tag')!;
+    const foot = document.getElementById('sc-foot')!;
+    const alts = Array.from(card.querySelectorAll<HTMLElement>('dd[data-alt]'));
+    let visible = false, bad = false;
+    watch(card, (v) => (visible = v));
+    const animateNum = (from: number, to: number) => {
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const p = Math.min((t - t0) / 700, 1);
+        num.textContent = String(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    setInterval(() => {
+      if (!visible) return;
+      bad = !bad;
+      card.dataset.state = bad ? 'bad' : 'ok';
+      animateNum(bad ? 96 : 38, bad ? 38 : 96);
+      tag.textContent = bad ? 'Restricted' : 'Trusted';
+      foot.textContent = bad ? 'Reach cut at the egress · record kept' : 'Within baseline · 312 runs';
+      for (const dd of alts) {
+        const alt = dd.dataset.alt!;
+        dd.dataset.alt = dd.textContent!;
+        dd.textContent = alt;
+      }
+    }, 3600);
+  }
+</script>
+
+<style>
+  /* Deck design v4, adapted to the web: slide px become fluid sizes, the
+     24px floor becomes a 17px body, the rest is the deck's rules. */
+  .kx {
+    --pad: clamp(20px, 5.5vw, 80px);
+    --gap: clamp(24px, 3.3vw, 48px);
+    --rule: 2px solid var(--color-ink);
+  }
+  .wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--pad); }
+  .sec { padding-block: clamp(72px, 9vw, 136px); }
+  .surface-paper { background: var(--color-paper); color: var(--color-ink); }
+  .surface-pink { background: var(--color-pink); color: var(--color-ink-pink); --color-ink: var(--color-ink-pink); }
+  /* consecutive paper sections are split by an ink rule, not by a tint */
+  .surface-paper + .surface-paper .sec { border-top: var(--rule); }
+
+  /* type */
+  .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .display { font-size: clamp(2.7rem, 6.4vw, 7.6rem); font-weight: 500; line-height: 0.88; letter-spacing: -0.058em; }
+  .display-2 { font-size: clamp(2.4rem, 5.6vw, 6.4rem); font-weight: 500; line-height: 0.9; letter-spacing: -0.052em; max-width: 18ch; }
+  .h1 { font-size: clamp(2.2rem, 4.6vw, 5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.05em; max-width: 22ch; }
+  .h2 { font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 500; line-height: 0.98; letter-spacing: -0.045em; margin-bottom: 0.75rem; }
+  .h3 { font-size: clamp(1.5rem, 2.1vw, 2.1rem); font-weight: 500; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.6rem; }
+  .lead { font-size: clamp(1.15rem, 1.55vw, 1.5rem); line-height: 1.3; letter-spacing: -0.015em; max-width: 36ch; }
+  .lead-dark { font-size: clamp(1.15rem, 1.5vw, 1.45rem); line-height: 1.3; letter-spacing: -0.015em; color: var(--color-ink-1); margin-block: 1.25rem; max-width: 42ch; }
+  .subline { font-size: clamp(1.2rem, 1.9vw, 1.85rem); line-height: 1.2; letter-spacing: -0.025em; color: var(--color-ink-2); margin-top: 1.25rem; max-width: 44ch; }
+  .body { font-size: 1.0625rem; line-height: 1.5; color: var(--color-ink-1); margin-bottom: 0.9rem; }
+  .label { font-size: 0.9375rem; margin-bottom: 0.9rem; }
+  .small { font-size: 0.875rem; }
+  .muted { color: var(--color-ink-2); }
+  .note { font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-2); max-width: 70ch; }
+  .surface-pink .note { color: var(--color-ink-pink); }
+  .nowrap { white-space: nowrap; }
+  .strong-line { font-size: clamp(1.15rem, 1.5vw, 1.45rem); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; margin-block: 1.5rem; }
+  .triad { font-size: clamp(1.15rem, 1.55vw, 1.5rem); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; margin-top: 1.5rem; }
+
+  /* highlight mark: square, behind one phrase, once per section */
+  .hl { display: inline-block; padding: 0 0.12em 0.06em; line-height: 0.95; }
+  .hl-pink { background: var(--color-pink); }
+  .hl-neon { background: var(--color-neon); }
+
+  /* kicker: dark tag with a pink number, title in mono */
+  .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
+  .kicker .num { background: var(--color-card); color: var(--color-pink); font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
+
+  /* corner brackets, left top and left bottom */
+  .brackets { position: relative; padding: clamp(14px, 1.6vw, 24px) 0 clamp(14px, 1.6vw, 24px) clamp(16px, 2vw, 32px); }
+  .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 20px; height: 20px; border-left: 2px solid currentColor; }
+  .brackets::before { top: 0; border-top: 2px solid currentColor; }
+  .brackets::after { bottom: 0; border-bottom: 2px solid currentColor; }
+
+  /* tags */
+  .tag { display: inline-block; font-family: var(--font-mono); font-weight: 500; font-size: 0.875rem; padding: 3px 10px 4px; line-height: 1.3; white-space: nowrap; }
+  .tag-ink { background: var(--color-ink); color: var(--color-paper); }
+  .tag-dark { background: var(--color-card); color: var(--color-pink); }
+  .tilt { transform: rotate(-6deg); }
+
+  /* buttons and links */
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 2.25rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-weight: 500; font-size: 1rem; padding: 14px 22px 15px; transition: background-color .15s; }
+  .btn-ink { background: var(--color-card); color: #fff; }
+  .btn-ink:hover { background: #000; }
+  .link-u { font-size: 1rem; border-bottom: 2px solid currentColor; padding-bottom: 2px; white-space: nowrap; }
+  .link-u:hover { border-bottom-color: transparent; }
+
+  /* dot band */
+  .dots-band {
+    border-top: 2px solid var(--color-ink);
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink) 55%, transparent) 0.9px, transparent 1.1px);
+    background-size: 14px 14px;
+    padding-block: 18px 28px;
+  }
+  .band-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .band-gap { flex: 1; }
+
+  /* hero */
+  .hero { padding-top: 66px; }
+  .hero-inner { padding-block: clamp(32px, 4.5vw, 64px) clamp(48px, 5vw, 72px); }
+  .hero-inner > .label { margin-bottom: 1.25rem; }
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); align-items: start; margin-top: clamp(24px, 3vw, 40px); }
+  .hero .lead { margin-top: 0.5rem; }
+  .hero .sc-num { font-size: clamp(5.5rem, 9vw, 8.5rem); }
+  .hero .sc-main { margin: 12px 0 16px; }
+  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* fleet panel: a dark card, the deck allows dark cards, never dark sections */
+  .fleet { background: var(--color-card); color: #fff; padding: 20px 22px 16px; }
+  .fleet-head { display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-pink); margin-bottom: 14px; }
+  .fleet-dim { color: #8C8789; }
+  .fleet-cols, .fleet-row { display: grid; grid-template-columns: 1fr 88px 128px; }
+  .fleet-cols { font-size: 0.75rem; color: #8C8789; padding-bottom: 6px; border-bottom: 1px solid #3A3A3A; }
+  .fleet ul { list-style: none; margin: 0; padding: 0; }
+  .fleet-row { align-items: center; padding: 11px 0; border-bottom: 1px solid #3A3A3A; }
+  .fleet-id { font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 8px; }
+  .fleet-cost { font-size: 0.8125rem; color: #BDB8BA; }
+  .fleet-score { display: flex; align-items: center; gap: 10px; }
+  .fleet-score b { font-weight: 500; font-size: 1.35rem; letter-spacing: -0.03em; width: 2ch; font-variant-numeric: tabular-nums; }
+  .fleet-tag { font-size: 0.75rem; padding: 1px 7px 2px; background: var(--color-neon); color: #1C1A1B; }
+  .fleet-note { grid-column: 1 / -1; font-size: 0.75rem; color: var(--color-pink); padding-top: 4px; }
+  .fleet-note:empty { display: none; }
+  .fleet-row.bad .fleet-cost { color: var(--color-pink); }
+  .fleet-row.bad .fleet-tag { background: var(--color-pink); color: #1C1A1B; }
+  .fleet-foot { font-size: 0.75rem; color: #8C8789; padding-top: 12px; }
+  @media (max-width: 480px) {
+    .fleet-cols, .fleet-row { grid-template-columns: 1fr 112px; }
+    .fleet-cost, .col-cost { display: none; }
+  }
+
+  /* nobody watching */
+  .four { list-style: none; padding: 0; margin: clamp(40px, 5vw, 72px) 0 0; display: grid; grid-template-columns: 1fr; gap: 0 var(--gap); }
+  @media (min-width: 720px) { .four { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .four { grid-template-columns: repeat(4, 1fr); } }
+  .four li { border-top: var(--rule); padding: 16px 0 22px; font-size: clamp(1.5rem, 2.2vw, 2.1rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; }
+  .four .small { display: block; margin-bottom: 10px; letter-spacing: 0; }
+  .punch { margin-top: clamp(48px, 6vw, 88px); font-size: clamp(1.8rem, 3.4vw, 3.4rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.045em; max-width: 24ch; }
+
+  /* split layout */
+  .split { display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); }
+  @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; } }
+
+  /* day one: the only futurist mark, small */
+  .phases { display: flex; align-items: flex-end; gap: 10px; margin-top: 40px; }
+  .phases i { display: block; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--color-ink); }
+  .phases i:nth-child(2) { width: 26px; height: 26px; }
+  .phases i:nth-child(3) { width: 30px; height: 30px; }
+  .phases i:nth-child(4) { width: 34px; height: 34px; }
+  .phases i:nth-child(5) { width: 38px; height: 38px; }
+  .phases i:nth-child(6) { width: 44px; height: 44px; }
+  .phases .dash { border-style: dashed; }
+  .phases .dot { border-style: dotted; }
+  .phases .end { background: var(--color-neon); }
+  .rule-list { list-style: none; padding: 0; margin: 0; }
+  .rule-list li { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: baseline; border-top: var(--rule); padding: 14px 0 16px; font-size: clamp(1.1rem, 1.4vw, 1.35rem); letter-spacing: -0.015em; line-height: 1.3; }
+  .rule-list li:last-child { border-bottom: var(--rule); }
+  .rule-list .label { margin: 0; }
+  @media (max-width: 520px) { .rule-list li { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* cases */
+  .cases { display: grid; grid-template-columns: 1fr; gap: 56px var(--gap); }
+  @media (min-width: 900px) { .cases { grid-template-columns: 1fr 1fr; } }
+  .case { border-top: var(--rule); padding-top: 18px; display: flex; flex-direction: column; }
+  .col-lead { font-size: clamp(1.1rem, 1.35vw, 1.3rem); line-height: 1.3; letter-spacing: -0.015em; margin-bottom: 0.75rem; font-weight: 500; }
+  .kyde-does { margin-top: auto; padding-top: 0.5rem; font-size: 1.0625rem; line-height: 1.5; font-weight: 500; }
+  .kyde-does .tag { margin-right: 6px; }
+
+  /* score */
+  .score-split { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); align-items: start; }
+  @media (min-width: 1024px) { .score-split { grid-template-columns: 1.15fr 1fr; } }
+  .pairs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-block: 8px 12px; }
+  .col { border-top: var(--rule); padding-top: 16px; }
+  .score-card { border: 2px solid var(--color-ink); padding: 22px 24px 20px; background: var(--color-paper); }
+  .sc-head { display: flex; justify-content: space-between; gap: 12px; font-size: 0.875rem; flex-wrap: wrap; }
+  .sc-head span:last-child { color: var(--color-ink-2); }
+  .sc-main { display: flex; align-items: flex-end; gap: 18px; margin: 18px 0 20px; }
+  .sc-num { font-size: clamp(6rem, 11vw, 10rem); font-weight: 500; line-height: 0.82; letter-spacing: -0.065em; font-variant-numeric: tabular-nums; }
+  .sc-tag { background: var(--color-neon); color: #1C1A1B; margin-bottom: 10px; }
+  .score-card[data-state="bad"] .sc-tag { background: var(--color-card); color: var(--color-pink); }
+  .sc-rows { margin: 0; }
+  .sc-rows div { display: flex; justify-content: space-between; border-top: var(--rule); padding: 10px 0 11px; font-size: 1.0625rem; }
+  .sc-rows dd { margin: 0; font-family: var(--font-mono); font-weight: 500; font-size: 0.9375rem; }
+  .score-card[data-state="bad"] .sc-rows dd[data-alt="Normal"] { background: var(--color-pink); padding: 0 8px; }
+  .sc-foot { border-top: var(--rule); padding-top: 12px; font-size: 0.875rem; color: var(--color-ink-2); }
+
+  /* steps and columns */
+  .steps { display: grid; grid-template-columns: 1fr; gap: 36px var(--gap); margin-top: clamp(40px, 5vw, 72px); }
+  @media (min-width: 720px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .cols3 { display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); margin-top: clamp(40px, 5vw, 72px); }
+  @media (min-width: 900px) { .cols3 { grid-template-columns: repeat(3, 1fr); } }
+  .row-end { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 16px 32px; margin-top: 40px; }
+
+  /* comparison table, the Kyde column in neon */
+  .table-scroll { overflow-x: auto; margin-top: clamp(40px, 5vw, 72px); -webkit-overflow-scrolling: touch; }
+  .cmp { width: 100%; min-width: 600px; border-collapse: collapse; }
+  .cmp thead th { text-align: left; font-size: 0.9375rem; font-weight: 500; padding: 14px 16px; vertical-align: bottom; }
+  .cmp thead th:first-child { width: 44%; padding-left: 0; }
+  .cmp thead th:last-child { background: var(--color-neon); }
+  .cmp tbody th, .cmp tbody td { text-align: left; border-top: var(--rule); padding: 16px 16px 18px; vertical-align: top; font-size: 1.125rem; }
+  .cmp tbody th { font-weight: 500; font-size: clamp(1.15rem, 1.6vw, 1.5rem); letter-spacing: -0.025em; padding-left: 0; }
+  .cmp td.k { background: var(--color-neon); font-weight: 600; }
+  .cmp tbody tr:last-child > * { border-bottom: var(--rule); }
+
+  /* environment */
+  .deploy { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+  /* close */
+  .close-grid { display: grid; grid-template-columns: 1fr; gap: 24px var(--gap); margin-top: 40px; align-items: end; }
+  @media (min-width: 900px) { .close-grid { grid-template-columns: 1fr 1fr; } }
+  .close-note { margin-top: 20px; }
+</style>

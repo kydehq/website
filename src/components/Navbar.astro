@@ -28,11 +28,11 @@ const otherLocale = locale === "de" ? "en" : "de";
 const otherHref = alternates[otherLocale];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-bg-0/95 backdrop-blur-md">
-  <nav aria-label="Main" class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-paper/95 backdrop-blur-md">
+  <nav aria-label="Main" class="mx-auto flex max-w-[1440px] items-center justify-between px-[clamp(20px,5.5vw,80px)] py-4">
     <!-- Logo -->
     <a href="/" class="inline-flex items-center shrink-0">
-      <img src="/kyde-logo.svg" alt="KYDE" class="logo-mark h-[33px] w-auto" />
+      <img src="/kyde-logo.svg" alt="KYDE" class="logo-mark h-[28px] w-auto" />
     </a>
 
     <!-- Nav links (desktop) -->
@@ -42,7 +42,7 @@ const otherHref = alternates[otherLocale];
           <a
             href={href}
             class={[
-              'inline-block font-mono text-xs uppercase tracking-[0.12em] whitespace-nowrap transition-colors pb-1.5 border-b',
+              'inline-block font-mono text-[13px] whitespace-nowrap transition-colors pb-1.5 border-b',
               (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
                 ? 'text-white border-white'
                 : 'text-white/50 border-transparent hover:text-white hover:border-white/30',
@@ -58,17 +58,9 @@ const otherHref = alternates[otherLocale];
     <div class="hidden lg:flex items-center gap-3">
       <button
         onclick="openModal()"
-        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-white px-5 text-[11px] font-mono uppercase tracking-[0.1em] text-cta-ink transition-colors hover:bg-cta-hover"
+        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-ink px-4 text-[13px] font-mono text-paper transition-colors hover:bg-cta-hover"
       >
-        Design partner &gt;
-      </button>
-      <button
-        id="theme-toggle"
-        type="button"
-        aria-label="Switch between dark and light"
-        class="inline-flex h-[33px] w-[33px] items-center justify-center border border-white/20 font-mono text-[11px] text-white/50 hover:border-white/60 hover:text-white transition-colors"
-      >
-        <span class="theme-glyph-dark">☾</span><span class="theme-glyph-light hidden">☀</span>
+        Watch your agents →
       </button>
       {otherHref && (
         <a
@@ -106,7 +98,7 @@ const otherHref = alternates[otherLocale];
           <a
             href={href}
             class={[
-              'font-mono text-sm uppercase tracking-widest transition-colors',
+              'font-sans text-2xl tracking-tight transition-colors',
               (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
                 ? 'text-white font-bold'
                 : 'text-white/50 hover:text-white',
@@ -119,18 +111,10 @@ const otherHref = alternates[otherLocale];
     </ul>
     <div class="space-y-3">
       <button
-        id="theme-toggle-mobile"
-        type="button"
-        class="flex w-full items-center justify-between border border-white/20 px-4 py-3 font-mono text-xs uppercase tracking-[0.1em] text-white/60 hover:border-white/60 hover:text-white transition-colors"
-      >
-        <span>Appearance</span>
-        <span><span class="theme-glyph-dark">Dark ☾</span><span class="theme-glyph-light hidden">Light ☀</span></span>
-      </button>
-      <button
         onclick="openModal()"
-        class="block w-full text-center bg-white px-4 py-3 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all"
+        class="block w-full text-center bg-ink px-4 py-3 text-sm font-mono text-paper hover:bg-cta-hover transition-all"
       >
-        Become a design partner &gt;
+        Watch your agents →
       </button>
     </div>
   </div>
@@ -162,34 +146,4 @@ const otherHref = alternates[otherLocale];
 
   (window as any).closeMobileMenu = () => setOpen(false);
 
-  // Theme toggle: light is the default; dark is an explicit, persisted opt-in.
-  //
-  // The key is versioned on purpose. The first version of this wrote to storage
-  // on every page load, not just on a click, so every visitor to the old
-  // dark-default site is carrying a stored "dark" they never chose. Reading that
-  // key now would pin all of them to dark forever and none of them would ever
-  // see the new default. A fresh key ignores it, and this one is only written
-  // when somebody actually presses the button.
-  const THEME_KEY = 'kyde_theme_choice';
-  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-  const setTheme = (theme: 'dark' | 'light', persist = false) => {
-    if (theme === 'dark') {
-      document.documentElement.dataset.theme = 'dark';
-      themeColorMeta?.setAttribute('content', '#050505');
-    } else {
-      delete document.documentElement.dataset.theme;
-      themeColorMeta?.setAttribute('content', '#F7F6F3');
-    }
-    if (persist) localStorage.setItem(THEME_KEY, theme);
-    document.querySelectorAll('.theme-glyph-dark').forEach((el) => el.classList.toggle('hidden', theme === 'light'));
-    document.querySelectorAll('.theme-glyph-light').forEach((el) => el.classList.toggle('hidden', theme !== 'light'));
-    window.dispatchEvent(new CustomEvent('kyde:theme', { detail: { theme } }));
-  };
-  const toggleTheme = () => {
-    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
-  };
-  // Match the pre-paint guard, so the glyph agrees with the ground on load.
-  setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
-  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
-  document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
 </script>
