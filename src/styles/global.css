@@ -332,7 +332,7 @@ main h3:is(.text-xl, .text-2xl, .text-3xl) { font-size: clamp(1.45rem, 2vw, 2.1r
 main h3:is(.text-base, .text-lg) { font-size: 1.3rem; letter-spacing: -0.03em; line-height: 1.1; }
 main p.text-lg, main p.text-xl { letter-spacing: -0.015em; line-height: 1.35; }
 .fig-label { text-transform: none; letter-spacing: 0; font-size: 13px; }
-svg text { letter-spacing: 0 !important; }
+main:not(.kx) svg text { letter-spacing: 0 !important; }
 
 /* lines and boxes: every rule and every frame is 2px ink, as on the home */
 :root { --kx-line: var(--color-ink-0); }
@@ -377,12 +377,12 @@ main :is(.text-white\/25, .text-white\/30, .text-white\/35, .text-white\/40, .te
 
 /* figures: the blueprint drew in faint hairlines; the deck draws in 2px
    ink. Opacity goes, frames get the house weight, labels are full ink. */
-main svg :is(rect, circle, path, line, polyline, polygon)[stroke] { stroke-opacity: 1; }
-main svg rect[stroke]:not([stroke="none"]) { stroke-width: 2; }
-main svg path[stroke]:not([stroke-dasharray]) { stroke-width: max(2px, 1px); }
-main svg text { fill-opacity: 1; font-family: var(--font-mono); font-weight: 500; }
-main svg [fill-opacity]:not(text) { fill-opacity: 1; }
-main svg rect[fill*="live"], main svg circle[fill*="live"] { fill: var(--color-neon); stroke: var(--color-ink-0); }
+main:not(.kx) svg :is(rect, circle, path, line, polyline, polygon)[stroke] { stroke-opacity: 1; }
+main:not(.kx) svg rect[stroke]:not([stroke="none"]) { stroke-width: 2; }
+main:not(.kx) svg path[stroke]:not([stroke-dasharray]) { stroke-width: max(2px, 1px); }
+main:not(.kx) svg text { fill-opacity: 1; font-family: var(--font-mono); font-weight: 500; }
+main:not(.kx) svg [fill-opacity]:not(text) { fill-opacity: 1; }
+main:not(.kx) svg rect[fill*="live"], main:not(.kx) svg circle[fill*="live"] { fill: var(--color-neon); stroke: var(--color-ink-0); }
 
 /* buttons: one shape, the home's */
 main :is(a, button).inline-flex.items-center.gap-2:is([class*="px-6"], [class*="px-8"], [class*="px-5"]) {

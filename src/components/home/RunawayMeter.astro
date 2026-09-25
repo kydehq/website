@@ -1,0 +1,131 @@
+---
+// One night, one agent. Flat until 01:40, when it starts retrying the same
+// call; from there the cost compounds. The playhead runs the night once when
+// the figure comes into view. Kyde's cut at 01:52 is where the solid line
+// ends; the dashed line is the invoice nobody would have seen until morning.
+// Illustrative numbers, labelled as such.
+const W = 1200, H = 300, L = 60, R = 1160, T = 30, B = 250;
+const hours = ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00'];
+const xAt = (h: number) => L + (h / 8) * (R - L);          // h = hours since 22:00
+const MAX = 4812;
+const cost = (h: number) => (h < 3.667 ? 0.41 * h : 0.41 * 3.667 + (MAX - 1.5) * Math.pow((h - 3.667) / (8 - 3.667), 2.6));
+const yAt = (c: number) => B - (c / MAX) * (B - T);
+const CUT = 3.867;                                          // 01:52
+const pts = (a: number, b: number) =>
+  Array.from({ length: 80 }, (_, i) => a + ((b - a) * i) / 79).map((h) => `${xAt(h).toFixed(1)},${yAt(cost(h)).toFixed(1)}`).join(' ');
+---
+<figure class="meter" id="meter" aria-label="Illustrative: an agent loops from 01:40; left alone the night costs €4,812, cut at 01:52 it costs €3.12">
+  <div class="meter-head mono">
+    <span>(One agent, one night)</span>
+    <span class="meter-dim">*Illustrative</span>
+  </div>
+  <div class="meter-count">
+    <span class="mono meter-time" id="meter-time">22:00</span>
+    <span class="meter-eur" id="meter-eur">€0.00</span>
+    <span class="mono meter-note" id="meter-note">Agent running normally</span>
+  </div>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+    <defs>
+      <pattern id="meter-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="var(--color-pink)" stroke-width="3" />
+      </pattern>
+      <clipPath id="meter-play"><rect id="meter-clip" x="0" y="0" width={L} height={H} /></clipPath>
+    </defs>
+    <!-- hours -->
+    {hours.map((h, i) => (
+      <g>
+        <line x1={xAt(i)} y1={B} x2={xAt(i)} y2={B + 8} stroke="var(--color-ink)" stroke-width="2" />
+        <text x={xAt(i)} y={B + 30} text-anchor="middle" class="t">{h}</text>
+      </g>
+    ))}
+    <line x1={L} y1={B} x2={R} y2={B} stroke="var(--color-ink)" stroke-width="2" />
+    <!-- the night nobody watched: ghost of the whole invoice -->
+    <polyline points={pts(CUT, 8)} fill="none" stroke="var(--color-ink)" stroke-width="2" stroke-dasharray="3 7" clip-path="url(#meter-play)" />
+    <text x={R} y={T - 6} text-anchor="end" class="t ghost lbl" clip-path="url(#meter-play)">What the invoice would have said · €4,812</text>
+    <!-- what actually ran -->
+    <polygon points={`${xAt(3.667)},${B} ${pts(3.667, CUT)} ${xAt(CUT)},${B}`} fill="url(#meter-hatch)" clip-path="url(#meter-play)" />
+    <polyline points={pts(0, CUT)} fill="none" stroke="var(--color-ink)" stroke-width="3" clip-path="url(#meter-play)" />
+    <!-- loop starts -->
+    <g clip-path="url(#meter-play)">
+      <line x1={xAt(3.667)} y1={T + 40} x2={xAt(3.667)} y2={B} stroke="var(--color-ink)" stroke-width="2" stroke-dasharray="2 5" />
+      <text x={xAt(3.667) - 10} y={T + 52} text-anchor="end" class="t lbl">01:40 · loop starts</text>
+    </g>
+    <!-- the cut -->
+    <g clip-path="url(#meter-play)">
+      <circle cx={xAt(CUT)} cy={yAt(cost(CUT))} r="11" fill="var(--color-neon)" stroke="var(--color-ink)" stroke-width="2" />
+      <rect class="lbl" x={xAt(CUT) + 20} y={yAt(cost(CUT)) - 44} width="284" height="32" fill="var(--color-card)" />
+      <text x={xAt(CUT) + 32} y={yAt(cost(CUT)) - 23} class="t on-dark lbl">01:52 · Kyde cuts the run</text>
+    </g>
+    <!-- playhead -->
+    <line id="meter-head" x1={L} y1={T - 20} x2={L} y2={B} stroke="var(--color-ink)" stroke-width="2" />
+  </svg>
+</figure>
+
+<script>
+  const fig = document.getElementById('meter');
+  if (fig) {
+    const L = 60, R = 1160, MAX = 4812, CUT = 3.867, LOOP = 3.667;
+    const cost = (h: number) => (h < LOOP ? 0.41 * h : 0.41 * LOOP + (MAX - 1.5) * Math.pow((h - LOOP) / (8 - LOOP), 2.6));
+    const clip = document.getElementById('meter-clip')!;
+    const head = document.getElementById('meter-head')!;
+    const eur = document.getElementById('meter-eur')!;
+    const time = document.getElementById('meter-time')!;
+    const note = document.getElementById('meter-note')!;
+    const fmt = (c: number) => '€' + c.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const clock = (h: number) => {
+      const m = Math.round((22 * 60 + h * 60) % (24 * 60));
+      return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+    };
+    const paint = (h: number) => {
+      const x = L + (h / 8) * (R - L);
+      clip.setAttribute('width', String(x + 2));
+      head.setAttribute('x1', String(x)); head.setAttribute('x2', String(x));
+      time.textContent = clock(h);
+      if (h < LOOP) { eur.textContent = fmt(cost(h)); note.textContent = 'Agent running normally'; fig.dataset.state = 'ok'; }
+      else if (h < CUT) { eur.textContent = fmt(cost(h)); note.textContent = 'Retrying the same call, nobody awake'; fig.dataset.state = 'loop'; }
+      else { eur.textContent = fmt(cost(CUT)); note.textContent = `Cut at 01:52. Left alone: ${fmt(cost(h))}`; fig.dataset.state = 'cut'; }
+    };
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) { paint(8); }
+    else {
+      paint(0);
+      let played = false;
+      new IntersectionObserver((es) => {
+        if (!es[0].isIntersecting || played) return;
+        played = true;
+        const t0 = performance.now(), DUR = 5200;
+        const run = (t: number) => {
+          const p = Math.min((t - t0) / DUR, 1);
+          // slow through the part that matters, the minutes around the cut
+          const e = p < 0.5 ? p * 0.9 : 0.45 + (p - 0.5) * 1.1;
+          paint(e * 8);
+          if (p < 1) requestAnimationFrame(run);
+        };
+        requestAnimationFrame(run);
+      }, { threshold: 0.5 }).observe(fig);
+    }
+  }
+</script>
+
+<style>
+  .meter { margin: 0; border: 2px solid var(--color-ink); padding: 20px 24px 12px; background: var(--color-paper); }
+  .mono { font-family: var(--font-mono); font-weight: 500; }
+  .meter-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 0.875rem; }
+  .meter-dim { color: var(--color-ink-2); }
+  .meter-count { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; margin: 14px 0 4px; }
+  .meter-time { font-size: 1rem; background: var(--color-card); color: var(--color-pink); padding: 2px 9px 4px; }
+  .meter-eur { font-size: clamp(2.8rem, 6vw, 5.4rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+  .meter[data-state="cut"] .meter-eur { background: var(--color-neon); padding: 0 0.12em 0.04em; }
+  .meter-note { font-size: 0.9375rem; color: var(--color-ink-1); }
+  .meter svg { width: 100%; height: auto; display: block; margin-top: 8px; overflow: visible; }
+  .meter :global(.t) { font-family: var(--font-mono); font-weight: 500; font-size: 17px; fill: var(--color-ink); }
+  .meter :global(.t.ghost) { fill: var(--color-ink-2); }
+  .meter :global(.t.on-dark) { fill: var(--color-pink); }
+  /* on a phone the chart is 340px wide: keep the hours legible, let the
+     counter above carry the story the in-chart labels tell on desktop */
+  @media (max-width: 700px) {
+    .meter { padding: 16px 16px 10px; }
+    .meter :global(.t) { font-size: 34px; }
+    .meter :global(.lbl) { display: none; }
+  }
+</style>

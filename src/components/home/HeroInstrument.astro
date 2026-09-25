@@ -1,0 +1,74 @@
+---
+// The hero picture, kept calm on purpose: one agent, one score, one
+// change. Every few seconds the agent starts looping, the number falls, the
+// status flips and the rows say why; then it recovers. The stage makes one
+// statement; the moving stories live further down the page. Illustrative.
+---
+<div class="inst" id="inst" data-state="ok">
+  <div class="inst-head mono">
+    <span>(Agent) invoice-reconciler-07</span>
+    <span class="inst-dim">*Illustrative</span>
+  </div>
+  <div class="inst-main">
+    <span class="inst-num" id="inst-num">96</span>
+    <span class="inst-tag mono" id="inst-tag">Trusted</span>
+  </div>
+  <dl class="inst-rows">
+    <div><dt>Tool usage</dt><dd>Normal</dd></div>
+    <div><dt>Action sequence</dt><dd data-bad="Repeating">Normal</dd></div>
+    <div><dt>Execution time</dt><dd data-bad="+740%">Normal</dd></div>
+    <div><dt>Cost behavior</dt><dd data-bad="Runaway">Normal</dd></div>
+  </dl>
+  <p class="inst-foot mono" id="inst-foot">Within baseline · 312 runs</p>
+</div>
+
+<script>
+  const root = document.getElementById('inst');
+  if (root && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const num = document.getElementById('inst-num')!;
+    const tag = document.getElementById('inst-tag')!;
+    const foot = document.getElementById('inst-foot')!;
+    const rows = Array.from(root.querySelectorAll<HTMLElement>('dd[data-bad]'));
+    let visible = false, bad = false;
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; }, { threshold: 0.4 }).observe(root);
+    const count = (from: number, to: number) => {
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const p = Math.min((t - t0) / 700, 1);
+        num.textContent = String(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    setInterval(() => {
+      if (!visible || document.hidden) return;
+      bad = !bad;
+      root.dataset.state = bad ? 'bad' : 'ok';
+      count(bad ? 96 : 38, bad ? 38 : 96);
+      tag.textContent = bad ? 'Restricted' : 'Trusted';
+      foot.textContent = bad ? 'Reach cut at the egress · record kept' : 'Within baseline · 312 runs';
+      for (const dd of rows) {
+        const next = dd.dataset.bad!;
+        dd.dataset.bad = dd.textContent!;
+        dd.textContent = next;
+        dd.classList.toggle('bad', bad);
+      }
+    }, 3600);
+  }
+</script>
+
+<style>
+  .inst { background: var(--color-paper); border: 2px solid var(--color-ink); padding: 22px 24px 20px; }
+  .mono { font-family: var(--font-mono); font-weight: 500; }
+  .inst-head { display: flex; justify-content: space-between; gap: 12px; font-size: 0.875rem; flex-wrap: wrap; }
+  .inst-dim { color: var(--color-ink-2); }
+  .inst-main { display: flex; align-items: flex-end; gap: 18px; margin: 14px 0 18px; }
+  .inst-num { font-size: clamp(5.5rem, 9vw, 8.5rem); font-weight: 500; line-height: 0.82; letter-spacing: -0.065em; font-variant-numeric: tabular-nums; }
+  .inst-tag { background: var(--color-neon); color: #1C1A1B; font-size: 0.875rem; padding: 3px 10px 4px; margin-bottom: 10px; }
+  .inst[data-state="bad"] .inst-tag { background: var(--color-card); color: var(--color-pink); }
+  .inst-rows { margin: 0; }
+  .inst-rows div { display: flex; justify-content: space-between; border-top: 2px solid var(--color-ink); padding: 10px 0 11px; font-size: 1.0625rem; }
+  .inst-rows dd { margin: 0; font-family: var(--font-mono); font-weight: 500; font-size: 0.9375rem; }
+  .inst-rows dd.bad { background: var(--color-pink); padding: 0 8px; }
+  .inst-foot { border-top: 2px solid var(--color-ink); padding-top: 12px; font-size: 0.875rem; color: var(--color-ink-2); }
+</style>

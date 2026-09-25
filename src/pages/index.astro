@@ -2,13 +2,18 @@
 import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import HeroInstrument from '../components/home/HeroInstrument.astro';
+import RunawayMeter from '../components/home/RunawayMeter.astro';
+import Trajectories from '../components/home/Trajectories.astro';
+import CaseGlyph from '../components/home/CaseGlyph.astro';
+import Pipeline from '../components/home/Pipeline.astro';
 
 // September 2026 rebrand. The story is the website draft (money and security
 // first, drift as the mechanism underneath), in the pitch deck's design
 // language: paper, ink, pink, neon, mono labels, 2px rules. The deck's 1920s
-// futurism survives only as small marks (corner brackets, the dot band, a
-// tilted tag, one row of phases); the pictures on this page are the product,
-// not illustrations.
+// futurism survives in the figures' motion phases and marks (corner
+// brackets, the dot band, a tilted tag). Every figure pictures the product:
+// the live score, the night a loop runs, the trajectories, the pipeline.
 //
 // Pink full-bleed sections: the hero and the close. Everything else is paper.
 // One highlight mark per section at most.
@@ -37,28 +42,28 @@ const wrongs = [
 // Kyde does not claim to recognize every injection, it sees the behavior.
 const cases = [
   {
-    tag: '(Money)',
+    tag: '(Money)', glyph: 'money',
     name: 'Runaway execution',
     lead: 'The agent starts spending.',
     body: 'It retries. It loops. It calls tools again and again. Compute, tokens and API costs keep piling up while nobody is watching, and the invoice is the first alert anyone sees.',
     kyde: "Detects abnormal execution against the agent's own baseline and can stop the run before the cost runs away.",
   },
   {
-    tag: '(Security)',
+    tag: '(Security)', glyph: 'security',
     name: 'Prompt injection',
     lead: "The agent is made to do something it wasn't supposed to.",
     body: 'A document, a website, an email or a tool response carries instructions. The agent follows them, with your credentials, inside a task that looked legitimate.',
     kyde: 'Does not have to recognize the injection. It sees what the agent does next, and enforces boundaries where actions cross into your systems.',
   },
   {
-    tag: '(Drift)',
+    tag: '(Drift)', glyph: 'drift',
     name: 'Behavioral drift',
     lead: 'The agent stops behaving like itself.',
     body: 'Its tools, sequences, timing or actions change, suddenly or gradually. A model update can cause it. Growing context, memory or a changed environment can too.',
     kyde: 'Detects meaningful change against a frozen behavioral baseline.',
   },
   {
-    tag: '(Objective)',
+    tag: '(Objective)', glyph: 'objective',
     name: 'Wrong from the start',
     lead: 'Not every failure is drift.',
     body: 'An agent can optimize the wrong objective from its very first run, and satisfy a proxy instead of the outcome you wanted. A baseline learned from that agent is a wrong baseline.',
@@ -153,25 +158,7 @@ const websiteSchema = {
             </div>
           </div>
 
-          <!-- One agent, scored live. It starts looping, the score falls and it
-               is restricted. The picture is the product, not a metaphor. -->
-          <div class="score-card" id="score-card" data-state="ok">
-            <div class="sc-head mono">
-              <span>(Agent) invoice-reconciler-07</span>
-              <span>*Illustrative</span>
-            </div>
-            <div class="sc-main">
-              <span class="sc-num" id="sc-num">96</span>
-              <span class="tag sc-tag" id="sc-tag">Trusted</span>
-            </div>
-            <dl class="sc-rows">
-              <div><dt>Tool usage</dt><dd>Normal</dd></div>
-              <div><dt>Action sequence</dt><dd data-alt="Repeating">Normal</dd></div>
-              <div><dt>Execution time</dt><dd data-alt="+740%">Normal</dd></div>
-              <div><dt>Cost behavior</dt><dd data-alt="Runaway">Normal</dd></div>
-            </dl>
-            <p class="sc-foot mono" id="sc-foot">Within baseline · 312 runs</p>
-          </div>
+          <HeroInstrument />
         </div>
       </div>
 
@@ -190,6 +177,7 @@ const websiteSchema = {
     <section class="surface-paper">
       <div class="wrap sec">
         <h2 class="h1">Your agents are acting when nobody is watching.</h2>
+        <div class="meter-wrap"><RunawayMeter /></div>
         <ul class="four">
           <li><span class="mono small">(01)</span>They can spend.</li>
           <li><span class="mono small">(02)</span>They can be hijacked.</li>
@@ -208,10 +196,7 @@ const websiteSchema = {
         <div>
           <h2 class="h1">An agent can go wrong from day one. Or change later.</h2>
           <p class="subline">It does not have to slowly drift into trouble.</p>
-          <!-- the one futurist mark on the page: a body in phases, fading -->
-          <div class="phases" aria-hidden="true">
-            <i></i><i></i><i class="dash"></i><i class="dash"></i><i class="dot"></i><i class="end"></i>
-          </div>
+          <Trajectories />
         </div>
         <div>
           <ol class="rule-list">
@@ -232,6 +217,7 @@ const websiteSchema = {
           {cases.map((c) => (
             <article class="case">
               <p class="mono label">{c.tag}</p>
+              <CaseGlyph kind={c.glyph as any} />
               <h3 class="h2">{c.name}</h3>
               <p class="col-lead">{c.lead}</p>
               <p class="body">{c.body}</p>
@@ -271,6 +257,12 @@ const websiteSchema = {
               <span>(Fleet) 214 agents</span>
               <span class="fleet-dim">*Illustrative</span>
             </div>
+            <!-- every agent as one cell; the one that starts looping lights up -->
+            <div class="fleet-grid" aria-hidden="true">
+              {Array.from({ length: 214 }, (_, i) => (
+                <i class={i === 57 ? 'hot-cell' : ['a', 'b', 'c', 'a', 'a', 'b'][(i * 7 + (i >> 3)) % 6]}></i>
+              ))}
+            </div>
             <div class="fleet-cols mono" aria-hidden="true">
               <span>Agent</span><span class="col-cost">Cost</span><span>Score</span>
             </div>
@@ -295,6 +287,7 @@ const websiteSchema = {
       <div class="wrap sec">
         <div class="kicker"><span class="num">03</span><span class="mono">How it works</span></div>
         <h2 class="h1">See it. Score it. Stop it. Prove it.</h2>
+        <Pipeline />
         <div class="steps">
           {steps.map((s) => (
             <div class="col">
@@ -437,6 +430,7 @@ const websiteSchema = {
         if (!visible) return;
         bad = !bad;
         row.classList.toggle('bad', bad);
+        fleet.querySelector('.hot-cell')?.classList.toggle('on', bad);
         b.textContent = bad ? String(turns.score) : orig.score;
         cost.textContent = bad ? turns.cost : orig.cost;
         tag.textContent = bad ? 'Restricted' : 'Trusted';
@@ -446,38 +440,6 @@ const websiteSchema = {
     }
   }
 
-  // Score card: the same agent, normal and then looping.
-  const card = document.getElementById('score-card');
-  if (card && !reduced) {
-    const num = document.getElementById('sc-num')!;
-    const tag = document.getElementById('sc-tag')!;
-    const foot = document.getElementById('sc-foot')!;
-    const alts = Array.from(card.querySelectorAll<HTMLElement>('dd[data-alt]'));
-    let visible = false, bad = false;
-    watch(card, (v) => (visible = v));
-    const animateNum = (from: number, to: number) => {
-      const t0 = performance.now();
-      const step = (t: number) => {
-        const p = Math.min((t - t0) / 700, 1);
-        num.textContent = String(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))));
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    setInterval(() => {
-      if (!visible) return;
-      bad = !bad;
-      card.dataset.state = bad ? 'bad' : 'ok';
-      animateNum(bad ? 96 : 38, bad ? 38 : 96);
-      tag.textContent = bad ? 'Restricted' : 'Trusted';
-      foot.textContent = bad ? 'Reach cut at the egress · record kept' : 'Within baseline · 312 runs';
-      for (const dd of alts) {
-        const alt = dd.dataset.alt!;
-        dd.dataset.alt = dd.textContent!;
-        dd.textContent = alt;
-      }
-    }, 3600);
-  }
 </script>
 
 <style>
@@ -566,6 +528,12 @@ const websiteSchema = {
 
   /* fleet panel: a dark card, the deck allows dark cards, never dark sections */
   .fleet { background: var(--color-card); color: #fff; padding: 20px 22px 16px; }
+  .fleet-grid { display: grid; grid-template-columns: repeat(27, 1fr); gap: 3px; margin-bottom: 16px; }
+  .fleet-grid i { display: block; aspect-ratio: 1; background: #3A3A3A; }
+  .fleet-grid i.b { background: #4A4546; }
+  .fleet-grid i.c { background: #57514F; }
+  .fleet-grid i.hot-cell { transition: background-color .3s, transform .3s; }
+  .fleet-grid i.hot-cell.on { background: var(--color-pink); transform: scale(1.6); outline: 2px solid #1E1E1E; }
   .fleet-head { display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-pink); margin-bottom: 14px; }
   .fleet-dim { color: #8C8789; }
   .fleet-cols, .fleet-row { display: grid; grid-template-columns: 1fr 88px 128px; }
@@ -599,17 +567,6 @@ const websiteSchema = {
   .split { display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); }
   @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; } }
 
-  /* day one: the only futurist mark, small */
-  .phases { display: flex; align-items: flex-end; gap: 10px; margin-top: 40px; }
-  .phases i { display: block; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--color-ink); }
-  .phases i:nth-child(2) { width: 26px; height: 26px; }
-  .phases i:nth-child(3) { width: 30px; height: 30px; }
-  .phases i:nth-child(4) { width: 34px; height: 34px; }
-  .phases i:nth-child(5) { width: 38px; height: 38px; }
-  .phases i:nth-child(6) { width: 44px; height: 44px; }
-  .phases .dash { border-style: dashed; }
-  .phases .dot { border-style: dotted; }
-  .phases .end { background: var(--color-neon); }
   .rule-list { list-style: none; padding: 0; margin: 0; }
   .rule-list li { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: baseline; border-top: var(--rule); padding: 14px 0 16px; font-size: clamp(1.1rem, 1.4vw, 1.35rem); letter-spacing: -0.015em; line-height: 1.3; }
   .rule-list li:last-child { border-bottom: var(--rule); }
