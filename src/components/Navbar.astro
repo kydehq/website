@@ -162,14 +162,8 @@ const otherHref = alternates[otherLocale];
 
   (window as any).closeMobileMenu = () => setOpen(false);
 
-  // Theme toggle: light is the default; dark is an explicit, persisted opt-in.
-  //
-  // The key is versioned on purpose. The first version of this wrote to storage
-  // on every page load, not just on a click, so every visitor to the old
-  // dark-default site is carrying a stored "dark" they never chose. Reading that
-  // key now would pin all of them to dark forever and none of them would ever
-  // see the new default. A fresh key ignores it, and this one is only written
-  // when somebody actually presses the button.
+  // Theme toggle: dark is the default; light is an explicit, persisted opt-in.
+  // The key is only written when somebody actually presses the button.
   const THEME_KEY = 'kyde_theme_choice';
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
   const setTheme = (theme: 'dark' | 'light', persist = false) => {

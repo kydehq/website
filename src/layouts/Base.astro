@@ -80,21 +80,20 @@ const articleSchema = datePublished
 ---
 
 <!doctype html>
-<html lang={locale} class="antialiased">
+<html lang={locale} class="antialiased" data-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="color-scheme" content="light dark" />
-        <meta name="theme-color" content="#F7F6F3" />
+        <meta name="theme-color" content="#050505" />
         <script is:inline>
-            // Theme pre-paint: light is the default; dark only on explicit opt-in.
-            // Runs before first paint so there is no flash-of-wrong-theme.
-            // Key versioned: the old one was written on every page load rather
-            // than on a choice, so returning visitors all carry a "dark" they
-            // never picked. See the note in Navbar.astro.
-            if (localStorage.getItem("kyde_theme_choice") === "dark") {
-                document.documentElement.dataset.theme = "dark";
-                document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#050505");
+            // Theme pre-paint: dark is the default, server-rendered on <html>;
+            // light only on explicit opt-in. Runs before first paint so there is
+            // no flash-of-wrong-theme. The key is only written on a click, so a
+            // stored value is always a choice the visitor made.
+            if (localStorage.getItem("kyde_theme_choice") === "light") {
+                delete document.documentElement.dataset.theme;
+                document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#F7F6F3");
             }
         </script>
         <link

@@ -1,11 +1,8 @@
 ---
 // Starlight's ThemeProvider, replaced so the docs follow the same rule as the
-// rest of the site rather than their own: light is the default, dark only where
+// rest of the site rather than their own: dark is the default, light only where
 // the visitor asked for it. This reads the same versioned key the marketing
 // pages write, so a choice made in the navbar carries into the docs and back.
-//
-// It used to hard-pin dark, with a comment saying that matched the marketing
-// site. That stopped being true when light became the default there.
 //
 // The attribute is always written, never deleted. Starlight server-renders
 // data-theme="dark" and both its stylesheet and the Expressive Code one key
@@ -15,5 +12,5 @@
 ---
 <script is:inline>
     document.documentElement.dataset.theme =
-        localStorage.getItem("kyde_theme_choice") === "dark" ? "dark" : "light";
+        localStorage.getItem("kyde_theme_choice") === "light" ? "light" : "dark";
 </script>
