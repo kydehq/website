@@ -58,7 +58,7 @@ const otherHref = alternates[otherLocale];
     <div class="hidden lg:flex items-center gap-3">
       <button
         onclick="openModal()"
-        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap bg-ink px-4 text-[13px] font-mono text-paper transition-colors hover:bg-cta-hover"
+        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap nav-cta px-4 text-[13px] font-mono transition-colors"
       >
         Watch your agents →
       </button>
@@ -112,7 +112,7 @@ const otherHref = alternates[otherLocale];
     <div class="space-y-3">
       <button
         onclick="openModal()"
-        class="block w-full text-center bg-ink px-4 py-3 text-sm font-mono text-paper hover:bg-cta-hover transition-all"
+        class="nav-cta block w-full text-center px-4 py-3 text-sm font-mono transition-all"
       >
         Watch your agents →
       </button>
@@ -175,4 +175,6 @@ const otherHref = alternates[otherLocale];
   .site-nav[data-surface="blush"] { background: var(--color-blush); }
   .site-nav.scrolled:not([data-surface="blush"]) { border-bottom-color: color-mix(in srgb, var(--color-ink) 12%, transparent); }
   #mobile-menu { background: inherit; }
+  .nav-cta { background: var(--color-pink); color: #1C1A1B; box-shadow: inset 0 0 0 2px var(--color-ink); }
+  .nav-cta:hover { background: var(--color-card); color: var(--color-pink); }
 </style>
