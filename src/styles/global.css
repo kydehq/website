@@ -381,11 +381,17 @@ main :is(.text-white\/25, .text-white\/30, .text-white\/35, .text-white\/40, .te
 
 /* figures: the blueprint drew in faint hairlines; the deck draws in 2px
    ink. Opacity goes, frames get the house weight, labels are full ink. */
-main:not(.kx) svg :is(rect, circle, path, line, polyline, polygon)[stroke] { stroke-opacity: 1; }
+/* Only the fixed, decorative opacities are lifted to full ink. Values a
+   script animates (a label that fades in, a pulse that fades out) pass
+   through such states for a frame at most and are left alone, which a
+   blanket rule did not do: it pinned every fade at fully visible. */
+main:not(.kx) svg :is(rect, circle, path, line, polyline, polygon):is([stroke-opacity="0.3"], [stroke-opacity="0.30"], [stroke-opacity="0.32"], [stroke-opacity="0.35"], [stroke-opacity="0.38"], [stroke-opacity="0.4"], [stroke-opacity="0.40"], [stroke-opacity="0.42"], [stroke-opacity="0.45"], [stroke-opacity="0.5"], [stroke-opacity="0.50"], [stroke-opacity="0.55"], [stroke-opacity="0.6"], [stroke-opacity="0.60"], [stroke-opacity="0.65"], [stroke-opacity="0.68"], [stroke-opacity="0.7"], [stroke-opacity="0.70"], [stroke-opacity="0.75"], [stroke-opacity="0.8"], [stroke-opacity="0.85"], [stroke-opacity="0.9"], [stroke-opacity="0.14"], [stroke-opacity="0.16"], [stroke-opacity="0.18"], [stroke-opacity="0.2"], [stroke-opacity="0.22"], [stroke-opacity="0.25"], [stroke-opacity="0.26"], [stroke-opacity="0.28"]) { stroke-opacity: 1; }
 main:not(.kx) svg rect[stroke]:not([stroke="none"]) { stroke-width: 2; }
 main:not(.kx) svg path[stroke]:not([stroke-dasharray]) { stroke-width: max(2px, 1px); }
-main:not(.kx) svg text { fill-opacity: 1; font-family: var(--font-mono); font-weight: 500; }
-main:not(.kx) svg [fill-opacity]:not(text) { fill-opacity: 1; }
+main:not(.kx) svg text { font-family: var(--font-mono); font-weight: 500; }
+main:not(.kx) svg text:is([fill-opacity="0.3"], [fill-opacity="0.30"], [fill-opacity="0.32"], [fill-opacity="0.35"], [fill-opacity="0.38"], [fill-opacity="0.4"], [fill-opacity="0.40"], [fill-opacity="0.42"], [fill-opacity="0.45"], [fill-opacity="0.5"], [fill-opacity="0.50"], [fill-opacity="0.55"], [fill-opacity="0.6"], [fill-opacity="0.60"], [fill-opacity="0.65"], [fill-opacity="0.68"], [fill-opacity="0.7"], [fill-opacity="0.70"], [fill-opacity="0.75"], [fill-opacity="0.8"], [fill-opacity="0.85"], [fill-opacity="0.9"]) { fill-opacity: 1; }
+/* faint ink washes (a radar sweep, a zone) become blush, the calm surface */
+main:not(.kx) svg :not(text)[fill*="ink-0"]:is([fill-opacity="0.02"], [fill-opacity="0.03"], [fill-opacity="0.04"], [fill-opacity="0.05"], [fill-opacity="0.06"], [fill-opacity="0.08"], [fill-opacity="0.1"]) { fill: var(--color-blush); fill-opacity: 1; }
 main:not(.kx) svg rect[fill*="live"], main:not(.kx) svg circle[fill*="live"] { fill: var(--color-neon); stroke: var(--color-ink-0); }
 
 /* buttons: one shape, the home's */
@@ -460,9 +466,18 @@ main:not(.kx) svg :is([fill*="warn"]) { fill: var(--color-blush); }
 /* a blush band in the middle of the long pages, like Why Kyde on the home */
 .page-band { background: var(--color-blush); --color-ink-0: #2B2226; --color-line-0: color-mix(in srgb, #2B2226 22%, transparent); --color-line-1: #2B2226; }
 .page-band, .page-band + section { border-top-color: transparent !important; }
-/* cards: a framed box with its own padding is a card, and cards are blush;
-   on a blush section they flip to paper */
-main:not(.kx) :not(section, figure, table, tr, td, th, svg, a, button, input, textarea, select, [class*="border-live"], [class*="border-ember"], [class*="border-gold"], [class*="border-alert"]):is(.border, .border-2):is([class*="p-"], [class*="px-"]) { background-color: var(--color-blush); }
-:is(.page-hero, .page-band, .page-close) :not(section, [class*="border-live"], [class*="border-ember"], [class*="border-gold"], [class*="border-alert"]):is(.border, .border-2):is([class*="p-"], [class*="px-"]) { background-color: var(--color-paper); }
+/* A framed box stays paper. Blush is kept for panels that were tinted in
+   the old design (single callouts, figure plates); applied to every framed
+   card, a dense grid of them turned a page into a pink wall. */
 /* pink is never type on paper: figure labels that were alert/ember stay ink */
 main:not(.kx) svg text:is([fill*="alert"], [fill*="ember"], [fill*="gold"]) { fill: var(--color-ink-0); }
+
+/* Cards in a grid are paper in an ink frame, the way the home's cases sit;
+   they turn blush only on hover, as the response to the pointer. A grid
+   laid with a 1px gap between framed cards drew every shared edge twice;
+   the gap opens to the house gutter instead. */
+main:not(.kx) .grid > :is(.bg-bg-1, .bg-bg-2, [class*="bg-white/["]) { background-color: var(--color-paper); transition: background-color .15s; }
+main:not(.kx) .grid > :is(.bg-bg-1, .bg-bg-2, [class*="bg-white/["]):is(a, [class*="group"]):hover { background-color: var(--color-blush); }
+main:not(.kx) .grid.gap-px:has(> .border) { gap: 16px; }
+/* figure labels near the edge of a viewBox were being cut mid-word */
+main:not(.kx) svg { overflow: visible; }

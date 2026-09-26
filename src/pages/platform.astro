@@ -492,12 +492,12 @@ const breadcrumb = {
                                 const label = document.createElementNS(NS, "text");
                                 label.setAttribute("x", String(x + 9));
                                 label.setAttribute("y", String(y - 7));
-                                label.setAttribute("style", "font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;");
+                                label.setAttribute("style", "font-family:'IBM Plex Mono',monospace;font-size:11.5px;");
                                 label.textContent = ag.id;
                                 const sig = document.createElementNS(NS, "text");
                                 sig.setAttribute("x", String(x + 9));
                                 sig.setAttribute("y", String(y + 6));
-                                sig.setAttribute("style", "font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.08em;");
+                                sig.setAttribute("style", "font-family:'IBM Plex Mono',monospace;font-size:10px;");
                                 sig.setAttribute("fill", ag.claimed ? `rgb(${RC.live})` : `rgb(${RC.warn})`);
                                 sig.textContent = ag.claimed ? "✓ named" : "unclaimed · no owner";
                                 blipsG.append(dot, label, sig);
@@ -909,9 +909,9 @@ const breadcrumb = {
                                     <rect class="ch-box" x={30 + i * 64} y="112" width="54" height="44" fill="none"
                                           stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
                                     <text x={57 + i * 64} y="132" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68"
-                                          style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.06em;">{h}</text>
+                                          style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.06em;">{h}</text>
                                     <text x={57 + i * 64} y="146" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.40"
-                                          style="font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:0.05em;">{a}</text>
+                                          style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.05em;">{a}</text>
                                 </>
                             ))}
 
@@ -920,7 +920,7 @@ const breadcrumb = {
 
                             <rect id="ch-verifier" x="330" y="214" width="110" height="58" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.30" stroke-width="1" />
                             <text x="385" y="234" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;">Auditor</text>
-                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;">recompute · check signature</text>
+                            <text id="ch-recompute" x="385" y="252" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;">recompute · verify</text>
 
                             <rect id="ch-export" x="243" y="150" width="12" height="12" fill="none" stroke="var(--color-live)" stroke-opacity="0" stroke-width="1.5" />
 
