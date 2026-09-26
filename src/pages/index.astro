@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import HeroInstrument from '../components/home/HeroInstrument.astro';
 import RunawayMeter from '../components/home/RunawayMeter.astro';
-import Trajectories from '../components/home/Trajectories.astro';
 import CaseGlyph from '../components/home/CaseGlyph.astro';
 import Pipeline from '../components/home/Pipeline.astro';
 
@@ -13,7 +12,7 @@ import Pipeline from '../components/home/Pipeline.astro';
 // language: paper, ink, pink, neon, mono labels, 2px rules. The deck's 1920s
 // futurism survives in the figures' motion phases and marks (corner
 // brackets, the dot band, a tilted tag). Every figure pictures the product:
-// the live score, the night a loop runs, the trajectories, the pipeline.
+// the live score, the night a loop runs, the cases, the fleet, the pipeline.
 //
 // Pink full-bleed sections: the hero and the close. Everything else is paper.
 // One highlight mark per section at most.
@@ -29,13 +28,6 @@ const fleet = [
   { id: 'crm-enrichment-44',     score: 89, cost: '€0.09/h' },
 ];
 
-const wrongs = [
-  { tag: '(Objective)', line: 'Its goal can be wrong from the start.' },
-  { tag: '(Reward)',    line: 'A reward can teach it the wrong behavior.' },
-  { tag: '(Vendor)',    line: 'A vendor can change the model underneath it.' },
-  { tag: '(Memory)',    line: 'Its context and memory can change what it does.' },
-  { tag: '(Attack)',    line: 'An attacker can inject instructions and hijack a legitimate task.' },
-];
 
 // Four ways it goes wrong, each with what Kyde actually does about it. The
 // answers are held to what ships: enforcement is a switch (Enterprise), and
@@ -178,34 +170,9 @@ const websiteSchema = {
       <div class="wrap sec">
         <h2 class="h1">Your agents are acting when nobody is watching.</h2>
         <div class="meter-wrap"><RunawayMeter /></div>
-        <ul class="four">
-          <li><span class="mono small">(01)</span>They can spend.</li>
-          <li><span class="mono small">(02)</span>They can be hijacked.</li>
-          <li><span class="mono small">(03)</span>They can drift.</li>
-          <li><span class="mono small">(04)</span>They can get stuck.</li>
-        </ul>
         <p class="punch">
           The dangerous part is not always that they fail. It's that <span class="hl hl-pink">nobody notices</span><span class="nowrap">.</span>
         </p>
-      </div>
-    </section>
-
-    <!-- ══════════ DAY ONE OR LATER ══════════ -->
-    <section class="surface-paper">
-      <div class="wrap sec split">
-        <div>
-          <h2 class="h1">An agent can go wrong from day one. Or change later.</h2>
-          <p class="subline">It does not have to slowly drift into trouble.</p>
-          <Trajectories />
-        </div>
-        <div>
-          <ol class="rule-list">
-            {wrongs.map((w) => (
-              <li><span class="mono label">{w.tag}</span><span>{w.line}</span></li>
-            ))}
-          </ol>
-          <p class="strong-line">Kyde watches the behavior at the boundary, from the first action onward.</p>
-        </div>
       </div>
     </section>
 
@@ -350,28 +317,19 @@ const websiteSchema = {
             </div>
           ))}
         </div>
-        <div class="row-end">
-          <p class="mono note">*Built for these frameworks. Whether a deployment complies depends on how it is run, not on a product.</p>
-          <a href="/eu-ai-act-compliance" class="link-u mono">How the record maps to the articles</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════ YOUR ENVIRONMENT ══════════ -->
-    <section class="surface-paper">
-      <div class="wrap sec split">
-        <div>
-          <h2 class="h1">Your AI agents already have access. Now know what they are doing with it.</h2>
-        </div>
-        <div>
-          <p class="lead-dark">Kyde sits between your agents and the systems they can affect, continuously observing behavior, detecting change and enforcing boundaries.</p>
+        <!-- where it runs belongs next to what it is built for: both are what
+             a buyer checks before a regulator does -->
+        <div class="deploy-row">
+          <p class="strong-line">Runs in your environment. Your data stays with you.</p>
           <div class="deploy">
             <span class="tag tag-ink">Private cloud</span>
             <span class="tag tag-ink">On-premise</span>
             <span class="tag tag-ink">EU-hosted</span>
           </div>
-          <p class="strong-line">Your data stays with you.</p>
-          <p class="body">Behind the detection is research we publish: seventeen papers, seven forms of drift, and what your logs can actually show. <a href="/behavioral-drift" class="link-u mono">Read the research</a></p>
+        </div>
+        <div class="row-end">
+          <p class="mono note">*Built for these frameworks. Whether a deployment complies depends on how it is run, not on a product.</p>
+          <a href="/eu-ai-act-compliance" class="link-u mono">How the record maps to the articles</a>
         </div>
       </div>
     </section>
@@ -392,6 +350,7 @@ const websiteSchema = {
               <a href="/docs/quickstart" class="link-u mono">Run it yourself</a>
             </div>
             <p class="mono note close-note">*Start with the agents you are least sure about. Kyde is pre-seed and works closely with a small number of design partners.</p>
+            <p class="mono note close-note"><a href="/behavioral-drift" class="link-u">The research behind the detection</a></p>
           </div>
         </div>
       </div>
@@ -478,9 +437,14 @@ const websiteSchema = {
   .triad { font-size: clamp(1.15rem, 1.55vw, 1.5rem); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; margin-top: 1.5rem; }
 
   /* highlight mark: square, behind one phrase, once per section */
-  .hl { display: inline-block; padding: 0 0.12em 0.06em; line-height: 0.95; }
-  .hl-pink { background: var(--color-pink); }
-  .hl-neon { background: var(--color-neon); }
+  /* The mark is a band behind the letters, from just above the x-height to
+     just below the baseline. It is painted as a gradient on an inline box,
+     so it can never reach up into the descenders of the line above, which a
+     full inline background does at this line-height. */
+  .hl { padding: 0 0.1em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+        background-repeat: no-repeat; background-size: 100% 100%; }
+  .hl-pink { background-image: linear-gradient(transparent 22%, var(--color-pink) 22%, var(--color-pink) 94%, transparent 94%); }
+  .hl-neon { background-image: linear-gradient(transparent 22%, var(--color-neon) 22%, var(--color-neon) 94%, transparent 94%); }
 
   /* kicker: dark tag with a pink number, title in mono */
   .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
@@ -501,9 +465,10 @@ const websiteSchema = {
   /* buttons and links */
   .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 2.25rem; }
   .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-weight: 500; font-size: 1rem; padding: 14px 22px 15px; transition: background-color .15s; }
-  /* primary: the one strong pink on the page; hover goes to ink */
-  .btn-ink { background: var(--color-pink); color: #1C1A1B; box-shadow: inset 0 0 0 2px var(--color-ink); }
-  .btn-ink:hover { background: var(--color-card); color: var(--color-pink); }
+  /* primary: black on every surface. Pink on blush never holds; pink is
+     the hover and the small accents, not the button. */
+  .btn-ink { background: var(--color-card); color: #fff; }
+  .btn-ink:hover { color: var(--color-pink); }
   .link-u { font-size: 1rem; border-bottom: 2px solid currentColor; padding-bottom: 2px; white-space: nowrap; }
   .link-u:hover { border-bottom-color: transparent; }
 
@@ -557,22 +522,13 @@ const websiteSchema = {
   }
 
   /* nobody watching */
-  .four { list-style: none; padding: 0; margin: clamp(40px, 5vw, 72px) 0 0; display: grid; grid-template-columns: 1fr; gap: 0 var(--gap); }
-  @media (min-width: 720px) { .four { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1100px) { .four { grid-template-columns: repeat(4, 1fr); } }
-  .four li { border-top: var(--rule); padding: 16px 0 22px; font-size: clamp(1.5rem, 2.2vw, 2.1rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; }
-  .four .small { display: block; margin-bottom: 10px; letter-spacing: 0; }
+  .meter-wrap { margin-top: clamp(40px, 5vw, 72px); }
   .punch { margin-top: clamp(48px, 6vw, 88px); font-size: clamp(1.8rem, 3.4vw, 3.4rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.045em; max-width: 24ch; }
 
   /* split layout */
   .split { display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); }
   @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; } }
 
-  .rule-list { list-style: none; padding: 0; margin: 0; }
-  .rule-list li { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: baseline; border-top: var(--rule); padding: 14px 0 16px; font-size: clamp(1.1rem, 1.4vw, 1.35rem); letter-spacing: -0.015em; line-height: 1.3; }
-  .rule-list li:last-child { border-bottom: var(--rule); }
-  .rule-list .label { margin: 0; }
-  @media (max-width: 520px) { .rule-list li { grid-template-columns: 1fr; gap: 4px; } }
 
   /* cases */
   .cases { display: grid; grid-template-columns: 1fr; gap: 56px var(--gap); }
@@ -619,8 +575,10 @@ const websiteSchema = {
   .cmp td.k { background: var(--color-neon); font-weight: 600; }
   .cmp tbody tr:last-child > * { border-bottom: var(--rule); }
 
-  /* environment */
-  .deploy { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  /* regulation: where it runs */
+  .deploy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-top: 48px; border-top: var(--rule); padding-top: 8px; }
+  .deploy-row .strong-line { margin-block: 0.6rem; }
+  .deploy { display: flex; flex-wrap: wrap; gap: 10px; }
 
   /* close */
   .close-grid { display: grid; grid-template-columns: 1fr; gap: 24px var(--gap); margin-top: 40px; align-items: end; }
