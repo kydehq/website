@@ -1,0 +1,75 @@
+---
+// FIG.1 on /services: one process area, ten steps, each in the state the
+// audit gave it. The color key is the one the tags below the figure use, so
+// the figure explains itself: neon an AI worker takes, blush becomes code,
+// paper stays with a person, dark is not reliable enough yet. The count is
+// what an AI worker or code can take. Illustrative.
+const steps = [
+  { n: 'Intake',       s: 'ai' },
+  { n: 'Classify',     s: 'ai' },
+  { n: 'Extract',      s: 'code' },
+  { n: 'Match PO',     s: 'code' },
+  { n: 'Check terms',  s: 'ai' },
+  { n: 'Exceptions',   s: 'person' },
+  { n: 'Approve',      s: 'person' },
+  { n: 'Post',         s: 'code' },
+  { n: 'Reconcile',    s: 'ai' },
+  { n: 'Supplier call', s: 'later' },
+];
+const takeable = steps.filter((x) => x.s === 'ai' || x.s === 'code').length;
+const key = [
+  { s: 'ai', l: 'AI worker' }, { s: 'code', l: 'Code' }, { s: 'person', l: 'Person' }, { s: 'later', l: 'Not yet' },
+];
+---
+<figure class="map" id="step-map" aria-label={`Illustrative: ${takeable} of 10 steps in one process area can be taken by an AI worker or by code`}>
+  <div class="map-count">
+    <span class="map-num">{takeable}</span>
+    <span class="map-of mono">of 10 steps an AI worker or code can take</span>
+  </div>
+  <ol class="map-steps">
+    {steps.map((x, i) => (
+      <li class={`st st-${x.s}`} style={`--i:${i}`}>
+        <span class="st-box" aria-hidden="true"></span>
+        <span class="st-n mono">{String(i + 1).padStart(2, '0')}</span>
+        <span class="st-l">{x.n}</span>
+      </li>
+    ))}
+  </ol>
+  <ul class="map-key mono" aria-hidden="true">
+    {key.map((k) => (<li><span class={`st-box st-${k.s}`}></span>{k.l}</li>))}
+  </ul>
+</figure>
+
+<script>
+  const map = document.getElementById('step-map');
+  if (map && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    map.classList.add('pre');
+    new IntersectionObserver((es, io) => {
+      if (es[0].isIntersecting) { map.classList.remove('pre'); map.classList.add('run'); io.disconnect(); }
+    }, { threshold: 0.4 }).observe(map);
+  }
+</script>
+
+<style>
+  .map { margin: 0; width: 100%; }
+  .mono { font-family: var(--font-mono); font-weight: 500; }
+  .map-count { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 22px; }
+  .map-num { font-size: clamp(5rem, 8vw, 7.5rem); font-weight: 500; line-height: 0.8; letter-spacing: -0.065em; }
+  .map-of { font-size: 0.875rem; max-width: 18ch; line-height: 1.35; padding-bottom: 4px; }
+  .map-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px 10px; }
+  .st { display: flex; flex-direction: column; gap: 6px; }
+  .st-box { display: block; height: 44px; border: 2px solid var(--color-ink-0); background: var(--color-paper); }
+  .st-ai .st-box, .st-box.st-ai { background: var(--color-neon); }
+  .st-code .st-box, .st-box.st-code { background: var(--color-blush); }
+  .st-later .st-box, .st-box.st-later { background: var(--color-card); border-color: var(--color-card); }
+  .st-n { font-size: 0.75rem; color: var(--color-ink-2); }
+  .st-l { font-size: 0.9375rem; line-height: 1.15; letter-spacing: -0.01em; }
+  .map-key { list-style: none; margin: 22px 0 0; padding: 12px 0 0; border-top: 2px solid var(--color-ink-0); display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 0.8125rem; }
+  .map-key li { display: inline-flex; align-items: center; gap: 8px; }
+  .map-key .st-box { width: 16px; height: 16px; }
+  /* the audit fills the map in step order, once */
+  .pre .st-steps .st-box, .pre .st:not(.st-person) .st-box { background: var(--color-paper); border-color: var(--color-ink-0); }
+  .run .st .st-box { transition: background-color .35s ease, border-color .35s ease; transition-delay: calc(var(--i) * 110ms + 150ms); }
+  /* on a phone the ten steps stay one row; the names give way to numbers */
+  @media (max-width: 520px) { .map-steps { gap: 10px 6px; } .st-box { height: 34px; } .st-l { display: none; } }
+</style>

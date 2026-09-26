@@ -1,0 +1,48 @@
+---
+// FIG.2 on /services: what the audit hands back, drawn as the document it
+// is. Still on purpose: it sits next to the call to action, where the page
+// should be calm. Every step has a state; every step that is not ready has
+// a reason and a date to look again. Illustrative.
+const rows = [
+  { step: 'Classify invoice', s: 'ai',     l: 'AI worker', note: 'Build now' },
+  { step: 'Match PO',         s: 'code',   l: 'Code',      note: 'Build now' },
+  { step: 'Approve > €10k',   s: 'person', l: 'Person',    note: 'Stays with finance lead' },
+  { step: 'Supplier call',    s: 'later',  l: 'Not yet',   note: 'Voice model · reassess 03/2027' },
+];
+---
+<figure class="ro" aria-label="Illustrative audit readout: each step with its state and, where it is not ready, a date to reassess">
+  <div class="ro-head">
+    <span class="mono">(Readout) Accounts payable</span>
+    <span class="mono ro-date">2026-10-14</span>
+  </div>
+  <table class="ro-table">
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <th scope="row">{r.step}</th>
+          <td><span class={`ro-tag ro-${r.s} mono`}>{r.l}</span></td>
+          <td class="mono ro-note">{r.note}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p class="mono ro-foot">10 steps · 7 buildable · 1 with a date · *Illustrative</p>
+</figure>
+
+<style>
+  .ro { margin: 0; width: 100%; background: var(--color-paper); border: 2px solid var(--color-ink-0); padding: 18px 20px 14px; }
+  .mono { font-family: var(--font-mono); font-weight: 500; }
+  .ro-head { display: flex; justify-content: space-between; gap: 12px; font-size: 0.875rem; padding-bottom: 12px; }
+  .ro-date { background: var(--color-card); color: var(--color-pink); padding: 1px 8px 2px; }
+  .ro-table { width: 100%; border-collapse: collapse; }
+  .ro-table th, .ro-table td { border-top: 2px solid var(--color-ink-0); padding: 10px 8px 11px 0; text-align: left; vertical-align: middle; }
+  .ro-table th { font-weight: 500; font-size: 1rem; letter-spacing: -0.01em; }
+  .ro-tag { display: inline-block; font-size: 0.75rem; padding: 1px 7px 2px; border: 2px solid var(--color-ink-0); white-space: nowrap; }
+  .ro-ai { background: var(--color-neon); border-color: transparent; }
+  .ro-code { background: var(--color-blush); }
+  .ro-person { background: var(--color-paper); }
+  .ro-later { background: var(--color-card); border-color: var(--color-card); color: var(--color-pink); }
+  .ro-note { font-size: 0.8125rem; color: var(--color-ink-1); }
+  .ro-foot { border-top: 2px solid var(--color-ink-0); padding-top: 10px; font-size: 0.75rem; color: var(--color-ink-2); }
+  @media (max-width: 520px) { .ro-note { display: none; } }
+</style>

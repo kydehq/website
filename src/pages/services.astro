@@ -28,6 +28,8 @@ const serviceSchema = {
     url: "https://kyde.com/services",
     description: "Kyde captures the processes a company already runs, builds them into AI workers, and runs them in the customer's own environment on the Kyde Zero Trust layer.",
 };
+import StepMap from '../components/services/StepMap.astro';
+import Readout from '../components/services/Readout.astro';
 ---
 
 <Base
@@ -144,17 +146,10 @@ const serviceSchema = {
 
                     <div class="flex flex-col">
                         <div class="flex flex-1 items-center justify-center py-6 md:py-0">
-                            <div class="relative w-full aspect-square max-w-sm">
-                                <canvas id="ring-canvas" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
-                                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                    <span id="ring-count" class="font-mono text-5xl font-bold text-live leading-none">0</span>
-                                    <span class="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">of 10 steps</span>
-                                    <span class="mt-1.5 font-mono text-[9px] tracking-[0.06em] text-white/30">can be automated</span>
-                                </div>
-                            </div>
+                            <StepMap />
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · One process area. Filled is work a worker can take, open is work that stays with a person. Illustrative.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.1 · One process area, ten steps, each in the state the audit gave it. Illustrative.</p>
                         </div>
                     </div>
                 </div>
@@ -219,286 +214,13 @@ const serviceSchema = {
                             <span class="fig-label">FIG.2</span>
                         </div>
                         <div class="flex flex-1 items-center justify-center py-10">
-                            <svg id="sieve-fig" viewBox="0 0 480 400" class="w-full max-w-sm h-auto" aria-hidden="true">
-                                <!-- Work as it is falls in, crosses the audit, and lands
-                                     sorted. The colors are the ones the ring above taught,
-                                     so the bins need no labels of their own. -->
-                                <text x="40" y="34" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;">The work as it is</text>
-
-                                <g id="sieve-drops"></g>
-
-                                <line x1="40" y1="206" x2="440" y2="206" stroke="var(--color-ink-0)" stroke-opacity="0.55" stroke-width="1.5" />
-                                <text x="40" y="198" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;">The audit</text>
-                                <text x="440" y="198" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.32" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;">two weeks · one process area</text>
-
-                                <text x="40" y="386" fill="var(--color-ink-0)" fill-opacity="0.40" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;">A dated readout</text>
-                            </svg>
+                            <Readout />
                         </div>
                         <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · Ten steps in, four states out.</p>
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">FIG.2 · What the audit hands back: a state for every step, a date for every one that waits.</p>
                         </div>
                     </div>
                 </div>
-            <script>
-                // sieve-fig · the audit as the thing it is: work goes in the way it
-                // actually exists, unsorted and uneven, crosses one line, and comes
-                // out in states you can act on. The colors are the ones the ring
-                // above established, so nothing down here needs a label.
-                const sieveFig = document.getElementById("sieve-fig");
-                const sieveReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                if (sieveFig) {
-                    const NS = "http://www.w3.org/2000/svg";
-                    const LINE = 206, FLOOR = 356, S = 15, BIN = [96, 192, 288, 384];
-                    const EVERY = 420, FALL = 1000, HOLD = 2400;
-                    // start x, and which bin it belongs in: 0 agent 1 code 2 soon 3 people
-                    const DROPS = [
-                        { x: 128, y: 58, bin: 0 }, { x: 236, y: 44, bin: 1 }, { x: 344, y: 62, bin: 3 },
-                        { x:  74, y: 96, bin: 1 }, { x: 190, y: 88, bin: 0 }, { x: 300, y: 104, bin: 3 },
-                        { x: 408, y: 92, bin: 2 }, { x: 152, y: 132, bin: 3 }, { x: 268, y: 140, bin: 0 },
-                        { x: 372, y: 128, bin: 1 },
-                    ];
-                    const FILL = ["var(--color-live)", "var(--color-ink-0)", "none", "var(--color-ink-0)"];
-                    const OPACITY = ["0.85", "0.72", "0", "0.16"];
-
-                    const layer = document.getElementById("sieve-drops");
-                    const stack = [0, 0, 0, 0];
-                    const items = DROPS.map((d) => {
-                        const g = document.createElementNS(NS, "g");
-                        const r = document.createElementNS(NS, "rect");
-                        r.setAttribute("width", String(S)); r.setAttribute("height", String(S));
-                        r.setAttribute("x", "0"); r.setAttribute("y", "0");
-                        r.setAttribute("fill", "var(--color-ink-0)");
-                        r.setAttribute("fill-opacity", "0.30");
-                        g.appendChild(r);
-                        const dot = document.createElementNS(NS, "circle");
-                        dot.setAttribute("cx", String(S / 2)); dot.setAttribute("cy", String(S / 2));
-                        dot.setAttribute("r", "2.4");
-                        dot.setAttribute("fill", "var(--color-ink-0)");
-                        dot.setAttribute("fill-opacity", "0");
-                        g.appendChild(dot);
-                        layer.appendChild(g);
-                        return { g, r, dot, d, landed: false, slot: 0 };
-                    });
-
-                    const place = (it, x, y) => it.g.setAttribute("transform", `translate(${x - S / 2},${y - S / 2})`);
-
-                    const reset = () => {
-                        stack.fill(0);
-                        items.forEach((it) => {
-                            it.landed = false;
-                            place(it, it.d.x, it.d.y);
-                            it.r.setAttribute("fill", "var(--color-ink-0)");
-                            it.r.setAttribute("fill-opacity", "0.30");
-                            it.r.setAttribute("stroke", "none");
-                            it.dot.setAttribute("fill-opacity", "0");
-                        });
-                    };
-
-                    const dress = (it) => {
-                        const b = it.d.bin;
-                        if (b === 2) {
-                            it.r.setAttribute("fill", "none");
-                            it.r.setAttribute("stroke", "var(--color-ember)");
-                            it.r.setAttribute("stroke-opacity", "0.75");
-                            it.r.setAttribute("stroke-width", "1");
-                        } else {
-                            it.r.setAttribute("fill", FILL[b]);
-                            it.r.setAttribute("fill-opacity", OPACITY[b]);
-                        }
-                        if (b === 3) it.dot.setAttribute("fill-opacity", "0.8");
-                    };
-
-                    const frameAt = (t) => {
-                        items.forEach((it, i) => {
-                            const start = i * EVERY;
-                            const p = Math.min(Math.max((t - start) / FALL, 0), 1);
-                            if (p <= 0) { place(it, it.d.x, it.d.y); return; }
-                            if (!it.landed) { it.slot = stack[it.d.bin]++; it.landed = true; }
-                            const tx = BIN[it.d.bin], ty = FLOOR - it.slot * (S + 3);
-                            // ease out, so it settles rather than stops
-                            const e = 1 - Math.pow(1 - p, 3);
-                            place(it, it.d.x + (tx - it.d.x) * e, it.d.y + (ty - it.d.y) * e);
-                            if (it.d.y + (ty - it.d.y) * e > LINE) dress(it);
-                        });
-                    };
-
-                    if (sieveReduced) {
-                        frameAt(DROPS.length * EVERY + FALL);
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(sieveFig);
-                        let start = 0;
-                        const total = DROPS.length * EVERY + FALL;
-                        function sieveFrame(now) {
-                            if (visible) {
-                                if (!start) start = now;
-                                const el = now - start;
-                                if (el < total) frameAt(el);
-                                else if (el < total + HOLD) frameAt(total);
-                                else { start = now; reset(); }
-                            }
-                            requestAnimationFrame(sieveFrame);
-                        }
-                        reset();
-                        requestAnimationFrame(sieveFrame);
-                    }
-                }
-            </script>
-            <script>
-                // ring-canvas · the same physics as the hero stage, in a circle. Work
-                // drifts in from wherever it actually lives, curves toward the place on
-                // the ring the mapping gave it, and the moment it lands there is a bloom
-                // that expands and burns out. Squares are angular because the geometry of
-                // this system is; the light is round because that is how contact behaves.
-                // Monochrome throughout, with live only in the outer stops of a bloom and
-                // on the count, so the one number that matters is the one thing with color.
-                const ringCanvas = document.getElementById("ring-canvas") as HTMLCanvasElement | null;
-                const ringCountEl = document.getElementById("ring-count");
-
-                if (ringCanvas) {
-                    const ctx = ringCanvas.getContext("2d")!;
-                    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-                    const C = { ink: "242,242,242", live: "61,220,132", light: false };
-                    const toRgb = (hex: string) => {
-                        const m = hex.trim().replace("#", "");
-                        const n = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16);
-                        return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
-                    };
-                    const readColors = () => {
-                        const cs = getComputedStyle(document.documentElement);
-                        C.ink = toRgb(cs.getPropertyValue("--color-ink-0") || "#F2F2F2");
-                        C.live = toRgb(cs.getPropertyValue("--color-live") || "#3DDC84");
-                        const bg = toRgb(cs.getPropertyValue("--color-bg-0") || "#050505").split(",").map(Number);
-                        C.light = (bg[0] * 0.299 + bg[1] * 0.587 + bg[2] * 0.114) > 128;
-                    };
-                    readColors();
-
-                    // deterministic jitter, so the drift is uneven but never different
-                    const hash = (n: number) => {
-                        let t = (n + 0x6d2b79f5) | 0;
-                        t = Math.imul(t ^ (t >>> 15), t | 1);
-                        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-                        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-                    };
-
-                    const N = 10, TAKEN = 7;          // seven a worker can take, three stay
-                    const TRAVEL = 3000, BLOOM = 1700, HOLD = 3200, FADE = 1200;
-                    let W = 0, H = 0, CXp = 0, CYp = 0, R = 0;
-
-                    const seeds = Array.from({ length: N }, (_, i) => ({
-                        // where the work sits before anybody has looked at it
-                        a0: hash(i * 13 + 1) * Math.PI * 2,
-                        r0: 0.62 + hash(i * 29 + 5) * 0.55,
-                        // when it arrives, deliberately uneven
-                        t0: 300 + i * 860 + hash(i * 47 + 11) * 340,
-                        spin: (hash(i * 71 + 3) - 0.5) * 1.6,
-                        slot: i,
-                    })).sort((p, q) => p.t0 - q.t0);
-
-                    const resize = () => {
-                        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                        const w = ringCanvas.clientWidth, h = ringCanvas.clientHeight;
-                        if (!w || !h) return;
-                        W = w; H = h; CXp = w / 2; CYp = h / 2; R = Math.min(w, h) * 0.36;
-                        ringCanvas.width = Math.round(w * dpr);
-                        ringCanvas.height = Math.round(h * dpr);
-                        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                    };
-
-                    const slotPos = (i: number) => {
-                        const a = (i / N) * Math.PI * 2 - Math.PI / 2;
-                        return [CXp + R * Math.cos(a), CYp + R * Math.sin(a)];
-                    };
-
-                    const draw = (t: number, alpha: number) => {
-                        ctx.clearRect(0, 0, W, H);
-                        let arrived = 0;
-
-                        // the ring is barely there; the work sitting on it is what shows it
-                        ctx.strokeStyle = `rgba(${C.ink},${(C.light ? 0.14 : 0.07) * alpha})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.arc(CXp, CYp, R, 0, Math.PI * 2);
-                        ctx.stroke();
-
-                        seeds.forEach((s, idx) => {
-                            const taken = idx < TAKEN;
-                            const p = Math.min(Math.max((t - s.t0) / TRAVEL, 0), 1);
-                            const ease = 1 - Math.pow(1 - p, 3);
-                            const [tx, ty] = slotPos(s.slot);
-                            // spiral in: the angle closes as the radius does
-                            const a = s.a0 + s.spin * (1 - ease);
-                            const rr = R * (s.r0 + (1 - s.r0) * ease);
-                            const x = p < 1 ? CXp + rr * Math.cos(a) + (tx - (CXp + rr * Math.cos(a))) * ease : tx;
-                            const y = p < 1 ? CYp + rr * Math.sin(a) + (ty - (CYp + rr * Math.sin(a))) * ease : ty;
-
-                            if (p >= 1) arrived += taken ? 1 : 0;
-
-                            // bloom at the moment of contact, expanding and burning out
-                            const since = t - (s.t0 + TRAVEL);
-                            if (since > 0 && since < BLOOM) {
-                                const age = since / BLOOM;
-                                const br = 6 + (1 - Math.pow(1 - age, 2)) * R * 0.48;
-                                const ba = (1 - age) * 0.6 * alpha;
-                                const g = ctx.createRadialGradient(tx, ty, 0, tx, ty, br);
-                                const c = C.light ? (taken ? C.live : C.ink) : C.ink;
-                                const k = C.light ? (taken ? 0.5 : 0.16) : 1;
-                                g.addColorStop(0, `rgba(${c},${ba * k})`);
-                                g.addColorStop(0.22, `rgba(${c},${ba * k * 0.32})`);
-                                g.addColorStop(0.6, `rgba(${taken ? C.live : C.ink},${ba * k * (taken ? 0.16 : 0.08)})`);
-                                g.addColorStop(1, `rgba(${taken ? C.live : C.ink},0)`);
-                                ctx.fillStyle = g;
-                                ctx.beginPath();
-                                ctx.arc(tx, ty, br, 0, Math.PI * 2);
-                                ctx.fill();
-                            }
-
-                            // the mark itself stays angular
-                            const size = 5;
-                            const settled = p >= 1;
-                            const o = (settled ? 1 : 0.22 + 0.5 * ease) * alpha;
-                            if (taken) {
-                                ctx.fillStyle = `rgba(${C.ink},${(settled ? 0.85 : (C.light ? 0.55 : 0.45)) * o})`;
-                                ctx.fillRect(x - size / 2, y - size / 2, size, size);
-                            } else {
-                                ctx.strokeStyle = `rgba(${C.ink},${(settled ? (C.light ? 0.65 : 0.5) : (C.light ? 0.4 : 0.3)) * o})`;
-                                ctx.lineWidth = 1;
-                                ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-                            }
-                        });
-
-                        if (ringCountEl) ringCountEl.textContent = String(arrived);
-                    };
-
-                    const LAST = seeds[seeds.length - 1].t0 + TRAVEL + BLOOM;
-
-                    resize();
-                    const ro = "ResizeObserver" in window ? new ResizeObserver(() => resize()) : null;
-                    if (ro) ro.observe(ringCanvas);
-                    window.addEventListener("kyde:theme", readColors);
-
-                    if (reduced) {
-                        draw(LAST + HOLD, 1);
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(ringCanvas);
-                        let start = 0;
-                        const frame = (now: number) => {
-                            if (visible) {
-                                if (!start) start = now;
-                                const el = now - start;
-                                if (el < LAST + HOLD) draw(el, 1);
-                                else if (el < LAST + HOLD + FADE) draw(LAST + HOLD, 1 - (el - LAST - HOLD) / FADE);
-                                else start = now;
-                            }
-                            requestAnimationFrame(frame);
-                        };
-                        requestAnimationFrame(frame);
-                    }
-                }
-            </script>
             </div>
         </section>
 
