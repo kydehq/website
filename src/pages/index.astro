@@ -7,7 +7,7 @@ import HeroInstrument from '../components/home/HeroInstrument.astro';
 // The home in the pitch deck's language (Pitch.pdf, September 2026): white
 // paper, one rosé (#F8D9D4) for surfaces and marks, ink, neon only as a signal,
 // fine 1px rules, regular-weight headlines, four text styles. One idea per
-// block, short sentences, no jargon. Rosé opens and closes the page, white
+// block, short sentences, no jargon. The stage is the deck's title slide. Rosé opens and closes the page, white
 // between. Five blocks, the deck's order: the
 // problem, the insight (banks), how it works, how to start. Compliance sits
 // in the hero band; the rest of the argument lives on the catalogue pages.
@@ -56,29 +56,35 @@ const websiteSchema = {
   <Navbar />
 
   <main class="kx">
-    <!-- ══════════ HERO ══════════ -->
-    <section data-surface="blush" class="surface-rose hero">
-      <div class="wrap hero-inner">
-        <p class="mono label">(Behavioral scoring for AI agents)</p>
-        <div class="brackets">
-          <h1 class="display">
-            AI agents don't fail loudly.<br />They fail <span class="hl hl-neon">expensively</span><span class="nowrap">.</span>
-          </h1>
-        </div>
-        <div class="hero-grid">
-          <div>
-            <p class="sub">Kyde scores every action your agents take, and stops them when the behavior changes.</p>
-            <div class="ctas">
-              <button onclick="openModal()" class="btn btn-ink">Watch your agents →</button>
-              <a href="#start" class="link-u mono">How to start</a>
-            </div>
-          </div>
-          <HeroInstrument />
+    <!-- ══════════ STAGE ══════════ -->
+    <!-- The deck's title slide, nothing else: the category, one quiet link.
+         Everything the old hero carried moves one screen down. -->
+    <section data-surface="blush" class="surface-rose stage">
+      <div class="wrap stage-inner">
+        <div class="brackets stage-brackets">
+          <h1 class="stage-title">Behavioral scoring for AI&nbsp;agents</h1>
+          <a href="#fail" class="link-u mono stage-link">(How it works)</a>
         </div>
       </div>
-      <div class="dots-band">
-        <div class="wrap band-row">
-          <span class="tag tag-ink">Built for EU AI Act · NIS-2 · DORA</span>
+      <div class="dots-band" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════ THE CLAIM ══════════ -->
+    <section class="surface-paper" id="fail">
+      <div class="wrap sec">
+        <div class="hero-grid">
+          <div>
+            <h2 class="display">
+              AI agents don't fail loudly.<br />They fail <span class="hl hl-neon">expensively</span><span class="nowrap">.</span>
+            </h2>
+            <p class="sub">Kyde scores every action your agents take, and stops them when the behavior changes.</p>
+            <div class="ctas">
+              <button onclick="openModal()" class="btn btn-ink">Book a demo →</button>
+              <a href="#start" class="link-u mono">How to start</a>
+            </div>
+            <p class="mono note claim-note">Built for EU AI Act · NIS-2 · DORA</p>
+          </div>
+          <HeroInstrument />
         </div>
       </div>
     </section>
@@ -179,7 +185,7 @@ const websiteSchema = {
               <p class="start-sub">Setup. Then two weeks.</p>
             </div>
             <div class="ctas">
-              <button onclick="openModal()" class="btn btn-ink">Watch your agents →</button>
+              <button onclick="openModal()" class="btn btn-ink">Book a demo →</button>
               <a href="/docs/quickstart" class="link-u mono">Run it yourself</a>
             </div>
           </div>
@@ -263,13 +269,19 @@ const websiteSchema = {
   }
   .band-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
-  /* hero */
-  .hero { padding-top: var(--kx-nav); }
-  .hero-inner { padding-block: var(--kx-hero-top) var(--kx-hero-bottom); }
-  .hero-inner > .label { margin-bottom: 1.1rem; }
-  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); align-items: start; margin-top: clamp(24px, 3vw, 40px); }
-  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
-  .hero .sub { color: var(--color-ink); margin-top: 0; }
+  /* stage: the title slide */
+  .stage { padding-top: var(--kx-nav); }
+  .stage-inner { min-height: calc(100svh - var(--kx-nav) - 72px); display: flex; align-items: center; padding-block: var(--kx-hero-top); }
+  .stage-brackets { padding-block: clamp(40px, 7vw, 120px); width: 100%; }
+  .stage-title { font-size: clamp(3.2rem, 10vw, 11rem); font-weight: 400; line-height: 0.88; letter-spacing: -0.055em; max-width: 13ch; }
+  .stage-link { display: inline-block; margin-top: clamp(24px, 3vw, 40px); }
+  .stage .dots-band { height: 72px; padding: 0; }
+
+  /* the claim, one screen down */
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 56px var(--gap); align-items: center; }
+  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.15fr 1fr; } }
+  #fail .display { font-size: var(--kx-h1); line-height: 0.96; }
+  .claim-note { margin-top: 28px; }
 
   /* columns under a rule */
   .cols3 { display: grid; grid-template-columns: 1fr; gap: 32px var(--gap); margin-top: clamp(48px, 6vw, 88px); }
