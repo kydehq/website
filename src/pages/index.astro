@@ -178,7 +178,7 @@ const websiteSchema = {
           <div>
             <div class="brackets">
               <h2 class="display-2">How to start</h2>
-              <p class="start-sub"><span class="hl hl-neon">Setup. Then two weeks.</span></p>
+              <p class="start-sub">Setup. Then two weeks.</p>
             </div>
             <div class="ctas">
               <button onclick="openModal()" class="btn btn-ink">Watch your agents →</button>
@@ -211,22 +211,21 @@ const websiteSchema = {
      1px rules; regular-weight headlines; four text styles (display/h1,
      sub, body, mono label). */
   .kx {
-    --pad: clamp(20px, 5.5vw, 80px);
     --gap: clamp(24px, 3.3vw, 48px);
     --rule: 1px solid var(--color-ink);
   }
-  .wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--pad); }
-  .sec { padding-block: clamp(72px, 9vw, 136px); }
+  .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
+  .sec { padding-block: var(--kx-sec); }
   .surface-paper { background: var(--color-paper); color: var(--color-ink); }
   .surface-rose { background: var(--color-blush); color: var(--color-ink); }
-  .surface-paper + .surface-paper .sec { border-top: var(--rule); }
+  /* chapters are separated by space, never by a rule */
 
   /* the four styles */
-  .display { font-size: clamp(2.7rem, 6.4vw, 7.4rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; }
-  .display-2 { font-size: clamp(2.4rem, 5.6vw, 6.2rem); font-weight: 400; line-height: 0.92; letter-spacing: -0.05em; max-width: 16ch; }
-  .h1 { font-size: clamp(2.1rem, 4.4vw, 4.6rem); font-weight: 400; line-height: 0.98; letter-spacing: -0.045em; max-width: 22ch; }
-  .sub { font-size: clamp(1.2rem, 1.8vw, 1.75rem); line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink-2); margin-top: 1.1rem; max-width: 42ch; }
-  .body-l { font-size: clamp(1.1rem, 1.35vw, 1.3rem); line-height: 1.32; letter-spacing: -0.012em; }
+  .display { font-size: var(--kx-display); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; }
+  .display-2 { font-size: var(--kx-display-2); font-weight: 400; line-height: 0.92; letter-spacing: -0.05em; max-width: 16ch; }
+  .h1 { font-size: var(--kx-h1); font-weight: 400; line-height: 0.98; letter-spacing: -0.045em; max-width: 22ch; }
+  .sub { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink-2); margin-top: 1.1rem; max-width: 42ch; }
+  .body-l { font-size: var(--kx-body-l); line-height: 1.32; letter-spacing: -0.012em; }
   .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
   .label { font-size: 0.9375rem; margin-bottom: 0.6rem; }
   .muted { color: var(--color-ink-2); }
@@ -242,7 +241,7 @@ const websiteSchema = {
   .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
   .kicker .num { background: var(--color-card); color: #fff; font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
 
-  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) clamp(16px, 2vw, 30px); }
+  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) var(--kx-bracket); }
   .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 16px; height: 16px; border-left: 1px solid currentColor; }
   .brackets::before { top: 0; border-top: 1px solid currentColor; }
   .brackets::after { bottom: 0; border-bottom: 1px solid currentColor; }
@@ -268,8 +267,8 @@ const websiteSchema = {
   .band-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
   /* hero */
-  .hero { padding-top: 66px; }
-  .hero-inner { padding-block: clamp(32px, 4.5vw, 64px) clamp(48px, 5vw, 72px); }
+  .hero { padding-top: var(--kx-nav); }
+  .hero-inner { padding-block: var(--kx-hero-top) var(--kx-hero-bottom); }
   .hero-inner > .label { margin-bottom: 1.1rem; }
   .hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); align-items: start; margin-top: clamp(24px, 3vw, 40px); }
   @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1fr 1fr; } }

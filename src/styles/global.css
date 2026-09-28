@@ -62,7 +62,30 @@
   --font-weight-bold: 600;
 }
 
-:root { color-scheme: light; }
+:root {
+  color-scheme: light;
+
+  /* ── The measure: one set of numbers for every page ──────────
+     Page width and side margin, the distance from the nav to the first
+     line, the rhythm between chapters, and the type scale. The home and
+     every other page read these, so a headline sits at the same height,
+     on the same edge, at the same size wherever it is. */
+  --kx-max: 1440px;                           /* page width */
+  --kx-pad: clamp(20px, 5.5vw, 80px);         /* side margin */
+  --kx-nav: 66px;                             /* fixed nav height */
+  --kx-hero-top: clamp(32px, 4.5vw, 64px);    /* nav to the first label */
+  --kx-hero-bottom: clamp(56px, 6vw, 96px);
+  --kx-sec: clamp(72px, 9vw, 136px);          /* chapter rhythm, top and bottom */
+  --kx-bracket: clamp(16px, 2vw, 30px);       /* indent of a bracketed headline */
+
+  --kx-display: clamp(2.7rem, 6.4vw, 7.4rem); /* the home statement */
+  --kx-display-2: clamp(2.4rem, 5.6vw, 6.2rem); /* page heroes, the insight, the close */
+  --kx-h1: clamp(2.1rem, 4.4vw, 4.6rem);      /* chapter headlines */
+  --kx-h3: clamp(1.45rem, 2vw, 2.1rem);
+  --kx-sub: clamp(1.2rem, 1.8vw, 1.75rem);    /* the grey line under a headline */
+  --kx-body-l: clamp(1.1rem, 1.35vw, 1.3rem); /* short copy under a rule */
+  --kx-body: 1.0625rem;                       /* running text */
+}
 
 /* Dark islands: terminals, dashboard mocks. The deck allows dark cards, not
    dark sections, so an island is the dark card colour with light ink. */
@@ -364,7 +387,7 @@ main [class*="shadow"] { box-shadow: none; }
    inside them are blush, the calm surface. On a blush section a card flips
    back to paper so it still reads as a card. */
 main :is([class*="bg-white/["], .bg-bg-1, .bg-bg-2) { background-color: transparent; }
-main:not(.kx) :not(section):is([class*="bg-white/["], .bg-bg-1, .bg-bg-2) { background-color: var(--color-blush); }
+/* rosé opens and closes a page and nothing in between: panels are paper */
 :is(.page-hero, .page-band, .page-close) :not(section):is([class*="bg-white/["], .bg-bg-1, .bg-bg-2) { background-color: var(--color-paper); }
 main .dark-island, main .dark-island .bg-bg-1, main .dark-island .bg-bg-2 { background-color: var(--color-card); }
 
@@ -456,21 +479,13 @@ main .h-px:is(.bg-line-0, .bg-line-1, [class*="bg-white/"]) { height: 1px; backg
    never as a surface: numbering and category labels become the dark tag
    with pink type, "coming soon" a blush tag, the active element of a
    figure pink (stopped, wrong) or neon (the target, the proof). */
-.font-mono:is(.text-gold, .text-ember) { background: var(--color-card); color: var(--color-pink); padding: 1px 7px 2px; width: fit-content; display: inline-block; }
-.font-mono:is(.text-gold, .text-ember).block { display: block; }
+/* old accent labels are plain ink mono: the dark tag belongs to the chapter
+   number alone, and two of them in one row made Use Cases noisy */
+.font-mono:is(.text-gold, .text-ember) { color: var(--color-ink-0); }
 main .text-warn { background: var(--color-blush); color: var(--color-ink-0); padding: 0 6px 1px; }
 main:not(.kx) svg :is([fill*="alert"], [fill*="ember"], [fill*="gold"]) { fill: var(--color-pink); }
 main:not(.kx) svg :is([stroke*="alert"], [stroke*="ember"], [stroke*="gold"]) { stroke: var(--color-ink-0); }
 main:not(.kx) svg :is([fill*="warn"]) { fill: var(--color-blush); }
-
-/* a blush band in the middle of the long pages, like Why Kyde on the home */
-.page-band { background: var(--color-blush); --color-ink-0: #2B2226; --color-line-0: color-mix(in srgb, #2B2226 22%, transparent); --color-line-1: #2B2226; }
-.page-band, .page-band + section { border-top-color: transparent !important; }
-/* A framed box stays paper. Blush is kept for panels that were tinted in
-   the old design (single callouts, figure plates); applied to every framed
-   card, a dense grid of them turned a page into a pink wall. */
-/* pink is never type on paper: figure labels that were alert/ember stay ink */
-main:not(.kx) svg text:is([fill*="alert"], [fill*="ember"], [fill*="gold"]) { fill: var(--color-ink-0); }
 
 /* Cards in a grid are paper in an ink frame, the way the home's cases sit;
    they turn blush only on hover, as the response to the pointer. A grid
@@ -479,5 +494,51 @@ main:not(.kx) svg text:is([fill*="alert"], [fill*="ember"], [fill*="gold"]) { fi
 main:not(.kx) .grid > :is(.bg-bg-1, .bg-bg-2, [class*="bg-white/["]) { background-color: var(--color-paper); transition: background-color .15s; }
 main:not(.kx) .grid > :is(.bg-bg-1, .bg-bg-2, [class*="bg-white/["]):is(a, [class*="group"]):hover { background-color: var(--color-blush); }
 main:not(.kx) .grid.gap-px:has(> .border) { gap: 16px; }
-/* figure labels near the edge of a viewBox were being cut mid-word */
-main:not(.kx) svg { overflow: visible; }
+/* the inventory radar labels agents near the edge of its viewBox; only that
+   figure may draw past it (a blanket rule exposed decorative art that is
+   meant to be clipped) */
+main #radar-fig { overflow: visible; }
+
+/* A label is not a divider. The old pages drew a rule under every section
+   label (and an empty one over every figure); the pitch and the home draw
+   rules between sections only, which halves the lines on a page. */
+main:not(.kx) :is(.flex.items-end.justify-between, .flex.items-center.justify-between, .h-7.flex):is(.border-b):has(> :is(span, .kicker-tag, .fig-label)) { border-bottom-width: 0; padding-bottom: 0; }
+
+/* Chapters are separated by space, never by a rule: a full-width line
+   between sections is what makes a page read like a slide deck. Rules stay
+   where they structure content (over columns, between list rows, tables). */
+main > section, main > div > section, main section:has(> .max-w-7xl) { border-top-width: 0 !important; border-bottom-width: 0 !important; }
+main section > .max-w-7xl:is(.border-t, .border-b) { border-top-width: 0; border-bottom-width: 0; }
+main:not(.kx) .grid:is(.border-t) { border-top-width: 0; }
+.page-close .h-px, .page-hero .h-px { display: none; }
+
+/* ── The measure applied to every page written before it ──────────
+   Same width and margin as the home; the hero's first line at the home's
+   height; one chapter rhythm; one type scale. */
+main:not(.kx) .max-w-7xl { max-width: var(--kx-max); padding-inline: var(--kx-pad); }
+main:not(.kx) section > .max-w-7xl { padding-top: var(--kx-sec) !important; padding-bottom: var(--kx-sec) !important; }
+main:not(.kx) .page-hero > .max-w-7xl, main:not(.kx) .page-hero > .relative.max-w-7xl { padding-top: calc(var(--kx-nav) + var(--kx-hero-top)) !important; padding-bottom: var(--kx-hero-bottom) !important; }
+.page-hero *:has(+ h1), .page-hero *:has(+ .brackets) { margin-bottom: 1.1rem !important; }
+.page-hero h1 { font-size: var(--kx-display-2) !important; line-height: 0.92 !important; letter-spacing: -0.05em !important; max-width: 16ch; padding-left: var(--kx-bracket) !important; margin-bottom: 0 !important; }
+.page-hero h1 + * { margin-top: clamp(24px, 3vw, 40px) !important; }
+main:not(.kx) section:not(.page-hero) h1 { font-size: var(--kx-h1); line-height: 0.98; letter-spacing: -0.045em; }
+main:not(.kx) h2:is(.text-2xl, .text-3xl, .text-4xl, .text-5xl) { font-size: var(--kx-h1) !important; line-height: 0.98 !important; letter-spacing: -0.045em !important; }
+main:not(.kx) h3:is(.text-xl, .text-2xl, .text-3xl) { font-size: var(--kx-h3) !important; }
+main:not(.kx) p:is(.text-lg, .text-xl, .text-2xl) { font-size: var(--kx-body-l) !important; line-height: 1.35 !important; letter-spacing: -0.012em; }
+main:not(.kx) p.text-base { font-size: var(--kx-body) !important; line-height: 1.5 !important; }
+
+/* the one label above every page headline, as on the home */
+.hero-label { font-family: var(--font-mono); font-weight: 500; font-size: 0.9375rem; color: var(--color-ink-0); margin-bottom: 1.1rem; }
+/* a page hero says one thing under its headline; no rule beside it */
+.page-hero :is(p, blockquote)[class*="border-l"] { border-left-width: 0 !important; padding-left: 0 !important; }
+
+/* A page ends the way the home ends: left-aligned on the page edge, not
+   centered in a column. */
+.page-close :is(.text-center, .mx-auto) { text-align: left; margin-left: 0; margin-right: 0; }
+.page-close :is(.justify-center, .items-center.flex-col) { justify-content: flex-start; align-items: flex-start; }
+.page-close h2 { font-size: var(--kx-display-2) !important; line-height: 0.92 !important; letter-spacing: -0.05em !important; max-width: 16ch; }
+/* "FIG.n" in a figure's header repeats its caption; the caption stays */
+main:not(.kx) span.fig-label { display: none; }
+/* a short CTA headline beside a figure is a chapter headline too */
+main:not(.kx) h3.text-2xl:has(+ p + div button), main:not(.kx) h3.text-2xl:has(+ p + div a) { font-size: var(--kx-h1) !important; line-height: 0.98 !important; letter-spacing: -0.045em !important; }
+.page-close [class*="max-w-"]:not(.max-w-7xl) { margin-left: 0; margin-right: 0; }
