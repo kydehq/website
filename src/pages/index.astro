@@ -15,7 +15,7 @@ import HeroInstrument from '../components/home/HeroInstrument.astro';
 const problems = [
   { tag: '(Drift)',  line: 'They drift away from their task.' },
   { tag: '(Hijack)', line: 'They get hijacked by prompt injection.' },
-  { tag: '(Loops)',  line: 'They get stuck in loops and burn money.' },
+  { tag: '(Loops)',  line: 'They get stuck in loops and', mark: 'burn money' },
 ];
 
 // The deck's five steps. Held to what ships: the record is tamper-evident
@@ -75,7 +75,7 @@ const websiteSchema = {
         <div class="hero-grid">
           <div>
             <h2 class="display">
-              AI agents don't fail loudly.<br />They fail <span class="hl hl-neon">expensively</span><span class="nowrap">.</span>
+              AI agents don't fail loudly.<br />They fail <span class="hl hl-rose">expensively</span><span class="nowrap">.</span>
             </h2>
             <p class="sub">Kyde scores every action your agents take, and stops them when the behavior changes.</p>
             <div class="ctas">
@@ -99,7 +99,7 @@ const websiteSchema = {
           {problems.map((p) => (
             <div class="col">
               <p class="mono label">{p.tag}</p>
-              <p class="body-l">{p.line}</p>
+              <p class="body-l">{p.line}{p.mark && <> <span class="hl hl-neon">{p.mark}</span><span class="nowrap">.</span></>}</p>
             </div>
           ))}
         </div>
@@ -236,7 +236,9 @@ const websiteSchema = {
   .note-strong { font-size: 0.9375rem; margin-top: 28px; }
   .nowrap { white-space: nowrap; }
 
-  /* marks: a band behind the letters that never reaches the line above */
+  /* Marks, as in the pitch. On white: a headline word in rosé, a phrase in
+     running text in neon. On rosé: never. On black: neon. A mark is a band
+     behind the letters that never reaches the line above. */
   .hl { padding: 0 0.1em; box-decoration-break: clone; -webkit-box-decoration-break: clone; background-repeat: no-repeat; }
   .hl-rose { background-image: linear-gradient(transparent 20%, var(--color-blush) 20%, var(--color-blush) 96%, transparent 96%); }
   .hl-neon { background-image: linear-gradient(transparent 20%, var(--color-neon) 20%, var(--color-neon) 96%, transparent 96%); }
