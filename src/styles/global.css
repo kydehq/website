@@ -26,7 +26,8 @@
   --color-paper: #FFFFFF;
   --color-ink: #1C1A1B;
   --color-ink-pink: #2B2226; /* text and lines on a pink surface */
-  --color-card: #1E1E1E;     /* dark cards and tags; never a whole section */
+  --color-card: #1E1E1E;     /* the dark: cards, tags, buttons, footer */
+  --color-violet: #302749;   /* a surface of its own, one per page at most: the evidence chapter */
   --color-pink: #F8D9D4;      /* the pitch has no strong pink: the old accent role is the rosé too (marks, light type on dark) */
   --color-blush: #F8D9D4;     /* the one rosé: full-bleed surfaces and the highlight mark alike */
   --color-neon: #DEFD7E;
@@ -74,8 +75,8 @@
   --kx-pad: clamp(20px, 5.5vw, 80px);         /* side margin */
   --kx-nav: 66px;                             /* fixed nav height */
   --kx-hero-top: clamp(32px, 4.5vw, 64px);    /* nav to the first label */
-  --kx-hero-bottom: clamp(56px, 6vw, 96px);
-  --kx-sec: clamp(72px, 9vw, 136px);          /* chapter rhythm, top and bottom */
+  --kx-hero-bottom: clamp(72px, 8vw, 128px);
+  --kx-sec: clamp(96px, 12vw, 184px);         /* chapter rhythm: whitespace is the divider */
   --kx-bracket: clamp(16px, 2vw, 30px);       /* indent of a bracketed headline */
 
   --kx-display: clamp(2.7rem, 6.4vw, 7.4rem); /* the home statement */
@@ -95,15 +96,15 @@
   --color-bg-0: #1E1E1E;
   --color-bg-1: #1E1E1E;
   --color-bg-2: #262626;
-  --color-bg-3: #2E2E2E;
+  --color-bg-3: #3E3A3B;
 
   --color-line-0: #3A3A3A;
-  --color-line-1: #4A4A4A;
+  --color-line-1: #4A4546;
 
   --color-ink-0: #FFFFFF;
   --color-ink-1: #BDB8BA;
   --color-ink-2: #8C8789;
-  --color-ink-3: #4A4A4A;
+  --color-ink-3: #4A4546;
 
   --color-gold: #F389A3;
   --color-ember: #F389A3;
@@ -542,3 +543,25 @@ main:not(.kx) span.fig-label { display: none; }
 /* a short CTA headline beside a figure is a chapter headline too */
 main:not(.kx) h3.text-2xl:has(+ p + div button), main:not(.kx) h3.text-2xl:has(+ p + div a) { font-size: var(--kx-h1) !important; line-height: 0.98 !important; letter-spacing: -0.045em !important; }
 .page-close [class*="max-w-"]:not(.max-w-7xl) { margin-left: 0; margin-right: 0; }
+
+/* ── Less furniture ─────────────────────────────────────────────
+   Whitespace does the work boxes used to do. A framed list becomes rows
+   under a rule; a grid of framed cards becomes items under a rule; text
+   keeps a readable measure; only figures and the dark cards keep an
+   outline or a surface. */
+main:not(.kx) :not(figure, svg, a, button, input, textarea, select, table, [class*="border-live"], [class*="border-ember"], [class*="border-alert"], .dark-island):is(.border, .border-2) { border-width: 0; }
+main:not(.kx) :is(.divide-y) > * + * { border-top-width: 1px; }
+main:not(.kx) .grid > :is(.border, .border-2):not(a.inline-flex, button) { border-width: 1px 0 0 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+main:not(.kx) .grid > .border:hover { background-color: transparent !important; }
+main:not(.kx) .grid:has(> .border) { gap: clamp(32px, 4vw, 56px) clamp(24px, 3.3vw, 48px) !important; }
+main:not(.kx) :is(.divide-y) > * { padding-left: 0 !important; padding-right: 0 !important; }
+main:not(.kx) p:not([class*="font-mono"]) { max-width: 62ch; }
+main:not(.kx) .mb-16 { margin-bottom: clamp(64px, 8vw, 120px); }
+main:not(.kx) .mb-12 { margin-bottom: clamp(48px, 6vw, 88px); }
+
+/* Violet marks one kind of chapter only: evidence, the part a third party
+   checks without us. It is a surface, never a card, a button or type. */
+.surface-violet { background: var(--color-violet); color: #fff;
+  --color-ink-0: #FFFFFF; --color-ink-1: #D6D1E3; --color-ink-2: #A59DBD;
+  --color-line-0: #4A4166; --color-line-1: #6B6287; --kx-line: #6B6287; --color-card: #1E1E1E; }
+.surface-violet :is(a, button).bg-white { background-color: #fff !important; color: #1C1A1B !important; }

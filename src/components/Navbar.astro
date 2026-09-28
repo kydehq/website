@@ -173,7 +173,11 @@ const otherHref = alternates[otherLocale];
 <style>
   .site-nav { background: var(--color-paper); transition: background-color .25s ease, border-color .25s ease; border-bottom: 1px solid transparent; }
   .site-nav[data-surface="blush"] { background: var(--color-blush); }
-  .site-nav.scrolled:not([data-surface="blush"]) { border-bottom-color: color-mix(in srgb, var(--color-ink) 12%, transparent); }
+  .site-nav[data-surface="violet"] { background: var(--color-violet); }
+  .site-nav[data-surface="violet"] :is(a, span) { color: #fff; }
+  .site-nav[data-surface="violet"] .logo-mark { filter: none; }
+  .site-nav[data-surface="violet"] .nav-cta { background: #fff; color: #1C1A1B; }
+  .site-nav.scrolled:not([data-surface="blush"]):not([data-surface="violet"]) { border-bottom-color: color-mix(in srgb, var(--color-ink) 12%, transparent); }
   #mobile-menu { background: inherit; }
   .nav-cta { background: var(--color-card); color: #fff; }
   .nav-cta:hover { color: var(--color-pink); }

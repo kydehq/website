@@ -3,20 +3,6 @@ import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-// Orthographic dot-sphere for the closing ornament
-const SPHERE_R = 290;
-const sphereDots: { x: number; y: number; a: number }[] = [];
-for (let lat = -80; lat <= 80; lat += 8) {
-    for (let lon = -80; lon <= 80; lon += 8) {
-        const la = (lat * Math.PI) / 180;
-        const lo = (lon * Math.PI) / 180;
-        sphereDots.push({
-            x: 320 + SPHERE_R * Math.sin(lo) * Math.cos(la),
-            y: 320 + SPHERE_R * Math.sin(la),
-            a: 0.04 + 0.16 * Math.cos(lo) * Math.cos(la),
-        });
-    }
-}
 
 const serviceSchema = {
     "@context": "https://schema.org",
@@ -263,17 +249,6 @@ import Readout from '../components/services/Readout.astro';
         </section>
         <!-- ══════════ CLOSER ══════════ -->
         <section data-surface="blush" class="page-close relative overflow-hidden">
-            <div class="absolute -right-48 md:-right-24 top-1/2 -translate-y-1/2 w-[520px] md:w-[640px] pointer-events-none" aria-hidden="true">
-                <svg viewBox="0 0 640 640" class="w-full h-auto">
-                    {sphereDots.map(({ x, y, a }) => (
-                        <circle cx={x} cy={y} r="1.5" fill="var(--color-ink-0)" fill-opacity={a} />
-                    ))}
-                    <circle cx="424" cy="238" r="2.5" fill="var(--color-ink-0)" />
-                    <path d="M424 238 L500 200" stroke="var(--color-ink-0)" stroke-opacity="0.45" stroke-width="1" fill="none" />
-                    <text x="506" y="196" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.60" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.1em;">gateway.kyde.com</text>
-                    <text x="506" y="212" text-anchor="start" fill="var(--color-ink-0)" fill-opacity="0.38" style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;">52.52° N · 13.40° E</text>
-                </svg>
-            </div>
             <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 md:border-x md:border-white/10">
                 <div class="mx-auto max-w-3xl text-center">
                     <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 w-fit mx-auto">Start with one process</p>
