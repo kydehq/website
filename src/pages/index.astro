@@ -7,7 +7,8 @@ import HeroInstrument from '../components/home/HeroInstrument.astro';
 // The home in the pitch deck's language (Pitch.pdf, September 2026): white
 // paper, one rosé (#F8D9D4) for surfaces and marks, ink, neon only as a signal,
 // fine 1px rules, regular-weight headlines, four text styles. One idea per
-// block, short sentences, no jargon. The stage is the deck's title slide. Rosé opens and closes the page, white
+// block, short sentences, no jargon. The stage carries the claim alone; the
+// category and the product follow one screen down. Rosé opens and closes the page, white
 // between. Five blocks, the deck's order: the
 // problem, the insight (banks), how it works, how to start. Compliance sits
 // in the hero band; the rest of the argument lives on the catalogue pages.
@@ -62,7 +63,7 @@ const websiteSchema = {
     <section data-surface="blush" class="surface-rose stage">
       <div class="wrap stage-inner">
         <div class="brackets stage-brackets">
-          <h1 class="stage-title">Behavioral scoring for AI&nbsp;agents</h1>
+          <h1 class="stage-title">AI agents don't fail loudly. They fail expensively.</h1>
           <a href="#fail" class="link-u mono stage-link">(How it works)</a>
         </div>
       </div>
@@ -74,9 +75,8 @@ const websiteSchema = {
       <div class="wrap sec">
         <div class="hero-grid">
           <div>
-            <h2 class="display">
-              AI agents don't fail loudly.<br />They fail <span class="hl hl-rose">expensively</span><span class="nowrap">.</span>
-            </h2>
+            <p class="mono label">(Kyde)</p>
+            <h2 class="display">Behavioral scoring for AI&nbsp;agents.</h2>
             <p class="sub">Kyde scores every action your agents take, and stops them when the behavior changes.</p>
             <div class="ctas">
               <button onclick="openModal()" class="btn btn-ink">Book a demo →</button>
@@ -275,12 +275,12 @@ const websiteSchema = {
   .stage { padding-top: var(--kx-nav); }
   .stage-inner { min-height: calc(100svh - var(--kx-nav) - 72px); display: flex; align-items: center; padding-block: var(--kx-hero-top); }
   .stage-brackets { padding-block: clamp(40px, 7vw, 120px); width: 100%; }
-  .stage-title { font-size: clamp(3.2rem, 10vw, 11rem); font-weight: 400; line-height: 0.88; letter-spacing: -0.055em; max-width: 13ch; }
+  .stage-title { font-size: clamp(3.2rem, 8.6vw, 9.4rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; max-width: 14ch; }
   .stage-link { display: inline-block; margin-top: clamp(24px, 3vw, 40px); }
   .stage .dots-band { height: 72px; padding: 0; }
   /* on a phone the title fills the width, the way it fills the slide */
   @media (max-width: 640px) {
-    .stage-title { font-size: 19vw; line-height: 0.9; letter-spacing: -0.05em; }
+    .stage-title { font-size: 13.4vw; line-height: 0.92; letter-spacing: -0.05em; }
     .stage-brackets { padding-left: 14px; }
     .stage-inner { min-height: calc(100svh - var(--kx-nav) - 56px); }
     .stage .dots-band { height: 56px; }
@@ -289,7 +289,7 @@ const websiteSchema = {
   /* the claim, one screen down */
   .hero-grid { display: grid; grid-template-columns: 1fr; gap: 56px var(--gap); align-items: center; }
   @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.15fr 1fr; } }
-  #fail .display { font-size: var(--kx-h1); line-height: 0.96; }
+  #fail .display { font-size: var(--kx-h1); line-height: 0.96; max-width: 12ch; }
   .claim-note { margin-top: 28px; }
 
   /* columns under a rule */
