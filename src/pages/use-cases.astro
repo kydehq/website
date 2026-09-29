@@ -3,13 +3,53 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-// Two tabs because there are two buyers, and one diagram above them because
-// there is one product. The last field of every worker entry is "what KYDE
-// records", which is the quiet argument that the workers run on the trust
-// platform rather than beside it.
-// One shape per sector, and the same shape every time. The regulatory notes
-// carry what does not apply as well as what does: a compliance reader checks
-// the negative claim first, and a page that only lists hits reads as marketing.
+// Use cases, rebuilt in the home's system (September 2026). The three
+// scenes are the ones in the films: a loop that burns money overnight, a
+// hijack through an email, a claims agent that suddenly approves
+// everything. Each is told the same way: what happened, what the score
+// saw, what Kyde did. Then the insurer's side from the pitch: continuous
+// scoring as the telematics box of AI. All times and numbers illustrative.
+//
+// Claims are held to what ships: Kyde sees the behavior, it does not claim
+// to recognize every injection; stopping is enforcement (a switch you
+// flip); the decision after a stop is a human's.
+
+const scenes = [
+  {
+    n: '01', tag: '(Loops)', id: 'loops',
+    title: 'An agent loops all night and burns tokens.',
+    sub: 'Nobody is awake. The invoice is the first alert.',
+    timeline: [
+      { t: '22:47', line: 'A procurement agent starts a routine supplier search.' },
+      { t: '01:40', line: 'A tool call fails. The agent retries. And retries.' },
+      { t: '01:52', line: '1,400 calls in twelve minutes. Its baseline is forty an hour.', mark: true },
+    ],
+    kyde: 'The call rate leaves the agent\'s normal band. Kyde stops the run at the boundary and keeps the record. Cost of the night: €3.12 instead of €4,812 by morning.',
+  },
+  {
+    n: '02', tag: '(Hijack)', id: 'hijack',
+    title: 'An email tells an agent to upload your customer data.',
+    sub: 'The instruction is hidden in a message the agent was asked to read.',
+    timeline: [
+      { t: '09:14', line: 'A support agent reads an incoming email, as it does every day.' },
+      { t: '09:14', line: 'Hidden in the text: export the customer table to an outside address.' },
+      { t: '09:15', line: 'The agent starts an export forty times its normal size, to a destination it has never used.', mark: true },
+    ],
+    kyde: 'Kyde does not have to recognize the injection. It sees what the agent does next: a destination outside its baseline and a volume far outside it. The upload is blocked at the boundary; security gets the record.',
+  },
+  {
+    n: '03', tag: '(Drift)', id: 'drift',
+    title: 'A claims agent suddenly approves every claim.',
+    sub: 'It keeps running, completes its tasks and reports success.',
+    timeline: [
+      { t: '23:00', line: 'An insurance claims agent starts its nightly batch after a model update.' },
+      { t: '23:20', line: 'Normally it approves six claims in ten. Tonight it approves ten in ten.' },
+      { t: '02:00', line: 'Left alone, 1,318 claims would have been paid by morning.', mark: true },
+    ],
+    kyde: 'The approval rate leaves its band after the first forty claims. Kyde puts the agent in quarantine and hands the open claims to a person. The rest of the night waits for a human decision.',
+  },
+];
+
 const workers = [
   {
     n: '01',
@@ -108,277 +148,193 @@ const workers = [
   },
 ];
 
-const platformCases = [
-  {
-    n: '01',
-    audience: 'Operations & AI teams',
-    name: 'Drift detection',
-    line: 'Know when an agent stops behaving like itself.',
-    body: 'An agent that has drifted keeps running, completes tasks and reports success. Kyde measures what it actually does against its own baseline, so the deviation shows up as a change in behavior rather than as a complaint from whoever noticed the output was wrong.',
-    href: '/platform#see',
-  },
-  {
-    n: '02',
-    audience: 'Compliance',
-    name: 'AI audit trail',
-    line: 'Continuous evidence for regulated AI systems.',
-    body: 'Every action is hash-chained at the boundary, before it reaches a provider, and exported as a dated document your auditor recomputes offline. Your provider\'s log lives on their infrastructure and is signed with their keys. In a dispute that involves them, it is theirs.',
-    href: '/platform#prove',
-  },
-  {
-    n: '03',
-    audience: 'Insurance',
-    name: 'AI telemetry',
-    line: 'Observe how AI actually behaves in production.',
-    body: 'Not what a system was designed to do, and not what a questionnaire says it does. Which actions it took, against which systems, how often, and how much of that was ever recorded in the first place.',
-    href: '/platform#see',
-  },
-  {
-    n: '04',
-    audience: 'AI governance',
-    name: 'Continuous evaluation',
-    line: 'Measure whether AI stays reliable as models, data and workflows change.',
-    body: 'A recorded run is a set of real cases where the outcome is already known. Re-run them when a model ships and the drift is a number, not an anecdote that arrives through a support ticket six weeks later.',
-    href: '/platform#replay',
-  },
-  {
-    n: '05',
-    audience: 'Incident & risk',
-    name: 'Replay',
-    line: 'Reconstruct and rerun what happened.',
-    body: 'A model swapped under the same name does not announce itself. Replaying a recorded run against today\'s models and policies turns "something changed" into a difference you can point at.',
-    href: '/platform#replay',
-  },
-  {
-    n: '06',
-    audience: 'Audit & advisory',
-    name: 'Independent evidence',
-    line: 'Evidence your client\'s own vendor cannot edit.',
-    body: 'The record is captured outside the systems being examined and verified with the public key that travels with the export. You check it without us, and without the vendor whose behavior is in question.',
-    href: '/platform#prove',
-  },
-];
 
-// The four people who have to agree before a worker runs, each with the
-// question they actually ask in the room.
-// The four people who have to agree before a worker runs, each with the
-// question they actually ask in the room.
-const roles = [
-  {
-    role: 'Operations',
-    q: 'What do I get back?',
-    text: 'The process you own, written down properly for the first time, and then the routine part of it running on its own. You keep the exceptions, which is the part you were doing the thinking on anyway.',
-  },
-  {
-    role: 'CIO & CTO',
-    q: 'What am I taking on?',
-    text: 'One layer, on-premise or in your private cloud, in front of whatever models you already use. No agent framework to standardize on and no vendor to be locked into. The workers, the processes and the record are yours.',
-  },
-  {
-    role: 'Compliance & legal',
-    q: 'Can I evidence this?',
-    text: 'Every action is hash-chained at the boundary and exported as a dated document your auditor recomputes offline. Where the EU AI Act assigns deployer obligations, they stay with you. This is the apparatus for meeting them.',
-  },
-  {
-    role: 'Works council & data protection',
-    q: 'What happens to the people?',
-    text: 'Your works council and data protection officer settle the legal basis. Sessions are scoped and announced, personal data is removed on your systems before storage, and the people recorded can review their own sessions.',
-  },
-];
 ---
 
 <Base
   title="Use Cases, KYDE"
-  description="Two ways to work with Kyde. Detect drift, govern and prove the agents you already run, or have Kyde build the worker for a business process and run it on the same layer."
+  description="Three nights nobody was watching: an agent that loops and burns tokens, an agent hijacked by an email into uploading customer data, a claims agent that suddenly approves everything. What Kyde sees in each, and what it means for insurers."
 >
   <Navbar />
 
-  <main>
-
+  <main class="kx">
     <!-- ══════════ HERO ══════════ -->
-    <section data-surface="blush" class="page-hero relative overflow-hidden">
-      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
-      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
-
-        <p class="hero-label">(Use cases) · What Kyde does for you</p>
-
-        <h1 class="hero-h1 max-w-4xl text-4xl text-ink-0 uppercase tracking-tight md:text-5xl lg:text-6xl">
-          One layer.<br />Two ways to use it.
-        </h1>
-        <p class="mt-8 text-lg text-ink-1 leading-relaxed max-w-3xl">
-          Run agents you already have and use Kyde to detect drift, govern what they do and prove what happened. Or have Kyde build the worker for a process your company runs today. The same layer sits underneath both.
-        </p>
-
+    <section data-surface="blush" class="surface-rose hero">
+      <div class="wrap hero-inner">
+        <p class="mono label">(Use cases)</p>
+        <div class="brackets">
+          <h1 class="display-2">Three nights nobody was watching.</h1>
+        </div>
+        <p class="sub hero-sub">An agent that loops. An agent that is hijacked. An agent that drifts. What happened, what the score saw, and what Kyde did.</p>
+        <p class="mono note hero-note">*Illustrative scenes. Times and numbers are examples, not a customer's.</p>
       </div>
     </section>
 
-    <!-- ══════════ TABS ══════════ -->
-    <section class="">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-
-        <div class="flex mb-12 border-b border-line-0">
-          <button id="btn-trust" onclick="showTab('trust')"
-            class="flex-1 px-6 py-3 text-xs font-mono uppercase tracking-widest transition-all bg-white text-cta-ink">Platform</button>
-          <button id="btn-workers" onclick="showTab('workers')"
-            class="flex-1 px-6 py-3 text-xs font-mono uppercase tracking-widest transition-all text-ink-1 hover:text-ink-0 border-l border-line-0">Services</button>
-        </div>
-
-        <!-- ── WORKERS ────────────────────────────────────── -->
-        <div id="tab-workers" class="hidden">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-4 max-w-3xl">
-            Automate the work your company already does.
-          </h2>
-          <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-            Kyde finds the work worth automating, builds the worker and runs it on the same layer. Six processes people do today in regulated companies, each with a step nobody wrote down.
-          </p>
-
-          <div class="border border-line-0 divide-y divide-line-0">
-            {workers.map(({ n, sector, process, tag, today, worker, human, record, regs }) => (
-              <article class="px-6 py-8 md:px-9 md:py-10">
-                <div class="flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6 mb-8">
-                  <span class="font-mono text-[11px] tracking-[0.1em] text-gold shrink-0">{n}</span>
-                  <div class="flex-1">
-                    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-2">{sector}</span>
-                    <h3 class="text-xl md:text-2xl font-bold text-ink-0 leading-[1.08]">{process}</h3>
-                  </div>
-                  <span class="shrink-0 inline-flex items-center border border-line-0 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-2 self-start">{tag}</span>
-                </div>
-
-                <dl class="grid md:grid-cols-2 gap-x-12 gap-y-6">
-                  <div>
-                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">How it works today</dt>
-                    <dd class="text-sm text-ink-1 leading-relaxed">{today}</dd>
-                  </div>
-                  <div>
-                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-live/80 mb-2">What the worker does</dt>
-                    <dd class="text-sm text-ink-1 leading-relaxed">{worker}</dd>
-                  </div>
-                  <div>
-                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ember mb-2">What stays with a person</dt>
-                    <dd class="text-sm text-ink-1 leading-relaxed">{human}</dd>
-                  </div>
-                  <div>
-                    <dt class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">What KYDE records</dt>
-                    <dd class="text-sm text-ink-1 leading-relaxed">{record}</dd>
-                  </div>
-                </dl>
-
-                <ul class="mt-8 space-y-2.5 border-t border-line-0 pt-6">
-                  {regs.map((r) => (
-                    <li class="grid grid-cols-[10px_1fr] gap-3 font-mono text-[10px] text-ink-2 leading-relaxed">
-                      <span class="text-ink-3">·</span><span>{r}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-
-          <!-- who has to agree before any of this starts -->
-          <div class="mt-16">
-            <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-              <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Four people have to agree</span>
+    {scenes.map((c) => (
+      <section class="surface-paper" id={c.id}>
+        <div class="wrap sec">
+          <div class="kicker"><span class="num">{c.n}</span><span class="mono">{c.tag}</span></div>
+          <div class="scene">
+            <div>
+              <h2 class="h1">{c.title}</h2>
+              <p class="sub">{c.sub}</p>
             </div>
-            <div class="border border-line-0 md:grid md:grid-cols-2">
-              {roles.map(({ role, q, text }, i) => (
-                <div class:list={["p-6 md:p-8 border-line-0", i % 2 === 0 ? "md:border-r" : "", i === roles.length - 1 ? "" : "border-b", i >= roles.length - 2 ? "md:border-b-0" : ""]}>
-                  <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-4">{role}</span>
-                  <h3 class="text-xl md:text-2xl font-bold tracking-tight text-ink-0 leading-[1.08] mb-4">{q}</h3>
-                  <p class="text-sm text-ink-1 leading-relaxed">{text}</p>
-                </div>
-              ))}
+            <div>
+              <p class="mono label">(What happened)</p>
+              <ol class="timeline">
+                {c.timeline.map((e) => (
+                  <li>
+                    <span class="mono t">{e.t}</span>
+                    <span class="body-l">{e.mark ? <span class="hl hl-neon">{e.line}</span> : e.line}</span>
+                  </li>
+                ))}
+              </ol>
+              <div class="kyde-did">
+                <p class="mono">(What Kyde did)</p>
+                <p class="body-l">{c.kyde}</p>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+    ))}
 
-          <div class="mt-16 border border-line-0 bg-white/[0.02] px-6 py-8 md:px-9 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">Every Kyde worker runs on the same layer, watched the same way.</p>
-            <a href="/platform" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
-              Explore the platform →
-            </a>
+    <!-- ══════════ FOR INSURERS ══════════ -->
+    <section class="surface-paper" id="insurers">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">04</span><span class="mono">For insurers</span></div>
+        <h2 class="h1">A behavioral score you can <span class="hl hl-rose">underwrite</span><span class="nowrap">.</span></h2>
+        <p class="sub">A telematics box in a car scores how it is driven, and careful drivers pay less. Kyde does the same for AI agents: a piece of software in the network sees every action and scores it.</p>
+        <div class="cols2">
+          <div class="col">
+            <p class="mono label">(Your customers' agents)</p>
+            <p class="body-l">See how your customers' agents behave, continuously. Price the risk before you write the policy, reward the ones that stay in their limits, and keep the full record when a claim comes in.</p>
+          </div>
+          <div class="col">
+            <p class="mono label">(Your own agents)</p>
+            <p class="body-l">Your agents handle claims day and night, with nobody watching. Kyde stops a drifting agent before it pays out a night of claims, or <span class="hl hl-neon">leaks your customer files</span><span class="nowrap">.</span></p>
           </div>
         </div>
-
-        <!-- ── TRUST ──────────────────────────────────────── -->
-        <div id="tab-trust">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-4 max-w-3xl">
-            Detect drift, govern and prove the AI you already run.
-          </h2>
-          <p class="text-lg text-ink-1 leading-relaxed max-w-3xl mb-12">
-            Kyde sits in front of agents somebody else built, as readily as in front of the workers we build. Six jobs it does, depending on which one you came for.
-          </p>
-
-          <div class="border border-line-0 divide-y divide-line-0">
-            {platformCases.map(({ n, audience, name, line, body, href }) => (
-              <a href={href} class="group block px-6 py-8 md:px-9 md:py-10 hover:bg-bg-1 transition-colors">
-                <div class="grid md:grid-cols-[40px_minmax(0,240px)_1fr] gap-4 md:gap-8 items-start">
-                  <span class="font-mono text-[11px] tracking-[0.1em] text-gold">{n}</span>
-                  <div>
-                    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-ember mb-2">{audience}</span>
-                    <h3 class="text-xl md:text-2xl font-bold text-ink-0 leading-[1.08]">{name}</h3>
-                  </div>
-                  <div>
-                    <p class="font-mono text-xs uppercase tracking-[0.1em] text-ink-1 mb-3">{line}</p>
-                    <p class="text-sm text-ink-1 leading-relaxed">{body}</p>
-                    <span class="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2 group-hover:text-ink-0 transition-colors">Read on →</span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-
-          <div class="mt-16 border border-line-0 bg-white/[0.02] px-6 py-8 md:px-9 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <p class="text-lg md:text-xl text-ink-0 leading-snug max-w-2xl">The layer that watches your existing agents is the one Kyde workers run on too.</p>
-            <a href="/platform" class="shrink-0 inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
-              Explore the platform →
-            </a>
-          </div>
-        </div>
-
+        <a href="/ai-agent-insurance" class="link-u mono more">AI agent insurance, in depth</a>
       </div>
     </section>
 
-    <!-- ══════════ CTA ══════════ -->
-    <section data-surface="blush" class="page-close">
-      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-line-0">
-        <div class="mx-auto max-w-3xl text-center">
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6">
-            Start with whichever half you came for.
-          </h2>
-          <p class="text-lg text-ink-1 leading-relaxed mb-10 mx-auto max-w-2xl">
-            Already running agents? Bring the one you are least sure about and we will watch what it actually does. Still doing the work by hand? The audit maps one process area and says what is buildable today, what is waiting and on what, and what stays with a person.
-          </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
-              Book a demo →
-            </button>
-            <a href="/audit" class="inline-flex items-center gap-2 border border-line-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all">
-              Start your audit →
-            </a>
-          </div>
+    <!-- ══════════ WORKERS ══════════ -->
+    <!-- The build service, kept in full for readers who come for it, folded
+         so it does not compete with the three scenes. -->
+    <section class="surface-paper" id="workers">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">05</span><span class="mono">Workers we build</span></div>
+        <h2 class="h1">Six processes, and what stays with a person.</h2>
+        <p class="sub">Kyde also builds AI workers from the processes a company runs, and runs them on the same layer.</p>
+        <div class="workers">
+          {workers.map((w) => (
+            <details class="worker">
+              <summary>
+                <span class="mono muted">{w.sector}</span>
+                <span class="w-title">{w.process}</span>
+                <span class="mono muted w-tag">{w.tag}</span>
+              </summary>
+              <dl class="w-grid">
+                <div><dt class="mono">(Today)</dt><dd>{w.today}</dd></div>
+                <div><dt class="mono">(The worker)</dt><dd>{w.worker}</dd></div>
+                <div><dt class="mono">(Stays with a person)</dt><dd>{w.human}</dd></div>
+                <div><dt class="mono">(Kyde records)</dt><dd>{w.record}</dd></div>
+              </dl>
+              <ul class="regs mono">
+                {w.regs.map((r) => <li>{r}</li>)}
+              </ul>
+            </details>
+          ))}
         </div>
+        <a href="/services" class="link-u mono more">How we build workers</a>
       </div>
     </section>
 
-    <script is:inline>
-      function showTab(tab) {
-        const base = 'flex-1 px-6 py-3 text-xs font-mono uppercase tracking-widest transition-all';
-        const on  = base + ' bg-white text-cta-ink';
-        const off = base + ' text-ink-1 hover:text-ink-0';
-        const isWorkers = tab === 'workers';
-        document.getElementById('tab-workers').classList.toggle('hidden', !isWorkers);
-        document.getElementById('tab-trust').classList.toggle('hidden', isWorkers);
-        document.getElementById('btn-trust').className   = isWorkers ? off : on;
-        document.getElementById('btn-workers').className  = (isWorkers ? on : off) + ' border-l border-line-0';
-        if (history.replaceState) history.replaceState(null, '', isWorkers ? '#services' : location.pathname);
-      }
-      // A link that lands on the services tab should open it rather than scroll
-      // past it. #workers and #trust are kept because links to them exist
-      // outside this repo and used to name the tabs that way.
-      if (location.hash === '#services' || location.hash === '#workers') showTab('workers');
-      if (location.hash === '#trust') showTab('trust');
-    </script>
-
+    <!-- ══════════ CLOSE ══════════ -->
+    <section data-surface="blush" class="surface-rose">
+      <div class="wrap sec">
+        <div class="brackets">
+          <h2 class="display-2">Bring the agent you are least sure about.</h2>
+        </div>
+        <div class="ctas">
+          <button onclick="openModal()" class="btn btn-ink">Book a demo →</button>
+          <a href="/#start" class="link-u mono">How to start</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />
 </Base>
+
+<style>
+  .kx { --gap: clamp(24px, 3.3vw, 48px); --rule: 1px solid var(--color-ink); }
+  .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
+  .sec { padding-block: var(--kx-sec); }
+  .surface-paper { background: var(--color-paper); color: var(--color-ink); }
+  .surface-rose { background: var(--color-blush); color: var(--color-ink); }
+
+  .display-2 { font-size: var(--kx-display-2); font-weight: 400; line-height: 0.92; letter-spacing: -0.05em; max-width: 16ch; }
+  .h1 { font-size: var(--kx-h1); font-weight: 400; line-height: 0.98; letter-spacing: -0.045em; max-width: 20ch; }
+  .sub { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink-2); margin-top: 1.1rem; max-width: 42ch; }
+  .body-l { font-size: var(--kx-body-l); line-height: 1.32; letter-spacing: -0.012em; }
+  .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .label { font-size: 0.9375rem; margin-bottom: 0.9rem; }
+  .muted { color: var(--color-ink-2); }
+  .note { font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-2); }
+  .nowrap { white-space: nowrap; }
+
+  /* marks: rosé in a headline on white, neon in running text on white */
+  .hl { padding: 0 0.1em; box-decoration-break: clone; -webkit-box-decoration-break: clone; background-repeat: no-repeat; }
+  .hl-rose { background-image: linear-gradient(transparent 20%, var(--color-blush) 20%, var(--color-blush) 96%, transparent 96%); }
+  .hl-neon { background-image: linear-gradient(transparent 16%, var(--color-neon) 16%, var(--color-neon) 96%, transparent 96%); }
+
+  .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
+  .kicker .num { background: var(--color-card); color: #fff; font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
+  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) var(--kx-bracket); }
+  .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 16px; height: 16px; border-left: 1px solid currentColor; }
+  .brackets::before { top: 0; border-top: 1px solid currentColor; }
+  .brackets::after { bottom: 0; border-bottom: 1px solid currentColor; }
+
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 2.5rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-weight: 500; font-size: 1rem; padding: 14px 22px 15px; }
+  .btn-ink { background: var(--color-card); color: #fff; }
+  .btn-ink:hover { background: #000; }
+  .link-u { font-size: 1rem; border-bottom: 1px solid currentColor; padding-bottom: 2px; white-space: nowrap; }
+  .link-u:hover { border-bottom-color: transparent; }
+  .more { display: inline-block; margin-top: 48px; }
+
+  .hero { padding-top: var(--kx-nav); }
+  .hero-inner { padding-block: var(--kx-hero-top) var(--kx-hero-bottom); }
+  .hero-inner > .label { margin-bottom: 1.1rem; }
+  .hero-sub { color: var(--color-ink); margin-top: clamp(24px, 3vw, 40px); }
+  .hero-note { margin-top: 20px; }
+
+  .scene { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); }
+  @media (min-width: 1024px) { .scene { grid-template-columns: 1fr 1fr; } }
+  .timeline { list-style: none; padding: 0; margin: 0; border-top: var(--rule); }
+  .timeline li { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: baseline; border-bottom: var(--rule); padding: 14px 0 16px; }
+  .t { font-size: 0.9375rem; }
+  .kyde-did { background: var(--color-card); color: #fff; padding: 20px 22px 22px; margin-top: 16px; }
+  .kyde-did .mono { color: var(--color-blush); font-size: 0.875rem; margin-bottom: 8px; }
+
+  .cols2 { display: grid; grid-template-columns: 1fr; gap: 32px var(--gap); margin-top: clamp(48px, 6vw, 88px); }
+  @media (min-width: 900px) { .cols2 { grid-template-columns: 1fr 1fr; } }
+  .col { border-top: var(--rule); padding-top: 16px; }
+
+  .workers { margin-top: clamp(48px, 6vw, 88px); border-top: var(--rule); }
+  .worker { border-bottom: var(--rule); }
+  .worker summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(140px, 220px) 1fr auto; gap: 8px 24px; align-items: baseline; padding: 18px 0 20px; }
+  .worker summary::-webkit-details-marker { display: none; }
+  .worker summary::after { content: '+'; font-family: var(--font-mono); font-size: 1.25rem; grid-column: 4; }
+  .worker[open] summary::after { content: '−'; }
+  .w-title { font-size: clamp(1.3rem, 1.8vw, 1.7rem); letter-spacing: -0.03em; line-height: 1.1; }
+  .w-tag { font-size: 0.8125rem; }
+  @media (max-width: 720px) { .worker summary { grid-template-columns: 1fr auto; } .worker summary > :first-child, .w-tag { grid-column: 1; } .w-title { grid-column: 1; } .worker summary::after { grid-column: 2; grid-row: 1; } }
+  .w-grid { display: grid; grid-template-columns: 1fr; gap: 20px var(--gap); margin: 4px 0 20px; }
+  @media (min-width: 900px) { .w-grid { grid-template-columns: 1fr 1fr; } }
+  .w-grid dt { font-size: 0.875rem; margin-bottom: 6px; }
+  .w-grid dd { margin: 0; font-size: var(--kx-body); line-height: 1.5; color: var(--color-ink-1); max-width: 60ch; }
+  .regs { list-style: none; padding: 0 0 22px; margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); display: grid; gap: 6px; max-width: 90ch; }
+</style>

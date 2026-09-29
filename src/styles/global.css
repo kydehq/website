@@ -79,11 +79,11 @@
   --kx-sec: clamp(96px, 12vw, 184px);         /* chapter rhythm: whitespace is the divider */
   --kx-bracket: clamp(16px, 2vw, 30px);       /* indent of a bracketed headline */
 
-  --kx-display: clamp(2.7rem, 6.4vw, 7.4rem); /* the home statement */
-  --kx-display-2: clamp(2.4rem, 5.6vw, 6.2rem); /* page heroes, the insight, the close */
-  --kx-h1: clamp(2.1rem, 4.4vw, 4.6rem);      /* chapter headlines */
+  --kx-display: clamp(3rem, 6.4vw, 7.4rem);   /* the home statement */
+  --kx-display-2: clamp(2.9rem, 5.6vw, 6.2rem); /* page heroes, the insight, the close */
+  --kx-h1: clamp(2.35rem, 4.4vw, 4.6rem);     /* chapter headlines */
   --kx-h3: clamp(1.45rem, 2vw, 2.1rem);
-  --kx-sub: clamp(1.2rem, 1.8vw, 1.75rem);    /* the grey line under a headline */
+  --kx-sub: clamp(1.25rem, 1.8vw, 1.75rem);   /* the grey line under a headline */
   --kx-body-l: clamp(1.1rem, 1.35vw, 1.3rem); /* short copy under a rule */
   --kx-body: 1.0625rem;                       /* running text */
 }
@@ -549,7 +549,7 @@ main:not(.kx) h3.text-2xl:has(+ p + div button), main:not(.kx) h3.text-2xl:has(+
    under a rule; a grid of framed cards becomes items under a rule; text
    keeps a readable measure; only figures and the dark cards keep an
    outline or a surface. */
-main:not(.kx) :not(figure, svg, a, button, input, textarea, select, table, [class*="border-live"], [class*="border-ember"], [class*="border-alert"], .dark-island):is(.border, .border-2) { border-width: 0; }
+main:not(.kx) :not(span, figure, svg, a, button, input, textarea, select, table, [class*="border-live"], [class*="border-ember"], [class*="border-alert"], .dark-island):is(.border, .border-2) { border-width: 0; }
 main:not(.kx) :is(.divide-y) > * + * { border-top-width: 1px; }
 main:not(.kx) .grid > :is(.border, .border-2):not(a.inline-flex, button) { border-width: 1px 0 0 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
 main:not(.kx) .grid > .border:hover { background-color: transparent !important; }
@@ -565,3 +565,13 @@ main:not(.kx) .mb-12 { margin-bottom: clamp(48px, 6vw, 88px); }
   --color-ink-0: #FFFFFF; --color-ink-1: #D6D1E3; --color-ink-2: #A59DBD;
   --color-line-0: #4A4166; --color-line-1: #6B6287; --kx-line: #6B6287; --color-card: #1E1E1E; }
 .surface-violet :is(a, button).bg-white { background-color: #fff !important; color: #1C1A1B !important; }
+
+/* dark status tags keep light type (the ink rule for old accent labels
+   must not reach them) */
+main [class*="border-ember"], main [class*="border-gold"] { color: var(--color-blush) !important; }
+/* wide figures stay legible on a phone: they scroll sideways inside their
+   frame instead of shrinking below reading size */
+@media (max-width: 700px) {
+  main:not(.kx) :has(> svg#spine-fig) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  main:not(.kx) svg#spine-fig { min-width: 720px; }
+}

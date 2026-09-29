@@ -325,14 +325,14 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
 export const KEY_PAGES: Article[] = [
   {
     category: "Platform",
-    title: "Kyde Drift Detection",
-    summary: "Agents drift. Kyde watches what they actually do, measures it against the agent's own baseline, and can quarantine a deviating agent before the deviation becomes an incident.",
+    title: "Behavioral Scoring for AI Agents",
+    summary: "AI agents don't fail loudly, they fail expensively. Kyde scores every action your agents take against their own normal behavior and stops them when it changes: drift, prompt injection, loops that burn money.",
     href: "/",
   },
   {
     category: "Platform",
-    title: "Kyde Zero Trust",
-    summary: "The enforcement layer under the detection. Identity, policy, data boundaries and limits checked at the moment of action, a flight recorder for every call, and a record anyone can verify afterwards, in your own environment.",
+    title: "The Kyde Platform",
+    summary: "The layer under the score. Identity, policy, data boundaries and limits checked at the moment of action, a flight recorder for every call, and a record anyone can verify afterwards, in your own environment.",
     href: "/platform",
   },
   {
@@ -350,7 +350,7 @@ export const KEY_PAGES: Article[] = [
   {
     category: "Platform",
     title: "Use Cases",
-    summary: "One layer, two ways to use it. Worked examples per sector, with what the worker takes, what stays with a person, what gets recorded, and which regulations apply.",
+    summary: "Three nights nobody was watching: a looping agent, an agent hijacked by an email, a claims agent that approves everything. What Kyde sees, and why insurers care.",
     href: "/use-cases",
   },
   {
