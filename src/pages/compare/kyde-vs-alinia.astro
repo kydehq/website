@@ -38,6 +38,7 @@ const faqSchema = {
     acceptedAnswer: { "@type": "Answer", text: a },
   })),
 };
+import { AUDIT_CTA } from '../../data/features';
 ---
 
 <Base
@@ -199,9 +200,7 @@ const faqSchema = {
               Start with one process area. Two weeks, a dated readout, and a fixed price in writing.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href="/audit" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
-                Start your audit →
-              </a>
+              <a href={AUDIT_CTA.href} class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">{AUDIT_CTA.label}</a>
               <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
                 Talk to Us →
               </button>

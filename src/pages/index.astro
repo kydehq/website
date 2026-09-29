@@ -64,8 +64,16 @@ const websiteSchema = {
       <div class="wrap stage-inner">
         <div class="brackets stage-brackets">
           <h1 class="stage-title">AI agents don't fail loudly. They fail expensively.</h1>
-          <a href="#fail" class="link-u mono stage-link">(How it works)</a>
+          <p class="stage-line">Kyde watches how your agents behave, and stops them before it costs you.</p>
         </div>
+        <!-- One of the three films, silent until asked. Portrait, as shot. -->
+        <figure class="film">
+          <video id="stage-film" src="/films/loops.mp4" poster="/films/loops.jpg" muted loop playsinline preload="metadata"></video>
+          <figcaption class="film-cap mono">
+            <span>(Loops) One agent, one night<span class="sr-only">: a film. One agent loops all night; by 6 am the bill is €4,812. With Kyde, the run is stopped.</span></span>
+            <button type="button" id="film-sound" class="film-sound" aria-pressed="false">Sound on</button>
+          </figcaption>
+        </figure>
       </div>
       <div class="dots-band" aria-hidden="true"></div>
     </section>
@@ -209,6 +217,23 @@ const websiteSchema = {
 </Base>
 
 
+<script>
+  // The stage film plays silently and pauses off screen or under reduced
+  // motion; sound only on request.
+  const film = document.getElementById('stage-film') as HTMLVideoElement | null;
+  const sound = document.getElementById('film-sound');
+  if (film) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { film.pause(); }
+    else new IntersectionObserver((es) => { es[0].isIntersecting ? film.play().catch(() => {}) : film.pause(); }, { threshold: 0.25 }).observe(film);
+    sound?.addEventListener('click', () => {
+      film.muted = !film.muted;
+      if (!film.muted) { film.currentTime = 0; film.play().catch(() => {}); }
+      sound.textContent = film.muted ? 'Sound on' : 'Sound off';
+      sound.setAttribute('aria-pressed', String(!film.muted));
+    });
+  }
+</script>
+
 <style>
   /* The pitch's system: white paper, one rosé, ink, neon as a signal; fine
      1px rules; regular-weight headlines; four text styles (display/h1,
@@ -271,18 +296,25 @@ const websiteSchema = {
   }
   .band-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
-  /* stage: the title slide */
+  /* stage: the claim, and one film beside it */
   .stage { padding-top: var(--kx-nav); }
-  .stage-inner { min-height: calc(100svh - var(--kx-nav) - 72px); display: flex; align-items: center; padding-block: var(--kx-hero-top); }
-  .stage-brackets { padding-block: clamp(40px, 7vw, 120px); width: 100%; }
-  .stage-title { font-size: clamp(3.2rem, 8.6vw, 9.4rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; max-width: 14ch; }
-  .stage-link { display: inline-block; margin-top: clamp(24px, 3vw, 40px); }
+  .stage-inner { min-height: calc(100svh - var(--kx-nav) - 72px); display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; padding-block: var(--kx-hero-top); }
+  @media (min-width: 1024px) { .stage-inner { grid-template-columns: 1fr auto; gap: clamp(40px, 5vw, 96px); } }
+  .stage-brackets { padding-block: clamp(40px, 7vw, 120px); }
+  .stage-title { font-size: clamp(3.2rem, 7.4vw, 8.6rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; max-width: 14ch; }
+  .stage-line { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; margin-top: clamp(24px, 3vw, 40px); max-width: 30ch; }
   .stage .dots-band { height: 72px; padding: 0; }
-  /* on a phone the title fills the width, the way it fills the slide */
+  .film { margin: 0; width: min(100%, 300px); justify-self: start; }
+  @media (min-width: 1024px) { .film { width: clamp(240px, 22vw, 320px); justify-self: end; } }
+  .film video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: var(--color-card); outline: 1px solid var(--color-ink); outline-offset: -1px; }
+  .film-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.8125rem; margin-top: 10px; }
+  .film-sound { font: inherit; background: none; border: 0; padding: 0 0 1px; border-bottom: 1px solid currentColor; color: inherit; cursor: pointer; }
+  /* on a phone the claim fills the width; the film follows it */
   @media (max-width: 640px) {
     .stage-title { font-size: 13.4vw; line-height: 0.92; letter-spacing: -0.05em; }
-    .stage-brackets { padding-left: 14px; }
-    .stage-inner { min-height: calc(100svh - var(--kx-nav) - 56px); }
+    .stage-brackets { padding-left: 14px; padding-block: 28px; }
+    .stage-inner { min-height: 0; padding-block: 32px 56px; }
+    .film { width: 64vw; }
     .stage .dots-band { height: 56px; }
   }
 

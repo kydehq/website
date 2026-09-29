@@ -1,5 +1,6 @@
 ---
 import { localeOf } from "../data/locales";
+import { SERVICES } from "../data/features";
 
 const footerLinks = {
     Platform: [
@@ -39,6 +40,10 @@ const footerLinks = {
 // German law wants the provider identification immediately reachable and
 // recognizable as such. A German reader should not have to guess that an
 // English "Imprint" is the Impressum, so German pages get their own label.
+if (!SERVICES) {
+    footerLinks.Services = footerLinks.Services.filter((l) => !["/services", "/audit"].includes(l.href));
+}
+
 const isGerman = localeOf(Astro.url.pathname) === "de";
 const links = isGerman
     ? {

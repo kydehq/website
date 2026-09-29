@@ -16,9 +16,11 @@ const serviceSchema = {
 };
 import StepMap from '../components/services/StepMap.astro';
 import Readout from '../components/services/Readout.astro';
+import { SERVICES } from '../data/features';
 ---
 
 <Base
+    noindex={!SERVICES}
     title="KYDE AI Workers, Built From Your Processes and Owned by You"
     description="Kyde identifies the work ready for automation, builds it into AI workers you own, and runs them on the Kyde Zero Trust layer, in your own environment. Which processes are buildable now, which are blocked and on what, and which stay with a person. Built for GDPR, EU AI Act, NIS-2, DORA."
 >
@@ -50,9 +52,7 @@ import Readout from '../components/services/Readout.astro';
                         Find the work <span class="text-white/20">·</span> Build the worker <span class="text-white/20">·</span> Run the workforce
                     </p>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <a href="/audit" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
-                            Start your audit →
-                        </a>
+                        <a href="/audit" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">Start your audit →</a>
                         <button onclick="openModal()" class="inline-flex items-center gap-2 border border-white/25 text-white/60 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-white/60 hover:text-white/90 transition-all">
                             Talk to us →
                         </button>

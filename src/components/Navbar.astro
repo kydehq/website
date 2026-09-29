@@ -1,5 +1,6 @@
 ---
 import { alternatesFor, localeOf } from "../data/locales";
+import { SERVICES } from "../data/features";
 
 // Nav is the catalogue, the home page is the story. "Zero Trust" used to sit
 // first and point at "/", which meant the chrome sold the mechanism while the
@@ -15,7 +16,7 @@ const navLinks = [
   { label: 'Services',      href: '/services'     },
   { label: 'Use Cases',     href: '/use-cases'    },
   { label: 'Resources',     href: '/resources'    },
-];
+].filter((l) => SERVICES || l.href !== '/services');
 
 const currentPath = Astro.url.pathname;
 

@@ -149,6 +149,7 @@ const workers = [
 ];
 
 
+import { SERVICES } from '../data/features';
 ---
 
 <Base
@@ -219,9 +220,10 @@ const workers = [
       </div>
     </section>
 
+    {SERVICES && (
     <!-- ══════════ WORKERS ══════════ -->
-    <!-- The build service, kept in full for readers who come for it, folded
-         so it does not compete with the three scenes. -->
+    {/* The build service, kept in full for readers who come for it, folded
+         so it does not compete with the three scenes. */}
     <section class="surface-paper" id="workers">
       <div class="wrap sec">
         <div class="kicker"><span class="num">05</span><span class="mono">Workers we build</span></div>
@@ -250,6 +252,8 @@ const workers = [
         <a href="/services" class="link-u mono more">How we build workers</a>
       </div>
     </section>
+
+    )}
 
     <!-- ══════════ CLOSE ══════════ -->
     <section data-surface="blush" class="surface-rose">

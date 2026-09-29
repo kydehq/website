@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
+import { SERVICES } from './src/data/features.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -46,7 +47,7 @@ export default defineConfig({
     sitemap({
       // Ad-test landing pages (noindex), the /sandbox redirect stub, and
       // password-gated investor decks (noindex) stay out
-      filter: (page) => !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts'),
+      filter: (page) => (SERVICES || !/\/(services|audit)\/?$/.test(page)) && !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts'),
     }),
   ],
   vite: {
