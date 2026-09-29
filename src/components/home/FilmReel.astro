@@ -1,0 +1,91 @@
+---
+// The three films on the stage, as labelled tabs rather than a carousel
+// with arrows: a reader sees at once what exists and what is playing. The
+// active tab carries a fine progress line; at the end of a film the next
+// one starts; a click jumps. Silent until asked, paused off screen and
+// under reduced motion. Portrait, as shot.
+const films = [
+  { id: 'tokenburn',       tag: '(Loops)',  title: 'Token burn',       alt: 'One agent loops all night. Without Kyde the night costs €4,812; with Kyde, €3.12.' },
+  { id: 'promptinjection', tag: '(Hijack)', title: 'Prompt injection', alt: 'An email hijacks an agent into exporting client data. Without Kyde 1.2 TB leak; with Kyde, 0 bytes.' },
+  { id: 'claimsdrift',     tag: '(Drift)',  title: 'Claims drift',     alt: 'A claims agent starts approving every claim overnight. Without Kyde €1.8M paid out; with Kyde, €1,740.' },
+];
+---
+<figure class="reel" id="reel">
+  <script type="application/json" id="reel-data" set:html={JSON.stringify(films)} />
+  <div class="reel-tabs" role="tablist" aria-label="Kyde films">
+    {films.map((f, i) => (
+      <button type="button" role="tab" class="reel-tab" id={`tab-${f.id}`} aria-selected={i === 0 ? 'true' : 'false'} aria-controls="reel-video" data-i={i}>
+        <span class="mono">{f.tag}</span>
+        <span class="reel-title">{f.title}</span>
+        <i class="reel-bar" aria-hidden="true"></i>
+      </button>
+    ))}
+  </div>
+  <video id="reel-video" src={`/films/${films[0].id}-9x16.mp4`} poster={`/films/${films[0].id}-9x16.jpg`} muted playsinline preload="metadata"></video>
+  <figcaption class="reel-cap mono">
+    <span id="reel-alt" class="sr-only">{films[0].alt}</span>
+    <span aria-hidden="true">*Illustrative</span>
+    <button type="button" id="reel-sound" class="reel-sound" aria-pressed="false">Sound on</button>
+  </figcaption>
+</figure>
+
+<script>
+  const root = document.getElementById('reel');
+  const video = document.getElementById('reel-video') as HTMLVideoElement | null;
+  if (root && video) {
+    const films = JSON.parse(document.getElementById('reel-data')!.textContent!);
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.reel-tab'));
+    const alt = document.getElementById('reel-alt')!;
+    const sound = document.getElementById('reel-sound')!;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0, visible = false;
+
+    const show = (i: number, play: boolean) => {
+      current = (i + films.length) % films.length;
+      const f = films[current];
+      tabs.forEach((t, k) => {
+        t.setAttribute('aria-selected', String(k === current));
+        (t.querySelector('.reel-bar') as HTMLElement).style.transform = 'scaleX(0)';
+      });
+      video.src = `/films/${f.id}-9x16.mp4`;
+      video.poster = `/films/${f.id}-9x16.jpg`;
+      alt.textContent = f.alt;
+      if (play && !reduced) video.play().catch(() => {});
+    };
+
+    tabs.forEach((t) => t.addEventListener('click', () => show(Number(t.dataset.i), true)));
+    video.addEventListener('ended', () => show(current + 1, visible));
+    video.addEventListener('timeupdate', () => {
+      const bar = tabs[current].querySelector('.reel-bar') as HTMLElement;
+      if (video.duration) bar.style.transform = `scaleX(${video.currentTime / video.duration})`;
+    });
+    sound.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted) video.play().catch(() => {});
+      sound.textContent = video.muted ? 'Sound on' : 'Sound off';
+      sound.setAttribute('aria-pressed', String(!video.muted));
+    });
+    if (!reduced) {
+      new IntersectionObserver((es) => {
+        visible = es[0].isIntersecting;
+        visible ? video.play().catch(() => {}) : video.pause();
+      }, { threshold: 0.25 }).observe(video);
+    }
+  }
+</script>
+
+<style>
+  .reel { margin: 0; width: min(100%, 320px); }
+  .mono { font-family: var(--font-mono); font-weight: 500; }
+  .reel-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .reel-tab { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; background: none; border: 0; border-top: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); padding: 8px 0 0; cursor: pointer; color: var(--color-ink-2); font: inherit; }
+  .reel-tab .mono { font-size: 0.75rem; }
+  .reel-title { font-size: 0.9375rem; line-height: 1.15; letter-spacing: -0.01em; }
+  .reel-tab[aria-selected="true"] { color: var(--color-ink); }
+  .reel-bar { position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--color-ink); transform: scaleX(0); transform-origin: left; }
+  .reel-tab[aria-selected="true"] .reel-bar { height: 2px; top: -2px; }
+  .reel-tab:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+  video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: var(--color-card); outline: 1px solid var(--color-ink); outline-offset: -1px; }
+  .reel-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.8125rem; margin-top: 10px; color: var(--color-ink-2); }
+  .reel-sound { font: inherit; background: none; border: 0; padding: 0 0 1px; border-bottom: 1px solid currentColor; color: var(--color-ink); cursor: pointer; }
+</style>

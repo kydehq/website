@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import HeroInstrument from '../components/home/HeroInstrument.astro';
+import FilmReel from '../components/home/FilmReel.astro';
 
 // The home in the pitch deck's language (Pitch.pdf, September 2026): white
 // paper, one rosé (#F8D9D4) for surfaces and marks, ink, neon only as a signal,
@@ -66,14 +67,7 @@ const websiteSchema = {
           <h1 class="stage-title">AI agents don't fail loudly. They fail expensively.</h1>
           <p class="stage-line">Kyde watches how your agents behave, and stops them before it costs you.</p>
         </div>
-        <!-- One of the three films, silent until asked. Portrait, as shot. -->
-        <figure class="film">
-          <video id="stage-film" src="/films/loops.mp4" poster="/films/loops.jpg" muted loop playsinline preload="metadata"></video>
-          <figcaption class="film-cap mono">
-            <span>(Loops) One agent, one night<span class="sr-only">: a film. One agent loops all night; by 6 am the bill is €4,812. With Kyde, the run is stopped.</span></span>
-            <button type="button" id="film-sound" class="film-sound" aria-pressed="false">Sound on</button>
-          </figcaption>
-        </figure>
+        <FilmReel />
       </div>
       <div class="dots-band" aria-hidden="true"></div>
     </section>
@@ -217,23 +211,6 @@ const websiteSchema = {
 </Base>
 
 
-<script>
-  // The stage film plays silently and pauses off screen or under reduced
-  // motion; sound only on request.
-  const film = document.getElementById('stage-film') as HTMLVideoElement | null;
-  const sound = document.getElementById('film-sound');
-  if (film) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { film.pause(); }
-    else new IntersectionObserver((es) => { es[0].isIntersecting ? film.play().catch(() => {}) : film.pause(); }, { threshold: 0.25 }).observe(film);
-    sound?.addEventListener('click', () => {
-      film.muted = !film.muted;
-      if (!film.muted) { film.currentTime = 0; film.play().catch(() => {}); }
-      sound.textContent = film.muted ? 'Sound on' : 'Sound off';
-      sound.setAttribute('aria-pressed', String(!film.muted));
-    });
-  }
-</script>
-
 <style>
   /* The pitch's system: white paper, one rosé, ink, neon as a signal; fine
      1px rules; regular-weight headlines; four text styles (display/h1,
@@ -304,17 +281,14 @@ const websiteSchema = {
   .stage-title { font-size: clamp(3.2rem, 7.4vw, 8.6rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; max-width: 14ch; }
   .stage-line { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; margin-top: clamp(24px, 3vw, 40px); max-width: 30ch; }
   .stage .dots-band { height: 72px; padding: 0; }
-  .film { margin: 0; width: min(100%, 300px); justify-self: start; }
-  @media (min-width: 1024px) { .film { width: clamp(240px, 22vw, 320px); justify-self: end; } }
-  .film video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: var(--color-card); outline: 1px solid var(--color-ink); outline-offset: -1px; }
-  .film-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.8125rem; margin-top: 10px; }
-  .film-sound { font: inherit; background: none; border: 0; padding: 0 0 1px; border-bottom: 1px solid currentColor; color: inherit; cursor: pointer; }
+  .stage-inner > :global(.reel) { justify-self: start; }
+  @media (min-width: 1024px) { .stage-inner > :global(.reel) { width: clamp(260px, 22vw, 320px); justify-self: end; } }
   /* on a phone the claim fills the width; the film follows it */
   @media (max-width: 640px) {
     .stage-title { font-size: 13.4vw; line-height: 0.92; letter-spacing: -0.05em; }
     .stage-brackets { padding-left: 14px; padding-block: 28px; }
     .stage-inner { min-height: 0; padding-block: 32px 56px; }
-    .film { width: 64vw; }
+    .stage-inner > :global(.reel) { width: 72vw; }
     .stage .dots-band { height: 56px; }
   }
 

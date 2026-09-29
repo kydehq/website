@@ -16,7 +16,7 @@ import Footer from '../components/Footer.astro';
 
 const scenes = [
   {
-    n: '01', tag: '(Loops)', id: 'loops',
+    n: '01', tag: '(Loops)', id: 'loops', film: 'tokenburn',
     title: 'An agent loops all night and burns tokens.',
     sub: 'Nobody is awake. The invoice is the first alert.',
     timeline: [
@@ -27,7 +27,7 @@ const scenes = [
     kyde: 'The call rate leaves the agent\'s normal band. Kyde stops the run at the boundary and keeps the record. Cost of the night: €3.12 instead of €4,812 by morning.',
   },
   {
-    n: '02', tag: '(Hijack)', id: 'hijack',
+    n: '02', tag: '(Hijack)', id: 'hijack', film: 'promptinjection',
     title: 'An email tells an agent to upload your customer data.',
     sub: 'The instruction is hidden in a message the agent was asked to read.',
     timeline: [
@@ -38,7 +38,7 @@ const scenes = [
     kyde: 'Kyde does not have to recognize the injection. It sees what the agent does next: a destination outside its baseline and a volume far outside it. The upload is blocked at the boundary; security gets the record.',
   },
   {
-    n: '03', tag: '(Drift)', id: 'drift',
+    n: '03', tag: '(Drift)', id: 'drift', film: 'claimsdrift',
     title: 'A claims agent suddenly approves every claim.',
     sub: 'It keeps running, completes its tasks and reports success.',
     timeline: [
@@ -179,6 +179,10 @@ import { SERVICES } from '../data/features';
             <div>
               <h2 class="h1">{c.title}</h2>
               <p class="sub">{c.sub}</p>
+              <figure class="scene-film">
+                <video class="uc-film" src={`/films/${c.film}-16x9.mp4`} poster={`/films/${c.film}-16x9.jpg`} muted loop playsinline preload="none"></video>
+                <figcaption class="mono note">(Film) {c.tag.replace(/[()]/g, '')}, the same night in 27 seconds · *Illustrative</figcaption>
+              </figure>
             </div>
             <div>
               <p class="mono label">(What happened)</p>
@@ -272,6 +276,20 @@ import { SERVICES } from '../data/features';
   <Footer />
 </Base>
 
+<script>
+  // Each scene's film plays silently while it is on screen, and not at all
+  // under reduced motion.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) {
+        const v = e.target as HTMLVideoElement;
+        e.isIntersecting ? v.play().catch(() => {}) : v.pause();
+      }
+    }, { threshold: 0.35 });
+    document.querySelectorAll<HTMLVideoElement>('.uc-film').forEach((v) => io.observe(v));
+  }
+</script>
+
 <style>
   .kx { --gap: clamp(24px, 3.3vw, 48px); --rule: 1px solid var(--color-ink); }
   .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
@@ -317,6 +335,9 @@ import { SERVICES } from '../data/features';
 
   .scene { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); }
   @media (min-width: 1024px) { .scene { grid-template-columns: 1fr 1fr; } }
+  .scene-film { margin: clamp(32px, 4vw, 56px) 0 0; }
+  .scene-film video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--color-card); }
+  .scene-film figcaption { margin-top: 10px; }
   .timeline { list-style: none; padding: 0; margin: 0; border-top: var(--rule); }
   .timeline li { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: baseline; border-bottom: var(--rule); padding: 14px 0 16px; }
   .t { font-size: 0.9375rem; }
