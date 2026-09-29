@@ -39,51 +39,15 @@ const breadcrumb = {
       <div class="max-w-7xl mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-20 md:border-x md:border-line-0">
         <p class="hero-label">(Platform)</p>
         <h1 class="hero-h1 max-w-4xl text-4xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
-          The layer under the detection
+          Observe. Learn. Score. Stop.
         </h1>
         <p class="text-lg md:text-xl text-ink-0 leading-relaxed max-w-3xl border-l-2 border-line-1 pl-6">
-          A baseline is only measurable if something reliable is writing down what the agent did, and a quarantine only holds if something is standing in the path when it matters. This is that something.
+          The gateway under behavioral scoring. Every action of an agent crosses it, is recorded, scored against the agent's own normal behavior, and stopped when that behavior changes.
         </p>
         <p class="mt-8 max-w-3xl text-base text-ink-1 leading-relaxed">
-          Kyde sits between your agents and the models, tools and business systems they reach. Every action crosses it. Nothing here is a separate product: it is one boundary, described from five angles.
+          It sits between your agents and the models, tools and systems they reach. Any model, any vendor, on-prem. One boundary, four chapters.
         </p>
       </div>
-    </section>
-
-    <!-- ══════════ 01 · DIMENSIONS ══════════ -->
-    <section class="bg-bg-0">
-      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
-        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="kicker-tag"><span class="kicker-num">01</span>Every action, five checks</span>
-        </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
-          One control layer for every AI action.
-        </h2>
-<div class="mb-px hidden lg:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2 pb-4">
-          <span class="text-ink-0">AI action</span>
-          <span class="flex-1 h-px bg-line-0"></span>
-          <span>Identity</span><span class="text-ink-2/50">→</span>
-          <span>Policy</span><span class="text-ink-2/50">→</span>
-          <span>Data</span><span class="text-ink-2/50">→</span>
-          <span>Limits</span>
-          <span class="flex-1 h-px bg-line-0"></span>
-          <span class="text-ink-0">System</span>
-          <span class="text-ink-2/50">→</span>
-          <span class="text-live">Record</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line-0">
-          {dimensions.map(({ name, q, a, soon }) => (
-            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
-              <span class="block font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-4">{name}</span>
-              <p class="text-base md:text-lg text-ink-0 leading-snug mb-3">{q}</p>
-              <p class="text-sm text-ink-1 leading-relaxed">
-                {a}{soon && <span class="text-ink-2"> Coming soon.</span>}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-          </div>
     </section>
 
     <!-- ══════════ 02 · THE CHAPTERS ══════════ -->
@@ -96,7 +60,7 @@ const breadcrumb = {
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-white/10">
 
                 <div class="flex items-end justify-between border-b border-white/10 pb-3 mb-12">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/65">Observe · Flight recorder</span>
+                    <span class="kicker-tag"><span class="kicker-num">01</span>Observe</span>
                     <span class="fig-label">FIG.1</span>
                 </div>
 
@@ -542,131 +506,39 @@ const breadcrumb = {
                         }
                 </script>
         </section>
+    <!-- ══════════ 02 · LEARN · SCORE ══════════ -->
+    <!-- The chapter the platform exists for, told the way the research
+         measures it: a frozen baseline, two deterministic channels, and an
+         honest line on what boundary records can and cannot show. -->
+    <section id="score" class="scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+        <div class="flex items-end justify-between pb-3 mb-12">
+          <span class="kicker-tag"><span class="kicker-num">02</span>Learn · Score</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-4xl">Every agent is scored against its own normal behavior.</h2>
+        <p class="text-lg text-ink-1 leading-relaxed max-w-3xl">Kyde learns what normal looks like for each agent from its first runs and freezes it as a baseline, so a drifting agent can never become its own reference. Every run after that is scored against it with deterministic statistics. The same record always gives the same score, and anyone can recompute it. No AI judge sits in the detection path: a judge is an agent too, and drifts like one.</p>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16 mt-16">
+          <div class="border-t border-line-0 pt-4">
+            <p class="font-mono text-xs text-ink-0 mb-3">(Gradual drift)</p>
+            <p class="text-lg text-ink-1 leading-relaxed">A divergence channel over the agent's tool use catches behavior that wanders over weeks: a growing context, a memory that fills, an environment that shifts.</p>
+          </div>
+          <div class="border-t border-line-0 pt-4">
+            <p class="font-mono text-xs text-ink-0 mb-3">(Abrupt change)</p>
+            <p class="text-lg text-ink-1 leading-relaxed">A change-point channel catches a jump after an input, an update or an event. The two catch different real events, so every deployment runs both.</p>
+          </div>
+        </div>
+        <div class="mt-16 max-w-4xl">
+          <p class="font-mono text-xs text-ink-0 mb-3">(What the record shows, measured on public agent logs)</p>
+          <div class="divide-y divide-line-0 border-t border-b border-line-0">
+            <div class="grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 py-4"><p class="text-lg text-ink-0">A silent model change</p><p class="text-base text-ink-1 leading-relaxed">Caught in 80 to 100% of trials once it changes how the agent uses its tools. The model version on every record catches the rest.</p></div>
+            <div class="grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 py-4"><p class="text-lg text-ink-0">Loops and failing runs</p><p class="text-base text-ink-1 leading-relaxed">Call rates, errors and aborts against run length are in every record. Cheap, and visible within minutes.</p></div>
+            <div class="grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 py-4"><p class="text-lg text-ink-0">Injection and reward hacking</p><p class="text-base text-ink-1 leading-relaxed">Nearly invisible to tool-frequency statistics, because they use the same tools as legitimate work. What gives them away is what a call does: a destination or a volume the agent has never used. Per-task sequence models are the next step.</p></div>
+          </div>
+        </div>
+        <div class="mt-10"><a href="/behavioral-drift" class="font-mono text-sm text-ink-0 border-b border-ink-0 pb-0.5">Read the research</a></div>
+      </div>
+    </section>
 
-        <!-- ══════════ 02 · CONTROL ══════════ -->
-        <section id="control" class="scroll-mt-20">
-            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
-                    <div class="flex flex-col">
-                        <div class="h-7 flex items-center border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Control · Enforcement</span>
-                        </div>
-                        <div class="flex flex-1 flex-col justify-center py-10">
-                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Govern every action before it happens.</h2>
-                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">Policy is evaluated at the point of action, not in a report afterwards.</p>
-                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Inline DLP, policy blocks, agent and MCP blocking.</p>
-                        <p class="mt-5 text-base text-white/55 leading-relaxed border-l-2 border-white/20 pl-5">Two different things come out of this one point. A standing rule is a policy: no payment over a threshold, no HR record leaving the building, no MCP tool outside the mandate. A quarantine is the same machinery turned on an agent that has drifted, cutting its reach until the behavior is explained.</p>
-                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
-                            No customer export. No payment over 100 euros without approval. No HR data to an external service. No MCP tool outside its mandate. You already run on rules like these. Kyde turns them into policy every worker passes before it acts, not a report you read afterwards. Observe first, enforce when ready. <span class="text-white/35">All of this runs in production today.</span>
-                        </p>
-                        </div>
-                    </div>
-                    <!-- Figure sits between two hairlines, so the animation reads as a
-                         plate and not as something floating in the column. -->
-                    <div class="flex flex-col">
-                        <div class="flex flex-1 items-center justify-center py-10">
-<svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
-                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
-
-                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;">Agent actions</text>
-                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;">Your systems</text>
-
-                            <!-- three lanes running into the policy line -->
-                            {[110, 170, 230].map((y) => (
-                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
-                            ))}
-
-                            <!-- the policy line itself: everything crosses here or not at all -->
-                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
-                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;">Policy</text>
-
-                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
-                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
-
-                            <g id="gate-actions"></g>
-                        </svg>
-                        </div>
-                        <div class="border-t border-white/10 pt-3">
-                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The blocked action stops at the policy line, not inside your systems.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<script>
-                // gate-fig · actions travel their lane toward the policy line. Most cross and
-                // continue into the systems boundary; one in four hits the line, flashes
-                // red and is turned back. Nothing is "inspected afterwards" here.
-                const gateFig = document.getElementById("gate-fig");
-                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if (gateFig) {
-                    const layer = document.getElementById("gate-actions")!;
-                    const NS = "http://www.w3.org/2000/svg";
-                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
-                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
-                    const acts: Act[] = [];
-                    let spawnAt = 0, n = 0;
-
-                    const spawn = (lane: number, blocked: boolean) => {
-                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
-                        el.setAttribute("r", "4");
-                        el.setAttribute("cy", String(LANES[lane]));
-                        el.setAttribute("fill", "var(--color-ink-0)");
-                        el.setAttribute("fill-opacity", "0.55");
-                        layer.appendChild(el);
-                        acts.push({ el, x: START, lane, blocked, back: false });
-                    };
-
-                    const step = (a: Act) => {
-                        if (a.back) {
-                            a.x -= 3.4;
-                        } else {
-                            a.x += 2.2;
-                            if (a.blocked && a.x >= GATE - 6) {
-                                a.back = true;
-                                a.el.setAttribute("fill", "var(--color-alert)");
-                                a.el.setAttribute("fill-opacity", "0.9");
-                            } else if (!a.blocked && a.x >= GATE + 6) {
-                                a.el.setAttribute("fill", "var(--color-live)");
-                                a.el.setAttribute("fill-opacity", "0.85");
-                            }
-                        }
-                        a.el.setAttribute("cx", String(a.x));
-                        return a.back ? a.x > START - 10 : a.x < END;
-                    };
-
-                    if (gateReduced) {
-                        // Static reading of the same story: two through, one turned back.
-                        spawn(0, false); spawn(1, true); spawn(2, false);
-                        acts.forEach((a, i) => {
-                            a.x = a.blocked ? GATE - 20 : GATE + 60;
-                            a.el.setAttribute("cx", String(a.x));
-                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
-                            a.el.setAttribute("fill-opacity", "0.85");
-                        });
-                    } else {
-                        let visible = false;
-                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
-                        const loop = (now: number) => {
-                            if (visible) {
-                                if (now > spawnAt) {
-                                    spawn(n % LANES.length, n % 4 === 2);
-                                    n += 1;
-                                    spawnAt = now + 900;
-                                }
-                                for (let i = acts.length - 1; i >= 0; i--) {
-                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
-                                }
-                            }
-                            requestAnimationFrame(loop);
-                        };
-                        requestAnimationFrame(loop);
-                    }
-                }
-            </script>
-        </section>
 
         <!-- ══════════ 03 · EVALUATE & REPLAY ══════════ -->
         <section id="replay" class="scroll-mt-20">
@@ -721,7 +593,7 @@ const breadcrumb = {
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center justify-between border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Detect · Replay</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Score · Replay</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Rerun the past against the present.</h2>
@@ -843,6 +715,166 @@ const breadcrumb = {
             </script>
         </section>
 
+        <!-- ══════════ 02 · CONTROL ══════════ -->
+        <section id="control" class="scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch [&>*:first-child]:md:pr-12 [&>*:last-child]:md:pl-12 lg:[&>*:first-child]:pr-16 lg:[&>*:last-child]:pl-16">
+                    <div class="flex flex-col">
+                        <div class="h-7 flex items-center border-b border-white/10">
+                            <span class="kicker-tag"><span class="kicker-num">03</span>Stop</span>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center py-10">
+                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Stop an agent before it costs you.</h2>
+                        <p class="mt-5 text-base md:text-lg font-semibold text-white/90 leading-snug">A drifting, hijacked or looping agent goes into quarantine. A human decides what happens next.</p>
+                        <p class="mt-3 font-mono text-sm text-white/70 uppercase tracking-[0.12em]">Quarantine · Inline DLP · Policy blocks · Agent and MCP blocking</p>
+                        <p class="mt-5 text-base text-white/55 leading-relaxed border-l-2 border-white/20 pl-5">When the score leaves its band, Kyde cuts the agent's reach at the boundary: the run stops, the record stays, and the open work goes to a person.</p>
+                        <p class="mt-8 text-lg text-white/55 leading-relaxed">
+                            Standing rules run through the same point: no payment over a threshold without approval, no customer data to an outside service, no MCP tool outside its mandate. Observe first, enforce when ready.
+                        </p>
+                        </div>
+                    </div>
+                    <!-- Figure sits between two hairlines, so the animation reads as a
+                         plate and not as something floating in the column. -->
+                    <div class="flex flex-col">
+                        <div class="flex flex-1 items-center justify-center py-10">
+<svg id="gate-fig" viewBox="0 0 480 340" class="w-full max-w-md h-auto" aria-hidden="true">
+                            <path d="M12 27 L12 12 L27 12" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M453 12 L468 12 L468 27" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M12 313 L12 328 L27 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+                            <path d="M468 313 L468 328 L453 328" fill="none" stroke="var(--color-ink-0)" stroke-opacity="0.50" stroke-width="1" />
+
+                            <text x="30" y="52" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;">Agent actions</text>
+                            <text x="450" y="52" text-anchor="end" fill="var(--color-ink-0)" fill-opacity="0.55" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;">Your systems</text>
+
+                            <!-- three lanes running into the policy line -->
+                            {[110, 170, 230].map((y) => (
+                                <line x1="30" y1={y} x2="450" y2={y} stroke="var(--color-ink-0)" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 6" />
+                            ))}
+
+                            <!-- the policy line itself: everything crosses here or not at all -->
+                            <line id="gate-line" x1="286" y1="78" x2="286" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.65" stroke-width="1.5" />
+                            <text x="286" y="286" text-anchor="middle" fill="var(--color-ink-0)" fill-opacity="0.68" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;">Policy</text>
+
+                            <!-- the systems boundary, drawn as a wall the blocked action never reaches -->
+                            <line x1="392" y1="78" x2="392" y2="262" stroke="var(--color-ink-0)" stroke-opacity="0.26" stroke-width="1" />
+
+                            <g id="gate-actions"></g>
+                        </svg>
+                        </div>
+                        <div class="border-t border-white/10 pt-3">
+                            <p class="font-mono text-[10px] text-white/35 leading-relaxed">The blocked action stops at the policy line, not inside your systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+                // gate-fig · actions travel their lane toward the policy line. Most cross and
+                // continue into the systems boundary; one in four hits the line, flashes
+                // red and is turned back. Nothing is "inspected afterwards" here.
+                const gateFig = document.getElementById("gate-fig");
+                const gateReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (gateFig) {
+                    const layer = document.getElementById("gate-actions")!;
+                    const NS = "http://www.w3.org/2000/svg";
+                    const LANES = [110, 170, 230], GATE = 286, START = 40, END = 440;
+                    type Act = { el: SVGCircleElement; x: number; lane: number; blocked: boolean; back: boolean };
+                    const acts: Act[] = [];
+                    let spawnAt = 0, n = 0;
+
+                    const spawn = (lane: number, blocked: boolean) => {
+                        const el = document.createElementNS(NS, "circle") as SVGCircleElement;
+                        el.setAttribute("r", "4");
+                        el.setAttribute("cy", String(LANES[lane]));
+                        el.setAttribute("fill", "var(--color-ink-0)");
+                        el.setAttribute("fill-opacity", "0.55");
+                        layer.appendChild(el);
+                        acts.push({ el, x: START, lane, blocked, back: false });
+                    };
+
+                    const step = (a: Act) => {
+                        if (a.back) {
+                            a.x -= 3.4;
+                        } else {
+                            a.x += 2.2;
+                            if (a.blocked && a.x >= GATE - 6) {
+                                a.back = true;
+                                a.el.setAttribute("fill", "var(--color-alert)");
+                                a.el.setAttribute("fill-opacity", "0.9");
+                            } else if (!a.blocked && a.x >= GATE + 6) {
+                                a.el.setAttribute("fill", "var(--color-live)");
+                                a.el.setAttribute("fill-opacity", "0.85");
+                            }
+                        }
+                        a.el.setAttribute("cx", String(a.x));
+                        return a.back ? a.x > START - 10 : a.x < END;
+                    };
+
+                    if (gateReduced) {
+                        // Static reading of the same story: two through, one turned back.
+                        spawn(0, false); spawn(1, true); spawn(2, false);
+                        acts.forEach((a, i) => {
+                            a.x = a.blocked ? GATE - 20 : GATE + 60;
+                            a.el.setAttribute("cx", String(a.x));
+                            a.el.setAttribute("fill", a.blocked ? "var(--color-alert)" : "var(--color-live)");
+                            a.el.setAttribute("fill-opacity", "0.85");
+                        });
+                    } else {
+                        let visible = false;
+                        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(gateFig);
+                        const loop = (now: number) => {
+                            if (visible) {
+                                if (now > spawnAt) {
+                                    spawn(n % LANES.length, n % 4 === 2);
+                                    n += 1;
+                                    spawnAt = now + 900;
+                                }
+                                for (let i = acts.length - 1; i >= 0; i--) {
+                                    if (!step(acts[i])) { acts[i].el.remove(); acts.splice(i, 1); }
+                                }
+                            }
+                            requestAnimationFrame(loop);
+                        };
+                        requestAnimationFrame(loop);
+                    }
+                }
+            </script>
+        </section>
+    <!-- ══════════ 01 · DIMENSIONS ══════════ -->
+    <section class="bg-bg-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Stop · Five checks on every action</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-10 max-w-3xl">
+          What the gateway checks before an action runs.
+        </h2>
+<div class="mb-px hidden lg:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-2 pb-4">
+          <span class="text-ink-0">AI action</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span>Identity</span><span class="text-ink-2/50">→</span>
+          <span>Policy</span><span class="text-ink-2/50">→</span>
+          <span>Data</span><span class="text-ink-2/50">→</span>
+          <span>Limits</span>
+          <span class="flex-1 h-px bg-line-0"></span>
+          <span class="text-ink-0">System</span>
+          <span class="text-ink-2/50">→</span>
+          <span class="text-live">Record</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line-0">
+          {dimensions.map(({ name, q, a, soon }) => (
+            <div class="border-r border-b border-line-0 px-5 py-6 md:px-6 md:py-7">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.18em] text-gold mb-4">{name}</span>
+              <p class="text-base md:text-lg text-ink-0 leading-snug mb-3">{q}</p>
+              <p class="text-sm text-ink-1 leading-relaxed">
+                {a}{soon && <span class="text-ink-2"> Coming soon.</span>}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+          </div>
+    </section>
+
         <!-- ══════════ 04 · EVIDENCE ══════════ -->
         <section id="prove" class="scroll-mt-20">
             <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 md:border-x md:border-white/10">
@@ -851,7 +883,7 @@ const breadcrumb = {
                          plate and not as something floating in the column. -->
                     <div class="flex flex-col">
                         <div class="h-7 flex items-center justify-between border-b border-white/10">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Prove · Evidence</span>
+                            <span class="kicker-tag"><span class="kicker-num">04</span>Prove</span>
                         </div>
                         <div class="flex flex-1 flex-col justify-center py-10">
                             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.03]">Evidence the other side can check without you.</h2>
@@ -1058,7 +1090,7 @@ const breadcrumb = {
     <section data-surface="violet" class="surface-violet">
       <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
         <div class="flex items-end justify-between border-b border-line-0 pb-3 mb-10">
-          <span class="kicker-tag"><span class="kicker-num">02</span>Proof</span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">Prove · Independent verification</span>
         </div>
         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-6 max-w-3xl">
           Built for independent verification.
@@ -1105,15 +1137,15 @@ const breadcrumb = {
           <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 w-fit mx-auto">What this is for</p>
           <div class="mb-12 h-px bg-line-0"></div>
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.03] text-ink-0 mb-8">
-            All of it exists so drift is<br />something you can see.
+            All of it exists so drift is<br />something you can stop.
           </h2>
           <p class="text-lg text-ink-1 leading-relaxed mb-12 mx-auto max-w-2xl">
             The record is the measurement. An agent that crosses this boundary leaves a history nobody can quietly revise, and that history is what a baseline is built from and what a deviation is caught against.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
-              How drift detection works →
-            </a>
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">
+              Book a demo →
+            </button>
             <a href="/docs" class="inline-flex items-center gap-2 border border-line-1 px-8 py-4 text-xs font-mono uppercase tracking-[0.1em] text-ink-1 hover:border-ink-0 hover:text-ink-0 transition-all">
               Documentation →
             </a>

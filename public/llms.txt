@@ -2,36 +2,38 @@
 
 > Kyde is behavioral scoring for AI agents. Every action an agent takes crosses Kyde and is scored against that agent's own normal behavior; the score sets what the agent may do, and an agent that drifts, is hijacked by prompt injection or gets stuck in a loop that burns money is stopped and handed to a human. Underneath is a control layer that checks identity, policy, data and limits at the moment of action and keeps a tamper-evident record an auditor can recompute. Any model, any vendor, on-prem, built in Europe. On top of that layer, Kyde also builds AI workers out of the processes a company already runs.
 
-## Two things Kyde offers
+## The problem
 
-**Kyde Zero Trust** — the platform (https://kyde.com). The control and evidence layer for AI workers and for the AI a company already runs. It sits between them and the models, tools and business systems they reach. Both cross the same layer, so the controls and the record are the same whichever a company starts with.
+AI agents don't fail loudly. They fail expensively. An agent is checked once, on the day it goes live; after that, the only one watching it is the agent itself. Three things go wrong, and each is usually found weeks later, from a customer, a bill or an auditor:
 
-**Kyde AI Workers** — the build service (https://kyde.com/services). Kyde captures a process area with the people who run it, builds the part that holds up into a worker, and runs it on the layer above. Three steps: find the work (the audit), build the worker, run the workforce. The automation layer and the control layer are built together rather than integrated afterwards.
+- **Loops (money).** An agent retries, loops and calls tools again and again overnight. Tokens, compute and API costs pile up; the invoice is the first alert.
+- **Hijack (security).** A document, website, email or tool response carries instructions (prompt injection). The agent follows them with the operator's credentials, for example exporting customer data to an outside address.
+- **Drift (behavior).** The agent stops behaving like itself: a vendor swaps the model, context and memory grow, the environment changes. Example: after a model update, a claims agent that normally approves six claims in ten approves every claim.
 
-The long-term intent is two businesses under one roof: the platform, and the service that builds on it.
+## How Kyde works
 
-## Four capabilities of the layer
+Behavioral scoring, the way banks score card payments: a card gets a score once when you apply, then the bank scores how you use it, the score sets your limit, and unusual use blocks the card. Kyde does the same for agents. Every agent gets a limit.
 
-- **See** — every AI action. Flight recorder and inventory: what is acting, against which systems, how often, and how much of it was ever recorded. Finds agents nobody put on a list.
-- **Control** — stop actions that violate policy. Identity, policy, data and limits, checked before the action executes rather than written up in a report afterwards.
-- **Replay** — run past work against today's AI. A recorded run is a set of real cases with known outcomes; re-run them when a model ships and drift becomes a number instead of an anecdote.
-- **Prove** — produce evidence that can be verified without Kyde. A hash-chained record written at the boundary, exported as a dated document an auditor recomputes offline.
+1. **Observe.** Every action of an agent crosses Kyde, through a gateway or SDK. No changes to the agent's logic.
+2. **Learn.** Kyde learns each agent's normal behavior (a frozen baseline). Every human decision sharpens it.
+3. **Score.** Every run is scored against the agent's own normal behavior. Deterministic statistics, recomputable from the record; no LLM judge in the detection path.
+4. **Limit.** The score decides what the agent may do.
+5. **Stop.** A drifting, hijacked or looping agent goes into quarantine; a human decides what happens next.
+6. **Prove** (under every step). A tamper-evident, hash-chained record of everything; every score can be recomputed by a third party.
 
-## Autonomy is earned, not granted
+Detection runs two channels against the same frozen baseline: a divergence channel for gradual drift (behavior wandering over weeks) and a change-point channel (CUSUM family) for abrupt change after an input or update. Measured on public records, each catches events the other misses.
 
-Six levels, L0 to L5, from a worker that only reads to one running unattended. Each rung is tied to the record: a rung is held because the record shows it was held, and a worker that stops producing that evidence comes back down. From L4 upwards, observation alone no longer qualifies.
+Any model, any vendor, on-prem, built in Europe. Runs in the customer's network; data stays with the customer.
 
-## Core problem Kyde solves
+## Research behind the detection
 
-Enterprises deploying AI agents face four unanswered questions:
-1. **Who acted?** — Agents share service accounts with no traceable identity or role boundaries.
-2. **Why did it decide that?** — No causal context captured. Decisions cannot be reconstructed for human oversight or regulatory review.
-3. **What are the boundaries?** — No behavioral scope enforcement. Agents can exceed their mandate without detection.
-4. **What happened?** — Vendor-provided logs are software-only, mutable, and controlled by the provider — not an independent audit trail.
+Kyde publishes its research on behavioral drift: "Behavioral Drift in Autonomous LLM-driven Systems: A Survey of Detection Approaches and the Case for Deterministic Detection" (J. Eckel, J. Radehaus, v0.4, 2026-09-17), with reference detector code at https://github.com/kydehq/behavioral-drift-detection and a summary at https://kyde.com/behavioral-drift.
 
-The structural reason governance fails when built inside agents: capable agents can bypass their own rules. Enforcement has to sit at a boundary the agent cannot route around. Kyde sits outside the agent, in the data path, and cannot be overridden by agent logic.
+- "Behavioral drift" covers at least seven phenomena with different causes and detection cost: goal drift, context decay, reward hacking, deception, multi-agent drift, persistent drift (memory or self-modification), version drift (vendor model changes). Prompt injection is a cause that produces three of them.
+- The detection core has to be deterministic: an LLM judge is itself an agent subject to the drift it is asked to measure, and its verdicts cannot be replayed. Statistics over an append-only boundary record can be recomputed by anyone.
+- First measurements on six public corpora (boundary call records only: tool name, hashed parameters, status, attribution; no content): a silent model change is detected in 80–100% of trials once it visibly shifts the tool-call distribution (JSD ≥ 0.02), 0% on a same-version control; false-alarm rates vary so much between deployments that they must be calibrated per deployment; successful in-session prompt injections and reward hacking are nearly invisible to distribution-level statistics (they use the same tools as legitimate work), which is why sequence-level, per-task models are the next step.
 
-A second problem sits underneath the automation side: nobody has written down how the work is actually done, so every automation project starts by guessing where the knowledge lives. The audit exists to answer that before anything is built.
+The research is honest about limits: what does not cross the boundary (intent in a reasoning trace, a poisoned memory entry, deception with harmless surface text) is invisible to any detector built on boundary records.
 
 ## Kyde Gateway
 
@@ -43,9 +45,9 @@ Two editions, the same compose files, switched by one env-file setting:
 - **Starter** — the public images from the open GitHub repository (github.com/kydehq/gateway): hash-chained but unsigned ledger, observe-only DLP.
 - **Enterprise** — adds Ed25519/TPM audit signing (hardware-rootable via PKCS#11 / HSM) and inline enforcement, plus unlimited retention, agent identity enforcement, MCP per-tool policy, RBAC and air-gapped operation.
 
-## The audit
+## Kyde AI Workers (paused)
 
-The entry point into the build service. Kyde takes one complete business process and maps the work inside it, with the people who do it: what should run with AI, what belongs in conventional software, what stays with a person, and what is not reliable enough yet. Everything held back carries the blocker and the owner who can change it. The readout is dated, because a task that is not ready today may be ready in six months. One process area, fixed price, credited against the first automation project. Three days for a team, two weeks for a department.
+Kyde also builds AI workers from the processes a company already runs, starting with an audit of one process area. The build service is paused until late October 2026; the platform is the focus.
 
 ## Deployment
 
@@ -114,10 +116,9 @@ SP 800-207 defines zero trust architecture for users and devices; agents inherit
 
 ### Site
 
-- [Kyde Zero Trust](https://kyde.com/): The platform page and the front door. Why access-based security stops short of what AI does, the five dimensions checked per action, the four capabilities (see, control, replay, prove), the autonomy ladder, and what the layer is worth to compliance, insurance, AI governance and incident teams.
-- [Kyde AI Workers](https://kyde.com/services): The build service. Capturing the tacit knowledge a process runs on, deciding per step between AI, code and a person, and running the result on the zero trust layer. Includes the automation-readiness model.
-- [The Kyde Audit](https://kyde.com/audit): One complete business process mapped end to end — what should run with AI, what belongs in conventional software, what stays with people, what is not ready yet, and the blocker and owner on everything held back. Dated readout.
-- [Use Cases](https://kyde.com/use-cases): One layer, two ways to use it. Worked examples per sector — the process today, what the worker takes, what stays with a person, what gets recorded, and which regulations apply and which do not.
+- [Kyde](https://kyde.com/): The front door. AI agents don't fail loudly, they fail expensively; behavioral scoring for AI agents; the bank analogy; how it works (observe, learn, score, limit, stop, prove); how to start (setup, then two weeks).
+- [Platform](https://kyde.com/platform): The layer under the score: the flight recorder, the inventory of agents nobody registered, identity, policy, data and limits checked at the moment of action, replay, and a tamper-evident record an auditor recomputes.
+- [Use Cases](https://kyde.com/use-cases): Three nights nobody was watching: an agent that loops and burns tokens, an agent hijacked by an email into uploading customer data, a claims agent that approves every claim. What happened, what the score saw, what Kyde did. Plus the insurer's view: a behavioral score you can underwrite, like a telematics box in a car.
 - [Company](https://kyde.com/company): What Kyde builds and why. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.
 - [Kyde Labs](https://kyde.com/labs): The layer applied to agents that act on physical infrastructure — grid dispatch, battery storage, industrial automation. What is being built, and what is not built yet.
 - [FAQ](https://kyde.com/faq): What security and compliance teams ask before deploying the gateway — latency, data privacy, audit evidence, and how it differs from a SIEM or an API gateway.
@@ -211,4 +212,4 @@ Kyde builds the zero trust layer for AI, and the AI workers that run on it. Earl
 
 Website: https://kyde.com — Contact: hello@kyde.com
 
-Category: **behavioral scoring for AI agents**. Naming: **Kyde** in running text, **KYDE** as the wordmark. The platform is *Kyde Zero Trust*; the gateway that implements it is the *Kyde Gateway*; the build service is *Kyde AI Workers*. "Behavioral firewall" names the enforcement layer in the articles, not the company.
+Category: **behavioral scoring for AI agents**. Naming: **Kyde** in running text, **KYDE** as the wordmark. The platform is *Kyde* (behavioral scoring for AI agents; the underlying control layer was previously called Kyde Zero Trust); the gateway that implements it is the *Kyde Gateway*; the build service, paused until late October 2026, is *Kyde AI Workers*. "Behavioral firewall" names the enforcement layer in the articles, not the company.
