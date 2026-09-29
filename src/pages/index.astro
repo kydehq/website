@@ -273,16 +273,16 @@ const websiteSchema = {
   }
   .band-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
-  /* stage: the claim, and one film beside it */
+  /* stage: the claim, and the films beside it (landscape on desktop) */
   .stage { padding-top: var(--kx-nav); }
   .stage-inner { min-height: calc(100svh - var(--kx-nav) - 72px); display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; padding-block: var(--kx-hero-top); }
-  @media (min-width: 1024px) { .stage-inner { grid-template-columns: 1fr auto; gap: clamp(40px, 5vw, 96px); } }
+  @media (min-width: 1024px) { .stage-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(40px, 4vw, 72px); } }
   .stage-brackets { padding-block: clamp(40px, 7vw, 120px); }
-  .stage-title { font-size: clamp(3.2rem, 7.4vw, 8.6rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; max-width: 14ch; }
+  .stage-title { font-size: clamp(3.2rem, 5.4vw, 6.6rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.055em; max-width: 14ch; }
   .stage-line { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; margin-top: clamp(24px, 3vw, 40px); max-width: 30ch; }
   .stage .dots-band { height: 72px; padding: 0; }
   .stage-inner > :global(.reel) { justify-self: start; }
-  @media (min-width: 1024px) { .stage-inner > :global(.reel) { width: clamp(260px, 22vw, 320px); justify-self: end; } }
+  @media (min-width: 1024px) { .stage-inner > :global(.reel) { justify-self: stretch; } }
   /* on a phone the claim fills the width; the film follows it */
   @media (max-width: 640px) {
     .stage-title { font-size: 13.4vw; line-height: 0.92; letter-spacing: -0.05em; }
