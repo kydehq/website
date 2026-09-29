@@ -30,7 +30,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "behavioral-drift",
     de: "de/wissen/behavioral-drift",
-    sourceHash: "fec88aaa4fc4396b",
+    sourceHash: "dabcd57dc3d0d1d7",
     note: "Dieselbe Argumentation in zwei Sprachen, nicht zwei eigenständige Texte: die Befunde sind dieselben und jede Zahl ist gegen dieselbe Arbeit geprüft. Übersetzt wird sie, weil sie an Forschung und an Artikel 72 hängt statt an unserem Produkt, also selten veraltet, und weil KI-MIG und BaFin deutsches Publikum sind.",
   },
   {
