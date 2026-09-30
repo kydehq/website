@@ -1,482 +1,119 @@
----
-version: alpha
-name: KYDE
-description: >
-  Engineering-blueprint aesthetic for KYDE, the behavioral firewall for AI
-  agents. Derived from the shipped kyde.com main pages (homepage, platform,
-  starter, trust-score, pricing). Two themes ship from the same token set:
-  dark (default, always available) and light (implemented, currently not
-  exposed via a UI toggle on the public marketing site, but fully supported
-  and the intended target for product/dashboard UI). Target consumer: agents
-  building KYDE product UI (dashboards) that must be indistinguishable in
-  feel from the marketing site, in either theme.
-colors:
-  # Dark is the default theme; component tokens below resolve against
-  # this flat map. See colors-light for the light-theme equivalents
-  # (same keys, same component mapping, values only).
-  bg-0: "#050505"
-  bg-1: "#0C0C0C"
-  bg-2: "#141414"
-  bg-3: "#1C1C1C"
-  line-0: "#1F1F1F"
-  line-1: "#2E2E2E"
-  ink-0: "#F2F2F2"
-  ink-1: "#A8A8A8"
-  ink-2: "#6B6B6B"
-  ink-3: "#3D3D3D"
-  cta-fill: "#F2F2F2"
-  cta-fill-hover: "#E5E5E5"
-  on-primary: "#0A0A0A"
-  gold: "#FEC106"
-  ember: "#D77657"
-  live: "#3DDC84"
-  alert: "#FF5C5C"
-  warn: "#FFB84D"
-  acid: "#DFF250"
-colors-light:
-  # Same token names as colors (dark), same component mapping applies
-  # 1:1 (button-primary uses colors-light.cta-fill in light mode, etc).
-  # Not machine-linted against components; documented in prose below.
-  bg-0: "#F7F6F3"
-  bg-1: "#F3F2EE"
-  bg-2: "#EEEDE8"
-  bg-3: "#E6E4DE"
-  line-0: "#DAD7CF"
-  line-1: "#BFBCB2"
-  ink-0: "#191919"
-  ink-1: "#4F4F4F"
-  ink-2: "#767676"
-  ink-3: "#C8C8C8"
-  cta-fill: "#191919"
-  cta-fill-hover: "#333330"
-  on-primary: "#F7F6F3"
-  gold: "#9C7400"
-  ember: "#B34A2E"
-  live: "#0B8A50"
-  alert: "#D93036"
-  warn: "#955F00"
-  acid: "#DFF250"
-typography:
-  hero:
-    fontFamily: Inter Variable
-    fontSize: 4.5rem
-    fontWeight: 700
-    lineHeight: 0.92
-    letterSpacing: -0.022em
-  h2:
-    fontFamily: Inter Variable
-    fontSize: 2.25rem
-    fontWeight: 700
-    lineHeight: 1.05
-    letterSpacing: -0.02em
-  h3:
-    fontFamily: Inter Variable
-    fontSize: 1.25rem
-    fontWeight: 700
-    lineHeight: 1.2
-  body:
-    fontFamily: Inter Variable
-    fontSize: 1rem
-    fontWeight: 400
-    lineHeight: 1.6
-  body-sm:
-    fontFamily: Inter Variable
-    fontSize: 0.875rem
-    fontWeight: 400
-    lineHeight: 1.6
-  register:
-    fontFamily: JetBrains Mono Variable
-    fontSize: 0.6875rem
-    fontWeight: 400
-    letterSpacing: 0.2em
-  label-caps:
-    fontFamily: JetBrains Mono Variable
-    fontSize: 0.75rem
-    fontWeight: 400
-    letterSpacing: 0.1em
-  fig-label:
-    fontFamily: JetBrains Mono Variable
-    fontSize: 0.625rem
-    fontWeight: 400
-    letterSpacing: 0.2em
-  data:
-    fontFamily: JetBrains Mono Variable
-    fontSize: 0.625rem
-    fontWeight: 400
-    letterSpacing: 0.02em
-  data-value:
-    fontFamily: JetBrains Mono Variable
-    fontSize: 1.25rem
-    fontWeight: 700
-  terminal:
-    fontFamily: JetBrains Mono Variable
-    fontSize: 0.875rem
-    fontWeight: 400
-    lineHeight: 1.8
-rounded:
-  none: 0px
-  dot: 9999px
-spacing:
-  xs: 4px
-  sm: 8px
-  md: 16px
-  lg: 24px
-  xl: 32px
-  2xl: 48px
-  3xl: 64px
-  4xl: 96px
-  5xl: 128px
-components:
-  button-primary:
-    backgroundColor: "{colors.cta-fill}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.label-caps}"
-    rounded: "{rounded.none}"
-    padding: 14px 24px
-  button-primary-hover:
-    backgroundColor: "{colors.cta-fill-hover}"
-  button-ghost:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink-1}"
-    typography: "{typography.label-caps}"
-    rounded: "{rounded.none}"
-    padding: 14px 24px
-  button-ghost-hover:
-    textColor: "{colors.ink-0}"
-  card:
-    backgroundColor: "{colors.bg-1}"
-    rounded: "{rounded.none}"
-    padding: 32px
-  card-hover:
-    backgroundColor: "{colors.bg-2}"
-  card-elevated:
-    backgroundColor: "{colors.bg-2}"
-    rounded: "{rounded.none}"
-    padding: 32px
-  input:
-    backgroundColor: "{colors.bg-1}"
-    textColor: "{colors.ink-0}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.none}"
-    padding: 10px 16px
-  table-header:
-    backgroundColor: "{colors.bg-0}"
-    textColor: "{colors.ink-1}"
-    typography: "{typography.register}"
-    padding: 12px 20px
-  table-cell:
-    textColor: "{colors.ink-1}"
-    typography: "{typography.body-sm}"
-    padding: 14px 20px
-  sidebar:
-    backgroundColor: "{colors.bg-2}"
-    width: 176px
-  sidebar-item:
-    textColor: "{colors.ink-2}"
-    typography: "{typography.data}"
-    padding: 4px 8px
-  sidebar-item-active:
-    backgroundColor: "{colors.bg-3}"
-    textColor: "{colors.ink-0}"
-  chip-status-live:
-    backgroundColor: "transparent"
-    textColor: "{colors.live}"
-    typography: "{typography.fig-label}"
-    padding: 2px 6px
-  chip-status-alert:
-    backgroundColor: "transparent"
-    textColor: "{colors.alert}"
-    typography: "{typography.fig-label}"
-    padding: 2px 6px
-  chip-status-warn:
-    backgroundColor: "transparent"
-    textColor: "{colors.warn}"
-    typography: "{typography.fig-label}"
-    padding: 2px 6px
-  tag-prevent:
-    backgroundColor: "transparent"
-    textColor: "{colors.ember}"
-    typography: "{typography.fig-label}"
-    padding: 2px 4px
-  step-number:
-    backgroundColor: "transparent"
-    textColor: "{colors.gold}"
-    typography: "{typography.label-caps}"
-  modal:
-    backgroundColor: "{colors.bg-2}"
-    rounded: "{rounded.none}"
-    padding: 32px
----
+# KYDE design system
 
-## Overview
+Live since 2026-09-28. Built from the pitch deck (Pitch.pdf, September 2026):
+calm, confident, not corporate. White paper, one rosé, black, neon as a
+signal, fine lines, lots of whitespace. The website is a website, not a VC
+pitch: the deck gives the language, the site gives the structure.
 
-KYDE looks like an **engineering document that happens to be interactive** — a spec sheet, a blueprint, a signed audit ledger. Not a SaaS marketing gradient in sight. The aesthetic is monochrome-first, 1px-ruled, and typographically strict, in both themes it ships. Two registers coexist on every screen: **Inter** carries the human argument (headlines, prose), **JetBrains Mono** carries everything machine-adjacent (labels, numbers, statuses, terminals, table headers). The tension between the two *is* the brand.
+Everything below is implemented in `src/styles/global.css` (tokens and a
+translation layer for older pages) and in `src/pages/index.astro` (the
+reference page). A page built new should read the tokens, not copy values.
 
-**Light is the default on the marketing site; dark is an explicit opt-in.** This is the reverse of how the system first shipped, and only the resting state changed: both themes carry the same components, layout and rules, and the dark palette is unchanged. In CSS, light lives on bare `:root` and dark is reapplied under `:root[data-theme="dark"]`, so anything keyed on "the page is light" must match `:root:not([data-theme="dark"])` rather than an attribute that is no longer stamped. Dark remains the reference for product and dashboard UI. Build both from day one; neither is an afterthought skin.
+## Positioning and voice
 
-**Both themes are exposed.** A toggle sits in the navbar, light is the default,
-and the choice persists in `localStorage` with a guard in `Base.astro` that
-applies it before first paint so the page never flashes the wrong ground. The
-guard and the toggle both have to agree on the default; if they disagree the
-glyph shows one theme while the page renders the other.
+- Category: **Behavioral scoring for AI agents.** One name everywhere
+  (titles, meta, footer, llms.txt). Not "behavioral firewall" (kept only as a
+  glossary term), not "zero trust layer" as a headline.
+- The claim: **AI agents don't fail loudly. They fail expensively.**
+- Two pains a buyer owns a budget for: money (runaway loops) and security
+  (prompt injection). Drift is the mechanism underneath.
+- The three stories, used on the home, /use-cases and in the films:
+  (Loops) token burn overnight · (Hijack) an email makes an agent upload
+  customer data · (Drift) a claims agent approves every claim after an update.
+- The insight: banks score every card swipe; Kyde scores every agent action.
+  Insurer angle: a telematics box for AI, "a behavioral score you can underwrite".
+- How it works, always in this order: Observe · Learn · Score · Limit · Stop,
+  with Prove under every step.
+- Short sentences, one idea per block, no jargon. Mono labels in
+  parentheses: `(Drift)`, `(Step 1)`. Footnotes with `*`: `*Illustrative`.
+- "Built for" EU AI Act, NIS-2, DORA, never "compliant" or "ready".
+- Claims stay within what ships: the free edition is hash-chained, signing
+  and inline enforcement are Enterprise; Kyde does not claim to recognize
+  every injection, it sees what the agent does next; a stop hands the
+  decision to a human; all scene numbers are marked illustrative.
+- Primary CTA: **Book a demo**.
 
-**A canvas has to be measured by a ResizeObserver, not once at startup.** A
-canvas sized from a single `getBoundingClientRect()` at init draws into a
-backing store that stops matching its box the moment the layout settles: web
-fonts land, the hero grows, and the drawing renders stretched, oversized and
-too slow, because every speed in it is expressed in the old coordinate space.
-A window `resize` listener does not catch this, since the window never
-resized. Read `clientWidth`/`clientHeight`, bail out while they are zero, and
-re-measure from a `ResizeObserver` held in a variable, since an observer with
-no reference of its own can be garbage collected and then silently stops
-firing. The hero canvas on `/` does this and carries the note; anything new
-has to do the same.
+## Color
 
-**Canvas figures must branch on the ground.** A bloom is emitted light: on a
-dark ground it brightens toward ink, and on paper the same gradient stops paint
-a grey smudge instead. Both canvases read `--color-bg-0`, compute its luminance
-once per theme change, and use that flag to pick the bloom's colour and to lift
-particle opacities, which are otherwise tuned for light-on-dark and nearly
-vanish on paper. Any new canvas figure has to do the same; do not assume dark.
-
-## Colors
-
-The palette is four background steps, two line weights, four ink weights, and six semantic accents, defined once per theme. Monochrome does the layout; accents do the *meaning*. Never hardcode a hex value in a component; always reference the token, so the same markup renders correctly in both themes.
-
-### Dark (default)
-
-**Backgrounds — four steps of elevation, darkest is the page:**
-- **bg-0 (#050505):** The page canvas. Everything sits on this.
-- **bg-1 (#0C0C0C):** Section panels and standard cards. One step of elevation.
-- **bg-2 (#141414):** Elevated surfaces: modals, code blocks, sidebars, cards-within-cards.
-- **bg-3 (#1C1C1C):** Hover states and chips. The top of the elevation ladder.
-
-**Lines:**
-- **line-0 (#1F1F1F):** The workhorse. Every divider, card border, table rule, section separator is a 1px line in this color.
-- **line-1 (#2E2E2E):** Emphasis. Hover states brighten a border from line-0 to line-1; modals and outward-facing components use it at rest.
-
-**Ink — never the literal extreme for text:**
-- **ink-0 (#F2F2F2):** Headlines and primary values. The "white" of the system for text purposes; pure #FFFFFF never appears.
-- **ink-1 (#A8A8A8):** All body copy and secondary text. Most text on any screen is this color.
-- **ink-2 (#6B6B6B):** Metadata, eyebrow labels, figure labels. Never the sole carrier of essential information.
-- **ink-3 (#3D3D3D):** Decorative only.
-
-**CTA fill (the one solid, non-monochrome-rule fill in the system):**
-- **cta-fill (#F2F2F2):** The primary button's background. The brightest surface on the page.
-- **cta-fill-hover (#E5E5E5):** Its hover state.
-- **on-primary (#0A0A0A):** Text/icon color on top of the CTA fill.
-
-**Accents — semantic, rare, and consistent everywhere:**
-- **live (#3DDC84):** Living data. Status dots, terminal `$` prompts, verified/signed states, success checkmarks, healthy metrics. The most-used accent, and the one that makes the dark UI feel alive.
-- **alert (#FF5C5C):** Blocked actions, breaches, tamper events, urgent deadlines. In the product's story, red is not an error state — it is the firewall *working* (an out-of-policy action being stopped). Treat it with that confidence.
-- **warn (#FFB84D):** Warnings, "most popular" badges, mid-severity states.
-- **gold (#FEC106):** Editorial accent for numbering (step numbers, figure indices) and manifest lines. Also the text-selection background. Never a status color.
-- **ember (#D77657):** Emphasis without alarm — category labels and gap-indicators where red would overstate.
-- **acid (#DFF250):** Surface highlight only. Never on buttons, never on links, never as a status. Identical value in both themes; used extremely sparingly.
-
-### Light
-
-Light is a deliberate inversion, not a mechanical one. The canvas is warm paper, not clinical white; elevation recesses (steps slightly *darker/greyer* than the canvas) rather than lifts, so cards never read as a jarring white sticker sitting on the page. The "ink-0 / cta-fill" extreme flips to near-black. Accents are darkened versions of their dark-mode selves to hold WCAG AA contrast on the light ground.
-
-**Backgrounds — four steps of elevation, lightest is the page:**
-- **bg-0 (#F7F6F3):** The page canvas. Warm paper, not #FFFFFF.
-- **bg-1 (#F3F2EE):** Section panels and standard cards. One recess step, slightly darker than the canvas.
-- **bg-2 (#EEEDE8):** Elevated surfaces: modals, code blocks, sidebars, cards-within-cards.
-- **bg-3 (#E6E4DE):** Hover states and chips. The deepest recess step.
-
-**Lines:**
-- **line-0 (#DAD7CF):** The workhorse divider/border color.
-- **line-1 (#BFBCB2):** Emphasis, same role as in dark.
-
-**Ink:**
-- **ink-0 (#191919):** Headlines and primary values. Near-black, never pure #000000.
-- **ink-1 (#4F4F4F):** Body copy and secondary text.
-- **ink-2 (#767676):** Metadata, eyebrow labels, figure labels.
-- **ink-3 (#C8C8C8):** Decorative only.
-
-**CTA fill:**
-- **cta-fill (#191919):** The primary button's background flips to near-black, the darkest surface on the page, so it remains the single highest-contrast fill regardless of theme.
-- **cta-fill-hover (#333330):** Its hover state.
-- **on-primary (#F7F6F3):** Text/icon color on top of the CTA fill (paper-colored, not white).
-
-**Accents (darkened for AA contrast on light ground):**
-- **live (#0B8A50)**
-- **alert (#D93036)**
-- **warn (#955F00)**
-- **gold (#9C7400)**
-- **ember (#B34A2E)**
-- **acid (#DFF250)** — unchanged; used as a rare surface highlight, never text.
-
-**Opting a component out of theming:** figures, terminals, and dashboard mocks that must stay permanently dark for legibility or brand reasons (code blocks, some data-dense mocks) use a `.dark-island` escape hatch: inside it, all tokens above resolve to their dark values regardless of the active theme. Use this sparingly and only where the content genuinely reads worse inverted (e.g. a terminal window) — do not reach for it as a shortcut to avoid theming a component properly. The default assumption for any new component is that it themes correctly, not that it opts out.
-
-Accent fills are almost always transparent washes of the accent at 5–10% opacity behind accent-colored text (e.g. a "Free" chip is `live` text on `live/8%` background with a `live/30%` border), not solid fills. This holds in both themes; only the underlying accent hex changes.
-
-## Typography
-
-Two families, strictly divided by role, identical across both themes:
-
-- **Inter Variable** — the voice. Hero statements, section headings, body prose. Headlines are bold, tightly tracked (−0.02em), and set at a compressed line-height. Hero headlines are UPPERCASE.
-- **Headline line-height, in Tailwind terms.** `leading-tight` is 1.25 and is body spacing, not headline spacing; it is never right on a headline. Hero `h1`: `leading-none` or `leading-[1.05]`. Section headline (`text-3xl md:text-4xl lg:text-5xl`) and subsection (`text-2xl md:text-3xl`): `leading-[1.03]`. Item heading (`text-xl md:text-2xl`): `leading-[1.08]`, marginally looser because it sits closest to body copy. The whole site had drifted to `leading-tight` on all four; if a new headline looks airy next to its neighbors, this is why.
-- **JetBrains Mono Variable** — the machine. Everything that represents data, structure, or interface chrome: eyebrow/section labels, buttons, table headers, statuses, timestamps, IDs, terminal content, figure labels, numbers in stat tiles. Mono labels are UPPERCASE with wide tracking (0.1em–0.2em); mono data (IDs, values) is normal case with tight tracking.
-
-The signature typographic device is the **numbered section register**: every major surface region opens with a mono eyebrow in the format `01 · Section Name` (`{typography.register}`, ink-1, uppercase), sitting on a 1px `line-0` rule. Numbering restarts per page/screen. In a dashboard, panel headers take the same treatment (see the platform Fleet Status mock: `FLEET HEALTH SCORE`, `AGENTS (3)`, `RECENT SESSIONS (3)` — all mono, uppercase, tracked, small).
-
-**The applied ramp.** The tokens above give the sizes; this is which one a
-heading gets, and there are only four. Every heading on the marketing site is
-one of these, exactly as written. Nothing in between, and no new step without
-changing this list.
-
-| Level | Where it goes | Classes |
+| Token | Value | Role |
 |---|---|---|
-| Home hero | The homepage `h1`, once | `text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl` |
-| Page hero | Every other page's `h1`, once, one step below the home hero | `text-4xl md:text-5xl lg:text-6xl` |
-| Section | The one statement a section exists to make | `text-3xl md:text-4xl lg:text-5xl` |
-| Subsection | A heading inside a section that already has one | `text-2xl md:text-3xl` |
-| Item | One card, step or row in a grid or list | `text-xl md:text-2xl` |
+| `--color-paper` | `#FFFFFF` | the page |
+| `--color-ink` | `#1C1A1B` | text, lines |
+| `--color-ink-1/2` | `#4A4547` / `#6F6A6C` | body under a headline / sublines, meta |
+| `--color-blush` (= `--color-pink`) | `#F8D9D4` | the one rosé: full surfaces and headline marks |
+| `--color-card` | `#1E1E1E` | black: cards, tags, buttons, footer |
+| `--color-violet` | `#302749` | own surface, max one per page, only for the evidence chapter |
+| `--color-neon` | `#DEFD7E` | signal only |
 
-A page reads as a hierarchy when each section makes one statement at Section
-size and everything under it steps down. Two Section-size headings in one
-region is the usual sign that the region is really two.
+Rules:
+- Rosé opens and closes a page (hero, close). Everything between is white.
+  No rosé bands or tinted panels in the middle.
+- Black stays black. Violet is never a card, button or text color.
+- No strong pink anywhere. No third accent.
+- Primary buttons are black on every surface; hover shows rosé text. Never
+  pink on pink.
+- **Highlighting:** on white, a headline word gets a rosé mark, a phrase in
+  running text a neon mark. On rosé: never. On black: neon is fine. The home
+  uses one of each ("once", "burn money"). Marks are drawn as a band
+  (`linear-gradient`) so they never reach into the line above.
 
-Scale notes for agents:
-- The `hero` token is the desktop size (72px); it steps down responsively (mobile ≈ 36px, tablet ≈ 48–60px). Dashboards rarely need `hero`; a screen title is `h2` at most.
-- Buttons are always mono, uppercase, small (`label-caps`), with a trailing `→` or `>` glyph. Button text is never Inter, never sentence-case.
-- Big numbers (scores, KPIs) are mono bold at display sizes (e.g. a 78/100 health score renders the "78" at ~3rem mono bold ink-0, the "/100" small and ink-0 at 30% opacity).
+## Type
+
+Schibsted Grotesk (400/500) for everything read, IBM Plex Mono (500) for
+labels, tags, meta. Both self-hosted via fontsource (no Google Fonts CDN;
+the site promises no tracking).
+
+Scale (tokens `--kx-*`): display (home stage), display-2 (page heroes and
+closes), h1 (chapter headlines), sub (grey line under a headline), body-l,
+body. Headlines are regular weight, tight tracking (−0.045 to −0.055em),
+`text-wrap: balance`. Mono at zero tracking, never below 12px, sentence case.
+Four text styles per block at most.
 
 ## Layout
 
-- **Container:** max-width 1280px (80rem), centered, 24px side padding. On desktop the container carries **1px vertical borders on both sides** (`line-0`) — the blueprint rails. In a dashboard context the equivalent is: every panel region is explicitly ruled; nothing floats in undefined space.
-- **Section rhythm:** generous — 64–96px vertical padding between major regions on marketing pages, proportionally tighter (24–48px) inside dashboard panels. When in doubt, add more air: the system's density comes from fine lines and small mono type, not from cramming.
-- **Sections separate by whitespace, structure separates by border.** Top-level sections carry no full-width rule between them: the vertical padding (`py-16 md:py-24`, `py-24 md:py-32`) does the separating. A rule that repeats at every section boundary stops carrying information and just reads as clutter. Inside a section, borders still do real work: lists and grids of cards use a single-border wrapper with internal 1px dividers (divide-x / divide-y) rather than per-card borders with gaps, and a register line (`01 · Section` over a 1px `line-0` rule) marks a column head. The result reads as one ruled sheet, not floating cards.
-- **One border convention:** where a rule is used, set it as `border-top` on the lower element. Never mix `border-b` on one region with `border-t` on the next, which doubles the rule in some places and drops it in others.
-- **Page heroes start at the same height:** every page below the homepage opens its hero container with `pt-36 md:pt-48`. The navbar is fixed and ~66px tall, so this is the only thing holding the first line of every page on one baseline. Bottom padding varies with what follows; top padding does not. The homepage is the exception: its hero is `h-screen` and vertically centered, so it uses `pt-20` purely to clear the navbar.
-- **The dotted grid:** hero/empty regions may carry a subtle dot-matrix background — 1px dots of `ink-0` at ~13% opacity on a 28px grid, masked to fade out radially. This is the "graph paper" of the blueprint language. Use sparingly; one region per screen. Works unchanged in both themes since it references `ink-0`.
-- **Grids:** 2–5 columns, collapsing to one column below 768px. Sidebars in dashboard layouts are fixed-width (~176px), `bg-2`, hidden on mobile so the main panel gets full width.
-- **Figures get labels:** every diagram, chart, or mock carries a `fig-label` (mono, 10px, 0.2em tracking, ink-2, uppercase) in the format `FIG.1 · Fleet view`, positioned at the region's top corner. This one detail does a large share of the "engineering document" feel.
+- One measure for all pages: `--kx-max` 1440px, `--kx-pad` side margin,
+  `--kx-hero-top` from nav to the first label, `--kx-sec` chapter rhythm.
+  Every hero's first line sits at the same height and edge.
+- Every page hero: `(Label)` in mono, then the headline in corner brackets.
+- Chapters are separated by whitespace, never by a rule. Fine 1px ink rules
+  only where they structure content: over columns, between list rows, tables.
+- Chapter kicker: a black tag with the number in white, then the title in mono.
+- No boxes around lists or card grids; one rule per item. Square corners,
+  no shadows, no icons as decoration.
+- The nav takes the color of the section under it (`data-surface` on the
+  section: `blush`, `violet`, else paper).
 
-## Elevation & Depth
+## Motion and figures
 
-There are **no drop shadows anywhere**, in either theme. Depth is expressed exclusively through:
+Calm by default, motion only where it explains. The stage carries the three
+films as tabs (landscape from 1024px, portrait below), silent until asked,
+paused off screen and under reduced motion. The 1920s futurism of the deck
+survives only in small marks (corner brackets, the dot band, a tilted tag).
+Figures are drawn in ink, the stopped/wrong element rosé, the target neon.
 
-1. **Background steps:** bg-0 → bg-1 → bg-2 → bg-3. In dark this is a *lift* (each step brighter); in light it is a *recess* (each step slightly darker/greyer than the canvas) — same token names, same visual logic of "further from the page," opposite literal direction. A surface one step further from bg-0 always reads as one level closer/more elevated.
-2. **Border brightening:** hover raises `line-0` to `line-1` (or the theme's equivalent contrast step); active/selected states use `bg-3` washes.
-3. **Backdrop blur for overlays only:** modal and fixed-header backdrops use the page color at 70–95% opacity plus `backdrop-blur` — the only "soft" effect in the system.
+Films live in `public/films/{tokenburn,promptinjection,claimsdrift}-{16x9,9x16}.{mp4,jpg}`,
+re-encoded to ~1.2 MB (`ffmpeg -crf 26 -movflags +faststart`).
 
-Never combine a background-step change and a border brightening on the same hover; pick one.
+## Switches
 
-## Shapes
+`src/data/features.ts`: `SERVICES = false` hides the build service (nav,
+footer, in-page links, workers on /use-cases; /services and /audit noindex
+and out of the sitemap). Set to `true` to bring it back.
 
-**Everything is a rectangle with square corners.** Border-radius is 0 on every panel, card, button, input, table, modal, chip, and tag, in both themes. The only circles in the system are:
+## Older pages
 
-- Status dots (6–10px, `rounded.dot`), often with a slow pulse animation when the status is live.
-- The three decorative "window chrome" dots on terminal/browser mocks (red/amber/green at 40–60% opacity).
+Most subpages are still written in Tailwind utility classes from the old
+blueprint design. The translation layer at the end of `global.css` maps them
+onto this system (weights, tracking, rules, boxes, tags, figure strokes,
+hero and close). New or rewritten pages should use the tokens directly, the
+way `index.astro` and `use-cases.astro` do.
 
-Iconography is minimal, stroke-based (1.5–2px stroke, no fills), and used sparingly: checkmarks (`live`), X-marks (`alert` or ink-2), arrows (`→`). No icon library aesthetic; most "icons" are typographic glyphs (→, ✓, ✕, $, ↓).
+## QA before every push
 
-## Components
-
-**Buttons.** Exactly two variants (see tokens). Primary: `cta-fill` background, `on-primary` uppercase mono text, square corners — the brightest surface in dark, the darkest surface in light, always the single highest-contrast element on screen. Ghost: transparent with a 1px `line-1`-strength border, ink-1 text, brightening to a full-contrast border + ink-0 text on hover. Every button ends in `→` (or `>` in compact navbar contexts), and the arrow nudges 2px to the right on hover (via a gap transition — a signature micro-interaction). In any pair, "the one action we actually want" is primary and sits to the right; the secondary yields first when space is tight.
-
-**Cards / panels.** `bg-1` on `bg-0`, 1px `line-0` border, 24–32px padding, square. Hover states (only where the whole card is a link): background to `bg-2` **or** border to `line-1`, never both. Dashboard stat tiles are the compact form: a `fig-label`-style mono label on top, a large mono bold value below.
-
-**Tables.** Semantic tables inside a single 1px border; header row on `bg-0` with mono uppercase tracked labels (`table-header`); body rows divided by `line-0`, `body-sm` ink-1 text; row hover `bg-3`. In comparison tables, the emphasized column gets ink-0 text and a barely-there wash. Wide tables scroll horizontally inside their own wrapper, never the page.
-
-**Terminal / code blocks.** These default to `.dark-island` in both themes (see Colors → "Opting a component out of theming"): `bg-1`/`bg-0` dark values with window chrome (three dots + a mono path/URL slug in a bordered pill), mono body, green `$` prompts, comments at low ink-0 opacity, output lines in `live` for success. A `COPY` button in the chrome copies real commands and flips to `COPIED` for 1.4s. Terminals show *plausible real* content — actual commands, realistic IDs like `agent:b6068d94edf0`, timestamps — never lorem-ipsum-grade filler.
-
-**Status & chips.** Mono, 9–10px, uppercase, wide-tracked, accent-colored text with an accent/30% 1px border and optional accent/8% fill: `● STABLE` (live), `BREACH` (alert), `FREE` (live), `ENTERPRISE` (ink with lock glyph). Live statuses pair with a pulsing dot.
-
-**Forms.** Labels above fields (`body-sm`-ish, 12px, ink-1). Inputs: `bg-1`, 1px `line-0` border, ink-0 text, ink-2 placeholder, focus = border brightens to ink-0-strength (no glow, no ring, square). Validation via native mechanisms; success states swap in-place with a green check in a `live/10%` circle.
-
-**Modal.** Centered, max-width ~512px, `bg-2` with `line-1` border, page-color backdrop at 70% + blur. Closes on backdrop, X, and Escape.
-
-**The dashboard reference (Fleet Status).** The canonical product-UI composition, already shipped as a mock: fixed mono sidebar (`bg-2`, ~176px, tiny mono nav items, active item on a `bg-3` wash) · main panel with a mono screen title + one-line ink-2 subtitle · a hero metric panel (big mono score, status chip, labeled 1px-thin progress bars using `live/60%` fills on `bg-3` tracks) · an alert banner (`alert/30%` border, `alert/5%` fill, pulsing dot, mono uppercase label, "View incident →" ghost affordance) · a row of stat tiles · dense mono data tables. This mock inverts correctly in light mode (its container is not `.dark-island`); rebuild screens in this grammar and they will look like KYDE in either theme.
-
-**Signature figures & animation grammar.** The marketing site's identity pieces, and the rules they encode for any new animated component:
-- *The firewall / data-stream (canvas):* small 2px square particles drift as ungoverned noise, cross a shimmering 1px vertical boundary, and either snap into an ordered lattice with a brief green pulse (signed) or bounce off with a red ✕ flash (blocked). Occasional soft radial bloom at the crossing point. This is the product thesis as physics.
-- *The radar (SVG):* a slow sweep that reveals blips — shadow agents becoming visible.
-- *The hash chain:* mono chain of `#a4d1 ── #a4d2 ✓` cells appending on a ~2s tick; periodically a tamper attempt turns one cell red and visibly breaks every link after it (`─╳─`), with a status line announcing the rejection, then heals.
-- Rules for all of the above: `requestAnimationFrame` loops gated by `IntersectionObserver` (paused off-screen); an explicit `prefers-reduced-motion` branch rendering one static meaningful frame; palette read live from CSS custom properties (`getComputedStyle`) rather than hardcoded rgb triples, with a listener on theme-change so canvases/SVGs re-read and repaint immediately when the user switches themes; geometry limited to 1–2.5px squares, dots, and 1px lines — never smooth blobby shapes.
-- Ambient micro-motion allowed: scroll-reveal (12px rise + fade, once, 0.4s), bar fills growing to width on reveal (1.2s cubic-bezier), SVG paths drawing themselves (stroke-dashoffset), a 1.1s-blink green terminal cursor, 7s float on hovering detail cards.
-
-## Voice
-
-**Write like Stripe, not like an AI company.** The two are easy to tell apart and the difference is not tone, it is whether a sentence carries information.
-
-The house voice is plain, specific, and unhurried. It states what a thing does, names the constraint, and stops. It assumes the reader is competent and busy. A claim comes with the mechanism that makes it true, or it does not get made.
-
-**Do**
-- Lead with the concrete noun: "a hash-chained record", "one process area", "two weeks".
-- Use numbers, names and limits. "Approve under 2,000, above that escalate" beats "intelligent thresholds".
-- Say what a thing does not do, and where it stops. The boundary is the most credible sentence on any page.
-- Keep sentences short enough to read once. Prefer a period to a comma and a comma to a semicolon.
-- Let the verb do the work: records, blocks, recomputes, hands back, stops.
-
-**Don't**
-- No "empower", "unleash", "seamless", "transform", "revolutionize", "cutting-edge", "next-generation", "supercharge", "effortless", "game-changing".
-- No "AI-powered", "AI-driven", "leveraging AI", "harness the power of". The product is not interesting because AI is in it.
-- No sentence that would survive having the product name swapped for a competitor's. If it fits anyone, it says nothing.
-- No superlatives we cannot show. "The most complete" is a claim about other people's products that we cannot check.
-- No em-dashes (see below), and no exclamation marks anywhere.
-- Do not sell the future in the present tense. A capability that is not built says so, in the same sentence, in the reader's words rather than in a roadmap chip.
-
-**Write to the reader, never about them.** The people reading are running the
-business being described. Three habits break that, and all three are easy to
-fall into while writing quickly:
-
-- *Explaining your own rhetoric.* "Naming these is what makes the other two
-  believable" tells the reader why they should be convinced, which is the one
-  argument that cannot work on somebody who is reading it. State the fact and
-  let it do its own work.
-- *Talking about them in the third person.* "The person who has to defend it
-  internally" is the reader. Say "you".
-- *Narrating your own sales motion.* "These pay for the first project" and
-  "which is why there is a second project" describe our revenue, not their
-  benefit. Cut them.
-
-**No sentence that describes how the text behaves.** Only what happens and what
-comes out of it. Three patterns give it away every time, and they usually
-arrive together at the end of a paragraph:
-
-- *Saying what it is not.* "It ends with a document, not a dashboard." The
-  reader did not ask about dashboards. Say what the document contains.
-- *Praising your own honesty.* "Where the evidence stops it says so instead of
-  rounding up." A claim of integrity is worth nothing; the behaviour it
-  describes is worth stating plainly, once, as a fact about the deliverable.
-- *Landing on an aphorism.* "Some blockers fall without anybody doing
-  anything." It reads as a writer enjoying the ending rather than a company
-  describing a service.
-
-A negation is fine when it carries product information about time or place:
-"enforced before the action executes, not in a report afterwards" tells the
-reader when. "A document, not a dashboard" tells them nothing.
-
-**The shape of a good block**, and it is the same every time: category as an
-eyebrow, the benefit as a headline with a verb in it, one paragraph with real
-numbers, a link. Nothing after the link.
-
-> **The audit**
-> **See what can run without you, before you build anything**
-> We take one process area and the infrastructure behind it. You get a dated
-> readout: how many steps can be automated today, what each of the others is
-> waiting on, and who owns it. Three days for a team, two weeks for a
-> department. Fixed price, credited against your first automation project.
-> [More about the audit →]
-
-**Never claim to know their business better than they do.** "We know what
-should be automated now" reads as arrogant twice over: it puts us above the
-person running the process, and *should* decides something that is theirs to
-decide. Ask the question they already have and answer it together. "What could
-be automated right now?" is the same page with the customer on the right side
-of it.
-
-**Frame it positively when the positive frame is also the true one.** Work that
-stays with a person is not a limitation to be disclosed, it is the judgement
-your experts were hired for, and automating everything around it is what buys
-them the room to do it. Say that, rather than listing legal risks. The negative
-version is not more honest, it is just colder, and it makes an expensive
-decision feel like a liability review.
-
-The test: read the sentence out loud to somebody who runs the process being described. If they would nod, it ships. If they would wait for the actual point, it does not.
+`npm run build`, `npm run qa:spell`, `npx html-validate "dist/**/*.html"`,
+`npm run qa:links`, `npm run qa:i18n` (if an English page with a German
+counterpart changes, update the German page, then `npm run qa:i18n -- --update`).
+Check visual changes in a real browser, whole page, desktop and phone.
 
 ## Legal notice on articles
 
@@ -501,27 +138,3 @@ One accessibility consequence worth knowing: the notice is an `<aside>`, so any
 page that already had an unnamed `<aside>` now has two landmarks and needs
 `aria-label` on both. `npm run qa:html` catches this.
 
-## Do's and Don'ts
-
-**Do**
-- Do use 1px `line-0` borders as the primary structural device; put visible rules around and between everything.
-- Do label every figure, panel, and region with small uppercase mono (`01 · …`, `FIG.1 · …`, `AGENTS (3)`).
-- Do keep body text at ink-1 and reserve ink-0 for headlines and key values, in both themes.
-- Do use green (`live`) for anything alive, verified, or signed, and red (`alert`) for anything blocked — and treat a blocked-red state as the product succeeding, not erroring.
-- Do end buttons with `→` and keep them mono + uppercase.
-- Do give animations a claim to argue, an off-screen pause, a reduced-motion fallback, and a theme-change listener that repaints them from live token values.
-- Do use realistic data in mocks (plausible agent IDs, timestamps, models, costs).
-- Do build every new component so it themes correctly by default; reach for `.dark-island` only when content genuinely degrades when inverted (terminals, some code-dense mocks), not as a default shortcut.
-- Do let elevation invert direction between themes (lift in dark, recess in light) while keeping the same token names and the same "further from bg-0 = more elevated" logic.
-
-**Don't**
-- Don't use border-radius on anything except status dots.
-- Don't use drop shadows, glows, or colored gradients (the only gradients are canvas-to-transparent overlay fades and the single red→green health-scale strip).
-- Don't fill a card or panel with a color brighter than the page canvas in light mode; elevation recesses, it never "lifts to white."
-- Don't use the literal color-extreme (#FFFFFF / #000000) directly anywhere; use `ink-0`/`cta-fill`/`bg-0` tokens, which are near-extreme, theme-aware, and never pure.
-- Don't use `acid` on buttons/links, or `gold` as a status color, in either theme.
-- Don't use em-dashes in any user-facing copy (house rule; use periods, colons, or commas).
-- Don't set button or label text in Inter, or body prose in mono.
-- Don't animate for delight alone, and don't let any animation run while off-screen.
-- Don't add a third button variant, a shadowed card, or an icon library — if a component seems to need them, the composition is wrong, not the system.
-- Don't hardcode theme-specific hex values in component code; reference tokens so the component works in both themes automatically.
