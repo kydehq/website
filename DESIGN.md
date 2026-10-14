@@ -31,7 +31,7 @@ reference page). A page built new should read the tokens, not copy values.
   and inline enforcement are Enterprise; Kyde does not claim to recognize
   every injection, it sees what the agent does next; a stop hands the
   decision to a human; all scene numbers are marked illustrative.
-- Primary CTA: **Book a demo**.
+- Primary CTA: **Contact sales**.
 
 ## Color
 
