@@ -1,0 +1,12 @@
+---
+import IndustryPage from '../../components/industries/IndustryPage.astro';
+import { INDUSTRIES, type Industry, type IndustryPage as Page } from '../../data/industries';
+
+// One route per industry that has its page written. The others are listed
+// on /industries without a link until they do.
+export function getStaticPaths() {
+  return INDUSTRIES.filter((i) => i.page).map((industry) => ({ params: { slug: industry.slug }, props: { industry } }));
+}
+const { industry } = Astro.props as { industry: Industry & { page: Page } };
+---
+<IndustryPage industry={industry} />

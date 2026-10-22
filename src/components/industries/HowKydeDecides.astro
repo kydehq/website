@@ -1,0 +1,77 @@
+---
+// The same block on every industry page, word for word, so the claim about
+// how Kyde decides cannot drift one page at a time. It is the evidence
+// chapter, so it takes the one violet surface a page may have.
+//
+// Held to what is built: the deterministic score ships; a language model
+// that explains a finding is planned, hence "may be used later". Do not
+// say more about that layer until Jürgen has confirmed where it stands.
+interface Props {
+  /** Chapter number in the kicker */
+  n: string;
+}
+const { n } = Astro.props;
+
+// The figure: one agent's runs against its own band. Drawn, not plotted;
+// the values are illustrative. The last runs leave the band and are rosé.
+const W = 560, H = 230, x0 = 28, x1 = W - 16, bandTop = 86, bandBot = 142;
+const ys = [118, 104, 126, 112, 98, 121, 109, 131, 115, 102, 124, 111, 107, 128, 116, 100, 119, 113, 58, 44, 36, 31];
+const step = (x1 - x0) / (ys.length - 1);
+const dots = ys.map((y, i) => ({ cx: x0 + i * step, cy: y, out: y < bandTop || y > bandBot }));
+---
+<section data-surface="violet" class="hkd" id="how-kyde-decides">
+  <div class="hkd-wrap">
+    <div class="hkd-kicker"><span class="hkd-num">{n}</span><span class="hkd-mono">How Kyde decides</span></div>
+    <div class="hkd-grid">
+      <div>
+        <h2 class="hkd-h">Kyde compares each run of an agent with the agent's normal behavior, using frequencies and statistics.</h2>
+        <div class="hkd-body">
+          <p>No language model is involved in the decision. The same record always produces the same score, and anyone with the record can recompute it.</p>
+          <p>Language models may be used later to help explain a finding. They do not make the decision. When an agent deviates, a person decides what happens next.</p>
+        </div>
+        <ul class="hkd-links hkd-mono">
+          <li><a href="/behavioral-drift">The research</a></li>
+          <li><a href="https://github.com/kydehq/behavioral-drift-detection" rel="noopener">The code on GitHub</a></li>
+        </ul>
+      </div>
+      <figure class="hkd-fig">
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="hkd-fig-cap">
+          <rect x={x0 - 8} y={bandTop} width={x1 - x0 + 16} height={bandBot - bandTop} class="hkd-band" />
+          <line x1={x0 - 8} x2={x1 + 8} y1={bandTop} y2={bandTop} class="hkd-edge" />
+          <line x1={x0 - 8} x2={x1 + 8} y1={bandBot} y2={bandBot} class="hkd-edge" />
+          <line x1={x0 - 8} x2={x1 + 8} y1={H - 30} y2={H - 30} class="hkd-axis" />
+          {dots.map((d) => <circle cx={d.cx} cy={d.cy} r="4.5" class={d.out ? 'hkd-out' : 'hkd-in'} />)}
+          <text x={x0 - 8} y={bandBot + 20} class="hkd-t">(Normal behavior)</text>
+          <text x={dots[18].cx - 12} y={22} class="hkd-t" text-anchor="end">(Deviation)</text>
+          <text x={x1 + 8} y={H - 10} class="hkd-t" text-anchor="end">Runs →</text>
+        </svg>
+        <figcaption id="hkd-fig-cap" class="hkd-mono hkd-cap">*Illustrative. One agent, one frequency per run, against the band of its own past runs.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hkd { background: var(--color-violet); color: #fff; }
+  .hkd-wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); padding-block: var(--kx-sec); }
+  .hkd-mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .hkd-kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
+  .hkd-num { background: #fff; color: var(--color-violet); font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
+  .hkd-grid { display: grid; grid-template-columns: 1fr; gap: 56px clamp(24px, 3.3vw, 48px); align-items: center; }
+  @media (min-width: 1024px) { .hkd-grid { grid-template-columns: 1.1fr 1fr; } }
+  .hkd-h { font-size: var(--kx-h3); font-weight: 400; line-height: 1.08; letter-spacing: -0.035em; max-width: 26ch; text-wrap: balance; }
+  .hkd-body { margin-top: clamp(24px, 3vw, 36px); display: grid; gap: 1rem; max-width: 52ch; }
+  .hkd-body p { font-size: var(--kx-body-l); line-height: 1.38; letter-spacing: -0.012em; color: rgb(255 255 255 / 0.82); }
+  .hkd-links { list-style: none; padding: 0; margin: clamp(28px, 3vw, 40px) 0 0; display: flex; flex-wrap: wrap; gap: 12px 28px; }
+  .hkd-links a { font-size: 1rem; border-bottom: 1px solid currentColor; padding-bottom: 2px; white-space: nowrap; }
+  .hkd-links a:hover { border-bottom-color: transparent; }
+  .hkd-fig { margin: 0; border-top: 1px solid rgb(255 255 255 / 0.35); padding-top: 20px; }
+  .hkd-fig svg { width: 100%; height: auto; display: block; }
+  .hkd-band { fill: rgb(255 255 255 / 0.08); }
+  .hkd-edge { stroke: rgb(255 255 255 / 0.6); stroke-width: 1; stroke-dasharray: 3 4; }
+  .hkd-axis { stroke: rgb(255 255 255 / 0.6); stroke-width: 1; }
+  .hkd-in { fill: #fff; }
+  .hkd-out { fill: var(--color-blush); }
+  .hkd-t { font-family: var(--font-mono); font-weight: 500; font-size: 13px; fill: rgb(255 255 255 / 0.75); }
+  .hkd-cap { font-size: 0.875rem; line-height: 1.5; color: rgb(255 255 255 / 0.7); margin-top: 12px; }
+</style>

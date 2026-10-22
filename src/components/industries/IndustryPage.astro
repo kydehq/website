@@ -1,0 +1,257 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import HowKydeDecides from './HowKydeDecides.astro';
+import Scene from './Scene.astro';
+import type { Industry, IndustryPage } from '../../data/industries';
+
+// One industry, in the order every industry page follows: hero, risks, why
+// now, an example, how Kyde decides, regulation where it carries, how to
+// start, and what is measured and what is not. The page is meant to be sent
+// instead of a deck, so it has to stand on its own.
+//
+// Tone: plain sentences that state a fact. No punchlines, no "X, not Y", no
+// rhetorical questions, no triads for rhythm, no dramatizing the agent. What
+// is not built is "with design partners". Legal statements come from the
+// vertical law matrix, word for word where it has the wording.
+interface Props {
+  industry: Industry & { page: IndustryPage };
+}
+const { industry } = Astro.props;
+const p = industry.page;
+
+// Chapters are numbered in the order they appear, and regulation is optional.
+let n = 0;
+const num = () => String(++n).padStart(2, '0');
+const nRisks = num(), nNow = num(), nScene = num(), nHow = num();
+const nRegs = p.regs ? num() : '';
+---
+
+<Base title={p.title} description={p.description}>
+  <Navbar />
+
+  <main class="kx">
+    <!-- ══════════ HERO ══════════ -->
+    <section data-surface="blush" class="surface-rose hero">
+      <div class="wrap hero-inner">
+        <p class="mono label"><a href="/industries" class="crumb">(Industries)</a> {industry.name}</p>
+        <div class="brackets">
+          <h1 class="hero-h">{industry.hero}</h1>
+        </div>
+        <p class="sub hero-sub">Behavioral scoring for AI agents.</p>
+        {p.audience && <p class="mono hero-for">{p.audience}</p>}
+        <div class="ctas">
+          <button onclick="openModal()" class="btn btn-ink">Contact sales →</button>
+          <a href="#start" class="link-u mono">How to start</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ RISKS ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">{nRisks}</span><span class="mono">Risks</span></div>
+        <h2 class="h1">{p.risksTitle}</h2>
+        <div class={`cols cols-${p.risks.length}`}>
+          {p.risks.map((r) => (
+            <div class="col">
+              <p class="mono label">{r.tag}</p>
+              <p class="body-l">{r.line}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ WHY NOW ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">{nNow}</span><span class="mono">Why now</span></div>
+        <h2 class="h1">{p.nowTitle}</h2>
+        <ul class="rows">
+          {p.now.map((r) => (
+            <li><span class="mono">{r.tag}</span><span class="body-l">{r.line}</span></li>
+          ))}
+        </ul>
+        {p.sources && (
+          <ul class="sources">
+            {p.sources.map((r) => (
+              <li><a href={r.href} rel="noopener" class="link-u mono">{r.label}</a><span>{r.line}</span></li>
+            ))}
+          </ul>
+        )}
+        {p.asides && (
+          <div class={`asides asides-${p.asides.length}`}>
+            {p.asides.map((a) => (
+              <div class="aside">
+                <p class="mono label">{a.tag}</p>
+                <p class="body-l">{a.line}</p>
+                {a.href && <a href={a.href} class="link-u mono">{a.link}</a>}
+              </div>
+            ))}
+          </div>
+        )}
+        {p.asidesNote && <p class="mono note asides-note">*{p.asidesNote}</p>}
+      </div>
+    </section>
+
+    <!-- ══════════ EXAMPLE ══════════ -->
+    <section class="surface-paper" id="example">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">{nScene}</span><span class="mono">Example</span></div>
+        <Scene scene={p.scene} />
+      </div>
+    </section>
+
+    <!-- ══════════ HOW KYDE DECIDES ══════════ -->
+    <HowKydeDecides n={nHow} />
+
+    <!-- ══════════ REGULATION ══════════ -->
+    {p.regs && (
+      <section class="surface-paper">
+        <div class="wrap sec">
+          <div class="kicker"><span class="num">{nRegs}</span><span class="mono">Regulation</span></div>
+          <ul class="regs">
+            {p.regs.map((r) => <li class="body-l">{r}</li>)}
+          </ul>
+          {p.regsNote && <p class="mono note regs-note">*{p.regsNote}</p>}
+        </div>
+      </section>
+    )}
+
+    <!-- ══════════ HOW TO START ══════════ -->
+    <section data-surface="blush" class="surface-rose" id="start">
+      <div class="wrap sec">
+        <div class="start">
+          <div>
+            <div class="brackets">
+              <h2 class="display-2">How to start</h2>
+              <p class="start-sub">{p.startSub ?? 'As a design partner, free of charge.'}</p>
+            </div>
+            <div class="ctas">
+              <button onclick="openModal()" class="btn btn-ink">Contact sales →</button>
+            </div>
+          </div>
+          <ol class="start-steps">
+            <li>
+              <p class="mono label">(Step 1) Connect</p>
+              <p class="body-l">{p.start}</p>
+            </li>
+            <li>
+              <p class="mono label">(Step 2) Two weeks</p>
+              <p class="body-l">Kyde learns the agent's normal behavior and shows you each run that deviates from it.</p>
+            </li>
+            <li>
+              <p class="mono label">(Who you talk to)</p>
+              <p class="body-l founders">
+                <span>Joerg Radehaus, co-founder, product · <a href="mailto:joerg@kyde.com" class="link-u">joerg@kyde.com</a></span>
+                <span>Jürgen Eckel, co-founder, technology · <a href="mailto:juergen@kyde.com" class="link-u">juergen@kyde.com</a></span>
+              </p>
+            </li>
+          </ol>
+        </div>
+        <p class="mono note start-note">*We work with a small number of design partners at a time.</p>
+
+        <!-- what is measured and what is not: the page's footnote, under the
+             close so that rosé still ends the page -->
+        <div class="measured">
+          <div class="col">
+            <p class="mono label">(What is measured)</p>
+            <p class="note-body">{p.measured}</p>
+          </div>
+          <div class="col">
+            <p class="mono label">(What Kyde does not see)</p>
+            <p class="note-body">{p.notSeen}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .kx { --gap: clamp(24px, 3.3vw, 48px); --rule: 1px solid var(--color-ink); }
+  .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
+  .sec { padding-block: var(--kx-sec); }
+  .surface-paper { background: var(--color-paper); color: var(--color-ink); }
+  .surface-rose { background: var(--color-blush); color: var(--color-ink); }
+
+  .display-2 { font-size: var(--kx-display-2); font-weight: 400; line-height: 0.92; letter-spacing: -0.05em; max-width: 16ch; }
+  .h1 { font-size: var(--kx-h1); font-weight: 400; line-height: 0.98; letter-spacing: -0.045em; max-width: 20ch; text-wrap: balance; }
+  .sub { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink-2); margin-top: 1.1rem; max-width: 42ch; }
+  .body-l { font-size: var(--kx-body-l); line-height: 1.32; letter-spacing: -0.012em; }
+  .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .label { font-size: 0.9375rem; margin-bottom: 0.9rem; }
+  .note { font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-2); max-width: 70ch; }
+
+  .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
+  .kicker .num { background: var(--color-card); color: #fff; font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
+  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) var(--kx-bracket); }
+  .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 16px; height: 16px; border-left: 1px solid currentColor; }
+  .brackets::before { top: 0; border-top: 1px solid currentColor; }
+  .brackets::after { bottom: 0; border-bottom: 1px solid currentColor; }
+
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 2.5rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-weight: 500; font-size: 1rem; padding: 14px 22px 15px; }
+  .btn-ink { background: var(--color-card); color: #fff; }
+  .btn-ink:hover { background: #000; }
+  .link-u { font-size: 1rem; border-bottom: 1px solid currentColor; padding-bottom: 2px; white-space: nowrap; }
+  .link-u:hover { border-bottom-color: transparent; }
+
+  /* hero: the sentence is longer than a page title, so it sits a step
+     below display-2 and gets a wider measure */
+  .hero { padding-top: var(--kx-nav); }
+  .hero-inner { padding-block: var(--kx-hero-top) var(--kx-hero-bottom); }
+  .hero-inner > .label { margin-bottom: 1.1rem; }
+  .crumb { border-bottom: 1px solid transparent; }
+  .crumb:hover { border-bottom-color: currentColor; }
+  .hero-h { font-size: clamp(2.6rem, 4.9vw, 5.4rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.05em; max-width: 19ch; text-wrap: balance; }
+  .hero-sub { color: var(--color-ink); margin-top: clamp(24px, 3vw, 40px); }
+  .hero-for { font-size: 0.9375rem; line-height: 1.5; margin-top: 14px; max-width: 64ch; }
+
+  /* risks: two or three columns under a rule, never padded to three */
+  .cols { display: grid; grid-template-columns: 1fr; gap: 32px var(--gap); margin-top: clamp(48px, 6vw, 88px); }
+  @media (min-width: 900px) { .cols-2 { grid-template-columns: repeat(2, 1fr); } .cols-3 { grid-template-columns: repeat(3, 1fr); } }
+  .col { border-top: var(--rule); padding-top: 16px; }
+
+  /* why now */
+  .rows { list-style: none; padding: 0; margin: clamp(40px, 5vw, 72px) 0 0; border-top: var(--rule); max-width: 1100px; }
+  .rows li { display: grid; grid-template-columns: minmax(110px, 180px) 1fr; gap: 8px 24px; align-items: baseline; border-bottom: var(--rule); padding: 16px 0 18px; }
+  .rows .mono { font-size: 0.9375rem; }
+  @media (max-width: 640px) { .rows li { grid-template-columns: 1fr; } }
+  .sources { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px; max-width: 1100px; }
+  .sources li { display: grid; grid-template-columns: minmax(110px, 180px) 1fr; gap: 4px 24px; align-items: baseline; font-size: var(--kx-body); line-height: 1.5; color: var(--color-ink-1); }
+  .sources .link-u { font-size: 0.875rem; justify-self: start; }
+  @media (max-width: 640px) { .sources li { grid-template-columns: 1fr; } }
+  .asides { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: clamp(48px, 6vw, 80px); }
+  .asides-1 { max-width: 640px; }
+  @media (min-width: 900px) { .asides-2 { grid-template-columns: 1fr 1fr; } }
+  .aside { background: var(--color-card); color: #fff; padding: 22px 24px 24px; }
+  .asides-note { margin-top: 14px; }
+  .aside .label { color: var(--color-blush); font-size: 0.875rem; margin-bottom: 8px; }
+  .aside .link-u { display: inline-block; margin-top: 18px; }
+
+  /* regulation */
+  .regs { list-style: none; padding: 0; margin: 0; border-top: var(--rule); max-width: 1100px; }
+  .regs li { border-bottom: var(--rule); padding: 16px 0 18px; color: var(--color-ink-1); }
+  .regs-note { margin-top: 20px; }
+
+  /* how to start */
+  .start { display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); align-items: start; }
+  @media (min-width: 1024px) { .start { grid-template-columns: 1fr 1fr; } }
+  .start-sub { font-size: clamp(1.4rem, 2.4vw, 2.3rem); letter-spacing: -0.03em; line-height: 1.1; margin-top: 14px; }
+  .start-steps { list-style: none; padding: 0; margin: 0; border-top: var(--rule); }
+  .start-steps li { border-bottom: var(--rule); padding: 14px 0 18px; }
+  .founders { display: grid; gap: 6px; }
+  .founders .link-u { font-size: inherit; }
+  .start-note { margin-top: clamp(40px, 5vw, 64px); }
+
+  /* measured: the page's footnote, small and plain */
+  .measured { display: grid; grid-template-columns: 1fr; gap: 32px var(--gap); margin-top: clamp(64px, 8vw, 120px); }
+  @media (min-width: 900px) { .measured { grid-template-columns: 1fr 1fr; } }
+  .note-body { font-size: var(--kx-body); line-height: 1.5; color: var(--color-ink-1); max-width: 60ch; }
+</style>

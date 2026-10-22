@@ -4,7 +4,7 @@
 
 ## The problem
 
-AI agents don't fail loudly. They fail expensively. An agent is checked once, on the day it goes live; after that, the only one watching it is the agent itself. Three things go wrong, and each is usually found weeks later, from a customer, a bill or an auditor:
+Know when your AI agents go off task. An agent is checked once, on the day it goes live; after that, the only one watching it is the agent itself. Three things go wrong, and each is usually found weeks later, from a customer, a bill or an auditor:
 
 - **Loops (money).** An agent retries, loops and calls tools again and again overnight. Tokens, compute and API costs pile up; the invoice is the first alert.
 - **Hijack (security).** A document, website, email or tool response carries instructions (prompt injection). The agent follows them with the operator's credentials, for example exporting customer data to an outside address.
@@ -116,11 +116,16 @@ SP 800-207 defines zero trust architecture for users and devices; agents inherit
 
 ### Site
 
-- [Kyde](https://kyde.com/): The front door. AI agents don't fail loudly, they fail expensively; behavioral scoring for AI agents; the bank analogy; how it works (observe, learn, score, limit, stop, prove); how to start (setup, then two weeks).
+- [Kyde](https://kyde.com/): The front door. Know when your AI agents go off task; behavioral scoring for AI agents; the bank analogy; how it works (observe, learn, score, limit, stop, prove); how to start (setup, then two weeks).
 - [Platform](https://kyde.com/platform): The layer under the score: the flight recorder, the inventory of agents nobody registered, identity, policy, data and limits checked at the moment of action, replay, and a tamper-evident record an auditor recomputes.
-- [Use Cases](https://kyde.com/use-cases): Three nights nobody was watching: an agent that loops and burns tokens, an agent hijacked by an email into uploading customer data, a claims agent that approves every claim. What happened, what the score saw, what Kyde did. Plus the insurer's view: a behavioral score you can underwrite, like a telematics box in a car.
+- [Industries](https://kyde.com/industries): Behavioral scoring for AI agents, by industry: agentic commerce, insurance, banking and fintech, physical AI, security providers and healthcare. Each page names the risks, an example, and how Kyde decides: frequencies and statistics against the agent's own normal behavior, no language model in the decision.
+- [Agentic Commerce](https://kyde.com/industries/agentic-commerce): Kyde scores an agent's behavior before its payment is approved. A behavioral signal for agent payments, computed without a language model, for card networks, payment processors, agent wallets and the companies whose agents pay.
+- [Insurance](https://kyde.com/industries/insurance): Kyde detects when a claims or service agent changes how it decides: after a model update, through a manipulated document, or when it passes on customer data its task does not need. Regulation: DORA, Solvency II, KI-MIG, GDPR Article 22, EU AI Act.
+- [Banking & Fintech](https://kyde.com/industries/banking): Kyde detects when an agent in KYC, AML or lending stops following the procedure it was approved for.
+- [Physical AI](https://kyde.com/industries/physical-ai): Kyde detects when an agent that controls a machine has been compromised.
+- [Security Providers](https://kyde.com/industries/security-providers): Kyde detects when a security agent you run for a customer has been compromised.
+- [Healthcare](https://kyde.com/industries/healthcare): Kyde detects when an agent accesses patient data that is not part of its task.
 - [Company](https://kyde.com/company): What Kyde builds and why. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.
-- [Kyde Labs](https://kyde.com/labs): The layer applied to agents that act on physical infrastructure — grid dispatch, battery storage, industrial automation. What is being built, and what is not built yet.
 - [FAQ](https://kyde.com/faq): What security and compliance teams ask before deploying the gateway — latency, data privacy, audit evidence, and how it differs from a SIEM or an API gateway.
 - [Resources](https://kyde.com/resources): Hub for documentation, regulatory analysis and technical guides.
 

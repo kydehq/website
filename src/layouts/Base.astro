@@ -63,7 +63,7 @@ const articleSchema = datePublished
     ? {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          headline: headline ?? title.replace(/,\s*KYDE$/, ""),
+          headline: headline ?? title.replace(/,\s*KYDE$/i, ""),
           description,
           datePublished,
           image: ogImage,
@@ -173,7 +173,11 @@ const articleSchema = datePublished
                             }
                         }
                     },
-                    { threshold: 0.08 },
+                    // A share of the section as threshold never fires for a
+                    // section taller than the viewport divided by that share
+                    // (an 8000px checklist on a laptop stayed invisible).
+                    // A margin off the bottom edge works for any height.
+                    { threshold: 0, rootMargin: "0px 0px -8% 0px" },
                 );
                 sections.forEach((el, i) => {
                     if (i === 0) return; // hero is visible immediately

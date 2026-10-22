@@ -1,0 +1,138 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import HowKydeDecides from '../../components/industries/HowKydeDecides.astro';
+import Scene from '../../components/industries/Scene.astro';
+import { INDUSTRIES, type Scene as SceneData } from '../../data/industries';
+
+// The overview replaces /use-cases (October 2026). It lists the industries
+// in the order of the data file, each with the sentence its page opens on
+// (or its own tile line), and shows the scene every industry shares: an
+// email that hijacks an agent through what it reads. Security Providers tells the same attack on a SOC
+// triage agent, the claims agent is on Insurance. An industry without a
+// page yet is listed without a link.
+
+const hijack: SceneData = {
+  title: 'An email tells an agent to upload your customer data.',
+  sub: 'The instruction is hidden in a message the agent was asked to read. The same attack works in every industry.',
+  film: 'promptinjection',
+  timeline: [
+    { t: '09:14', line: 'A support agent reads an incoming email, as it does every day.' },
+    { t: '09:14', line: 'Hidden in the text: export the customer table to an outside address.' },
+    { t: '09:15', line: 'The agent starts an export forty times its normal size, to a destination it has never used.', mark: true },
+  ],
+  kyde: 'Kyde does not have to recognize the injection. It sees a destination outside the agent\'s baseline and a volume far outside it. The upload is blocked, and security gets the record.',
+};
+---
+
+<Base
+  title="Industries, Kyde"
+  description="Behavioral scoring for AI agents, by industry: agentic commerce, insurance, banking and fintech, physical AI, security providers and healthcare. What Kyde detects in each, and how it decides without a language model."
+>
+  <Navbar />
+
+  <main class="kx">
+    <!-- ══════════ HERO ══════════ -->
+    <section data-surface="blush" class="surface-rose hero">
+      <div class="wrap hero-inner">
+        <p class="mono label">(Industries)</p>
+        <div class="brackets">
+          <h1 class="display-2">Behavioral scoring for AI agents, by industry.</h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ THE INDUSTRIES ══════════ -->
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">01</span><span class="mono">Industries</span></div>
+        <ol class="ind-list">
+          {INDUSTRIES.map((i, k) => {
+            const inner = (
+              <>
+                <span class="mono ind-n">{String(k + 1).padStart(2, '0')}</span>
+                <span class="ind-name">{i.name}</span>
+                <span class="ind-hero">{i.tile ?? i.hero}</span>
+                <span class="mono ind-go">{i.page ? '→' : '(In preparation)'}</span>
+              </>
+            );
+            return <li>{i.page ? <a href={`/industries/${i.slug}`} class="ind-row">{inner}</a> : <div class="ind-row ind-later">{inner}</div>}</li>;
+          })}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ══════════ EXAMPLE ══════════ -->
+    <section class="surface-paper" id="hijack">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">02</span><span class="mono">Example</span></div>
+        <Scene scene={hijack} />
+      </div>
+    </section>
+
+    <HowKydeDecides n="03" />
+
+    <!-- ══════════ CLOSE ══════════ -->
+    <section data-surface="blush" class="surface-rose">
+      <div class="wrap sec">
+        <div class="brackets">
+          <h2 class="display-2">Start with one agent.</h2>
+        </div>
+        <p class="sub">Read only, free of charge, as a design partner.</p>
+        <div class="ctas">
+          <button onclick="openModal()" class="btn btn-ink">Contact sales →</button>
+          <a href="/#start" class="link-u mono">How to start</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .kx { --gap: clamp(24px, 3.3vw, 48px); --rule: 1px solid var(--color-ink); }
+  .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
+  .sec { padding-block: var(--kx-sec); }
+  .surface-paper { background: var(--color-paper); color: var(--color-ink); }
+  .surface-rose { background: var(--color-blush); color: var(--color-ink); }
+
+  .display-2 { font-size: var(--kx-display-2); font-weight: 400; line-height: 0.92; letter-spacing: -0.05em; max-width: 16ch; }
+  .sub { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink); margin-top: 1.4rem; max-width: 42ch; }
+  .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .label { font-size: 0.9375rem; margin-bottom: 1.1rem; }
+
+  .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
+  .kicker .num { background: var(--color-card); color: #fff; font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
+  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) var(--kx-bracket); }
+  .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 16px; height: 16px; border-left: 1px solid currentColor; }
+  .brackets::before { top: 0; border-top: 1px solid currentColor; }
+  .brackets::after { bottom: 0; border-bottom: 1px solid currentColor; }
+
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 2.5rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-weight: 500; font-size: 1rem; padding: 14px 22px 15px; }
+  .btn-ink { background: var(--color-card); color: #fff; }
+  .btn-ink:hover { background: #000; }
+  .link-u { font-size: 1rem; border-bottom: 1px solid currentColor; padding-bottom: 2px; white-space: nowrap; }
+  .link-u:hover { border-bottom-color: transparent; }
+
+  .hero { padding-top: var(--kx-nav); }
+  .hero-inner { padding-block: var(--kx-hero-top) var(--kx-hero-bottom); }
+
+  /* the list: one row per industry, a rule between, the whole row a link */
+  .ind-list { list-style: none; padding: 0; margin: 0; border-top: var(--rule); }
+  .ind-list li { border-bottom: var(--rule); }
+  .ind-row { display: grid; grid-template-columns: 48px minmax(180px, 300px) 1fr auto; gap: 8px 24px; align-items: baseline; padding: 22px 0 24px; }
+  .ind-n { font-size: 0.9375rem; }
+  .ind-name { font-size: var(--kx-h3); letter-spacing: -0.035em; line-height: 1.05; }
+  .ind-hero { font-size: var(--kx-body-l); line-height: 1.32; letter-spacing: -0.012em; color: var(--color-ink-1); max-width: 52ch; }
+  .ind-go { font-size: 1.125rem; white-space: nowrap; }
+  a.ind-row:hover .ind-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+  .ind-later .ind-name, .ind-later .ind-hero { color: var(--color-ink-2); }
+  .ind-later .ind-go { font-size: 0.8125rem; color: var(--color-ink-2); }
+  @media (max-width: 900px) {
+    .ind-row { grid-template-columns: 36px 1fr auto; }
+    .ind-hero { grid-column: 2 / 4; }
+  }
+</style>

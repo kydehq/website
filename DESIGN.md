@@ -14,7 +14,9 @@ reference page). A page built new should read the tokens, not copy values.
 - Category: **Behavioral scoring for AI agents.** One name everywhere
   (titles, meta, footer, llms.txt). Not "behavioral firewall" (kept only as a
   glossary term), not "zero trust layer" as a headline.
-- The claim: **AI agents don't fail loudly. They fail expensively.**
+- The claim: **Know when your AI agents go off task.** (October 2026; it was
+  "AI agents don't fail loudly. They fail expensively.", which fit the loop
+  film but not the hijack that now opens the stage.)
 - Two pains a buyer owns a budget for: money (runaway loops) and security
   (prompt injection). Drift is the mechanism underneath.
 - The three stories, used on the home, /use-cases and in the films:

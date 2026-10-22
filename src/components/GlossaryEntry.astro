@@ -41,7 +41,6 @@ const breadcrumbSchema = {
     { "@type": "ListItem", position: 3, name: term, item: `https://kyde.com/glossary/${slug}` },
   ],
 };
-import { AUDIT_CTA } from '../data/features';
 ---
 
 <Base title={title} description={description}>
@@ -108,15 +107,15 @@ import { AUDIT_CTA } from '../data/features';
         <div class="border border-line-0 p-10 md:p-14">
           <div class="max-w-3xl">
             <h2 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight text-ink-0 mb-4">
-              See it running, not just defined.
+              Talk to us about the agents you run.
             </h2>
             <p class="text-base text-ink-1 mb-8">
-              Deploy the Kyde Gateway Starter in five minutes, or talk to us.
+              Start with one agent. Read only, free of charge, as a design partner.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href={AUDIT_CTA.href} class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">{AUDIT_CTA.label}</a>
-              <a href="/docs/" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
-                Read the Docs →
+              <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">Contact sales →</button>
+              <a href="https://github.com/kydehq/behavioral-drift-detection" rel="noopener" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
+                The research on GitHub →
               </a>
             </div>
           </div>

@@ -30,13 +30,13 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "behavioral-drift",
     de: "de/wissen/behavioral-drift",
-    sourceHash: "dabcd57dc3d0d1d7",
+    sourceHash: "03deeb59ae491fe2",
     note: "Dieselbe Argumentation in zwei Sprachen, nicht zwei eigenständige Texte: die Befunde sind dieselben und jede Zahl ist gegen dieselbe Arbeit geprüft. Übersetzt wird sie, weil sie an Forschung und an Artikel 72 hängt statt an unserem Produkt, also selten veraltet, und weil KI-MIG und BaFin deutsches Publikum sind.",
   },
   {
     en: "qualified-electronic-ledger",
     de: "de/wissen/qualifiziertes-elektronisches-journal",
-    sourceHash: "41bc6ba6598f634a",
+    sourceHash: "a94790d93500b48b",
     note: "Nicht übersetzt, sondern eigenständig geschrieben: die deutsche Fassung ist eine Bestandsaufnahme mit eigener Auswertung der Vertrauenslisten, die englische eine Referenz zum Rechtsakt. Der Hash steht trotzdem, weil beide Seiten dieselben Rechtsaussagen tragen und nicht auseinanderlaufen dürfen.",
   },
 ];

@@ -326,7 +326,7 @@ export const KEY_PAGES: Article[] = [
   {
     category: "Platform",
     title: "Behavioral Scoring for AI Agents",
-    summary: "AI agents don't fail loudly, they fail expensively. Kyde scores every action your agents take against their own normal behavior and stops them when it changes: drift, prompt injection, loops that burn money.",
+    summary: "Know when your AI agents go off task. Kyde scores every action your agents take against their own normal behavior and stops them when it changes: drift, prompt injection, loops that burn money.",
     href: "/",
   },
   {
@@ -349,9 +349,45 @@ export const KEY_PAGES: Article[] = [
   },
   {
     category: "Platform",
-    title: "Use Cases",
-    summary: "Three nights nobody was watching: a looping agent, an agent hijacked by an email, a claims agent that approves everything. What Kyde sees, and why insurers care.",
-    href: "/use-cases",
+    title: "Industries",
+    summary: "Behavioral scoring for AI agents, by industry: agentic commerce, insurance, banking and fintech, physical AI, security providers and healthcare.",
+    href: "/industries",
+  },
+  {
+    category: "Industry",
+    title: "AI Agents in Insurance",
+    summary: "Kyde detects when a claims or service agent changes how it decides.",
+    href: "/industries/insurance",
+  },
+  {
+    category: "Industry",
+    title: "AI Agents in Banking and Fintech",
+    summary: "Kyde detects when an agent in KYC, AML or lending stops following the procedure it was approved for.",
+    href: "/industries/banking",
+  },
+  {
+    category: "Industry",
+    title: "AI Agents in Healthcare",
+    summary: "Kyde detects when an agent accesses patient data that is not part of its task.",
+    href: "/industries/healthcare",
+  },
+  {
+    category: "Industry",
+    title: "AI Agents in Agentic Commerce",
+    summary: "Kyde scores an agent's behavior before its payment is approved. A behavioral signal for agent payments.",
+    href: "/industries/agentic-commerce",
+  },
+  {
+    category: "Industry",
+    title: "AI Agents in Physical AI",
+    summary: "Kyde detects when an agent that controls a machine has been compromised.",
+    href: "/industries/physical-ai",
+  },
+  {
+    category: "Industry",
+    title: "AI Agents for Security Providers",
+    summary: "Kyde detects when a security agent you run for a customer has been compromised.",
+    href: "/industries/security-providers",
   },
   {
     category: "Reference",

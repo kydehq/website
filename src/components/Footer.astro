@@ -1,6 +1,7 @@
 ---
 import { localeOf } from "../data/locales";
 import { SERVICES } from "../data/features";
+import { INDUSTRIES } from "../data/industries";
 
 const footerLinks = {
     Platform: [
@@ -15,8 +16,10 @@ const footerLinks = {
     Services: [
         { label: "AI Workers", href: "/services" },
         { label: "The Audit", href: "/audit" },
-        { label: "Use Cases", href: "/use-cases" },
-        { label: "Kyde Labs", href: "/labs" },
+    ],
+    Industries: [
+        { label: "Overview", href: "/industries" },
+        ...INDUSTRIES.filter((i) => i.page).map((i) => ({ label: i.name, href: `/industries/${i.slug}` })),
     ],
     Learn: [
         { label: "EU AI Act Compliance", href: "/eu-ai-act-compliance" },
@@ -96,7 +99,7 @@ const wm = wordmarkDots("KYDE");
 
 <footer class="site-footer dark-island bg-bg-0">
     <div class="mx-auto max-w-[1440px] px-[clamp(20px,5.5vw,80px)] py-16">
-        <div class="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-6">
+        <div class="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 lg:grid-cols-6">
             <!-- Brand -->
             <div class="col-span-2">
                 <a href="/" class="inline-flex items-center">
@@ -109,7 +112,7 @@ const wm = wordmarkDots("KYDE");
 
             <!-- Link groups -->
             {
-                Object.entries(links).map(([group, links]) => (
+                Object.entries(links).filter(([, links]) => links.length > 0).map(([group, links]) => (
                     <div>
                         <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-5">
                             {group}

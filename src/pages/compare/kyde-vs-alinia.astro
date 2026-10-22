@@ -38,7 +38,6 @@ const faqSchema = {
     acceptedAnswer: { "@type": "Answer", text: a },
   })),
 };
-import { AUDIT_CTA } from '../../data/features';
 ---
 
 <Base
@@ -197,13 +196,13 @@ import { AUDIT_CTA } from '../../data/features';
               Govern the agents nobody wrapped, and the ones they did.
             </h2>
             <p class="text-lg text-ink-1 mb-10">
-              Start with one process area. Two weeks, a dated readout, and a fixed price in writing.
+              Start with one agent. Read only, free of charge, as a design partner.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href={AUDIT_CTA.href} class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">{AUDIT_CTA.label}</a>
-              <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
-                Talk to Us →
-              </button>
+              <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all">Contact sales →</button>
+              <a href="https://github.com/kydehq/behavioral-drift-detection" rel="noopener" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all">
+                The research on GitHub →
+              </a>
             </div>
             <p class="mt-8 font-mono text-xs text-ink-2">
               <a href="/faq" class="hover:text-ink-0 transition-colors">FAQ</a>

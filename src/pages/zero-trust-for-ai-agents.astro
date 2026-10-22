@@ -60,7 +60,6 @@ const breadcrumbSchema = {
     { "@type": "ListItem", position: 3, name: "Zero Trust for AI Agents", item: "https://kyde.com/zero-trust-for-ai-agents" },
   ],
 };
-import { AUDIT_CTA } from '../data/features';
 ---
 
 <Base
@@ -169,10 +168,10 @@ import { AUDIT_CTA } from '../data/features';
           </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href={AUDIT_CTA.href} class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all w-fit">{AUDIT_CTA.label}</a>
-          <a href="/" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all w-fit">
-            See the Platform →
-          </a>
+          <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all w-fit">Contact sales →</button>
+          <a href="https://github.com/kydehq/behavioral-drift-detection" rel="noopener" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all w-fit">
+                The research on GitHub →
+              </a>
         </div>
       </div>
     </section>
