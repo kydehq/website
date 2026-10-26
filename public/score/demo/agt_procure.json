@@ -1,0 +1,55 @@
+{
+  "name": "Office Supplies Agent",
+  "description": "Demo agent 'Office Supplies Agent' used to illustrate the behavioral-score extension.",
+  "version": "1.0.0",
+  "supportedInterfaces": [
+    {
+      "url": "https://agents.example.com/agt_procure/a2a/v1",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "organization": "Example Corp (demo)",
+    "url": "https://example.com"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "https://kyde.com/score/ext/behavioral-score/v0.1",
+        "description": "Independent behavioral score computed from this agent's operating records.",
+        "required": false,
+        "params": {
+          "issuer": "https://kyde.com/score",
+          "subject": "agt_procure",
+          "lookup": "https://kyde.com/score/v0/agents/agt_procure.json",
+          "attestation": "eyJhbGciOiJFZERTQSIsImtpZCI6Imt5ZGUtc2NvcmUtZGVtby0xIiwidHlwIjoia3lkZS1zY29yZStqd3QifQ.eyJiYW5kIjoibm9ybWFsIiwiYmFzZWxpbmUiOiI1NDFkN2FkYzhmYjg0MmEyIiwiYmFzZWxpbmVfZGF5cyI6MTQsImNuZiI6eyJqa3QiOiJMNHJfRmtBM25XbEhUeGFYLU1YblR6clp6d1ZaM3hBMFMwdlNaOU9tVXJRIn0sImV2aWRlbmNlIjoib2JzZXJ2ZWQiLCJleHAiOjE3OTMwMTIyODgsImZsYWdzIjpbXSwiaWF0IjoxNzkyOTI1ODg4LCJpc3MiOiJodHRwczovL2t5ZGUuY29tL3Njb3JlIiwibWV0aG9kIjoia3lkZS1kcmlmdGRldGVjdEA0ZjUxMTljK3Njb3JlLTAuMSIsIm9ic2VydmF0aW9ucyI6MTcyLCJwcmluY2lwYWwiOiJzc28tYXR0ZXN0ZWQiLCJzY29yZSI6MTAwLCJzdWIiOiJhZ3RfcHJvY3VyZSIsIndpbmRvd19ob3VycyI6MjR9.T5pA9GwPD1DXOEbrdLLpGIcMpXUadzVVSo2MVDzjEeDfJ3VUAhHz-NKlk0YHUcpYJs8WXIM_xfpnsFBfbpkaAw"
+        }
+      }
+    ]
+  },
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "main",
+      "name": "Office Supplies Agent",
+      "description": "Office Supplies Agent",
+      "tags": [
+        "demo"
+      ]
+    }
+  ],
+  "signatures": [
+    {
+      "protected": "eyJhbGciOiJFZERTQSIsImp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6Ijc2dFJ6Yl9jZnVDdU9yUkZEZ2RKcjF3UFBfZ1dRN25UTEhoUHRqWGJsem8ifSwia2lkIjoiYWd0X3Byb2N1cmUtY2FyZC0xIn0",
+      "signature": "55VSVDptU1APym2PHIrpDQZ4cezW1yUrI73xJCMV3CmvDzCUbkc_jYZxWBy1w1ANepZUmApBDKsyTRj5jOsEAw"
+    }
+  ]
+}

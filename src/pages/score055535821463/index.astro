@@ -1,0 +1,582 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+// score.kyde, written for a developer who arrives from Hacker News: the first
+// screen says what goes wrong, what goes in and what comes out. Site nav and
+// footer like every other page, because the page lives inside kyde.com.
+//
+// Written as the page will read on launch day. Until the key API exists,
+// MOCK_KEYS = true makes the form answer itself with a placeholder key and
+// sends nothing anywhere, so the flow can be walked through. Every value the
+// backend still has to confirm is marked xxx. Before launch: MOCK_KEYS = false,
+// check KEYS_URL and OTLP_ENDPOINT, replace every xxx (Linear KYDE-322).
+const MOCK_KEYS = true;
+const KEYS_URL = 'https://api.kyde.com/score/v0/keys';
+const OTLP_ENDPOINT = 'https://ingest.kyde.com';
+const REPO = 'https://github.com/kydehq/behavioral-drift-detection';
+const RESULTS = `${REPO}/blob/main/experiments/results`;
+const PAPER = `${REPO}/blob/main/paper/behavioral-drift-detection-survey.md`;
+
+// The contract, in the order a developer asks for it.
+const contract = [
+  { k: 'You send', v: `OpenTelemetry over OTLP/HTTP to ${OTLP_ENDPOINT}. Traces or logs, from any OTel SDK, an OTel Collector or Claude Code.` },
+  { k: 'Auth', v: 'One header: x-kyde-key. Nothing else to configure.' },
+  { k: 'Registering agents', v: 'Nothing to register. Each agent is identified by its OpenTelemetry service.name and appears with its first data. One key covers all your agents.' },
+  { k: 'You get', v: 'A webhook POST with a JSON body when an agent\'s band changes. Slack and Discord URLs get a formatted message instead.' },
+  { k: 'You can pull', v: 'The current score of any agent as a signed JSON record (JWS, EdDSA). Format in the spec.' },
+  { k: 'Your agent waits on KYDE', v: 'Never. Export is asynchronous. If KYDE is down, your agents run exactly as before.' },
+  { k: 'How it scores', v: 'Deterministic statistics, no LLM. Same records, same score. Recompute any verdict yourself.' },
+  { k: 'Code changes', v: 'None. No SDK, no wrapper, no proxy in the call path.' },
+  { k: 'Price', v: 'Free hosted. The detectors are open source if you would rather run them yourself.' },
+];
+
+const detects = [
+  { tag: '(Hijack)', name: 'It starts doing new things.', what: 'An agent suddenly calls tools it rarely or never called before. The pattern a prompt injection in an email or a web page tends to leave.', how: 'CUSUM on the surprisal of each call against the baseline.', code: 'abrupt_shift' },
+  { tag: '(Loop)', name: 'It does the same thing again and again.', what: 'The same tool with the same parameters, over and over. Runaway retries, double submissions, a token bill at 3 a.m.', how: 'Duplicate calls counted within a run.', code: 'duplicate_submission' },
+  { tag: '(Drift)', name: 'It slowly stops being itself.', what: 'The mix of actions moves away from the baseline, often after a model update nobody told you about.', how: 'Windowed Jensen-Shannon divergence on the action distribution.', code: 'gradual_drift' },
+];
+
+const fields = [
+  { f: 'Timestamp', why: 'when the call happened' },
+  { f: 'Run ID and step number', why: 'which task, which position in it' },
+  { f: 'Tool name', why: 'what the agent did' },
+  { f: 'Hash of the parameters', why: 'repeats are visible, the content is not' },
+  { f: 'Status', why: 'ok, error or abort' },
+  { f: 'Model and model version', why: 'drift after an update' },
+];
+
+const records = [
+  { rec: 'OpenHands submissions: Kimi K2 vs. GPT-5, July and August 2025', obs: 'Tool-use distributions differed by a Jensen-Shannon divergence of 0.105.', src: `${RESULTS}/swebench-two-regime.md` },
+  { rec: 'SWE-agent submissions: GPT-4 vs. Claude 3.5 Sonnet, April and June 2024', obs: 'Tool-use distributions differed by 0.116.', src: `${RESULTS}/swebench-two-regime.md` },
+  { rec: 'SWE-agent submissions: Claude 3.5 Sonnet vs. GPT-4o, June and July 2024', obs: 'Tool-use distributions differed by 0.091.', src: `${RESULTS}/swebench-two-regime.md` },
+  { rec: 'GAIA agent, o3-mini (TRAIL): 117 runs, 3,579 calls', obs: 'Calls with an error status rose from 2.1% in steps 0 to 9 to 25.5% in steps 30 to 39.', src: `${RESULTS}/trail-context-decay.md` },
+  { rec: 'GAIA and SWE-bench traces (TRAIL): 148 runs with human error annotations', obs: 'Only 5.8% and 5.5% of the errors humans annotated also carried an error status in the trace.', src: `${RESULTS}/trail-context-decay.md` },
+];
+
+const faq = [
+  { q: 'Is this an API or a webhook?', a: 'Both, in one direction each. Your agents push OpenTelemetry to KYDE, KYDE pushes an alert to your webhook. If you would rather poll, the current score of every agent is a signed JSON record you can GET.' },
+  { q: 'How do I add an agent?', a: 'Start it with the two environment variables. KYDE knows it by its OpenTelemetry service.name, so give each agent its own (OTEL_SERVICE_NAME=invoice-agent). It shows up with its first data and starts learning its baseline. No form, no dashboard, no registration call.' },
+  { q: 'What does the score mean?', a: 'A number from 0 to 100 for how close an agent\'s behavior is to its own baseline. 70 and above is normal, 40 to 69 is watch, below 40 is deviating. You get an alert when the band changes, not on every unusual call. It is a signal for triage, not a probability that an agent was compromised.' },
+  { q: 'Does it detect prompt injection?', a: 'It detects what a hijacked agent does next: tools it does not normally use, in an order it does not normally use them. From metadata alone it cannot prove an attack, and it will not catch an injection that changes nothing the agent does. The published results show where the detectors work and where they do not.' },
+  { q: 'I run agents for clients, inside their networks. Does that work?', a: 'That is the case it is built for. The agent exports from wherever it runs, and the alert goes to you, the team that deployed it. Only call metadata leaves the client\'s network, and you can strip it further in their Collector before it does.' },
+  { q: 'Will I get false alarms?', a: 'Sometimes. Alerts fire on band changes after a baseline of 30 runs, which keeps the noise down. We publish detector results, false-alarm rates included where we have them, so you can judge the fit before you rely on it.' },
+  { q: 'Why is it free?', a: 'Real operational records show us how agents behave outside benchmarks, and that makes the detectors better. What we sell is the same scoring inside your own infrastructure, plus blocking and quarantine.' },
+  { q: 'Can I run it myself?', a: 'Yes. The reference detectors are open source and use only the Python standard library. Same records, same score. No LLM in the scoring path.' },
+];
+
+const curlKey = `curl -X POST ${KEYS_URL} \\
+  -H "Content-Type: application/json" \\
+  -d '{"webhook_url":"https://your.app/hooks/kyde"}'
+
+# → 201
+# {"key":"kyde_live_…","test_sent":true}`;
+
+const tabs = [
+  {
+    id: 'sdk', label: 'Any OTel SDK',
+    code: `export OTEL_EXPORTER_OTLP_ENDPOINT=${OTLP_ENDPOINT}
+export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"`,
+  },
+  {
+    id: 'claude', label: 'Claude Code',
+    code: `export CLAUDE_CODE_ENABLE_TELEMETRY=1
+export OTEL_LOGS_EXPORTER=otlp
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+export OTEL_EXPORTER_OTLP_ENDPOINT=${OTLP_ENDPOINT}
+export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"`,
+  },
+  {
+    id: 'collector', label: 'OTel Collector',
+    code: `processors:
+  attributes/kyde:          # content never leaves
+    actions:
+      - { key: gen_ai.prompt, action: delete }
+      - { key: gen_ai.completion, action: delete }
+      - { key: gen_ai.tool.call.arguments, action: hash }
+
+exporters:
+  otlphttp/kyde:
+    endpoint: ${OTLP_ENDPOINT}
+    headers: { x-kyde-key: "<YOUR_KEY>" }`,
+  },
+];
+
+// The alert as it lands. Illustrative: the agent, the tool and the numbers are
+// invented, but the record behind score_url is a real signed demo record.
+const webhook = `POST /hooks/kyde HTTP/1.1
+Content-Type: application/json
+Kyde-Signature: t=1792925888,v1=xxx
+
+{
+  "event": "agent.band_changed",
+  "agent": "agt_invoice",
+  "score": 35,
+  "band": "deviating",
+  "previous_band": "normal",
+  "reasons": ["abrupt_shift"],
+  "explain": "Called upload_file 14 times in run_8812. Baseline: never.",
+  "at": "2026-10-25T03:12:09Z",
+  "score_url": "https://kyde.com/score/v0/agents/agt_invoice.json"
+}`;
+
+const forAgents = `curl https://kyde.com/score/register.json`;
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "score.kyde",
+  serviceType: "Behavioral scoring for AI agents",
+  url: "https://kyde.com/score",
+  provider: { "@type": "Organization", name: "Kyde", url: "https://kyde.com" },
+  description: "Know when your AI agents go rogue. Send OpenTelemetry metadata, get a webhook when an agent's behavior changes: hijack-like tool shifts, runaway loops, drift after a model update. Free, no SDK, metadata only, EU-hosted.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+};
+---
+
+<Base
+  noindex
+  title="score.kyde, Know When Your AI Agents Go Rogue"
+  description="You deploy agents where you can't watch them. Point their OpenTelemetry at KYDE and get a webhook when one behaves strangely: hijacked by a prompt, stuck in a loop, drifting after a model update. Metadata only, no SDK, free."
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/json" href="/score/register.json" title="score.kyde for agents" />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  </Fragment>
+
+  <Navbar />
+
+  <main class="kx">
+    <!-- ══════════ STAGE ══════════ -->
+    <section data-surface="blush" class="surface-rose stage">
+      <div class="wrap stage-inner">
+        <div>
+          <div class="brackets">
+            <p class="mono label">(score.kyde · free)</p>
+            <h1 class="stage-title">Know when your agents go rogue.</h1>
+            <p class="stage-line">Your agents run where you can't watch them, in your clients' networks. Point their OpenTelemetry at KYDE. When one behaves strangely, you get a webhook.</p>
+          </div>
+
+          <form id="get-key" class="signup" novalidate
+            data-mock={MOCK_KEYS ? 'true' : 'false'} data-keys-url={KEYS_URL} data-otlp={OTLP_ENDPOINT}>
+            <label class="mono" for="key-target">Where should alerts go?</label>
+            <div class="row">
+              <input type="text" id="key-target" name="target" required inputmode="url" autocomplete="off" spellcheck="false"
+                placeholder="Slack, Discord or your https endpoint" />
+              <button type="submit" class="btn btn-ink" id="key-submit">Get a free key →</button>
+            </div>
+            <p class="mono note form-msg" id="key-msg" role="status"></p>
+            <div class="result-box" id="key-result" hidden>
+              <p class="mono label">Your two lines. Set them where the agent runs.</p>
+              <pre class="code"><code id="key-env"></code></pre>
+              <button type="button" class="btn btn-line copy" data-copy="key-env">Copy</button>
+            </div>
+            <p class="mono note form-hint">No name, no account, no credit card. About two minutes.</p>
+          </form>
+          <ul class="pills mono">
+            <li>OpenTelemetry in</li><li>Webhook out</li><li>No SDK</li><li>Metadata only</li><li>No LLM in the loop</li>
+          </ul>
+        </div>
+
+        <aside class="alert-card" aria-label="What lands on your webhook">
+          <p class="mono label">What lands on your webhook <span class="muted">· example*</span></p>
+          <pre class="code"><code>{webhook}</code></pre>
+          <div class="scale mono">
+            <span class="b-dev">0–39 deviating</span><span class="b-watch">40–69 watch</span><span class="b-ok">70–100 normal</span>
+          </div>
+          <p class="mono note">*Example data. One alert per band change, after a baseline of 30 runs. <a class="link-u" href="/score/v0/agents/agt_invoice.json">score_url</a> is a real signed demo record.</p>
+        </aside>
+      </div>
+      <div class="dots-band" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════ CONTRACT ══════════ -->
+    <section class="surface-paper" id="contract">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">01</span><span class="mono">The contract</span></div>
+        <h2 class="h1">OpenTelemetry in. A <span class="hl hl-rose">webhook</span> out. Nothing in between.</h2>
+        <dl class="contract">
+          {contract.map((c) => (<div><dt class="mono">{c.k}</dt><dd>{c.v}</dd></div>))}
+        </dl>
+      </div>
+    </section>
+
+    <!-- ══════════ SETUP ══════════ -->
+    <section class="surface-paper" id="setup">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">02</span><span class="mono">Setup</span></div>
+        <h2 class="h1">Two environment variables. That's the integration.</h2>
+        <ol class="flow">
+          <li>
+            <div><p class="mono label">(Step 1) Get a key</p>
+              <p class="body-l">POST the URL that should receive alerts. KYDE sends it a test message first, so nobody can sign up someone else's endpoint. Agents can do this themselves.</p></div>
+            <div class="step-code"><pre class="code"><code id="code-curl">{curlKey}</code></pre>
+            <button type="button" class="btn btn-line copy" data-copy="code-curl">Copy</button></div>
+          </li>
+          <li>
+            <div><p class="mono label">(Step 2) Point your exporter at KYDE</p>
+              <p class="body-l">Whatever already speaks OTLP. Run the Collector in your client's network to strip content before it leaves.</p></div>
+            <div class="step-code"><div class="tabs" role="tablist" aria-label="Exporter">
+              {tabs.map((t, i) => (
+                <button type="button" role="tab" class="tab mono" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{t.label}</button>
+              ))}
+            </div>
+            {tabs.map((t, i) => (
+              <div role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} hidden={i !== 0}>
+                <pre class="code code-tab"><code id={`code-${t.id}`}>{t.code}</code></pre>
+                <button type="button" class="btn btn-line copy" data-copy={`code-${t.id}`}>Copy</button>
+              </div>
+            ))}</div>
+          </li>
+          <li>
+            <div><p class="mono label">(Step 3) Get the webhook</p>
+              <p class="body-l">KYDE learns each agent's baseline over its first 30 runs. From then on, a band change sends one POST: the score, the reason in plain words and a link to the signed record.</p></div>
+            <div class="step-code"><p class="body-l muted">Verify the <span class="mono">Kyde-Signature</span> header with your key: HMAC-SHA256 over timestamp and body. Non-2xx responses are retried. The payload is the one at the top of this page.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ══════════ WHY NO LLM ══════════ -->
+    <!-- The paper's determinism argument, in the words a developer uses. -->
+    <section class="surface-paper" id="no-llm">
+      <div class="wrap sec two">
+        <div>
+          <div class="kicker"><span class="num">03</span><span class="mono">Why no LLM</span></div>
+          <h2 class="h1">An LLM watching your LLM drifts&nbsp;too.</h2>
+        </div>
+        <div class="why">
+          <p class="body-l">A model that judges your agent changes with every update, just like the agent. Then you are watching one drifting system with another, and nobody can say which of the two moved.</p>
+          <p class="body-l">KYDE scores with plain statistics against a frozen, fingerprinted baseline: CUSUM for sudden shifts, Jensen-Shannon divergence for slow drift. No model calls, no GPU, no token cost per score.</p>
+          <p class="body-l">Every alert names the baseline and the method version it was computed with. Run the open-source detectors on the same records and you get the same number. A disputed alert is settled by recomputing it, not by trusting us.</p>
+          <p class="mono note-strong"><a class="link-u" href={PAPER} rel="noopener">Read the paper →</a> <span class="muted">Detection approaches surveyed, and the case for deterministic detection.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT SETS IT OFF ══════════ -->
+    <section class="surface-paper" id="detects">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">04</span><span class="mono">What sets it off</span></div>
+        <h2 class="h1">Three ways a good agent goes bad.</h2>
+        <div class="cols3">
+          {detects.map((d) => (
+            <div class="col">
+              <p class="mono label">{d.tag}</p>
+              <p class="col-name">{d.name}</p>
+              <p class="body-m">{d.what}</p>
+              <p class="body-m muted">{d.how}</p>
+              <p class="mono signal"><span>reason</span> {d.code}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mono note-strong"><a class="link-u" href={REPO} rel="noopener">Read the detectors →</a> <span class="muted">Python standard library only.</span></p>
+        <p class="mono note">*An unusual pattern is not proof of an attack. Detection depends on the drift type and the records available.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ WHAT LEAVES ══════════ -->
+    <section class="surface-paper" id="data">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">05</span><span class="mono">What leaves the network</span></div>
+        <div class="two">
+          <div>
+            <h2 class="h1">Call metadata. Never the conversation.</h2>
+            <p class="sub">No prompts, no model outputs, no raw parameters. Delete or hash them in the Collector before export, and KYDE still scores. The hosted service runs in the EU.</p>
+          </div>
+          <ul class="fields">
+            {fields.map((x) => (<li><span>{x.f}</span><span class="muted">{x.why}</span></li>))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ MEASURED ══════════ -->
+    <section class="surface-paper" id="findings">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">06</span><span class="mono">What we measured</span></div>
+        <h2 class="h1">Agents change. The logs rarely say so.</h2>
+        <p class="sub">Public agent records, reproducible methods, every number linked to its results file. These show observable shifts and gaps in error reporting, not attack-detection rates in production.</p>
+        <div class="table-wrap">
+          <table class="findings">
+            <thead><tr><th>Public records</th><th>Observation</th></tr></thead>
+            <tbody>
+              {records.map((r) => (
+                <tr><td>{r.rec}</td><td>{r.obs} <a class="link-u mono src" href={r.src} rel="noopener">Results</a></td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mono note">*The SWE-agent and OpenHands rows compare submissions with different models, not one deployment over time. <a class="link-u" href={REPO} rel="noopener">Code, paper and results →</a></p>
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="surface-paper" id="faq">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">07</span><span class="mono">Questions</span></div>
+        <div class="faq">
+          {faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p class="body-m">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ FOR AGENTS ══════════ -->
+    <section class="surface-paper" id="agents">
+      <div class="wrap sec two">
+        <div>
+          <div class="kicker"><span class="num">08</span><span class="mono">For agents</span></div>
+          <h2 class="h1">Your agent can sign itself up.</h2>
+          <p class="sub">Everything on this page, as one JSON document: what score.kyde does, what is live, and the exact request to join.</p>
+        </div>
+        <div>
+          <pre class="code"><code id="code-agents">{forAgents}</code></pre>
+          <button type="button" class="btn btn-line copy" data-copy="code-agents">Copy</button>
+          <ul class="links mono">
+            <li><a class="link-u" href="/score/register.json">/score/register.json</a></li>
+            <li><a class="link-u" href="/score055535821463/spec">Spec</a>, the signed score format</li>
+            <li><a class="link-u" href="/score/.well-known/jwks.json">/score/.well-known/jwks.json</a>, demo key</li>
+            <li><a class="link-u" href="/llms.txt">/llms.txt</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CLOSE ══════════ -->
+    <section data-surface="blush" class="surface-rose" id="close">
+      <div class="wrap sec close">
+        <div class="brackets">
+          <h2 class="display-2">Find out before your client does.</h2>
+          <p class="start-sub">Two environment variables. One webhook.</p>
+        </div>
+        <div>
+          <a href="#get-key" class="btn btn-ink" id="close-cta">Get a free key →</a>
+          <p class="mono note">Free · No SDK · Open-source detectors</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  const form = document.getElementById('get-key') as HTMLFormElement | null;
+  const input = document.getElementById('key-target') as HTMLInputElement | null;
+  const msg = document.getElementById('key-msg');
+  const btn = document.getElementById('key-submit') as HTMLButtonElement | null;
+  const box = document.getElementById('key-result');
+  const env = document.getElementById('key-env');
+  const label = btn?.textContent ?? '';
+
+  const isUrl = (s: string) => /^https:\/\/\S+$/.test(s);
+  const say = (t: string) => { if (msg) msg.textContent = t; };
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const target = (input?.value ?? '').trim();
+    if (!isUrl(target)) { say('Paste an https webhook URL.'); input?.focus(); return; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Creating…'; }
+    try {
+      let key: string;
+      if (form.dataset.mock === 'true') {
+        // Until the key API exists: a placeholder, nothing is sent.
+        await new Promise((r) => setTimeout(r, 600));
+        key = 'kyde_live_xxxxxxxxxxxxxxxx';
+      } else {
+        const res = await fetch(form.dataset.keysUrl ?? '', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ webhook_url: target }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        key = (await res.json()).key;
+      }
+      if (env) env.textContent = `export OTEL_EXPORTER_OTLP_ENDPOINT=${form.dataset.otlp}\nexport OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=${key}"`;
+      if (box) box.hidden = false;
+      say('Test message sent to your webhook. Your agents appear with their first data; alerts start after 30 runs.');
+      if (btn) btn.textContent = 'Key created';
+    } catch {
+      say('That did not work. Try again in a minute, or write to joerg@kyde.com.');
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+    }
+  });
+
+  // The close sends the reader back to the form, ready to type.
+  document.getElementById('close-cta')?.addEventListener('click', () => setTimeout(() => input?.focus({ preventScroll: true }), 400));
+
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+  const select = (t: HTMLButtonElement) => tabs.forEach((x) => {
+    const on = x === t;
+    x.setAttribute('aria-selected', String(on));
+    x.tabIndex = on ? 0 : -1;
+    const panel = document.getElementById(x.getAttribute('aria-controls') ?? '');
+    if (panel) panel.hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      const next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next); next.focus();
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((b) => {
+    b.addEventListener('click', async () => {
+      const el = document.getElementById(b.dataset.copy ?? '');
+      try { await navigator.clipboard.writeText(el?.textContent ?? ''); b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy'), 1500); }
+      catch { b.textContent = 'Select and copy'; }
+    });
+  });
+</script>
+
+<style>
+  .kx { --gap: clamp(24px, 3.3vw, 48px); --rule: 1px solid var(--color-ink); }
+  .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
+  .sec { padding-block: var(--kx-sec); }
+  .surface-paper { background: var(--color-paper); color: var(--color-ink); }
+  .surface-rose { background: var(--color-blush); color: var(--color-ink); }
+  .surface-paper + .surface-paper .sec { padding-top: 0; }
+
+  .h1 { font-size: var(--kx-h1); font-weight: 400; line-height: 0.98; letter-spacing: -0.045em; max-width: 22ch; text-wrap: balance; }
+  .sub { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink-2); margin-top: 1.1rem; max-width: 46ch; }
+  .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .label { font-size: 0.9375rem; margin-bottom: 0.6rem; }
+  .note { font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-2); max-width: 80ch; margin-top: 18px; }
+  .muted { color: var(--color-ink-2); }
+  .body-l { font-size: var(--kx-body-l); line-height: 1.32; letter-spacing: -0.012em; }
+  .body-l + .body-l { margin-top: 12px; }
+  .body-m { font-size: 1.0625rem; line-height: 1.4; color: var(--color-ink-1); margin-top: 8px; }
+  .note-strong { font-size: 0.9375rem; margin-top: 28px; }
+  .hl-rose { background-image: linear-gradient(transparent 20%, var(--color-blush) 20%, var(--color-blush) 96%, transparent 96%); }
+
+  .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(36px, 5vw, 72px); font-size: 0.9375rem; }
+  .kicker .num { background: var(--color-card); color: #fff; font-family: var(--font-mono); font-weight: 500; padding: 2px 9px 3px; }
+
+  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) var(--kx-bracket); }
+  .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 16px; height: 16px; border-left: 1px solid currentColor; }
+  .brackets::before { top: 0; border-top: 1px solid currentColor; }
+  .brackets::after { bottom: 0; border-bottom: 1px solid currentColor; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: var(--font-mono); font-weight: 500; font-size: 1rem; padding: 14px 22px 15px; cursor: pointer; white-space: nowrap; }
+  .btn-ink { background: var(--color-card); color: #fff; }
+  .btn-ink:hover { background: #000; color: var(--color-blush); }
+  .btn:disabled { opacity: 0.7; cursor: default; }
+  .btn-line { background: transparent; border: 1px solid var(--color-ink); color: var(--color-ink); padding: 6px 12px 7px; font-size: 0.8125rem; margin-top: 8px; }
+  .btn-line:hover { background: var(--color-card); color: #fff; }
+  .link-u { border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .link-u:hover { border-bottom-color: transparent; }
+
+  .code { background: var(--color-card); color: #fff; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.55; padding: 16px 18px; margin-top: 16px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+  .dots-band {
+    border-top: var(--rule);
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--color-ink) 45%, transparent) 0.8px, transparent 1px);
+    background-size: 12px 12px; height: 56px;
+  }
+
+  /* stage: the promise and the form left, the alert as it lands right */
+  .stage { padding-top: var(--kx-nav); }
+  .stage-inner { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); align-items: start; padding-block: var(--kx-hero-top) clamp(48px, 6vw, 96px); }
+  @media (min-width: 1024px) { .stage-inner { grid-template-columns: 1.1fr 0.9fr; } }
+  .stage-inner > * { min-width: 0; }
+  .stage-title { font-size: clamp(3rem, 5vw, 5.4rem); font-weight: 400; line-height: 0.92; letter-spacing: -0.055em; max-width: 12ch; text-wrap: balance; }
+  .stage-line { font-size: var(--kx-sub); line-height: 1.25; letter-spacing: -0.02em; margin-top: 20px; max-width: 38ch; }
+  @media (max-width: 640px) { .stage-title { font-size: 13vw; } .brackets { padding-left: 14px; } }
+
+  .signup { margin-top: 24px; max-width: 40rem; display: grid; gap: 8px; }
+  .signup > label { font-size: 0.875rem; }
+  .signup .row { display: flex; gap: 0; }
+  .signup input { flex: 1; min-width: 0; font: inherit; font-size: 1rem; border: var(--rule); border-right: 0; background: #fff; color: var(--color-ink); padding: 12px 14px; }
+  .signup input:focus { outline: 2px solid var(--color-ink); outline-offset: -2px; }
+  @media (max-width: 520px) { .signup .row { flex-direction: column; } .signup input { border-right: var(--rule); } }
+  .form-msg { margin-top: 0; min-height: 1.2em; color: var(--color-ink); }
+  .form-hint { margin-top: 0; }
+  .result-box { border-top: var(--rule); padding-top: 14px; }
+  .result-box[hidden] { display: none; }
+  .pills { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills li { font-size: 0.8125rem; padding: 3px 9px 4px; border: 1px solid var(--color-ink); }
+
+  .alert-card { background: var(--color-paper); border: var(--rule); padding: clamp(18px, 2vw, 28px); }
+  .alert-card .code { margin-top: 6px; font-size: 0.75rem; }
+  .scale { display: grid; grid-template-columns: 40fr 30fr 31fr; margin-top: 14px; font-size: 0.75rem; }
+  .scale span { padding: 4px 6px 5px; border: 1px solid var(--color-ink); }
+  .scale .b-dev { background: var(--color-blush); }
+  .scale .b-watch { background: #fff; }
+  .scale .b-ok { background: var(--color-neon); }
+
+  /* contract: a definition list, one rule per row */
+  .contract { margin-top: clamp(32px, 4vw, 56px); border-top: var(--rule); max-width: 68rem; }
+  .contract > div { display: grid; grid-template-columns: minmax(180px, 0.45fr) 1fr; gap: 8px var(--gap); padding: 14px 0 15px; border-bottom: var(--rule); }
+  .contract dt { font-size: 0.9375rem; }
+  .contract dd { margin: 0; font-size: var(--kx-body-l); line-height: 1.32; letter-spacing: -0.012em; }
+  @media (max-width: 640px) { .contract > div { grid-template-columns: 1fr; gap: 4px; } }
+
+  .flow { list-style: none; padding: 0; margin: clamp(32px, 4vw, 56px) 0 0; display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); }
+  .flow li { border-top: var(--rule); padding-top: 16px; min-width: 0; display: grid; grid-template-columns: 1fr; gap: 0 var(--gap); }
+  .flow li > div { min-width: 0; }
+  /* desktop: the words left, the code right, so a command never wraps */
+  @media (min-width: 1024px) {
+    .flow li { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+    .step-code > .code:first-child, .step-code > .tabs { margin-top: 0; }
+  }
+  .flow .code { white-space: pre; overflow-wrap: normal; overflow-x: auto; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 0; margin-top: 16px; }
+  .tab { background: transparent; border: 1px solid var(--color-ink); margin-right: -1px; padding: 6px 12px 7px; font-size: 0.8125rem; cursor: pointer; color: var(--color-ink); }
+  .tab[aria-selected="true"] { background: var(--color-card); color: #fff; }
+  .code-tab { margin-top: 0; }
+
+  .cols3 { display: grid; grid-template-columns: 1fr; gap: 40px var(--gap); margin-top: clamp(40px, 5vw, 72px); }
+  @media (min-width: 900px) { .cols3 { grid-template-columns: repeat(3, 1fr); } }
+  .col { border-top: var(--rule); padding-top: 16px; }
+  .col-name { font-size: clamp(1.5rem, 2.2vw, 2.1rem); letter-spacing: -0.035em; line-height: 1.05; }
+  .signal { font-size: 0.875rem; margin-top: 14px; }
+  .signal span { background: var(--color-card); color: #fff; padding: 1px 6px 2px; margin-right: 4px; }
+
+  .two { display: grid; grid-template-columns: 1fr; gap: 48px var(--gap); }
+  @media (min-width: 1024px) { .two { grid-template-columns: 1fr 1fr; } }
+  .two > div { min-width: 0; }
+  .fields { list-style: none; padding: 0; margin: 0; border-top: var(--rule); }
+  .fields li { display: grid; grid-template-columns: minmax(160px, 1fr) 1.2fr; gap: 16px; align-items: baseline; padding: 12px 0 13px; border-bottom: var(--rule); font-size: 1.0625rem; line-height: 1.35; }
+  @media (max-width: 640px) { .fields li { grid-template-columns: 1fr; gap: 2px; } }
+  .why .body-l + .body-l { margin-top: 18px; }
+  @media (min-width: 1024px) { .why { padding-top: calc(1.6rem + clamp(36px, 5vw, 72px)); } } /* level with the headline, below the kicker */
+  .why .note-strong .muted { margin-left: 6px; }
+  .links { list-style: none; padding: 0; margin: 28px 0 0; border-top: var(--rule); }
+  .links li { border-bottom: var(--rule); padding: 12px 0; font-size: 0.9375rem; }
+
+  .table-wrap { overflow-x: auto; margin-top: clamp(32px, 4vw, 56px); }
+  .findings { width: 100%; border-collapse: collapse; }
+  .findings th { font-family: var(--font-mono); font-weight: 500; font-size: 0.875rem; text-align: left; padding: 10px 16px 10px 0; border-bottom: var(--rule); border-top: var(--rule); }
+  .findings td { padding: 14px 16px 15px 0; border-bottom: var(--rule); vertical-align: top; font-size: 1.0625rem; line-height: 1.35; }
+  .findings td:first-child { width: 42%; }
+  .findings .src { font-size: 0.8125rem; margin-left: 6px; white-space: nowrap; }
+  @media (max-width: 720px) {
+    .findings thead { display: none; }
+    .findings, .findings tbody, .findings tr, .findings td { display: block; width: auto !important; }
+    .findings tr { border-top: var(--rule); padding: 12px 0 14px; }
+    .findings td { border: 0; padding: 2px 0; }
+    .findings td:first-child { font-weight: 500; }
+    .findings td:nth-child(2) { color: var(--color-ink-2); }
+  }
+
+  .faq { border-top: var(--rule); max-width: 60rem; }
+  .faq details { border-bottom: var(--rule); padding: 14px 0; }
+  .faq summary { cursor: pointer; font-size: clamp(1.25rem, 1.8vw, 1.6rem); letter-spacing: -0.03em; list-style: none; padding-right: 2rem; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; position: absolute; right: 0; top: 0; font-family: var(--font-mono); }
+  .faq details[open] summary::after { content: '−'; }
+  .faq details p { max-width: 62ch; margin-top: 10px; }
+
+  .display-2 { font-size: var(--kx-display-2); font-weight: 400; line-height: 0.92; letter-spacing: -0.05em; max-width: 14ch; text-wrap: balance; }
+  .start-sub { font-size: clamp(1.3rem, 2.2vw, 2rem); letter-spacing: -0.03em; line-height: 1.1; margin-top: 14px; }
+  .close { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+  @media (min-width: 1024px) { .close { grid-template-columns: 1.4fr 1fr; } }
+</style>

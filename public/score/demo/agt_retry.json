@@ -1,0 +1,55 @@
+{
+  "name": "Travel Booking Agent",
+  "description": "Demo agent 'Travel Booking Agent' used to illustrate the behavioral-score extension.",
+  "version": "1.0.0",
+  "supportedInterfaces": [
+    {
+      "url": "https://agents.example.com/agt_retry/a2a/v1",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "organization": "Example Corp (demo)",
+    "url": "https://example.com"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "https://kyde.com/score/ext/behavioral-score/v0.1",
+        "description": "Independent behavioral score computed from this agent's operating records.",
+        "required": false,
+        "params": {
+          "issuer": "https://kyde.com/score",
+          "subject": "agt_retry",
+          "lookup": "https://kyde.com/score/v0/agents/agt_retry.json",
+          "attestation": "eyJhbGciOiJFZERTQSIsImtpZCI6Imt5ZGUtc2NvcmUtZGVtby0xIiwidHlwIjoia3lkZS1zY29yZStqd3QifQ.eyJiYW5kIjoid2F0Y2giLCJiYXNlbGluZSI6IjgxYzA5ZjA3N2Q0MjA2OTMiLCJiYXNlbGluZV9kYXlzIjoxNCwiY25mIjp7ImprdCI6ImtpYWl5ejF6MU8tNkh3NEcwR1ZZaUszTzNQMUtQYnZfdTJTeVJzNjhsUkUifSwiZXZpZGVuY2UiOiJtZWFzdXJlZCIsImV4cCI6MTc5MzAxMjI4OCwiZmxhZ3MiOlsiZHVwbGljYXRlX3N1Ym1pc3Npb24iXSwiaWF0IjoxNzkyOTI1ODg4LCJpc3MiOiJodHRwczovL2t5ZGUuY29tL3Njb3JlIiwibWV0aG9kIjoia3lkZS1kcmlmdGRldGVjdEA0ZjUxMTljK3Njb3JlLTAuMSIsIm9ic2VydmF0aW9ucyI6MTMwLCJwcmluY2lwYWwiOiJzZWxmLWRlY2xhcmVkIiwic2NvcmUiOjYwLCJzdWIiOiJhZ3RfcmV0cnkiLCJ3aW5kb3dfaG91cnMiOjI0fQ.Ps9EB00dS2FMOxM40t5Q7ba0-OXeUZTDmbDmjkMViJG2khR5KmDUx7s8MzNDI3FGt_F6TL12nCwYeuHrzoYhAA"
+        }
+      }
+    ]
+  },
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "main",
+      "name": "Travel Booking Agent",
+      "description": "Travel Booking Agent",
+      "tags": [
+        "demo"
+      ]
+    }
+  ],
+  "signatures": [
+    {
+      "protected": "eyJhbGciOiJFZERTQSIsImp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6IkpkWUxhQnhqaWZYWldydXEyT1lpakNFTWk2NGdnaVRHUGVPbUlkRmJUcnMifSwia2lkIjoiYWd0X3JldHJ5LWNhcmQtMSJ9",
+      "signature": "dz3ZKJbRfLP0xx9Cf3phsLf-zTSweNDhQ_Lgv_bFcFxWncy6_6HuQ3DDjOdU2ZYRhezcuVWl2fHTfm3Ub7vaBQ"
+    }
+  ]
+}

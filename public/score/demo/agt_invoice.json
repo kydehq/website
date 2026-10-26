@@ -1,0 +1,55 @@
+{
+  "name": "Accounts Payable Agent",
+  "description": "Demo agent 'Accounts Payable Agent' used to illustrate the behavioral-score extension.",
+  "version": "1.0.0",
+  "supportedInterfaces": [
+    {
+      "url": "https://agents.example.com/agt_invoice/a2a/v1",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "organization": "Example Corp (demo)",
+    "url": "https://example.com"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "https://kyde.com/score/ext/behavioral-score/v0.1",
+        "description": "Independent behavioral score computed from this agent's operating records.",
+        "required": false,
+        "params": {
+          "issuer": "https://kyde.com/score",
+          "subject": "agt_invoice",
+          "lookup": "https://kyde.com/score/v0/agents/agt_invoice.json",
+          "attestation": "eyJhbGciOiJFZERTQSIsImtpZCI6Imt5ZGUtc2NvcmUtZGVtby0xIiwidHlwIjoia3lkZS1zY29yZStqd3QifQ.eyJiYW5kIjoiZGV2aWF0aW5nIiwiYmFzZWxpbmUiOiJiNmRlYjUzMTNkMzE3Y2Q3IiwiYmFzZWxpbmVfZGF5cyI6MTQsImNuZiI6eyJqa3QiOiJyWmUzOUVaR1JoMVdzaUdCbEF1dDVBdTZMWjdueGpxRTVaR19IOGJNYlFBIn0sImV2aWRlbmNlIjoibWVhc3VyZWQiLCJleHAiOjE3OTMwMTIyODgsImZsYWdzIjpbImFicnVwdF9zaGlmdCJdLCJpYXQiOjE3OTI5MjU4ODgsImlzcyI6Imh0dHBzOi8va3lkZS5jb20vc2NvcmUiLCJtZXRob2QiOiJreWRlLWRyaWZ0ZGV0ZWN0QDRmNTExOWMrc2NvcmUtMC4xIiwib2JzZXJ2YXRpb25zIjoxMzIsInByaW5jaXBhbCI6InNzby1hdHRlc3RlZCIsInNjb3JlIjozNSwic3ViIjoiYWd0X2ludm9pY2UiLCJ3aW5kb3dfaG91cnMiOjI0fQ.aUQDRtEcBEPiUcCbQe5Q63Osr62Ew6-FSINqHR57QJzwQmAF7XAzrOKGOZBTsShj6AsFRevvQ8unjfRSOHjnDg"
+        }
+      }
+    ]
+  },
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "main",
+      "name": "Accounts Payable Agent",
+      "description": "Accounts Payable Agent",
+      "tags": [
+        "demo"
+      ]
+    }
+  ],
+  "signatures": [
+    {
+      "protected": "eyJhbGciOiJFZERTQSIsImp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6Im52V3J2TUxEQnh6RWhwcnRyZDFwRzR3U3lQOEFWb2dmNGtfZDd4WHZraEkifSwia2lkIjoiYWd0X2ludm9pY2UtY2FyZC0xIn0",
+      "signature": "6HcxARsfzm5L-qowfmyVxPLEwnWkfmymhrv8crVMhw507JzAGiB-K6YGMVd_0pMcLjFsG_KxKrDpQFU05IvpBg"
+    }
+  ]
+}

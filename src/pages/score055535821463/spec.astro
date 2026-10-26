@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+// The spec is kept as one Markdown file so the same text can live in the
+// score repository and here without being retyped.
+import { Content } from '../../data/score-spec.md';
+---
+
+<Base
+  noindex
+  title="A2A Extension: Behavioral Score, Draft v0.1"
+  description="Draft A2A extension that lets an AI agent carry an independent, signed behavioral score: measured from its records, deterministic, valid for 24 hours, bound to the agent's key. Open for comment."
+>
+  <Navbar />
+  <main class="kx">
+    <section data-surface="blush" class="surface-rose hero">
+      <div class="wrap">
+        <div class="brackets">
+          <p class="mono label">(score.kyde · Draft v0.1)</p>
+          <h1 class="title">A2A extension: behavioral score</h1>
+          <p class="line">Open for comment. Write to <a class="link-u" href="mailto:joerg@kyde.com">joerg@kyde.com</a> or <a class="link-u" href="mailto:juergen@kyde.com">juergen@kyde.com</a>.</p>
+        </div>
+      </div>
+    </section>
+    <section class="surface-paper">
+      <div class="wrap sec">
+        <article class="prose-kyde spec">
+          <Content />
+        </article>
+        <p class="mono back"><a class="link-u" href="/score055535821463">Back to score.kyde</a></p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .wrap { max-width: var(--kx-max); margin: 0 auto; padding-inline: var(--kx-pad); }
+  .sec { padding-block: clamp(48px, 6vw, 96px); }
+  .surface-paper { background: var(--color-paper); color: var(--color-ink); }
+  .surface-rose { background: var(--color-blush); color: var(--color-ink); }
+  .hero { padding-top: var(--kx-nav); padding-bottom: clamp(40px, 5vw, 72px); }
+  .hero .wrap { padding-top: var(--kx-hero-top); }
+  .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0; }
+  .label { font-size: 0.9375rem; margin-bottom: 0.6rem; }
+  .title { font-size: var(--kx-display-2); font-weight: 400; line-height: 0.95; letter-spacing: -0.05em; max-width: 18ch; text-wrap: balance; }
+  .line { font-size: var(--kx-sub); line-height: 1.3; letter-spacing: -0.02em; margin-top: 1.2rem; max-width: 46ch; }
+  .link-u { border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .brackets { position: relative; padding: clamp(12px, 1.4vw, 20px) 0 clamp(12px, 1.4vw, 20px) var(--kx-bracket); }
+  .brackets::before, .brackets::after { content: ''; position: absolute; left: 0; width: 16px; height: 16px; border-left: 1px solid currentColor; }
+  .brackets::before { top: 0; border-top: 1px solid currentColor; }
+  .brackets::after { bottom: 0; border-bottom: 1px solid currentColor; }
+
+  .spec { max-width: 78ch; }
+  /* the Markdown's own title duplicates the hero */
+  .spec :global(h1) { display: none; }
+  .spec :global(p), .spec :global(ul), .spec :global(ol) { margin-bottom: 1.1rem; }
+  .spec :global(ul), .spec :global(ol) { padding-left: 1.3rem; }
+  .spec :global(ul) { list-style: disc; }
+  .spec :global(ol) { list-style: decimal; }
+  .spec :global(li) { margin-bottom: 0.4rem; }
+  .spec :global(h2) { margin-bottom: 1rem; }
+  .spec :global(code) { font-family: var(--font-mono); font-size: 0.875em; }
+  .spec :global(pre) { background: var(--color-card) !important; color: #fff; padding: 16px 18px; margin: 0 0 1.4rem; font-size: 0.875rem; line-height: 1.55; }
+  .spec :global(pre code) { color: #fff; }
+  .spec :global(table) { border-collapse: collapse; margin: 0 0 1.4rem; font-size: 0.9375rem; }
+  .spec :global(th), .spec :global(td) { text-align: left; padding: 8px 12px 8px 0; vertical-align: top; }
+  .spec :global(th) { font-family: var(--font-mono); font-weight: 500; }
+  .back { margin-top: 3rem; }
+</style>

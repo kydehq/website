@@ -1,0 +1,55 @@
+{
+  "name": "Research Assistant",
+  "description": "Demo agent 'Research Assistant' used to illustrate the behavioral-score extension.",
+  "version": "1.0.0",
+  "supportedInterfaces": [
+    {
+      "url": "https://agents.example.com/agt_new/a2a/v1",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "organization": "Example Corp (demo)",
+    "url": "https://example.com"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "https://kyde.com/score/ext/behavioral-score/v0.1",
+        "description": "Independent behavioral score computed from this agent's operating records.",
+        "required": false,
+        "params": {
+          "issuer": "https://kyde.com/score",
+          "subject": "agt_new",
+          "lookup": "https://kyde.com/score/v0/agents/agt_new.json",
+          "attestation": "eyJhbGciOiJFZERTQSIsImtpZCI6Imt5ZGUtc2NvcmUtZGVtby0xIiwidHlwIjoia3lkZS1zY29yZStqd3QifQ.eyJiYW5kIjoiaW5zdWZmaWNpZW50IiwiYmFzZWxpbmVfZGF5cyI6MTQsImNuZiI6eyJqa3QiOiJ0YlBQcmc2X0VqYTFHdWZPa1o3SVdOU0kzRjV1QmtOc0xOdzZNX0pzOU9BIn0sImV2aWRlbmNlIjoibWVhc3VyZWQiLCJleHAiOjE3OTMwMTIyODgsImZsYWdzIjpbImJhc2VsaW5lX2luY29tcGxldGUiXSwiaWF0IjoxNzkyOTI1ODg4LCJpc3MiOiJodHRwczovL2t5ZGUuY29tL3Njb3JlIiwibWV0aG9kIjoia3lkZS1kcmlmdGRldGVjdEA0ZjUxMTljK3Njb3JlLTAuMSIsIm9ic2VydmF0aW9ucyI6OCwicHJpbmNpcGFsIjoic2VsZi1kZWNsYXJlZCIsInNjb3JlIjpudWxsLCJzdWIiOiJhZ3RfbmV3Iiwid2luZG93X2hvdXJzIjoyNH0.c5QWqhuB7My2d9DK89uyjf83gob-Ec1R-hHffPQ-IquXIioacG0_VwlC4QsUDdcwojHFqZ-uj8eJmGcB6UCtCA"
+        }
+      }
+    ]
+  },
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "main",
+      "name": "Research Assistant",
+      "description": "Research Assistant",
+      "tags": [
+        "demo"
+      ]
+    }
+  ],
+  "signatures": [
+    {
+      "protected": "eyJhbGciOiJFZERTQSIsImp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6ImtjZGE5WEJndmVnVFBibllGaFYwcWFPclZ5bnVxcVpkR2JhOVd4cG9BaEEifSwia2lkIjoiYWd0X25ldy1jYXJkLTEifQ",
+      "signature": "dAKoQXH1x0CA4J5p-dFc42581YLeAAloyveeqLS2ylAiQ3TM_8p5FLJv54vcGVsuAvECkoR9kpb0QbXie_K-Bw"
+    }
+  ]
+}
