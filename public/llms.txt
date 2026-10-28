@@ -1,6 +1,6 @@
 # Kyde
 
-> Kyde is behavioral scoring for AI agents. Every action an agent takes crosses Kyde and is scored against that agent's own normal behavior; the score sets what the agent may do, and an agent that drifts, is hijacked by prompt injection or gets stuck in a loop that burns money is stopped and handed to a human. Underneath is a control layer that checks identity, policy, data and limits at the moment of action and keeps a tamper-evident record an auditor can recompute. Any model, any vendor, on-prem, built in Europe. On top of that layer, Kyde also builds AI workers out of the processes a company already runs.
+> Kyde is behavioral scoring for AI agents. Kyde learns how each agent normally behaves and scores every run against that baseline. When an agent stops behaving like itself, because it drifts after a model update, gets stuck in a loop that burns money or is hijacked by prompt injection, Kyde raises an alert, and with the Kyde Gateway puts the agent into quarantine until a human releases it. Deterministic statistics, no LLM in the verdict, every score recomputable. Any model, any vendor; the gateway runs in the customer's own network or EU-hosted. Built in Europe.
 
 ## The problem
 
@@ -45,10 +45,6 @@ Two editions, the same compose files, switched by one env-file setting:
 - **Starter** — the public images from the open GitHub repository (github.com/kydehq/gateway): hash-chained but unsigned ledger, observe-only DLP.
 - **Enterprise** — adds Ed25519/TPM audit signing (hardware-rootable via PKCS#11 / HSM) and inline enforcement, plus unlimited retention, agent identity enforcement, MCP per-tool policy, RBAC and air-gapped operation.
 
-## Kyde AI Workers (paused)
-
-Kyde also builds AI workers from the processes a company already runs, starting with an audit of one process area. The build service is paused until late October 2026; the platform is the focus.
-
 ## Deployment
 
 Three modes, all requiring zero code changes to agent logic:
@@ -56,11 +52,11 @@ Three modes, all requiring zero code changes to agent logic:
 - **Group Policy (GPO)**: enterprise fleet deployment, no developer action required
 - **Hosted proxy**: managed, EU data residency
 
-On-premise, private cloud or EU-hosted. Target latency overhead: under 100ms. The record leaves the customer's building only when they send it.
+Gateway: on-premise, private cloud or EU-hosted. Target latency overhead: under 100ms. The record leaves the customer's building only when they send it.
 
 ## Provider compatibility
 
-OpenAI (GPT-4o, o1, o3), Anthropic (Claude Sonnet, Opus, Haiku), Azure OpenAI, Google Gemini, Mistral, DeepSeek, Ollama, local models via LMStudio/vLLM, MCP routing. Workers can run on open models, private models or a system the company already uses.
+OpenAI (GPT-4o, o1, o3), Anthropic (Claude Sonnet, Opus, Haiku), Azure OpenAI, Google Gemini, Mistral, DeepSeek, Ollama, local models via LMStudio/vLLM, MCP routing.
 
 ## Regulatory context
 
@@ -95,22 +91,22 @@ Joint foresight paper on agentic AI: organizational accountability is unchanged 
 **NIST AI RMF and SP 800-207**
 SP 800-207 defines zero trust architecture for users and devices; agents inherit the principles but are not its subject. NIST's AI work converges on the same requirements: traceable identity, causal context capture, tamper-evident records in a layer independent of the systems it governs.
 
-## Target verticals (EU AI Act Annex III)
+## Who uses Kyde
 
-- Banking and finance (credit scoring, risk assessment)
-- Insurance (risk classification, claims, pricing)
-- Healthcare administration (essential services)
-- Critical infrastructure (energy, transport, water) — see Kyde Labs
-- HR technology / recruiting (employment decisions)
-- Public sector, manufacturing
-- Education technology (assessment, admission)
+No industry restriction. Kyde fits wherever agents run in production, take actions with consequences and run many times a day:
+
+- Agents that move money: agent wallets, payment providers, fintechs, commerce with buying agents
+- Companies whose product is an agent: customer service, sales and coding agents, and the agencies that build agents for clients
+- Engineering teams running many coding agents
+- Security providers running SOC agents for their customers
+
+Regulation (EU AI Act, DORA, NIS-2) matters where it applies; see Regulatory context above.
 
 ## Key differentiator vs. adjacent solutions
 
 - **vs. AI security tools (Zenity, Lakera, Prompt Security)**: Those are semantic firewalls — they inspect inputs and outputs for adversarial content. Kyde enforces behavioral policy, provides agent identity, and produces audit-grade records. Analogous to: antivirus vs. corporate law.
 - **vs. observability tools (LangSmith, Langfuse, Arize)**: Those require framework-specific instrumentation and produce developer debug output. Kyde is framework-agnostic, out-of-band, and produces regulator-ready records with enforcement capability.
 - **vs. platform-native governance (Microsoft Copilot Studio, AWS Bedrock Guardrails)**: Those govern within a single vendor's stack. Kyde governs the chain across all providers and platforms — the gap every hyperscaler leaves open because they cannot govern their competitors' infrastructure.
-- **vs. agent platforms and automation consultancies**: Those build the worker and leave the control layer to somebody else. Kyde builds both, so there is no agent platform and security product to make meet in the middle.
 
 ## Content resources
 
@@ -125,7 +121,7 @@ SP 800-207 defines zero trust architecture for users and devices; agents inherit
 - [Physical AI](https://kyde.com/industries/physical-ai): Kyde detects when an agent that controls a machine has been compromised.
 - [Security Providers](https://kyde.com/industries/security-providers): Kyde detects when a security agent you run for a customer has been compromised.
 - [Healthcare](https://kyde.com/industries/healthcare): Kyde detects when an agent accesses patient data that is not part of its task.
-- [Company](https://kyde.com/company): What Kyde builds and why. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.
+- [Company](https://kyde.com/company): What Kyde builds and why: agents are attacked around the clock and can go wrong on their own, and in both cases every single action is allowed. Early stage, engineered in Germany.
 - [FAQ](https://kyde.com/faq): What security and compliance teams ask before deploying the gateway — latency, data privacy, audit evidence, and how it differs from a SIEM or an API gateway.
 - [Resources](https://kyde.com/resources): Hub for documentation, regulatory analysis and technical guides.
 
@@ -213,8 +209,8 @@ Honest, dated vendor comparisons: two genuine strengths of the competitor, a sid
 
 ## Company
 
-Kyde builds the zero trust layer for AI, and the AI workers that run on it. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.
+Kyde builds behavioral scoring for AI agents. Early stage, engineered in Germany.
 
 Website: https://kyde.com — Contact: hello@kyde.com
 
-Category: **behavioral scoring for AI agents**. Naming: **Kyde** in running text, **KYDE** as the wordmark. The platform is *Kyde* (behavioral scoring for AI agents; the underlying control layer was previously called Kyde Zero Trust); the gateway that implements it is the *Kyde Gateway*; the build service, paused until late October 2026, is *Kyde AI Workers*. "Behavioral firewall" names the enforcement layer in the articles, not the company.
+Category: **behavioral scoring for AI agents**. Naming: **Kyde** in running text, **KYDE** as the wordmark. The platform is *Kyde* (behavioral scoring for AI agents); the gateway that enforces it in the customer's network is the *Kyde Gateway*. "Behavioral firewall" names the enforcement layer in the articles, not the company.

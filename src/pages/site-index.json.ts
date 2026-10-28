@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { ARTICLES, GUIDES, GLOSSARY_TERMS, KEY_PAGES } from "../data/content-index";
+import { SERVICES } from "../data/features";
 
 // A machine-readable index of the site, built from the same lists the pages
 // render. Two readers: the WebMCP tools in WebMcpTools.astro, which search it
@@ -33,7 +34,7 @@ const fromArticles = (rows: typeof ARTICLES, kind: string): Entry[] =>
 
 export const GET: APIRoute = () => {
   const entries: Entry[] = [
-    ...fromArticles(KEY_PAGES, "Page"),
+    ...fromArticles(KEY_PAGES.filter((p) => SERVICES || p.category !== "Service"), "Page"),
     ...fromArticles(ARTICLES, "Article"),
     ...fromArticles(GUIDES, "Guide"),
     ...GLOSSARY_TERMS.map(({ term, slug, teaser }) => ({
@@ -49,7 +50,7 @@ export const GET: APIRoute = () => {
       {
         name: "Kyde",
         description:
-          "Kyde is the zero trust layer for AI: identity, policy, data boundaries and limits checked at the moment of action, and a record anyone can verify, in the customer's own environment. On top of it Kyde builds AI workers out of the processes a company already runs.",
+          "Kyde is behavioral scoring for AI agents: it learns how each agent normally behaves, scores every run against that baseline, and catches the agent that no longer behaves like itself, whether it drifts, loops or is hijacked. Deterministic, no LLM in the verdict, every score recomputable.",
         prose_index: `${BASE}/llms.txt`,
         generated: new Date().toISOString().slice(0, 10),
         count: entries.length,

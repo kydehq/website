@@ -19,7 +19,7 @@ it, and a third party can recompute that offline. And while it records, it sees 
 upstream: your prompts, traces, and corrections, before they become
 someone else's training data.
 
-**One record. Every vendor. One zero trust layer for AI workers and the AI you already run.**
+**One record. Every vendor. Behavioral scoring for AI agents, enforced at the boundary.**
 
 **Two ways to start, same install, one switch:**
 
