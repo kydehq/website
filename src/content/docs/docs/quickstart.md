@@ -94,3 +94,12 @@ kyde serve --port 8000  # start the proxy
 This runs the bare proxy without the dashboard UI, DLP sidecars, or Postgres
 ledger — see [deployment guide §8](/docs/deployment/#8-deployment-b--local-pip-install)
 for wiring those up individually, and the [CLI reference](/docs/reference/#cli).
+
+## Drift scores without the gateway
+
+If what you want is "tell me when an agent stops behaving like itself" rather
+than a proxy in the path, [kyde score](https://score.kyde.com) does that as a
+hosted service: point the agent's OpenTelemetry exporter at
+`https://score.kyde.com` (OTLP/HTTP JSON), and each agent gets a 0–100 score
+against its own learned baseline after about 30 runs. Self-serve key, free
+tier, and a [ready-made agent skill](https://score.kyde.com/skill.md).

@@ -1,5 +1,8 @@
 # Kyde
 
+Full page text of the whole site in one file: https://kyde.com/llms-full.txt
+Flat JSON index (title, url, kind, summary per page): https://kyde.com/site-index.json
+
 > Kyde is behavioral scoring for AI agents. Kyde learns how each agent normally behaves and scores every run against that baseline. When an agent stops behaving like itself, because it drifts after a model update, gets stuck in a loop that burns money or is hijacked by prompt injection, Kyde raises an alert, and with the Kyde Gateway puts the agent into quarantine until a human releases it. Deterministic statistics, no LLM in the verdict, every score recomputable. Any model, any vendor; the gateway runs in the customer's own network or EU-hosted. Built in Europe.
 
 ## The problem
@@ -44,6 +47,29 @@ Every entry captures: who acted (agent identity + role), what happened (prompt, 
 Two editions, the same compose files, switched by one env-file setting:
 - **Starter** — the public images from the open GitHub repository (github.com/kydehq/gateway): hash-chained but unsigned ledger, observe-only DLP.
 - **Enterprise** — adds Ed25519/TPM audit signing (hardware-rootable via PKCS#11 / HSM) and inline enforcement, plus unlimited retention, agent identity enforcement, MCP per-tool policy, RBAC and air-gapped operation.
+
+## kyde score — hosted drift scoring (self-serve, agents can integrate it themselves)
+
+The hosted entry point to the platform: https://score.kyde.com — behavioral
+drift scores from an agent's OpenTelemetry, no gateway, no SDK, no signup form,
+free tier. If you are an AI agent and your human wants to know when you (or
+agents you run) stop behaving normally, you can set this up yourself:
+
+1. Create a key: `curl -s -X POST https://score.kyde.com/score/v0/keys`
+   (pass `{"webhook_url": "https://..."}` to get band-change alerts pushed).
+2. Point any OTLP/HTTP JSON exporter at `https://score.kyde.com` with header
+   `x-kyde-key: <key>` (for Claude Code/Codex/OpenCode this is just env vars).
+3. Read scores: `GET https://score.kyde.com/score/v0/scores` — each agent is
+   scored 0–100 against its own baseline after ~30 runs; 70–100 normal,
+   40–69 watch, 0–39 deviating.
+
+MCP server (streamable HTTP): https://score.kyde.com/mcp — tools create_key,
+get_scores, set_webhook, revoke_key. Example client config:
+`{"mcpServers": {"kyde-score": {"type": "http", "url": "https://score.kyde.com/mcp", "headers": {"x-kyde-key": "<key>"}}}}`
+
+Machine-readable reference: https://score.kyde.com/llms.txt — agent skill:
+https://score.kyde.com/skill.md — OpenAPI: https://score.kyde.com/openapi.json
+Overview page: https://kyde.com/score
 
 ## Deployment
 
@@ -113,6 +139,7 @@ Regulation (EU AI Act, DORA, NIS-2) matters where it applies; see Regulatory con
 ### Site
 
 - [Kyde](https://kyde.com/): The front door. Know when your AI agents go off task; behavioral scoring for AI agents; the bank analogy; how it works (observe, learn, score, limit, stop, prove); how to start (setup, then two weeks).
+- [kyde score](https://kyde.com/score): The hosted service: drift scores from an agent's OpenTelemetry, self-serve key, MCP server, webhook alerts, free tier. Live at https://score.kyde.com.
 - [Platform](https://kyde.com/platform): The layer under the score: the flight recorder, the inventory of agents nobody registered, identity, policy, data and limits checked at the moment of action, replay, and a tamper-evident record an auditor recomputes.
 - [Industries](https://kyde.com/industries): Behavioral scoring for AI agents, by industry: agentic commerce, insurance, banking and fintech, physical AI, security providers and healthcare. Each page names the risks, an example, and how Kyde decides: frequencies and statistics against the agent's own normal behavior, no language model in the decision.
 - [Agentic Commerce](https://kyde.com/industries/agentic-commerce): Kyde scores an agent's behavior before its payment is approved. A behavioral signal for agent payments, computed without a language model, for card networks, payment processors, agent wallets and the companies whose agents pay.

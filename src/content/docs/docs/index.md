@@ -75,6 +75,16 @@ and [enterprise support](/docs/deployment/#12-enterprise-support).
 Contributor documentation ([building images](https://github.com/kydehq/gateway/blob/main/docs/building-images.md),
 [CI pipelines](https://github.com/kydehq/gateway/blob/main/docs/ci.md)) lives in the repository.
 
+## Hosted scoring without the gateway
+
+Not ready to run a proxy? [kyde score](https://score.kyde.com) is the hosted
+half of the idea: point an agent's OpenTelemetry at it (OTLP/HTTP JSON, a few
+environment variables) and read a 0–100 behavioral drift score per agent, with
+a signed webhook when a score changes band. Self-serve key, no SDK, free tier.
+Agents can set it up themselves: [skill](https://score.kyde.com/skill.md) ·
+[llms.txt](https://score.kyde.com/llms.txt) · MCP server at
+`https://score.kyde.com/mcp`.
+
 ## What it doesn't do (yet)
 
 - Semantic anomaly detection on the behavioral stream
