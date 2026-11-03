@@ -59,6 +59,15 @@ const links = isGerman
       }
     : footerLinks;
 
+// Optional overrides, used by the lab draft. Without props the footer is
+// exactly the one on the live site.
+const { links: linksProp, tagline, cta } = Astro.props as {
+    links?: Record<string, { label: string; href: string }[]>;
+    tagline?: string;
+    cta?: { label: string; href: string };
+};
+const shown = linksProp ?? links;
+
 const year = new Date().getFullYear();
 
 // Dot-matrix wordmark, 5×7 grid per letter
@@ -106,13 +115,13 @@ const wm = wordmarkDots("KYDE");
                     <img src="/kyde-logo.svg" alt="KYDE" class="logo-mark h-5 w-auto" />
                 </a>
                 <p class="mt-4 text-sm text-ink-1 leading-relaxed">
-                    Behavioral scoring for AI agents.<br />Kyde scores every action your agents take and stops them when the behavior changes. Any model, any vendor, on-prem, built in Europe.
+                    Behavioral scoring for AI agents.<br />{tagline ?? "Kyde scores every action your agents take and stops them when the behavior changes. Any model, any vendor, on-prem, built in Europe."}
                 </p>
             </div>
 
             <!-- Link groups -->
             {
-                Object.entries(links).filter(([, links]) => links.length > 0).map(([group, links]) => (
+                Object.entries(shown).filter(([, links]) => links.length > 0).map(([group, links]) => (
                     <div>
                         <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-5">
                             {group}
@@ -154,12 +163,21 @@ const wm = wordmarkDots("KYDE");
             <p class="font-mono text-[11px] uppercase tracking-[0.1em] text-white/25">
                 &copy; {year} Kyde. All rights reserved.
             </p>
-            <button
-                onclick="openModal()"
-                class="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.12em] text-white/50 hover:border-white hover:text-white transition-all"
-            >
-                Talk to us →
-            </button>
+            {cta ? (
+                <a
+                    href={cta.href}
+                    class="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.12em] text-white/50 hover:border-white hover:text-white transition-all"
+                >
+                    {cta.label}
+                </a>
+            ) : (
+                <button
+                    onclick="openModal()"
+                    class="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-[10px] font-mono uppercase tracking-[0.12em] text-white/50 hover:border-white hover:text-white transition-all"
+                >
+                    Talk to us →
+                </button>
+            )}
         </div>
     </div>
 </footer>

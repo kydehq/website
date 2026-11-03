@@ -1,0 +1,560 @@
+---
+// Kyde Score dashboard (lab draft). Funnel step "a person wants to see":
+// 01-kyde-company/03_sales/strategy/2026-11-03-funnel-free-to-paid.md
+//
+// Sign in with the scoring key (the key is the identity on score.kyde.com).
+// Shows only what GET /score/v0/scores returns: per agent status, score,
+// band, alarms, runs_seen/runs_needed, baseline and live records, baseline
+// fingerprint, method version; per key the webhook and "degraded".
+// No history yet: the API has no history endpoint (question to Juergen).
+//
+// Dev: requests go through the Astro dev proxy /score-api (astro.config.mjs),
+// because score.kyde.com has no CORS for kyde.com yet (KYDE-376).
+// The key lives in sessionStorage only and is cleared on logout.
+import Base from "../../layouts/Base.astro";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+
+const API = import.meta.env.DEV ? "/score-api" : "https://score.kyde.com";
+---
+
+<Base title="Dashboard · Kyde Score" description="Kyde Score dashboard: every agent under your key, its baseline, score and band." noindex>
+  <div class="kd" id="kd">
+    <!-- ══════════ SIGN IN ══════════ -->
+    <section class="kd-login" id="login" hidden>
+      <div class="kd-login-card">
+        <img src="/kyde-logo.svg" alt="Kyde" class="kd-logo" />
+        <p class="kd-mono kd-dim">Score Dashboard</p>
+        <h1 class="kd-login-h">Sign in</h1>
+        <form id="login-form" autocomplete="off">
+          <label class="kd-label" for="key">Scoring key</label>
+          <input id="key" type="password" placeholder="kyde_…" spellcheck="false" required />
+          <button type="submit" class="kd-btn kd-btn-ink" id="login-btn">Sign in →</button>
+          <p class="kd-err" id="login-err" role="alert"></p>
+        </form>
+        <div class="kd-login-foot">
+          <p><span class="kd-mono kd-dim">Email sign-in</span> <span class="kd-soon">Coming soon</span></p>
+          <p class="kd-dim">No key yet? Tell your agent: <code>Set up score.kyde.com/skill.md</code></p>
+          <p><a href="/lab-draft" class="kd-link">← kyde.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ LOADING (key already in this tab) ══════════ -->
+    <section class="kd-loading" id="loading" hidden>
+      <p class="kd-mono kd-dim">Loading your agents…</p>
+    </section>
+
+    <!-- ══════════ APP ══════════ -->
+    <div class="kd-app" id="app" hidden>
+      <aside class="kd-side">
+        <div class="kd-brand">
+          <img src="/kyde-logo.svg" alt="Kyde" class="kd-logo" />
+          <p class="kd-brand-t">Score Dashboard</p>
+        </div>
+        <nav class="kd-nav" aria-label="Dashboard">
+          <a href="#/overview" data-view="overview">Overview</a>
+          <a href="#/agents" data-view="agents">Agents <span class="kd-count" id="nav-count"></span></a>
+          <a href="#/settings" data-view="settings">Settings</a>
+          <a href="/lab-draft/products#control" class="kd-nav-ctl">Kyde Control <span class="kd-lock">Gateway</span></a>
+        </nav>
+        <div class="kd-side-foot">
+          <button type="button" class="kd-btn kd-btn-line" id="logout">Log out</button>
+        </div>
+      </aside>
+
+      <main class="kd-main">
+        <header class="kd-top">
+          <div>
+            <h1 class="kd-h1" id="v-title">Overview</h1>
+            <p class="kd-dim kd-sub" id="v-sub"></p>
+          </div>
+          <div class="kd-top-r">
+            <span class="kd-mono kd-dim" id="updated"></span>
+            <button type="button" class="kd-btn kd-btn-line kd-btn-s" id="refresh">Refresh</button>
+          </div>
+        </header>
+
+        <div id="banners"></div>
+        <div id="view"></div>
+
+        <!-- Upsell at the bottom. Its text follows the state (see upsell()). -->
+        <section class="kd-upsell" id="upsell">
+          <div>
+            <p class="kd-mono kd-up-k">Kyde Control</p>
+            <h2 class="kd-up-h" id="up-h">Want to stop it, not just see it?</h2>
+            <p class="kd-dim" id="up-p">Kyde Control runs in your network, in the agent's path. When the score turns red, it holds the next action until a person releases it. Same score, same detectors.</p>
+          </div>
+          <div class="kd-up-r">
+            <a href="/lab-draft/products#control" class="kd-btn kd-btn-neon">Try the gateway →</a>
+            <a href="/lab-draft/pricing" class="kd-link">Pricing</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <style is:global>
+    body:has(.kd) { background: #fff; }
+    .kd { --bg: #fff; --panel: #fff; --line: #E8E4E0; --line2: #D6D1CC; --tx: #141414; --dim: #6B6661; --neon: #DEFD7E; --rose: #F8D9D4; --card: #1E1E1E; --ok: #3F6212; --red: #B42318; --amber: #9A6700; --learn: #3B5BDB;
+      min-height: 100vh; background: var(--bg); color: var(--tx); font-family: var(--font-sans, system-ui); font-size: 15px; }
+    .kd *, .kd *::before { box-sizing: border-box; }
+    .kd [hidden] { display: none !important; }
+    .kd-mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; }
+    .kd-dim { color: var(--dim); }
+    .kd code { font-family: var(--font-mono); font-size: 12px; background: #F4F1EE; padding: 2px 6px; color: var(--tx); }
+    .kd-link { color: var(--tx); font-family: var(--font-mono); font-size: 13px; text-underline-offset: 3px; }
+    .kd-btn { display: inline-flex; align-items: center; justify-content: center; font: 500 13px var(--font-mono); padding: 11px 16px; border: 0; cursor: pointer; text-decoration: none; white-space: nowrap; }
+    .kd-btn-neon { background: var(--neon); color: #111; }
+    .kd-btn-neon:hover { background: #fff; }
+    .kd-btn-ink { background: var(--tx); color: #fff; }
+    .kd-btn-ink:hover { background: #333; }
+    .kd-btn-line { background: transparent; color: var(--tx); box-shadow: inset 0 0 0 1px var(--line2); }
+    .kd-btn-line:hover { box-shadow: inset 0 0 0 1px var(--tx); }
+    .kd-btn-s { padding: 7px 12px; font-size: 12px; }
+    .kd-soon { font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--dim); border: 1px solid var(--line2); padding: 1px 6px; margin-left: 6px; }
+    .kd-lock { font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; background: var(--rose); color: #111; padding: 1px 6px; margin-left: 6px; }
+    .kd-label { display: block; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); margin-bottom: 8px; }
+
+    /* Sign in */
+    .kd-login { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 1px 1px, rgba(20,20,20,.18) 1px, transparent 0) 0 0 / 14px 14px, var(--rose); }
+    .kd-login-card { width: 100%; max-width: 420px; background: var(--panel); border: 1px solid var(--line); padding: 36px; }
+    .kd-logo { height: 28px; width: auto; display: block; filter: invert(1); }
+    .kd-login-card .kd-dim:first-of-type { margin: 14px 0 28px; }
+    .kd-login-h { font-size: 28px; font-weight: 400; letter-spacing: -0.03em; margin: 0 0 20px; }
+    .kd-login input { width: 100%; font: 15px var(--font-mono); color: var(--tx); background: #fff; border: 1px solid var(--line2); padding: 12px; margin-bottom: 12px; }
+    .kd-login input:focus { outline: none; border-color: var(--tx); }
+    .kd-login .kd-btn { width: 100%; }
+    .kd-err { color: var(--red); font: 12px var(--font-mono); min-height: 18px; margin: 10px 0 0; white-space: pre-wrap; }
+    .kd-login-foot { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 18px; display: grid; gap: 10px; font-size: 13px; }
+    .kd-login-foot p { margin: 0; }
+
+    /* Shell */
+    .kd-app { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100vh; }
+    .kd-side { background: #FAF8F6; border-right: 1px solid var(--line); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; width: 248px; height: 100vh; z-index: 5; }
+    .kd-app > .kd-main { grid-column: 2; }
+    .kd-nav { scrollbar-width: thin; scrollbar-color: #D6D1CC transparent; }
+    .kd-brand { padding: 24px 22px 20px; border-bottom: 1px solid var(--line); }
+    .kd-brand-t { font-size: 16px; margin: 16px 0 2px; }
+    .kd-brand-s { margin: 0; }
+    .kd-nav { padding: 8px 12px; flex: 1; overflow: auto; display: flex; flex-direction: column; }
+    .kd-nav-h { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); margin: 18px 10px 6px; }
+    .kd-nav a, .kd-nav-off { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; font-size: 14px; color: var(--tx); text-decoration: none; }
+    .kd-nav a:hover { background: #F1EDEA; }
+    .kd-nav a[aria-current="page"] { background: #fff; box-shadow: inset 2px 0 0 var(--tx), 0 0 0 1px var(--line); font-weight: 500; }
+    .kd-nav-off { color: #A8A29C; cursor: default; }
+    .kd-count { font: 12px var(--font-mono); color: var(--dim); }
+    .kd-side-foot { border-top: 1px solid var(--line); padding: 16px 22px 20px; display: grid; gap: 10px; }
+    .kd-side-foot p { margin: 0; overflow-wrap: anywhere; }
+
+    .kd-main { padding: 32px clamp(20px, 3vw, 44px) 48px; min-width: 0; }
+    .kd-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
+    .kd-h1 { font-size: 30px; font-weight: 500; letter-spacing: -0.03em; margin: 0 0 6px; }
+    .kd-top .kd-mono { margin: 0; }
+    .kd-top-r { display: flex; align-items: center; gap: 14px; }
+
+    .kd-banner { display: flex; justify-content: space-between; align-items: center; gap: 16px; border: 1px solid var(--line2); background: var(--panel); padding: 12px 16px; margin-bottom: 16px; font-size: 14px; }
+    .kd-banner-warn { border-color: #F3C9C2; background: #FDF1EF; }
+    .kd-banner b { font-weight: 500; }
+
+    .kd-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .kd-tile { background: var(--panel); border: 1px solid var(--line); padding: 18px 20px; min-width: 0; }
+    .kd-tile .kd-label { margin-bottom: 14px; }
+    .kd-tile-v { font: 500 30px var(--font-mono); letter-spacing: -0.02em; line-height: 1; }
+    .kd-tile-v small { font-size: 15px; color: var(--dim); margin-left: 4px; }
+    .kd-tile-s { margin: 10px 0 0; font-size: 12px; color: var(--dim); font-family: var(--font-mono); }
+
+    .kd-panel { background: var(--panel); border: 1px solid var(--line); padding: 20px 22px; margin-bottom: 16px; }
+    .kd-panel-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+    .kd-panel-h h2 { font-size: 15px; font-weight: 500; margin: 0; }
+
+    .kd-t { width: 100%; border-collapse: collapse; }
+    .kd-t th { text-align: left; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); padding: 0 14px 10px 0; border-bottom: 1px solid var(--line2); }
+    .kd-t td { padding: 14px 14px 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: middle; }
+    .kd-t tr:last-child td { border-bottom: 0; }
+    .kd-t .num { text-align: right; font-family: var(--font-mono); }
+    .kd-t tbody tr { cursor: pointer; }
+    .kd-t tbody tr:hover td { background: #FAF8F6; }
+    .kd-t .kd-agent { font-family: var(--font-mono); font-size: 13px; }
+
+    .kd-band { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 8px; border: 1px solid; }
+    .kd-band::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .kd-band-normal { color: var(--ok); border-color: #C9D99A; background: #F6FBE4; }
+    .kd-band-watch { color: var(--amber); border-color: #EAD49A; background: #FDF7E6; }
+    .kd-band-deviating { color: var(--red); border-color: #F3C9C2; background: #FDF1EF; }
+    .kd-band-learning { color: var(--learn); border-color: #C7D2F5; background: #F2F5FD; }
+
+    .kd-prog { display: flex; align-items: center; gap: 10px; font: 12px var(--font-mono); color: var(--dim); }
+    .kd-prog i { width: 120px; height: 4px; background: #EDE9E5; position: relative; display: block; }
+    .kd-prog i b { position: absolute; inset: 0 auto 0 0; background: var(--learn); }
+
+    /* Agent detail: score card */
+    .kd-score { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 32px; align-items: center; }
+    .kd-score-v { font: 500 64px var(--font-mono); letter-spacing: -0.04em; line-height: 1; }
+    .kd-score-v small { font-size: 20px; color: var(--dim); }
+    .kd-score-v.is-normal { color: var(--ok); } .kd-score-v.is-watch { color: var(--amber); } .kd-score-v.is-deviating { color: var(--red); } .kd-score-v.is-learning { color: var(--learn); font-size: 44px; }
+    .kd-scale { position: relative; padding-top: 22px; }
+    .kd-scale-bar { display: grid; grid-template-columns: 40fr 30fr 31fr; gap: 3px; height: 8px; }
+    .kd-scale-bar span:nth-child(1) { background: #F3B4AA; } .kd-scale-bar span:nth-child(2) { background: #F1DB9C; } .kd-scale-bar span:nth-child(3) { background: #DEFD7E; }
+    .kd-scale-lbl { display: grid; grid-template-columns: 40fr 30fr 31fr; gap: 3px; margin-top: 8px; font: 11px var(--font-mono); color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em; }
+    .kd-scale-mark { position: absolute; top: 0; transform: translateX(-50%); font: 11px var(--font-mono); color: var(--tx); }
+    .kd-scale-mark::after { content: ""; display: block; width: 2px; height: 22px; background: var(--tx); margin: 2px auto 0; }
+
+    .kd-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 8px; border-top: 1px solid var(--line); }
+    .kd-steps div { padding: 14px 14px 0 0; }
+    .kd-steps .kd-label { margin-bottom: 6px; }
+    .kd-steps p { margin: 0; font-size: 13px; }
+    .kd-steps .on .kd-label { color: var(--tx); }
+
+    .kd-kv { display: grid; grid-template-columns: 200px minmax(0, 1fr); margin: 0; }
+    .kd-kv dt, .kd-kv dd { padding: 12px 0; border-bottom: 1px solid var(--line); margin: 0; }
+    .kd-kv dt { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); padding-top: 14px; }
+    .kd-kv dd { font: 13px var(--font-mono); overflow-wrap: anywhere; }
+    .kd-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+    .kd-empty { color: var(--dim); font-size: 14px; margin: 0; }
+    .kd-back { font: 12px var(--font-mono); color: var(--dim); text-decoration: none; }
+    .kd-back:hover { color: var(--tx); }
+
+    .kd-upsell { margin-top: 40px; border: 0; background: var(--card); color: #F7F5F2; padding: 26px 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: center; }
+    .kd-up-k { color: var(--rose); margin: 0 0 8px; }
+    .kd-up-h { font-size: 24px; font-weight: 400; letter-spacing: -0.03em; margin: 0 0 8px; }
+    .kd-upsell .kd-dim { color: #B5B0AB; }
+    .kd-upsell .kd-link { color: #F7F5F2; }
+    .kd-upsell p { margin: 0; max-width: 64ch; font-size: 14px; line-height: 1.5; }
+    .kd-up-r { display: flex; align-items: center; gap: 18px; }
+
+    /* v2: loading, summary, attention, details */
+    .kd-loading { min-height: 100vh; display: grid; place-items: center; }
+    .kd-sub { margin: 0; font-size: 14px; }
+    .kd-nav { gap: 2px; padding-top: 16px; }
+    .kd-nav .kd-nav-ctl { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--dim); }
+    .kd-nav .kd-nav-ctl:hover { color: var(--tx); }
+    .kd-sum { border: 1px solid var(--line); border-left: 3px solid var(--tx); padding: 20px 22px; margin-bottom: 16px; }
+    .kd-sum.is-deviating { border-left-color: var(--red); background: #FFF8F6; }
+    .kd-sum.is-watch { border-left-color: var(--amber); }
+    .kd-sum.is-normal { border-left-color: #A3C23A; }
+    .kd-sum.is-learning { border-left-color: var(--learn); }
+    .kd-sum-h { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 6px; }
+    .kd-sum-p { margin: 0; font-size: 15px; line-height: 1.55; max-width: 70ch; }
+    .kd-sum-ask { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--dim); }
+    .kd-tile-v.is-red { color: var(--red); }
+    .kd-tile-v.is-small { font-size: 18px; line-height: 1.25; overflow-wrap: anywhere; }
+    .kd-t .kd-say { font-size: 13px; color: var(--dim); }
+    .kd-hold { background: var(--card); color: #F7F5F2; padding: 18px 22px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .kd-hold p { margin: 0; font-size: 14px; line-height: 1.5; }
+    .kd-hold b { font-weight: 500; color: var(--rose); }
+    .kd-details { border: 1px solid var(--line); margin-bottom: 16px; }
+    .kd-details summary { cursor: pointer; padding: 14px 22px; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); }
+    .kd-details[open] summary { border-bottom: 1px solid var(--line); }
+    .kd-details .kd-kv { padding: 4px 22px 10px; }
+    .kd-details .kd-note { padding: 0 22px 16px; margin: 0; font-size: 12px; color: var(--dim); }
+
+    @media (max-width: 1000px) {
+      .kd-app { grid-template-columns: 1fr; }
+      .kd-side { position: static; width: auto; height: auto; }
+      .kd-app > .kd-main { grid-column: 1; }
+      .kd-nav { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+      .kd-nav-h, .kd-nav-off { display: none; }
+      .kd-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kd-score, .kd-two, .kd-upsell { grid-template-columns: 1fr; }
+      .kd-hold { flex-direction: column; align-items: flex-start; }
+      .kd-steps { grid-template-columns: 1fr 1fr; }
+      .kd-kv { grid-template-columns: 1fr; }
+      .kd-kv dt { border-bottom: 0; padding-bottom: 0; }
+      .kd-hide-s { display: none; }
+    }
+  </style>
+
+  <script is:inline define:vars={{ API }}>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+      const KEY = "kyde-score-key";
+      let data = null;
+      let key = sessionStorage.getItem(KEY);
+
+      // ── State helpers. Everything below is derived from GET /score/v0/scores.
+      const bandOf = (a) => (a.status === "scored" && a.band ? a.band : "learning");
+      const need = (a) => a.runs_needed || 30;
+      const seen = (a) => a.runs_seen || 0;
+      const toGo = (a) => Math.max(0, need(a) - seen(a));
+      const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+      const pill = (a) => `<span class="kd-band kd-band-${esc(bandOf(a))}">${esc(bandOf(a))}</span>`;
+      const bar = (a, w = 120) => `<span class="kd-prog"><i style="width:${w}px"><b style="width:${Math.min(100, Math.round((seen(a) / need(a)) * 100))}%"></b></i>${esc(seen(a))}/${esc(need(a))}</span>`;
+      const mask = (k) => (k && k.length > 12 ? `${k.slice(0, 7)}…${k.slice(-4)}` : "••••");
+      const worst = (list) => list.filter((x) => x.status === "scored").sort((x, y) => (x.score ?? 101) - (y.score ?? 101))[0];
+
+      // One plain sentence per agent: what the person needs to know.
+      function say(a) {
+        if (a.status !== "scored") return seen(a) === 0
+          ? "Connected. Waiting for the first complete run."
+          : `Learning its normal behavior. ${plural(toGo(a), "run", "runs")} to go.`;
+        const n = (a.alarms || []).length;
+        if (a.band === "deviating") return `Behaves differently from its baseline${n ? `. ${plural(n, "detector", "detectors")} fired` : ""}.`;
+        if (a.band === "watch") return `Drifting away from its baseline. Keep an eye on it${n ? `. ${plural(n, "detector", "detectors")} fired` : ""}.`;
+        return "Behaves like its baseline.";
+      }
+
+      // The summary box. Deterministic text from the API fields, no LLM.
+      function summary(list) {
+        const red = list.filter((x) => bandOf(x) === "deviating");
+        const amber = list.filter((x) => bandOf(x) === "watch");
+        const learning = list.filter((x) => x.status !== "scored");
+        const ok = list.filter((x) => bandOf(x) === "normal");
+        let state, h, p;
+        if (!list.length) {
+          state = "learning"; h = "No agent has sent data yet.";
+          p = "Start your agent with the four OpenTelemetry variables from the setup. It shows up here with its first data.";
+        } else if (red.length) {
+          state = "deviating";
+          h = `${plural(red.length, "agent needs", "agents need")} attention.`;
+          p = `${red.map((x) => `<b>${esc(x.service_name)}</b> (score ${esc(x.score)})`).join(", ")} ${red.length === 1 ? "behaves" : "behave"} differently from ${red.length === 1 ? "its" : "their"} baseline. Look at what changed: a new model, a new CLI version, new tools or unusual input.`;
+        } else if (amber.length) {
+          state = "watch";
+          h = `${plural(amber.length, "agent is", "agents are")} drifting.`;
+          p = `${amber.map((x) => `<b>${esc(x.service_name)}</b>`).join(", ")} ${amber.length === 1 ? "is" : "are"} moving away from the baseline, not yet far. Nothing to do now, check again after the next runs.`;
+        } else if (learning.length === list.length) {
+          state = "learning";
+          const next = [...learning].sort((x, y) => toGo(x) - toGo(y))[0];
+          h = list.length === 1 ? "Kyde is learning how your agent behaves." : "Kyde is learning how your agents behave.";
+          p = `<b>${esc(next.service_name)}</b> has ${plural(seen(next), "run", "runs")} of ${esc(need(next))}. After ${plural(toGo(next), "more run", "more runs")} Kyde freezes the baseline and scores every run from 0 to 100. Nothing to configure, just keep using the agent.`;
+        } else {
+          state = "normal";
+          h = ok.length === 1 ? "Your agent behaves like its baseline." : `All ${ok.length} scored agents behave like their baseline.`;
+          p = learning.length ? `${plural(learning.length, "agent is", "agents are")} still learning.` : "Nothing to do.";
+        }
+        return `<section class="kd-sum is-${state}">
+            <h2 class="kd-sum-h">${h}</h2>
+            <p class="kd-sum-p">${p}</p>
+            <p class="kd-sum-ask">Want it explained? Ask your coding agent: <code>Check my Kyde score</code> (needs the Kyde MCP server, <a href="/docs/score/agents/" class="kd-link">setup</a>).</p>
+          </section>`;
+      }
+
+      // Dark hold card: only when an agent is red.
+      const hold = (a) => `<section class="kd-hold">
+          <p><b>${esc(a.service_name)} is deviating.</b> With Kyde Control in its path, its next action would be on hold now until a person releases it.</p>
+          <a href="/lab-draft/products#control" class="kd-btn kd-btn-neon">Try the gateway →</a>
+        </section>`;
+
+      function upsell(list) {
+        const anyRed = list.some((x) => bandOf(x) === "deviating");
+        const allLearning = list.length && list.every((x) => x.status !== "scored");
+        $("upsell").hidden = anyRed; // the hold card above already says it
+        $("up-h").textContent = allLearning ? "After the baseline: stop it, not just see it." : "Want to stop it, not just see it?";
+      }
+
+      async function load() {
+        let r;
+        try { r = await fetch(`${API}/score/v0/scores`, { headers: { "x-kyde-key": key } }); }
+        catch (err) { console.error("[kyde-dashboard] fetch failed", err); throw new Error("network"); }
+        if (r.status === 401 || r.status === 403) throw new Error("auth");
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        data = await r.json();
+        $("updated").textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+      }
+
+      function banners() {
+        $("banners").innerHTML = data.degraded
+          ? `<div class="kd-banner kd-banner-warn"><span><b>Records dropped today:</b> ${esc(data.degraded.dropped_today)} (${esc(data.degraded.reason)}). Scores may be incomplete. See <a href="/docs/score/limits/" class="kd-link">limits</a>.</span></div>`
+          : "";
+      }
+
+      function setNav(view) {
+        document.querySelectorAll(".kd-nav a[data-view]").forEach((a) => a.dataset.view === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+      }
+
+      const agentsTable = (list) => list.length ? `
+        <table class="kd-t">
+          <thead><tr><th>Agent</th><th>Status</th><th class="kd-hide-s">What it means</th><th class="num">Score</th></tr></thead>
+          <tbody>${list.map((a) => `
+            <tr data-agent="${esc(a.service_name)}">
+              <td class="kd-agent">${esc(a.service_name)}</td>
+              <td>${pill(a)}</td>
+              <td class="kd-hide-s kd-say">${a.status === "scored" ? esc(say(a)) : `${bar(a)}`}</td>
+              <td class="num">${a.status === "scored" ? esc(a.score) : "–"}</td>
+            </tr>`).join("")}</tbody>
+        </table>` : `<p class="kd-empty">No agents yet.</p>`;
+
+      function viewOverview() {
+        const list = data.agents || [];
+        const scored = list.filter((x) => x.status === "scored");
+        const red = list.filter((x) => bandOf(x) === "deviating");
+        const amber = list.filter((x) => bandOf(x) === "watch");
+        const w = worst(list);
+        $("v-title").textContent = "Overview";
+        $("v-sub").textContent = plural(list.length, "agent", "agents") + " under this key";
+        $("view").innerHTML = `
+          ${summary(list)}
+          ${red.map(hold).join("")}
+          <div class="kd-tiles">
+            <div class="kd-tile"><p class="kd-label">Needs attention</p><div class="kd-tile-v ${red.length ? "is-red" : ""}">${red.length}</div><p class="kd-tile-s">${red.length ? esc(red.map((x) => x.service_name).join(", ")) : amber.length ? `${amber.length} on watch` : scored.length ? "all clear" : "nothing scored yet"}</p></div>
+            <div class="kd-tile"><p class="kd-label">Lowest score</p><div class="kd-tile-v ${w && bandOf(w) === "deviating" ? "is-red" : ""}">${w ? esc(w.score) : "–"}${w ? "<small>/100</small>" : ""}</div><p class="kd-tile-s">${w ? esc(w.service_name) : "after the first baseline"}</p></div>
+            <div class="kd-tile"><p class="kd-label">Scored</p><div class="kd-tile-v">${scored.length}<small>of ${list.length}</small></div><p class="kd-tile-s">${scored.length === list.length ? "all baselines frozen" : `${plural(list.length - scored.length, "agent", "agents")} learning`}</p></div>
+            <div class="kd-tile"><p class="kd-label">Agents</p><div class="kd-tile-v">${list.length}</div><p class="kd-tile-s">one per service name</p></div>
+          </div>
+          <div class="kd-panel">
+            <div class="kd-panel-h"><h2>Agents</h2></div>
+            ${agentsTable(list)}
+          </div>`;
+      }
+
+      function viewAgents() {
+        $("v-title").textContent = "Agents";
+        $("v-sub").textContent = "Click an agent for its score and details";
+        $("view").innerHTML = `<div class="kd-panel">${agentsTable(data.agents || [])}</div>`;
+      }
+
+      function viewAgent(name) {
+        const a = (data.agents || []).find((x) => x.service_name === name);
+        if (!a) return route("#/agents");
+        const scored = a.status === "scored";
+        const band = bandOf(a);
+        const alarms = a.alarms || [];
+        $("v-title").innerHTML = `${esc(a.service_name)} ${pill(a)}`;
+        $("v-sub").innerHTML = `<a href="#/agents" class="kd-back">← Agents</a> · ${esc(say(a))}`;
+        const scoreCard = scored ? `
+          <div class="kd-score">
+            <div><p class="kd-label">Behavioral score</p><div class="kd-score-v is-${esc(band)}">${esc(a.score)}<small>/100</small></div></div>
+            <div class="kd-scale">
+              <span class="kd-scale-mark" style="left:${Math.max(1, Math.min(99, a.score))}%">${esc(a.score)}</span>
+              <div class="kd-scale-bar"><span></span><span></span><span></span></div>
+              <div class="kd-scale-lbl"><span>0 to 39 deviating</span><span>40 to 69 watch</span><span>70 to 100 normal</span></div>
+            </div>
+          </div>` : `
+          <div class="kd-score">
+            <div><p class="kd-label">Behavioral score</p><div class="kd-score-v is-learning">Learning</div><p class="kd-tile-s">${esc(seen(a))} of ${esc(need(a))} runs</p></div>
+            <div>
+              <div class="kd-prog" style="margin-bottom:14px"><i style="width:100%;height:6px"><b style="width:${Math.min(100, Math.round((seen(a) / need(a)) * 100))}%"></b></i></div>
+              <div class="kd-steps">
+                <div class="on"><p class="kd-label">1 · Connected</p><p>Data arrives</p></div>
+                <div class="on"><p class="kd-label">2 · Learning</p><p>${esc(plural(toGo(a), "run", "runs"))} to go</p></div>
+                <div><p class="kd-label">3 · Baseline</p><p>Frozen and fingerprinted</p></div>
+                <div><p class="kd-label">4 · Scored</p><p>Every run, 0 to 100</p></div>
+              </div>
+            </div>
+          </div>`;
+        $("view").innerHTML = `
+          ${band === "deviating" ? hold(a) : ""}
+          <div class="kd-panel">${scoreCard}</div>
+          <div class="kd-panel">
+            <div class="kd-panel-h"><h2>What the detectors flagged</h2><span class="kd-mono kd-dim">${alarms.length}</span></div>
+            ${alarms.length ? `<dl class="kd-kv">${alarms.map((x) => `<dt>${esc(x.detector || x.kind || x.reason || "alarm")}</dt><dd>${esc(Object.entries(x).filter(([k]) => !["detector", "kind", "reason"].includes(k)).map(([k, v]) => `${k}: ${typeof v === "object" ? JSON.stringify(v) : v}`).join(" · ") || "–")}</dd>`).join("")}</dl>`
+              : `<p class="kd-empty">${scored ? "Nothing flagged." : "The detectors start once the baseline is frozen."}</p>`}
+          </div>
+          <details class="kd-details">
+            <summary>Technical details</summary>
+            <dl class="kd-kv">
+              <dt>Runs seen</dt><dd>${esc(seen(a))}</dd>
+              <dt>Runs for baseline</dt><dd>${esc(need(a))}</dd>
+              <dt>Baseline records</dt><dd>${esc(a.n_baseline_records ?? 0)}</dd>
+              <dt>Live records</dt><dd>${esc(a.n_live_records ?? 0)}</dd>
+              <dt>Baseline fingerprint</dt><dd>${esc(a.baseline_fingerprint || "not frozen yet")}</dd>
+              <dt>Method version</dt><dd>${esc(a.method_version || data.method_version || "–")}</dd>
+            </dl>
+            <p class="kd-note">Same records, same method version, same score. The fingerprint identifies the frozen baseline the score is measured against.</p>
+          </details>`;
+      }
+
+      function viewSettings() {
+        $("v-title").textContent = "Settings";
+        $("v-sub").textContent = "Your key is your identity on score.kyde.com. Keep it like a password.";
+        $("view").innerHTML = `
+          <div class="kd-panel">
+            <dl class="kd-kv">
+              <dt>Key</dt><dd>${esc(mask(key))}</dd>
+              <dt>Alerts</dt><dd>${data.webhook ? `Webhook stored: ${esc(data.webhook)}. Delivery is coming soon.` : "None. Alerts by email, Slack and webhook are coming soon."}</dd>
+              <dt>Records dropped today</dt><dd>${data.degraded ? `${esc(data.degraded.dropped_today)} (${esc(data.degraded.reason)})` : "0"}</dd>
+              <dt>Method version</dt><dd>${esc(data.method_version || "–")}</dd>
+            </dl>
+          </div>
+          <div class="kd-two">
+            <div class="kd-panel"><div class="kd-panel-h"><h2>Ask your agent</h2></div>
+              <p class="kd-empty" style="margin-bottom:12px">With the Kyde MCP server your coding agent reads the scores and explains them in the chat.</p>
+              <code style="display:block;white-space:pre-wrap;padding:12px">Check my Kyde score</code>
+              <p style="margin:12px 0 0"><a href="/docs/score/agents/" class="kd-link">MCP setup →</a></p></div>
+            <div class="kd-panel"><div class="kd-panel-h"><h2>Store a webhook</h2><span class="kd-soon">Delivery soon</span></div>
+              <p class="kd-empty" style="margin-bottom:12px">Kyde keeps the URL and uses it once alerts ship.</p>
+              <code style="display:block;white-space:pre-wrap;padding:12px">curl -X PATCH https://score.kyde.com/score/v0/keys \\
+  -H "x-kyde-key: &lt;KEY&gt;" -H "content-type: application/json" \\
+  -d '{"webhook_url":"https://your.app/hooks/kyde"}'</code></div>
+          </div>
+          <div class="kd-panel"><div class="kd-panel-h"><h2>Delete everything</h2></div>
+            <p class="kd-empty" style="margin-bottom:12px">Revokes the key and removes every record under it in one request.</p>
+            <code style="display:block;white-space:pre-wrap;padding:12px">curl -X DELETE https://score.kyde.com/score/v0/keys -H "x-kyde-key: &lt;KEY&gt;"</code></div>`;
+      }
+
+      function route(hash) {
+        if (hash && location.hash !== hash) { location.hash = hash; return; }
+        const h = location.hash || "#/overview";
+        const m = h.match(/^#\/agent\/(.+)$/);
+        if (m) { setNav("agents"); viewAgent(decodeURIComponent(m[1])); }
+        else if (h === "#/agents") { setNav("agents"); viewAgents(); }
+        else if (h === "#/settings" || h === "#/key") { setNav("settings"); viewSettings(); }
+        else { setNav("overview"); viewOverview(); }
+        $("nav-count").textContent = (data.agents || []).length;
+        upsell(data.agents || []);
+      }
+
+      function show(which) {
+        $("login").hidden = which !== "login";
+        $("loading").hidden = which !== "loading";
+        $("app").hidden = which !== "app";
+      }
+
+      async function start() {
+        try {
+          await load();
+          banners();
+          show("app");
+          route();
+          window.scrollTo(0, 0);
+        } catch (e) {
+          console.error("[kyde-dashboard]", e);
+          sessionStorage.removeItem(KEY);
+          key = null;
+          show("login");
+          $("login-err").textContent =
+            e.message === "auth" ? "This key is not known to score.kyde.com."
+            : e.message === "network" ? "score.kyde.com cannot be reached from this page right now."
+            : e.message.startsWith("HTTP") ? `score.kyde.com answered with an error (${e.message}). Try again in a minute.`
+            : `The dashboard could not show your data (${e.message}).`;
+        }
+      }
+
+      $("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const k = $("key").value.replace(/\s+/g, "");
+        if (!k) return;
+        if (!/^kyde_[A-Za-z0-9_-]{8,}$/.test(k)) {
+          $("login-err").textContent = "That does not look like a Kyde key. It starts with kyde_ and has no spaces.";
+          return;
+        }
+        $("login-err").textContent = "";
+        $("login-btn").textContent = "Signing in…";
+        key = k;
+        sessionStorage.setItem(KEY, k);
+        await start();
+        $("login-btn").textContent = "Sign in →";
+        $("key").value = "";
+      });
+      $("logout").addEventListener("click", () => {
+        sessionStorage.removeItem(KEY);
+        key = null; data = null;
+        $("view").innerHTML = "";
+        history.replaceState(null, "", location.pathname);
+        show("login");
+      });
+      $("refresh").addEventListener("click", async () => {
+        try { await load(); banners(); route(); } catch { $("updated").textContent = "Refresh failed"; }
+      });
+      $("view").addEventListener("click", (e) => {
+        const tr = e.target.closest("tr[data-agent]");
+        if (tr) { route(`#/agent/${encodeURIComponent(tr.dataset.agent)}`); window.scrollTo(0, 0); }
+      });
+      addEventListener("hashchange", () => { if (data) { route(); window.scrollTo(0, 0); } });
+      setInterval(async () => { if (key && data && !document.hidden) { try { await load(); banners(); route(); } catch {} } }, 60000);
+
+      if (key) { show("loading"); start(); } else show("login");
+    })();
+  </script>
+</Base>

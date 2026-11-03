@@ -1,0 +1,94 @@
+---
+title: "Quickstart"
+description: "Create a Kyde Score key, point your agent's OpenTelemetry exporter at score.kyde.com, and read the first score."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Three steps: create a key, set the exporter, read the score. No account, no card.
+
+:::tip[Let your agent do it]
+Paste `Set up score.kyde.com/skill.md` into your coding agent. It runs these steps for you. See [For agents](/docs/score/agents/).
+:::
+
+## 1. Create a key
+
+With a webhook URL for alerts (https only). Kyde keeps it; alerts on band change are coming soon:
+
+```bash
+curl -s https://score.kyde.com/score/v0/keys \
+  -H 'content-type: application/json' \
+  -d '{"webhook_url": "https://your.app/hooks/kyde"}'
+```
+
+Or poll-only, without a body:
+
+```bash
+curl -s -X POST https://score.kyde.com/score/v0/keys
+```
+
+Both return `{"key": "kyde_…", "method_version": "…", "webhook": …}`. Store the key like a password. It cannot be shown again; if you lose it, create a new one.
+
+## 2. Point the exporter at Kyde
+
+Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
+
+<Tabs>
+  <TabItem label="Any OTel SDK">
+    Codex, OpenCode, LangChain, your own code: these four variables are the whole integration.
+
+    ```bash
+    export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
+    export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+    export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
+    export OTEL_SERVICE_NAME=invoice-agent
+    ```
+
+    Kyde accepts OTLP/HTTP **JSON**. Protobuf is not accepted yet, so the protocol variable is required.
+  </TabItem>
+  <TabItem label="Claude Code">
+    Set these in Claude Code's settings `env` or in the shell that starts it:
+
+    ```bash
+    export CLAUDE_CODE_ENABLE_TELEMETRY=1
+    export OTEL_LOGS_EXPORTER=otlp
+    export OTEL_METRICS_EXPORTER=otlp
+    export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+    export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
+    export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
+    export OTEL_SERVICE_NAME=my-claude-agent
+    ```
+  </TabItem>
+  <TabItem label="OTel Collector">
+    Recommended when telemetry has to be scrubbed before it leaves your network. Add an exporter:
+
+    ```yaml
+    exporters:
+      otlphttp/kyde:
+        endpoint: https://score.kyde.com
+        encoding: json
+        headers:
+          x-kyde-key: <KEY>
+    ```
+
+    You can delete or hash attributes in the Collector first. Kyde still scores.
+  </TabItem>
+</Tabs>
+
+## 3. Read the score
+
+Run the agent once, then:
+
+```bash
+curl -s https://score.kyde.com/score/v0/scores -H "x-kyde-key: <KEY>"
+```
+
+The agent shows up with `"status": "learning"` and a `runs_seen` count. After 30 runs it switches to `"status": "scored"` with a `score` and a `band`. There is nothing to configure for that.
+
+**Nothing listed?** Check that the protocol is `http/json` and the header is spelled `x-kyde-key`.
+**`degraded` in the response?** Records were dropped because of a limit. See [Limits](/docs/score/limits/).
+
+## Next
+
+- [API](/docs/score/api/): all endpoints, the webhook, deleting a key
+- [For agents](/docs/score/agents/): the MCP server, so an agent can check its own score

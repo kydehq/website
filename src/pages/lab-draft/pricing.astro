@@ -1,0 +1,337 @@
+---
+// Pricing of the lab draft. Three Kyde Score plans on the left, Kyde Control
+// on the right. Prices and plan limits: Joerg's proposal of 2026-11-03
+// (Solo at €9, not €29). NOT DECIDED: no decision log entry yet. Plan limits
+// follow what score.kyde.com enforces today (Joerg, 2026-11-03).
+// Push alerts, users, export and 1-year history are not built yet (KYDE-377).
+// Solo and Team show "Coming soon" until Stripe checkout works (KYDE-377).
+// Plan: 01-kyde-company/04_marketing/website/2026-11-03-kyde-com-score-seite-offene-punkte.md
+import Base from "../../layouts/Base.astro";
+import Footer from "../../components/Footer.astro";
+import LabNav from "../../components/lab/LabNav.astro";
+import { labFooterLinks } from "../../data/lab-footer";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "../../styles/lab.css";
+
+const scorePlans = [
+  {
+    name: "Free",
+    price: "€0",
+    per: "",
+    who: "No card, no account. The limits the service enforces.",
+    items: ["200 agents per key", "100,000 records a day", "90 days history", "Scores over API and MCP"],
+    cta: { label: "Get a free key →", href: "/lab-draft#setup" },
+  },
+  {
+    name: "Solo",
+    price: "€9",
+    per: "a month",
+    who: "One developer, alerts that find you.",
+    items: ["Everything in Free", "Alerts by email, Slack or ntfy"],
+    cta: { label: "Start Solo →", href: "/lab-draft#setup" },
+    soon: true,
+  },
+  {
+    name: "Team",
+    price: "€299",
+    per: "a month",
+    who: "Agents in production that cost money or touch data.",
+    items: ["Everything in Solo", "Several keys and users", "Slack and PagerDuty", "1 year history", "Export for record-keeping (EU AI Act Art. 12)", "Support"],
+    cta: { label: "Start Team →", href: "/lab-draft#setup" },
+    soon: true,
+    pick: true,
+  },
+];
+const controlItems = [
+  "Everything in Team, inside your network",
+  "Stops and quarantines an agent on a band change",
+  "Allow and deny per tool, data loss prevention",
+  "Signed, hash-chained record of every action",
+  "Fleet dashboard, your quotas, your retention",
+];
+
+type Cell = string | true | "";
+const matrix: [string, Cell, Cell, Cell, Cell][] = [
+  ["Agents", "200 per key", "200 per key", "200 per key", "Your fleet"],
+  ["Records a day", "100,000", "100,000", "100,000", "Yours"],
+  ["History", "90 days", "90 days", "1 year", "Yours"],
+  ["Scores over API and MCP", true, true, true, true],
+  ["Alerts", "", "Email, Slack, ntfy", "Slack, PagerDuty", "Plus a stop"],
+  ["Keys and users", "1", "1", "Several", "Several"],
+  ["Export for record-keeping", "", "", true, true],
+  ["Stops and quarantines", "", "", "", true],
+  ["Per-tool rules, data loss prevention", "", "", "", true],
+  ["Signed record (Ed25519, HSM)", "", "", "", true],
+  ["Runs", "Hosted, EU", "Hosted, EU", "Hosted, EU", "Your network"],
+];
+
+const limits = [
+  { key: "daily-records", v: "100,000", what: "records a day per key", how: "Over quota, records are dropped and the score is marked degraded. Your agent never sees an error." },
+  { key: "ingest-rpm", v: "60", what: "ingest requests a minute", how: "Bursts get a retryable 429. OTLP exporters smooth that out on their own." },
+  { key: "max-body", v: "4 MB", what: "per request", how: "Batch below that and you will not notice it." },
+  { key: "delete", v: "1", what: "request to delete everything", how: "DELETE on your key, and every record under it is gone at once." },
+];
+
+const faq = [
+  { q: "Who pays for Kyde, and why?", a: "Teams whose agents can burn money or be turned against them. A loop that spends tokens all night, or an agent that follows an injected instruction. Kyde tells you the moment an agent stops behaving like itself." },
+  { q: "What counts as an agent?", a: "One OpenTelemetry service.name. Give each agent its own and Kyde scores it on its own baseline." },
+  { q: "What happens when I go over a limit?", a: "Kyde drops the extra records and says so: the score is marked degraded. It never turns your agent's export into an error." },
+  { q: "How is Kyde Control priced?", a: "From €990 a month, depending on fleet size and where it runs. Tell us how many agents you run and what they touch, and you get a number in the first call." },
+  { q: "Can I try the gateway before I talk to anyone?", a: "Yes. The open-source edition of the Kyde Gateway runs with Docker and records every action in a hash-chained ledger. It observes only: stopping and signing come with Kyde Control." },
+  { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and stores call metadata only, never prompts or outputs. Kyde Control runs in your network, so nothing leaves it." },
+];
+
+const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
+---
+
+<Base
+  title="Pricing: Kyde Score and Kyde Control"
+  description="Kyde Score from €0, Solo €9 and Team €299 a month. Kyde Control runs in your network and stops agents that drift, from €990 a month."
+  noindex
+>
+  <LabNav active="pricing" />
+
+  <main class="kx">
+    <!-- ══════════ HERO + PLANS ══════════ -->
+    <section class="surface-rose">
+      <div class="wrap p-hero">
+        <div class="brackets">
+          <p class="mono label">(Pricing)</p>
+          <h1 class="p-title">Start free. Stop when you need to.</h1>
+          <p class="hero-line">Three plans to watch your agents on our servers. Kyde Control to stop them in your network.</p>
+        </div>
+      </div>
+      <div class="dots-band" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════ PLANS ══════════ -->
+    <section class="surface-paper" id="plans">
+      <div class="wrap p-plans">
+        <div class="p-score">
+          <p class="mono p-group">(Kyde Score) Hosted · tells you</p>
+          <article class="plan p-tabs">
+            <div class="p-tablist mono" role="tablist" aria-label="Kyde Score plans">
+              {scorePlans.map((p, i) => (
+                <button type="button" role="tab" id={`pt-${p.name}`} aria-controls={`pp-${p.name}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? undefined : "-1"}>
+                  {p.name}{p.pick && <span class="pick-dot" aria-hidden="true"></span>}
+                </button>
+              ))}
+            </div>
+            {scorePlans.map((p, i) => (
+              <div role="tabpanel" id={`pp-${p.name}`} aria-labelledby={`pt-${p.name}`} class="p-panel" hidden={i !== 0}>
+                <p class="plan-price">{p.price}<span class="plan-per">{p.per}</span>{p.pick && <span class="pick">Most teams</span>}</p>
+                <p class="plan-sub">{p.who}</p>
+                <ul class="plan-list">{p.items.map((it) => <li>{it}</li>)}</ul>
+                {p.soon
+                  ? <span class="btn plan-cta plan-soon" aria-disabled="true">Coming soon</span>
+                  : <a href={p.cta.href} class="btn btn-ink plan-cta">{p.cta.label}</a>}
+              </div>
+            ))}
+          </article>
+        </div>
+        <div class="p-control">
+          <p class="mono p-group">(Kyde Control) Your network · stops it</p>
+          <article class="plan plan-dark">
+            <p class="mono plan-tag">Control</p>
+            <p class="plan-price"><span class="plan-from">from</span>€990<span class="plan-per">a month</span></p>
+            <p class="plan-sub">For agents you need to stop, not just watch.</p>
+            <ul class="plan-list">{controlItems.map((i) => <li>{i}</li>)}</ul>
+            <button type="button" onclick="openModal()" class="btn plan-cta btn-neon">Contact sales →</button>
+            <p class="mono plan-foot">Try first: the <a href="https://github.com/kydehq/gateway" rel="noopener">open-source gateway</a> observes and records, without stopping.</p>
+          </article>
+        </div>
+      </div>
+      <div class="wrap"><p class="mono p-draft">*Draft. Prices and plan limits are a proposal, not yet decided. Prices excl. VAT.</p></div>
+    </section>
+
+    <!-- ══════════ 01 PLANS IN DETAIL ══════════ -->
+    <section class="surface-paper" id="compare">
+      <div class="wrap sec sec-tight">
+        <div class="kicker"><span class="num">01</span><span class="mono">What is in each plan</span></div>
+        <table class="p-cmp">
+          <thead>
+            <tr>
+              <th scope="col"><span class="visually-hidden">Feature</span></th>
+              <th scope="col">Free</th><th scope="col">Solo</th><th scope="col">Team</th>
+              <th scope="col" class="p-dark">Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            {matrix.map(([f, ...cells]) => (
+              <tr>
+                <th scope="row">{f}</th>
+                {cells.map((c, i) => (
+                  <td class={i === 3 ? "p-dark" : undefined} data-label={["Free", "Solo", "Team", "Control"][i]}>
+                    {show(c) === "yes" ? <span class="yes" aria-label="Yes">●</span> : show(c) === "no" ? <span class="no" aria-label="No">–</span> : <span class="mono">{c}</span>}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══════════ 02 LIMITS ══════════ -->
+    <section class="surface-paper" id="limits">
+      <div class="wrap sec sec-tight">
+        <div class="kicker"><span class="num">02</span><span class="mono">Limits on hosted plans</span></div>
+        <div class="split p-split">
+          <h2 class="h1">The limits the service enforces.</h2>
+          <p class="sub">Not a marketing table. Every limit degrades instead of breaking.</p>
+        </div>
+        <dl class="p-lims">
+          {limits.map((l) => (
+            <div>
+              <dt><span class="p-v" data-limit={l.key}>{l.v}</span> <span class="p-what">{l.what}</span></dt>
+              <dd>{l.how}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <!-- ══════════ 03 QUESTIONS ══════════ -->
+    <section class="surface-paper" id="questions">
+      <div class="wrap sec sec-tight">
+        <div class="kicker"><span class="num">03</span><span class="mono">Questions</span></div>
+        <div class="p-faq">
+          {faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CLOSE ══════════ -->
+    <section class="surface-rose">
+      <div class="wrap sec p-close">
+        <h2 class="h1">Start with one agent.</h2>
+        <div class="p-close-cta">
+          <a href="/lab-draft#setup" class="btn btn-ink">Get a free key →</a>
+          <button type="button" onclick="openModal()" class="btn p-ghost">Contact sales →</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer links={labFooterLinks} />
+
+  <script is:inline>
+    // Plan tabs: click or arrow keys, one panel visible.
+    (() => {
+      const list = document.querySelector(".p-tablist");
+      if (!list) return;
+      const tabs = [...list.querySelectorAll('[role="tab"]')];
+      const pick = (tab) => tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        on ? t.removeAttribute("tabindex") : t.setAttribute("tabindex", "-1");
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+      tabs.forEach((t, i) => {
+        t.addEventListener("click", () => pick(t));
+        t.addEventListener("keydown", (e) => {
+          const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+          if (!d) return;
+          const n = tabs[(i + d + tabs.length) % tabs.length]; pick(n); n.focus();
+        });
+      });
+    })();
+  </script>
+
+  <style is:global>
+    .p-hero { padding-block: var(--kx-hero-top) clamp(48px, 6vw, 96px); }
+    @media (min-width: 1024px) { .p-hero .brackets { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(16px, 2vw, 24px); align-items: end; } .p-hero .label { grid-column: 1 / -1; } .p-hero .hero-line { margin: 0; } }
+    .p-title { font-size: clamp(2.8rem, 4.8vw, 5.6rem); font-weight: 400; line-height: 0.94; letter-spacing: -0.055em; max-width: 12ch; margin: 0; text-wrap: balance; }
+
+    /* Three Score plans left, Control right. */
+    .p-plans { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 2vw, 28px); padding-top: var(--kx-sec); padding-bottom: 12px; }
+    .p-group { font-size: 0.8125rem; margin: 0 0 12px; color: var(--color-ink-2); }
+    .p-control, .p-score { display: flex; flex-direction: column; }
+    .p-score .plan { flex: 1; }
+    .p-tablist { display: flex; gap: 4px; margin: 0 0 28px; border-bottom: 1px solid var(--color-line-0); }
+    .p-tablist button { background: none; border: 0; font: inherit; font-size: 0.875rem; color: var(--color-ink-2); padding: 0 12px 12px 0; margin-right: 12px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 6px; }
+    .p-tablist button[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+    .p-tablist button:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+    .pick-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-neon); box-shadow: 0 0 0 1px var(--color-ink); }
+    .p-panel { display: flex; flex-direction: column; flex: 1; }
+    .p-panel[hidden] { display: none; }
+    .p-panel .pick { margin-left: 12px; vertical-align: middle; letter-spacing: 0; font-family: var(--font-mono); }
+    .p-control .plan { flex: 1; }
+    .p-score .plan { box-shadow: inset 0 0 0 1px var(--color-ink); }
+    .plan { background: var(--color-paper); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column; min-width: 0; height: 100%; box-sizing: border-box; }
+    .plan-dark { background: var(--color-card); color: #fff; }
+    .plan-tag { font-size: 0.875rem; margin: 0 0 24px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .pick { background: var(--color-neon); color: var(--color-ink); font-size: 0.6875rem; padding: 2px 7px; }
+    .plan-price { font-size: clamp(2.2rem, 3.2vw, 3.2rem); letter-spacing: -0.05em; line-height: 1; margin: 0; white-space: nowrap; }
+    .plan-per { font-size: 0.875rem; letter-spacing: 0; color: var(--color-ink-2); margin-left: 8px; font-family: var(--font-mono); }
+    .plan-from { font-size: 0.875rem; letter-spacing: 0; color: #aaa; margin-right: 8px; font-family: var(--font-mono); }
+    .plan-dark .plan-per { color: #aaa; }
+    .plan-sub { margin: 12px 0 0; color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.4; min-height: 2.8em; }
+    .plan-dark .plan-sub { color: #bbb; }
+    .plan-list { list-style: none; margin: 20px 0 28px; padding: 0; flex: 1; }
+    .plan-list li { padding: 9px 0 9px 20px; border-top: 1px solid var(--color-line-0); position: relative; font-size: 0.9375rem; line-height: 1.35; }
+    .plan-list li::before { content: ""; position: absolute; left: 2px; top: 16px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-ink); }
+    .plan-dark .plan-list li { border-top-color: #3a3a3a; }
+    .plan-dark .plan-list li::before { background: var(--color-neon); }
+    .plan-cta { align-self: flex-start; font-size: 0.875rem; padding: 12px 16px; }
+    .plan-soon { background: var(--color-line-0); color: var(--color-ink-2); cursor: default; }
+    .btn-neon { background: var(--color-neon); color: var(--color-ink); }
+    .btn-neon:hover { background: #fff; }
+    .p-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
+    .p-ghost:hover { background: var(--color-ink); color: #fff; }
+    .plan-foot { font-size: 0.75rem; color: #aaa; margin: 14px 0 0; line-height: 1.5; }
+    .plan-foot a { color: #fff; }
+    .p-draft { font-size: 0.75rem; color: var(--color-ink-2); margin: 0; padding: 8px 0 clamp(40px, 5vw, 64px); }
+
+    .p-cmp { width: 100%; border-collapse: collapse; font-size: 0.9375rem; table-layout: fixed; }
+    .p-cmp th, .p-cmp td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--color-line-0); font-weight: 400; vertical-align: top; }
+    .p-cmp thead th { font: 500 0.8125rem var(--font-mono); border-bottom: 1px solid var(--color-ink); }
+    .p-cmp tbody th { padding-left: 0; width: 28%; }
+    .p-cmp thead th:first-child { width: 28%; }
+    .p-cmp .p-dark { background: var(--color-card); color: #fff; border-bottom-color: #3a3a3a; }
+    .p-cmp .mono { font-size: 0.8125rem; }
+    .p-cmp .yes { color: var(--color-ink); }
+    .p-cmp .p-dark .yes { color: var(--color-neon); }
+    .p-cmp .no { color: var(--color-ink-2); }
+
+    .p-split { align-items: end; }
+    .p-lims { margin: clamp(40px, 5vw, 64px) 0 0; display: grid; grid-template-columns: repeat(2, 1fr); column-gap: clamp(32px, 5vw, 80px); }
+    .p-lims div { padding: 18px 0; border-top: 1px solid var(--color-line-0); }
+    .p-lims dt { font-size: 1.25rem; letter-spacing: -0.02em; }
+    .p-v { font-family: var(--font-mono); font-weight: 500; }
+    .p-lims dd { margin: 6px 0 0; color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.45; }
+
+    .p-faq { max-width: 860px; border-top: 1px solid var(--color-ink); }
+    .p-faq details { border-bottom: 1px solid var(--color-line-0); }
+    .p-faq summary { cursor: pointer; list-style: none; padding: 18px 32px 18px 0; font-size: 1.1875rem; letter-spacing: -0.015em; position: relative; }
+    .p-faq summary::-webkit-details-marker { display: none; }
+    .p-faq summary::after { content: "+"; position: absolute; right: 0; top: 16px; font-family: var(--font-mono); }
+    .p-faq details[open] summary::after { content: "–"; }
+    .p-faq details p { margin: 0 0 20px; color: var(--color-ink-2); max-width: 64ch; line-height: 1.5; }
+
+    .p-close { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
+    .p-close-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .p-plans { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .p-lims { grid-template-columns: 1fr; }
+      .p-cmp { table-layout: auto; }
+      .p-cmp thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .p-cmp, .p-cmp tbody, .p-cmp tr, .p-cmp th, .p-cmp td { display: block; width: 100% !important; }
+      .p-cmp tr { border-bottom: 1px solid var(--color-ink); padding: 10px 0; }
+      .p-cmp tbody th { font-weight: 500; border: 0; padding: 0 0 6px; }
+      .p-cmp td { display: flex; justify-content: space-between; border: 0; padding: 3px 0; }
+      .p-cmp td::before { content: attr(data-label); font: 500 0.75rem var(--font-mono); color: var(--color-ink-2); }
+      .p-cmp .p-dark { background: none; color: inherit; }
+      .p-cmp .p-dark .yes { color: var(--color-ink); }
+    }
+  </style>
+</Base>

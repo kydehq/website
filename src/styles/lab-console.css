@@ -1,0 +1,87 @@
+/* Draft of the agent status pages. Branch lab/home-draft only, never on main.
+   Shrink, hide, embody: one column, one type scale, one mark. A filled dot means
+   a person should look, a ring means Kyde has it. Everything else stays folded. */
+
+/* Same fix as lab-draft.astro: no nested scroll container, no reveal motion. */
+html, body { overflow-x: clip; }
+main section.reveal { opacity: 1; transform: none; transition: none; }
+
+.col { max-width: 720px; margin: 0 auto; padding: 0 var(--kx-pad); }
+[hidden] { display: none !important; }
+
+.con-nav { position: sticky; top: 0; z-index: 40; background: var(--color-paper); }
+.con-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; font: 400 12px var(--font-mono); color: var(--color-ink-2); }
+.con-row img { height: 22px; width: auto; display: block; filter: invert(1); }
+.draft-controls { display: flex; align-items: center; gap: 8px; }
+.draft-controls select { font: inherit; color: var(--color-ink-2); background: transparent; border: 0; border-bottom: 1px solid var(--color-line-0); padding: 2px 0; cursor: pointer; outline-offset: 2px; }
+
+.page { padding-top: clamp(40px, 9vh, 96px); padding-bottom: 96px; }
+.title { font-size: clamp(2.25rem, 5vw, 3.25rem); font-weight: 400; letter-spacing: -0.04em; line-height: 1.05; margin: 0; text-wrap: balance; }
+.title mark { color: inherit; background: linear-gradient(transparent 58%, var(--color-blush) 58%, var(--color-blush) 94%, transparent 94%); }
+.lead { font-size: var(--kx-body-l); line-height: 1.45; color: var(--color-ink-1); margin: 20px 0 0; max-width: 56ch; }
+.small { font: 400 12px/1.7 var(--font-mono); color: var(--color-ink-2); margin: 0; }
+.small a, .lead a, .text-btn { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--color-line-0); }
+.small a:hover, .lead a:hover, .text-btn:hover { color: var(--color-ink); text-decoration-color: currentColor; }
+.text-btn { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+code { font-family: var(--font-mono); font-size: 0.88em; }
+.code { background: var(--color-bg-2); padding: 16px 18px; font: 400 13px/1.65 var(--font-mono); overflow-x: auto; margin: 0; }
+.code code { font-size: inherit; }
+
+.btn-solid { background: var(--color-card); color: var(--color-cta-ink); border: 1px solid var(--color-card); padding: 10px 18px; font: 500 14px var(--font-sans); cursor: pointer; }
+.btn-solid:hover { color: var(--color-blush); }
+.actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 28px; font-size: 14px; color: var(--color-ink-2); }
+
+.dot { flex: none; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--color-ink-2); }
+.dot.on { background: var(--color-ink); border-color: var(--color-ink); }
+
+/* Folded detail, the same everywhere. */
+.fold { border-top: 1px solid var(--color-line-0); }
+.fold:last-of-type { border-bottom: 1px solid var(--color-line-0); }
+.fold > summary { list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; cursor: pointer; font-size: 15px; }
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::after { content: "+"; font: 400 14px var(--font-mono); color: var(--color-ink-2); }
+.fold[open] > summary::after { content: "\2212"; }
+.fold-body { padding: 0 0 24px; }
+
+/* All agents */
+.find { display: block; width: 100%; margin-top: 40px; border: 0; border-bottom: 1px solid var(--color-line-0); padding: 8px 0; font: 400 13px var(--font-mono); background: transparent; color: var(--color-ink); outline: none; }
+.find:focus { border-bottom-color: var(--color-ink); }
+.needs { list-style: none; margin: 16px 0 0; padding: 0; }
+.rows { list-style: none; margin: 0; padding: 0; }
+.row { display: flex; align-items: center; gap: 14px; padding: 14px 0; color: var(--color-ink); text-decoration: none; font-size: 15px; }
+.row .name { flex: none; }
+.row .note { color: var(--color-ink-2); margin-left: auto; text-align: right; font-size: 14px; }
+.row:hover .name { text-decoration: underline; text-underline-offset: 3px; }
+.needs > li > .row, .group > summary { border-bottom: 1px solid var(--color-line-0); }
+.group > summary { list-style: none; display: flex; align-items: center; gap: 14px; padding: 14px 0; cursor: pointer; font-size: 15px; }
+.group > summary::-webkit-details-marker { display: none; }
+.group > summary .note { color: var(--color-ink-2); margin-left: auto; text-align: right; font-size: 14px; white-space: nowrap; }
+.group-body { padding: 4px 0 16px 21px; border-bottom: 1px solid var(--color-line-0); }
+.group-body .row { padding: 8px 0; }
+.group-body .actions { margin-top: 12px; }
+.rest { margin-top: 40px; }
+.rest .row { padding: 9px 0; }
+.foot { margin-top: 40px; }
+
+/* One agent */
+.back { display: inline-block; margin-bottom: 28px; }
+.who { display: flex; align-items: center; gap: 10px; font: 400 13px var(--font-mono); color: var(--color-ink-2); margin: 0 0 14px; }
+.diff { list-style: none; margin: 24px 0 0; padding: 0; font: 400 13px var(--font-mono); }
+.diff li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--color-line-0); }
+.diff li:last-child { border-bottom: 1px solid var(--color-line-0); }
+.diff .faded { color: var(--color-ink-2); }
+.setup { margin-top: 32px; }
+.setup .small { margin-top: 10px; }
+.copy { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.facts { margin-top: 40px; }
+.nudge { margin-top: 16px; }
+.details { margin-top: 56px; }
+.data-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+.data-cols .small { margin-bottom: 10px; }
+.never { list-style: none; margin: 0; padding: 0; font-size: 14px; line-height: 1.9; color: var(--color-ink-1); }
+
+@media (max-width: 620px) {
+  .data-cols { grid-template-columns: 1fr; }
+  .row, .group > summary { flex-wrap: wrap; }
+  .row .note, .group > summary .note { margin-left: 21px; width: 100%; text-align: left; white-space: normal; }
+}

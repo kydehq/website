@@ -1,0 +1,302 @@
+---
+// Kyde Research: empirical studies of how AI agents behave, on public agent
+// records. Each study: a name, a research question, the finding in one
+// sentence, the numbers, limitations, corpus and source file.
+// Data: src/data/research.ts. Same data as JSON at /lab-draft/research.json.
+// Papers and code: github.com/kydehq/behavioral-drift-detection.
+// Plan: 01-kyde-company/04_marketing/website/2026-11-03-measures-seite-plan.md
+import Base from "../../layouts/Base.astro";
+import Footer from "../../components/Footer.astro";
+import LabNav from "../../components/lab/LabNav.astro";
+import { labFooterLinks } from "../../data/lab-footer";
+import { studies, RESULTS, REPO, MEASURED, METHOD } from "../../data/research";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "../../styles/lab.css";
+
+// Draft: every study shows. Live: only studies with status "live".
+const DRAFT = true;
+const list = studies.filter((m) => DRAFT || m.status === "live");
+const fmt = (n: number) => n.toLocaleString("en-US").replace(/,/g, " ");
+// Runs that are a subset of another study (runsCounted: false) count once.
+const runsTotal = list.reduce((s, m) => s + (m.runsCounted === false ? 0 : m.runs ?? 0), 0);
+const corpora = new Set(list.map((m) => m.corpus.split(",")[0])).size;
+
+const kpis = [
+  { label: "Studies", value: String(list.length) },
+  { label: "Runs analysed", value: fmt(runsTotal) },
+  { label: "Public corpora", value: String(corpora) },
+  { label: "Last measured", value: MEASURED },
+];
+
+// The seven drift phenomena the survey separates (paper, Section 2).
+const phenomena = ["Goal drift", "Context decay", "Reward hacking", "Deception", "Multi-agent drift", "Persistent drift", "Version drift"];
+
+const PAPER = `${REPO}/blob/main/paper/behavioral-drift-detection-survey.md`;
+const PAPER_PDF = `${REPO}/blob/main/paper/behavioral-drift-detection-survey.pdf`;
+const LADDER = `${REPO}/blob/main/paper-followup/observability-ladder.md`;
+const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
+---
+
+<Base
+  title="Kyde Research: measuring how AI agents behave"
+  description="Empirical research on the behavior of autonomous AI systems: model changes, telemetry, run length, prompt injection, reward hacking and tool updates. Measured on public agent records, with corpus, runs and source."
+  noindex
+>
+  <link slot="head" rel="alternate" type="application/json" href="/lab-draft/research.json" />
+  <LabNav active="research" />
+
+  <main class="kx">
+    <!-- ══════════ HERO ══════════ -->
+    <section class="surface-rose">
+      <div class="wrap m-hero">
+        <div class="brackets">
+          <p class="mono label">(Kyde Research)</p>
+          <h1 class="m-title">Measuring how AI agents behave.</h1>
+          <p class="hero-line">Empirical research on the behavior of autonomous AI systems. We study how agents change, using execution records from public agent benchmarks and real Claude Code sessions.</p>
+          <p class="m-topics mono">Model changes · Telemetry · Run length · Prompt injection · Reward hacking · Behavioral stability</p>
+        </div>
+        <dl class="m-kpis">
+          {kpis.map((k) => (<div><dt class="mono">{k.label}</dt><dd>{k.value}</dd></div>))}
+        </dl>
+      </div>
+      <div class="dots-band" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════ STUDIES ══════════ -->
+    <section class="surface-paper" id="studies">
+      <div class="wrap m-toc-wrap">
+        <p class="mono label m-toc-h">Studies</p>
+        <nav class="m-toc" aria-label="Studies">
+          {list.map((m, i) => (<a href={`#${m.id}`}><span class="m-n mono">T{i + 1}</span>{m.name}</a>))}
+        </nav>
+        {DRAFT && <p class="mono m-draft">*Draft. Numbers from the open detector repo, not yet confirmed for publication.</p>}
+      </div>
+
+      {list.map((m, i) => (
+        <article class="wrap m-study" id={m.id}>
+          <div class="kicker"><span class="num">T{i + 1}</span><span class="mono">{m.name}</span></div>
+          <h2 class="m-q">{m.question}</h2>
+          <p class="m-finding"><span class="mono m-tag">Finding</span>{m.finding}</p>
+          <p class="m-intro">{m.intro}</p>
+          <table class="mt">
+            <thead><tr>{m.columns.map((c) => (<th scope="col" class={c.num ? "num" : undefined}>{c.label}</th>))}</tr></thead>
+            <tbody>
+              {m.rows.map((r, ri) => (
+                <tr class={m.mark?.includes(ri) ? "is-mark" : undefined}>
+                  {r.map((cell, ci) => (
+                    <td class={m.columns[ci].num ? "num" : undefined} data-label={m.columns[ci].label}>
+                      {typeof cell === "number" ? fmt(cell) : cell === "" ? "–" : cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div class="m-foot">
+            {m.note && <p class="m-note"><span class="mono m-tag">Limitations</span>{m.note}</p>}
+            <p class="mono m-meta">
+              Corpus: {m.corpus}{m.runs ? ` · ${fmt(m.runs)} runs` : ""} · analysed {MEASURED} ·{" "}
+              <a href={`${RESULTS}/${m.source}`} rel="noopener">results and script →</a>
+            </p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <!-- ══════════ PAPERS (the one violet section of this page) ══════════ -->
+    <section class="surface-violet" id="papers">
+      <div class="wrap sec">
+        <div class="kicker kicker-violet"><span class="num">P</span><span class="mono">Papers</span></div>
+        <h2 class="h1">The studies rest on two papers.</h2>
+        <p class="sub">Both by Jürgen Eckel and Joerg Radehaus, both open under CC BY 4.0, with the code that produced every number.</p>
+        <div class="r-papers">
+          <article class="r-paper">
+            <p class="mono label">Survey · v0.3</p>
+            <h3>Behavioral Drift in Autonomous LLM-driven Systems: A Survey of Detection Approaches and the Case for Deterministic Detection</h3>
+            <ul class="r-points">
+              <li>Separates seven drift phenomena and maps them onto the EU AI Act (Art. 3(23), Art. 12, Art. 72). Prompt injection is placed as a cause, not a phenomenon.</li>
+              <li>Surveys eight recent detection approaches and shows their reported numbers are not comparable.</li>
+              <li>A detectability matrix: which phenomenon call records alone can establish.</li>
+              <li>The case for determinism: an LLM judge is itself a drifting system, and a disputed verdict must be recomputable from the record.</li>
+            </ul>
+            <ul class="r-chips mono" aria-label="The seven drift phenomena">
+              {phenomena.map((p) => (<li>{p}</li>))}
+            </ul>
+            <p class="r-links mono"><a href={PAPER} rel="noopener">Read →</a><a href={PAPER_PDF} rel="noopener">PDF</a></p>
+          </article>
+          <article class="r-paper">
+            <p class="mono label">Measured follow-up · working draft</p>
+            <h3>What Does Content Access Buy? Pricing the Observability Ladder for Behavioral Drift Detection</h3>
+            <ul class="r-points">
+              <li>Measures what each step up in observation buys: call records, call parameters, tool outputs, reasoning text. Same corpora, same splits, deterministic detectors throughout.</li>
+              <li>Detection follows the drift, not the data: it works where the drift leaves a trace in stored bytes, and fails where the label is a judgment about meaning.</li>
+              <li>On real Claude Code sessions: every user's agent has its own fingerprint, and a frozen baseline ages within weeks.</li>
+            </ul>
+            <p class="r-links mono"><a href={LADDER} rel="noopener">Read →</a><a href={LADDER_PDF} rel="noopener">PDF</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ METHODS AND DATA ══════════ -->
+    <section class="surface-paper" id="methods">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">M</span><span class="mono">Methods and data</span></div>
+        <h2 class="h1">Recorded runs, open detectors, stated limits.</h2>
+        <p class="sub">All results come from recorded agent executions. Every study names its corpus, its sample size, its method and its limitations. The detector implementations and analysis scripts are open source.</p>
+        <div class="r-methods">
+          <div>
+            <p class="mono label">(Detectors)</p>
+            <dl class="r-dl">
+              <div><dt class="mono">Frozen baseline</dt><dd>Learned from an agent's first runs, then fingerprinted. A drifting agent never becomes its own reference.</dd></div>
+              <div><dt class="mono">Gradual drift</dt><dd>Jensen–Shannon divergence over a window, smoothed with an exponential moving average.</dd></div>
+              <div><dt class="mono">Abrupt shifts</dt><dd>CUSUM on the surprisal of each event against the baseline.</dd></div>
+              <div><dt class="mono">Deterministic</dt><dd>Plain statistics, Python standard library only. No language model in the verdict: same record, same result.</dd></div>
+            </dl>
+          </div>
+          <div>
+            <p class="mono label">(What a record contains)</p>
+            <dl class="r-dl">
+              <div><dt class="mono">L0 Call records</dt><dd>Tool name, hashed parameters, status, timing. Never content. What Kyde Score stores.</dd></div>
+              <div><dt class="mono">L1 Parameters</dt><dd>The plain parameters of each call, for example command lines.</dd></div>
+              <div><dt class="mono">L2 Tool outputs</dt><dd>What the tools returned to the agent. Where injected instructions arrive.</dd></div>
+              <div><dt class="mono">L3 Reasoning</dt><dd>The agent's own reasoning text.</dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="r-corpora">
+          <p class="mono label">(Public corpora)</p>
+          <ul>
+            <li><b>SWE-bench</b> submission logs of agent frameworks on different models (T1)</li>
+            <li><b>TRAIL</b> agent runs with human-annotated errors, GAIA and SWE-bench (T2, T3)</li>
+            <li><b>AgentDojo</b> prompt-injection attacks on 29 agent pipelines (T4)</li>
+            <li><b>Terminal Wrench</b> runs where agents exploited the grader (T5)</li>
+            <li><b>SWE-chat</b> real Claude Code working sessions with real timelines (T6)</li>
+          </ul>
+        </div>
+        <ul class="m-rules">
+          <li>Real records from public corpora. No sample numbers.</li>
+          <li>Every study names its runs, its corpus and the file it comes from.</li>
+          <li>Method version: commit <a href={REPO} rel="noopener">{METHOD}</a> of the open detector repo.</li>
+          <li>No one can pay for a row. Mistakes go into a public correction list.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════ CLOSE ══════════ -->
+    <section class="surface-rose">
+      <div class="wrap sec m-close">
+        <div>
+          <p class="mono label">(Measure your agent)</p>
+          <p class="m-cta-line">Public benchmarks describe agents in general. Not yours.</p>
+        </div>
+        <div>
+          <p class="m-close-p">They cannot tell you how your own agent behaves in production. Kyde Score learns your agent's normal behavior from its own runs and scores every run against it, with the same detectors.</p>
+          <div class="m-cta">
+            <a href="/lab-draft/products#score" class="btn btn-ink">Explore Kyde Score →</a>
+            <a href="/lab-draft/research.json" class="mono m-json">research.json</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer links={labFooterLinks} />
+
+  <style is:global>
+    .m-hero { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: end; padding-block: var(--kx-hero-top) clamp(40px, 5vw, 72px); }
+    @media (min-width: 1024px) { .m-hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 96px); } }
+    .m-title { font-size: clamp(2.8rem, 4.8vw, 5.6rem); font-weight: 400; line-height: 0.94; letter-spacing: -0.055em; max-width: 12ch; margin: 0; text-wrap: balance; }
+    .m-topics { font-size: 0.75rem; color: var(--color-ink-1); margin: 18px 0 0; line-height: 1.6; }
+    .m-kpis { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid var(--color-ink); }
+    .m-kpis div { padding: 16px 0 18px; border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); }
+    .m-kpis div:nth-child(odd) { padding-right: 16px; }
+    .m-kpis dt { font-size: 0.75rem; color: var(--color-ink-1); margin-bottom: 6px; }
+    .m-kpis dd { margin: 0; font-size: clamp(1.6rem, 2.4vw, 2.2rem); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+
+    .m-toc-wrap { padding-top: clamp(56px, 7vw, 96px); }
+    .m-toc-h { margin: 0 0 14px; }
+    .m-toc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--color-ink); }
+    .m-toc a { display: flex; gap: 12px; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--color-line-0); color: inherit; text-decoration: none; font-size: 1rem; }
+    .m-toc a:hover { text-decoration: underline; }
+    .m-n { color: var(--color-ink-2); font-size: 0.8125rem; padding-top: 2px; }
+    .m-draft { font-size: 0.75rem; color: var(--color-ink-2); margin: 14px 0 0; }
+
+    .m-study { padding-block: clamp(64px, 8vw, 112px) 0; scroll-margin-top: 72px; }
+    .m-study:last-child { padding-bottom: clamp(72px, 9vw, 128px); }
+    .m-study .kicker { margin-bottom: 20px; }
+    .m-q { font-size: clamp(1.7rem, 2.8vw, 2.6rem); font-weight: 400; line-height: 1.08; letter-spacing: -0.035em; max-width: 24ch; margin: 0; text-wrap: balance; }
+    .m-tag { display: inline-block; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ink-2); margin-right: 10px; }
+    .m-finding { font-size: 1.1875rem; line-height: 1.4; margin: 18px 0 0; max-width: 60ch; padding-left: 14px; border-left: 3px solid var(--color-ink); }
+    .m-intro { font-size: 1.0625rem; line-height: 1.45; color: var(--color-ink-2); max-width: 62ch; margin: 14px 0 28px; }
+
+    .mt { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+    .mt th { text-align: left; font: 500 0.75rem var(--font-mono); color: var(--color-ink-2); padding: 0 16px 10px 0; border-bottom: 1px solid var(--color-ink); vertical-align: bottom; }
+    .mt td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--color-line-0); vertical-align: top; }
+    .mt .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .mt th:last-child, .mt td:last-child { padding-right: 0; }
+    .mt tr.is-mark td { background: color-mix(in srgb, var(--color-blush) 55%, transparent); }
+    .mt tr.is-mark td:first-child { box-shadow: inset 3px 0 0 var(--color-ink); padding-left: 12px; }
+
+    .m-foot { margin-top: 16px; display: grid; gap: 10px; max-width: 80ch; }
+    .m-foot p { margin: 0; line-height: 1.5; }
+    .m-note { font-size: 0.9375rem; color: var(--color-ink-1); }
+    .m-meta { font-size: 0.75rem; color: var(--color-ink-2); }
+    .m-meta a { color: var(--color-ink); }
+
+    #papers .h1, #methods .h1 { max-width: 22ch; }
+    #papers .sub, #methods .sub { max-width: 58ch; }
+    .surface-violet .h1 { color: #fff; }
+    .surface-violet .sub { color: rgba(255,255,255,.72); }
+    .surface-violet .label { color: var(--color-blush); }
+    .kicker-violet .num { background: #fff; color: var(--color-violet); }
+    .r-papers { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 40px); margin-top: clamp(48px, 6vw, 80px); }
+    .r-paper { border-top: 1px solid rgba(255,255,255,.4); padding-top: 20px; }
+    .r-paper h3 { font-size: clamp(1.25rem, 1.8vw, 1.6rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin: 10px 0 18px; color: #fff; }
+    .r-points { margin: 0; padding: 0; list-style: none; }
+    .r-points li { padding: 10px 0; border-top: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.82); line-height: 1.45; }
+    .r-chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 16px 0 0; padding: 0; font-size: 0.75rem; }
+    .r-chips li { border: 1px solid rgba(255,255,255,.4); padding: 3px 8px; }
+    .r-links { display: flex; gap: 20px; margin: 20px 0 0; font-size: 0.875rem; }
+    .r-links a { color: #fff; }
+
+    .r-methods { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 96px); margin-top: clamp(48px, 6vw, 80px); }
+    .r-dl { margin: 0; }
+    .r-dl div { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--color-line-0); }
+    .r-dl div:last-child { border-bottom: 1px solid var(--color-line-0); }
+    .r-dl dt { font-size: 0.8125rem; padding-top: 3px; }
+    .r-dl dd { margin: 0; color: var(--color-ink-1); line-height: 1.45; }
+    .r-corpora { margin-top: clamp(40px, 5vw, 64px); }
+    .r-corpora ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 32px; }
+    .r-corpora li { padding: 12px 0; border-top: 1px solid var(--color-line-0); color: var(--color-ink-1); line-height: 1.45; }
+    .r-corpora b { color: var(--color-ink); font-weight: 500; margin-right: 6px; }
+    .m-rules { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; max-width: 72ch; }
+    .m-rules li { padding: 12px 0; border-top: 1px solid var(--color-ink); font-size: 1.0625rem; }
+    .m-rules a { color: inherit; }
+
+    .m-close { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 96px); align-items: end; }
+    .m-cta-line { font-size: clamp(1.8rem, 3vw, 2.8rem); letter-spacing: -0.04em; line-height: 1.04; margin: 0; max-width: 16ch; }
+    .m-close-p { font-size: 1.125rem; line-height: 1.5; margin: 0 0 24px; max-width: 48ch; }
+    .m-cta { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .m-json { font-size: 0.8125rem; color: inherit; }
+
+    @media (max-width: 900px) {
+      .m-toc { grid-template-columns: 1fr; }
+      .r-papers, .r-methods, .m-close { grid-template-columns: 1fr; }
+      .r-dl div { grid-template-columns: 1fr; gap: 4px; }
+    }
+    /* Phones: each row becomes a small card, no sideways scrolling. */
+    @media (max-width: 720px) {
+      .mt thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .mt, .mt tbody, .mt tr, .mt td { display: block; width: 100%; }
+      .mt tr { border-bottom: 1px solid var(--color-ink); padding: 10px 0; }
+      .mt td { display: flex; justify-content: space-between; gap: 16px; border: 0; padding: 4px 0; text-align: right; }
+      .mt td::before { content: attr(data-label); font: 500 0.75rem var(--font-mono); color: var(--color-ink-2); text-align: left; }
+      .mt td:first-child { font-weight: 500; }
+      .mt tr.is-mark td:first-child { box-shadow: none; padding-left: 0; }
+      .mt tr.is-mark { box-shadow: inset 3px 0 0 var(--color-ink); padding-left: 12px; background: color-mix(in srgb, var(--color-blush) 55%, transparent); }
+      .mt tr.is-mark td { background: none; }
+    }
+  </style>
+</Base>

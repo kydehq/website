@@ -1,0 +1,202 @@
+---
+// Draft: the status page of one agent, in every state. Branch lab/home-draft
+// only, noindex, never on main. The two selects in the header exist only in this
+// draft. All numbers are X until they are measured.
+//
+// Shrink, hide, embody: one sentence says where the agent stands, one action
+// sits under it, everything else is folded. Open with Juergen: exact fields and
+// retention of the stored record.
+import Base from "../../layouts/Base.astro";
+import "../../styles/lab-console.css";
+
+const baseline = [
+  { tool: "refund_lookup", values: "X % to X %" },
+  { tool: "web_search", values: "X % to X %" },
+  { tool: "order_status", values: "X % to X %", faded: true },
+  { tool: "send_reply", values: "X % to X %", faded: true },
+];
+
+const withTasks = `{
+  "timestamp": "2026-XX-XXTXX:XX:XXZ",
+  "service.name": "support-agent",
+  "tool": "refund_lookup",
+  "status": "ok",
+  "model": "gpt-4o",
+  "kyde.task.key": "handle_refund",
+  "kyde.entity.email": ["a41f...e07c"],
+  "kyde.method_version": "X"
+}`;
+
+const withoutTasks = `{
+  "timestamp": "2026-XX-XXTXX:XX:XXZ",
+  "service.name": "support-agent",
+  "tool": "refund_lookup",
+  "status": "ok",
+  "model": "gpt-4o"
+}`;
+
+const setup = `pip install kyde-otel
+export OTEL_TRACES_EXPORTER=kyde KYDE_KEY=<YOUR_KEY>`;
+---
+
+<Base title="support-agent, Kyde" description="Draft of the Kyde agent status page." noindex>
+  <header class="con-nav">
+    <div class="col con-row">
+      <a href="/lab-draft" aria-label="Back to the draft home"><img src="/kyde-logo.svg" alt="Kyde" /></a>
+      <div class="draft-controls" role="note">
+        <span>Draft</span>
+        <label for="set-state" style="position:absolute;left:-9999px">State</label>
+        <select id="set-state">
+          <option value="waiting">waiting</option>
+          <option value="learning">learning</option>
+          <option value="watching">watching</option>
+          <option value="changed">changed</option>
+          <option value="silent">no calls</option>
+        </select>
+        <label for="set-package" style="position:absolute;left:-9999px">Package</label>
+        <select id="set-package">
+          <option value="on">with package</option>
+          <option value="off">without package</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="col page" id="agent">
+    <a href="/lab-draft/agents" class="small back">All agents</a>
+    <p class="who"><span class="dot" id="who-dot" aria-hidden="true"></span>support-agent</p>
+
+    <div data-for="waiting">
+      <h1 class="title">Waiting for the first call.</h1>
+      <div class="setup">
+        <pre class="code"><code>{setup}</code></pre>
+        <p class="small">Two lines where your agent starts. Your key is in. <button type="button" class="copy" data-copy={setup}>Copy</button></p>
+      </div>
+    </div>
+
+    <div data-for="learning">
+      <h1 class="title">Learning, run X of X.</h1>
+      <p class="lead">You hear from us when the baseline is set.</p>
+    </div>
+
+    <div data-for="watching">
+      <h1 class="title">Nothing has changed.</h1>
+      <p class="lead">X runs since the baseline.</p>
+    </div>
+
+    <div data-for="changed">
+      <h1 class="title"><mark>Changed</mark> since run X.</h1>
+      <p class="lead">Calls <code>web_search</code> instead of <code>refund_lookup</code> in X of the last X runs. The model version changed at XX:XX.</p>
+      <div class="actions">
+        <button type="button" class="btn-solid">Mark as expected</button>
+        <button type="button" class="text-btn">Keep alerting</button>
+      </div>
+    </div>
+
+    <div data-for="silent">
+      <h1 class="title"><mark>No calls</mark> for X hours.</h1>
+      <p class="lead">It usually calls every X minutes. Check that the agent is running and that the two lines survived your last deploy.</p>
+    </div>
+
+    <div data-for="learning watching changed silent">
+      <p class="small facts">GPT-4o · X runs · last call X minutes ago</p>
+      <p class="small" data-package="off">Kyde sees no tasks here, so it would miss a hijack.</p>
+    </div>
+
+    <div class="details" data-for="learning watching changed silent">
+      <details class="fold" data-package="off">
+        <summary><span>Add the package</span></summary>
+        <div class="fold-body">
+          <pre class="code"><code>{setup}</code></pre>
+          <p class="small" style="margin-top:10px">Kyde then sees which task each call belongs to. Raw content stays in your process. <button type="button" class="copy" data-copy={setup}>Copy</button></p>
+        </div>
+      </details>
+
+      <details class="fold" data-for="watching changed silent" id="fold-baseline">
+        <summary><span>Baseline against the last X runs</span></summary>
+        <div class="fold-body">
+          <ul class="diff" style="margin-top:0">
+            {baseline.map((b) => (
+              <li class={b.faded ? "faded" : ""}><span>{b.tool}</span><span>{b.values}</span></li>
+            ))}
+          </ul>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary><span>What reaches Kyde</span></summary>
+        <div class="fold-body data-cols">
+          <div>
+            <p class="small">The latest record, exactly as stored.</p>
+            <pre class="code" data-package="on"><code>{withTasks}</code></pre>
+            <pre class="code" data-package="off"><code>{withoutTasks}</code></pre>
+          </div>
+          <div>
+            <p class="small">What never leaves your process.</p>
+            <ul class="never">
+              <li>Prompts and completions</li>
+              <li>Message content</li>
+              <li>Raw tool arguments</li>
+              <li>The values behind the hashes</li>
+              <li>Your salt</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary><span>Settings</span></summary>
+        <div class="fold-body">
+          <p class="small">Alerts go to you@company.com. <a href="#">Change</a></p>
+          <p class="small">Also as JSON and over MCP.</p>
+          <p class="small"><button type="button" class="text-btn">Delete this agent and its data</button></p>
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <script is:inline>
+    const root = document.getElementById("agent");
+    const setState = document.getElementById("set-state");
+    const setPackage = document.getElementById("set-package");
+    const dot = document.getElementById("who-dot");
+    const valid = ["waiting", "learning", "watching", "changed", "silent"];
+    let state = "watching";
+    let pkg = "on";
+
+    function render() {
+      root.querySelectorAll("[data-for]").forEach((el) => {
+        el.hidden = !el.dataset.for.split(" ").includes(state);
+      });
+      root.querySelectorAll("[data-package]").forEach((el) => {
+        el.hidden = el.dataset.package !== pkg;
+      });
+      setState.value = state;
+      setPackage.value = pkg;
+      dot.classList.toggle("on", state === "changed" || state === "silent");
+      const base = document.getElementById("fold-baseline");
+      base.open = state === "changed";
+    }
+
+    setState.addEventListener("change", () => { state = setState.value; render(); });
+    setPackage.addEventListener("change", () => { pkg = setPackage.value; render(); });
+
+    root.addEventListener("click", (ev) => {
+      const b = ev.target.closest(".copy");
+      if (!b) return;
+      try { navigator.clipboard.writeText(b.dataset.copy); } catch (e) {}
+      b.textContent = "Copied";
+      setTimeout(() => { b.textContent = "Copy"; }, 1600);
+    });
+
+    // Links from the home and the agent list open the right state.
+    function fromHash() {
+      const h = location.hash.slice(1);
+      if (valid.includes(h)) state = h;
+      if (h === "noexporter") pkg = "off";
+      render();
+    }
+    window.addEventListener("hashchange", fromHash);
+    fromHash();
+  </script>
+</Base>

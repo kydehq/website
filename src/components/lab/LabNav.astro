@@ -1,0 +1,38 @@
+---
+// Nav of the lab-draft pages. Like the live home: logo left, products in the
+// middle (Research, Products, Pricing, Docs), Dashboard and the one action
+// right. GitHub lives in the docs header (astro.config.mjs, social). It takes the color of the section
+// under it: rosé over a .hero or .surface-rose, white elsewhere (DESIGN.md).
+// active: "research", "products" or "pricing" underlines the page you are on.
+const { active } = Astro.props as { active?: "research" | "products" | "pricing" };
+---
+<header class="lab-nav">
+  <div class="wrap nav-row">
+    <a href="/lab-draft" class="logo"><img src="/kyde-logo.svg" alt="Kyde" /></a>
+    <nav aria-label="Main" class="nav-main mono">
+      <a href="/lab-draft/research" aria-current={active === "research" ? "page" : undefined}>Research</a>
+      <a href="/lab-draft/products" aria-current={active === "products" ? "page" : undefined}>Products</a>
+      <a href="/lab-draft/pricing" aria-current={active === "pricing" ? "page" : undefined}>Pricing</a>
+      <a href="/docs">Docs</a>
+    </nav>
+    <div class="nav-side mono">
+      <a href="/lab-draft/dashboard">Dashboard</a>
+      <button type="button" onclick="openModal()" class="btn btn-ink btn-s">Contact sales →</button>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const nav = document.querySelector(".lab-nav");
+    // Runs from the header, before <main> exists: look the sections up on
+    // every call, and once more when the page has loaded.
+    const update = () => {
+      const y = nav.getBoundingClientRect().bottom + 1;
+      const rose = document.querySelectorAll(".surface-rose");
+      nav.classList.toggle("on-paper", ![...rose].some((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; }));
+    };
+    addEventListener("scroll", update, { passive: true });
+    addEventListener("DOMContentLoaded", update);
+  })();
+</script>
