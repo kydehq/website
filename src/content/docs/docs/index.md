@@ -1,100 +1,53 @@
 ---
-title: "Kyde Gateway Documentation"
-description: "The gateway behind the Kyde Zero Trust layer: a drop-in, OpenAI-compatible proxy that checks every action at the boundary and writes a hash-chained record of it. Quickstart, user manual, deployment, and reference."
+title: "Kyde Docs"
+description: "Documentation for Kyde Score, the hosted behavioral score for AI agents, and Kyde Control, which stops agents in your network. Quickstarts, API, MCP, limits, deployment."
 ---
 
-Nobody hands real responsibility to an agent nobody can trust. Agents
-stay stuck waiting for human approval on every step, because when
-something goes wrong, nobody can prove what happened. The provider's
-log lives on their infrastructure, signed with their keys, and can only
-be read back through their console.
+Kyde gives every AI agent a behavioral score. It learns how each agent normally works, scores every run against that, and tells you when an agent stops behaving like itself.
 
-Kyde Gateway is a drop-in, OpenAI-compatible proxy that sits outside
-the agent, in the path itself. Every action routed through it is recorded
-into a hash-chained ledger (Ed25519-signed on the Enterprise edition),
-independent of every model provider it fronts and written outside the
-agent's runtime. If an agent can touch the record, it can rewrite it, so
-the ledger is hash-chained: altering one entry breaks every entry after
-it, and a third party can recompute that offline. And while it records, it sees what flows
-upstream: your prompts, traces, and corrections, before they become
-someone else's training data.
+| | What it does | Start |
+| --- | --- | --- |
+| **Kyde Score** | Hosted, free to start. Send OpenTelemetry, get a 0 to 100 score per agent. Alerts on band change: coming soon. | [Quickstart](/docs/score/quickstart/) |
+| **Kyde Control** | Runs in your network on the Kyde Gateway. Sits in the agent's path, stops and quarantines on a band change, writes a signed record. | [Overview](/docs/control/) |
 
-**One record. Every vendor. Behavioral scoring for AI agents, enforced at the boundary.**
+Most teams start with Kyde Score on one agent and add Kyde Control for the agents they need to stop.
 
-**Two ways to start, same install, one switch:**
+## Set up with your agent
 
-| | What it does | Setup |
-|---|---|---|
-| 🔍 **Observe** (start here) | Logs everything, blocks nothing. Zero risk, zero code changes. In week one you know: what your agents do, what leaves your house, what it costs. | One line: `export OPENAI_BASE_URL=http://localhost:4000/v1` — [Quickstart](/docs/quickstart/) |
-| 🛡️ **Enforce** (when ready) | Flip DLP prevention per pattern and MCP tool allow/deny — out-of-scope requests get a 403 before they reach the upstream. | [Policy enforcement](/docs/reference/#policy-enforcement-dlp-prevention) |
+Paste one sentence into your coding agent (Claude Code, Codex, Cursor and others):
 
-## What it does
-
-```
-Agent ──► your-proxy:4000/v1 ──► OpenAI/Anthropic/Gemini/Copilot/any LLM
-                │
-                ▼
-        Behavioral Ledger (Postgres, JSONB)
-        ┌─────────────────────────────────────────────┐
-        │ entry_id   │ timestamp │ agent_id           │
-        │ action     │ model     │ why (context)      │
-        │ tool_calls │ prev_hash │ entry_hash         │
-        │ signature (Ed25519, Enterprise)             │
-        └─────────────────────────────────────────────┘
+```text
+Set up score.kyde.com/skill.md
 ```
 
-Each entry is:
-- **Hash-chained** — tampering with any past entry breaks all subsequent hashes
-- **Causally linked** — captures the reasoning context (*why*) before every tool call
-- **Signed** with Ed25519 on the Enterprise edition (hardware-rootable via PKCS#11 / HSM)
+The agent reads the skill, creates a key, sets the environment variables and checks that data arrives. Details: [For agents](/docs/score/agents/).
 
-One gateway instance proxies **all supported providers simultaneously** —
-OpenAI, Anthropic, Gemini, Copilot, and any local LLM. The upstream is
-auto-detected from the request path; auth headers pass through untouched.
-Full routing table: [reference](/docs/reference/#multi-provider-routing).
+For agents that read docs themselves: [llms.txt](https://score.kyde.com/llms.txt) · MCP server at `https://score.kyde.com/mcp`.
 
-## Editions
-
-The [quickstart](/docs/quickstart/) runs the **Starter** edition, the public
-images from the [open GitHub repository](https://github.com/kydehq/gateway):
-hash-chained but unsigned ledger, observe-only DLP. The **Enterprise** edition
-adds Ed25519/TPM audit signing and inline enforcement, on the same compose
-files — the edition is just an env-file switch. See
-[deployment guide §3](/docs/deployment/#3-the-two-knobs-edition-and-posture)
-and [enterprise support](/docs/deployment/#12-enterprise-support).
-
-## Documentation map
+## Kyde Score
 
 | Guide | Covers |
 | --- | --- |
-| [Quickstart](/docs/quickstart/) | From `git clone` to your first ledger entry in about five minutes |
-| [User manual](/docs/user-manual/) | Using the dashboard — roles, DLP alerts and policies, users, settings |
-| [Deployment guide](/docs/deployment/) | Installing and operating the full stack — Docker Compose, editions, TLS, backups, upgrades |
-| [Reference](/docs/reference/) | Provider routing, MCP routing, `config.yaml`, CLI, agent identity, ledger format |
+| [Overview](/docs/score/) | How the score works, bands, what is stored |
+| [Quickstart](/docs/score/quickstart/) | Key, environment variables, first score |
+| [For agents](/docs/score/agents/) | Skill, Claude Code plugin, MCP server |
+| [API](/docs/score/api/) | Endpoints, response format, webhooks |
+| [Limits and privacy](/docs/score/limits/) | Free tier limits, retention, deletion |
 
-Contributor documentation ([building images](https://github.com/kydehq/gateway/blob/main/docs/building-images.md),
-[CI pipelines](https://github.com/kydehq/gateway/blob/main/docs/ci.md)) lives in the repository.
+## Kyde Control
 
-## Hosted scoring without the gateway
+| Guide | Covers |
+| --- | --- |
+| [Overview](/docs/control/) | The gateway, its ledger, editions |
+| [Quickstart](/docs/quickstart/) | From `git clone` to the first ledger entry in about five minutes |
+| [User manual](/docs/user-manual/) | The dashboard: roles, alerts, policies, users, settings |
+| [Deployment](/docs/deployment/) | Docker Compose, editions, TLS, backups, upgrades |
+| [Reference](/docs/reference/) | Provider and MCP routing, `config.yaml`, CLI, ledger format |
 
-Not ready to run a proxy? [kyde score](https://score.kyde.com) is the hosted
-half of the idea: point an agent's OpenTelemetry at it (OTLP/HTTP JSON, a few
-environment variables) and read a 0–100 behavioral drift score per agent, with
-a signed webhook when a score changes band. Self-serve key, no SDK, free tier.
-Agents can set it up themselves: [skill](https://score.kyde.com/skill.md) ·
-[llms.txt](https://score.kyde.com/llms.txt) · MCP server at
-`https://score.kyde.com/mcp`.
+## Source on GitHub
 
-## What it doesn't do (yet)
-
-- Semantic anomaly detection on the behavioral stream
-- Multi-agent correlation (linking entries across agents in the same task)
-- Policy enforcement based on ledger state (history-aware block/allow)
-- Distributed ledger / external verification
-- Streaming reassembly for tool call extraction (tool calls in streamed responses
-  are captured but reconstruction is partial)
-
-**This is our public Starter release — we want your feedback.**
-Broke during setup? Missing a provider? Wondering whether you'd ever
-flip enforcement on? [Open an issue](https://github.com/kydehq/gateway/issues/new/choose)
-or write us: **feedback@kyde.com**. We read everything.
+| Repository | What is in it |
+| --- | --- |
+| [kydehq/gateway](https://github.com/kydehq/gateway) | Kyde Control, the open-source gateway (sandbox edition) |
+| [kydehq/behavioral-drift-detection](https://github.com/kydehq/behavioral-drift-detection) | The open drift detectors Kyde Score runs |
+| [kydehq/kyde-score-skill](https://github.com/kydehq/kyde-score-skill) | The setup skill and MCP config for coding agents |

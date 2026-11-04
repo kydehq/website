@@ -1,0 +1,116 @@
+---
+// Draft: all agents on one page. Branch lab/home-draft only, noindex, never on
+// main. With exactly one agent the product skips this list and opens that
+// agent's page. All numbers are X until they are measured, all names are samples.
+//
+// Shrink, hide, embody: the page answers one question, "who needs me?". Calm
+// agents, models, run counts and filters stay folded until someone asks.
+// Open with Juergen: can alerts be grouped by cause?
+import Base from "../../layouts/Base.astro";
+import "../../styles/lab-console.css";
+
+const grouped = ["support-agent", "billing-agent", "returns-agent"];
+const single = [
+  { name: "invoice-agent", note: "No calls for X hours", to: "silent" },
+  { name: "research-agent", note: "Not watched, your plan covers X agents", to: "watching" },
+];
+const calm = [
+  { name: "onboarding-agent", note: "Learning, run X of X", to: "learning" },
+  ...["triage-agent", "sales-agent", "docs-agent", "soc-agent", "code-review-agent", "data-agent"].map((name) => ({ name, note: "", to: "watching" })),
+];
+---
+
+<Base title="Your agents, Kyde" description="Draft of the Kyde agent overview." noindex>
+  <header class="con-nav">
+    <div class="col con-row">
+      <a href="/lab-draft" aria-label="Back to the draft home"><img src="/kyde-logo.svg" alt="Kyde" /></a>
+      <span role="note">Draft. Every name and every X is a sample.</span>
+    </div>
+  </header>
+
+  <main class="col page">
+    <h1 class="title"><mark>X of X</mark> agents need a look.</h1>
+
+    <label for="find" class="small" style="position:absolute;left:-9999px">Find an agent</label>
+    <input id="find" class="find" type="search" placeholder="Find an agent" autocomplete="off" />
+
+    <ul class="needs" id="needs">
+      <li data-section>
+        <details class="group">
+          <summary>
+            <span class="dot on" aria-hidden="true"></span>
+            <span>X agents on GPT-4o changed together</span>
+            <span class="note">Model version changed at XX:XX</span>
+          </summary>
+          <div class="group-body">
+            <ul class="rows">
+              {grouped.map((name) => (
+                <li data-name={name}><a class="row" href="/lab-draft/agent#changed"><span class="name">{name}</span></a></li>
+              ))}
+            </ul>
+            <div class="actions"><button type="button" class="btn-solid">Mark all as expected</button></div>
+          </div>
+        </details>
+      </li>
+      {single.map((a) => (
+        <li data-name={a.name}>
+          <a class="row" href={`/lab-draft/agent#${a.to}`}>
+            <span class="dot on" aria-hidden="true"></span>
+            <span class="name">{a.name}</span>
+            <span class="note">{a.note}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="rest">
+      <details class="fold" id="calm">
+        <summary><span>X agents are behaving as they learned to</span></summary>
+        <div class="fold-body">
+          <ul class="rows">
+            {calm.map((a) => (
+              <li data-name={a.name}>
+                <a class="row" href={`/lab-draft/agent#${a.to}`}>
+                  <span class="dot" aria-hidden="true"></span>
+                  <span class="name">{a.name}</span>
+                  {a.note && <span class="note">{a.note}</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </details>
+    </div>
+    <p class="small" id="none" hidden style="margin-top:16px">No agent matches.</p>
+
+    <div class="foot">
+      <p class="small">Kyde sees no tasks for X agents. <a href="/lab-draft/agent#noexporter">Add the package</a></p>
+      <p class="small">New agent: same two lines, its own <code>service.name</code>. Also as JSON and over MCP.</p>
+    </div>
+  </main>
+
+  <script is:inline>
+    // Searching unfolds everything and leaves only the matches.
+    const find = document.getElementById("find");
+    const folds = [...document.querySelectorAll("main details")];
+    const remembered = folds.map((d) => d.open);
+    const items = [...document.querySelectorAll("[data-name]")];
+    const section = document.querySelector("[data-section]");
+    const rest = document.querySelector(".rest");
+    const none = document.getElementById("none");
+
+    find.addEventListener("input", () => {
+      const q = find.value.trim().toLowerCase();
+      folds.forEach((d, i) => { d.open = q ? true : remembered[i]; });
+      let shown = 0;
+      items.forEach((el) => {
+        const ok = el.dataset.name.includes(q);
+        el.hidden = !ok;
+        if (ok) shown++;
+      });
+      section.hidden = q !== "" && !section.querySelector("[data-name]:not([hidden])");
+      rest.hidden = q !== "" && !rest.querySelector("[data-name]:not([hidden])");
+      none.hidden = shown > 0;
+    });
+  </script>
+</Base>

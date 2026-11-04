@@ -10,8 +10,8 @@ export default defineConfig({
   site: 'https://kyde.com',
   integrations: [
     starlight({
-      title: 'KYDE Docs',
-      description: 'Documentation for the Kyde Gateway: quickstart, user manual, deployment, and reference.',
+      title: 'Kyde Docs',
+      description: 'Documentation for Kyde Score and Kyde Control: quickstarts, API, MCP, limits, deployment, and reference.',
       // The marketing site owns the homepage and 404; Starlight only serves /docs/**
       disable404Route: true,
       favicon: '/favicon.svg?v=2',
@@ -22,7 +22,7 @@ export default defineConfig({
         { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png?v=2' } },
         { tag: 'link', attrs: { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png?v=2' } },
       ],
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kydehq/gateway' }],
+      social: [{ icon: 'github', label: 'Kyde on GitHub', href: 'https://github.com/kydehq' }],
       customCss: ['./src/styles/starlight-kyde.css'],
       components: {
         // Same light default and same stored choice as the marketing site
@@ -33,10 +33,27 @@ export default defineConfig({
       },
       sidebar: [
         { label: 'Overview', slug: 'docs' },
-        { label: 'Quickstart', slug: 'docs/quickstart' },
-        { label: 'User Manual', slug: 'docs/user-manual' },
-        { label: 'Deployment', slug: 'docs/deployment' },
-        { label: 'Reference', slug: 'docs/reference' },
+        {
+          label: 'Kyde Score',
+          items: [
+            { label: 'Overview', slug: 'docs/score' },
+            { label: 'Quickstart', slug: 'docs/score/quickstart' },
+            { label: 'For agents', slug: 'docs/score/agents' },
+            { label: 'API', slug: 'docs/score/api' },
+            { label: 'Limits and privacy', slug: 'docs/score/limits' },
+          ],
+        },
+        {
+          // Gateway pages keep their old URLs so existing links do not break.
+          label: 'Kyde Control',
+          items: [
+            { label: 'Overview', slug: 'docs/control' },
+            { label: 'Quickstart', slug: 'docs/quickstart' },
+            { label: 'User Manual', slug: 'docs/user-manual' },
+            { label: 'Deployment', slug: 'docs/deployment' },
+            { label: 'Reference', slug: 'docs/reference' },
+          ],
+        },
       ],
     }),
     // /platform argued the old positioning end to end and was deleted rather
@@ -46,11 +63,24 @@ export default defineConfig({
     // refresh page with a canonical, not a 301.
     sitemap({
       // Ad-test landing pages (noindex), the /sandbox redirect stub, and
-      // password-gated investor decks (noindex) stay out
-      filter: (page) => (SERVICES || !/\/(services|audit)\/?$/.test(page)) && !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts'),
+      // password-gated investor decks (noindex) stay out, and so do the
+      // lab-draft pages (noindex) until they replace the live ones
+      filter: (page) => (SERVICES || !/\/(services|audit)\/?$/.test(page)) && !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts') && !page.includes('/lab-draft'),
     }),
   ],
   vite: {
     plugins: [tailwindcss()],
+    // Dev only: the lab dashboard reads score.kyde.com through this proxy,
+    // because score.kyde.com does not allow CORS for kyde.com yet (KYDE-376).
+    // The static build calls https://score.kyde.com directly.
+    server: {
+      proxy: {
+        '/score-api': {
+          target: 'https://score.kyde.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/score-api/, ''),
+        },
+      },
+    },
   },
 });

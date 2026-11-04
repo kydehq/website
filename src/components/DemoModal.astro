@@ -77,6 +77,19 @@
             <option value="100+">100+</option>
           </select>
         </div>
+        <div>
+          <label for="demo-message" class="block text-xs font-medium text-ink-1 mb-1.5">What do you want to talk about?</label>
+          <textarea
+            id="demo-message" name="message" required minlength="20" maxlength="2000" rows="3"
+            placeholder="e.g. We run 12 claims agents and want to stop them when they drift."
+            class="w-full border border-line-0 bg-bg-1 px-4 py-2.5 text-sm text-ink-0 placeholder-ink-2 focus:border-ink-0 focus:outline-none transition-colors resize-y"
+          ></textarea>
+        </div>
+        <!-- Spam trap: invisible to people, bots fill it in. -->
+        <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+          <label for="demo-website">Website</label>
+          <input type="text" id="demo-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="flex items-start gap-3">
           <input
             type="checkbox" id="demo-consent" name="consent" required
@@ -111,7 +124,9 @@
 
 <script>
   // Open / close
+  let openedAt = 0;
   function openModal() {
+    openedAt = Date.now();
     document.getElementById('demo-modal')?.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
@@ -143,6 +158,15 @@
     }
     consent?.setCustomValidity('');
 
+    // Spam: the hidden field is filled, or the form was sent faster than a
+    // person can type. Show success, send nothing.
+    const trap = (form.querySelector<HTMLInputElement>('#demo-website')?.value ?? '').trim();
+    if (trap || Date.now() - openedAt < 4000) {
+      form.classList.add('hidden');
+      document.getElementById('demo-success')?.classList.remove('hidden');
+      return;
+    }
+
     const btn = document.getElementById('demo-submit') as HTMLButtonElement;
     btn.textContent = 'Sending…';
     btn.disabled = true;
@@ -155,6 +179,7 @@
       email:       data.get('email') ?? '',
       company:     data.get('company') ?? '',
       agents:      data.get('agents') ?? '',
+      message:     String(data.get('message') ?? '').trim(),
       lead_source: 'website_demo_request',
       page_url:    window.location.href,
     };
