@@ -1,7 +1,7 @@
 ---
 // Pricing of the lab draft. Three Kyde Score plans on the left, Kyde Control
-// on the right. Prices and plan limits: Joerg's proposal of 2026-11-03
-// (Solo at €9, not €29). NOT DECIDED: no decision log entry yet. Plan limits
+// on the right. Solo at €29 with the private detectors M1 and M3 as extra
+// alerts: D-041 (2026-11-04, Jürgen still to confirm). Plan limits
 // follow what score.kyde.com enforces today (Joerg, 2026-11-03).
 // Push alerts, users, export and 1-year history are not built yet (KYDE-377).
 // Solo and Team show "Coming soon" until Stripe checkout works (KYDE-377).
@@ -25,10 +25,10 @@ const scorePlans = [
   },
   {
     name: "Solo",
-    price: "€9",
+    price: "€29",
     per: "a month",
-    who: "One developer, alerts that find you.",
-    items: ["Everything in Free", "Alerts by email, Slack or ntfy"],
+    who: "One developer, agents that run unattended.",
+    items: ["Everything in Free", "Alerts by email, Slack or ntfy", "Private detectors: extra alerts that never change the score"],
     cta: { label: "Start Solo →", href: "/lab-draft#setup" },
     soon: true,
   },
@@ -58,6 +58,7 @@ const matrix: [string, Cell, Cell, Cell, Cell][] = [
   ["History", "90 days", "90 days", "1 year", "Yours"],
   ["Scores over API and MCP", true, true, true, true],
   ["Alerts", "", "Email, Slack, ntfy", "Slack, PagerDuty", "Plus a stop"],
+  ["Private detectors (extra alerts)", "", true, true, true],
   ["Keys and users", "1", "1", "Several", "Several"],
   ["Export for record-keeping", "", "", true, true],
   ["Stops and quarantines", "", "", "", true],
@@ -79,7 +80,7 @@ const faq = [
   { q: "What happens when I go over a limit?", a: "Kyde drops the extra records and says so: the score is marked degraded. It never turns your agent's export into an error." },
   { q: "How is Kyde Control priced?", a: "From €990 a month, depending on fleet size and where it runs. Tell us how many agents you run and what they touch, and you get a number in the first call." },
   { q: "Can I try the gateway before I talk to anyone?", a: "Yes. The open-source edition of the Kyde Gateway runs with Docker and records every action in a hash-chained ledger. It observes only: stopping and signing come with Kyde Control." },
-  { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and stores call metadata only, never prompts or outputs. Kyde Control runs in your network, so nothing leaves it." },
+  { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and scores call metadata only and drops everything else before storage. Kyde Control runs in your network, so nothing leaves it." },
 ];
 
 const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
@@ -87,7 +88,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
 
 <Base
   title="Pricing: Kyde Score and Kyde Control"
-  description="Kyde Score from €0, Solo €9 and Team €299 a month. Kyde Control runs in your network and stops agents that drift, from €990 a month."
+  description="Kyde Score from €0, Solo €29 and Team €299 a month. Kyde Control runs in your network and stops agents that drift, from €990 a month."
   noindex
 >
   <LabNav active="pricing" />

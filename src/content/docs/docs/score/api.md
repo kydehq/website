@@ -12,7 +12,7 @@ Base URL: `https://score.kyde.com`. Authentication: the `x-kyde-key` header. Mac
 | `POST` | `/score/v0/keys` | Create a key. Optional body `{"webhook_url": "https://…"}` |
 | `PATCH` | `/score/v0/keys` | Add or change the webhook |
 | `DELETE` | `/score/v0/keys` | Revoke the key and delete all its data |
-| `POST` | `/v1/traces`, `/v1/logs`, `/v1/metrics` | OTLP/HTTP JSON ingest |
+| `POST` | `/v1/traces`, `/v1/logs`, `/v1/metrics` | OTLP/HTTP ingest, JSON or protobuf |
 | `GET` | `/score/v0/scores` | Current score per agent |
 
 ## Read scores

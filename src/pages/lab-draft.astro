@@ -24,7 +24,7 @@ const GITHUB = "https://github.com/kydehq/behavioral-drift-detection";
 // The three things that set an alert off. Reason codes as the webhook sends them.
 const triggers = [
   { name: "Hijack", line: "It starts doing new things.", body: "Tools it rarely or never called before. The pattern a prompt injection tends to leave.", reason: "abrupt_shift" },
-  { name: "Loop", line: "It does the same thing again and again.", body: "Same tool, same parameters. Runaway retries, double submissions, a token bill at 3 a.m.", reason: "duplicate_submission" },
+  { name: "Loop", line: "It does the same thing again and again.", body: "Same tool, same parameter hash, again and again. Counted via the hash your exporter sends (kyde.args.digest): repeats are visible, the content is not.", reason: "duplicate_submission" },
   { name: "Drift", line: "It slowly stops being itself.", body: "The mix of actions moves away from the baseline, often after a model update nobody told you about.", reason: "gradual_drift" },
 ];
 
@@ -36,7 +36,7 @@ const fields = [
   ["Tool name", "what the agent did"],
   ["Hash of the parameters", "repeats visible, content not"],
   ["Status", "ok, error or abort"],
-  ["Model and version", "drift after an update"],
+  ["Model and version", "coming: drift after an update"],
 ];
 
 // The skill: same file at score.kyde.com/skill.md (kydehq/score) and as a
@@ -54,17 +54,16 @@ claude plugin install kyde-score@kyde-score-skill`,
     note: "Installs the skill for good, so every new Claude Code session knows it. Reading a URL once installs nothing." },
   { id: "claude", label: "Claude Code", code: `export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_LOGS_EXPORTER=otlp
-export OTEL_METRICS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
 export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"
 export OTEL_SERVICE_NAME=<agent-name>`,
-    note: "In the settings env or the shell that starts Claude Code." },
+    note: "In the env block of your user-level ~/.claude/settings.json or the shell that starts Claude Code. Project settings are ignored." },
   { id: "sdk", label: "Any OTel SDK", code: `export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
 export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"
 export OTEL_SERVICE_NAME=<agent-name>`,
-    note: "No code changes. http/json is required. Give every agent its own service name." },
+    note: "For framework agents (Vercel AI SDK, LangGraph, OpenAI Agents): any GenAI instrumentation that emits gen_ai tool spans. JSON or protobuf. Give every agent its own service name." },
   { id: "collector", label: "Collector", code: `processors:
   attributes/kyde:          # content never leaves
     actions:
@@ -268,17 +267,17 @@ const faq = [
           <li>
             <p class="mono label">(Same input, same score)</p>
             <p class="t-line">A disputed score is recomputed, not trusted.</p>
-            <p class="note">Every score names its baseline and method version. Run the open-source detectors on the same records and you get the same number.</p>
+            <p class="note">Every score names its baseline and method version. Run the open-source detectors on the same records and you get the same number. The score comes only from them. Paid plans add private detectors that raise extra alerts and never change the number.</p>
           </li>
           <li>
             <p class="mono label">(Metadata only)</p>
-            <p class="t-line">Call metadata. Never the conversation.</p>
+            <p class="t-line">We score call metadata.</p>
             <details class="more">
               <summary class="mono">What leaves the network</summary>
               <dl class="fields">
                 {fields.map(([n, d]) => <div><dt>{n}</dt><dd class="note">{d}</dd></div>)}
               </dl>
-              <p class="note">No prompts, no outputs, no raw parameters. A deny-by-default allowlist scrubs the rest before storage. Hosted in the EU.</p>
+              <p class="note">The score uses only the fields above. Anything else your exporter sends is dropped by a deny-by-default allowlist before storage. Hosted in the EU.</p>
             </details>
           </li>
         </ul>
@@ -304,7 +303,7 @@ const faq = [
         </div>
         <ul class="plan-line">
           <li><span class="mono label">(Kyde Score) Free</span><span class="pl-price">€0</span><span class="note">200 agents per key, 90 days, scores over API and MCP</span></li>
-          <li><span class="mono label">(Kyde Score) Solo</span><span class="pl-price">€9</span><span class="note">Alerts by email, Slack or ntfy. Coming soon</span></li>
+          <li><span class="mono label">(Kyde Score) Solo</span><span class="pl-price">€29</span><span class="note">Alerts and private detectors. Coming soon</span></li>
           <li><span class="mono label">(Kyde Score) Team</span><span class="pl-price">€299</span><span class="note">Users, PagerDuty, 1 year, export. Coming soon</span></li>
           <li class="pl-dark"><span class="mono label">(Kyde Control)</span><span class="pl-price">from €990</span><span class="note">In your network. Stops the agent</span></li>
         </ul>

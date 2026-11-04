@@ -20,13 +20,13 @@ import "../../styles/lab.css";
 const SKILL_URL = "https://score.kyde.com/skill.md";
 
 const scoreSpecs = [
-  ["Input", "OpenTelemetry over OTLP/HTTP JSON. Any OTel SDK, the OTel Collector or Claude Code."],
+  ["Input", "OpenTelemetry over OTLP/HTTP, JSON or protobuf. Claude Code, Grok CLI, or any framework with GenAI tool spans."],
   ["Setup", "Three environment variables, or one line to your agent: Set up score.kyde.com/skill.md"],
   ["Baseline", "Learned per agent over its first 30 runs, then frozen and fingerprinted."],
-  ["Detectors", "CUSUM for sudden shifts, Jensen-Shannon divergence for slow drift, duplicate calls for loops. No LLM."],
-  ["Score", "0 to 100 per run. 70 and up normal, 40 to 69 watch, below 40 deviating."],
+  ["Detectors", "CUSUM for sudden shifts, Jensen-Shannon divergence for slow drift, duplicate calls for loops (needs the parameter hash kyde.args.digest). No LLM. Paid plans add private detectors as extra alerts."],
+  ["Score", "0 to 100 per run. 70 and up normal, 40 to 69 watch, below 40 deviating. Counts the alarms of the last 20 runs, so an agent that settles recovers."],
   ["Output", "Scores as JSON over the API and the MCP server. Signed webhook on every band change: coming soon."],
-  ["Data", "Call metadata only, never prompts or outputs. Hosted in the EU. Retention by plan."],
+  ["Data", "Call metadata only. Everything else is dropped before storage. Hosted in the EU. Retention by plan."],
   ["Effect on the agent", "None. Export is asynchronous. If Kyde is down, the agent runs as before."],
 ];
 
@@ -297,7 +297,7 @@ const compare = [
               <div><dt class="mono">Deterministic</dt><dd>Plain statistics, no LLM. Same records, same score.</dd></div>
               <div><dt class="mono">Frozen baseline</dt><dd>Learned once, then fingerprinted. A drifting agent never becomes its own reference.</dd></div>
               <div><dt class="mono">Method version</dt><dd>Every score names the method it was computed with.</dd></div>
-              <div><dt class="mono">Open detectors</dt><dd>Recompute any score yourself. <a href="https://github.com/kydehq/behavioral-drift-detection" rel="noopener">github.com/kydehq/behavioral-drift-detection →</a></dd></div>
+              <div><dt class="mono">Open detectors</dt><dd>The score comes only from the open detectors: recompute it yourself. <a href="https://github.com/kydehq/behavioral-drift-detection" rel="noopener">github.com/kydehq/behavioral-drift-detection →</a></dd></div>
             </dl>
           </div>
           <div>

@@ -44,15 +44,14 @@ Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
     export OTEL_SERVICE_NAME=invoice-agent
     ```
 
-    Kyde accepts OTLP/HTTP **JSON**. Protobuf is not accepted yet, so the protocol variable is required.
+    Kyde accepts OTLP/HTTP as JSON or protobuf. Framework agents need a GenAI instrumentation that emits `gen_ai` tool spans; other spans are ignored. Metrics are accepted but not scored.
   </TabItem>
   <TabItem label="Claude Code">
-    Set these in Claude Code's settings `env` or in the shell that starts it:
+    Set these in the `env` block of your user-level `~/.claude/settings.json` or in the shell that starts Claude Code. Claude Code ignores them in a project's `.claude/settings.json`:
 
     ```bash
     export CLAUDE_CODE_ENABLE_TELEMETRY=1
     export OTEL_LOGS_EXPORTER=otlp
-    export OTEL_METRICS_EXPORTER=otlp
     export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
     export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
     export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
@@ -85,7 +84,7 @@ curl -s https://score.kyde.com/score/v0/scores -H "x-kyde-key: <KEY>"
 
 The agent shows up with `"status": "learning"` and a `runs_seen` count. After 30 runs it switches to `"status": "scored"` with a `score` and a `band`. There is nothing to configure for that.
 
-**Nothing listed?** Check that the protocol is `http/json` and the header is spelled `x-kyde-key`.
+**Nothing listed?** Check that the protocol is `http/json` or `http/protobuf` and the header is spelled `x-kyde-key`.
 **`degraded` in the response?** Records were dropped because of a limit. See [Limits](/docs/score/limits/).
 
 ## Next
