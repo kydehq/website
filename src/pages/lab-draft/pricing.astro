@@ -1,7 +1,8 @@
 ---
 // Pricing of the lab draft. Three Kyde Score plans on the left, Kyde Control
-// on the right. Solo at €29 with the private detectors M1 and M3 as extra
-// alerts: D-041 (2026-11-04, Jürgen still to confirm). Plan limits
+// on the right. Detection free, action paid: D-042 (2026-11-04). Free detects
+// a hijack and sends one webhook on band changes; Solo (€29) explains and
+// tells you at once. Plan limits
 // follow what score.kyde.com enforces today (Joerg, 2026-11-03).
 // Push alerts, users, export and 1-year history are not built yet (KYDE-377).
 // Solo and Team show "Coming soon" until Stripe checkout works (KYDE-377).
@@ -20,7 +21,7 @@ const scorePlans = [
     price: "€0",
     per: "",
     who: "No card, no account. The limits the service enforces.",
-    items: ["200 agents per key", "100,000 records a day", "90 days history", "Scores over API and MCP"],
+    items: ["Hijack, loop and drift detection", "One webhook on band changes", "200 agents per key, 100,000 records a day", "90 days history, scores over API and MCP"],
     cta: { label: "Get a free key →", href: "/lab-draft#setup" },
   },
   {
@@ -28,7 +29,7 @@ const scorePlans = [
     price: "€29",
     per: "a month",
     who: "One developer, agents that run unattended.",
-    items: ["Everything in Free", "Alerts by email, Slack or ntfy", "Private detectors: extra alerts that never change the score"],
+    items: ["Everything in Free", "Instant alerts by email, Slack or ntfy", "Named issues: which run, which foreign tool", "Before and after a deploy, side by side"],
     cta: { label: "Start Solo →", href: "/lab-draft#setup" },
     soon: true,
   },
@@ -57,8 +58,9 @@ const matrix: [string, Cell, Cell, Cell, Cell][] = [
   ["Records a day", "100,000", "100,000", "100,000", "Yours"],
   ["History", "90 days", "90 days", "1 year", "Yours"],
   ["Scores over API and MCP", true, true, true, true],
-  ["Alerts", "", "Email, Slack, ntfy", "Slack, PagerDuty", "Plus a stop"],
-  ["Private detectors (extra alerts)", "", true, true, true],
+  ["Hijack, loop and drift detection", true, true, true, true],
+  ["Alerts", "Webhook on band change", "Instant: email, Slack, ntfy", "Plus PagerDuty", "Plus a stop"],
+  ["Named issues and deploy comparison", "", true, true, true],
   ["Keys and users", "1", "1", "Several", "Several"],
   ["Export for record-keeping", "", "", true, true],
   ["Stops and quarantines", "", "", "", true],
