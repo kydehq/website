@@ -60,11 +60,24 @@ curl -s -X PATCH https://score.kyde.com/score/v0/keys \
   -d '{"webhook_url": "https://your.app/hooks/kyde"}'
 ```
 
-Coming soon: one POST per band change, signed with HMAC-SHA256. The URL is stored already.
+Kyde posts on every band change, the first score and a recovery included, and on every rebaseline. One webhook serves all agents under the key; filter by `service_name`.
 
-:::note[Coming soon]
-Payload format and signature header are documented once delivery is live. Until then, poll `/score/v0/scores` or use `get_scores` over MCP.
-:::
+```json
+{"event": "band_change", "service_name": "support-agent", "old_band": "normal",
+ "new_band": "deviating", "score": 30, "runs_seen": 42,
+ "after_rebaseline": false, "rebaselined_at": null}
+```
+
+**Verify:** the header `x-kyde-signature` carries `sha256=<hex>`, the HMAC-SHA256 of the raw body, keyed with your scoring key. Delivery is best effort: one attempt, one retry after 30 seconds. Poll `/score/v0/scores` if you must not miss a change.
+
+## Rebaseline
+
+```bash
+curl -s -X POST https://score.kyde.com/score/v0/agents/<service_name>/rebaseline \
+  -H "x-kyde-key: <KEY>"
+```
+
+For an intended change, such as a new model or a new task, that left an agent deviating. Kyde forgets the baseline and learns it again from the next 30 runs. Records and alarms stay stored, and the agent carries `rebaselined_at` from then on.
 
 ## Delete everything
 

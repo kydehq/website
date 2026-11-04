@@ -462,7 +462,7 @@ const API = import.meta.env.DEV ? "/score-api" : "https://score.kyde.com";
           <div class="kd-panel">
             <dl class="kd-kv">
               <dt>Key</dt><dd>${esc(mask(key))}</dd>
-              <dt>Alerts</dt><dd>${data.webhook ? `Webhook stored: ${esc(data.webhook)}. Delivery is coming soon.` : "None. Alerts by email, Slack and webhook are coming soon."}</dd>
+              <dt>Alerts</dt><dd>${data.webhook ? `Webhook: ${esc(data.webhook)}. Kyde posts there on every band change.` : "No webhook. Add one below to get band changes pushed."}</dd>
               <dt>Records dropped today</dt><dd>${data.degraded ? `${esc(data.degraded.dropped_today)} (${esc(data.degraded.reason)})` : "0"}</dd>
               <dt>Method version</dt><dd>${esc(data.method_version || "–")}</dd>
             </dl>

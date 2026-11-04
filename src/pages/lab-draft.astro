@@ -92,17 +92,17 @@ curl -s https://score.kyde.com/score/v0/scores \\
   -H "x-kyde-key: <YOUR_KEY>"`;
 
 const webhookExample = `POST /hooks/kyde
-Kyde-Signature: <hmac-sha256, keyed with your key>
+x-kyde-signature: sha256=<HMAC-SHA256 of the body, keyed with your key>
 
 {
-  "event": "band_changed",
+  "event": "band_change",
   "service_name": "support-agent",
+  "old_band": "normal",
+  "new_band": "deviating",
   "score": 35,
-  "band": "deviating",
-  "previous_band": "normal",
-  "reasons": ["abrupt_shift"],
-  "method_version": "v0",
-  "at": "2026-11-02T03:12:09Z"
+  "runs_seen": 412,
+  "after_rebaseline": false,
+  "rebaselined_at": null
 }`;
 
 const envForKey = `OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
@@ -162,7 +162,7 @@ const faq = [
               <input id="watch-input" type="text" inputmode="url" spellcheck="false" placeholder="https://your.app/hooks/kyde" />
               <button type="submit" class="btn btn-paper">Get a key →</button>
             </form>
-            <p id="watch-hint" class="c-note" aria-live="polite">Alerts on band change are coming soon. We keep the URL and use it once they ship. Leave it empty to poll.</p>
+            <p id="watch-hint" class="c-note" aria-live="polite">Kyde posts to it, signed, on every band change. Leave it empty to poll.</p>
             <div id="key-result" hidden>
               <p class="mono c-label">Set these where the agent runs</p>
               <pre class="code code-dark"><code>{envForKey}</code></pre>
@@ -224,12 +224,12 @@ const faq = [
               <div><dt class="mono">Since</dt><dd>run 412, right after a model version change</dd></div>
             </dl>
             <details class="more">
-              <summary class="mono">As JSON on your webhook (preview, format may change)</summary>
+              <summary class="mono">As JSON on your webhook, live in every plan</summary>
               <pre class="code"><code>{webhookExample}</code></pre>
             </details>
           </figure>
         </div>
-        <p class="note foot">*Alerts on band change are coming soon. Until then, read the score over the API or let your agent check it over MCP.</p>
+        <p class="note foot">*The webhook is live in every plan. Alerts by email, Slack or ntfy with the reason spelled out come with Solo.</p>
         <ul class="triggers">
           {triggers.map((t) => (
             <li>

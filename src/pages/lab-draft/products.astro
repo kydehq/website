@@ -25,7 +25,7 @@ const scoreSpecs = [
   ["Baseline", "Learned per agent over its first 30 runs, then frozen and fingerprinted."],
   ["Detectors", "CUSUM for sudden shifts, Jensen-Shannon divergence for slow drift, duplicate calls for loops (needs the parameter hash kyde.args.digest). Plus a task-contract check: a tool never seen for the task. No LLM."],
   ["Score", "0 to 100 per run. 70 and up normal, 40 to 69 watch, below 40 deviating. Counts the alarms of the last 20 runs, so an agent that settles recovers."],
-  ["Output", "Scores as JSON over the API and the MCP server. Signed webhook on every band change: coming soon."],
+  ["Output", "Scores as JSON over the API and the MCP server. Signed webhook on every band change and every rebaseline."],
   ["Data", "Call metadata only. Everything else is dropped before storage. Hosted in the EU. Retention by plan."],
   ["Effect on the agent", "None. Export is asynchronous. If Kyde is down, the agent runs as before."],
 ];
