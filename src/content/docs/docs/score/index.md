@@ -22,7 +22,7 @@ Kyde Score is a hosted service at `score.kyde.com`. Your agents send OpenTelemet
 
 ## Reproducible
 
-The baseline is fingerprinted (`baseline_fingerprint`) and every score names the method it was computed with (`method_version`). Scores stay comparable over time, and the detectors are open source: [kydehq/behavioral-drift-detection](https://github.com/kydehq/behavioral-drift-detection).
+The baseline is fingerprinted (`baseline_fingerprint`) and every score names the method it was computed with (`method_version`). Scores stay comparable over time. The base detectors (CUSUM, Jensen-Shannon divergence) are open source, the task-contract check is Kyde's own: [kydehq/behavioral-drift-detection](https://github.com/kydehq/behavioral-drift-detection).
 
 ## What Kyde reads
 
