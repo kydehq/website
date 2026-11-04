@@ -2,7 +2,8 @@
 // Pricing of the lab draft. Three Kyde Score plans on the left, Kyde Control
 // on the right. Detection free, action paid: D-042 (2026-11-04). Free detects
 // a hijack and sends one webhook on band changes; Solo (€29) explains and
-// tells you at once. Plan limits
+// tells you at once. Two keys for everyone, roles and approvals from Team:
+// D-043. Plan limits
 // follow what score.kyde.com enforces today (Joerg, 2026-11-03).
 // Push alerts, users, export and 1-year history are not built yet (KYDE-377).
 // Solo and Team show "Coming soon" until Stripe checkout works (KYDE-377).
@@ -21,7 +22,7 @@ const scorePlans = [
     price: "€0",
     per: "",
     who: "No card, no account. The limits the service enforces.",
-    items: ["Hijack, loop and drift detection", "One webhook on band changes", "200 agents per key, 100,000 records a day", "90 days history, scores over API and MCP"],
+    items: ["Hijack, loop and drift detection", "One webhook on band changes", "200 agents per key, 100,000 records a day", "90 days history, scores over API and MCP", "Two keys: the agent only exports, resets and deletes stay with you (coming)"],
     cta: { label: "Get a free key →", href: "/lab-draft#setup" },
   },
   {
@@ -38,7 +39,7 @@ const scorePlans = [
     price: "€299",
     per: "a month",
     who: "Agents in production that cost money or touch data.",
-    items: ["Everything in Solo", "Several keys and users", "Slack and PagerDuty", "1 year history", "Export for record-keeping (EU AI Act Art. 12)", "Support"],
+    items: ["Everything in Solo", "Users with roles, a second person to approve a reset, a log of every reset", "Slack and PagerDuty", "1 year history", "Export for record-keeping (EU AI Act Art. 12)", "Support"],
     cta: { label: "Start Team →", href: "/lab-draft#setup" },
     soon: true,
     pick: true,
@@ -61,7 +62,8 @@ const matrix: [string, Cell, Cell, Cell, Cell][] = [
   ["Hijack, loop and drift detection", true, true, true, true],
   ["Alerts", "Webhook on band change", "Instant: email, Slack, ntfy", "Plus PagerDuty", "Plus a stop"],
   ["Named issues and deploy comparison", "", true, true, true],
-  ["Keys and users", "1", "1", "Several", "Several"],
+  ["Agent key and management key apart", true, true, true, true],
+  ["Users, roles, approvals, log", "", "", true, true],
   ["Export for record-keeping", "", "", true, true],
   ["Stops and quarantines", "", "", "", true],
   ["Per-tool rules, data loss prevention", "", "", "", true],
@@ -82,6 +84,7 @@ const faq = [
   { q: "What happens when I go over a limit?", a: "Kyde drops the extra records and says so: the score is marked degraded. It never turns your agent's export into an error." },
   { q: "How is Kyde Control priced?", a: "From €990 a month, depending on fleet size and where it runs. Tell us how many agents you run and what they touch, and you get a number in the first call." },
   { q: "Can I try the gateway before I talk to anyone?", a: "Yes. The open-source edition of the Kyde Gateway runs with Docker and records every action in a hash-chained ledger. It observes only: stopping and signing come with Kyde Control." },
+  { q: "Can a hijacked agent reset its own baseline?", a: "No. The agent's key can only export. Resetting the baseline, moving alerts and deleting take the management key, which stays with you, in every plan. Coming with the next release of Kyde Score." },
   { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and scores call metadata only and drops everything else before storage. Kyde Control runs in your network, so nothing leaves it." },
 ];
 
