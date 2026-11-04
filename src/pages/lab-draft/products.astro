@@ -246,14 +246,14 @@ const compare = [
         <figure class="dash" aria-label="Illustration of the Kyde Control dashboard">
           <div class="dash-bar mono"><span class="dash-dots"><i></i><i></i><i></i></span><span>control.kyde · Workforce status</span><span class="dash-chain">● chain verified</span></div>
           <div class="dash-body">
-            <nav class="dash-side mono" aria-hidden="true">
+            <div class="dash-side mono" aria-hidden="true">
               <p class="ds-group">Overview</p>
               <span class="on">Workforce status</span><span>Threats &amp; alerts</span><span>Audit log</span>
               <p class="ds-group">Agents</p>
               <span>Agents</span><span>Sessions</span><span>Network map</span>
               <p class="ds-group">Configuration</p>
               <span>Policies</span><span>Routing</span>
-            </nav>
+            </div>
             <div class="dash-main">
               <div class="dash-metrics">
                 <div><p class="mono">Active agents</p><p class="dm-v">12</p></div>
@@ -326,8 +326,8 @@ const compare = [
               {compare.map(([k, a, b]) => (
                 <tr>
                   <th scope="row">{k}</th>
-                  <td>{a === true ? <span class="yes" aria-label="Yes">●</span> : a === false ? <span class="no" aria-label="No">–</span> : <span class="mono">{a}</span>}</td>
-                  <td class="col-dark">{b === true ? <span class="yes" aria-label="Yes">●</span> : <span class="mono">{b}</span>}</td>
+                  <td>{a === true ? <span class="yes"><span aria-hidden="true">●</span><span class="sr-only">Yes</span></span> : a === false ? <span class="no"><span aria-hidden="true">–</span><span class="sr-only">No</span></span> : <span class="mono">{a}</span>}</td>
+                  <td class="col-dark">{b === true ? <span class="yes"><span aria-hidden="true">●</span><span class="sr-only">Yes</span></span> : <span class="mono">{b}</span>}</td>
                 </tr>
               ))}
             </tbody>

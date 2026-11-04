@@ -163,7 +163,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
                 <th scope="row">{f}</th>
                 {cells.map((c, i) => (
                   <td class={i === 3 ? "p-dark" : undefined} data-label={["Free", "Solo", "Team", "Control"][i]}>
-                    {show(c) === "yes" ? <span class="yes" aria-label="Yes">●</span> : show(c) === "no" ? <span class="no" aria-label="No">–</span> : <span class="mono">{c}</span>}
+                    {show(c) === "yes" ? <span class="yes"><span aria-hidden="true">●</span><span class="sr-only">Yes</span></span> : show(c) === "no" ? <span class="no"><span aria-hidden="true">–</span><span class="sr-only">No</span></span> : <span class="mono">{c}</span>}
                   </td>
                 ))}
               </tr>
