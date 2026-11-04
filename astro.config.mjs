@@ -63,9 +63,9 @@ export default defineConfig({
     // refresh page with a canonical, not a 301.
     sitemap({
       // Ad-test landing pages (noindex), the /sandbox redirect stub, and
-      // password-gated investor decks (noindex) stay out, and so does the
-      // unlisted score.kyde preview (noindex) until it launches
-      filter: (page) => (SERVICES || !/\/(services|audit)\/?$/.test(page)) && !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts') && !page.includes('/score'),
+      // password-gated investor decks (noindex) stay out, and so do the
+      // lab-draft pages (noindex) until they replace the live ones
+      filter: (page) => (SERVICES || !/\/(services|audit)\/?$/.test(page)) && !page.includes('/lp/') && !page.includes('/sandbox') && !page.includes('/slides') && !page.includes('/receipts') && !page.includes('/lab-draft'),
     }),
   ],
   vite: {

@@ -22,6 +22,8 @@ Set up score.kyde.com/skill.md
 
 The agent reads the skill, creates a key, sets the environment variables and checks that data arrives. Details: [For agents](/docs/score/agents/).
 
+For agents that read docs themselves: [llms.txt](https://score.kyde.com/llms.txt) · MCP server at `https://score.kyde.com/mcp`.
+
 ## Kyde Score
 
 | Guide | Covers |

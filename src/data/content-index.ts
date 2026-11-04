@@ -336,6 +336,12 @@ export const KEY_PAGES: Article[] = [
     href: "/platform",
   },
   {
+    category: "Platform",
+    title: "kyde score: Hosted Drift Scoring for AI Agents",
+    summary: "Point an agent's OpenTelemetry at score.kyde.com and get a 0–100 behavioral drift score per agent, with a signed webhook when a score changes band. Self-serve key, MCP server, no SDK, free tier.",
+    href: "/score",
+  },
+  {
     category: "Service",
     title: "Kyde AI Workers",
     summary: "The build service. Kyde captures a process area with the people who run it, builds the part that holds up into a worker, and runs it on the zero trust layer.",
