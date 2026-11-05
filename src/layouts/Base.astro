@@ -40,7 +40,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 // say it to a reader who cannot see it.
 const indexed = entryForPath(Astro.url.pathname);
 const cardPath = image ?? (indexed ? `/og/${ogSlug(indexed.href)}.png` : "/og-image-v3.png");
-const cardAlt = !image && indexed ? indexed.title : "KYDE";
+const cardAlt = !image && indexed ? indexed.title : "Kyde";
 
 // Language and its counterparts come from the URL and one shared table, not
 // from per-page props, so a page cannot claim a counterpart that does not

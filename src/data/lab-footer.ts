@@ -30,6 +30,7 @@ export const labFooterLinks = {
     { label: "Behavioral Drift", href: "/behavioral-drift" },
     { label: "EU AI Act Compliance", href: "/eu-ai-act-compliance" },
     { label: "AI Agent Governance", href: "/ai-agent-governance" },
+    { label: "AI Agent Security", href: "/ai-agent-security" },
     { label: "Zero Trust for Agents", href: "/zero-trust-for-ai-agents" },
     { label: "Shadow Agents", href: "/shadow-ai" },
     { label: "Qualified Electronic Ledger", href: "/qualified-electronic-ledger" },

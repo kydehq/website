@@ -404,7 +404,7 @@ export const KEY_PAGES: Article[] = [
   {
     category: "Company",
     title: "Company",
-    summary: "What Kyde builds and why. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.",
+    summary: "What Kyde builds and why. Early stage, built in Europe, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.",
     href: "/company",
   },
   {
