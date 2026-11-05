@@ -1,5 +1,5 @@
 ---
-// Products page of the lab draft: Kyde Score and Kyde Control (names for now,
+// Products page: Kyde Score and Kyde Control (names for now,
 // Joerg 2026-11-03). Built like the product pages of Datadog, Stripe Radar or
 // Cloudflare: intro, how the two build on each other, then each product with
 // how it works and its specs, then a side-by-side, then one close.
@@ -9,13 +9,13 @@
 // Facts: Score from kydehq/score (README, skill, landing). Control is the Kyde
 // Gateway (company/gateway README). Benchmark from the Kyde one-pager
 // (kyde-drift.pdf, 2026-11).
-import Base from "../../layouts/Base.astro";
-import Footer from "../../components/Footer.astro";
-import LabNav from "../../components/lab/LabNav.astro";
-import { labFooterLinks } from "../../data/lab-footer";
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import LabNav from "../components/lab/LabNav.astro";
+import { labFooterLinks } from "../data/lab-footer";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
-import "../../styles/lab.css";
+import "../styles/lab.css";
 
 const SKILL_URL = "https://score.kyde.com/skill.md";
 
@@ -38,7 +38,7 @@ const controlSpecs = [
   ["Release", "A held agent goes into quarantine. A human or a rule decides what happens next."],
   ["Record", "Every action in a hash-chained ledger. Signed with Ed25519, keys can live in an HSM."],
   ["Deployment", "Runs in your network with Docker. Your data stays with you. Built in Europe."],
-  ["Measured", "AgentDojo benchmark: 81 % of attacks caught at a 0.6 % false-alarm rate.*"],
+  // "Measured" (AgentDojo figure) is out until Juergen confirms it (KYDE-376).
 ];
 
 const compare = [
@@ -58,7 +58,6 @@ const compare = [
 <Base
   title="Products: Kyde Score and Kyde Control"
   description="Kyde Score tells you when an AI agent stops behaving like itself. Kyde Control stops it before it does damage. One behavioral score, two ways to act on it."
-  noindex
 >
   <LabNav active="products" />
 
@@ -175,7 +174,7 @@ const compare = [
               <figcaption class="mono plate-cap">*Illustrative. Every agent scored against its own baseline. One left its band.</figcaption>
             </figure>
             <div class="ctas">
-              <a href="/lab-draft#setup" class="btn btn-ink">Set up in two minutes →</a>
+              <a href="/#setup" class="btn btn-ink">Set up in two minutes →</a>
               <a href={SKILL_URL} class="link-u mono">The agent skill</a>
             </div>
           </div>
@@ -229,7 +228,6 @@ const compare = [
             <dl class="specs">
               {controlSpecs.map(([k, v]) => <div><dt class="mono">{k}</dt><dd>{v}</dd></div>)}
             </dl>
-            <p class="note foot">*Hijack detection measured on the public AgentDojo benchmark. Not a rate for every attack in production.</p>
           </div>
         </div>
       </div>
@@ -347,7 +345,7 @@ const compare = [
             <div>
               <p class="mono label">(Kyde Score)</p>
               <p class="body-l">Tell your agent: <code class="inline-code">Set up score.kyde.com/skill.md</code></p>
-              <p class="ctas"><a href="/lab-draft#setup" class="link-u mono">Or set it up by hand</a></p>
+              <p class="ctas"><a href="/#setup" class="link-u mono">Or set it up by hand</a></p>
             </div>
             <div>
               <p class="mono label">(Kyde Control)</p>

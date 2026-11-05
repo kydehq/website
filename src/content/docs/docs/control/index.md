@@ -4,7 +4,7 @@ description: "The gateway behind the Kyde Zero Trust layer: a drop-in, OpenAI-co
 ---
 
 :::note[Kyde Control and the Kyde Gateway]
-Kyde Control runs on the Kyde Gateway. The open-source edition below observes and records. Stopping, quarantine and signing come with the Enterprise edition. [Talk to us](/lab-draft/pricing/) about Kyde Control.
+Kyde Control runs on the Kyde Gateway. The open-source edition below observes and records. Stopping, quarantine and signing come with the Enterprise edition. [Talk to us](/pricing/) about Kyde Control.
 :::
 
 

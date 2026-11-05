@@ -35,7 +35,7 @@ const API = import.meta.env.DEV ? "/score-api" : "https://score.kyde.com";
         <div class="kd-login-foot">
           <p><span class="kd-mono kd-dim">Email sign-in</span> <span class="kd-soon">Coming soon</span></p>
           <p class="kd-dim">No key yet? Tell your agent: <code>Set up score.kyde.com/skill.md</code></p>
-          <p><a href="/lab-draft" class="kd-link">← kyde.com</a></p>
+          <p><a href="/" class="kd-link">← kyde.com</a></p>
         </div>
       </div>
     </section>
@@ -56,7 +56,7 @@ const API = import.meta.env.DEV ? "/score-api" : "https://score.kyde.com";
           <a href="#/overview" data-view="overview">Overview</a>
           <a href="#/agents" data-view="agents">Agents <span class="kd-count" id="nav-count"></span></a>
           <a href="#/settings" data-view="settings">Settings</a>
-          <a href="/lab-draft/products#control" class="kd-nav-ctl">Kyde Control <span class="kd-lock">Gateway</span></a>
+          <a href="/products#control" class="kd-nav-ctl">Kyde Control <span class="kd-lock">Gateway</span></a>
         </nav>
         <div class="kd-side-foot">
           <button type="button" class="kd-btn kd-btn-line" id="logout">Log out</button>
@@ -86,8 +86,8 @@ const API = import.meta.env.DEV ? "/score-api" : "https://score.kyde.com";
             <p class="kd-dim" id="up-p">Kyde Control runs in your network, in the agent's path. When the score turns red, it holds the next action until a person releases it. Same score, same detectors.</p>
           </div>
           <div class="kd-up-r">
-            <a href="/lab-draft/products#control" class="kd-btn kd-btn-neon">Try the gateway →</a>
-            <a href="/lab-draft/pricing" class="kd-link">Pricing</a>
+            <a href="/products#control" class="kd-btn kd-btn-neon">Try the gateway →</a>
+            <a href="/pricing" class="kd-link">Pricing</a>
           </div>
         </section>
       </main>
@@ -333,7 +333,7 @@ const API = import.meta.env.DEV ? "/score-api" : "https://score.kyde.com";
       // Dark hold card: only when an agent is red.
       const hold = (a) => `<section class="kd-hold">
           <p><b>${esc(a.service_name)} is deviating.</b> With Kyde Control in its path, its next action would be on hold now until a person releases it.</p>
-          <a href="/lab-draft/products#control" class="kd-btn kd-btn-neon">Try the gateway →</a>
+          <a href="/products#control" class="kd-btn kd-btn-neon">Try the gateway →</a>
         </section>`;
 
       function upsell(list) {

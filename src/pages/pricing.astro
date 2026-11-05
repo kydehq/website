@@ -1,5 +1,5 @@
 ---
-// Pricing of the lab draft. Three Kyde Score plans on the left, Kyde Control
+// Pricing. Three Kyde Score plans on the left, Kyde Control
 // on the right. Detection free, action paid: D-042 (2026-11-04). Free detects
 // a hijack and sends one webhook on band changes; Solo (€29) explains and
 // tells you at once. Two keys for everyone, roles and approvals from Team:
@@ -8,13 +8,13 @@
 // Push alerts, users, export and 1-year history are not built yet (KYDE-377).
 // Solo and Team show "Coming soon" until Stripe checkout works (KYDE-377).
 // Plan: 01-kyde-company/04_marketing/website/2026-11-03-kyde-com-score-seite-offene-punkte.md
-import Base from "../../layouts/Base.astro";
-import Footer from "../../components/Footer.astro";
-import LabNav from "../../components/lab/LabNav.astro";
-import { labFooterLinks } from "../../data/lab-footer";
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import LabNav from "../components/lab/LabNav.astro";
+import { labFooterLinks } from "../data/lab-footer";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
-import "../../styles/lab.css";
+import "../styles/lab.css";
 
 const scorePlans = [
   {
@@ -23,7 +23,7 @@ const scorePlans = [
     per: "",
     who: "No card, no account. The limits the service enforces.",
     items: ["Hijack, loop and drift detection", "One webhook on band changes", "200 agents per key, 100,000 records a day", "90 days history, scores over API and MCP", "Two keys: the agent only exports, resets and deletes stay with you (coming)"],
-    cta: { label: "Get a free key →", href: "/lab-draft#setup" },
+    cta: { label: "Get a free key →", href: "/#setup" },
   },
   {
     name: "Solo",
@@ -31,7 +31,7 @@ const scorePlans = [
     per: "a month",
     who: "One developer, agents that run unattended.",
     items: ["Everything in Free", "Instant alerts by email, Slack or ntfy", "Named issues: which run, which foreign tool", "Before and after a deploy, side by side"],
-    cta: { label: "Start Solo →", href: "/lab-draft#setup" },
+    cta: { label: "Start Solo →", href: "/#setup" },
     soon: true,
   },
   {
@@ -40,7 +40,7 @@ const scorePlans = [
     per: "a month",
     who: "Agents in production that cost money or touch data.",
     items: ["Everything in Solo", "Users with roles, a second person to approve a reset, a log of every reset", "Slack and PagerDuty", "1 year history", "Export for record-keeping (EU AI Act Art. 12)", "Support"],
-    cta: { label: "Start Team →", href: "/lab-draft#setup" },
+    cta: { label: "Start Team →", href: "/#setup" },
     soon: true,
     pick: true,
   },
@@ -94,7 +94,6 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
 <Base
   title="Pricing: Kyde Score and Kyde Control"
   description="Kyde Score from €0, Solo €29 and Team €299 a month. Kyde Control runs in your network and stops agents that drift, from €990 a month."
-  noindex
 >
   <LabNav active="pricing" />
 
@@ -218,7 +217,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
       <div class="wrap sec p-close">
         <h2 class="h1">Start with one agent.</h2>
         <div class="p-close-cta">
-          <a href="/lab-draft#setup" class="btn btn-ink">Get a free key →</a>
+          <a href="/#setup" class="btn btn-ink">Get a free key →</a>
           <button type="button" onclick="openModal()" class="btn p-ghost">Contact sales →</button>
         </div>
       </div>
