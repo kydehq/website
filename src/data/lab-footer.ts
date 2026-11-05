@@ -1,6 +1,7 @@
 // Footer of the new pages: products and developer links first, then the
 // published library for SEO (same list as the live footer's "Learn"), then the
-// company. When the pages go live, this belongs in Footer.astro itself.
+// company. Footer.astro uses the same list as its default, so every page
+// shows the same footer.
 import { INDUSTRIES } from "./industries";
 
 const SKILL_URL = "https://score.kyde.com/skill.md";
@@ -35,6 +36,7 @@ export const labFooterLinks = {
     { label: "Glossary", href: "/glossary" },
     { label: "FAQ", href: "/faq" },
     { label: "All Resources", href: "/resources" },
+    { label: "RSS", href: "/rss.xml" },
   ],
   Company: [
     { label: "About", href: "/company" },
