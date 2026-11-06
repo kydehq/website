@@ -100,6 +100,6 @@ for wiring those up individually, and the [CLI reference](/docs/reference/#cli).
 If what you want is "tell me when an agent stops behaving like itself" rather
 than a proxy in the path, [kyde score](https://score.kyde.com) does that as a
 hosted service: point the agent's OpenTelemetry exporter at
-`https://score.kyde.com` (OTLP/HTTP JSON), and each agent gets a 0–100 score
+`https://score.kyde.com` (OTLP/HTTP, protobuf or JSON), and each agent gets a 0–100 score
 against its own learned baseline after about 30 runs. Self-serve key, free
 tier, and a [ready-made agent skill](https://score.kyde.com/skill.md).
