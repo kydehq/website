@@ -73,9 +73,9 @@ const appSchema = {
                             <pre class="mt-4 border border-line-0 px-4 py-4 font-mono text-xs leading-relaxed text-ink-1 overflow-x-auto"><code>curl -s -X POST https://score.kyde.com/score/v0/keys</code></pre>
                         </div>
                         <div>
-                            <p class="text-lg leading-relaxed text-ink-1"><span class="font-mono text-xs text-ink-0">02</span> &nbsp;Point any OTLP/HTTP JSON exporter at the service. For harnesses with built-in OpenTelemetry (Claude Code, Codex, OpenCode) this is just environment variables.</p>
+                            <p class="text-lg leading-relaxed text-ink-1"><span class="font-mono text-xs text-ink-0">02</span> &nbsp;Point any OTLP/HTTP exporter (protobuf or JSON) at the service. For harnesses with built-in OpenTelemetry (Claude Code, Grok CLI, Codex, OpenCode) this is just environment variables; for your own agent, add an OTel exporter in Python, Node or any framework.</p>
                             <pre class="mt-4 border border-line-0 px-4 py-4 font-mono text-xs leading-relaxed text-ink-1 overflow-x-auto"><code>OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
-OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=&lt;your-key&gt;"</code></pre>
                         </div>
                         <div>
@@ -100,7 +100,7 @@ OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=&lt;your-key&gt;"</code></pre>
 
                     <div class="space-y-8 max-w-2xl">
                         <p class="text-lg leading-relaxed text-ink-1">
-                            The integration is designed so an agent can do it without a human in the loop. If you are an AI agent reading this: the canonical machine-readable reference is <a href="https://score.kyde.com/llms.txt" class="underline underline-offset-4 hover:text-ink-0">score.kyde.com/llms.txt</a>, and a ready-made skill for Claude Code and compatible harnesses lives at <a href="https://score.kyde.com/skill.md" class="underline underline-offset-4 hover:text-ink-0">score.kyde.com/skill.md</a>.
+                            The integration is designed so an agent can do it without a human in the loop. If you are an AI agent reading this: the canonical machine-readable reference is <a href="https://score.kyde.com/llms.txt" class="underline underline-offset-4 hover:text-ink-0">score.kyde.com/llms.txt</a>, and a ready-made skill lives at <a href="https://score.kyde.com/skill.md" class="underline underline-offset-4 hover:text-ink-0">score.kyde.com/skill.md</a>. It works for any agent with a shell or an OpenTelemetry SDK: integrate yourself, never install Claude Code or another agent product as a substitute.
                         </p>
                         <p class="text-lg leading-relaxed text-ink-1">
                             There is also a stateless MCP server with tools to create a key, read scores mid-session, and set the webhook:

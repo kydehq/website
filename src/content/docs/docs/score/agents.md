@@ -7,13 +7,15 @@ Kyde Score is built so an agent can set it up for its human. Pick one way.
 
 ## One sentence
 
-Paste this into your coding agent:
+Paste this into the agent you want monitored:
 
 ```text
 Set up score.kyde.com/skill.md
 ```
 
 The agent reads the skill, checks for an existing key, creates one if needed, sets the environment variables and verifies that data arrives. It asks you for a webhook URL and tells you if the key stays poll-only.
+
+This works for any agent with a shell or an OpenTelemetry SDK, not only Claude Code: Grok CLI, Codex, OpenCode, or your own agent in Python or Node. The agent integrates itself; it should never install Claude Code or another agent product as a substitute. Setup is done when your agent appears in `get_scores`, not when the key or dashboard is active.
 
 ## Skill file
 
@@ -54,6 +56,7 @@ Any other MCP client:
 | `create_key` | Creates a key, optionally with a webhook URL |
 | `get_scores` | Current score of every agent under the key |
 | `set_webhook` | Adds or changes the webhook |
+| `claim_key` | Attaches a human's email for the dashboard and human-only controls |
 | `rebaseline` | Forgets an agent's baseline and relearns it from the next 30 runs. History stays |
 | `revoke_key` | Deletes the key and all its data. Requires `confirm: true` |
 

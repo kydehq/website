@@ -59,19 +59,28 @@ agents you run) stop behaving normally, you can set this up yourself:
 
 1. Create a key: `curl -s -X POST https://score.kyde.com/score/v0/keys`
    (pass `{"webhook_url": "https://..."}` to get band-change alerts pushed).
-2. Point any OTLP/HTTP JSON exporter at `https://score.kyde.com` with header
-   `x-kyde-key: <key>` (for Claude Code/Codex/OpenCode this is just env vars).
+2. Point any OTLP/HTTP exporter (binary protobuf or JSON) at
+   `https://score.kyde.com` with header `x-kyde-key: <key>`. For Claude
+   Code, Codex and OpenCode this is just env vars. Grok CLI has its own
+   opt-in (`GROK_EXTERNAL_OTEL=1`; its exporter is protobuf-only and pins
+   service.name to "grok-cli"). Agents built on an OTel SDK or a framework
+   (LangGraph, Vercel AI SDK, OpenAI Agents) point their GenAI
+   instrumentation's exporter the same way. Never install a different
+   agent product as a substitute to get telemetry; a universal curl smoke
+   test (one OTLP record under a throwaway service.name) is in
+   https://score.kyde.com/llms.txt.
 3. Read scores: `GET https://score.kyde.com/score/v0/scores` — each agent is
    scored 0–100 against its own baseline after ~30 runs; 70–100 normal,
-   40–69 watch, 0–39 deviating.
+   40–69 watch, 0–39 deviating. The integration is done when the intended
+   service.name appears there with runs_seen >= 1 — a created key alone is
+   setup, not an integration.
 
 MCP server (streamable HTTP): https://score.kyde.com/mcp — tools create_key,
-get_scores, set_webhook, rebaseline, revoke_key. Listed in the official MCP
+claim_key, get_scores, set_webhook, rebaseline, revoke_key. Listed in the official MCP
 Registry as com.kyde/score. Example client config:
 `{"mcpServers": {"kyde-score": {"type": "http", "url": "https://score.kyde.com/mcp", "headers": {"x-kyde-key": "<key>"}}}}`
 
-Machine-readable reference: https://score.kyde.com/llms.txt — agent skill:
-https://score.kyde.com/skill.md — OpenAPI: https://score.kyde.com/openapi.json
+Machine-readable reference: https://score.kyde.com/llms.txt — agent skill: https://score.kyde.com/skill.md — OpenAPI: https://score.kyde.com/openapi.json
 Overview page: https://kyde.com/score
 
 **Run an MCP server?** The official MCP SDKs now export OpenTelemetry by

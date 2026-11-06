@@ -39,12 +39,12 @@ Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
 
     ```bash
     export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
-    export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+    export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
     export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
     export OTEL_SERVICE_NAME=invoice-agent
     ```
 
-    Kyde accepts OTLP/HTTP as JSON or protobuf. Framework agents need a GenAI instrumentation that emits `gen_ai` tool spans; other spans are ignored. Metrics are accepted but not scored.
+    Kyde accepts OTLP/HTTP as protobuf or JSON. `http/protobuf` works from every SDK; `http/json` exists only in the JavaScript ones. Framework agents need a GenAI instrumentation that emits `gen_ai` tool spans; other spans are ignored. Metrics are accepted but not scored.
   </TabItem>
   <TabItem label="Claude Code">
     Set these in the `env` block of your user-level `~/.claude/settings.json` or in the shell that starts Claude Code. Claude Code ignores them in a project's `.claude/settings.json`:
@@ -57,6 +57,19 @@ Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
     export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
     export OTEL_SERVICE_NAME=my-claude-agent
     ```
+  </TabItem>
+  <TabItem label="Grok CLI">
+    Grok CLI needs its own opt-in. Its exporter sends protobuf only:
+
+    ```bash
+    export GROK_EXTERNAL_OTEL=1
+    export OTEL_LOGS_EXPORTER=otlp
+    export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+    export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
+    export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
+    ```
+
+    Grok CLI always reports `service.name` as `grok-cli` and ignores `OTEL_SERVICE_NAME`, so all Grok CLI agents under one key score as one agent.
   </TabItem>
   <TabItem label="OTel Collector">
     Recommended when telemetry has to be scrubbed before it leaves your network. Add an exporter:
@@ -84,7 +97,9 @@ curl -s https://score.kyde.com/score/v0/scores -H "x-kyde-key: <KEY>"
 
 The agent shows up with `"status": "learning"` and a `runs_seen` count. After 30 runs it switches to `"status": "scored"` with a `score` and a `band`. There is nothing to configure for that.
 
-**Nothing listed?** Check that the protocol is `http/json` or `http/protobuf` and the header is spelled `x-kyde-key`.
+The integration is done when your agent's own `service.name` appears here with `runs_seen` of at least 1. A created key or an active dashboard alone is setup, not an integration. Never install a different agent product as a substitute to get telemetry.
+
+**Nothing listed?** Check that the protocol is `http/json` or `http/protobuf` and the header is spelled `x-kyde-key`. The [skill](https://score.kyde.com/skill.md) has a curl smoke test that sends one record under a throwaway service name, so it never enters a real agent's baseline.
 **`degraded` in the response?** Records were dropped because of a limit. See [Limits](/docs/score/limits/).
 
 ## Next
