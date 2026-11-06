@@ -54,6 +54,7 @@ Any other MCP client:
 | `create_key` | Creates a key, optionally with a webhook URL |
 | `get_scores` | Current score of every agent under the key |
 | `set_webhook` | Adds or changes the webhook |
+| `rebaseline` | Forgets an agent's baseline and relearns it from the next 30 runs. History stays |
 | `revoke_key` | Deletes the key and all its data. Requires `confirm: true` |
 
 The key can also go in an `Authorization: Bearer` header or the `key` tool argument.
