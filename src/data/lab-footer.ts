@@ -1,4 +1,4 @@
-// Footer of the lab-draft pages: products and developer links first, then the
+// Footer of the new pages: products and developer links first, then the
 // published library for SEO (same list as the live footer's "Learn"), then the
 // company. When the pages go live, this belongs in Footer.astro itself.
 import { INDUSTRIES } from "./industries";
@@ -9,10 +9,10 @@ const GITHUB = "https://github.com/kydehq/behavioral-drift-detection";
 
 export const labFooterLinks = {
   Products: [
-    { label: "Kyde Score", href: "/lab-draft/products#score" },
-    { label: "Kyde Control", href: "/lab-draft/products#control" },
-    { label: "Pricing", href: "/lab-draft/pricing" },
-    { label: "Research", href: "/lab-draft/research" },
+    { label: "Kyde Score", href: "/products#score" },
+    { label: "Kyde Control", href: "/products#control" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Research", href: "/research" },
   ],
   Developers: [
     { label: "Docs", href: "/docs" },

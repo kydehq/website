@@ -2,17 +2,17 @@
 // Kyde Research: empirical studies of how AI agents behave, on public agent
 // records. Each study: a name, a research question, the finding in one
 // sentence, the numbers, limitations, corpus and source file.
-// Data: src/data/research.ts. Same data as JSON at /lab-draft/research.json.
+// Data: src/data/research.ts. Same data as JSON at /research.json.
 // Papers and code: github.com/kydehq/behavioral-drift-detection.
 // Plan: 01-kyde-company/04_marketing/website/2026-11-03-measures-seite-plan.md
-import Base from "../../layouts/Base.astro";
-import Footer from "../../components/Footer.astro";
-import LabNav from "../../components/lab/LabNav.astro";
-import { labFooterLinks } from "../../data/lab-footer";
-import { studies, RESULTS, REPO, MEASURED, METHOD } from "../../data/research";
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import LabNav from "../components/lab/LabNav.astro";
+import { labFooterLinks } from "../data/lab-footer";
+import { studies, RESULTS, REPO, MEASURED, METHOD } from "../data/research";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
-import "../../styles/lab.css";
+import "../styles/lab.css";
 
 // Draft: every study shows. Live: only studies with status "live".
 const DRAFT = true;
@@ -41,9 +41,8 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
 <Base
   title="Kyde Research: measuring how AI agents behave"
   description="Empirical research on the behavior of autonomous AI systems: model changes, telemetry, run length, prompt injection, reward hacking and tool updates. Measured on public agent records, with corpus, runs and source."
-  noindex
 >
-  <link slot="head" rel="alternate" type="application/json" href="/lab-draft/research.json" />
+  <link slot="head" rel="alternate" type="application/json" href="/research.json" />
   <LabNav active="research" />
 
   <main class="kx">
@@ -194,8 +193,8 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
         <div>
           <p class="m-close-p">They cannot tell you how your own agent behaves in production. Kyde Score learns your agent's normal behavior from its own runs and scores every run against it, with the same detectors.</p>
           <div class="m-cta">
-            <a href="/lab-draft/products#score" class="btn btn-ink">Explore Kyde Score →</a>
-            <a href="/lab-draft/research.json" class="mono m-json">research.json</a>
+            <a href="/products#score" class="btn btn-ink">Explore Kyde Score →</a>
+            <a href="/research.json" class="mono m-json">research.json</a>
           </div>
         </div>
       </div>

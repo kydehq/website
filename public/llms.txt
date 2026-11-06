@@ -1,9 +1,11 @@
 # Kyde
 
+Know if you still behave like yourself, or if someone else is steering you.
+
 Full page text of the whole site in one file: https://kyde.com/llms-full.txt
 Flat JSON index (title, url, kind, summary per page): https://kyde.com/site-index.json
 
-> Kyde is behavioral scoring for AI agents. Kyde learns how each agent normally behaves and scores every run against that baseline. When an agent stops behaving like itself, because it drifts after a model update, gets stuck in a loop that burns money or is hijacked by prompt injection, Kyde raises an alert, and with the Kyde Gateway puts the agent into quarantine until a human releases it. Deterministic statistics, no LLM in the verdict, every score recomputable. Any model, any vendor; the gateway runs in the customer's own network or EU-hosted. Built in Europe.
+> Kyde is behavioral scoring for AI agents. Kyde learns how each agent normally behaves and scores every run against that baseline. When an agent stops behaving like itself, because it drifts after a model update, gets stuck in a loop that burns money or is hijacked by prompt injection, Kyde raises an alert, and with the Kyde Gateway puts the agent into quarantine until a human releases it. Deterministic statistics, no LLM in the verdict, and the same records always give the same score. Any model, any vendor; the gateway runs in the customer's own network or EU-hosted. Built in Europe.
 
 ## The problem
 
@@ -19,10 +21,10 @@ Behavioral scoring, the way banks score card payments: a card gets a score once 
 
 1. **Observe.** Every action of an agent crosses Kyde, through a gateway or SDK. No changes to the agent's logic.
 2. **Learn.** Kyde learns each agent's normal behavior (a frozen baseline). Every human decision sharpens it.
-3. **Score.** Every run is scored against the agent's own normal behavior. Deterministic statistics, recomputable from the record; no LLM judge in the detection path.
+3. **Score.** Every run is scored against the agent's own normal behavior. Deterministic statistics: the same record always gives the same score, and every score names its baseline and method version; no LLM judge in the detection path.
 4. **Limit.** The score decides what the agent may do.
 5. **Stop.** A drifting, hijacked or looping agent goes into quarantine; a human decides what happens next.
-6. **Prove** (under every step). A tamper-evident, hash-chained record of everything; every score can be recomputed by a third party.
+6. **Prove** (under every step). A tamper-evident, hash-chained record of everything that an auditor can verify without Kyde. The base detectors (CUSUM, Jensen-Shannon divergence) are open source; the task-contract check is Kyde's own.
 
 Detection runs two channels against the same frozen baseline: a divergence channel for gradual drift (behavior wandering over weeks) and a change-point channel (CUSUM family) for abrupt change after an input or update. Measured on public records, each catches events the other misses.
 
@@ -33,7 +35,7 @@ Any model, any vendor, on-prem, built in Europe. Runs in the customer's network;
 Kyde publishes its research on behavioral drift: "Behavioral Drift in Autonomous LLM-driven Systems: A Survey of Detection Approaches and the Case for Deterministic Detection" (J. Eckel, J. Radehaus, v0.4, 2026-09-17), with reference detector code at https://github.com/kydehq/behavioral-drift-detection and a summary at https://kyde.com/behavioral-drift.
 
 - "Behavioral drift" covers at least seven phenomena with different causes and detection cost: goal drift, context decay, reward hacking, deception, multi-agent drift, persistent drift (memory or self-modification), version drift (vendor model changes). Prompt injection is a cause that produces three of them.
-- The detection core has to be deterministic: an LLM judge is itself an agent subject to the drift it is asked to measure, and its verdicts cannot be replayed. Statistics over an append-only boundary record can be recomputed by anyone.
+- The detection core has to be deterministic: an LLM judge is itself an agent subject to the drift it is asked to measure, and its verdicts cannot be replayed. Statistics over an append-only boundary record give the same result every time they are run.
 - First measurements on six public corpora (boundary call records only: tool name, hashed parameters, status, attribution; no content): a silent model change is detected in 80–100% of trials once it visibly shifts the tool-call distribution (JSD ≥ 0.02), 0% on a same-version control; false-alarm rates vary so much between deployments that they must be calibrated per deployment; successful in-session prompt injections and reward hacking are nearly invisible to distribution-level statistics (they use the same tools as legitimate work), which is why sequence-level, per-task models are the next step.
 
 The research is honest about limits: what does not cross the boundary (intent in a reasoning trace, a poisoned memory entry, deception with harmless surface text) is invisible to any detector built on boundary records.
@@ -64,12 +66,17 @@ agents you run) stop behaving normally, you can set this up yourself:
    40–69 watch, 0–39 deviating.
 
 MCP server (streamable HTTP): https://score.kyde.com/mcp — tools create_key,
-get_scores, set_webhook, revoke_key. Example client config:
+get_scores, set_webhook, rebaseline, revoke_key. Listed in the official MCP
+Registry as com.kyde/score. Example client config:
 `{"mcpServers": {"kyde-score": {"type": "http", "url": "https://score.kyde.com/mcp", "headers": {"x-kyde-key": "<key>"}}}}`
 
 Machine-readable reference: https://score.kyde.com/llms.txt — agent skill:
 https://score.kyde.com/skill.md — OpenAPI: https://score.kyde.com/openapi.json
 Overview page: https://kyde.com/score
+
+**Run an MCP server?** The official MCP SDKs now export OpenTelemetry by
+default. Point the exporter at https://score.kyde.com and see which agents
+behave unusually on your server. Call metadata only, never the conversation.
 
 ## Deployment
 
@@ -138,9 +145,12 @@ Regulation (EU AI Act, DORA, NIS-2) matters where it applies; see Regulatory con
 
 ### Site
 
-- [Kyde](https://kyde.com/): The front door. Know when your AI agents go off task; behavioral scoring for AI agents; the bank analogy; how it works (observe, learn, score, limit, stop, prove); how to start (setup, then two weeks).
+- [Kyde](https://kyde.com/): The front door. See if your production agents go off task: get a free key in the hero (with or without a webhook), or tell your agent "Set up score.kyde.com/skill.md". Setup per harness (Claude Code, any OTel SDK, Collector, MCP), what Kyde sees (call metadata, never the conversation), first findings, plans.
+- [Products](https://kyde.com/products): Kyde Score (hosted, free to watch: OpenTelemetry in, a 0–100 score per agent, a signed webhook on every band change) and Kyde Control (runs on the Kyde Gateway in your network: stops, quarantines, a human releases). Start with the score, switch on control when you trust it.
+- [Pricing](https://kyde.com/pricing): Kyde Score Free (€0), Solo (€29) and Team (€299 a month); Kyde Control from €990 a month. Limits per plan match what score.kyde.com enforces.
+- [Research](https://kyde.com/research): Studies of agent behavior on public corpora, with links to the result files. Same data as JSON: https://kyde.com/research.json
 - [kyde score](https://kyde.com/score): The hosted service: drift scores from an agent's OpenTelemetry, self-serve key, MCP server, webhook alerts, free tier. Live at https://score.kyde.com.
-- [Platform](https://kyde.com/platform): The layer under the score: the flight recorder, the inventory of agents nobody registered, identity, policy, data and limits checked at the moment of action, replay, and a tamper-evident record an auditor recomputes.
+- [Platform](https://kyde.com/platform): The layer under the score: the flight recorder, the inventory of agents nobody registered, identity, policy, data and limits checked at the moment of action, replay, and a tamper-evident record an auditor can verify.
 - [Industries](https://kyde.com/industries): Behavioral scoring for AI agents, by industry: agentic commerce, insurance, banking and fintech, physical AI, security providers and healthcare. Each page names the risks, an example, and how Kyde decides: frequencies and statistics against the agent's own normal behavior, no language model in the decision.
 - [Agentic Commerce](https://kyde.com/industries/agentic-commerce): Kyde scores an agent's behavior before its payment is approved. A behavioral signal for agent payments, computed without a language model, for card networks, payment processors, agent wallets and the companies whose agents pay.
 - [Insurance](https://kyde.com/industries/insurance): Kyde detects when a claims or service agent changes how it decides: after a model update, through a manipulated document, or when it passes on customer data its task does not need. Regulation: DORA, Solvency II, KI-MIG, GDPR Article 22, EU AI Act.

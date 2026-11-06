@@ -19,7 +19,7 @@ These are the limits the service enforces, per key. There are no accounts.
 
 Every limit degrades instead of breaking. Kyde never turns your agent's export into an error.
 
-Need higher limits, your own retention or everything inside your network? That is [Kyde Control](/lab-draft/pricing/).
+Need higher limits, your own retention or everything inside your network? That is [Kyde Control](/pricing/).
 
 ## Privacy
 

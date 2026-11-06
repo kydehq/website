@@ -1,7 +1,7 @@
-// The studies of /lab-draft/research as JSON, for agents and anyone who wants
+// The studies of /research as JSON, for agents and anyone who wants
 // the numbers without the page. Same source: src/data/research.ts.
 import type { APIRoute } from "astro";
-import { studies, RESULTS, REPO, MEASURED, METHOD } from "../../data/research";
+import { studies, RESULTS, REPO, MEASURED, METHOD } from "../data/research";
 
 export const GET: APIRoute = () => {
   const body = {
