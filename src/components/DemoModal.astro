@@ -140,6 +140,9 @@
   (window as any).openModal = openModal;
   (window as any).closeModal = closeModal;
 
+  // kyde.com/#contact opens the form, e.g. from the dashboard on score.kyde.com.
+  if (location.hash === '#contact') openModal();
+
   // Close on backdrop / ESC
   document.getElementById('demo-modal-backdrop')?.addEventListener('click', closeModal);
   document.getElementById('demo-modal-close')?.addEventListener('click', closeModal);
