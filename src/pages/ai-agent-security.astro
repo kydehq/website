@@ -1,0 +1,239 @@
+---
+import Base from '../layouts/Base.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import LegalNotice from '../components/LegalNotice.astro';
+
+// Search entry for "AI agent security" without changing the category: Kyde
+// stays behavioral scoring for AI agents (message house, D-035). The page
+// argues that the security question for agents is a behavior question, and
+// says plainly what metadata cannot show. Claims match the home FAQ
+// ("It detects what a hijacked agent does next ... cannot prove an attack").
+
+const threats = [
+  {
+    name: 'Hijack',
+    cause: 'A document, website, email or tool response carries instructions (prompt injection). The agent follows them with the operator’s credentials.',
+    record: 'Tools it rarely or never called before, in an order it does not normally use, against places it does not normally reach.',
+  },
+  {
+    name: 'Loops',
+    cause: 'The agent retries, repeats and calls tools again and again, often overnight. Tokens, compute and API costs pile up.',
+    record: 'Runs that get longer, the same call many times in a row, error rates that climb while the run keeps going.',
+  },
+  {
+    name: 'Drift',
+    cause: 'The agent stops behaving like itself: the vendor swaps the model, context and memory grow, the environment changes.',
+    record: 'The mix of tools shifts slowly over days or weeks, until the agent no longer works the way it did on the day it went live.',
+  },
+];
+
+const layers = [
+  {
+    layer: 'Access control',
+    sees: 'Who holds which credential and which tools an agent may call.',
+    misses: 'Misuse of a credential the agent legitimately holds. Every single call is allowed.',
+  },
+  {
+    layer: 'Input scanning',
+    sees: 'The text of prompts, documents and tool responses, checked for known attack patterns.',
+    misses: 'Instructions it does not recognize, and everything that goes wrong without an attack: loops and drift.',
+  },
+  {
+    layer: 'Behavioral scoring',
+    sees: 'What the agent does across runs, compared with its own normal behavior. Call metadata only.',
+    misses: 'An attack that uses the agent’s usual tools in the usual order, and anything that never shows up as a call.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is AI agent security?',
+    a: 'Keeping an autonomous agent from acting against the people it works for, whether someone else is steering it or it goes wrong on its own. Agents act with real credentials and real tools, so the question is less who may act than whether the agent still behaves like itself.',
+  },
+  {
+    q: 'Does Kyde detect prompt injection?',
+    a: 'It detects what a hijacked agent does next: tools it does not normally use, in an order it does not normally use them. From metadata alone it cannot prove an attack, and an injection that keeps to the agent’s usual tools stays invisible. Kyde complements input scanning, it does not replace it.',
+  },
+  {
+    q: 'Does Kyde read the conversation?',
+    a: 'No. Kyde scores call metadata from OpenTelemetry: which tool, when, in which order, with which status. Prompts and payloads are never stored. With the OpenTelemetry Collector you can strip or hash attributes before anything leaves your network.',
+  },
+  {
+    q: 'How fast does it see a change?',
+    a: 'Kyde learns each agent over its first 30 runs and then freezes that baseline, so a drifting agent cannot become its own reference. After that every run is scored against it, and a band change raises a signed webhook.',
+  },
+  {
+    q: 'Can Kyde stop an agent?',
+    a: 'Kyde Score watches and alerts, free and hosted. Kyde Control runs on the Kyde Gateway in your own network: it holds an agent that no longer fits its baseline, puts it into quarantine, and a human decides what happens next.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kyde.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://kyde.com/resources' },
+    { '@type': 'ListItem', position: 3, name: 'AI Agent Security', item: 'https://kyde.com/ai-agent-security' },
+  ],
+};
+---
+
+<Base
+  title="AI Agent Security: Catch Hijacked, Looping and Drifting Agents | Kyde"
+  description="AI agents act with real credentials, so every single action is allowed. What AI agent security means when the attack is a change in behavior: hijack, loops and drift, what access control and input scanning miss, and what behavioral scoring can and cannot see."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+  <Navbar />
+  <main>
+
+    <!-- ══════════ HERO / DEFINITION ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Guide · Last verified November 2026</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+        <h1 class="hero-h1 max-w-4xl text-5xl text-ink-0 uppercase tracking-tight md:text-6xl lg:text-7xl mb-8">
+          AI Agent <span class="gradient-text">Security</span>
+        </h1>
+        <p class="text-lg md:text-xl text-ink-0 leading-relaxed max-w-3xl border-l-2 border-line-1 pl-6">
+          AI agent security keeps an autonomous agent from acting against the people it works for. The hard case is not the agent without permission. It is the agent with every permission it needs, doing something it has never done before: because someone else is steering it, because it is stuck in a loop, or because it no longer behaves like itself.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ EVERY ACTION IS ALLOWED ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">Every single action is allowed</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Agents now move money, answer customers, change code and touch data. They do it with real credentials and real tools. An agent that exports customer data to an outside address after reading a manipulated document uses the same export tool, the same key and the same network path as on any other day.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            Access control has nothing to object to: the agent may call that tool. Most checks happen once, on the day the agent goes live. After that, the only one watching it is the agent itself. The question that is left is whether the agent still behaves like itself.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ THREE THINGS GO WRONG ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-8">Three things go wrong, and each changes behavior</p>
+        <div class="grid md:grid-cols-3 gap-4">
+          {threats.map(({ name, cause, record }) => (
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-sm font-bold text-ink-0 tracking-[0.15em] uppercase mb-3">{name}</p>
+              <p class="text-sm text-ink-0 leading-relaxed mb-4">{cause}</p>
+              <p class="text-xs text-ink-1 leading-relaxed"><span class="font-mono text-ink-2 uppercase text-[10px] tracking-wider mr-2">In the record</span>{record}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mt-6 text-sm text-ink-1 max-w-3xl leading-relaxed">
+          Only the first is an attack. All three are usually found weeks later, from a customer, a bill or an auditor, and all three leave a trace in what the agent does, not only in what it reads.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ LAYERS ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">What each layer sees, and what it misses</p>
+        <p class="text-base text-ink-1 leading-relaxed max-w-3xl mb-8">
+          No single layer covers an agent. Access control decides what it may do, input scanning reads what goes in, behavioral scoring watches what comes out. Each has a blind spot the others cover.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full border border-line-0 text-sm max-w-5xl">
+            <thead>
+              <tr class="border-b border-line-0">
+                <th class="px-5 py-3 text-left font-mono text-[11px] uppercase tracking-wider text-ink-2">Layer</th>
+                <th class="px-5 py-3 text-left font-mono text-[11px] uppercase tracking-wider text-ink-2">Sees</th>
+                <th class="px-5 py-3 text-left font-mono text-[11px] uppercase tracking-wider text-ink-2">Misses</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line-0">
+              {layers.map(({ layer, sees, misses }) => (
+                <tr>
+                  <td class="px-5 py-4 font-mono text-xs uppercase tracking-wider text-ink-0 align-top whitespace-nowrap">{layer}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{sees}</td>
+                  <td class="px-5 py-4 text-sm text-ink-1 align-top">{misses}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ HOW KYDE DOES IT ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-4">How Kyde does it</p>
+        <div class="max-w-3xl space-y-4 mb-8">
+          <p class="text-base text-ink-1 leading-relaxed">
+            Kyde is behavioral scoring for AI agents, the way banks score card payments: the bank learns how you use your card and blocks it when the use no longer fits. Kyde learns how each agent normally behaves from its first 30 runs, freezes that baseline, and scores every run after it. Deterministic statistics, no language model in the verdict, and the same records always give the same score.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            <strong class="text-ink-0">Kyde Score</strong> takes the agent’s OpenTelemetry, call metadata only, and posts a signed webhook when an agent changes band. Free and hosted, set up by the agent itself. <strong class="text-ink-0">Kyde Control</strong> runs on the Kyde Gateway in your own network and stops the agent: it goes into quarantine and a human decides what happens next.
+          </p>
+          <p class="text-base text-ink-1 leading-relaxed">
+            The limit, stated plainly: behavior is what Kyde sees. An attack that keeps to the agent’s usual tools in the usual order, an intention in a reasoning trace, a poisoned memory entry that has not acted yet, none of that crosses the boundary as a call. That is why Kyde sits next to input scanning, not in its place.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/" class="inline-flex items-center gap-2 bg-white px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-cta-ink hover:bg-cta-hover transition-all w-fit">Get a free key →</a>
+          <a href="/products" class="inline-flex items-center gap-2 border border-line-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.1em] text-ink-0 hover:border-white/40 transition-all w-fit">Kyde Score and Kyde Control →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="border-t border-line-1">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 md:border-x md:border-line-0">
+        <div class="mb-10">
+          <div class="flex items-end justify-between border-b border-line-0 pb-3"><span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-1">FAQ</span></div>
+        </div>
+        <div class="max-w-3xl space-y-px">
+          {faqs.map(({ q, a }) => (
+            <details class="group border border-line-0 bg-bg-1">
+              <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+                <span class="text-sm font-semibold text-ink-0 pr-4">{q}</span>
+                <svg class="h-4 w-4 shrink-0 text-ink-2 group-open:rotate-45 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-sm text-ink-1 leading-relaxed">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+        <p class="mt-10 font-mono text-xs text-ink-2">
+          Related: <a href="/behavioral-drift" class="hover:text-ink-0 transition-colors">Behavioral Drift</a> · <a href="/zero-trust-for-ai-agents" class="hover:text-ink-0 transition-colors">Zero Trust for AI Agents</a> · <a href="/shadow-ai" class="hover:text-ink-0 transition-colors">Shadow Agents</a> · <a href="/research" class="hover:text-ink-0 transition-colors">Research</a>
+        </p>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+  <Footer />
+</Base>

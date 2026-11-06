@@ -337,9 +337,9 @@ export const KEY_PAGES: Article[] = [
   },
   {
     category: "Platform",
-    title: "kyde score: Hosted Drift Scoring for AI Agents",
-    summary: "Point an agent's OpenTelemetry at score.kyde.com and get a 0–100 behavioral drift score per agent, with a signed webhook when a score changes band. Self-serve key, MCP server, no SDK, free tier.",
-    href: "/score",
+    title: "Kyde Score and Kyde Control",
+    summary: "Kyde Score: point an agent's OpenTelemetry at score.kyde.com and get a 0–100 behavioral drift score per agent, with a signed webhook when a score changes band. Free key, MCP server, no SDK. Kyde Control: runs on the Kyde Gateway in your network and stops agents that drift.",
+    href: "/products",
   },
   {
     category: "Service",
@@ -404,7 +404,7 @@ export const KEY_PAGES: Article[] = [
   {
     category: "Company",
     title: "Company",
-    summary: "What Kyde builds and why. Early stage, engineered in Germany, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.",
+    summary: "What Kyde builds and why. Early stage, built in Europe, working with design partners in finance, insurance, healthcare, the public sector, critical infrastructure and manufacturing.",
     href: "/company",
   },
   {
