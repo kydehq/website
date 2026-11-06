@@ -60,10 +60,10 @@ export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"
 export OTEL_SERVICE_NAME=<agent-name>`,
     note: "In the env block of your user-level ~/.claude/settings.json or the shell that starts Claude Code. Project settings are ignored." },
   { id: "sdk", label: "Any OTel SDK", code: `export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"
 export OTEL_SERVICE_NAME=<agent-name>`,
-    note: "For framework agents (Vercel AI SDK, LangGraph, OpenAI Agents): any GenAI instrumentation that emits gen_ai tool spans. JSON or protobuf. Give every agent its own service name." },
+    note: "For framework agents (Vercel AI SDK, LangGraph, OpenAI Agents): any GenAI instrumentation that emits gen_ai tool spans. Protobuf works from every SDK, JSON from the JavaScript ones. Give every agent its own service name." },
   { id: "collector", label: "Collector", code: `processors:
   attributes/kyde:          # content never leaves
     actions:
@@ -79,7 +79,7 @@ exporters:
   { id: "mcp", label: "MCP", code: `claude mcp add --transport http kyde-score \\
   https://score.kyde.com/mcp \\
   --header "x-kyde-key: <YOUR_KEY>"`,
-    note: "Lets an agent read its own score mid-session. Tools: create_key, get_scores, set_webhook, revoke_key." },
+    note: "Lets an agent read its own score mid-session. Tools: create_key, get_scores, set_webhook, claim_key, revoke_key." },
 ];
 
 const curlByHand = `# a key, with or without a webhook
@@ -106,7 +106,7 @@ x-kyde-signature: sha256=<HMAC-SHA256 of the body, keyed with your key>
 }`;
 
 const envForKey = `OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
-OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=kyde_…"
 OTEL_SERVICE_NAME=<agent-name>`;
 
@@ -124,10 +124,10 @@ const faq = [
 
 <Base
   title="Kyde: see if your production agents go off task"
-  description="Kyde learns how each AI agent behaves and alerts you when it stops behaving like itself. OpenTelemetry in, webhook out, free hosted. Agents set it up themselves: Set up score.kyde.com/skill.md"
+  description="Kyde learns how each AI agent behaves and alerts you when it stops behaving like itself. OpenTelemetry in, webhook out, free hosted. Agents can set it up themselves from score.kyde.com/skill.md."
 >
-  <!-- For agents that read this page: the setup skill and the API reference. -->
-  <link slot="head" rel="alternate" type="text/markdown" title="Agent skill: set up Kyde" href={SKILL_URL} />
+  <!-- Machine-readable alternates: the setup skill and the API reference. -->
+  <link slot="head" rel="alternate" type="text/markdown" title="Kyde setup skill" href={SKILL_URL} />
   <link slot="head" rel="alternate" type="text/plain" title="llms.txt" href="https://score.kyde.com/llms.txt" />
 
   <LabNav />
@@ -375,7 +375,7 @@ const faq = [
     const HINT = hint.textContent;
     const envFor = (key) => [
       "OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com",
-      "OTEL_EXPORTER_OTLP_PROTOCOL=http/json",
+      "OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf",
       `OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=${key}"`,
       "OTEL_SERVICE_NAME=<agent-name>",
     ].join("\n");
