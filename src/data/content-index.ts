@@ -112,6 +112,15 @@ export const ARTICLES: Article[] = [
         live: true,
     },
     {
+        category: "Technical",
+        title: "OpenTelemetry Gave AI Agents a Grammar. Nobody Reads the Sentences.",
+        summary: "The OpenTelemetry GenAI semantic conventions standardize how an agent run is described: gen_ai.* spans for model calls, tool calls and agent runs. They say nothing about whether a run is normal. Drift is a property of the sequence measured against a history, not of a single span.",
+        href: "/blog/genai-semantic-conventions-drift",
+        date: "2026-11-07",
+        readTime: "5 min read",
+        live: true,
+    },
+    {
         category: "Regulatory · Strategic",
         title: "The US and EU Are Converging on the Same Requirements for AI Agents in Critical Infrastructure",
         summary: "NIST, the EU AI Act, and NIS-2 were developed independently, in different jurisdictions, over different timelines. They are converging on the same answer: traceable identity, causal context capture, tamper-evident records, in a governance layer independent of the agents it governs.",

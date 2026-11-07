@@ -1,0 +1,246 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import LegalNotice from '../../components/LegalNotice.astro';
+---
+
+<Base
+  title="OpenTelemetry Gave AI Agents a Grammar. Nobody Reads the Sentences., KYDE"
+  description="The OpenTelemetry GenAI semantic conventions standardize how an agent run is described. They say nothing about whether a run is normal. Drift lives in the sequence, not the span."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technical</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            OpenTelemetry Gave AI Agents a Grammar. Nobody Reads the Sentences.
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Technical</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <time datetime="2026-11-07">November 2026</time>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <!-- Body -->
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              An agent run is a trace. A model call is a span. A tool call is a span. Token usage is a metric.
+            </p>
+            <p>
+              That is the model the <a href="https://github.com/open-telemetry/semantic-conventions-genai" target="_blank" rel="noopener">OpenTelemetry GenAI semantic conventions</a> put forward. One <code>gen_ai.*</code> vocabulary for model calls, tool execution, retrieval, memory and full agent runs. VS Code Copilot already emits <code>invoke_agent</code>, <code>chat</code> and <code>execute_tool</code> spans in that shape. Claude Code puts a few <code>gen_ai.*</code> attributes on its beta traces. Older instrumentation libraries are still converging. The direction is clear, even where the arrival is not.
+            </p>
+            <p>
+              This is real progress. It is also only half the job.
+            </p>
+
+            <h2>What the conventions settle</h2>
+            <p>
+              The vocabulary is small and precise. <code>gen_ai.operation.name</code> is the pivot: <code>chat</code>, <code>embeddings</code>, <code>invoke_agent</code>, <code>execute_tool</code>, <code>retrieval</code>, and a dozen more. Around it sit the attributes that make a span legible to any backend:
+            </p>
+            <ul>
+              <li><span><code>gen_ai.provider.name</code> and <code>gen_ai.request.model</code> say who answered.</span></li>
+              <li><span><code>gen_ai.tool.name</code> and <code>gen_ai.tool.call.id</code> say what the agent did.</span></li>
+              <li><span><code>gen_ai.conversation.id</code> binds the spans of one session together.</span></li>
+            </ul>
+            <p>
+              An MCP tool call is modeled as an <code>execute_tool</code> span too. One tool vocabulary, whether the tool sits in-process or behind a protocol.
+            </p>
+            <p>
+              Prompts and responses are opt-in. The spec tells instrumentations not to capture them by default and to offer a switch for those who need them. Metadata is the default. Content is a decision.
+            </p>
+            <p>
+              That design choice matters more than any single attribute name. The useful signal of an agent run, what it called, in which order, how long it took, whether it failed, is available without touching a single prompt.
+            </p>
+
+            <h2>What the conventions leave open</h2>
+            <p>
+              A span describes one step. It does not know what the agent did yesterday.
+            </p>
+            <p>
+              Take the trace tree every guide now draws: <code>invoke_agent</code>, then <code>chat</code>, then <code>execute_tool web_search</code>, then <code>chat</code>, then <code>execute_tool summarize_doc</code>. Every span is well-formed. Every attribute follows the spec.
+            </p>
+            <p>
+              Now the same agent calls <code>send_email</code> in step four. Or calls <code>web_search</code> eleven times instead of once. Or pays a merchant it has never paid before. The spans are still well-formed. The attributes still follow the spec. Nothing in the convention marks the run as different, because difference is not a property of a span. It is a property of a sequence measured against a history.
+            </p>
+            <p>
+              The conventions give agents a grammar. They do not read the sentences.
+            </p>
+
+            <h2>Counts are not behavior</h2>
+            <p>
+              The metrics side of the spec gets closest. Two histograms, <code>gen_ai.invoke_agent.tool_calls</code> and <code>gen_ai.invoke_agent.inference_calls</code>, count what an agent does per invocation. A rising count is a fair first symptom of a loop.
+            </p>
+            <p>
+              Counts miss the quieter shift. An agent that used to call <code>search</code>, <code>read</code>, <code>summarize</code> and now calls <code>search</code>, <code>read</code>, <code>export</code> makes the same number of tool calls. Its latency and token spend can stay where they were. A dashboard built only on counts, latency and tokens stays green.
+            </p>
+            <p>
+              A prompt injection that succeeds does not need to make an agent slower or more expensive. It needs to make the agent do something else. That change sits in the distribution of what it calls, not in how much.
+            </p>
+
+            <h2>Drift is a property of the sequence</h2>
+            <p>
+              Detecting that change needs three things the conventions do not provide.
+            </p>
+            <p>
+              <strong>A baseline per agent.</strong> Normal for a research agent is not normal for a billing agent. The baseline has to be learned from that agent's own runs, keyed on an identity the telemetry already carries.
+            </p>
+            <p>
+              <strong>Deterministic detectors.</strong> An abrupt shift and a slow drift are different statistical problems. CUSUM targets the first. Windowed Jensen-Shannon divergence over the tool distribution targets the second. Neither needs a model in the loop to decide what an agent "meant". The same input produces the same score, and anyone can rerun it.
+            </p>
+            <p>
+              <strong>A contract per task.</strong> Some changes are not statistical at all. A tool the agent has never called on this kind of task is a finding on first occurrence. Waiting for a distribution to move is the wrong tolerance for a new payee.
+            </p>
+            <p>
+              None of this requires new instrumentation. It requires reading the spans the conventions already describe, in order, against a memory.
+            </p>
+
+            <h2>Build on Development, behind a mapping</h2>
+            <p>
+              Every <code>gen_ai.*</code> attribute, span and metric is still at Development stability. With <a href="https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0" target="_blank" rel="noopener">release v1.42.0</a> in June 2026, the conventions moved out of the core semantic conventions repository into their own, <code>semantic-conventions-genai</code>. That repository has no tagged release yet, and its schema URL is still marked TODO.
+            </p>
+            <p>
+              That is not a reason to wait. It is a reason to keep the attribute strings in one place. A consumer that reads <code>gen_ai.tool.name</code>, <code>gen_ai.operation.name</code> and <code>gen_ai.conversation.id</code> through one thin mapping layer survives a rename with a small, local change. A consumer that reads every attribute it finds does not.
+            </p>
+            <p>
+              It is also a reason to read less. A behavioral score needs which tool, when, in which session, and whether it succeeded. It does not need the prompt. Extracting a handful of named fields and dropping everything else keeps the spec's default, no content, intact by construction rather than by policy.
+            </p>
+
+            <h2>Where this leaves an operator</h2>
+            <p>
+              The conventions are solving the naming problem. Agents, whatever framework they run on, are learning to describe themselves in one language to any backend.
+            </p>
+            <p>
+              The next problem is judgment. Not the probabilistic kind, where a second model guesses whether the first one behaved. The deterministic kind, where a run is measured against that agent's own history and the answer is a number.
+            </p>
+            <p>
+              A trace tells you what happened. A score tells you whether it should have.
+            </p>
+
+            <!-- KYDE callout -->
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score reads <code>gen_ai.*</code> tool spans and Claude Code tool events over OTLP. It learns a baseline from the first 30 runs per agent, scores every later run 0 to 100 with CUSUM, Jensen-Shannon divergence and a per-task contract, and sends an HMAC-signed webhook when the band changes. Prompt content is not read.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Score an agent →
+              </a>
+            </div>
+
+          </article>
+
+          <!-- Sidebar -->
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">What drift needs</p>
+              <div class="space-y-2">
+                {["A baseline per agent", "Deterministic detectors", "A contract per task"].map((r) => (
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift in AI Agents: Seven Forms</span>
+                </a>
+                <a href="/blog/agent-goal-hijacking" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Agent Hijacking: The Risk Most Enterprises Can't Detect</span>
+                </a>
+                <a href="/blog/mcp-changes-ai-governance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Why MCP Changes Everything About AI Governance</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>
