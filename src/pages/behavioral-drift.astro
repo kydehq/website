@@ -121,6 +121,25 @@ const articleSchema = {
   publisher: { '@type': 'Organization', name: 'Kyde', url: 'https://kyde.com' },
   citation: sources.map(({ title, id }) => `${title}, arXiv:${id}`),
 };
+
+// The long version, as the citable record on Zenodo. Concept DOI, so the
+// link follows new versions; version and date are the current release.
+const surveySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  headline: 'Behavioral Drift in Autonomous LLM-driven Systems: A Survey of Detection Approaches and the Case for Deterministic Detection',
+  author: [
+    { '@type': 'Person', name: 'Jürgen Eckel' },
+    { '@type': 'Person', name: 'Joerg Radehaus' },
+  ],
+  datePublished: '2026-09-17',
+  version: '0.4',
+  identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: '10.5281/zenodo.24013163' },
+  url: 'https://doi.org/10.5281/zenodo.24013163',
+  sameAs: ['https://zenodo.org/records/24013164', 'https://github.com/kydehq/behavioral-drift-detection'],
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  publisher: { '@id': 'https://kyde.com/#organization' },
+};
 ---
 
 <Base
@@ -130,6 +149,7 @@ const articleSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(surveySchema)} />
   </Fragment>
   <Navbar />
   <main>
@@ -365,9 +385,15 @@ const articleSchema = {
             <p class="text-sm text-ink-1 leading-relaxed mb-6">
               Eckel and Radehaus, working draft. Eight detection approaches compared on data needs, online capability and runtime cost; a detectability matrix crossing the seven phenomena above with what boundary call records can and cannot establish; and the argument that the detection core has to stay deterministic, because an LLM judge is itself a drifting system. Published openly under CC BY 4.0, revisions and all.
             </p>
-            <a href="https://github.com/kydehq/behavioral-drift-detection" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
-              Read the survey on GitHub →
-            </a>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="https://doi.org/10.5281/zenodo.24013163" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
+                Read the survey on Zenodo →
+              </a>
+              <a href="https://github.com/kydehq/behavioral-drift-detection" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-line-0 text-ink-1 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 hover:text-ink-0 transition-all w-fit">
+                Code and data on GitHub →
+              </a>
+            </div>
+            <p class="mt-4 font-mono text-[11px] text-ink-1">Cite as: Eckel, J. and Radehaus, J. (2026). DOI <a href="https://doi.org/10.5281/zenodo.24013163" class="underline underline-offset-4">10.5281/zenodo.24013163</a></p>
           </div>
           <p class="text-base text-ink-1 leading-relaxed mb-8">
             If you want to measure drift on your own agents rather than read about it, <a href="/agent-drift-detection/" class="underline underline-offset-4 hover:text-ink-0">AI agent drift detection</a> explains how Kyde Score turns these signals into a score per agent and an alert when it changes.

@@ -34,6 +34,8 @@ const phenomena = ["Goal drift", "Context decay", "Reward hacking", "Deception",
 
 const PAPER = `${REPO}/blob/main/paper/behavioral-drift-detection-survey.md`;
 const PAPER_PDF = `${REPO}/blob/main/paper/behavioral-drift-detection-survey.pdf`;
+// Concept DOI: always resolves to the newest version on Zenodo.
+const PAPER_DOI = "https://doi.org/10.5281/zenodo.24013163";
 const LADDER = `${REPO}/blob/main/paper-followup/observability-ladder.md`;
 const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
 ---
@@ -122,7 +124,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
             <ul class="r-chips mono">
               {phenomena.map((p) => (<li>{p}</li>))}
             </ul>
-            <p class="r-links mono"><a href={PAPER} rel="noopener">Read →</a><a href={PAPER_PDF} rel="noopener">PDF</a></p>
+            <p class="r-links mono"><a href={PAPER} rel="noopener">Read →</a><a href={PAPER_PDF} rel="noopener">PDF</a><a href={PAPER_DOI} rel="noopener">DOI 10.5281/zenodo.24013163</a></p>
           </article>
           <article class="r-paper">
             <p class="mono label">Measured follow-up · working draft</p>
