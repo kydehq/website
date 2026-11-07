@@ -1,0 +1,203 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import LegalNotice from "../components/LegalNotice.astro";
+---
+
+<Base
+  title="Detecting AI Agents Stuck in a Loop, KYDE"
+  description="Why AI agents get stuck repeating the same tool call, why counting repeats flags almost every agent, and how a parameter hash and consecutive-call rule detect runaway loops from the first run without reading content."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technical</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Detecting AI Agents Stuck in a Loop
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Technical</span>
+            <span>·</span>
+            <span>6 min read</span>
+            <span>·</span>
+            <time datetime="2026-11-07">November 2026</time>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Some agent failures are quiet. A loop is not. The agent calls the same tool with the same arguments, gets a result it does not accept, and calls it again. Each attempt costs a model call and a tool call. Left alone overnight, a loop shows up as a stuck job, a duplicated order or an invoice from your model provider.
+            </p>
+            <p>
+              This guide covers why agents loop, why the obvious way of counting repeats does not work, and how to detect a loop early without reading what the agent said.
+            </p>
+
+            <h2>Why agents get stuck</h2>
+            <p>
+              Loops have a few common causes, and most are ordinary:
+            </p>
+            <ul>
+              <li><span><strong>A tool that keeps failing the same way.</strong> The API times out or returns an error the agent does not understand, and it retries without changing anything.</span></li>
+              <li><span><strong>A result the agent cannot recognize as done.</strong> The task succeeded, but nothing in the response tells the model so, and it submits again.</span></li>
+              <li><span><strong>A plan that circles.</strong> Two steps that each undo or invalidate the other, so the agent alternates between them.</span></li>
+              <li><span><strong>Manipulation.</strong> Less often, injected instructions can push an agent into repeating an action on purpose.</span></li>
+            </ul>
+            <p>
+              Retries are not a bug in themselves. Agents are supposed to recover from transient errors. The problem is repetition without progress.
+            </p>
+
+            <h2>Why counting repeats is the wrong measure</h2>
+            <p>
+              The first idea is usually to count how often each tool appears in a run and alert above a threshold. In practice this flags almost every agent. Agents search, read, search again and read again as part of normal work. Calling the same tool many times in one run is exploration, not a failure.
+            </p>
+            <p>
+              Two details make the signal useful. First, compare the arguments, not only the tool name: searching for five different things is work, searching for the same thing five times is not. Second, count consecutive repeats, not repeats anywhere in the run. An agent that comes back to a call later has usually learned something in between. An agent that makes the identical call three times in a row has not.
+            </p>
+
+            <h2>Detecting a loop without reading content</h2>
+            <p>
+              Comparing arguments seems to require reading them, which many teams do not want a monitoring service to do. A hash avoids that. The agent or its instrumentation computes a digest of each tool call's parameters and sends only the digest. Two identical calls produce the same digest. Nothing about the content can be recovered from it.
+            </p>
+            <p>
+              With the tool name and a parameter digest on every call, a loop becomes a simple, deterministic rule: the same tool with the same digest, called back to back within one run. It needs no learning period and no model to judge it, so it works from the very first run.
+            </p>
+
+            <h2>How Kyde Score handles loops</h2>
+            <ul>
+              <li><span>Kyde Score counts consecutive calls with the same tool and the same parameter digest (<code>kyde.args.digest</code>) within one run.</span></li>
+              <li><span>From the third identical call in a row it raises a loop alarm, and the agent's score is capped at <em>watch</em>.</span></li>
+              <li><span>From ten identical calls in a row it treats the loop as runaway, and the score drops to <em>deviating</em>.</span></li>
+              <li><span>Loop detection does not wait for a baseline. During an agent's learning phase, a runaway loop sends a direct alert by webhook and email.</span></li>
+            </ul>
+            <p>
+              Two limits are worth stating. Without a parameter digest on the call, Kyde does not count repeats at all, because it cannot tell an identical call from a legitimate second call to the same tool. Standard OpenTelemetry instrumentations do not send that digest today, so it has to be added as an attribute on the tool call. And Kyde does not watch your bill: it does not read token counts or costs. It watches the calls that produce them.
+            </p>
+            <p>
+              A loop alarm tells you an agent is stuck. Ending the run is up to you, or to Kyde Control, the gateway that sits in the agent's path, runs in your own environment and can hold the next call. <a href="/products">Compare Score and Control</a>.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score flags an agent that repeats the same call: from three identical calls in a row it raises an alarm, from ten it marks the run as runaway. It works from the first run, reads only a hash of the parameters, and sends a signed webhook when the score changes band.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Score an agent →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">A loop is</p>
+              <div class="space-y-2">
+                {["Same tool", "Same parameter digest", "Back to back in one run", ].map((r) => (
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/agent-prompt-injection-detection" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Detecting Indirect Prompt Injection in AI Agents</span>
+                </a>
+                <a href="/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift in AI Agents</span>
+                </a>
+                <a href="/blog/genai-semantic-conventions-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>What OpenTelemetry's GenAI Conventions Can and Can't Tell You</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Deutsch</p>
+              <a href="/de/wissen/agent-endlosschleife-erkennen" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

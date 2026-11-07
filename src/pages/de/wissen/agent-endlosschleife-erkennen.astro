@@ -1,0 +1,201 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /agent-loop-detection. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="KI-Agenten in der Endlosschleife erkennen, Kyde"
+  description="Warum KI-Agenten denselben Tool-Aufruf immer wieder machen, warum das Zählen von Wiederholungen bei fast jedem Agenten anschlägt und wie Parameter-Hash und Folgeregel Schleifen ab dem ersten Lauf erkennen, ohne Inhalte zu lesen."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technik</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            KI-Agenten in der Endlosschleife erkennen
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Technik</span>
+            <span>·</span>
+            <span>6 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Schwellen und Regeln gegen den Code von Kyde Score (limits.py, scoring.py) und die öffentliche llms.txt" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Manche Fehler von Agenten sind leise. Eine Schleife nicht. Der Agent ruft dasselbe Tool mit denselben Argumenten auf, bekommt ein Ergebnis, das er nicht akzeptiert, und ruft es noch einmal auf. Jeder Versuch kostet einen Modell- und einen Tool-Aufruf. Läuft das über Nacht, zeigt es sich als hängender Job, als doppelte Bestellung oder als Rechnung Ihres Modellanbieters.
+            </p>
+            <p>
+              Dieser Text erklärt, warum Agenten in Schleifen geraten, warum das naheliegende Zählen von Wiederholungen nicht funktioniert und wie man eine Schleife früh erkennt, ohne zu lesen, was der Agent geschrieben hat.
+            </p>
+
+            <h2>Warum Agenten hängen bleiben</h2>
+            <p>
+              Schleifen haben einige typische Ursachen, und die meisten sind gewöhnlich:
+            </p>
+            <ul>
+              <li><span><strong>Ein Tool, das immer gleich scheitert.</strong> Die API läuft in einen Timeout oder liefert einen Fehler, den der Agent nicht versteht, und er versucht es unverändert erneut.</span></li>
+              <li><span><strong>Ein Ergebnis, das der Agent nicht als erledigt erkennt.</strong> Die Aufgabe hat geklappt, aber nichts in der Antwort sagt das dem Modell, also schickt es noch einmal ab.</span></li>
+              <li><span><strong>Ein Plan, der sich im Kreis dreht.</strong> Zwei Schritte, die sich gegenseitig rückgängig machen, sodass der Agent zwischen ihnen pendelt.</span></li>
+              <li><span><strong>Manipulation.</strong> Seltener bringen eingeschleuste Anweisungen einen Agenten absichtlich dazu, eine Aktion zu wiederholen.</span></li>
+            </ul>
+            <p>
+              Wiederholungen sind an sich kein Fehler. Agenten sollen sich von vorübergehenden Fehlern erholen. Das Problem ist Wiederholung ohne Fortschritt.
+            </p>
+
+            <h2>Warum Wiederholungen zählen das falsche Maß ist</h2>
+            <p>
+              Die erste Idee ist meist, zu zählen, wie oft ein Tool in einem Lauf vorkommt, und ab einer Schwelle zu alarmieren. In der Praxis schlägt das bei fast jedem Agenten an. Agenten suchen, lesen, suchen wieder und lesen wieder, das gehört zur Arbeit. Dasselbe Tool viele Male in einem Lauf aufzurufen, ist Erkundung, kein Fehler.
+            </p>
+            <p>
+              Zwei Details machen das Signal brauchbar. Erstens die Argumente vergleichen, nicht nur den Tool-Namen: Nach fünf verschiedenen Dingen zu suchen, ist Arbeit, fünfmal nach demselben zu suchen, nicht. Zweitens aufeinanderfolgende Wiederholungen zählen, nicht Wiederholungen irgendwo im Lauf. Ein Agent, der später zu einem Aufruf zurückkehrt, hat dazwischen meist etwas gelernt. Ein Agent, der dreimal hintereinander denselben Aufruf macht, nicht.
+            </p>
+
+            <h2>Eine Schleife erkennen, ohne Inhalte zu lesen</h2>
+            <p>
+              Argumente zu vergleichen, scheint zu verlangen, dass man sie liest, und das wollen viele Teams keinem Überwachungsdienst erlauben. Ein Hash löst das. Der Agent oder seine Instrumentierung berechnet einen Hashwert der Parameter jedes Tool-Aufrufs und schickt nur diesen. Zwei identische Aufrufe ergeben denselben Hash, auf den Inhalt lässt er nicht schließen.
+            </p>
+            <p>
+              Mit Tool-Name und Parameter-Hash an jedem Aufruf wird eine Schleife zu einer einfachen, deterministischen Regel: dasselbe Tool mit demselben Hash, direkt hintereinander in einem Lauf. Dafür braucht es weder eine Lernphase noch ein Modell, das urteilt, deshalb greift die Regel ab dem ersten Lauf.
+            </p>
+
+            <h2>Wie Kyde Score mit Schleifen umgeht</h2>
+            <ul>
+              <li><span>Kyde Score zählt aufeinanderfolgende Aufrufe mit demselben Tool und demselben Parameter-Hash (<code>kyde.args.digest</code>) innerhalb eines Laufs.</span></li>
+              <li><span>Ab dem dritten identischen Aufruf in Folge gibt es einen Schleifen-Alarm, und der Score des Agenten wird auf <em>watch</em> begrenzt.</span></li>
+              <li><span>Ab zehn identischen Aufrufen in Folge gilt die Schleife als außer Kontrolle, und der Score fällt auf <em>deviating</em>.</span></li>
+              <li><span>Die Schleifenerkennung wartet nicht auf eine Baseline. In der Lernphase eines Agenten löst eine außer Kontrolle geratene Schleife direkt einen Alarm per Webhook und Mail aus.</span></li>
+            </ul>
+            <p>
+              Zwei Grenzen gehören dazu. Ohne Parameter-Hash am Aufruf zählt Kyde Wiederholungen gar nicht, weil es einen identischen Aufruf nicht von einem berechtigten zweiten Aufruf desselben Tools unterscheiden kann. Die Standard-Instrumentierungen von OpenTelemetry senden diesen Hash heute nicht, er muss also als Attribut am Tool-Aufruf ergänzt werden. Und Kyde beobachtet nicht Ihre Rechnung: Es liest weder Token-Zahlen noch Kosten. Es beobachtet die Aufrufe, die sie verursachen.
+            </p>
+            <p>
+              Ein Schleifen-Alarm sagt Ihnen, dass ein Agent hängt. Den Lauf zu beenden, liegt bei Ihnen oder bei Kyde Control, dem Gateway im Datenpfad des Agenten, das in Ihrer eigenen Umgebung läuft und den nächsten Aufruf zurückhalten kann. <a href="/products">Score und Control im Vergleich (Englisch)</a>.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score meldet einen Agenten, der denselben Aufruf wiederholt: ab drei identischen Aufrufen in Folge mit einem Alarm, ab zehn als außer Kontrolle geratenen Lauf. Das greift ab dem ersten Lauf, liest nur einen Hash der Parameter und schickt einen signierten Webhook, wenn der Score das Band wechselt.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/prompt-injection-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Indirekte Prompt Injection bei KI-Agenten erkennen</span>
+                </a>
+                <a href="/de/wissen/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift bei AI Agents</span>
+                </a>
+                <a href="/de/wissen/opentelemetry-genai-konventionen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Was die OpenTelemetry-GenAI-Konventionen über Agenten verraten</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/agent-loop-detection" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

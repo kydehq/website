@@ -1,0 +1,213 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import LegalNotice from "../components/LegalNotice.astro";
+---
+
+<Base
+  title="Detecting Indirect Prompt Injection in AI Agents, KYDE"
+  description="Indirect prompt injection hides instructions in web pages, emails and files an agent reads. Why filtering the input is not enough, how to detect a successful injection from the agent's tool calls, and what that approach misses."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Security</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Detecting Indirect Prompt Injection in AI Agents
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Security</span>
+            <span>·</span>
+            <span>7 min read</span>
+            <span>·</span>
+            <time datetime="2026-11-07">November 2026</time>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              An agent that reads the world can be told what to do by the world. A web page it summarizes, an email it triages or a file it opens can carry instructions, and a model that follows instructions well may follow those too. This is indirect prompt injection, and it is the main route to what OWASP's Top 10 for Agentic Applications lists first: agent goal hijack.
+            </p>
+            <p>
+              This guide covers why the attack is hard to stop at the input, why it is easier to see in what the agent does afterwards, and what that kind of detection can and cannot catch.
+            </p>
+
+            <h2>What indirect prompt injection is</h2>
+            <p>
+              In a direct prompt injection, the attacker is the person typing. In an indirect one, the attacker never talks to the agent at all. They place text where the agent will read it: a hidden line on a web page, a paragraph in an email signature, a comment in a document, a field in a support ticket. When the agent pulls that content into its context, the planted text arrives alongside the user's request, and the model has no reliable way to tell data from instructions.
+            </p>
+            <p>
+              The term comes from a 2023 paper by Greshake and colleagues, "Not what you've signed up for", which showed the attack against LLM-integrated applications. Agents make it more serious, because an agent does not only answer. It calls tools: it sends mail, writes files, queries databases and moves money.
+            </p>
+
+            <h2>Why filtering the input is not enough</h2>
+            <p>
+              The first defense most teams reach for is a filter in front of the model: a classifier or a set of rules that looks for injected instructions in what the agent is about to read. It is worth having. It catches known patterns and raises the cost of the crude attacks.
+            </p>
+            <p>
+              Its limit is that the attacker controls the wording. Instructions can be paraphrased, split across sentences, written in another language or hidden in formatting, and a filter has to recognize every variant to be complete. It also has to inspect content, which some teams cannot or will not send to another service.
+            </p>
+            <p>
+              OWASP's own guidance says it is unclear whether fool-proof prevention exists, and recommends layered defenses on the assumption that some attempts will get through. The useful question then is how quickly you notice when one does.
+            </p>
+
+            <h2>Look at what the agent does next</h2>
+            <p>
+              An injection that works changes the agent's behavior. That is the point of it. A summarizing agent that starts sending email, a support agent that queries a table it has never touched, a payments agent that pays someone new: each of these is visible in the agent's tool calls, without reading a single prompt.
+            </p>
+            <p>
+              Detection on this side needs a reference for what normal looks like, and normal differs by agent. A research agent calling a search tool fifty times is routine. A billing agent doing the same is not. So the baseline has to be learned per agent, from its own runs.
+            </p>
+            <ul>
+              <li><span><strong>A tool the agent has never used for this task.</strong> The sharpest signal. An injected goal usually needs a capability the original task did not, and the first call to it is the moment to flag.</span></li>
+              <li><span><strong>An abrupt shift in the action mix.</strong> A sudden change in which tools are called and in what proportion, measured against the baseline. CUSUM is a standard statistical method for this.</span></li>
+              <li><span><strong>A gradual drift.</strong> Some manipulations, like a poisoned memory or a slowly changing retrieval source, move behavior a little at a time. A windowed comparison of tool distributions, such as Jensen-Shannon divergence, catches what a single run does not show.</span></li>
+            </ul>
+            <p>
+              All three work on metadata: which tool, in which order, in which session. None of them needs the content of what the agent read or wrote.
+            </p>
+
+            <h2>What this approach misses</h2>
+            <p>
+              Behavioral detection sees changes in what an agent does. An injection that stays inside the agent's normal pattern, using the tools it always uses with arguments that look ordinary, can pass unnoticed. Exfiltrating data through a tool the agent already calls every run is the hard case.
+            </p>
+            <p>
+              Detection also comes after the fact by design: the first unusual call has happened when it is flagged. If that call must not happen at all, you need something in the path that can hold it, not only an alarm. That is the difference between monitoring and control.
+            </p>
+            <p>
+              Neither limit is a reason to skip detection. Input filtering, least privilege on tools and behavioral monitoring cover different failures, and the combination is stronger than any one of them.
+            </p>
+
+            <h2>Where Kyde fits</h2>
+            <p>
+              Kyde Score watches the behavior side. It reads tool calls over OpenTelemetry, learns each agent's baseline from its first 30 runs and flags new tools for a task, abrupt shifts and gradual drift with deterministic detectors. It never reads prompts or responses. When an agent's score changes band, it sends a signed webhook.
+            </p>
+            <p>
+              Score reports. Stopping a call before it runs takes Kyde Control, a gateway that sits in the agent's path and runs in your own environment. <a href="/products">Compare the two</a>.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score learns how each agent behaves from its own OpenTelemetry tool calls and flags the run where it starts doing something new: a tool it never used for that task, an abrupt shift, a slow drift. Deterministic detectors, no LLM, no prompt content.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Score an agent →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Signals after an injection</p>
+              <div class="space-y-2">
+                {["A new tool for the task", "An abrupt shift", "A gradual drift", ].map((r) => (
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/blog/agent-goal-hijacking" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Agent Goal Hijacking: Why It's Hard to Detect and What Helps</span>
+                </a>
+                <a href="/agent-loop-detection" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Detecting AI Agents Stuck in a Loop</span>
+                </a>
+                <a href="/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift in AI Agents</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Deutsch</p>
+              <a href="/de/wissen/prompt-injection-erkennen" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>
