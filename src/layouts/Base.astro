@@ -59,6 +59,23 @@ const ogImage = new URL(cardPath, Astro.site).href;
 // was repointed or a typo fixed is the kind of freshness signal search engines
 // discount, and none of these have been revised in substance. It goes in when
 // one of them actually is.
+const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://kyde.com/#organization",
+    name: "Kyde",
+    url: "https://kyde.com/",
+    logo: "https://kyde.com/kyde-logo.svg",
+    description:
+        "Kyde scores the behavior of AI agents with deterministic detectors and alerts when an agent drifts from how it normally behaves.",
+    sameAs: [
+        "https://www.linkedin.com/company/kydehq/",
+        "https://x.com/kydehq",
+        "https://github.com/kydehq",
+        "https://www.crunchbase.com/organization/kyde-750e",
+    ],
+};
+
 const articleSchema = datePublished
     ? {
           "@context": "https://schema.org",
@@ -146,6 +163,11 @@ const articleSchema = datePublished
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
         <link rel="manifest" href="/site.webmanifest" />
+
+        <!-- Who Kyde is, on every page. "kyde" ranked fifth for its own name,
+             behind other entities; sameAs ties this site to the company's
+             profiles so a search engine can tell which Kyde is meant. -->
+        <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 
         <!-- Additional head slot -->
         {articleSchema && (

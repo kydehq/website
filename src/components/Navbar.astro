@@ -11,11 +11,11 @@ import { SERVICES } from "../data/features";
 // abstract job, and a page per industry can be sent instead of a deck. It is
 // not a third thing we sell, so it still sits after Platform and Services.
 const navLinks = [
-  { label: 'Platform',      href: '/platform'     },
-  { label: 'Services',      href: '/services'     },
-  { label: 'Industries',    href: '/industries'   },
-  { label: 'Resources',     href: '/resources'    },
-].filter((l) => SERVICES || l.href !== '/services');
+  { label: 'Platform',      href: '/platform/'     },
+  { label: 'Services',      href: '/services/'     },
+  { label: 'Industries',    href: '/industries/'   },
+  { label: 'Resources',     href: '/resources/'    },
+].filter((l) => SERVICES || l.href !== '/services/');
 
 const currentPath = Astro.url.pathname;
 

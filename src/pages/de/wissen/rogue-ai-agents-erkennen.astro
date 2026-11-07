@@ -27,7 +27,7 @@ const stand = "2026-11-07";
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <a href="/de/wissen/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
             <span class="text-ink-1">/</span>
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Sicherheit</span>
           </div>
@@ -64,13 +64,13 @@ const stand = "2026-11-07";
 
             <h2>Vier Arten, vom Kurs abzukommen</h2>
             <p>
-              <strong>Gekapert.</strong> Anweisungen, versteckt in einer Webseite, einer Mail oder einer Datei, lenken den Agenten auf das Ziel eines Angreifers um. OWASP nennt Agent Goal Hijack an erster Stelle seiner Top 10 für agentische Anwendungen. In den Tool-Aufrufen zeigt sich das oft als Tool, das der Agent für diese Aufgabe nie benutzt hat. <a href="/de/wissen/prompt-injection-erkennen">Indirekte Prompt Injection erkennen →</a>
+              <strong>Gekapert.</strong> Anweisungen, versteckt in einer Webseite, einer Mail oder einer Datei, lenken den Agenten auf das Ziel eines Angreifers um. OWASP nennt Agent Goal Hijack an erster Stelle seiner Top 10 für agentische Anwendungen. In den Tool-Aufrufen zeigt sich das oft als Tool, das der Agent für diese Aufgabe nie benutzt hat. <a href="/de/wissen/prompt-injection-erkennen/">Indirekte Prompt Injection erkennen →</a>
             </p>
             <p>
-              <strong>Hängen geblieben.</strong> Der Agent wiederholt denselben Aufruf ohne Fortschritt: ein scheiterndes Tool, ein Ergebnis, das er nicht als erledigt erkennt, ein Plan, der sich im Kreis dreht. Jede Wiederholung kostet Geld und kann echte Aktionen verdoppeln. <a href="/de/wissen/agent-endlosschleife-erkennen">KI-Agenten in der Endlosschleife erkennen →</a>
+              <strong>Hängen geblieben.</strong> Der Agent wiederholt denselben Aufruf ohne Fortschritt: ein scheiterndes Tool, ein Ergebnis, das er nicht als erledigt erkennt, ein Plan, der sich im Kreis dreht. Jede Wiederholung kostet Geld und kann echte Aktionen verdoppeln. <a href="/de/wissen/agent-endlosschleife-erkennen/">KI-Agenten in der Endlosschleife erkennen →</a>
             </p>
             <p>
-              <strong>Gedriftet.</strong> Niemand hat angegriffen, aber der Agent verhält sich anders als letzten Monat. Ein Anbieter hat das Modell aktualisiert, ein Prompt wurde geändert, eine Datenquelle hat sich verschoben. Jeder einzelne Lauf wirkt plausibel, die Änderung zeigt sich erst im Vergleich mit der Historie des Agenten. <a href="/de/wissen/behavioral-drift">Behavioral Drift bei AI Agents →</a>
+              <strong>Gedriftet.</strong> Niemand hat angegriffen, aber der Agent verhält sich anders als letzten Monat. Ein Anbieter hat das Modell aktualisiert, ein Prompt wurde geändert, eine Datenquelle hat sich verschoben. Jeder einzelne Lauf wirkt plausibel, die Änderung zeigt sich erst im Vergleich mit der Historie des Agenten. <a href="/de/wissen/behavioral-drift/">Behavioral Drift bei AI Agents →</a> <a href="/agent-drift-detection/" hreflang="en">Drift erkennen mit Kyde Score (Englisch) →</a>
             </p>
             <p>
               <strong>Übergriffig.</strong> Der Agent tut genau, was ihm gesagt wurde, mit Berechtigungen, die er nicht hätte haben sollen. Das ist weniger ein Erkennungs- als ein Designproblem: Minimale Rechte auf Tools und Daten begrenzen, was jeder der drei anderen Fehler anrichten kann.
@@ -81,15 +81,15 @@ const stand = "2026-11-07";
               In allen vier Fällen ändern sich die Aktionen des Agenten, bevor jemand einen Bericht darüber liest. Welche Tools er aufruft, in welcher Reihenfolge, wie oft und mit welchen Argumenten, ist in Telemetrie sichtbar, die die meisten Agenten schon erzeugen. Damit ist die Abfolge der Aktionen der praktischste Ort zum Hinsehen, und das geht, ohne Prompts oder Antworten zu lesen.
             </p>
             <p>
-              Ob eine Abfolge ungewöhnlich ist, muss am Agenten selbst gemessen werden. Wir finden, das sollte deterministisch geschehen, als reproduzierbare Zahl statt als Meinung eines zweiten Modells. <a href="/de/wissen/llm-as-judge-vs-deterministische-detektoren">LLM-as-a-Judge oder deterministische Detektoren →</a>
+              Ob eine Abfolge ungewöhnlich ist, muss am Agenten selbst gemessen werden. Wir finden, das sollte deterministisch geschehen, als reproduzierbare Zahl statt als Meinung eines zweiten Modells. <a href="/de/wissen/llm-as-judge-vs-deterministische-detektoren/">LLM-as-a-Judge oder deterministische Detektoren →</a>
             </p>
 
             <h2>Bemerken ist die halbe Arbeit</h2>
             <p>
-              Ein Detektor sagt, dass sich etwas geändert hat. Bei manchen Agenten reicht das: Jemand sieht nach und behebt es. Bei Agenten, die Geld bewegen, Datensätze ändern oder mit Kunden sprechen, kann die Zeit zwischen Alarm und Reaktion zu lang sein. Sie brauchen eine Möglichkeit, den Agenten zu stoppen, die nicht davon abhängt, dass der Agent mitspielt. <a href="/de/wissen/kill-switch-ki-agenten">Ein Kill Switch für KI-Agenten →</a>
+              Ein Detektor sagt, dass sich etwas geändert hat. Bei manchen Agenten reicht das: Jemand sieht nach und behebt es. Bei Agenten, die Geld bewegen, Datensätze ändern oder mit Kunden sprechen, kann die Zeit zwischen Alarm und Reaktion zu lang sein. Sie brauchen eine Möglichkeit, den Agenten zu stoppen, die nicht davon abhängt, dass der Agent mitspielt. <a href="/de/wissen/kill-switch-ki-agenten/">Ein Kill Switch für KI-Agenten →</a>
             </p>
             <p>
-              Für Sicherheits- und Compliance-Teams wird Governance genau hier praktisch. Eine Richtlinie, die festlegt, was ein Agent darf, ist ein Anfang. Im laufenden Betrieb zu sehen, wenn er etwas anderes tut, und ihn stoppen zu können, sorgt dafür, dass die Richtlinie hält. <a href="/de/wissen/ki-agenten-governance">Governance für KI-Agenten →</a>
+              Für Sicherheits- und Compliance-Teams wird Governance genau hier praktisch. Eine Richtlinie, die festlegt, was ein Agent darf, ist ein Anfang. Im laufenden Betrieb zu sehen, wenn er etwas anderes tut, und ihn stoppen zu können, sorgt dafür, dass die Richtlinie hält. <a href="/de/wissen/ki-agenten-governance/">Governance für KI-Agenten →</a>
             </p>
 
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
@@ -98,7 +98,7 @@ const stand = "2026-11-07";
                 Kyde Score lernt aus den eigenen OpenTelemetry-Tool-Aufrufen das normale Verhalten jedes Agenten und meldet Hijacks, Schleifen und Drift mit deterministischen Detektoren. Kyde Control ergänzt ein Gateway in Ihrer Umgebung, das einen Agenten oder ein Tool sperren kann.
               </p>
               <a
-                href="/score"
+                href="/score/"
                 class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Kyde Score ansehen →
@@ -111,15 +111,15 @@ const stand = "2026-11-07";
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
               <div class="space-y-4">
-                <a href="/de/wissen/prompt-injection-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/de/wissen/prompt-injection-erkennen/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Indirekte Prompt Injection erkennen</span>
                 </a>
-                <a href="/de/wissen/agent-endlosschleife-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/de/wissen/agent-endlosschleife-erkennen/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>KI-Agenten in der Endlosschleife erkennen</span>
                 </a>
-                <a href="/de/wissen/kill-switch-ki-agenten" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/de/wissen/kill-switch-ki-agenten/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Ein Kill Switch für KI-Agenten</span>
                 </a>
@@ -127,7 +127,7 @@ const stand = "2026-11-07";
             </div>
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
-              <a href="/rogue-ai-agents" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+              <a href="/rogue-ai-agents/" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
             </div>
           </aside>
 

@@ -9,8 +9,8 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
-    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources" },
-    { "@type": "ListItem", position: 3, name: "AI Agent Governance", item: "https://kyde.com/ai-agent-governance" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources/" },
+    { "@type": "ListItem", position: 3, name: "AI Agent Governance", item: "https://kyde.com/ai-agent-governance/" },
   ],
 };
 
@@ -71,7 +71,7 @@ const faqSchema = {
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
             <span class="text-ink-1">/</span>
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Governance · Strategy</span>
           </div>
@@ -161,7 +161,7 @@ const faqSchema = {
               <strong>Observability tools.</strong> Tracing tools show what an agent did, step by step, and are valuable for debugging and performance work. They are built to observe. As a rule they do not block an action before it executes.
             </p>
             <p>
-              What these approaches share is that each covers one component. <a href="/blog/missing-layer-agent-architecture">The missing piece is a layer outside the agent</a> that sees every action, whichever provider or framework is involved.
+              What these approaches share is that each covers one component. <a href="/blog/missing-layer-agent-architecture/">The missing piece is a layer outside the agent</a> that sees every action, whichever provider or framework is involved.
             </p>
 
             <h2 id="the-four-requirements">Four requirements: identity, scope, enforcement, ledger</h2>
@@ -213,16 +213,16 @@ const faqSchema = {
               Several regulations now ask for parts of this, even though none of them uses the word governance in this sense.
             </p>
             <p>
-              <strong>EU AI Act (Regulation 2024/1689).</strong> High-risk AI systems, including those used in employment, access to credit, certain insurance pricing, education, critical infrastructure and essential services, must log events automatically (Article 12) and support effective human oversight (Article 14). Deployers must keep those logs for at least six months (Article 26). For Annex III systems these obligations apply from 2 December 2027. <a href="/eu-ai-act-compliance">Full compliance guide →</a>
+              <strong>EU AI Act (Regulation 2024/1689).</strong> High-risk AI systems, including those used in employment, access to credit, certain insurance pricing, education, critical infrastructure and essential services, must log events automatically (Article 12) and support effective human oversight (Article 14). Deployers must keep those logs for at least six months (Article 26). For Annex III systems these obligations apply from 2 December 2027. <a href="/eu-ai-act-compliance/">Full compliance guide →</a>
             </p>
             <p>
-              <strong>DORA (Digital Operational Resilience Act).</strong> Since January 2025, DORA has required financial entities to run an ICT incident management process (Art. 17), to manage risk from third-party ICT providers such as model vendors (Art. 28), and to secure access and audit rights in those contracts (Art. 30). For AI agents, that favors a record of agent activity that does not depend on the model provider. <a href="/blog/dora-ai-agents">DORA and AI agents explained →</a>
+              <strong>DORA (Digital Operational Resilience Act).</strong> Since January 2025, DORA has required financial entities to run an ICT incident management process (Art. 17), to manage risk from third-party ICT providers such as model vendors (Art. 28), and to secure access and audit rights in those contracts (Art. 30). For AI agents, that favors a record of agent activity that does not depend on the model provider. <a href="/blog/dora-ai-agents/">DORA and AI agents explained →</a>
             </p>
             <p>
-              <strong>UK regulators.</strong> In March 2026 the Digital Regulation Cooperation Forum (CMA, FCA, ICO and Ofcom) published a foresight paper on agentic AI. It is explicitly not policy, but it states that existing law continues to apply to agents and notes that accountability can be split across model providers, system providers and deployers. <a href="/blog/drcf-agentic-ai-foresight">What the DRCF paper says →</a>
+              <strong>UK regulators.</strong> In March 2026 the Digital Regulation Cooperation Forum (CMA, FCA, ICO and Ofcom) published a foresight paper on agentic AI. It is explicitly not policy, but it states that existing law continues to apply to agents and notes that accountability can be split across model providers, system providers and deployers. <a href="/blog/drcf-agentic-ai-foresight/">What the DRCF paper says →</a>
             </p>
             <p>
-              <strong>NIST.</strong> In April 2026, NIST published a concept note for an AI Risk Management Framework profile on critical infrastructure. Its examples include agents with tested and verified guardrails and systems that give traceable, auditable recommendations. <a href="/blog/nist-critical-infrastructure-ai-convergence">How NIST, the EU AI Act and NIS-2 line up →</a>
+              <strong>NIST.</strong> In April 2026, NIST published a concept note for an AI Risk Management Framework profile on critical infrastructure. Its examples include agents with tested and verified guardrails and systems that give traceable, auditable recommendations. <a href="/blog/nist-critical-infrastructure-ai-convergence/">How NIST, the EU AI Act and NIS-2 line up →</a>
             </p>
             <p>
               These frameworks were written separately and impose different duties. They do point in a similar direction: know what your agents did, be able to intervene, and keep a record you can rely on. Teams that build that capability before a deadline will do it on their own schedule.
@@ -242,13 +242,13 @@ const faqSchema = {
               <strong>Able to act, not only observe.</strong> Observability records what happened. Governance also decides what is allowed to happen and can hold or block an action before it reaches its target. For high-stakes actions, that ability is what separates the two.
             </p>
             <p>
-              A policy on paper does not stop an agent at three in the morning. What makes it hold is noticing, during operation, when an agent does something other than its job, and having a control outside the agent that can stop it. <a href="/rogue-ai-agents">How agents go off course →</a> · <a href="/ai-agent-kill-switch">A kill switch for AI agents →</a>
+              A policy on paper does not stop an agent at three in the morning. What makes it hold is noticing, during operation, when an agent does something other than its job, and having a control outside the agent that can stop it. <a href="/rogue-ai-agents/">How agents go off course →</a> · <a href="/ai-agent-kill-switch/">A kill switch for AI agents →</a>
             </p>
             <p>
-              <a href="/blog/missing-layer-agent-architecture">Why governance belongs in the agent harness, not the agent core →</a>
+              <a href="/blog/missing-layer-agent-architecture/">Why governance belongs in the agent harness, not the agent core →</a>
             </p>
             <p>
-              <a href="/guides/governance-checklist">A checklist of documentation and technical controls to have in place before an audit →</a>
+              <a href="/guides/governance-checklist/">A checklist of documentation and technical controls to have in place before an audit →</a>
             </p>
 
             <h2 id="vendor-landscape">Navigating the vendor landscape</h2>
@@ -264,7 +264,7 @@ const faqSchema = {
               The categories complement each other rather than compete. A security tool does not replace a record of what was authorized, and an observability tool does not hold an action for review. Knowing which problem each solves is the first step toward a complete setup.
             </p>
             <p>
-              <a href="/blog/ai-governance-three-categories">A fuller breakdown of the three categories →</a>
+              <a href="/blog/ai-governance-three-categories/">A fuller breakdown of the three categories →</a>
             </p>
 
             <h2 id="faq">Frequently asked questions</h2>
@@ -291,61 +291,61 @@ const faqSchema = {
                   label: "Guide",
                   title: "AI Governance Checklist: What to Have Before an Audit",
                   desc: "The technical controls and documentation you need in place before a competent authority requests them.",
-                  href: "/guides/governance-checklist",
+                  href: "/guides/governance-checklist/",
                 },
                 {
                   label: "Article",
                   title: "The Missing Layer in Every Agent Architecture",
                   desc: "Why the agent harness, not the agent core, is where enterprise governance must live.",
-                  href: "/blog/missing-layer-agent-architecture",
+                  href: "/blog/missing-layer-agent-architecture/",
                 },
                 {
                   label: "Article",
                   title: "HBR Described the Problem. Here's the Infrastructure That Solves It.",
                   desc: "Identity, context, control, accountability, the four enterprise frictions and the governance layer that addresses all four.",
-                  href: "/blog/hbr-ai-agents-infrastructure",
+                  href: "/blog/hbr-ai-agents-infrastructure/",
                 },
                 {
                   label: "Article",
                   title: "Every Vendor Governs Their Stack. Nobody Governs the Chain.",
                   desc: "Why platform-native governance (Microsoft, Google, Salesforce) leaves the inter-stack gaps ungoverned, and why that's where the risk lives.",
-                  href: "/blog/nobody-governs-the-chain",
+                  href: "/blog/nobody-governs-the-chain/",
                 },
                 {
                   label: "Article",
                   title: "Three Categories Enterprises Are Confusing",
                   desc: "AI security vs. observability vs. governance infrastructure, what each solves, what each doesn't, and which you need for regulatory compliance.",
-                  href: "/blog/ai-governance-three-categories",
+                  href: "/blog/ai-governance-three-categories/",
                 },
                 {
                   label: "Article",
                   title: "How MCP Changes Everything About AI Governance",
                   desc: "MCP removes the application layer that served as the implicit control point. Here is what governance infrastructure needs to do instead.",
-                  href: "/blog/mcp-changes-ai-governance",
+                  href: "/blog/mcp-changes-ai-governance/",
                 },
                 {
                   label: "Article",
                   title: "What the UK's Digital Regulators Said About Agentic AI",
                   desc: "The DRCF foresight paper on agentic AI: not policy, but a clear look at where the CMA, FCA, ICO and Ofcom see risk.",
-                  href: "/blog/drcf-agentic-ai-foresight",
+                  href: "/blog/drcf-agentic-ai-foresight/",
                 },
                 {
                   label: "Guide",
                   title: "EU AI Act Compliance for AI Agents",
                   desc: "The regulatory obligations that make governance infrastructure mandatory, not optional.",
-                  href: "/eu-ai-act-compliance",
+                  href: "/eu-ai-act-compliance/",
                 },
                 {
                   label: "Compare",
                   title: "Kyde vs Zenity: Estate Connectors or One Boundary?",
                   desc: "Per-platform agent security connectors versus one unavoidable network boundary. Where each approach reaches, and where it doesn't.",
-                  href: "/compare/kyde-vs-zenity",
+                  href: "/compare/kyde-vs-zenity/",
                 },
                 {
                   label: "Compare",
                   title: "Kyde vs Noma Security: Platform Breadth vs Boundary Proof",
                   desc: "An AI security lifecycle platform answers the threat question. Deterministic mandates with tamper-evident evidence answer the liability question.",
-                  href: "/compare/kyde-vs-noma-security",
+                  href: "/compare/kyde-vs-noma-security/",
                 },
               ].map(({ label, title, desc, href }) => (
                 <a href={href} class="group flex items-start gap-4 border border-line-0 bg-bg-1 p-5 hover:border-line-1 transition-colors">
@@ -427,13 +427,13 @@ const faqSchema = {
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">In this cluster</p>
               <div class="space-y-3">
                 {[
-                  { href: "/guides/governance-checklist", label: "Governance Checklist" },
-                  { href: "/blog/missing-layer-agent-architecture", label: "The Missing Layer" },
-                  { href: "/blog/hbr-ai-agents-infrastructure", label: "HBR: The Infrastructure" },
-                  { href: "/blog/nobody-governs-the-chain", label: "Nobody Governs the Chain" },
-                  { href: "/blog/ai-governance-three-categories", label: "Three Categories" },
-                  { href: "/blog/mcp-changes-ai-governance", label: "MCP + Governance" },
-                  { href: "/blog/drcf-agentic-ai-foresight", label: "DRCF Foresight Paper" },
+                  { href: "/guides/governance-checklist/", label: "Governance Checklist" },
+                  { href: "/blog/missing-layer-agent-architecture/", label: "The Missing Layer" },
+                  { href: "/blog/hbr-ai-agents-infrastructure/", label: "HBR: The Infrastructure" },
+                  { href: "/blog/nobody-governs-the-chain/", label: "Nobody Governs the Chain" },
+                  { href: "/blog/ai-governance-three-categories/", label: "Three Categories" },
+                  { href: "/blog/mcp-changes-ai-governance/", label: "MCP + Governance" },
+                  { href: "/blog/drcf-agentic-ai-foresight/", label: "DRCF Foresight Paper" },
                 ].map(({ href, label }) => (
                   <a href={href} class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors leading-snug">
                     <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
@@ -446,11 +446,11 @@ const faqSchema = {
             <div class="border border-line-0 bg-bg-1 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related clusters</p>
               <div class="space-y-3">
-                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
+                <a href="/eu-ai-act-compliance/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>EU AI Act Compliance</span>
                 </a>
-                <a href="/shadow-ai" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
+                <a href="/shadow-ai/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Shadow AI</span>
                 </a>

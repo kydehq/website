@@ -20,7 +20,7 @@ import LegalNotice from "../components/LegalNotice.astro";
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
             <span class="text-ink-1">/</span>
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Security</span>
           </div>
@@ -58,13 +58,13 @@ import LegalNotice from "../components/LegalNotice.astro";
 
             <h2>Four ways an agent goes off course</h2>
             <p>
-              <strong>Hijacked.</strong> Instructions hidden in a web page, email or file redirect the agent toward an attacker's goal. OWASP lists agent goal hijack first in its Top 10 for Agentic Applications. In the tool calls it often shows up as a tool the agent has never used for this task. <a href="/agent-prompt-injection-detection">Detecting indirect prompt injection →</a>
+              <strong>Hijacked.</strong> Instructions hidden in a web page, email or file redirect the agent toward an attacker's goal. OWASP lists agent goal hijack first in its Top 10 for Agentic Applications. In the tool calls it often shows up as a tool the agent has never used for this task. <a href="/agent-prompt-injection-detection/">Detecting indirect prompt injection →</a>
             </p>
             <p>
-              <strong>Stuck.</strong> The agent repeats the same call without progress: a failing tool, a result it does not recognize as done, a plan that circles. Each repetition costs money and can duplicate real actions. <a href="/agent-loop-detection">Detecting agents stuck in a loop →</a>
+              <strong>Stuck.</strong> The agent repeats the same call without progress: a failing tool, a result it does not recognize as done, a plan that circles. Each repetition costs money and can duplicate real actions. <a href="/agent-loop-detection/">Detecting agents stuck in a loop →</a>
             </p>
             <p>
-              <strong>Drifting.</strong> Nobody attacked anything, but the agent behaves differently than it did last month. A provider updated the model, a prompt was edited, a data source changed. Every single run looks plausible, and the change only shows against the agent's history. <a href="/behavioral-drift">Behavioral drift in AI agents →</a>
+              <strong>Drifting.</strong> Nobody attacked anything, but the agent behaves differently than it did last month. A provider updated the model, a prompt was edited, a data source changed. Every single run looks plausible, and the change only shows against the agent's history. <a href="/agent-drift-detection/">Detecting drift in AI agents →</a>
             </p>
             <p>
               <strong>Overreaching.</strong> The agent does exactly what it was told, using permissions it should not have had. This is less a detection problem than a design one: least privilege on tools and data narrows what any of the other three failures can do.
@@ -75,15 +75,15 @@ import LegalNotice from "../components/LegalNotice.astro";
               In all four cases the agent's actions change before anyone reads a report about it. Which tools it calls, in what order, how often and with what arguments is visible in telemetry most agents already produce. That makes the action sequence the most practical place to watch, and it can be watched without reading prompts or responses.
             </p>
             <p>
-              The judgement whether a sequence is unusual has to be relative to the agent itself. We think it should be deterministic, a reproducible number rather than a second model's opinion. <a href="/llm-as-judge-vs-deterministic-detectors">LLM-as-a-judge vs. deterministic detectors →</a>
+              The judgement whether a sequence is unusual has to be relative to the agent itself. We think it should be deterministic, a reproducible number rather than a second model's opinion. <a href="/llm-as-judge-vs-deterministic-detectors/">LLM-as-a-judge vs. deterministic detectors →</a>
             </p>
 
             <h2>Noticing is half the job</h2>
             <p>
-              A detector tells you that something changed. For some agents that is enough: someone looks, and fixes it. For agents that move money, change records or talk to customers, the gap between the alert and a human reaction can be too long. Those need a way to stop the agent that does not depend on the agent cooperating. <a href="/ai-agent-kill-switch">A kill switch for AI agents →</a>
+              A detector tells you that something changed. For some agents that is enough: someone looks, and fixes it. For agents that move money, change records or talk to customers, the gap between the alert and a human reaction can be too long. Those need a way to stop the agent that does not depend on the agent cooperating. <a href="/ai-agent-kill-switch/">A kill switch for AI agents →</a>
             </p>
             <p>
-              For security and compliance teams, this is also where governance becomes operational. A policy that says what an agent may do is a start. Being able to see, during operation, when it does something else, and to stop it, is what makes the policy hold. <a href="/ai-agent-governance">AI agent governance →</a>
+              For security and compliance teams, this is also where governance becomes operational. A policy that says what an agent may do is a start. Being able to see, during operation, when it does something else, and to stop it, is what makes the policy hold. <a href="/ai-agent-governance/">AI agent governance →</a>
             </p>
 
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
@@ -92,7 +92,7 @@ import LegalNotice from "../components/LegalNotice.astro";
                 Kyde Score learns each agent's normal behavior from its own OpenTelemetry tool calls and flags hijacks, loops and drift with deterministic detectors. Kyde Control adds a gateway in your environment that can block an agent or a tool.
               </p>
               <a
-                href="/score"
+                href="/score/"
                 class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Score an agent →
@@ -113,15 +113,15 @@ import LegalNotice from "../components/LegalNotice.astro";
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/agent-prompt-injection-detection" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/agent-prompt-injection-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Detecting Indirect Prompt Injection in AI Agents</span>
                 </a>
-                <a href="/agent-loop-detection" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/agent-loop-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Detecting AI Agents Stuck in a Loop</span>
                 </a>
-                <a href="/ai-agent-kill-switch" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/ai-agent-kill-switch/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>A Kill Switch for AI Agents</span>
                 </a>
@@ -129,7 +129,7 @@ import LegalNotice from "../components/LegalNotice.astro";
             </div>
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Deutsch</p>
-              <a href="/de/wissen/rogue-ai-agents-erkennen" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
+              <a href="/de/wissen/rogue-ai-agents-erkennen/" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
             </div>
           </aside>
 

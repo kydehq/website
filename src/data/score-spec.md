@@ -37,7 +37,7 @@ The agent lists the extension in `capabilities.extensions`. The extension is nev
         "description": "Independent behavioral score computed from this agent's operating records.",
         "required": false,
         "params": {
-          "issuer": "https://kyde.com/score",
+          "issuer": "https://kyde.com/score/",
           "subject": "agt_7f3k2m9q",
           "lookup": "https://kyde.com/score/v0/agents/agt_7f3k2m9q.json",
           "attestation": "<compact JWS, optional, see "The attestation">"
@@ -65,7 +65,7 @@ Payload:
 
 ```json
 {
-  "iss": "https://kyde.com/score",
+  "iss": "https://kyde.com/score/",
   "sub": "agt_7f3k2m9q",
   "iat": 1761386400,
   "exp": 1761472800,

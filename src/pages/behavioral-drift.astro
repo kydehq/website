@@ -107,8 +107,8 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kyde.com/' },
-    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://kyde.com/resources' },
-    { '@type': 'ListItem', position: 3, name: 'Behavioral Drift in AI Agents', item: 'https://kyde.com/behavioral-drift' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://kyde.com/resources/' },
+    { '@type': 'ListItem', position: 3, name: 'Behavioral Drift in AI Agents', item: 'https://kyde.com/behavioral-drift/' },
   ],
 };
 
@@ -369,8 +369,14 @@ const articleSchema = {
               Read the survey on GitHub →
             </a>
           </div>
+          <p class="text-base text-ink-1 leading-relaxed mb-8">
+            If you want to measure drift on your own agents rather than read about it, <a href="/agent-drift-detection/" class="underline underline-offset-4 hover:text-ink-0">AI agent drift detection</a> explains how Kyde Score turns these signals into a score per agent and an alert when it changes.
+          </p>
           <div class="flex flex-col sm:flex-row gap-3">
-            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all w-fit">
+            <a href="/agent-drift-detection/" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all w-fit">
+              Detect drift in your agents →
+            </a>
+            <button onclick="openModal()" class="inline-flex items-center gap-2 border border-line-1 text-ink-0 px-6 py-3.5 text-xs font-mono uppercase tracking-[0.12em] hover:border-ink-0 transition-all w-fit">
               Contact sales →
             </button>
           </div>
@@ -398,7 +404,7 @@ const articleSchema = {
           ))}
         </ul>
         <p class="mt-10 font-mono text-xs text-ink-2">
-          Related: <a href="/blog/agent-goal-hijacking" class="hover:text-ink-0 transition-colors">Agent Goal Hijacking</a> · <a href="/eu-ai-act-compliance" class="hover:text-ink-0 transition-colors">EU AI Act Compliance</a> · <a href="/zero-trust-for-ai-agents" class="hover:text-ink-0 transition-colors">Zero Trust for AI Agents</a> · <a href="/ai-agent-insurance" class="hover:text-ink-0 transition-colors">AI Agent Insurance</a> · <a href="/glossary/agent-autonomy-levels" class="hover:text-ink-0 transition-colors">Autonomy Levels</a>
+          Related: <a href="/blog/agent-goal-hijacking/" class="hover:text-ink-0 transition-colors">Agent Goal Hijacking</a> · <a href="/eu-ai-act-compliance/" class="hover:text-ink-0 transition-colors">EU AI Act Compliance</a> · <a href="/zero-trust-for-ai-agents/" class="hover:text-ink-0 transition-colors">Zero Trust for AI Agents</a> · <a href="/ai-agent-insurance/" class="hover:text-ink-0 transition-colors">AI Agent Insurance</a> · <a href="/glossary/agent-autonomy-levels/" class="hover:text-ink-0 transition-colors">Autonomy Levels</a>
         </p>
       </div>
     </section>
