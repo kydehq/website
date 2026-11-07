@@ -1,0 +1,221 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /blog/nist-critical-infrastructure-ai-convergence. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="KI-Agenten in kritischer Infrastruktur: wie NIST, EU AI Act und NIS-2 zusammenpassen, Kyde"
+  description="Die neue NIST-Concept-Note zu kritischer Infrastruktur, der EU AI Act und NIS-2 wurden unabhängig geschrieben. Sie verlangen trotzdem Ähnliches: eine Aufzeichnung dessen, was KI-Systeme getan haben, echte menschliche Aufsicht und sicheres Verhalten im Fehlerfall."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatorik</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            KI-Agenten in kritischer Infrastruktur: wie NIST, EU AI Act und NIS-2 zusammenpassen
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Regulatorik</span>
+            <span>·</span>
+            <span>6 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="NIST Concept Note vom 7. April 2026, EU AI Act Art. 12, 14, 26 und Anhang III, NIS-2 Art. 21 und 23" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Am 7. April 2026 hat NIST eine <a href="https://www.nist.gov/document/concept-note-artificial-intelligence-risk-management-framework-trustworthy-ai-critical" target="_blank" rel="noopener">Concept Note</a> für ein neues Profil seines AI Risk Management Framework veröffentlicht, mit dem Schwerpunkt vertrauenswürdige KI in kritischer Infrastruktur. Es ist ein frühes Dokument und kein fertiger Standard, und NIST sammelt Rückmeldungen, bevor es das Profil ausarbeitet. Es zeigt aber bereits, was die Behörde von KI-Systemen erwartet, die Stromnetze, Wasserversorgung und Krankenhäuser mit betreiben.
+            </p>
+            <p>
+              Betreibern in Europa wird vieles davon bekannt vorkommen. Der EU AI Act und NIS-2 nähern sich denselben Systemen aus anderen Richtungen und kommen zu ähnlichen Erwartungen. Dieser Text zeigt, was jedes Regelwerk verlangt, wo sie sich überschneiden und was das für Teams bedeutet, die KI-Agenten in kritischen Umgebungen einsetzen.
+            </p>
+
+            <h2>Was NIST aufbaut</h2>
+            <p>
+              Das Profil wendet das bestehende AI RMF mit seinen vier Funktionen Govern, Map, Measure und Manage auf die Bedingungen kritischer Infrastruktur an. Die Concept Note umfasst KI in der Informationstechnik, in der Betriebstechnik (OT) und in industriellen Steuerungssystemen sowie die Schnittstellen dazwischen.
+            </p>
+            <p>
+              Die Beispiele der Concept Note machen die Erwartungen konkret. Dazu gehören KI-Agenten für die autonome Reaktion auf Cybersicherheitsvorfälle mit getesteten und verifizierten Leitplanken, Diagnoseassistenten mit nachvollziehbaren und prüfbaren Empfehlungen, autonome Roboter und Fahrzeuge mit deterministischen Fail-Safe-Steuerungen und Optimierungssysteme, die unter widrigen Bedingungen kontrolliert herunterfahren und dabei menschliche Aufsicht alarmieren.
+            </p>
+            <p>
+              Der gemeinsame Nenner: Ein Betreiber muss wissen, was ein KI-System getan hat, warum, und was passiert, wenn es ausfällt. In kritischer Infrastruktur ist ein Ausfall keine schlechte Nutzererfahrung. Er kann einen Stromausfall oder eine gestörte Wasserversorgung bedeuten.
+            </p>
+
+            <h2>Was der EU AI Act verlangt</h2>
+            <p>
+              Der EU AI Act stuft KI-Systeme, die als Sicherheitsbauteile beim Management und Betrieb kritischer Infrastruktur eingesetzt werden, etwa bei Strom, Wasser, Gas, Wärme und Straßenverkehr, nach Anhang III als hochriskant ein.
+            </p>
+            <p>
+              Hochrisiko-Systeme müssen Ereignisse über ihre gesamte Lebensdauer automatisch protokollieren (Artikel 12) und so gestaltet sein, dass Menschen sie wirksam beaufsichtigen können (Artikel 14). Betreiber müssen die automatisch erzeugten Protokolle mindestens sechs Monate aufbewahren (Artikel 26). Nach dem 2026 verabschiedeten Digital Omnibus gelten diese Pflichten für Systeme nach Anhang III ab dem 2. Dezember 2027.
+            </p>
+
+            <h2>Was NIS-2 verlangt</h2>
+            <p>
+              NIS-2 erfasst wesentliche und wichtige Einrichtungen, darunter Betreiber in Energie, Verkehr, Wasser und Gesundheit, über die Umsetzungsgesetze der Mitgliedstaaten. Artikel 21 verlangt Risikomanagementmaßnahmen, die Incident Handling und die Sicherheit der Lieferkette einschließen. Artikel 23 setzt Meldefristen: eine Frühwarnung innerhalb von 24 Stunden, nachdem ein erheblicher Sicherheitsvorfall bekannt wird, eine Meldung innerhalb von 72 Stunden und einen Abschlussbericht innerhalb eines Monats.
+            </p>
+            <p>
+              NIS-2 erwähnt KI-Agenten nicht. Ist ein Agent aber an einem erheblichen Vorfall beteiligt, muss der Betreiber trotzdem innerhalb dieser Fristen erklären, was passiert ist. Das setzt eine brauchbare Aufzeichnung dessen voraus, was der Agent getan hat.
+            </p>
+
+            <h2>Wo sich die Regelwerke überschneiden</h2>
+            <p>
+              Die drei Regelwerke wurden unabhängig voneinander geschrieben, von verschiedenen Stellen, in unterschiedlichem Tempo. Sie benutzen andere Begriffe, und ihre Pflichten sind nicht identisch. In der Praxis verlangen sie von Betreibern aber ähnliche Fähigkeiten:
+            </p>
+            <ul>
+              <li><span>Eine Aufzeichnung dessen, was jedes KI-System getan hat, lange genug aufbewahrt, um einen Vorfall zu untersuchen.</span></li>
+              <li><span>Die Möglichkeit für Menschen, das System zu verstehen, zu beaufsichtigen und einzugreifen.</span></li>
+              <li><span>Vorhersehbares Verhalten im Fehlerfall, einschließlich sicherer Abschaltung und Alarmierung von Menschen.</span></li>
+            </ul>
+            <p>
+              Wer diese Fähigkeiten einmal aufbaut, kann dieselben Nachweise für mehrere Regelwerke nutzen.
+            </p>
+
+            <h2>Warum kritische Infrastruktur es schwerer macht</h2>
+            <p>
+              Kritische Infrastruktur ist selten ein einzelnes System. Die Agenten eines Netzbetreibers lesen womöglich Sensoren aus, schreiben in Steuerungssysteme, sprechen mit Handelsplattformen und protokollieren in Unternehmenssysteme, oft gleichzeitig und in Maschinengeschwindigkeit.
+            </p>
+            <p>
+              Jede dieser Ebenen hat eigene Zugriffskontrollen, eigene Protokollformate und eigene Regeln. Die IT-Ebene fällt womöglich unter NIS-2. Die OT-Ebene kann zusätzlich unter sektorale Vorgaben fallen, etwa die KRITIS-Regeln in Deutschland. Für industrielle Steuerungskomponenten gelten oft Sicherheitsnormen, die lange vor heutigen KI-Systemen entstanden sind. Keine dieser Ebenen wurde dafür gebaut, eine einheitliche Aufzeichnung dessen zu liefern, was ein KI-Agent über alle hinweg getan hat.
+            </p>
+            <p>
+              Deshalb gehört die Aufzeichnung von Agentenaktionen aus unserer Sicht in eine Ebene außerhalb der einzelnen Systeme, zwischen die Agenten und die Systeme, auf die sie zugreifen. Eine Aufzeichnung, die unabhängig von den beschriebenen Systemen geführt wird, ist bei der Untersuchung eines Vorfalls verlässlicher.
+            </p>
+
+            <h2>Was das für Anbieter bedeutet</h2>
+            <p>
+              Die Concept Note richtet sich an Betreiber, ihre Erwartungen werden aber die Lieferkette hinaufwandern. Betreiber werden von den Anbietern von KI-Systemen verlangen, die Erfüllung nachzuweisen und nicht nur zu behaupten. Ein Dashboard des Anbieters allein ist dafür eine schwache Antwort, weil es eine Aufzeichnung der Partei ist, die gerade bewertet wird.
+            </p>
+
+            <h2>Was jetzt zu tun ist</h2>
+            <p>
+              Das NIST-Profil wird noch entwickelt. Die Hochrisiko-Pflichten des EU AI Act gelten für diese Systeme ab dem 2. Dezember 2027. NIS-2 gilt bereits. Damit bleibt Zeit, aber nicht viel, um für jeden Agenten in einer kritischen Umgebung drei Fragen zu beantworten: Was darf er tun? Ließe sich eine seiner früheren Aktionen vollständig rekonstruieren? Und wo liegt diese Aufzeichnung?
+            </p>
+            <p>
+              Betreiber, die diese Fragen jetzt beantworten, bauen die Fähigkeit nach eigenem Zeitplan auf. Wer auf eine Frist wartet, baut sie unter Druck.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Control sitzt zwischen Ihren Agenten und den Systemen, auf die sie zugreifen. Es bewertet jeden Aufruf gegen die Baseline des Agenten, hält Aktionen zurück, die nicht passen, bis ein Mensch sie freigibt, und führt eine signierte Aufzeichnung dessen, was jeder Agent getan hat. Diese Aufzeichnung stützt die Agenten-Ebene Ihrer Nachweise nach EU AI Act und NIS-2. Die Pflichten selbst erfüllt sie nicht.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/haftung-ki-agenten" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Haftung bei KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/ki-agenten-governance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Governance für KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/drcf-agentic-ai" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Was die britischen Digitalaufsichten zu Agentic AI sagen</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/blog/nist-critical-infrastructure-ai-convergence" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

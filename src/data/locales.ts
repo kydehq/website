@@ -39,6 +39,48 @@ export const LOCALE_PAIRS: LocalePair[] = [
     sourceHash: "a94790d93500b48b",
     note: "Nicht übersetzt, sondern eigenständig geschrieben: die deutsche Fassung ist eine Bestandsaufnahme mit eigener Auswertung der Vertrauenslisten, die englische eine Referenz zum Rechtsakt. Der Hash steht trotzdem, weil beide Seiten dieselben Rechtsaussagen tragen und nicht auseinanderlaufen dürfen.",
   },
+  {
+    en: "blog/genai-semantic-conventions-drift",
+    de: "de/wissen/opentelemetry-genai-konventionen",
+    sourceHash: "5ca8f4cb1a4915d2",
+    note: "Gekürzte Übertragung derselben Argumentation. Sie hängt an einer offenen Spezifikation statt an unserem Produkt, und deutsche Plattform- und Observability-Teams suchen auf Deutsch danach.",
+  },
+  {
+    en: "blog/nist-critical-infrastructure-ai-convergence",
+    de: "de/wissen/ki-agenten-kritische-infrastruktur",
+    sourceHash: "a1160ccafd5c6345",
+    note: "Gekürzte Übertragung. Verankert in NIST, AI Act und NIS-2, bewegt sich also selten, und KRITIS-Betreiber in Deutschland sind direktes Publikum.",
+  },
+  {
+    en: "blog/drcf-agentic-ai-foresight",
+    de: "de/wissen/drcf-agentic-ai",
+    sourceHash: "488cf627d6a0da90",
+    note: "Gekürzte Übertragung. Das DRCF-Papier ist britisch, wird aber in deutschen Compliance-Teams gelesen. Die Seite sagt offen, dass wir es über Kanzleizusammenfassungen kennen.",
+  },
+  {
+    en: "blog/agent-goal-hijacking",
+    de: "de/wissen/agent-goal-hijacking",
+    sourceHash: "21825732f3e08bd2",
+    note: "Gekürzte Übertragung. Hängt an OWASP ASI01 statt an unserem Produkt, und der englische Fachbegriff wird auch auf Deutsch gesucht.",
+  },
+  {
+    en: "ai-agent-insurance",
+    de: "de/wissen/ki-agenten-versicherung",
+    sourceHash: "907b94b43ddff176",
+    note: "Gekürzte Übertragung als Fließtext, ohne die interaktiven Teile. Trägt Rechtsaussagen zu Produkthaftungsrichtlinie und DORA, die in beiden Sprachen gleich bleiben müssen, deshalb der Hash.",
+  },
+  {
+    en: "ai-agent-governance",
+    de: "de/wissen/ki-agenten-governance",
+    sourceHash: "409bbc41de564411",
+    note: "Gekürzte Übertragung als Fließtext. Leitfaden zu AI Act, DORA, DRCF und NIST, für deutsche Banken, Versicherer und KRITIS-Betreiber geschrieben.",
+  },
+  {
+    en: "blog/confidence-infrastructure-part-2",
+    de: "de/wissen/haftung-ki-agenten",
+    sourceHash: "f2484889bf04eab6",
+    note: "Übertragung des Essays zu Haftung und Nachweis. Die Produkthaftungsrichtlinie wird bis Dezember 2026 in deutsches Recht umgesetzt, das Thema wird also auf Deutsch gesucht.",
+  },
 ];
 
 export const LOCALES = ["en", "de"] as const;

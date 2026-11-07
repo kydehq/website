@@ -1,0 +1,231 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /blog/genai-semantic-conventions-drift. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="Was die GenAI-Konventionen von OpenTelemetry über Ihre Agenten verraten und was nicht, Kyde"
+  description="Die gen_ai.*-Konventionen geben jedem Agenten-Framework eine gemeinsame Sprache, um einen Lauf zu beschreiben. Ob ein Lauf normal war, ist eine andere Frage, und sie braucht eine Baseline, kein weiteres Attribut."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technik</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Was die GenAI-Konventionen von OpenTelemetry über Ihre Agenten verraten und was nicht
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Technik</span>
+            <span>·</span>
+            <span>6 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Spezifikation, Release Notes v1.42.0 und Telemetrie-Dokumentation der genannten Werkzeuge" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Wer KI-Agenten produktiv betreibt, sollte sich die <a href="https://github.com/open-telemetry/semantic-conventions-genai" target="_blank" rel="noopener">GenAI Semantic Conventions von OpenTelemetry</a> ansehen. Sie legen ein gemeinsames Vokabular unter dem Namensraum <code>gen_ai.*</code> fest, mit dem sich Modellaufrufe, Tool-Aufrufe, Retrieval, Memory und ganze Agentenläufe beschreiben lassen. Ein Lauf wird zum Trace, jeder Modell- und Tool-Aufruf zu einem Span, der Tokenverbrauch zu einer Metrik.
+            </p>
+            <p>
+              Die Verbreitung ist ungleichmäßig, die Richtung aber eindeutig. VS Code Copilot sendet bereits <code>invoke_agent</code>-, <code>chat</code>- und <code>execute_tool</code>-Spans nach diesen Konventionen. Claude Code ergänzt sein Tracing, das noch im Beta-Stadium ist, um einige <code>gen_ai.*</code>-Attribute. Mehrere ältere Instrumentierungsbibliotheken sind älter als die Konventionen und nähern sich ihnen schrittweise an.
+            </p>
+            <p>
+              Das ist ein echter Fortschritt. Eine gemeinsame Sprache dafür, was ein Agent getan hat, sagt aber noch nichts darüber, ob er es hätte tun sollen. Diese zweite Frage ist für die meisten Teams die wichtigere, und die Konventionen lassen sie bewusst offen.
+            </p>
+
+            <h2>Was die Konventionen festlegen</h2>
+            <p>
+              Das zentrale Attribut ist <code>gen_ai.operation.name</code>. Es gibt an, welche Art von Arbeit ein Span darstellt: <code>chat</code>, <code>embeddings</code>, <code>invoke_agent</code>, <code>execute_tool</code>, <code>retrieval</code> oder einen der übrigen in der Spezifikation definierten Werte. Einige weitere Attribute erledigen den Großteil der restlichen Arbeit:
+            </p>
+            <ul>
+              <li><span><code>gen_ai.provider.name</code> und <code>gen_ai.request.model</code> halten fest, welcher Anbieter und welches Modell geantwortet haben.</span></li>
+              <li><span><code>gen_ai.tool.name</code> und <code>gen_ai.tool.call.id</code> halten fest, welches Tool der Agent aufgerufen hat.</span></li>
+              <li><span><code>gen_ai.conversation.id</code> verbindet die Spans einer Sitzung.</span></li>
+            </ul>
+            <p>
+              MCP passt in dasselbe Modell. Die Spezifikation behandelt einen MCP-Tool-Aufruf als <code>execute_tool</code>-Span. Ein Tool hinter einem Protokoll sieht im Trace also genauso aus wie ein Tool im eigenen Prozess.
+            </p>
+            <p>
+              Auch beim Inhalt treffen die Konventionen eine bewusste Entscheidung. Instrumentierungen sollen Prompts und Antworten standardmäßig nicht erfassen und eine Möglichkeit anbieten, das bei Bedarf einzuschalten. Das wichtigste Betriebssignal, also welche Tools ein Agent in welcher Reihenfolge aufgerufen hat, wie lange jeder Schritt dauerte und ob er fehlschlug, steht damit zur Verfügung, ohne dass jemand speichert, was gesagt wurde.
+            </p>
+
+            <h2>Was ein einzelner Span nicht zeigen kann</h2>
+            <p>
+              Jeder Span beschreibt einen Schritt für sich. Nehmen Sie den Trace, den die meisten Anleitungen als Beispiel verwenden: ein <code>invoke_agent</code>-Lauf, der das Modell aufruft, <code>web_search</code> ausführt, erneut das Modell aufruft, <code>summarize_doc</code> ausführt und das Modell ein letztes Mal aufruft. Jeder Span ist korrekt aufgebaut, jedes Attribut entspricht der Spezifikation.
+            </p>
+            <p>
+              Angenommen, derselbe Agent ruft in einem späteren Lauf in Schritt vier <code>send_email</code> auf. Oder er ruft <code>web_search</code> elfmal statt einmal auf. Oder er bezahlt einen Händler, den er noch nie bezahlt hat. Diese Spans sind genauso korrekt aufgebaut wie die früheren. Nichts an ihnen zeigt, dass der Lauf ungewöhnlich war, denn ungewöhnlich ist ein Lauf nur im Vergleich mit dem bisherigen Verhalten dieses Agenten. Das ist eine Eigenschaft der ganzen Abfolge im Vergleich mit einer Historie, und ein einzelner Span trägt weder das eine noch das andere.
+            </p>
+
+            <h2>Warum Zählen nicht reicht</h2>
+            <p>
+              Am nächsten kommen die Metriken der Spezifikation. Zwei Histogramme, <code>gen_ai.invoke_agent.tool_calls</code> und <code>gen_ai.invoke_agent.inference_calls</code>, erfassen, wie viele Tool- und Modellaufrufe ein Agent pro Aufruf macht. Eine steigende Zahl ist ein brauchbares frühes Zeichen dafür, dass ein Agent in einer Schleife hängt.
+            </p>
+            <p>
+              Viele relevante Veränderungen bewegen die Zahl aber nicht. Ein Agent, der früher <code>search</code>, <code>read</code> und <code>summarize</code> aufgerufen hat und jetzt <code>search</code>, <code>read</code> und <code>export</code> aufruft, macht gleich viele Aufrufe. Latenz und Tokenverbrauch ändern sich womöglich ebenfalls nicht. Ein Dashboard, das nur auf Zählungen, Latenz und Tokens beruht, zeigt dann nichts Auffälliges.
+            </p>
+            <p>
+              Das betrifft die Sicherheit genauso wie die Zuverlässigkeit. Eine erfolgreiche Prompt Injection muss einen Agenten weder langsamer noch teurer machen. Sie muss ihn nur dazu bringen, etwas anderes zu tun, und das zeigt sich daran, welche Tools er aufruft, nicht daran, wie viele.
+            </p>
+
+            <h2>Was Drift-Erkennung braucht</h2>
+            <p>
+              Um solche Veränderungen zu erkennen, braucht es drei Dinge, die die Konventionen gar nicht leisten wollen.
+            </p>
+            <p>
+              <strong>Eine Baseline pro Agent.</strong> Was für einen Recherche-Agenten normal ist, ist es für einen Abrechnungs-Agenten nicht. Die Baseline muss aus den eigenen Läufen jedes Agenten gelernt werden, verknüpft mit einer Identität, die die Telemetrie bereits mitbringt.
+            </p>
+            <p>
+              <strong>Detektoren, die jedes Mal dieselbe Antwort geben.</strong> Plötzliche Sprünge und schleichende Drift sind unterschiedliche statistische Probleme. CUSUM ist für das erste gebaut. Eine gefensterte Jensen-Shannon-Divergenz über die Verteilung der Tool-Aufrufe eignet sich für das zweite. Keiner der beiden braucht ein Sprachmodell, um zu erraten, was der Agent beabsichtigt hat. Dieselben Eingaben ergeben deshalb immer denselben Score, und jeder kann die Berechnung nachvollziehen.
+            </p>
+            <p>
+              <strong>Einen Vertrag pro Aufgabe.</strong> Manche Veränderungen sollten nicht auf die Statistik warten. Ruft ein Agent ein Tool auf, das er für diese Art von Aufgabe noch nie benutzt hat, lohnt sich ein Hinweis schon beim ersten Mal. Ein neuer Zahlungsempfänger ist ein gutes Beispiel: Bis sich eine Verteilung verschoben hat, ist das Geld überwiesen.
+            </p>
+            <p>
+              Dafür ist keine neue Instrumentierung nötig. Es braucht etwas, das die Spans, die Agenten ohnehin senden, in ihrer Reihenfolge liest und mit dem Vorherigen vergleicht.
+            </p>
+
+            <h2>Bauen auf einer Spezifikation, die sich noch ändert</h2>
+            <p>
+              Alle <code>gen_ai.*</code>-Attribute, -Spans und -Metriken haben noch den Status „Development“, die früheste von drei Stufen bei OpenTelemetry. Im Juni 2026 sind die Konventionen mit <a href="https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0" target="_blank" rel="noopener">Release v1.42.0</a> aus dem zentralen Repository der Semantic Conventions in ein eigenes umgezogen, <code>semantic-conventions-genai</code>. Dieses Repository hat noch kein getaggtes Release veröffentlicht, und seine Schema-URL steht noch auf TODO.
+            </p>
+            <p>
+              Das ist kein Grund zu warten, legt aber zwei Gewohnheiten nahe. Erstens: Halten Sie die Attributnamen, von denen Sie abhängen, an einer Stelle im Code. Wird <code>gen_ai.tool.name</code> umbenannt, wollen Sie eine Zeile ändern und nicht jede Abfrage und jedes Dashboard durchsuchen.
+            </p>
+            <p>
+              Zweitens: Lesen Sie nur, was Sie brauchen. Ein Verhaltens-Score muss wissen, welches Tool wann in welcher Sitzung aufgerufen wurde und ob der Aufruf erfolgreich war. Den Prompt braucht er nicht. Wer nur diese wenigen Felder extrahiert und alles andere ignoriert, hält den Standard der Spezifikation, keine Inhalte, schon durch die Bauweise ein, statt darauf zu vertrauen, dass jedes nachgelagerte System ihn respektiert.
+            </p>
+
+            <h2>Was daraus folgt</h2>
+            <p>
+              Die GenAI-Konventionen sind auf dem besten Weg, das Benennungsproblem zu lösen. Agenten auf unterschiedlichen Frameworks können ihre Arbeit in einer Sprache beschreiben, für jedes Backend. Das ist ein solides Fundament.
+            </p>
+            <p>
+              Die nächste Ebene ist die Bewertung. Wir meinen, sie sollte deterministisch sein: Jeder Lauf wird mit der eigenen Historie dieses Agenten verglichen, das Ergebnis ist eine Zahl und nicht die Einschätzung eines zweiten Modells über das erste. Ein Trace hält fest, was passiert ist. Ein Score sagt, ob das für diesen Agenten normal war.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score arbeitet so. Er liest gen_ai.*-Tool-Spans und Tool-Events von Claude Code über OTLP, lernt aus den ersten 30 Läufen jedes Agenten eine Baseline und bewertet jeden weiteren Lauf von 0 bis 100 mit CUSUM, Jensen-Shannon-Divergenz und einem Vertrag pro Aufgabe. Wechselt ein Agent das Band, sendet er einen HMAC-signierten Webhook. Prompt-Inhalte liest er nie.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift bei AI Agents</span>
+                </a>
+                <a href="/de/wissen/agent-goal-hijacking" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Agent Goal Hijacking</span>
+                </a>
+                <a href="/de/wissen/ki-agenten-governance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Governance für KI-Agenten</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/blog/genai-semantic-conventions-drift" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>
