@@ -42,7 +42,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "blog/genai-semantic-conventions-drift",
     de: "de/wissen/opentelemetry-genai-konventionen",
-    sourceHash: "5ca8f4cb1a4915d2",
+    sourceHash: "122d98d77dfa632d",
     note: "Gekürzte Übertragung derselben Argumentation. Sie hängt an einer offenen Spezifikation statt an unserem Produkt, und deutsche Plattform- und Observability-Teams suchen auf Deutsch danach.",
   },
   {
@@ -80,6 +80,16 @@ export const LOCALE_PAIRS: LocalePair[] = [
     de: "de/wissen/haftung-ki-agenten",
     sourceHash: "f2484889bf04eab6",
     note: "Übertragung des Essays zu Haftung und Nachweis. Die Produkthaftungsrichtlinie wird bis Dezember 2026 in deutsches Recht umgesetzt, das Thema wird also auf Deutsch gesucht.",
+    en: "agent-prompt-injection-detection",
+    de: "de/wissen/prompt-injection-erkennen",
+    sourceHash: "3e8e25114d8802eb",
+    note: "Kernseite in der Sprache des Problems (SEO-Plan 07.11.2026). Hängt an OWASP und an der Erkennungslogik von Kyde Score, beides in beiden Sprachen gleich, deshalb der Hash.",
+  },
+  {
+    en: "agent-loop-detection",
+    de: "de/wissen/agent-endlosschleife-erkennen",
+    sourceHash: "0ecd4f007d9b4e39",
+    note: "Kernseite in der Sprache des Problems (SEO-Plan 07.11.2026). Nennt die Schwellen aus dem Code von Kyde Score (3 und 10 Aufrufe), die in beiden Sprachen gleich bleiben müssen.",
   },
 ];
 

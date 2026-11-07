@@ -1,0 +1,211 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /agent-prompt-injection-detection. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="Indirekte Prompt Injection bei KI-Agenten erkennen, Kyde"
+  description="Indirekte Prompt Injection versteckt Anweisungen in Webseiten, Mails und Dateien, die ein Agent liest. Warum ein Eingangsfilter nicht reicht, wie man eine erfolgreiche Injection an den Tool-Aufrufen erkennt und was dieser Ansatz übersieht."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Sicherheit</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Indirekte Prompt Injection bei KI-Agenten erkennen
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Sicherheit</span>
+            <span>·</span>
+            <span>7 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="OWASP Top 10 for Agentic Applications, Greshake et al. 2023, Erkennungslogik gegen den Code von Kyde Score" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Ein Agent, der die Welt liest, kann von der Welt Anweisungen bekommen. Eine Webseite, die er zusammenfasst, eine Mail, die er sortiert, oder eine Datei, die er öffnet, kann Anweisungen enthalten, und ein Modell, das Anweisungen gut befolgt, befolgt womöglich auch diese. Das ist indirekte Prompt Injection, und sie ist der Hauptweg zu dem Risiko, das die OWASP Top 10 für agentische Anwendungen an erster Stelle nennen: Agent Goal Hijack.
+            </p>
+            <p>
+              Dieser Text erklärt, warum sich der Angriff am Eingang schwer stoppen lässt, warum er im anschließenden Verhalten des Agenten leichter zu sehen ist und was diese Art der Erkennung leisten kann und was nicht.
+            </p>
+
+            <h2>Was indirekte Prompt Injection ist</h2>
+            <p>
+              Bei einer direkten Prompt Injection tippt der Angreifer selbst. Bei einer indirekten spricht er nie mit dem Agenten. Er legt Text dort ab, wo der Agent ihn lesen wird: eine versteckte Zeile auf einer Webseite, ein Absatz in einer Mail-Signatur, ein Kommentar in einem Dokument, ein Feld in einem Support-Ticket. Holt der Agent diesen Inhalt in seinen Kontext, steht der eingeschleuste Text neben der Anfrage des Nutzers, und das Modell kann Daten nicht verlässlich von Anweisungen unterscheiden.
+            </p>
+            <p>
+              Der Begriff stammt aus einem Paper von Greshake und Kollegen aus dem Jahr 2023 („Not what you've signed up for“), das den Angriff auf LLM-integrierte Anwendungen gezeigt hat. Bei Agenten wiegt er schwerer, weil ein Agent nicht nur antwortet. Er ruft Tools auf: Er verschickt Mails, schreibt Dateien, fragt Datenbanken ab und bewegt Geld.
+            </p>
+
+            <h2>Warum ein Filter am Eingang nicht reicht</h2>
+            <p>
+              Die erste Abwehr ist meist ein Filter vor dem Modell: ein Klassifikator oder ein Regelwerk, das in den Inhalten, die der Agent gleich liest, nach eingeschleusten Anweisungen sucht. Das lohnt sich. Ein Filter fängt bekannte Muster ab und macht grobe Angriffe teurer.
+            </p>
+            <p>
+              Seine Grenze ist, dass der Angreifer die Formulierung bestimmt. Anweisungen lassen sich umschreiben, auf mehrere Sätze verteilen, in einer anderen Sprache schreiben oder in Formatierung verstecken, und ein vollständiger Filter müsste jede Variante erkennen. Außerdem muss er Inhalte prüfen, die manche Teams keinem weiteren Dienst schicken können oder wollen.
+            </p>
+            <p>
+              OWASP schreibt selbst, es sei unklar, ob es einen narrensicheren Schutz gibt, und empfiehlt mehrere Schichten in der Annahme, dass einzelne Versuche durchkommen. Dann zählt, wie schnell man es merkt.
+            </p>
+
+            <h2>Auf das achten, was der Agent danach tut</h2>
+            <p>
+              Eine erfolgreiche Injection verändert das Verhalten des Agenten, darum geht es ja. Ein Zusammenfassungs-Agent, der plötzlich Mails verschickt, ein Support-Agent, der eine Tabelle abfragt, die er nie angefasst hat, ein Zahlungs-Agent, der an einen neuen Empfänger zahlt: All das ist in den Tool-Aufrufen sichtbar, ohne einen einzigen Prompt zu lesen.
+            </p>
+            <p>
+              Dafür braucht es einen Maßstab für normales Verhalten, und der ist je Agent verschieden. Ein Recherche-Agent, der fünfzigmal ein Such-Tool aufruft, arbeitet normal. Ein Abrechnungs-Agent, der dasselbe tut, nicht. Die Baseline muss also je Agent aus seinen eigenen Läufen gelernt werden.
+            </p>
+            <ul>
+              <li><span><strong>Ein Tool, das der Agent für diese Aufgabe nie benutzt hat.</strong> Das schärfste Signal. Ein eingeschleustes Ziel braucht meist eine Fähigkeit, die die ursprüngliche Aufgabe nicht brauchte, und der erste Aufruf ist der Moment für den Alarm.</span></li>
+              <li><span><strong>Ein abrupter Wechsel im Aufrufmix.</strong> Eine plötzliche Änderung, welche Tools in welchem Verhältnis aufgerufen werden, gemessen an der Baseline. CUSUM ist dafür ein statistisches Standardverfahren.</span></li>
+              <li><span><strong>Eine schleichende Drift.</strong> Manche Manipulationen, etwa ein vergifteter Speicher oder eine langsam veränderte Datenquelle, verschieben das Verhalten nach und nach. Ein Vergleich der Tool-Verteilungen über Zeitfenster, etwa mit der Jensen-Shannon-Divergenz, fängt auf, was ein einzelner Lauf nicht zeigt.</span></li>
+            </ul>
+            <p>
+              Alle drei arbeiten mit Metadaten: welches Tool, in welcher Reihenfolge, in welcher Sitzung. Keines braucht den Inhalt dessen, was der Agent gelesen oder geschrieben hat.
+            </p>
+
+            <h2>Was dieser Ansatz übersieht</h2>
+            <p>
+              Verhaltenserkennung sieht Änderungen in dem, was ein Agent tut. Eine Injection, die innerhalb seines normalen Musters bleibt, also die üblichen Tools mit unauffälligen Argumenten nutzt, kann unbemerkt bleiben. Daten über ein Tool abfließen zu lassen, das der Agent ohnehin in jedem Lauf aufruft, ist der schwierige Fall.
+            </p>
+            <p>
+              Außerdem kommt Erkennung naturgemäß danach: Der erste ungewöhnliche Aufruf ist passiert, wenn er gemeldet wird. Darf dieser Aufruf gar nicht erst passieren, braucht es etwas im Datenpfad, das ihn zurückhalten kann, nicht nur einen Alarm. Das ist der Unterschied zwischen Überwachung und Kontrolle.
+            </p>
+            <p>
+              Beides spricht nicht gegen Erkennung. Eingangsfilter, minimale Tool-Berechtigungen und Verhaltensüberwachung decken verschiedene Fehler ab, und zusammen sind sie stärker als jede Maßnahme allein.
+            </p>
+
+            <h2>Wo Kyde ansetzt</h2>
+            <p>
+              Kyde Score beobachtet die Verhaltensseite. Es liest Tool-Aufrufe über OpenTelemetry, lernt die Baseline jedes Agenten aus seinen ersten 30 Läufen und meldet neue Tools für eine Aufgabe, abrupte Wechsel und schleichende Drift mit deterministischen Detektoren. Prompts und Antworten liest es nie. Wechselt der Score eines Agenten das Band, schickt es einen signierten Webhook.
+            </p>
+            <p>
+              Score meldet. Einen Aufruf zu stoppen, bevor er ausgeführt wird, übernimmt Kyde Control, ein Gateway im Datenpfad des Agenten, das in Ihrer eigenen Umgebung läuft. <a href="/products">Beide im Vergleich (Englisch)</a>.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score lernt aus den eigenen OpenTelemetry-Tool-Aufrufen, wie sich jeder Agent verhält, und meldet den Lauf, in dem er etwas Neues tut: ein Tool, das er für diese Aufgabe nie benutzt hat, einen abrupten Wechsel, eine schleichende Drift. Deterministische Detektoren, kein LLM, keine Prompt-Inhalte.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/agent-goal-hijacking" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Agent Goal Hijacking</span>
+                </a>
+                <a href="/de/wissen/agent-endlosschleife-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>KI-Agenten in der Endlosschleife erkennen</span>
+                </a>
+                <a href="/de/wissen/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift bei AI Agents</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/agent-prompt-injection-detection" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>
