@@ -1,0 +1,190 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import LegalNotice from "../components/LegalNotice.astro";
+---
+
+<Base
+  title="A Kill Switch for AI Agents, KYDE"
+  description="Why stopping an AI agent from inside the agent is not enough, what a kill switch outside the agent needs, and how Kyde Control blocks agents, tools and requests at a gateway in your own environment."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Security</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            A Kill Switch for AI Agents
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Security</span>
+            <span>·</span>
+            <span>6 min read</span>
+            <span>·</span>
+            <time datetime="2026-11-07">November 2026</time>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Most agent frameworks can stop a run from inside: a step limit, a timeout, a check in the agent's own code. Those are useful, and they share one weakness. They depend on the agent, its code and its configuration still working as intended, which is exactly what is in doubt when you want to stop it.
+            </p>
+            <p>
+              A kill switch, in the sense we mean here, is a control outside the agent that can stop its actions regardless of what the agent itself is doing. This page describes what such a switch needs and how Kyde Control provides one.
+            </p>
+
+            <h2>What a kill switch for agents needs</h2>
+            <ul>
+              <li><span><strong>It sits outside the agent.</strong> A hijacked or misconfigured agent must not be able to switch it off, route around it or ignore it.</span></li>
+              <li><span><strong>It sits in the path.</strong> An agent acts through model calls and tool calls. A switch that sees those calls before they reach the provider or the tool can stop them. A switch that only reads logs can only report.</span></li>
+              <li><span><strong>It is granular.</strong> Stopping everything is sometimes right. More often you want to stop one agent, deny one tool, or block one kind of request, and leave the rest running.</span></li>
+              <li><span><strong>It runs where you control it.</strong> For many security teams, a control that depends on a third party's cloud is not a control they can count on in an incident. Running it in your own environment keeps the decision with you.</span></li>
+              <li><span><strong>It leaves a record.</strong> Who stopped what, when and why should be written down in a form that cannot be quietly edited later.</span></li>
+            </ul>
+
+            <h2>A decision to make in advance: fail open or fail closed</h2>
+            <p>
+              Every control in the path has to decide what happens when the control itself fails. Fail closed, and an outage of the control stops your agents. Fail open, and the agents keep running unchecked while it is down. Neither is right for every case. A payments agent and an internal research agent probably deserve different answers, and the time to choose is before the outage, not during it.
+            </p>
+
+            <h2>How Kyde Control does it</h2>
+            <p>
+              Kyde Control is a gateway that runs in your own environment and sits between your agents and the services they call. Agents point their model base URL at it, a one-line change, and it forwards calls to OpenAI, Anthropic, Gemini or your own and local models. MCP tool calls can be routed through it too.
+            </p>
+            <ul>
+              <li><span><strong>Block an agent.</strong> An administrator blocks an agent, and its requests are rejected at the gateway before they reach any provider or tool. Unblocking restores it.</span></li>
+              <li><span><strong>Allow or deny tools.</strong> For MCP tool calls, rules can allow or deny specific servers and tools per agent.</span></li>
+              <li><span><strong>Block by rule.</strong> Requests that match a prevention rule, for example sensitive data leaving in a prompt, are rejected with HTTP 403 before they reach the upstream.</span></li>
+              <li><span><strong>Record everything.</strong> Blocks are written to the gateway's hash-chained ledger, and administrator actions are logged with the person who took them. In the enterprise edition, entries are signed with Ed25519 keys.</span></li>
+            </ul>
+            <p>
+              Blocking agents and rule-based prevention are part of the enterprise edition. Per-tool rules for MCP calls work in the open edition too. When a detection scanner is unreachable, the gateway currently fails open: it forwards the request and raises a high-severity incident.
+            </p>
+            <p>
+              Kyde Score, our behavioral scoring, detects when an agent starts acting unlike itself. Today, acting on that signal at the gateway is a human decision, made with the controls above. <a href="/rogue-ai-agents/">What a rogue agent looks like →</a>
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score detects when an agent stops behaving like itself. Kyde Control is the gateway in your environment that can block the agent, a tool or a request before it runs, and records every block in a hash-chained ledger.
+              </p>
+              <a
+                href="/score/"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Score an agent →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">A kill switch is</p>
+              <div class="space-y-2">
+                {["Outside the agent", "In the path", "Granular", "In your environment", "Recorded", ].map((r) => (
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/rogue-ai-agents/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Rogue AI Agents: Detecting Hijacked and Derailed Agents</span>
+                </a>
+                <a href="/ai-agent-governance/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>AI Agent Governance: The Enterprise Guide</span>
+                </a>
+                <a href="/agent-prompt-injection-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Detecting Indirect Prompt Injection in AI Agents</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Deutsch</p>
+              <a href="/de/wissen/kill-switch-ki-agenten/" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

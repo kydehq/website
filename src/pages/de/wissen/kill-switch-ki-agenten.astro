@@ -1,0 +1,188 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /ai-agent-kill-switch. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="Ein Kill Switch für KI-Agenten, Kyde"
+  description="Warum es nicht reicht, einen KI-Agenten von innen zu stoppen, was ein Kill Switch außerhalb des Agenten braucht und wie Kyde Control Agenten, Tools und Anfragen an einem Gateway in Ihrer eigenen Umgebung blockiert."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Sicherheit</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Ein Kill Switch für KI-Agenten
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Sicherheit</span>
+            <span>·</span>
+            <span>6 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Funktionen gegen Code und Handbuch des Kyde Gateway geprüft" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Die meisten Agenten-Frameworks können einen Lauf von innen stoppen: ein Schrittlimit, ein Timeout, eine Prüfung im Code des Agenten. Das ist nützlich, und alle diese Mittel haben dieselbe Schwäche. Sie hängen davon ab, dass der Agent, sein Code und seine Konfiguration noch wie gedacht funktionieren, und genau das steht in Frage, wenn man ihn stoppen will.
+            </p>
+            <p>
+              Ein Kill Switch im Sinn dieser Seite ist eine Kontrolle außerhalb des Agenten, die seine Aktionen stoppen kann, egal was der Agent selbst gerade tut. Die Seite beschreibt, was ein solcher Schalter braucht und wie Kyde Control ihn umsetzt.
+            </p>
+
+            <h2>Was ein Kill Switch für Agenten braucht</h2>
+            <ul>
+              <li><span><strong>Er sitzt außerhalb des Agenten.</strong> Ein gekaperter oder falsch konfigurierter Agent darf ihn weder abschalten noch umgehen noch ignorieren können.</span></li>
+              <li><span><strong>Er sitzt im Datenpfad.</strong> Ein Agent handelt über Modell- und Tool-Aufrufe. Ein Schalter, der diese Aufrufe sieht, bevor sie den Anbieter oder das Tool erreichen, kann sie stoppen. Ein Schalter, der nur Logs liest, kann nur melden.</span></li>
+              <li><span><strong>Er ist fein steuerbar.</strong> Manchmal ist es richtig, alles zu stoppen. Öfter will man einen Agenten stoppen, ein Tool verbieten oder eine Art von Anfrage blockieren und den Rest weiterlaufen lassen.</span></li>
+              <li><span><strong>Er läuft dort, wo Sie ihn kontrollieren.</strong> Für viele Sicherheitsteams ist eine Kontrolle, die von der Cloud eines Dritten abhängt, im Ernstfall keine, auf die sie sich verlassen können. Läuft sie in der eigenen Umgebung, bleibt die Entscheidung bei Ihnen.</span></li>
+              <li><span><strong>Er hinterlässt eine Aufzeichnung.</strong> Wer was wann und warum gestoppt hat, sollte so festgehalten sein, dass es sich später nicht still ändern lässt.</span></li>
+            </ul>
+
+            <h2>Vorab zu entscheiden: offen oder geschlossen ausfallen</h2>
+            <p>
+              Jede Kontrolle im Datenpfad muss festlegen, was passiert, wenn sie selbst ausfällt. Fällt sie geschlossen aus, stoppt ein Ausfall der Kontrolle Ihre Agenten. Fällt sie offen aus, laufen die Agenten ungeprüft weiter, solange sie weg ist. Keines ist für jeden Fall richtig. Ein Zahlungs-Agent und ein interner Recherche-Agent verdienen wahrscheinlich verschiedene Antworten, und der Zeitpunkt für die Entscheidung liegt vor dem Ausfall, nicht währenddessen.
+            </p>
+
+            <h2>Wie Kyde Control das umsetzt</h2>
+            <p>
+              Kyde Control ist ein Gateway, das in Ihrer eigenen Umgebung läuft und zwischen Ihren Agenten und den Diensten sitzt, die sie aufrufen. Agenten zeigen mit ihrer Modell-Base-URL darauf, eine Änderung in einer Zeile, und es leitet die Aufrufe an OpenAI, Anthropic, Gemini oder eigene und lokale Modelle weiter. Auch MCP-Tool-Aufrufe lassen sich darüber leiten.
+            </p>
+            <ul>
+              <li><span><strong>Einen Agenten sperren.</strong> Ein Administrator sperrt einen Agenten, und seine Anfragen werden am Gateway abgewiesen, bevor sie einen Anbieter oder ein Tool erreichen. Das Entsperren stellt ihn wieder her.</span></li>
+              <li><span><strong>Tools erlauben oder verbieten.</strong> Für MCP-Tool-Aufrufe können Regeln bestimmte Server und Tools je Agent erlauben oder verbieten.</span></li>
+              <li><span><strong>Per Regel blockieren.</strong> Anfragen, die eine Präventionsregel treffen, etwa sensible Daten in einem Prompt, werden mit HTTP 403 abgewiesen, bevor sie den Anbieter erreichen.</span></li>
+              <li><span><strong>Alles aufzeichnen.</strong> Blockierungen werden in das hash-verkettete Ledger des Gateways geschrieben, Aktionen von Administratoren mit der handelnden Person protokolliert. In der Enterprise-Edition werden Einträge mit Ed25519-Schlüsseln signiert.</span></li>
+            </ul>
+            <p>
+              Agenten sperren und per Regel blockieren gehört zur Enterprise-Edition. Tool-Regeln für MCP-Aufrufe greifen auch in der offenen Edition. Ist ein Erkennungsscanner nicht erreichbar, fällt das Gateway derzeit offen aus: Es leitet die Anfrage weiter und meldet einen Vorfall mit hoher Priorität.
+            </p>
+            <p>
+              Kyde Score, unsere Verhaltensbewertung, erkennt, wenn ein Agent anfängt, sich anders zu verhalten als sonst. Auf dieses Signal am Gateway zu reagieren, ist heute eine Entscheidung von Menschen, mit den oben beschriebenen Kontrollen. <a href="/de/wissen/rogue-ai-agents-erkennen/">Wie ein entgleister Agent aussieht →</a>
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score erkennt, wenn ein Agent sich nicht mehr wie er selbst verhält. Kyde Control ist das Gateway in Ihrer Umgebung, das den Agenten, ein Tool oder eine Anfrage vor der Ausführung blockieren kann und jede Blockierung in einem hash-verketteten Ledger festhält.
+              </p>
+              <a
+                href="/score/"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/rogue-ai-agents-erkennen/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Rogue AI Agents erkennen</span>
+                </a>
+                <a href="/de/wissen/ki-agenten-governance/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Governance für KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/prompt-injection-erkennen/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Indirekte Prompt Injection erkennen</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/ai-agent-kill-switch/" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

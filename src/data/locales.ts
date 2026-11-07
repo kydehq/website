@@ -72,7 +72,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "ai-agent-governance",
     de: "de/wissen/ki-agenten-governance",
-    sourceHash: "5258d6dacf0af1ea",
+    sourceHash: "97b772304684f5bd",
     note: "Gekürzte Übertragung als Fließtext. Leitfaden zu AI Act, DORA, DRCF und NIST, für deutsche Banken, Versicherer und KRITIS-Betreiber geschrieben.",
   },
   {
@@ -92,6 +92,24 @@ export const LOCALE_PAIRS: LocalePair[] = [
     de: "de/wissen/agent-endlosschleife-erkennen",
     sourceHash: "1aa4349862206270",
     note: "Kernseite in der Sprache des Problems (SEO-Plan 07.11.2026). Nennt die Schwellen aus dem Code von Kyde Score (3 und 10 Aufrufe), die in beiden Sprachen gleich bleiben müssen.",
+  },
+  {
+    en: "rogue-ai-agents",
+    de: "de/wissen/rogue-ai-agents-erkennen",
+    sourceHash: "b611c1bf7a6f9554",
+    note: "Hauptseite der Problem-Seiten (SEO-Plan 07.11.2026). Verteilt auf Injection, Schleife, Drift und Kill Switch, die alle zweisprachig sind.",
+  },
+  {
+    en: "ai-agent-kill-switch",
+    de: "de/wissen/kill-switch-ki-agenten",
+    sourceHash: "db98085d30feb0b2",
+    note: "Für Security und Einkauf, führt zum Gateway beim Kunden. Die Funktionsaussagen sind gegen Code und Handbuch des Gateway geprüft und müssen in beiden Sprachen gleich bleiben.",
+  },
+  {
+    en: "llm-as-judge-vs-deterministic-detectors",
+    de: "de/wissen/llm-as-judge-vs-deterministische-detektoren",
+    sourceHash: "1d5acd29adf19607",
+    note: "Für technische Entscheider. Hängt an Forschung (Zheng et al. 2023) und an der Methode von Kyde Score, beides ändert sich selten.",
   },
 ];
 

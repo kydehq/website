@@ -1,0 +1,201 @@
+---
+import Base from "../layouts/Base.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import LegalNotice from "../components/LegalNotice.astro";
+---
+
+<Base
+  title="LLM-as-a-Judge vs. Deterministic Detectors for AI Agents, KYDE"
+  description="Two ways to decide automatically whether an AI agent behaved: ask another model, or measure against the agent's history. How they compare on repeatability, cost, privacy and attack surface, and which fits production monitoring."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technical</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            LLM-as-a-Judge vs. Deterministic Detectors for AI Agents
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Technical</span>
+            <span>·</span>
+            <span>7 min read</span>
+            <span>·</span>
+            <time datetime="2026-11-07">November 2026</time>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              There are two common ways to decide automatically whether an AI agent behaved as it should. One asks another model: show it the run and let it grade. The other measures: compare the run with the agent's history using fixed statistics and rules. Both are in production use, and they are good at different things.
+            </p>
+            <p>
+              This page compares them on the properties that matter for monitoring agents in production: repeatability, cost, privacy, attack surface and what each can see at all.
+            </p>
+
+            <h2>How an LLM judge works</h2>
+            <p>
+              An LLM judge is a model prompted to evaluate output, often against a rubric: was the answer correct, helpful, safe, on task. It is flexible. It can assess open-ended quality that no simple metric captures, and it needs no history to start.
+            </p>
+            <p>
+              Its weaknesses are documented. Zheng and colleagues, in the 2023 paper that introduced MT-Bench, found that LLM judges favor the answer shown first, favor longer answers and tend to favor output from their own model family. Each of these can be reduced with careful prompting, and none disappears entirely.
+            </p>
+
+            <h2>Where the judge struggles in monitoring</h2>
+            <ul>
+              <li><span><strong>Repeatability.</strong> Model output is sampled. The same run can receive different grades on different days, and even at temperature zero providers do not guarantee identical output. A score you cannot reproduce is hard to defend in a review or an incident report.</span></li>
+              <li><span><strong>Cost and latency.</strong> Every judged run is at least one more model call. On a busy agent, the judge can cost a meaningful share of what the agent itself costs.</span></li>
+              <li><span><strong>Content.</strong> To grade a run, the judge has to read it: prompts, retrieved documents, responses. That content goes to another model, and often to another provider.</span></li>
+              <li><span><strong>Attack surface.</strong> A judge reads the same material the agent read. Text crafted to manipulate the agent can be crafted to manipulate the judge as well.</span></li>
+            </ul>
+
+            <h2>How deterministic detectors work</h2>
+            <p>
+              A deterministic detector applies a fixed rule or statistic to what the agent did. Did it call a tool it has never used for this task? Did the mix of tools shift abruptly compared with its baseline? Has the distribution drifted over the last runs? Did it repeat the identical call several times in a row?
+            </p>
+            <p>
+              The same input always produces the same result. Anyone with the data and the method can rerun the calculation and get the same number. The detectors work on metadata (which tool, in which order, in which session) and do not need to read content. They are cheap enough to run on every call.
+            </p>
+
+            <h2>Where deterministic detectors struggle</h2>
+            <p>
+              They only see what is in the data. A detector on tool calls cannot tell whether a well-formed answer is factually wrong, or whether a summary missed the point. It needs a baseline of normal runs before statistical detectors mean anything, although simple rules, like a loop or a never-seen tool, work from the first run. And its thresholds have to be chosen and tuned, which is engineering work, not magic.
+            </p>
+
+            <h2>Which to use</h2>
+            <p>
+              They answer different questions, so many teams will want both. A judge is the better tool for grading open-ended quality, offline, on samples: evaluation before release, spot checks, research. Deterministic detection is the better tool for continuous monitoring in production, where every run is checked, the result must be reproducible and content should stay where it is.
+            </p>
+            <p>
+              The cases where we would not rely on a judge alone are those with consequences: alerts that page someone, scores that gate what an agent may do, evidence that ends up in an incident report. There, a number that comes out the same every time is worth more than a nuanced opinion that might not.
+            </p>
+
+            <h2>Kyde's approach</h2>
+            <p>
+              Kyde Score uses deterministic detectors only: CUSUM for abrupt shifts, windowed Jensen-Shannon divergence for gradual drift, a per-task contract for never-seen tools, and a rule for repeated identical calls. There is no model in the loop and no prompt content is read. The drift detectors are <a href="https://github.com/kydehq/behavioral-drift-detection" target="_blank" rel="noopener">open source</a>, so anyone can rerun them. The task contract is not public.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score scores every run from 0 to 100 with deterministic detectors: CUSUM, Jensen-Shannon divergence, a task contract and a loop rule. Same input, same score. No LLM in the loop and no prompt content read.
+              </p>
+              <a
+                href="/score/"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Score an agent →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Related" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Compared on</p>
+              <div class="space-y-2">
+                {["Repeatability", "Cost per run", "Content read", "Attack surface", ].map((r) => (
+                  <p class="flex gap-2 text-xs text-ink-1"><span class="font-mono text-warn shrink-0">→</span>{r}</p>
+                ))}
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/behavioral-drift/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift in AI Agents</span>
+                </a>
+                <a href="/agent-prompt-injection-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Detecting Indirect Prompt Injection in AI Agents</span>
+                </a>
+                <a href="/rogue-ai-agents/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Rogue AI Agents: Detecting Hijacked and Derailed Agents</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Deutsch</p>
+              <a href="/de/wissen/llm-as-judge-vs-deterministische-detektoren/" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>
