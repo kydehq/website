@@ -6,8 +6,8 @@ import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
-  title="OpenTelemetry Gave AI Agents a Grammar. Nobody Reads the Sentences., KYDE"
-  description="The OpenTelemetry GenAI semantic conventions standardize how an agent run is described. They say nothing about whether a run is normal. Drift lives in the sequence, not the span."
+  title="What OpenTelemetry's GenAI Conventions Can and Can't Tell You About Your Agents, KYDE"
+  description="The gen_ai.* conventions give every agent framework a shared way to describe what happened in a run. Deciding whether a run was normal is a separate problem, and it needs a baseline, not another attribute."
   datePublished="2026-11-07"
 >
   <Navbar />
@@ -30,12 +30,12 @@ import LegalNotice from '../../components/LegalNotice.astro';
 
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
-            OpenTelemetry Gave AI Agents a Grammar. Nobody Reads the Sentences.
+            What OpenTelemetry's GenAI Conventions Can and Can't Tell You About Your Agents
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Technical</span>
             <span>·</span>
-            <span>5 min read</span>
+            <span>6 min read</span>
             <span>·</span>
             <time datetime="2026-11-07">November 2026</time>
           </div>
@@ -53,103 +53,91 @@ import LegalNotice from '../../components/LegalNotice.astro';
           <article class="prose-kyde min-w-0">
 
             <p>
-              An agent run is a trace. A model call is a span. A tool call is a span. Token usage is a metric.
+              If you run AI agents in production, the <a href="https://github.com/open-telemetry/semantic-conventions-genai" target="_blank" rel="noopener">OpenTelemetry GenAI semantic conventions</a> deserve your attention. They define a shared vocabulary, under the <code>gen_ai.*</code> namespace, for describing model calls, tool calls, retrieval, memory and complete agent runs. A run becomes a trace, each model call and tool call becomes a span, and token usage becomes a metric.
             </p>
             <p>
-              That is the model the <a href="https://github.com/open-telemetry/semantic-conventions-genai" target="_blank" rel="noopener">OpenTelemetry GenAI semantic conventions</a> put forward. One <code>gen_ai.*</code> vocabulary for model calls, tool execution, retrieval, memory and full agent runs. VS Code Copilot already emits <code>invoke_agent</code>, <code>chat</code> and <code>execute_tool</code> spans in that shape. Claude Code puts a few <code>gen_ai.*</code> attributes on its beta traces. Older instrumentation libraries are still converging. The direction is clear, even where the arrival is not.
+              Adoption is uneven, but it is moving in one direction. VS Code Copilot already emits <code>invoke_agent</code>, <code>chat</code> and <code>execute_tool</code> spans that follow the conventions. Claude Code adds a handful of <code>gen_ai.*</code> attributes to its tracing, which is still in beta. Several older instrumentation libraries predate the conventions and are moving toward them gradually.
             </p>
             <p>
-              This is real progress. It is also only half the job.
+              That is useful progress. But a shared way to describe what an agent did does not tell you whether it should have done it. The second question is the one most teams need answered, and the conventions leave it open by design.
             </p>
 
-            <h2>What the conventions settle</h2>
+            <h2>What the conventions standardize</h2>
             <p>
-              The vocabulary is small and precise. <code>gen_ai.operation.name</code> is the pivot: <code>chat</code>, <code>embeddings</code>, <code>invoke_agent</code>, <code>execute_tool</code>, <code>retrieval</code>, and a dozen more. Around it sit the attributes that make a span legible to any backend:
+              The central attribute is <code>gen_ai.operation.name</code>, which says what kind of work a span represents: <code>chat</code>, <code>embeddings</code>, <code>invoke_agent</code>, <code>execute_tool</code>, <code>retrieval</code>, or one of the other values the spec defines. A few more attributes do most of the remaining work:
             </p>
             <ul>
-              <li><span><code>gen_ai.provider.name</code> and <code>gen_ai.request.model</code> say who answered.</span></li>
-              <li><span><code>gen_ai.tool.name</code> and <code>gen_ai.tool.call.id</code> say what the agent did.</span></li>
-              <li><span><code>gen_ai.conversation.id</code> binds the spans of one session together.</span></li>
+              <li><span><code>gen_ai.provider.name</code> and <code>gen_ai.request.model</code> record which provider and model answered.</span></li>
+              <li><span><code>gen_ai.tool.name</code> and <code>gen_ai.tool.call.id</code> record which tool the agent called.</span></li>
+              <li><span><code>gen_ai.conversation.id</code> ties the spans of one session together.</span></li>
             </ul>
             <p>
-              An MCP tool call is modeled as an <code>execute_tool</code> span too. One tool vocabulary, whether the tool sits in-process or behind a protocol.
+              MCP fits the same model. The spec treats an MCP tool call as an <code>execute_tool</code> span, so a tool behind a protocol and a tool in your own process look the same in a trace.
             </p>
             <p>
-              Prompts and responses are opt-in. The spec tells instrumentations not to capture them by default and to offer a switch for those who need them. Metadata is the default. Content is a decision.
-            </p>
-            <p>
-              That design choice matters more than any single attribute name. The useful signal of an agent run, what it called, in which order, how long it took, whether it failed, is available without touching a single prompt.
+              The conventions also make a deliberate choice about content. Instrumentations should not capture prompts and responses by default, and should offer a way to opt in when you need them. As a result, the most useful operational signal, which tools an agent called, in what order, how long each took and whether it failed, is available without anyone storing what was said.
             </p>
 
-            <h2>What the conventions leave open</h2>
+            <h2>What a single span can't show</h2>
             <p>
-              A span describes one step. It does not know what the agent did yesterday.
+              Each span describes one step on its own. Take the trace most guides use as an example: an <code>invoke_agent</code> run that calls the model, runs <code>web_search</code>, calls the model again, runs <code>summarize_doc</code> and calls the model one last time. Every span is well formed, and every attribute matches the spec.
             </p>
             <p>
-              Take the trace tree every guide now draws: <code>invoke_agent</code>, then <code>chat</code>, then <code>execute_tool web_search</code>, then <code>chat</code>, then <code>execute_tool summarize_doc</code>. Every span is well-formed. Every attribute follows the spec.
-            </p>
-            <p>
-              Now the same agent calls <code>send_email</code> in step four. Or calls <code>web_search</code> eleven times instead of once. Or pays a merchant it has never paid before. The spans are still well-formed. The attributes still follow the spec. Nothing in the convention marks the run as different, because difference is not a property of a span. It is a property of a sequence measured against a history.
-            </p>
-            <p>
-              The conventions give agents a grammar. They do not read the sentences.
+              Now suppose that on a later run, the same agent calls <code>send_email</code> at step four. Or it calls <code>web_search</code> eleven times instead of once. Or it pays a merchant it has never paid before. Those spans are just as well formed as the earlier ones. Nothing in them says the run was unusual, because unusual only means something relative to how this agent has behaved before. It is a property of the whole sequence, compared against a history, and a single span carries neither.
             </p>
 
-            <h2>Counts are not behavior</h2>
+            <h2>Why counting calls isn't enough</h2>
             <p>
-              The metrics side of the spec gets closest. Two histograms, <code>gen_ai.invoke_agent.tool_calls</code> and <code>gen_ai.invoke_agent.inference_calls</code>, count what an agent does per invocation. A rising count is a fair first symptom of a loop.
+              The spec's metrics come closest. Two histograms, <code>gen_ai.invoke_agent.tool_calls</code> and <code>gen_ai.invoke_agent.inference_calls</code>, record how many tool and model calls an agent makes per invocation. A rising count is a reasonable early sign that an agent is stuck in a loop.
             </p>
             <p>
-              Counts miss the quieter shift. An agent that used to call <code>search</code>, <code>read</code>, <code>summarize</code> and now calls <code>search</code>, <code>read</code>, <code>export</code> makes the same number of tool calls. Its latency and token spend can stay where they were. A dashboard built only on counts, latency and tokens stays green.
+              Many meaningful changes don't move the count, though. An agent that used to call <code>search</code>, <code>read</code> and <code>summarize</code>, and now calls <code>search</code>, <code>read</code> and <code>export</code>, makes the same number of calls. Its latency and token spend may not change either. A dashboard built only on counts, latency and tokens would show nothing wrong.
             </p>
             <p>
-              A prompt injection that succeeds does not need to make an agent slower or more expensive. It needs to make the agent do something else. That change sits in the distribution of what it calls, not in how much.
-            </p>
-
-            <h2>Drift is a property of the sequence</h2>
-            <p>
-              Detecting that change needs three things the conventions do not provide.
-            </p>
-            <p>
-              <strong>A baseline per agent.</strong> Normal for a research agent is not normal for a billing agent. The baseline has to be learned from that agent's own runs, keyed on an identity the telemetry already carries.
-            </p>
-            <p>
-              <strong>Deterministic detectors.</strong> An abrupt shift and a slow drift are different statistical problems. CUSUM targets the first. Windowed Jensen-Shannon divergence over the tool distribution targets the second. Neither needs a model in the loop to decide what an agent "meant". The same input produces the same score, and anyone can rerun it.
-            </p>
-            <p>
-              <strong>A contract per task.</strong> Some changes are not statistical at all. A tool the agent has never called on this kind of task is a finding on first occurrence. Waiting for a distribution to move is the wrong tolerance for a new payee.
-            </p>
-            <p>
-              None of this requires new instrumentation. It requires reading the spans the conventions already describe, in order, against a memory.
+              This matters for security as much as for reliability. A successful prompt injection doesn't have to make an agent slower or more expensive. It only has to make the agent do something different, and that shows up in which tools the agent calls, not in how many.
             </p>
 
-            <h2>Build on Development, behind a mapping</h2>
+            <h2>What detecting drift requires</h2>
             <p>
-              Every <code>gen_ai.*</code> attribute, span and metric is still at Development stability. With <a href="https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0" target="_blank" rel="noopener">release v1.42.0</a> in June 2026, the conventions moved out of the core semantic conventions repository into their own, <code>semantic-conventions-genai</code>. That repository has no tagged release yet, and its schema URL is still marked TODO.
+              To catch these changes, you need three things the conventions don't try to provide.
             </p>
             <p>
-              That is not a reason to wait. It is a reason to keep the attribute strings in one place. A consumer that reads <code>gen_ai.tool.name</code>, <code>gen_ai.operation.name</code> and <code>gen_ai.conversation.id</code> through one thin mapping layer survives a rename with a small, local change. A consumer that reads every attribute it finds does not.
+              <strong>A baseline for each agent.</strong> What is normal for a research agent is not normal for a billing agent. The baseline has to be learned from each agent's own runs, keyed on an identity the telemetry already carries.
             </p>
             <p>
-              It is also a reason to read less. A behavioral score needs which tool, when, in which session, and whether it succeeded. It does not need the prompt. Extracting a handful of named fields and dropping everything else keeps the spec's default, no content, intact by construction rather than by policy.
+              <strong>Detectors that give the same answer every time.</strong> Sudden shifts and gradual drift are different statistical problems. CUSUM is designed for the first. Windowed Jensen-Shannon divergence over the distribution of tool calls suits the second. Neither needs a language model to guess what the agent intended, so the same input always produces the same score, and anyone can rerun the calculation to check it.
+            </p>
+            <p>
+              <strong>A contract for each task.</strong> Some changes shouldn't wait for statistics. If an agent calls a tool it has never used for this kind of task, that is worth flagging the first time it happens. A new payee is a good example: by the time a distribution has shifted, the money has moved.
+            </p>
+            <p>
+              None of this needs new instrumentation. It needs something that reads the spans agents already emit, in order, and compares them with what came before.
             </p>
 
-            <h2>Where this leaves an operator</h2>
+            <h2>Building on a spec that's still changing</h2>
             <p>
-              The conventions are solving the naming problem. Agents, whatever framework they run on, are learning to describe themselves in one language to any backend.
+              Every <code>gen_ai.*</code> attribute, span and metric is still at Development stability, the earliest of OpenTelemetry's three levels. In June 2026, with <a href="https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0" target="_blank" rel="noopener">release v1.42.0</a>, the conventions moved out of the core semantic conventions repository into a dedicated one, <code>semantic-conventions-genai</code>. That repository hasn't published a tagged release yet, and its schema URL is still listed as TODO.
             </p>
             <p>
-              The next problem is judgment. Not the probabilistic kind, where a second model guesses whether the first one behaved. The deterministic kind, where a run is measured against that agent's own history and the answer is a number.
+              That is no reason to wait, but it does suggest two habits. First, keep the attribute names you depend on in one place in your code. If <code>gen_ai.tool.name</code> is renamed, you want to change one line, not search through every query and dashboard.
             </p>
             <p>
-              A trace tells you what happened. A score tells you whether it should have.
+              Second, read only what you need. A behavioral score needs to know which tool was called, when, in which session and whether it succeeded. It doesn't need the prompt. If you extract those few fields and ignore everything else, you keep the spec's no-content default by construction, instead of relying on every downstream system to respect it.
+            </p>
+
+            <h2>Where this leaves you</h2>
+            <p>
+              The GenAI conventions are well on their way to solving the naming problem. Agents built on different frameworks can describe their work in one language, to any backend. That is a solid foundation.
+            </p>
+            <p>
+              The next layer is judgment. We think it should be deterministic: each run measured against that agent's own history, with a number as the result, rather than a second model's opinion of the first. A trace records what happened. A score tells you whether that was normal for this agent.
             </p>
 
             <!-- KYDE callout -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Kyde Score reads <code>gen_ai.*</code> tool spans and Claude Code tool events over OTLP. It learns a baseline from the first 30 runs per agent, scores every later run 0 to 100 with CUSUM, Jensen-Shannon divergence and a per-task contract, and sends an HMAC-signed webhook when the band changes. Prompt content is not read.
+                Kyde Score works this way. It reads <code>gen_ai.*</code> tool spans and Claude Code tool events over OTLP, learns a baseline from each agent's first 30 runs, and scores every later run from 0 to 100 using CUSUM, Jensen-Shannon divergence and a per-task contract. When an agent's score moves into a different band, it sends an HMAC-signed webhook. It never reads prompt content.
               </p>
               <a
                 href="/score"

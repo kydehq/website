@@ -27,6 +27,7 @@ export const labFooterLinks = {
   ],
   Learn: [
     { label: "Behavioral Drift", href: "/behavioral-drift" },
+    { label: "OpenTelemetry GenAI Conventions", href: "/blog/genai-semantic-conventions-drift" },
     { label: "EU AI Act Compliance", href: "/eu-ai-act-compliance" },
     { label: "AI Agent Governance", href: "/ai-agent-governance" },
     { label: "Zero Trust for Agents", href: "/zero-trust-for-ai-agents" },

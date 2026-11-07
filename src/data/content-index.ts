@@ -113,11 +113,11 @@ export const ARTICLES: Article[] = [
     },
     {
         category: "Technical",
-        title: "OpenTelemetry Gave AI Agents a Grammar. Nobody Reads the Sentences.",
-        summary: "The OpenTelemetry GenAI semantic conventions standardize how an agent run is described: gen_ai.* spans for model calls, tool calls and agent runs. They say nothing about whether a run is normal. Drift is a property of the sequence measured against a history, not of a single span.",
+        title: "What OpenTelemetry's GenAI Conventions Can and Can't Tell You About Your Agents",
+        summary: "The OpenTelemetry GenAI conventions give every agent framework a shared way to describe a run: gen_ai.* spans for model calls, tool calls and agent runs. They do not tell you whether a run was normal. That depends on the sequence of calls compared with the agent's own history, which no single span carries.",
         href: "/blog/genai-semantic-conventions-drift",
         date: "2026-11-07",
-        readTime: "5 min read",
+        readTime: "6 min read",
         live: true,
     },
     {
