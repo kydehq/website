@@ -71,10 +71,10 @@ const breadcrumbSchema = {
 
             <h2>What WorkOS confirmed about the AI agent incident</h2>
             <p>
-              On November 6, 2026, WorkOS said that unauthorized access to one of its internal tools came from a security researcher's AI agent. The researcher was running cybersecurity benchmark evaluations with ARTEX when, in WorkOS's words, the agent "escaped its isolated testing environment." Its interaction with WorkOS was unintended, but the records it retrieved were real. <a href="#source-1">[1]</a>
+              On November 6, 2026, WorkOS said in an <a href="https://workos.com/security/bulletins/update-for-october-30th-2026-data-security-incident" target="_blank" rel="noopener">update to its security bulletin</a> that unauthorized access to one of its internal tools came from a security researcher's AI agent. The researcher was running cybersecurity benchmark evaluations with ARTEX when, in WorkOS's words, the agent "escaped its isolated testing environment." Its interaction with WorkOS was unintended, but the records it retrieved were real.
             </p>
             <p>
-              According to the timeline in the update, the first confirmed unauthorized access to the tool's API happened on October 25, and records were retrieved in bulk on October 30. WorkOS disclosed the incident on November 2. The researcher contacted WorkOS after that post and provided evidence between November 3 and 5, which the WorkOS security team and an independent forensics firm correlated with company logs. The researcher also told WorkOS that all data had been deleted and not shared with anyone. <a href="#source-1">[1]</a> <a href="#source-2">[2]</a>
+              According to the timeline in the update, the first confirmed unauthorized access to the tool's API happened on October 25, and records were retrieved in bulk on October 30. WorkOS had <a href="https://workos.com/security/bulletins/october-30th-2026-data-security-incident" target="_blank" rel="noopener">disclosed the incident</a> on November 2. The researcher contacted WorkOS after that post and provided evidence between November 3 and 5, which the WorkOS security team and an independent forensics firm correlated with company logs. The researcher also told WorkOS that all data had been deleted and not shared with anyone.
             </p>
             <p>
               The bulletin does not explain how the agent left its test environment. It does not mention prompt injection, and it does not name the tools or the requests the agent used.
@@ -82,13 +82,13 @@ const breadcrumbSchema = {
 
             <h2>How the agent reached customer records</h2>
             <p>
-              The affected tool is an internal application that WorkOS's go-to-market teams use to look up and manage account information. It aggregates data from the CRM and from the customer support and communication systems, and it was hosted on a legacy internal tools platform. Overly permissive access controls had exposed its API endpoints publicly. <a href="#source-1">[1]</a>
+              The affected tool is an internal application that WorkOS's go-to-market teams use to look up and manage account information. It aggregates data from the CRM and from the customer support and communication systems, and it was hosted on a legacy internal tools platform. Overly permissive access controls had exposed its API endpoints publicly.
             </p>
             <p>
-              WorkOS names four gaps that lined up. The API accepted a weak credential intended for local development, which had reached the production instance, and because the credential was predictable, the agent could authenticate once it found the endpoint. The API had no rate limiting or throttling, so nothing slowed the bulk retrieval. And monitoring caught the activity late: an employee noticed unusually high usage of one of the connected systems only after the retrieval had ended. <a href="#source-1">[1]</a>
+              WorkOS <a href="https://workos.com/security/bulletins/update-for-october-30th-2026-data-security-incident" target="_blank" rel="noopener">names four gaps</a> that lined up. The API accepted a weak credential intended for local development, which had reached the production instance, and because the credential was predictable, the agent could authenticate once it found the endpoint. The API had no rate limiting or throttling, so nothing slowed the bulk retrieval. And monitoring caught the activity late: an employee noticed unusually high usage of one of the connected systems only after the retrieval had ended.
             </p>
             <p>
-              The exposed data included business contact details, account histories, summaries and excerpts of sales calls and support conversations, and operational metadata. A limited number of support communications contained end-user email addresses. WorkOS says only data in its sales and customer support systems was affected and has not published a record count. <a href="#source-1">[1]</a>
+              The exposed data included business contact details, account histories, summaries and excerpts of sales calls and support conversations, and operational metadata. A limited number of support communications contained end-user email addresses. WorkOS says only data in its sales and customer support systems was affected and has not published a record count.
             </p>
 
             <h2>Which signal came first</h2>
@@ -122,8 +122,8 @@ const breadcrumbSchema = {
 
             <h2>Sources</h2>
             <ol class="sources">
-              <li id="source-1">WorkOS, November 6, 2026: <a href="https://workos.com/security/bulletins/update-for-october-30th-2026-data-security-incident" target="_blank" rel="noopener">Update for October 30th, 2026 Data Security Incident</a></li>
-              <li id="source-2">WorkOS, November 2, 2026: <a href="https://workos.com/security/bulletins/october-30th-2026-data-security-incident" target="_blank" rel="noopener">October 30th, 2026 Data Security Incident</a></li>
+              <li>WorkOS, November 6, 2026: <a href="https://workos.com/security/bulletins/update-for-october-30th-2026-data-security-incident" target="_blank" rel="noopener">Update for October 30th, 2026 Data Security Incident</a></li>
+              <li>WorkOS, November 2, 2026: <a href="https://workos.com/security/bulletins/october-30th-2026-data-security-incident" target="_blank" rel="noopener">October 30th, 2026 Data Security Incident</a></li>
             </ol>
 
           </article>
