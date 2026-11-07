@@ -6,8 +6,8 @@ import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
-  title="Agent Hijacking: The Security Risk Most Enterprises Can't Even Detect, KYDE"
-  description="OWASP ranks Agent Goal Hijacking as the #1 risk facing autonomous AI agents. 48% of security professionals identify agentic AI as the top attack vector for 2026. Yet most enterprises have no controls, and no forensic infrastructure to detect or investigate an incident."
+  title="Agent Goal Hijacking: Why It's Hard to Detect and What Helps, KYDE"
+  description="OWASP ranks Agent Goal Hijack as the top risk for autonomous AI agents. A hijacked agent uses its own legitimate access, so classic security tools see nothing wrong. Detection depends on knowing how each agent normally behaves."
   datePublished="2026-05-02"
 >
   <Navbar />
@@ -30,12 +30,12 @@ import LegalNotice from '../../components/LegalNotice.astro';
 
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
-            Agent Hijacking: The Security Risk Most Enterprises Can't Even Detect
+            Agent Goal Hijacking: Why It's Hard to Detect and What Helps
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Security</span>
             <span>·</span>
-            <span>5 min read</span>
+            <span>6 min read</span>
             <span>·</span>
             <time datetime="2026-05-02">May 2026</time>
           </div>
@@ -53,120 +53,74 @@ import LegalNotice from '../../components/LegalNotice.astro';
           <article class="prose-kyde min-w-0">
 
             <p>
-              In December 2025, OWASP released its first security framework specifically for autonomous AI agents. The OWASP Top 10 for Agentic Applications 2026 was developed by more than 100 industry experts, researchers, and practitioners, and identifies the ten most critical risks facing autonomous AI agents.
+              In December 2025, OWASP published the <a href="https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/" target="_blank" rel="noopener">Top 10 for Agentic Applications for 2026</a>, its first list of security risks specific to autonomous AI agents. At the top, as ASI01, is Agent Goal Hijack.
             </p>
             <p>
-              At the top of the list, ranked ASI01, is Agent Goal Hijacking.
-            </p>
-            <p>
-              According to a Dark Reading poll, 48% of cybersecurity professionals identify agentic AI as the number-one attack vector heading into 2026, outranking deepfakes, ransomware, and supply chain compromise. Yet only 34% of enterprises have AI-specific security controls in place.
-            </p>
-            <p>
-              That gap, between the threat and the controls, is where Agent Hijacking lives. And for most enterprises, it is completely invisible.
+              Security teams are paying attention. In a Dark Reading readership poll, 48% of security professionals ranked agentic AI as the top attack vector for 2026. The harder question is how you would notice a hijacked agent at all, because from the outside it tends to look like an agent doing its job.
             </p>
 
-            <h2>What Agent Goal Hijacking actually is</h2>
+            <h2>What goal hijacking is</h2>
             <p>
-              ASI01, Agent Goal Hijacking, occurs when attackers manipulate an agent's objectives through poisoned inputs like emails, documents, or web content. Because agents cannot reliably distinguish instructions from data, a single malicious input can redirect an agent to perform harmful actions using its legitimate tools and access.
+              Goal hijacking happens when an attacker changes what an agent is trying to do through content the agent processes: an email, a document, a web page or the output of another agent. Agents cannot reliably tell instructions apart from data, so a single malicious input can redirect an agent to do harm with its own legitimate tools and access.
             </p>
             <p>
-              This is the critical distinction from traditional cyberattacks. The agent is not compromised in the conventional sense, no credentials are stolen, no system is breached. The agent continues to use its legitimate tools, its legitimate access, and its legitimate identity. It simply pursues a goal it was not supposed to pursue.
-            </p>
-            <p>
-              Goal hijacking turns an agent into an unintentional insider threat. From the outside, and from most security monitoring tools, it looks like normal agent activity.
+              That is what separates it from a conventional attack. No credentials are stolen and no system is breached. The agent keeps its identity, its permissions and its tools. It simply pursues a goal it was never given.
             </p>
 
-            <h2>How an attack unfolds, a concrete example</h2>
+            <h2>How an attack could unfold</h2>
             <p>
-              A procurement agent in a financial institution processes vendor communications. It has access to the procurement system, the payment API, and the internal document management system. Its legitimate function: review vendor invoices, verify against purchase orders, flag discrepancies, and queue approved payments.
+              Consider a hypothetical procurement agent at a financial institution. It reviews vendor invoices, checks them against purchase orders, flags discrepancies and queues approved payments. To do that, it can read the procurement system, call the payment API and access internal documents.
             </p>
             <p>
-              An attacker sends a vendor communication containing a hidden instruction, invisible in normal reading, interpretable by the agent, embedded in the invoice PDF. The instruction is specific: retrieve the list of approved vendor accounts, compare against a target account number, and if the target is not on the list, add it under the cover of a routine database update.
+              An attacker sends an invoice PDF with an instruction hidden in it, invisible to a person reading the document but readable by the agent. The instruction tells the agent to add a new bank account to the approved vendor list as part of a routine update. The agent does it, and the procurement system logs a routine update, because from its point of view that is exactly what happened.
             </p>
             <p>
-              The agent processes the invoice. It follows the embedded instruction. It adds the account. The action is logged in the procurement system as a routine update, because that is exactly what it was, from the system's perspective.
+              Three weeks later the agent approves a payment to the new account. The fraud surfaces only when a real vendor calls about an unpaid invoice.
             </p>
             <p>
-              Three weeks later, a payment authorization goes to the newly added account. The agent approves it. The funds transfer.
-            </p>
-            <p>
-              The fraud surfaces when a legitimate vendor calls about an unpaid invoice.
-            </p>
-            <p>
-              Now the investigation begins. Which inputs did the agent process in the weeks prior? Which instruction redirected its behavior? What exactly did it retrieve, update, and authorize? When?
-            </p>
-            <p>
-              If the answer depends on provider-native logs, the investigation is already compromised. The poisoned input may not be in those logs. The causal chain, the sequence of retrievals and tool calls that led to the payment, is not reconstructable. The tamper-evidence that would prove the logs haven't been modified since the incident began does not exist.
+              Now someone has to work out which input changed the agent's behavior, what it did next and when. If the only evidence is the model provider's logs, that may be difficult. The malicious input may not be in them, the sequence of actions may be hard to reconstruct, and there may be no way to show the logs were not changed afterwards.
             </p>
 
-            <h2>Why classical security tools don't catch this</h2>
+            <h2>Why classic security tools miss it</h2>
             <p>
-              The reason is architectural. Traditional security tools are built around a specific threat model: unauthorized access. An attacker gains access they shouldn't have, and the security tool detects the unauthorized access.
+              Most security tools are built to catch unauthorized access. Goal hijacking does not involve any. The agent is authorized, its credentials are valid and its tool calls are within scope.
             </p>
             <p>
-              Agent Goal Hijacking doesn't involve unauthorized access. The agent is authorized. Its credentials are valid. Its tool calls are within scope. Every action it takes is, from an access-control perspective, legitimate.
-            </p>
-            <p>
-              <strong>Signature-based detection fails</strong> because there is no malware signature, the agent is using its own legitimate capabilities.
-            </p>
-            <p>
-              <strong>Network monitoring fails</strong> because the traffic patterns are normal, the agent communicates with the same endpoints it always does.
-            </p>
-            <p>
-              <strong>DLP tools fail</strong> because the data movement may be within authorized parameters, the agent is moving data it is permitted to move, to destinations it is permitted to reach.
-            </p>
-            <p>
-              The only detection mechanism that works is behavioral, and behavioral detection requires a baseline. What does normal look like for this agent, in this role, processing these kinds of inputs? When did behavior deviate? In what sequence did the deviation produce consequences?
-            </p>
-            <p>
-              That requires a complete, attributable, tamper-evident record of every agent action. Not a dashboard. Not a vendor log. A forensically usable audit trail that exists before the incident, not assembled after it.
+              Signature-based detection has nothing to match, because no malware is involved. Network monitoring sees the usual endpoints. Data loss prevention may see data moving within permitted limits to permitted destinations. Each tool looks at a single event and finds it acceptable.
             </p>
 
-            <h2>Why this is a NIS-2 problem, not just a security problem</h2>
+            <h2>Detection starts with a baseline</h2>
             <p>
-              NIS-2 Article 23 requires essential and important entities to notify their competent authority of significant incidents within 24 hours of becoming aware, with a full incident report within 72 hours.
-            </p>
-            <p>
-              For an AI agent incident, that 72-hour window requires immediate access to a complete forensic picture: what the agent processed, what it did, what systems it touched, what data it accessed or exfiltrated, and in what sequence. The notification must be specific, not "we believe our procurement agent may have been manipulated" but a precise account of the incident scope and impact.
-            </p>
-            <p>
-              Without a tamper-evident audit trail that predates the incident, that account cannot be produced. The organization knows something went wrong. It cannot demonstrate what, when, or how. It cannot bound the scope of the breach. It cannot demonstrate to the competent authority that its incident response was adequate.
-            </p>
-            <p>
-              NIS-2 does not have an exception for "we didn't have adequate logging." The reporting obligation exists regardless. What changes is whether the organization can meet it, or faces a separate regulatory consequence for failing to maintain the infrastructure that would have made compliance possible.
+              What changes in a hijacked agent is its behavior: the tools it calls, the order it calls them in, the records it touches. Seeing that requires knowing what normal looks like for that specific agent, then noticing when a run departs from it. A procurement agent that has never edited the vendor list and suddenly does is a clear signal, even though the edit itself is permitted.
             </p>
 
-            <h2>What detection and response actually requires</h2>
-            <p>Three capabilities are needed to detect Agent Goal Hijacking and respond adequately under NIS-2:</p>
+            <h2>The NIS-2 angle</h2>
             <p>
-              <strong>Behavioral baselines per agent role.</strong> Normal behavior for a procurement agent is quantifiable: typical input volume, typical tool call patterns, typical endpoints reached, typical cost profile. Deviation from baseline is the detection signal. Without a baseline built from a continuous, attributable record of every action, anomaly detection is impossible.
+              For essential and important entities in the EU, NIS-2 Article 23 sets tight reporting deadlines for significant incidents: an early warning within 24 hours of becoming aware, an incident notification within 72 hours and a final report within a month.
             </p>
             <p>
-              <strong>Causal context per action.</strong> When an anomaly is detected, the investigation requires reconstructing the full decision chain: what the agent was shown before it took the action, what it retrieved, what instructions it processed. This is not input/output logging. It is causal context capture, the state of the agent's context at the moment of every tool call.
-            </p>
-            <p>
-              <strong>Tamper-evident records.</strong> A sophisticated attacker who has influenced an agent's behavior may also influence what gets logged. Software logs on a compromised host can be altered silently. The forensic record must be cryptographically signed at the point of capture and hash-chained so that any modification is detectable, independent of the agent, independent of the host, independent of the LLM provider.
-            </p>
-            <p>
-              None of these capabilities exist in provider-native logging. They require a governance layer that sits in the data path, intercepting every action routed through it, capturing the context for each one, and chaining every record, before it reaches the systems the agent acts on.
+              Meeting those deadlines for an incident involving an agent means being able to say what the agent processed, what it did and which systems it touched. NIS-2 also requires risk-management measures that include incident handling, so not being able to answer those questions can become a problem in its own right.
             </p>
 
-            <h2>The window before this becomes a mandatory lesson</h2>
+            <h2>What detection and response require</h2>
             <p>
-              Hidden prompts turned copilots into silent exfiltration engines. Agents bent legitimate tools into destructive outputs, and leaked credentials let them operate far beyond their intended scope. These are not hypothetical scenarios from a research paper. They are documented incidents from production systems, cited by OWASP as the empirical basis for the 2026 framework.
+              <strong>A behavioral baseline for each agent.</strong> Typical tools, typical sequences and typical targets, learned from that agent's own history. Deviation from it is the detection signal.
             </p>
             <p>
-              Agent Goal Hijacking is already happening. The enterprises that will navigate it successfully are not the ones with the best incident response, it is the ones that built the forensic infrastructure before the incident occurred.
+              <strong>Enough context to reconstruct a decision.</strong> When something looks wrong, investigators need to see what the agent did leading up to the action, in order, not only the action itself.
             </p>
             <p>
-              The audit trail that carries the agent layer of NIS-2's 72-hour reporting duty cannot be built after the breach is discovered. It needs to exist continuously, for every agent, before any incident that might require it.
+              <strong>A record that cannot be changed quietly.</strong> An attacker who can influence an agent may also try to influence what gets logged. Records that are chained and signed when they are written make any later change detectable.
+            </p>
+            <p>
+              None of this can be added after an incident has been discovered. The record has to exist before you need it.
             </p>
 
             <!-- KYDE callout -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Kyde sits in the data path of every AI agent action routed through it, capturing causal context, chaining every record at the point of capture, and producing the tamper-evident audit trail that behavioral detection and the agent layer of NIS-2 reporting both need. Signing each entry with your own Ed25519 keys is an Enterprise capability. Before any incident.
+                Kyde Score learns each agent's normal behavior from its own telemetry and alerts you when a run departs from it. Kyde Control sits in the path between your agents and your systems, holds actions that don't fit until a person releases them, and keeps a signed record of what each agent did.
               </p>
               <button
                 onclick="openModal()"
@@ -183,7 +137,7 @@ import LegalNotice from '../../components/LegalNotice.astro';
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Standards covered</p>
               <div class="space-y-2">
-                {["OWASP Top 10 for Agentic Applications 2026", "ASI01, Agent Goal Hijacking", "NIS-2, Art. 23 Incident Reporting"].map((r) => (
+                {["OWASP Top 10 for Agentic Applications 2026", "ASI01, Agent Goal Hijack", "NIS-2, Art. 23 Incident Reporting"].map((r) => (
                   <p class="font-mono text-xs text-ink-1">{r}</p>
                 ))}
               </div>
@@ -191,7 +145,7 @@ import LegalNotice from '../../components/LegalNotice.astro';
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Key stat</p>
               <p class="font-mono text-sm text-ink-0 font-bold">48%</p>
-              <p class="text-xs text-ink-1 mt-1">of security professionals name agentic AI as the #1 attack vector for 2026</p>
+              <p class="text-xs text-ink-1 mt-1">of security professionals in a Dark Reading readership poll ranked agentic AI as the top attack vector for 2026</p>
             </div>
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>

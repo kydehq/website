@@ -6,8 +6,8 @@ import LegalNotice from '../../components/LegalNotice.astro';
 ---
 
 <Base
-  title="When Four Regulators Speak in Unison, the Message Is Not Optional, KYDE"
-  description="The UK's DRCF, CMA, FCA, ICO, and Ofcom, co-signed a foresight paper on agentic AI. The paper carries a diplomatic disclaimer that it should not be read as policy. Read it as policy."
+  title="What the UK's Digital Regulators Said About Agentic AI, KYDE"
+  description="The DRCF, which brings together the CMA, FCA, ICO and Ofcom, published a foresight paper on agentic AI. It is explicitly not policy, but it shows where four UK regulators see risk and why deploying organizations should keep their own record of what their agents do."
   datePublished="2026-05-02"
 >
   <Navbar />
@@ -30,7 +30,7 @@ import LegalNotice from '../../components/LegalNotice.astro';
 
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
-            When Four Regulators Speak in Unison, the Message Is Not Optional
+            What the UK's Digital Regulators Said About Agentic AI
           </h1>
           <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
             <span>Regulatory</span>
@@ -53,115 +53,64 @@ import LegalNotice from '../../components/LegalNotice.astro';
           <article class="prose-kyde min-w-0">
 
             <p>
-              On 31 March 2026, four UK regulators did something they rarely do: they co-signed a warning.
+              On 31 March 2026, the Digital Regulation Cooperation Forum published a foresight paper titled <a href="https://www.drcf.org.uk/" target="_blank" rel="noopener">&ldquo;The Future of Agentic AI&rdquo;</a>. The DRCF brings together four UK regulators: the Competition and Markets Authority, the Financial Conduct Authority, the Information Commissioner's Office and Ofcom. The paper sets out how they see the risks of AI agents across competition, financial services, data protection and online safety.
             </p>
             <p>
-              The Digital Regulation Cooperation Forum, comprising the Competition and Markets Authority, the Financial Conduct Authority, the Information Commissioner's Office, and Ofcom, published a foresight paper titled "The Future of Agentic AI," setting out the UK's most detailed cross-regulatory assessment yet of autonomous AI systems.
-            </p>
-            <p>
-              The paper carries a diplomatic disclaimer that it should not be read as policy. Read it as policy.
-            </p>
-            <p>
-              The DRCF emphasizes that agentic AI does not fall outside existing legal frameworks, and that obligations on transparency, fairness, accountability, and consumer outcomes continue to apply. When four regulators issue the same warning at the same time, the direction of travel is no longer ambiguous.
+              The paper is explicit that it is not policy. It &ldquo;should not be taken as an indication of current or future policy by any of the member regulators.&rdquo; We take that at face value. It is still worth reading closely, because it shows what four regulators with overlapping remits will pay attention to as agents move from pilots into production.
             </p>
 
-            <h2>The one sentence that changes everything</h2>
+            <h2>Existing law already applies</h2>
             <p>
-              Buried in the diplomatic language of a foresight paper is a statement with immediate operational consequences.
+              The paper's central position is that agents do not sit outside existing UK law. Data protection, consumer protection, competition law, financial services rules and online safety duties continue to apply when an agent does the work instead of a person.
             </p>
             <p>
-              The DRCF makes one point unambiguous: organizational responsibility for legal compliance is unchanged regardless of how autonomously an AI agent acts. "My agent did it" is not a defense any UK regulator will accept.
-            </p>
-            <p>
-              This single sentence reframes every AI agent deployment decision made in 2026. The autonomy of the agent does not transfer the accountability of the organization. When the agent violates a rule, when it processes data it shouldn't, when it makes a decision it wasn't authorized to make, when it manipulates a consumer outcome, the company is liable. Not the model. Not the provider. The company.
-            </p>
-            <p>
-              Most enterprises deploying AI agents today have not yet absorbed this. Their governance programs treat agents as software to be configured and monitored. The DRCF is treating agents as organizational actors whose behavior is attributable to the organizations that deploy them, at the same legal standard as the behavior of human employees.
+              The paper also notes that accountability can be fragmented, split across model providers, system providers and the organizations that deploy agents. Our practical reading for a deploying organization is a cautious one: don't assume that someone else in the chain carries the responsibility for what your agent does.
             </p>
 
-            <h2>The seven risks the DRCF expects every organization to answer for</h2>
+            <h2>The themes worth noting</h2>
             <p>
-              The paper identifies seven categories of compliance risk businesses now face as AI agents move from pilots into operations.
+              Commentary from law firms such as <a href="https://www.lewissilkin.com/insights/2026/04/09/the-drcfs-quiet-warning-to-businesses-on-agentic-ai-102momm" target="_blank" rel="noopener">Lewis Silkin</a> draws out several themes from the paper that matter for anyone deploying agents:
+            </p>
+            <ul>
+              <li><span><strong>Data minimisation.</strong> Agents should work on a need-to-know basis, in line with the UK GDPR's data minimisation and data protection by design principles.</span></li>
+              <li><span><strong>Consent and delegation.</strong> People should understand what they have consented to, or delegated, when an agent acts for them.</span></li>
+              <li><span><strong>Meaningful human involvement.</strong> Where a decision has legal or similarly significant effects, human involvement has to be real, not nominal.</span></li>
+              <li><span><strong>Algorithmic collusion.</strong> Pricing agents may converge on higher prices without anyone instructing them to, which creates competition risk.</span></li>
+              <li><span><strong>Overlapping remits.</strong> A single deployment, such as a retail shopping assistant, can raise questions for all four regulators at once.</span></li>
+            </ul>
+
+            <h2>What the paper does not do</h2>
+            <p>
+              It does not create new obligations, and it does not announce enforcement plans. As Lewis Silkin observes, the next steps it proposes amount mostly to further research and continued dialogue. Anyone presenting the paper as new regulation is overstating it.
             </p>
 
-            <div class="not-prose my-5 border border-line-0">
-              {[
-                { label: "Accountability", desc: "When multiple model providers, system integrators, and deploying organizations all contribute to an agent's behavior, the DRCF's answer is clear: the deploying organization is responsible. The complexity of the supply chain does not dilute accountability." },
-                { label: "Data", desc: "Agents that access data they don't need for the task at hand create GDPR exposure. The data minimization principle applies to agents with the same force it applies to human employees, and most agent deployments have no mechanism to enforce it in real time." },
-                { label: "Injection", desc: "External inputs, emails, documents, web content, can redirect agent behavior in ways the deploying organization never intended. The organization that deployed an agent without injection-resistant architecture is liable for the result." },
-                { label: "Consent", desc: "When an agent executes a sequence of decisions that were never explicitly authorized, booking a service, committing to a contract, making a payment, the consumer's right to informed consent has been bypassed." },
-                { label: "Collusion", desc: "Agents optimizing for commercial objectives in a manner that leads to worse personal outcomes for consumers, including implicit coordination on pricing without explicit human instruction, create competition law exposure." },
-                { label: "Dark patterns", desc: "Agents optimized for engagement or conversion at the expense of consumer outcomes fall under existing consumer protection frameworks. The FCA Consumer Duty applies." },
-                { label: "Osa", desc: "An agentic search or comparison tool may qualify as a regulated search service under the Online Safety Act, with compliance obligations the deploying organization may not have anticipated." },
-              ].map(({ label, desc }) => (
-                <div class="grid grid-cols-[90px_1fr] border-b border-line-0 last:border-b-0">
-                  <div class="px-4 py-3 font-mono text-[11px] font-bold text-ink-0 uppercase tracking-wide border-r border-line-0 flex items-start pt-3.5">
-                    {label}
-                  </div>
-                  <div class="px-4 py-3 text-sm text-ink-1 leading-relaxed">
-                    {desc}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <h2>The "Many Hands" problem is an audit trail problem</h2>
+            <h2>Why your own record matters</h2>
             <p>
-              The DRCF paper dedicates significant attention to what it calls the "Many Hands" problem, the diffusion of accountability across model providers, platforms, integrators, and deploying organizations.
-            </p>
-            <p>
-              When something goes wrong, regulators expect to see who authorized what, when, against which data. Most organizations cannot produce that record for AI agent activity at the level of detail enforcement will demand.
-            </p>
-            <p>
-              This is not a documentation problem. It is an architecture problem.
-            </p>
-            <p>
-              Producing the record that regulators expect requires that the record exists, continuously, for every agent action, in a form where any alteration after the fact is detectable. It requires that every agent action is attributed to a specific agent identity. That every tool call captures the causal context, what the agent was shown, what it retrieved, why it decided what it decided. And that the record is cryptographically signed at the point of capture, so that its integrity can be verified independently of any vendor's infrastructure.
-            </p>
-            <p>
-              Most enterprise agent deployments today rely on provider-native logs. Those logs are self-reported by the provider, stored on infrastructure the provider controls, and signed by the provider's own keys. They are vendor reports. When the FCA or ICO asks for a complete, verifiable account of what an agent did, a vendor report is not an independent audit trail.
-            </p>
-            <p>
-              The "Many Hands" problem is solved by removing the ambiguity: one governance layer, external to every agent and every provider, that captures and signs every action routed through it in a single hash-chained record. Not many hands. One record.
+              If responsibility can be split across several parties, the organization deploying an agent needs its own account of what that agent did: which data it accessed, which actions it took and on whose authority. Logs kept by a model provider are useful, but they are kept by the provider, on the provider's infrastructure. When a regulator asks questions, an organization that can produce its own record is in a stronger position than one that has to request it from a vendor.
             </p>
 
-            <h2>Why this matters beyond the UK</h2>
+            <h2>Practical steps</h2>
             <p>
-              All DRCF members share the view that existing UK legal frameworks apply to agentic AI in any event, and businesses must adapt their governance accordingly.
+              <strong>Map each agent to the four remits.</strong> For every agent in production, note whether it touches personal data, consumers, pricing or competition, financial services or online content. That tells you which regulators may care about it.
             </p>
             <p>
-              The UK is not legislating alone. The seven risks the DRCF identifies map almost exactly to the requirements of the EU AI Act, GDPR Article 22, NIS-2, DORA, and ISO/IEC 42001. This is not coincidence, it is regulatory convergence across jurisdictions reaching the same conclusions from different starting points.
+              <strong>Test your record.</strong> Pick an agent action from the last 90 days and try to reconstruct it from start to finish without asking a provider for help. Where that fails, you have found your gap.
             </p>
             <p>
-              An enterprise that addresses the DRCF's seven risks has, in the process, built much of the evidence the agent layer needs for the EU AI Act's high-risk logging duties, DORA's independent audit trail obligations, and NIS-2's forensic evidence requirements. The frameworks are converging. The evidence that serves one serves most of the others.
+              <strong>Make human oversight real.</strong> For consequential decisions, check that a person can actually review and change the outcome, and that this happens in practice.
             </p>
             <p>
-              The practical consequence: organizations that build agent governance to this standard now are not building for one jurisdiction. They are building for the regulatory baseline that is emerging globally.
-            </p>
-
-            <h2>What to do before enforcement begins</h2>
-            <p>Three concrete actions before Q3 2026:</p>
-            <p>
-              <strong>Classify your agents against the seven risks.</strong> The DRCF has provided the risk register. For each agent in production, answer: which of the seven risks apply? Which can you demonstrate you have addressed? Which cannot you demonstrate? The gap between those two lists is your regulatory exposure.
+              <strong>Review pricing agents.</strong> If agents set or recommend prices, look at how they behave in aggregate, not only one decision at a time.
             </p>
             <p>
-              <strong>Audit your audit trail.</strong> Can you produce, for any agent action in the past 90 days, a complete and verifiable record of what the agent processed, what it decided, what systems it touched, and under what authorization? If the answer requires calling your LLM provider for logs, you do not have an independent audit trail. You have a vendor dependency.
-            </p>
-            <p>
-              <strong>Move enforcement outside the agent.</strong> Identity controls, model guardrails, and prompt filters all share the same vulnerability: they can be bypassed by a sufficiently capable or sufficiently compromised agent. Policy enforcement that lives inside the agent is subject to the agent's own failure modes. The governance layer that holds up under the DRCF's accountability framework must sit outside the agent, in the data path, at the point of action, independent of any single vendor's infrastructure.
-            </p>
-            <p>
-              The DRCF has provided a free risk register from regulators who have both the means and the motivation to enforce it. Three of the four DRCF members, the FCA, ICO, and CMA, have active enforcement powers and have used them recently.
-            </p>
-            <p>
-              The foresight paper is not policy today. The enforcement actions that follow it will be.
+              The paper is not policy. It is a clear look at what four UK regulators are watching, and that makes it a useful checklist.
             </p>
 
             <!-- KYDE callout -->
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Kyde is behavioral scoring for AI agents. It sits between your agent fleet and the systems your agents act on, capturing every action routed through it in a hash-chained record that is independent of every LLM provider. Signing each entry with your own Ed25519 keys is an Enterprise capability. One governance layer. One record. The "Many Hands" problem has one answer.
+                Kyde Score learns how each agent behaves from its own telemetry and alerts you when that changes. Kyde Control adds a gateway between your agents and your systems that holds unusual actions until a person releases them, and keeps a signed record of what each agent did, separate from your model providers.
               </p>
               <button
                 onclick="openModal()"
@@ -184,9 +133,9 @@ import LegalNotice from '../../components/LegalNotice.astro';
               </div>
             </div>
             <div class="border border-line-0 bg-bg-1 p-6">
-              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Frameworks referenced</p>
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-4">Areas of law</p>
               <div class="space-y-2">
-                {["GDPR Art. 22", "FCA Consumer Duty", "UK Online Safety Act", "NIS-2 · DORA · EU AI Act"].map((r) => (
+                {["UK GDPR", "Consumer law", "Competition law", "Online safety duties"].map((r) => (
                   <p class="font-mono text-xs text-ink-1">{r}</p>
                 ))}
               </div>
