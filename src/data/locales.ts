@@ -80,6 +80,8 @@ export const LOCALE_PAIRS: LocalePair[] = [
     de: "de/wissen/haftung-ki-agenten",
     sourceHash: "f2484889bf04eab6",
     note: "Übertragung des Essays zu Haftung und Nachweis. Die Produkthaftungsrichtlinie wird bis Dezember 2026 in deutsches Recht umgesetzt, das Thema wird also auf Deutsch gesucht.",
+  },
+  {
     en: "agent-prompt-injection-detection",
     de: "de/wissen/prompt-injection-erkennen",
     sourceHash: "3e8e25114d8802eb",
