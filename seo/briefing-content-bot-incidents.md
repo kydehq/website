@@ -36,7 +36,7 @@ Leser sind Entwickler, die Agenten in Produktion betreiben, und Security-Leute, 
 5. **Was du heute tun kannst:** zwei bis vier konkrete Schritte, die auch ohne Kyde helfen.
 6. **Ein Absatz zu Kyde**, klar getrennt vom Artikel und ohne Superlative. Siehe unten.
 
-Am Ende stehen die Quellen als Liste, jede mit vollständiger URL. Im Entwurf folgt außerdem ein Prüfprotokoll: jede Tatsache mit Quelle.
+Quellen werden direkt im Text verlinkt, am passenden Wort ("WorkOS said in an update to its security bulletin"). Keine Fußnoten-Nummern wie [1], die springen auf der Website ins Leere. Am Ende stehen die Quellen zusätzlich als Liste, jede mit vollständiger URL. Im Entwurf folgt außerdem ein Prüfprotokoll: jede Tatsache mit Quelle.
 
 Einschränkungen gehören einmal an die richtige Stelle, nicht an jeden Absatz. Was unbekannt ist, sagt der Text in einem Satz. Die Feinheiten (VERIFIED, INFERENCE, UNKNOWN) stehen im Prüfprotokoll, nicht im Artikel. Sätze wie "This is an operational recommendation, not a claim about…" fliegen raus.
 
