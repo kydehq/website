@@ -47,7 +47,7 @@ export const ARTICLES: Article[] = [
     {
         category: "Insurance · Liability · Complete Guide",
         title: "AI Agent Insurance: Liability, Coverage, and the Evidence Infrastructure",
-        summary: "How liability is assigned under EU law (AI Act, PLD 2024, DORA), what AI agent coverage exists today (AIUC-1, Munich Re aiSure, HSB), why certification alone isn't enough, and what behavioral monitoring infrastructure makes AI agents insurable, including the four evidence requirements every enterprise must meet.",
+        summary: "How liability is assigned under EU law (AI Act, PLD 2024, DORA), what AI agent coverage exists today (AIUC-1, Munich Re aiSure, HSB), why certification alone isn't enough, and what kind of behavioral record makes AI agents easier to insure.",
         href: "/ai-agent-insurance",
         readTime: "16 min read",
         live: true,
@@ -63,11 +63,11 @@ export const ARTICLES: Article[] = [
     },
     {
         category: "Essay · Regulatory · Part II of III",
-        title: "The Law Has Assigned Liability. Nobody Can Yet Prove What Happened.",
-        summary: "Three EU frameworks, EU AI Act, PLD 2024, DORA, have assigned liability for AI agent failures. The DRCF 'Many Hands' problem, AIUC-1's temporal limits, and the four evidence requirements (complete, continuous, independent, tamper-evident) that liability adjudication actually requires.",
+        title: "Who Is Liable When an AI Agent Fails, and What It Takes to Show What Happened",
+        summary: "The EU AI Act, the revised Product Liability Directive and DORA each shape who answers for AI agent failures. None of them says how to show what an agent actually did. This essay looks at that gap.",
         href: "/blog/confidence-infrastructure-part-2",
         date: "2026-06-29",
-        readTime: "7 min read",
+        readTime: "8 min read",
         live: true,
     },
     {
@@ -82,7 +82,7 @@ export const ARTICLES: Article[] = [
     {
         category: "Governance · Complete Guide",
         title: "AI Agent Governance: The Complete Enterprise Guide",
-        summary: "What AI agent governance is, why existing approaches (provider controls, application guardrails, framework observability) fall short, the four structural requirements (identity, scope, enforcement, ledger), and what governance infrastructure actually has to do.",
+        summary: "What AI agent governance is, why existing approaches (provider controls, application guardrails, framework observability) fall short, four requirements (identity, scope, enforcement, ledger), what EU and UK regulators expect, and what governance infrastructure needs to do.",
         href: "/ai-agent-governance",
         readTime: "14 min read",
         live: true,
