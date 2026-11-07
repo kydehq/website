@@ -1,0 +1,199 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /llm-as-judge-vs-deterministic-detectors. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="LLM-as-a-Judge oder deterministische Detektoren für KI-Agenten, Kyde"
+  description="Zwei Wege, automatisch zu entscheiden, ob sich ein KI-Agent richtig verhalten hat: ein weiteres Modell fragen oder an der Historie des Agenten messen. Ein Vergleich nach Wiederholbarkeit, Kosten, Datenschutz und Angriffsfläche."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technik</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            LLM-as-a-Judge oder deterministische Detektoren für KI-Agenten
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Technik</span>
+            <span>·</span>
+            <span>7 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Zheng et al. 2023 (MT-Bench), Detektoren gegen den Code von Kyde Score" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Ob ein KI-Agent sich so verhalten hat, wie er sollte, lässt sich auf zwei verbreitete Arten automatisch entscheiden. Die eine fragt ein weiteres Modell: Man zeigt ihm den Lauf und lässt es bewerten. Die andere misst: Sie vergleicht den Lauf mit der Historie des Agenten, mit festen Statistiken und Regeln. Beide sind im Einsatz, und sie können Verschiedenes gut.
+            </p>
+            <p>
+              Diese Seite vergleicht sie an den Eigenschaften, die für die Überwachung von Agenten im Betrieb zählen: Wiederholbarkeit, Kosten, Datenschutz, Angriffsfläche und was jede Methode überhaupt sehen kann.
+            </p>
+
+            <h2>Wie ein LLM-Judge arbeitet</h2>
+            <p>
+              Ein LLM-Judge ist ein Modell, das per Prompt Ausgaben bewertet, oft anhand eines Bewertungsschemas: War die Antwort richtig, hilfreich, sicher, bei der Aufgabe? Das ist flexibel. Ein Judge kann offene Qualität beurteilen, die keine einfache Kennzahl erfasst, und er braucht keine Historie, um anzufangen.
+            </p>
+            <p>
+              Seine Schwächen sind dokumentiert. Zheng und Kollegen haben 2023 in dem Paper, das MT-Bench eingeführt hat, gezeigt, dass LLM-Judges die zuerst gezeigte Antwort bevorzugen, längere Antworten bevorzugen und dazu neigen, Ausgaben der eigenen Modellfamilie besser zu bewerten. Mit sorgfältigen Prompts lässt sich das verringern, verschwinden tut es nicht.
+            </p>
+
+            <h2>Wo der Judge in der Überwachung an Grenzen stößt</h2>
+            <ul>
+              <li><span><strong>Wiederholbarkeit.</strong> Modellausgaben werden gesampelt. Derselbe Lauf kann an verschiedenen Tagen verschiedene Bewertungen bekommen, und selbst bei Temperatur null garantieren Anbieter keine identische Ausgabe. Ein Score, den man nicht reproduzieren kann, ist in einem Review oder Vorfallsbericht schwer zu verteidigen.</span></li>
+              <li><span><strong>Kosten und Latenz.</strong> Jeder bewertete Lauf ist mindestens ein weiterer Modellaufruf. Bei einem viel genutzten Agenten kann der Judge einen spürbaren Teil dessen kosten, was der Agent selbst kostet.</span></li>
+              <li><span><strong>Inhalte.</strong> Um einen Lauf zu bewerten, muss der Judge ihn lesen: Prompts, abgerufene Dokumente, Antworten. Diese Inhalte gehen an ein weiteres Modell und oft an einen weiteren Anbieter.</span></li>
+              <li><span><strong>Angriffsfläche.</strong> Ein Judge liest dasselbe Material wie der Agent. Text, der den Agenten manipulieren soll, lässt sich auch so schreiben, dass er den Judge manipuliert.</span></li>
+            </ul>
+
+            <h2>Wie deterministische Detektoren arbeiten</h2>
+            <p>
+              Ein deterministischer Detektor wendet eine feste Regel oder Statistik auf das an, was der Agent getan hat. Hat er ein Tool aufgerufen, das er für diese Aufgabe nie benutzt hat? Hat sich der Aufrufmix gegenüber seiner Baseline abrupt verschoben? Ist die Verteilung über die letzten Läufe gedriftet? Hat er denselben Aufruf mehrmals hintereinander wiederholt?
+            </p>
+            <p>
+              Dieselbe Eingabe ergibt immer dasselbe Ergebnis. Wer Daten und Methode hat, kann die Rechnung wiederholen und kommt auf dieselbe Zahl. Die Detektoren arbeiten mit Metadaten (welches Tool, in welcher Reihenfolge, in welcher Sitzung) und müssen keine Inhalte lesen. Sie sind günstig genug, um bei jedem Aufruf zu laufen.
+            </p>
+
+            <h2>Wo deterministische Detektoren an Grenzen stoßen</h2>
+            <p>
+              Sie sehen nur, was in den Daten steht. Ein Detektor auf Tool-Aufrufen erkennt nicht, ob eine gut formulierte Antwort sachlich falsch ist oder eine Zusammenfassung das Wesentliche verfehlt. Statistische Detektoren brauchen eine Baseline aus normalen Läufen, bevor sie etwas aussagen, auch wenn einfache Regeln wie eine Schleife oder ein nie gesehenes Tool ab dem ersten Lauf greifen. Und Schwellen wollen gewählt und abgestimmt werden, das ist Ingenieursarbeit.
+            </p>
+
+            <h2>Was wofür</h2>
+            <p>
+              Beide beantworten verschiedene Fragen, viele Teams werden also beide wollen. Ein Judge ist das bessere Werkzeug, um offene Qualität offline an Stichproben zu bewerten: Evaluierung vor einem Release, Stichproben, Forschung. Deterministische Erkennung ist das bessere Werkzeug für die laufende Überwachung im Betrieb, wo jeder Lauf geprüft wird, das Ergebnis reproduzierbar sein muss und Inhalte bleiben sollen, wo sie sind.
+            </p>
+            <p>
+              Nicht allein auf einen Judge verlassen würden wir uns dort, wo etwas folgt: bei Alarmen, die jemanden wecken, bei Scores, die steuern, was ein Agent darf, und bei Belegen, die in einem Vorfallsbericht landen. Dort ist eine Zahl, die jedes Mal gleich herauskommt, mehr wert als ein differenziertes Urteil, das beim nächsten Mal anders ausfallen kann.
+            </p>
+
+            <h2>Wie Kyde vorgeht</h2>
+            <p>
+              Kyde Score nutzt ausschließlich deterministische Detektoren: CUSUM für abrupte Wechsel, die Jensen-Shannon-Divergenz über Zeitfenster für schleichende Drift, einen Vertrag je Aufgabe für nie gesehene Tools und eine Regel für wiederholte identische Aufrufe. Es gibt kein Modell in der Schleife, und Prompt-Inhalte werden nicht gelesen. Die Drift-Detektoren sind <a href="https://github.com/kydehq/behavioral-drift-detection" target="_blank" rel="noopener">Open Source</a>, jeder kann sie nachrechnen. Der Aufgabenvertrag ist nicht öffentlich.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score bewertet jeden Lauf von 0 bis 100 mit deterministischen Detektoren: CUSUM, Jensen-Shannon-Divergenz, Aufgabenvertrag und Schleifenregel. Gleiche Eingabe, gleicher Score. Kein LLM in der Schleife, keine Prompt-Inhalte.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift bei AI Agents</span>
+                </a>
+                <a href="/de/wissen/prompt-injection-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Indirekte Prompt Injection erkennen</span>
+                </a>
+                <a href="/de/wissen/rogue-ai-agents-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Rogue AI Agents erkennen</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/llm-as-judge-vs-deterministic-detectors" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

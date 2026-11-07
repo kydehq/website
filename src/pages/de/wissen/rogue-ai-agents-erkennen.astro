@@ -1,0 +1,187 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /rogue-ai-agents. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="Rogue AI Agents: gekaperte und entgleiste KI-Agenten erkennen, Kyde"
+  description="KI-Agenten kommen auf vier typische Arten vom Kurs ab: gekapert per Prompt Injection, in einer Schleife hängen geblieben, nach einem Modellwechsel gedriftet oder mit zu weiten Rechten. Wie das in den Tool-Aufrufen aussieht und wie man es erkennt und stoppt."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Sicherheit</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Rogue AI Agents: gekaperte und entgleiste KI-Agenten erkennen
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Sicherheit</span>
+            <span>·</span>
+            <span>5 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="OWASP Top 10 for Agentic Applications, Erkennungslogik gegen den Code von Kyde Score" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              „Rogue“ klingt dramatisch, die Wirklichkeit ist es meist nicht. Ein Agent gerät außer Kontrolle, wenn er etwas anderes tut als das, wofür er eingesetzt wurde. Manchmal steckt ein Angreifer dahinter. Öfter sind es ein Modell-Update, ein defektes Tool oder geänderte Daten. Das Ergebnis ist dasselbe: Ein Agent mit echten Berechtigungen handelt außerhalb seiner Aufgabe, und meist merkt es niemand sofort.
+            </p>
+            <p>
+              Diese Seite ordnet die häufigsten Arten, wie Agenten vom Kurs abkommen, beschreibt, wie jede in den Tool-Aufrufen aussieht, und was es braucht, um sie zu bemerken und zu stoppen.
+            </p>
+
+            <h2>Vier Arten, vom Kurs abzukommen</h2>
+            <p>
+              <strong>Gekapert.</strong> Anweisungen, versteckt in einer Webseite, einer Mail oder einer Datei, lenken den Agenten auf das Ziel eines Angreifers um. OWASP nennt Agent Goal Hijack an erster Stelle seiner Top 10 für agentische Anwendungen. In den Tool-Aufrufen zeigt sich das oft als Tool, das der Agent für diese Aufgabe nie benutzt hat. <a href="/de/wissen/prompt-injection-erkennen">Indirekte Prompt Injection erkennen →</a>
+            </p>
+            <p>
+              <strong>Hängen geblieben.</strong> Der Agent wiederholt denselben Aufruf ohne Fortschritt: ein scheiterndes Tool, ein Ergebnis, das er nicht als erledigt erkennt, ein Plan, der sich im Kreis dreht. Jede Wiederholung kostet Geld und kann echte Aktionen verdoppeln. <a href="/de/wissen/agent-endlosschleife-erkennen">KI-Agenten in der Endlosschleife erkennen →</a>
+            </p>
+            <p>
+              <strong>Gedriftet.</strong> Niemand hat angegriffen, aber der Agent verhält sich anders als letzten Monat. Ein Anbieter hat das Modell aktualisiert, ein Prompt wurde geändert, eine Datenquelle hat sich verschoben. Jeder einzelne Lauf wirkt plausibel, die Änderung zeigt sich erst im Vergleich mit der Historie des Agenten. <a href="/de/wissen/behavioral-drift">Behavioral Drift bei AI Agents →</a>
+            </p>
+            <p>
+              <strong>Übergriffig.</strong> Der Agent tut genau, was ihm gesagt wurde, mit Berechtigungen, die er nicht hätte haben sollen. Das ist weniger ein Erkennungs- als ein Designproblem: Minimale Rechte auf Tools und Daten begrenzen, was jeder der drei anderen Fehler anrichten kann.
+            </p>
+
+            <h2>Was sie gemeinsam haben</h2>
+            <p>
+              In allen vier Fällen ändern sich die Aktionen des Agenten, bevor jemand einen Bericht darüber liest. Welche Tools er aufruft, in welcher Reihenfolge, wie oft und mit welchen Argumenten, ist in Telemetrie sichtbar, die die meisten Agenten schon erzeugen. Damit ist die Abfolge der Aktionen der praktischste Ort zum Hinsehen, und das geht, ohne Prompts oder Antworten zu lesen.
+            </p>
+            <p>
+              Ob eine Abfolge ungewöhnlich ist, muss am Agenten selbst gemessen werden. Wir finden, das sollte deterministisch geschehen, als reproduzierbare Zahl statt als Meinung eines zweiten Modells. <a href="/de/wissen/llm-as-judge-vs-deterministische-detektoren">LLM-as-a-Judge oder deterministische Detektoren →</a>
+            </p>
+
+            <h2>Bemerken ist die halbe Arbeit</h2>
+            <p>
+              Ein Detektor sagt, dass sich etwas geändert hat. Bei manchen Agenten reicht das: Jemand sieht nach und behebt es. Bei Agenten, die Geld bewegen, Datensätze ändern oder mit Kunden sprechen, kann die Zeit zwischen Alarm und Reaktion zu lang sein. Sie brauchen eine Möglichkeit, den Agenten zu stoppen, die nicht davon abhängt, dass der Agent mitspielt. <a href="/de/wissen/kill-switch-ki-agenten">Ein Kill Switch für KI-Agenten →</a>
+            </p>
+            <p>
+              Für Sicherheits- und Compliance-Teams wird Governance genau hier praktisch. Eine Richtlinie, die festlegt, was ein Agent darf, ist ein Anfang. Im laufenden Betrieb zu sehen, wenn er etwas anderes tut, und ihn stoppen zu können, sorgt dafür, dass die Richtlinie hält. <a href="/de/wissen/ki-agenten-governance">Governance für KI-Agenten →</a>
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score lernt aus den eigenen OpenTelemetry-Tool-Aufrufen das normale Verhalten jedes Agenten und meldet Hijacks, Schleifen und Drift mit deterministischen Detektoren. Kyde Control ergänzt ein Gateway in Ihrer Umgebung, das einen Agenten oder ein Tool sperren kann.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/prompt-injection-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Indirekte Prompt Injection erkennen</span>
+                </a>
+                <a href="/de/wissen/agent-endlosschleife-erkennen" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>KI-Agenten in der Endlosschleife erkennen</span>
+                </a>
+                <a href="/de/wissen/kill-switch-ki-agenten" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Ein Kill Switch für KI-Agenten</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/rogue-ai-agents" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>
