@@ -1,0 +1,204 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /blog/drcf-agentic-ai-foresight. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="Was die britischen Digitalaufsichten zu Agentic AI sagen, Kyde"
+  description="Das DRCF, in dem CMA, FCA, ICO und Ofcom zusammenarbeiten, hat ein Foresight Paper zu Agentic AI veröffentlicht. Es ist ausdrücklich keine Politik, zeigt aber, wo vier britische Aufsichten Risiken sehen und warum einsetzende Organisationen eine eigene Aufzeichnung führen sollten."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatorik</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Was die britischen Digitalaufsichten zu Agentic AI sagen
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Regulatorik</span>
+            <span>·</span>
+            <span>5 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Aussagen zum Papier über die Kommentare von Lewis Silkin und ICAEW, das Papier selbst war für automatische Abrufe gesperrt" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Am 31. März 2026 hat das Digital Regulation Cooperation Forum ein Foresight Paper mit dem Titel <a href="https://www.drcf.org.uk/" target="_blank" rel="noopener">„The Future of Agentic AI“</a> veröffentlicht. Im DRCF arbeiten vier britische Aufsichtsbehörden zusammen: die Competition and Markets Authority, die Financial Conduct Authority, das Information Commissioner's Office und Ofcom. Das Papier beschreibt, wie sie die Risiken von KI-Agenten in Wettbewerb, Finanzdienstleistungen, Datenschutz und Online-Sicherheit sehen.
+            </p>
+            <p>
+              Das Papier stellt klar, dass es keine Politik ist. Es solle nicht als Hinweis auf die aktuelle oder künftige Politik einer der beteiligten Behörden verstanden werden. Wir nehmen das beim Wort. Lesenswert ist es trotzdem, weil es zeigt, worauf vier Behörden mit überlappenden Zuständigkeiten achten werden, wenn Agenten vom Pilotprojekt in den Betrieb wechseln.
+            </p>
+
+            <h2>Bestehendes Recht gilt bereits</h2>
+            <p>
+              Die zentrale Aussage des Papiers: Agenten stehen nicht außerhalb des geltenden britischen Rechts. Datenschutz, Verbraucherschutz, Wettbewerbsrecht, Finanzaufsicht und Pflichten zur Online-Sicherheit gelten weiter, wenn ein Agent die Arbeit erledigt statt eines Menschen.
+            </p>
+            <p>
+              Das Papier weist außerdem darauf hin, dass sich die Verantwortung verteilen kann, auf Modellanbieter, Systemanbieter und die Organisationen, die Agenten einsetzen. Unsere praktische Lesart für einsetzende Organisationen ist vorsichtig: Gehen Sie nicht davon aus, dass jemand anderes in der Kette die Verantwortung für das trägt, was Ihr Agent tut.
+            </p>
+
+            <h2>Die Themen, auf die es ankommt</h2>
+            <p>
+              Kommentare von Kanzleien wie <a href="https://www.lewissilkin.com/insights/2026/04/09/the-drcfs-quiet-warning-to-businesses-on-agentic-ai-102momm" target="_blank" rel="noopener">Lewis Silkin</a> heben mehrere Themen aus dem Papier hervor, die für jeden wichtig sind, der Agenten einsetzt:
+            </p>
+            <ul>
+              <li><span><strong>Datenminimierung.</strong> Agenten sollten nach dem Need-to-know-Prinzip arbeiten, im Einklang mit den Grundsätzen der Datenminimierung und des Datenschutzes durch Technikgestaltung der UK GDPR.</span></li>
+              <li><span><strong>Einwilligung und Delegation.</strong> Menschen sollten verstehen, wozu sie eingewilligt oder was sie delegiert haben, wenn ein Agent für sie handelt.</span></li>
+              <li><span><strong>Echte menschliche Beteiligung.</strong> Bei Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung muss die menschliche Beteiligung echt sein, nicht nur formal.</span></li>
+              <li><span><strong>Algorithmische Kollusion.</strong> Preis-Agenten können sich auf höhere Preise einpendeln, ohne dass jemand sie dazu anweist. Das schafft Wettbewerbsrisiken.</span></li>
+              <li><span><strong>Überlappende Zuständigkeiten.</strong> Ein einziger Einsatz, etwa ein Einkaufsassistent im Handel, kann Fragen für alle vier Behörden zugleich aufwerfen.</span></li>
+            </ul>
+
+            <h2>Was das Papier nicht tut</h2>
+            <p>
+              Es schafft keine neuen Pflichten und kündigt keine Durchsetzungspläne an. Wie Lewis Silkin anmerkt, bestehen die vorgeschlagenen nächsten Schritte vor allem aus weiterer Forschung und fortgesetztem Dialog. Wer das Papier als neue Regulierung darstellt, überzeichnet es.
+            </p>
+
+            <h2>Warum Ihre eigene Aufzeichnung zählt</h2>
+            <p>
+              Wenn sich Verantwortung auf mehrere Parteien verteilen kann, braucht die Organisation, die einen Agenten einsetzt, eine eigene Darstellung dessen, was dieser Agent getan hat: auf welche Daten er zugegriffen hat, welche Aktionen er ausgeführt hat und in wessen Auftrag. Protokolle eines Modellanbieters sind nützlich, werden aber vom Anbieter auf dessen Infrastruktur geführt. Stellt eine Aufsicht Fragen, ist eine Organisation mit eigener Aufzeichnung besser aufgestellt als eine, die sie erst bei einem Anbieter anfordern muss.
+            </p>
+
+            <h2>Praktische Schritte</h2>
+            <p>
+              <strong>Ordnen Sie jeden Agenten den vier Zuständigkeiten zu.</strong> Notieren Sie für jeden produktiven Agenten, ob er personenbezogene Daten, Verbraucher, Preise oder Wettbewerb, Finanzdienstleistungen oder Online-Inhalte berührt. Daraus ergibt sich, welche Behörden sich für ihn interessieren könnten.
+            </p>
+            <p>
+              <strong>Testen Sie Ihre Aufzeichnung.</strong> Wählen Sie eine Agentenaktion aus den letzten 90 Tagen und versuchen Sie, sie vollständig zu rekonstruieren, ohne einen Anbieter um Hilfe zu bitten. Wo das scheitert, liegt Ihre Lücke.
+            </p>
+            <p>
+              <strong>Machen Sie menschliche Aufsicht echt.</strong> Prüfen Sie bei folgenreichen Entscheidungen, ob ein Mensch das Ergebnis tatsächlich prüfen und ändern kann und ob das in der Praxis geschieht.
+            </p>
+            <p>
+              <strong>Prüfen Sie Preis-Agenten.</strong> Wenn Agenten Preise setzen oder empfehlen, betrachten Sie ihr Verhalten in der Summe und nicht nur Entscheidung für Entscheidung.
+            </p>
+            <p>
+              Das Papier ist keine Politik. Es ist ein klarer Blick darauf, was vier britische Aufsichtsbehörden beobachten, und damit eine nützliche Checkliste.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score lernt aus der eigenen Telemetrie, wie sich jeder Agent verhält, und meldet, wenn sich das ändert. Kyde Control ergänzt ein Gateway zwischen Ihren Agenten und Ihren Systemen, das ungewöhnliche Aktionen zurückhält, bis ein Mensch sie freigibt, und eine signierte Aufzeichnung dessen führt, was jeder Agent getan hat, getrennt von Ihren Modellanbietern.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/ki-agenten-governance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Governance für KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/haftung-ki-agenten" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Haftung bei KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/ki-agenten-kritische-infrastruktur" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>KI-Agenten in kritischer Infrastruktur</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/blog/drcf-agentic-ai-foresight" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

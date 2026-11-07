@@ -1,0 +1,270 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /ai-agent-insurance. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="KI-Agenten versichern: Haftung, Deckung und die nötige Aufzeichnung, Kyde"
+  description="Wie das EU-Recht die Haftung für KI-Agenten prägt (AI Act, Produkthaftungsrichtlinie, DORA), welche Deckungen es heute gibt (Munich Re aiSure, HSB, AIUC-1-Zertifizierung), warum Zertifizierung allein nicht reicht und welche Aufzeichnung Agenten leichter versicherbar macht."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Versicherung · Haftung</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            KI-Agenten versichern: Haftung, Deckung und die nötige Aufzeichnung
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Versicherung · Haftung</span>
+            <span>·</span>
+            <span>12 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Gesetzestexte, AIUC-1-Angaben über ElevenLabs und CSA, HSB-Produkt über Fachpresse" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              Das EU-Recht legt zunehmend fest, wer für Fehler von KI-Agenten einsteht, und Versicherer haben begonnen, das Risiko zu decken. Beides hängt davon ab, zeigen zu können, was ein Agent tatsächlich getan hat. Dieser Leitfaden erklärt, wie die Teile zusammenpassen.
+            </p>
+
+            <h2>Warum das Thema jetzt wichtig ist</h2>
+            <p>
+              KI-Agenten haben das Prototypen-Stadium hinter sich. Sie buchen Reisen, verarbeiten Rechnungen, prüfen Verträge und leiten Support-Anfragen weiter, und in vielen Abläufen prüft kein Mensch jede Aktion, bevor sie passiert.
+            </p>
+            <p>
+              Je folgenreicher die Arbeit, desto teurer die Fehler. Ein Agent, der eine betrügerische Zahlung freigibt, sich auf ein veraltetes Richtliniendokument stützt oder per Prompt Injection dazu gebracht wird, Daten preiszugeben, schafft mehr als ein technisches Problem. Irgendjemand wird gebeten werden, den Schaden zu bezahlen.
+            </p>
+            <p>
+              Daraus folgen zwei Fragen: Wer haftet, und kann jemand zeigen, was passiert ist? In der EU prägen der AI Act, die überarbeitete Produkthaftungsrichtlinie und für Finanzunternehmen DORA die Antwort. Versicherer bieten erste Deckungen an. Was in den meisten Einsätzen noch fehlt, ist eine verlässliche Aufzeichnung des Agentenverhaltens, mit der Juristen und Underwriter gleichermaßen arbeiten können.
+            </p>
+
+            <h2>Der rechtliche Rahmen</h2>
+            <p>
+              Drei EU-Regelwerke sind für die Haftung bei KI-Agenten besonders wichtig. Sie erfüllen verschiedene Aufgaben: Eines setzt Pflichten für Hochrisiko-KI, eines regelt den Ersatz von Schäden durch fehlerhafte Produkte, eines setzt Regeln zur digitalen Resilienz von Finanzunternehmen.
+            </p>
+            <p>
+              <strong>EU AI Act, Artikel 12, 14, 26.</strong> Hochrisiko-Systeme müssen Ereignisse über ihre Lebensdauer automatisch protokollieren (Art. 12) und für wirksame menschliche Aufsicht gestaltet sein (Art. 14). Betreiber müssen die automatisch erzeugten Protokolle mindestens sechs Monate aufbewahren (Art. 26). Das gilt für die Bereiche nach Anhang III, darunter Personalauswahl, Kreditwürdigkeit, die Preisgestaltung bei Lebens- und Krankenversicherungen sowie kritische Infrastruktur, ab dem 2. Dezember 2027.
+            </p>
+            <p>
+              <strong>Produkthaftungsrichtlinie (EU) 2024/2853.</strong> Sie behandelt Software einschließlich KI-Systemen als Produkt mit verschuldensunabhängiger Haftung für Schäden natürlicher Personen. Gerichte können Beklagte zur Offenlegung relevanter Beweismittel verpflichten und in bestimmten Fällen Fehlerhaftigkeit oder Kausalität vermuten, etwa wenn ein Beklagter Beweismittel nicht offenlegt oder wenn technische Komplexität den Beweis übermäßig erschwert. Mehrere haftende Wirtschaftsakteure können gesamtschuldnerisch haften. Die Mitgliedstaaten müssen die Richtlinie bis zum 9. Dezember 2026 umsetzen.
+            </p>
+            <p>
+              <strong>DORA.</strong> Gilt seit dem 17. Januar 2025 für Finanzunternehmen. Sie müssen das Risiko durch IKT-Drittdienstleister steuern (Art. 28), auch durch Modellanbieter, und vertraglich Zugangs-, Inspektions- und Prüfrechte sichern (Art. 30). Schwerwiegende IKT-Vorfälle sind schnell zu melden: eine Erstmeldung innerhalb von 4 Stunden nach der Einstufung und spätestens 24 Stunden nach Kenntnis, ein Zwischenbericht innerhalb von 72 Stunden und ein Abschlussbericht innerhalb eines Monats.
+            </p>
+            <p>
+              <strong>Verteilte Verantwortung.</strong> Das britische Digital Regulation Cooperation Forum (CMA, FCA, ICO und Ofcom) hat in seinem <a href="/de/wissen/drcf-agentic-ai">Foresight Paper zu Agentic AI</a> vom März 2026 darauf hingewiesen, dass sich die Verantwortung für das Verhalten eines Agenten auf Modellanbieter, Systemanbieter und einsetzende Organisationen verteilen kann. Das erschwert die Zuordnung eines konkreten Ergebnisses und ist ein weiterer Grund, als einsetzende Organisation eine eigene Aufzeichnung zu führen.
+            </p>
+
+            <h2>Welche Deckungen es heute gibt</h2>
+            <p>
+              Der Markt ist jung. Einige etablierte Versicherer bieten heute Produkte an, vieles andere ist noch im Entstehen.
+            </p>
+            <ul>
+              <li><span><strong>Munich Re, aiSure:</strong> Leistungsgarantie für KI-Modelle, angeboten seit 2018.</span></li>
+              <li><span><strong>HSB (Munich Re):</strong> Haftpflichtdeckung für KI-Risiken kleiner und mittlerer Unternehmen, eingeführt im März 2026 in den USA.</span></li>
+              <li><span><strong>Lloyd's-Markt:</strong> Spezialdeckungen, Bedingungen je nach Syndikat.</span></li>
+              <li><span><strong>Parametrische Strukturen:</strong> Auszahlung bei vorab definierten Leistungs- oder SLA-Schwellen, im Entstehen.</span></li>
+              <li><span><strong>Cyber-Versicherer:</strong> Cyber-Policen und KI-Erweiterungen für Incident Response und Betriebsunterbrechung, je nach Versicherer unterschiedlich.</span></li>
+            </ul>
+            <p>
+              Eine Entwicklung, die sich zu beobachten lohnt, sind <strong>parametrische Deckungen</strong>. Klassische Haftpflichtdeckung verlangt den Nachweis, dass ein bestimmtes System einen bestimmten Schaden verursacht hat, was schwer ist, wenn mehrere Parteien zum Verhalten eines Agenten beitragen. Eine parametrische Police zahlt stattdessen, wenn eine vorab definierte Bedingung eintritt, etwa wenn die Leistung unter eine Schwelle fällt oder ein SLA verletzt wird, ohne Streit über die Kausalität.
+            </p>
+            <p>
+              Diese Struktur passt gut zu KI-Agenten, vorausgesetzt, beide Seiten vertrauen der Messung. Der Versicherer muss nicht rekonstruieren, was passiert ist. Er muss prüfen, ob die überwachte Kennzahl die vereinbarte Schwelle überschritten hat, und dafür braucht es durchgehendes und unabhängiges Monitoring.
+            </p>
+
+            <h2>Die Zertifizierungsebene: AIUC-1</h2>
+            <p>
+              AIUC-1 ist ein Zertifizierungsstandard für KI-Agenten, oft als SOC 2 für Agenten beschrieben. Er wurde mit technischen Beiträgen unter anderem von Cisco, der Cloud Security Alliance, Orrick und MITRE entwickelt und gibt Einkaufsteams und Versicherern ein geprüftes Signal dazu, wie ein Agent gebaut und getestet ist. Seine Anforderungen sind in sechs Bereiche gegliedert: Datenschutz, Sicherheit, Safety, Zuverlässigkeit, Verantwortlichkeit und Gesellschaft.
+            </p>
+            <ul>
+              <li><span>Rund 50 Anforderungen in sechs Bereichen (die Zertifizierung von ElevenLabs nennt 51), vierteljährlich aktualisiert.</span></li>
+              <li><span>Das Update für Q2 2026 hat Kontrollen für MCP-Sicherheit und Agenten-Identität ergänzt.</span></li>
+              <li><span>Zertifikate gelten zwölf Monate, mit vierteljährlichen technischen Tests, um sie zu behalten.</span></li>
+              <li><span>ElevenLabs beschreibt sich als erstes Voice-AI-Unternehmen mit AIUC-1-Zertifizierung, verbunden mit einer KI-Versicherung.</span></li>
+            </ul>
+
+            <h2>Warum Zertifizierung allein nicht reicht</h2>
+            <p>
+              Zertifizierung beantwortet eine Frage: Hat dieses System den Standard zum Zeitpunkt des Tests erfüllt? Für herkömmliche Software reicht das oft, weil sich Systeme in geplanten Release-Zyklen ändern und der Abstand zwischen Audit und heute klein bleibt.
+            </p>
+            <p>
+              KI-Agenten ändern sich häufiger und weniger sichtbar. Das zugrunde liegende Modell wird aktualisiert, <a href="/de/wissen/behavioral-drift">Behavioral Drift</a> baut sich über die Zeit auf, und neue Angriffstechniken tauchen auf, die das Audit nicht getestet hat. Ein im Februar zertifizierter Agent kann im Juni ein spürbar anderes Risiko tragen, ohne dass ein einzelner Fehler passiert ist.
+            </p>
+            <p>
+              AIUC-1 trägt dem mit vierteljährlichen Tests Rechnung. Auch ein vierteljährlicher Test ist aber eine Momentaufnahme eines Systems, das ständig läuft. Er zeigt, wie sich das System am Testtag verhalten hat, nicht, was es am Tag eines Vorfalls getan hat.
+            </p>
+            <p>
+              Das Recht weist in dieselbe Richtung. Der EU AI Act verlangt von Hochrisiko-Systemen, Ereignisse über ihre gesamte Lebensdauer automatisch zu protokollieren, nicht nur zum Audit. Und unter der Produkthaftungsrichtlinie sagt ein Zertifizierungsbericht über den Zustand vier Monate vor einem Vorfall wenig darüber aus, was an diesem Tag passiert ist.
+            </p>
+            <p>
+              Die Kfz-Versicherung bietet einen nützlichen Vergleich. Vor der Telematik bewerteten Versicherer das Risiko über Ersatzgrößen wie Alter, Wohnort und Fahrzeugtyp, weil sie das Fahren nicht direkt beobachten konnten. Nutzungsbasierte Tarife ergänzten Daten darüber, wie Menschen tatsächlich fahren. Wir erwarten, dass sich die Versicherung von KI-Agenten ähnlich entwickelt und Verhaltensdaten die Zertifizierung ergänzen, sobald Monitoring verbreitet ist.
+            </p>
+
+            <h2>Vier Eigenschaften einer brauchbaren Aufzeichnung</h2>
+            <p>
+              Keines dieser Gesetze schreibt genau vor, wie das Verhalten eines Agenten aufzuzeichnen ist. Aus unserer Sicht braucht eine Aufzeichnung, die in einer Vorfallsanalyse, einem Haftungsstreit oder einer Underwriting-Entscheidung bestehen soll, vier Eigenschaften.
+            </p>
+            <p>
+              <strong>Vollständig.</strong> Sie umfasst die Aktionen, Modellaufrufe, Tool-Aufrufe und Datenzugriffe des Agenten, keine Stichprobe. Eine Abfolge aus getrennten Anbieter-Konsolen zusammenzusetzen, ist langsam und lückenhaft.
+            </p>
+            <p>
+              <strong>Durchgehend.</strong> Sie existiert ab dem Tag, an dem der Agent live geht. Eine Aufzeichnung, die erst nach einem Vorfall zusammengestellt wird, kann nicht zeigen, dass Kontrollen vorher in Kraft waren.
+            </p>
+            <p>
+              <strong>Unabhängig.</strong> Sie hängt nicht von einem Anbieter ab. Ein Protokoll, das nur in der Konsole eines Modellanbieters existiert, deckt nur dessen Teil der Arbeit ab, und in einem Streit mit dem Anbieter hat eine unabhängige Aufzeichnung mehr Gewicht.
+            </p>
+            <p>
+              <strong>Änderungen werden sichtbar.</strong> Gewöhnliche Protokolle auf einem System, das der Betreiber kontrolliert, lassen sich spurlos bearbeiten. Wird jeder Eintrag mit dem vorherigen verkettet und beim Schreiben signiert, wird jede spätere Änderung sichtbar.
+            </p>
+
+            <h2>Was Kyde beiträgt</h2>
+            <p>
+              Kyde bewertet, wie sich KI-Agenten verhalten. Kyde Control führt zusätzlich eine durchgehende, manipulationssichtbare Aufzeichnung jeder Agentenaktion, die darüber läuft, also genau die Art von Aufzeichnung, die oben beschrieben ist.
+            </p>
+            <p>
+              Das Gateway sitzt im Datenpfad zwischen den Agenten und den Systemen, auf die sie zugreifen. Was darüber läuft, wird erfasst, bevor es das Zielsystem erreicht, mit dem vorherigen Eintrag verkettet und unverändert weitergeleitet, ohne Änderungen am Agenten oder beim Modellanbieter. Das Signieren jedes Eintrags mit eigenen Ed25519-Schlüsseln ist eine Enterprise-Funktion. Was das Gateway nicht sieht, zeichnet es nicht auf, deshalb wird die Abdeckung zusammen mit der Aufzeichnung ausgewiesen.
+            </p>
+            <p>
+              Ein Versicherungsprodukt, das diese Aufzeichnung bepreist, bieten wir nicht an. Was heute läuft, ist die Aufzeichnung, auf der ein solches Produkt aufbauen würde.
+            </p>
+
+            <h2>Häufige Fragen</h2>
+            <p>
+              <strong>Ist das relevant, wenn meine Agenten nicht in einem Hochrisiko-Bereich des AI Act arbeiten?</strong> Möglicherweise. Die Hochrisiko-Pflichten gelten ab dem 2. Dezember 2027 für die acht Bereiche in Anhang III. Die Produkthaftungsrichtlinie ist breiter: Sie behandelt Software einschließlich KI unabhängig von der Branche als Produkt. Sie erfasst Schäden natürlicher Personen, etwa Körperverletzung, Schäden an privatem Eigentum und den Verlust nicht beruflich genutzter Daten, nicht aber reine Vermögensschäden zwischen Unternehmen. Können Ihre Agenten solche Schäden verursachen, sind die Offenlegungsregeln und Vermutungen der Richtlinie für Sie relevant.
+            </p>
+            <p>
+              <strong>Wie hängen AIUC-1 und Versicherungsschutz zusammen?</strong> Sie beantworten verschiedene Fragen. Die Zertifizierung zeigt einem Versicherer, wie ein System bei Audit und Test aussah. Die Deckung überträgt das verbleibende finanzielle Risiko. Einige zertifizierte Unternehmen, darunter ElevenLabs, haben die Zertifizierung mit einer KI-Versicherung verbunden, die Zertifizierung selbst ist aber keine Police.
+            </p>
+            <p>
+              <strong>Was bedeutet DORA für Aufzeichnungen über Agenten?</strong> DORA erwähnt KI-Agenten nicht und schreibt keinen bestimmten Audit Trail für sie vor. Ein Modellanbieter, den ein Finanzunternehmen nutzt, ist aber ein IKT-Drittdienstleister. Ein Protokoll, das nur in der Konsole des Anbieters existiert, hängt von dessen Mitwirkung ab. Eine Aufzeichnung, die das Finanzunternehmen selbst führt, nicht, und das erleichtert Incident Handling und Meldungen.
+            </p>
+            <p>
+              <strong>Was bedeutet der Fall Moffatt gegen Air Canada?</strong> 2024 hat das Civil Resolution Tribunal in British Columbia Air Canada für falsche Auskünfte des Website-Chatbots haftbar gemacht und das Argument zurückgewiesen, der Chatbot sei für sein Handeln selbst verantwortlich. Es ist eine kanadische Bagatellentscheidung und kein EU-Recht, ihre Logik wird aber oft zitiert: Wer einen Agenten einsetzt, steht für ihn ein.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde Score lernt aus der eigenen Telemetrie, wie sich jeder Agent verhält, und meldet, wenn sich das ändert. Kyde Control ergänzt ein Gateway, das ungewöhnliche Aktionen zurückhält und eine verkettete Aufzeichnung jeder Aktion führt, die darüber läuft.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/haftung-ki-agenten" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Haftung bei KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/ki-agenten-governance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Governance für KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Behavioral Drift bei AI Agents</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/ai-agent-insurance" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

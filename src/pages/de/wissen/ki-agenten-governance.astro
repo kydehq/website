@@ -1,0 +1,249 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Stand from "../../../components/Stand.astro";
+import LegalNotice from "../../../components/LegalNotice.astro";
+
+// Deutsche Fassung von /ai-agent-governance. Dieselbe Argumentation und dieselben
+// geprüften Fakten wie die englische Seite, deshalb steht das Paar in
+// LOCALE_PAIRS mit Hash: läuft die englische Seite weiter, muss diese mit.
+
+const stand = "2026-11-07";
+---
+
+<Base
+  title="Governance für KI-Agenten: der Leitfaden für Unternehmen, Kyde"
+  description="Was Governance für KI-Agenten bedeutet, warum Anbieter-Kontrollen, Prüfungen in der Anwendung und Observability allein nicht reichen, was EU- und britische Aufsichten erwarten und was Governance-Infrastruktur leisten muss."
+  datePublished="2026-11-07"
+>
+  <Navbar />
+
+  <main>
+
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/de/wissen" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Wissen</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Governance</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            Governance für KI-Agenten: der Leitfaden für Unternehmen
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1 mb-4">
+            <span>Governance</span>
+            <span>·</span>
+            <span>12 Min. Lesezeit</span>
+          </div>
+          <Stand datum={stand} geprueft="Gesetzestexte, HBR-Artikel über das Abstract, NIST Concept Note, DRCF über Kanzleikommentare" />
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <p>
+              KI-Agenten erledigen heute echte Aufgaben, rufen echte Systeme auf und treffen Entscheidungen mit echten Folgen. Dieser Leitfaden erklärt, was es heißt, sie zu steuern, wo gängige Ansätze zu kurz greifen und was die Infrastruktur leisten muss, besonders in regulierten Branchen.
+            </p>
+
+            <h2>Was Governance für KI-Agenten ist</h2>
+            <p>
+              Governance für KI-Agenten ist die Kombination aus technischen Kontrollen und organisatorischen Regeln, die festlegt, was Agenten tun dürfen, prüft, dass sie diese Grenzen einhalten, und aufzeichnet, was sie tatsächlich getan haben.
+            </p>
+            <p>
+              Sie ist etwas anderes als KI-Ethik, Forschung zur Modellsicherheit oder Einstellungen innerhalb einer Anwendung. So wie wir den Begriff verwenden, ist Governance Betriebsinfrastruktur: eine Ebene zwischen einem Agenten und den Systemen, auf die er zugreift, die Regeln anwendet, während Aktionen passieren, und jede Entscheidung aufzeichnet.
+            </p>
+            <p>
+              Die Modellevaluierung fragt, ob ein System sicher ist. Governance stellt eine andere Frage: Können wir zeigen, was dieser Agent getan hat, in wessen Auftrag, und dass er innerhalb seines Mandats geblieben ist? Die beiden Fragen brauchen unterschiedliche Werkzeuge.
+            </p>
+            <p>
+              Ein Artikel in der Harvard Business Review von Rahul Telang, Muhammad Zia Hydari und Raja Iqbal aus dem Jahr 2026 beschreibt vier organisatorische Reibungspunkte beim Skalieren von KI-Agenten: jedem Agenten eine eigene Identität mit begrenzten Berechtigungen geben, sicherstellen, dass Agenten mit verlässlichen Daten arbeiten, deterministische Kontrollen um probabilistische Ausgaben legen und Verantwortlichkeit über Audit Trails und klare Zuständigkeiten sichern. Governance-Infrastruktur adressiert jeden dieser Punkte.
+            </p>
+
+            <h2>Wo bestehende Ansätze zu kurz greifen</h2>
+            <p>
+              Die meisten Teams beginnen mit Werkzeugen, die sie schon haben. Jedes ist nützlich, keines wurde allein für diese Aufgabe gebaut.
+            </p>
+            <p>
+              <strong>Kontrollen der Modellanbieter.</strong> Anbieter wie OpenAI und Anthropic bieten Nutzungs-Dashboards, Rate Limits, Inhaltsrichtlinien und einiges an Protokollierung. Das hilft bei Abrechnung und Missbrauchserkennung. Ein Protokoll, das ein Anbieter nach seinen Aufbewahrungsregeln in seiner Konsole führt, deckt aber nur diesen Anbieter ab, und die meisten Agenten-Flotten nutzen mehrere.
+            </p>
+            <p>
+              <strong>Prüfungen in der Anwendung.</strong> Prompt-Gestaltung, Ausgabefilter und Validierung vor einer Aktion sind sinnvolle Schutzmaßnahmen. Sie leben aber in derselben Anwendung wie der Agent. Eine Prompt Injection, ein Modell-Update oder eine Konfigurationsänderung kann sie schwächen, und die Belege, die sie erzeugen, liegen im selben System, das gerade untersucht wird.
+            </p>
+            <p>
+              <strong>Observability-Werkzeuge.</strong> Tracing-Werkzeuge zeigen Schritt für Schritt, was ein Agent getan hat, und sind wertvoll für Fehlersuche und Performance. Sie sind zum Beobachten gebaut und blockieren in der Regel keine Aktion, bevor sie ausgeführt wird.
+            </p>
+            <p>
+              Gemeinsam ist diesen Ansätzen, dass jeder eine Komponente abdeckt. Was fehlt, ist eine Ebene außerhalb des Agenten, die jede Aktion sieht, unabhängig von Anbieter oder Framework.
+            </p>
+
+            <h2>Vier Anforderungen</h2>
+            <p>
+              Aus unserer Sicht braucht wirksame Governance vier Eigenschaften. Jede ist notwendig, keine reicht allein.
+            </p>
+            <p>
+              <strong>Identität.</strong> Jeder Agent braucht eine Identität, die außerhalb des Agenten vergeben und geprüft wird, damit sich jede Aktion einem bestimmten Agenten und einem bestimmten Verantwortlichen zuordnen lässt. Eine Identität, die der Agent selbst behauptet, ist leicht zu fälschen.
+            </p>
+            <p>
+              <strong>Rahmen.</strong> Jeder Agent braucht definierte Grenzen: welche Daten er lesen, welche Aktionen er ausführen, welche Anbieter und Tools er aufrufen darf. Am besten funktionieren diese Grenzen als maschinenlesbare Regeln, die außerhalb des Agenten durchgesetzt und ohne neues Deployment geändert werden können.
+            </p>
+            <p>
+              <strong>Durchsetzung.</strong> Manche Aktionen sollten verhindert werden, bevor sie passieren, nicht erst danach gemeldet. Durchsetzung heißt, dass eine Aktion außerhalb der Regeln, etwa der Zugriff auf eine gesperrte Quelle, zurückgehalten oder blockiert wird, bevor sie das Zielsystem erreicht.
+            </p>
+            <p>
+              <strong>Aufzeichnung.</strong> Jede Aktion braucht einen Eintrag, der getrennt vom Agenten geführt wird und spätere Änderungen sichtbar macht. Am nützlichsten ist er, wenn er neben Ein- und Ausgaben auch den Kontext festhält: was der Agent abgerufen hat, welche Tools er aufgerufen hat und welche Regel galt.
+            </p>
+            <p>
+              Diese Anforderungen hängen voneinander ab. Identität ohne Durchsetzung sagt, wer gehandelt hat, kann es aber nicht verhindern. Durchsetzung ohne Aufzeichnung lässt offen, was erlaubt oder blockiert wurde. Und eine Aufzeichnung innerhalb des beschriebenen Systems ist weniger verlässlich, wenn etwas schiefgeht.
+            </p>
+
+            <h2>Der regulatorische Rahmen</h2>
+            <p>
+              Mehrere Regelwerke verlangen inzwischen Teile davon, auch wenn keines das Wort Governance in diesem Sinn verwendet.
+            </p>
+            <p>
+              <strong>EU AI Act (Verordnung 2024/1689).</strong> Hochrisiko-Systeme, unter anderem in Beschäftigung, Kreditvergabe, bestimmten Versicherungstarifen, Bildung, kritischer Infrastruktur und grundlegenden Diensten, müssen Ereignisse automatisch protokollieren (Art. 12) und wirksame menschliche Aufsicht ermöglichen (Art. 14). Betreiber müssen die Protokolle mindestens sechs Monate aufbewahren (Art. 26). Für Systeme nach Anhang III gelten diese Pflichten ab dem 2. Dezember 2027.
+            </p>
+            <p>
+              <strong>DORA.</strong> Seit Januar 2025 verlangt DORA von Finanzunternehmen einen Prozess für IKT-Vorfälle (Art. 17), das Management von Risiken durch IKT-Drittdienstleister wie Modellanbieter (Art. 28) und vertragliche Zugangs- und Prüfrechte (Art. 30). Für KI-Agenten spricht das für eine Aufzeichnung der Agentenaktivität, die nicht vom Modellanbieter abhängt.
+            </p>
+            <p>
+              <strong>Britische Aufsichten.</strong> Im März 2026 hat das Digital Regulation Cooperation Forum (CMA, FCA, ICO und Ofcom) ein Foresight Paper zu Agentic AI veröffentlicht. Es ist ausdrücklich keine Politik, stellt aber fest, dass bestehendes Recht für Agenten weiter gilt, und weist darauf hin, dass sich die Verantwortung auf Modellanbieter, Systemanbieter und Einsetzende verteilen kann. <a href="/de/wissen/drcf-agentic-ai">Was das DRCF-Papier sagt →</a>
+            </p>
+            <p>
+              <strong>NIST.</strong> Im April 2026 hat NIST eine Concept Note für ein Profil des AI Risk Management Framework zu kritischer Infrastruktur veröffentlicht. Zu ihren Beispielen gehören Agenten mit getesteten und verifizierten Leitplanken und Systeme mit nachvollziehbaren, prüfbaren Empfehlungen. <a href="/de/wissen/ki-agenten-kritische-infrastruktur">Wie NIST, EU AI Act und NIS-2 zusammenpassen →</a>
+            </p>
+            <p>
+              Diese Regelwerke wurden getrennt geschrieben und setzen unterschiedliche Pflichten. Sie weisen aber in eine ähnliche Richtung: wissen, was die eigenen Agenten getan haben, eingreifen können und eine verlässliche Aufzeichnung führen.
+            </p>
+
+            <h2>Was Governance-Infrastruktur leisten muss</h2>
+            <p>
+              <strong>Unabhängig von den Agenten, die sie steuert.</strong> Die Ebene sollte sich nicht darauf verlassen, dass Agenten sich selbst protokollieren, ihre eigenen Grenzen durchsetzen oder ihre eigene Identität bezeugen. Sie sitzt zwischen den Agenten und den Systemen, auf die sie zugreifen, und behandelt jede Aktion selbst.
+            </p>
+            <p>
+              <strong>Unabhängig vom Modellanbieter.</strong> Viele Flotten nutzen mehrere Anbieter gleichzeitig. Eine Ebene, die nur einen abdeckt, lässt den Rest ungesteuert. Sie muss über alle hinweg funktionieren, ohne Änderungen an den Agenten.
+            </p>
+            <p>
+              <strong>Handlungsfähig, nicht nur beobachtend.</strong> Observability hält fest, was passiert ist. Governance entscheidet auch, was passieren darf, und kann eine Aktion zurückhalten oder blockieren, bevor sie ihr Ziel erreicht.
+            </p>
+
+            <h2>Der Anbietermarkt</h2>
+            <p>
+              Der Markt für Werkzeuge zur Steuerung von KI-Agenten wächst schneller als sein Vokabular. Produkte aus drei Kategorien nennen sich „AI Governance“, lösen aber unterschiedliche Probleme auf unterschiedlichen Ebenen.
+            </p>
+            <ul>
+              <li><span><strong>KI-Sicherheitswerkzeuge</strong> (etwa Zenity, Lakera und Prompt Security) prüfen Eingaben, Ausgaben und Agentenaktivität auf Angriffe wie Prompt Injection und Datenabfluss.</span></li>
+              <li><span><strong>Observability-Werkzeuge</strong> (etwa LangSmith, Langfuse und Arize) erfassen Traces der Agentenausführung für Fehlersuche, Evaluierung und Performance-Analyse.</span></li>
+              <li><span><strong>Governance-Infrastruktur</strong> (etwa Kyde) wendet Verhaltensregeln an, während Aktionen passieren, führt eine manipulationssichtbare Aufzeichnung jeder Aktion, die darüber läuft, und arbeitet unabhängig von den Agenten.</span></li>
+            </ul>
+            <p>
+              Die Kategorien ergänzen sich. Ein Sicherheitswerkzeug ersetzt keine Aufzeichnung dessen, was autorisiert wurde, und ein Observability-Werkzeug hält keine Aktion zur Prüfung zurück.
+            </p>
+
+            <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">Kyde</p>
+              <p class="text-sm text-ink-1 leading-relaxed mb-6">
+                Kyde lässt Teams KI-Agenten echte Befugnisse geben und trotzdem zeigen, was diese Agenten getan haben und in welchem Mandat. Kyde Control bietet Agenten-Identität, Verhaltensgrenzen, Blockieren vor der Ausführung und eine manipulationssichtbare Aufzeichnung jeder Aktion, die darüber läuft.
+              </p>
+              <a
+                href="/score"
+                class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
+              >
+                Kyde Score ansehen →
+              </a>
+            </div>
+
+          </article>
+
+          <aside aria-label="Weiterlesen" class="hidden md:block space-y-6 sticky top-28">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Weiterlesen</p>
+              <div class="space-y-4">
+                <a href="/de/wissen/ki-agenten-versicherung" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>KI-Agenten versichern</span>
+                </a>
+                <a href="/de/wissen/haftung-ki-agenten" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Haftung bei KI-Agenten</span>
+                </a>
+                <a href="/de/wissen/drcf-agentic-ai" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>Was die britischen Digitalaufsichten zu Agentic AI sagen</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">English</p>
+              <a href="/ai-agent-governance" class="text-xs text-ink-1 underline underline-offset-4" hreflang="en">Read this article in English →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  <LegalNotice />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde strong { color: var(--color-ink-1); font-weight: 600; }
+  .prose-kyde code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; color: var(--color-ink-0); }
+  .prose-kyde em { color: var(--color-ink-1); font-style: italic; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

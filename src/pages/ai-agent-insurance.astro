@@ -16,28 +16,28 @@ const breadcrumbSchema = {
 
 const faqs = [
   {
-    q: "Do I need AI agent insurance if I'm not yet in an EU-regulated high-risk vertical?",
-    a: "The EU AI Act's high-risk requirements (Dec 2, 2027) cover 10 Annex III verticals including HR, credit, insurance, critical infrastructure, and law enforcement. But the Product Liability Directive 2024 applies to all AI software across the EU regardless of vertical. If your agents can cause harm, financial, reputational, physical, the PLD's strict liability and rebuttable presumptions apply. The question is not whether you're exposed; it's whether you can produce the evidence to defend against claims.",
+    q: "Does this matter if my agents aren't in an EU AI Act high-risk area?",
+    a: "Possibly. The EU AI Act's high-risk obligations apply from 2 December 2027 to the eight areas listed in Annex III, including employment, access to credit, certain insurance pricing, critical infrastructure and law enforcement. The Product Liability Directive 2024/2853 is broader: it treats software, including AI systems, as a product regardless of sector. It covers harm to natural persons, such as personal injury, damage to private property and loss of non-professional data, rather than pure financial loss between businesses. If your agents could cause that kind of harm, the directive's disclosure rules and presumptions are relevant to you. In either case, the practical question is whether you could show what your agent did.",
   },
   {
-    q: "What's the relationship between AIUC-1 certification and actual insurance coverage?",
-    a: "AIUC-1 certification is the precondition for coverage with Munich Re's aiSure platform, not a substitute for it. Certification tells the insurer what the system looked like at audit time. Coverage is the financial transfer of residual risk after certification. You need both. You also need the continuous behavioral monitoring layer to demonstrate that the certified controls were active between audits, which is what insurers will increasingly require as claims data accumulates.",
+    q: "What's the relationship between AIUC-1 certification and insurance coverage?",
+    a: "They answer different questions. Certification tells an insurer what a system looked like when it was audited and tested. Coverage transfers the financial risk that remains. Some certified companies, ElevenLabs among them, have paired AIUC-1 certification with AI insurance, but certification is not itself a policy. We expect insurers to ask more often for evidence that certified controls stayed in place between tests, which is where continuous monitoring comes in.",
   },
   {
-    q: "What does DORA's 'independent audit trail' requirement actually mean technically?",
-    a: "Under DORA an LLM provider is an ICT third-party service provider. Article 28 keeps the financial entity responsible for that risk, and Article 30 requires its contracts to secure access, inspection and audit rights. For AI agents, every LLM API call is an interaction with that provider. A log that exists only in the provider's console depends on the provider's cooperation to produce; a record the financial entity writes and keeps in its own infrastructure does not.",
+    q: "What does DORA mean for records of AI agent activity?",
+    a: "DORA does not mention AI agents, and it does not prescribe a specific audit trail for them. It does treat an LLM provider used by a financial entity as an ICT third-party service provider. Article 28 keeps the financial entity responsible for that risk, and Article 30 requires its contracts to secure access, inspection and audit rights. In practice, a log that exists only in the provider's console depends on the provider's cooperation to produce. A record the financial entity writes and keeps itself does not, which makes incident handling and reporting easier.",
   },
   {
     q: "How does parametric AI agent insurance work in practice?",
-    a: "Parametric coverage defines a trigger condition, an agent's response accuracy falls below 85%, task completion rate drops below a threshold, latency exceeds SLA bounds. If the monitored metric crosses the threshold, payout is automatic. No causation argument required; no lengthy litigation over which party's contribution caused the outcome. The trigger signal must come from continuous behavioral monitoring, which is why parametric AI insurance depends on infrastructure like Kyde. Without the monitoring layer, there's no reliable trigger signal. The recording runs today. The insurance reading built on top of it is not shipped yet.",
+    a: "A parametric policy defines a trigger condition in advance, for example an agent's task completion rate falling below an agreed threshold or latency exceeding an SLA. If the monitored metric crosses the threshold, the policy pays out without anyone having to prove which party caused the loss. That only works if both sides trust the metric, so the trigger has to come from continuous, independent monitoring. Kyde records the behavior such a trigger would be checked against today. An insurance product built on that record is not something we ship yet.",
   },
   {
     q: "What does the Moffatt v. Air Canada precedent mean for AI agent liability?",
-    a: "The tribunal held Air Canada liable for incorrect information its chatbot provided, explicitly rejecting the argument that the chatbot was a separate legal entity with distinct liability. The deploying organization is responsible for what its agents do. The precedent doesn't resolve what happens when the organization cannot reconstruct what the agent did, which is where the PLD's rebuttable presumptions become decisive. The inability to produce contrary evidence is not neutral; it creates a legal presumption against the defendant.",
+    a: "In 2024, British Columbia's Civil Resolution Tribunal held Air Canada liable for incorrect information its website chatbot gave a customer, and rejected the argument that the chatbot was responsible for its own actions. The case is a small-claims decision in Canada, not EU law, but its logic is widely cited: the organization that deploys an agent answers for what it says and does. It does not address what happens when the organization cannot reconstruct what the agent did. In the EU, the Product Liability Directive's disclosure rules and presumptions make that question more pressing.",
   },
   {
-    q: "How quickly is the AI agent insurance market actually developing?",
-    a: "Faster than most people expect. Munich Re's aiSure had its first AIUC-1-backed policy in February 2026. HSB has operational AI Liability products. Lloyd's syndicates are actively writing coverage through specialist vehicles. The constraint is not carrier appetite, it's the actuarial data to price risk accurately. That data comes from behavioral monitoring infrastructure, which is why investment in monitoring is what expands available coverage and gives underwriters something to price against. The market will follow the evidence.",
+    q: "How quickly is the AI agent insurance market developing?",
+    a: "It is early but moving. Munich Re has offered aiSure, a performance guarantee for AI models, since 2018. In March 2026 HSB, part of Munich Re, launched AI liability cover for small and mid-sized businesses in the US. Specialist cover is also available in the Lloyd's market. Our view is that the main constraint is data: insurers need reliable information about how agents behave to price the risk, and that information comes from monitoring.",
   },
 ];
 
@@ -54,7 +54,7 @@ const faqSchema = {
 
 <Base
   title="AI Agent Insurance: Liability, Coverage, and the Evidence Infrastructure, Kyde"
-  description="Everything enterprises need to know about AI agent insurance: how liability is assigned under EU law, what coverage exists today (AIUC-1, Munich Re aiSure, HSB), why certification alone is not enough, and what behavioral monitoring infrastructure actually makes AI agents insurable."
+  description="Everything enterprises need to know about AI agent insurance: how liability is assigned under EU law, what coverage exists today (Munich Re aiSure, HSB, AIUC-1 certification), why certification alone is not enough, and what kind of behavioral record makes AI agents easier to insure."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -88,7 +88,7 @@ const faqSchema = {
               AI Agent Insurance
             </h1>
             <p class="text-lg text-ink-1 leading-relaxed max-w-2xl mb-8">
-              The law has assigned liability for AI agent failures. The insurance market is beginning to price that risk. The evidence infrastructure that makes both work is still being built. This is everything you need to understand about how it fits together.
+              EU law is making clear who answers for AI agent failures, and insurers have started to cover the risk. Both depend on being able to show what an agent actually did. This guide explains how the pieces fit together.
             </p>
             <div class="flex flex-col sm:flex-row gap-3">
               <button onclick="openModal()" class="inline-flex items-center gap-2 bg-white text-cta-ink px-6 py-3 text-xs font-mono uppercase tracking-[0.12em] hover:bg-cta-hover transition-all">
@@ -105,8 +105,8 @@ const faqSchema = {
             {[
               { num: "Dec 2027", label: "EU AI Act enforcement for high-risk agents" },
               { num: "51", label: "AIUC-1 requirements across 6 domains" },
-              { num: "3", label: "EU frameworks that assign AI agent liability" },
-              { num: "72h", label: "DORA forensic evidence production window" },
+              { num: "Dec 2026", label: "Product Liability Directive transposition deadline" },
+              { num: "24h", label: "Latest DORA initial notification of a major ICT incident" },
             ].map(({ num, label }) => (
               <div class="border border-line-0 bg-bg-1 p-5">
                 <div class="text-2xl font-bold text-ink-0 mb-1">{num}</div>
@@ -157,16 +157,16 @@ const faqSchema = {
               </div>
               <div class="prose-kyde">
                 <p>
-                  Autonomous AI agents are no longer prototypes. They are booking travel, processing invoices, reviewing contracts, routing support tickets, and making consequential decisions across enterprise workflows, often without a human in the loop at the moment of action.
+                  AI agents have moved past the prototype stage. They book travel, process invoices, review contracts and route support tickets, and in many workflows no person checks each action before it happens.
                 </p>
                 <p>
-                  As they take on more economic weight, they take on more economic risk. An agent that approves a fraudulent transaction, retrieves a deprecated policy document and relies on it, or is manipulated through prompt injection into exfiltrating sensitive data doesn't just create a technical problem. It creates a liability event.
+                  As agents take on more consequential work, the cost of their mistakes grows. An agent that approves a fraudulent payment, relies on an outdated policy document, or is manipulated through prompt injection into leaking data creates more than a technical problem. Someone will be asked to pay for the damage.
                 </p>
                 <p>
-                  The question of who pays, and whether anyone can prove what happened, is no longer hypothetical. Three major regulatory frameworks across the EU have assigned liability for AI agent failures. The insurance market is beginning to price that risk. What is still being built is the evidence infrastructure that makes both systems function as designed.
+                  Two questions follow: who is liable, and can anyone show what happened? In the EU, the AI Act, the revised Product Liability Directive and, for financial firms, DORA each shape the answer. Insurers have started to offer cover. What is still missing in most deployments is a reliable record of agent behavior that both lawyers and underwriters can work from.
                 </p>
                 <p>
-                  Understanding AI agent insurance means understanding all three layers: the legal framework that assigns liability, the emerging coverage market, and the behavioral monitoring infrastructure that makes coverage both accurate and legitimate.
+                  This guide covers all three: the legal framework, the coverage available today, and the kind of behavioral record that makes the risk easier to price.
                 </p>
               </div>
             </div>
@@ -177,7 +177,7 @@ const faqSchema = {
                 <span class="font-mono text-xs text-warn bg-warn/10 border border-warn/40 px-2 py-0.5">02</span>
                 <h2 class="text-xl md:text-2xl font-bold text-ink-0 uppercase tracking-wide">The legal liability framework</h2>
               </div>
-              <p class="text-sm text-ink-1 mb-6 leading-relaxed">Three EU regulatory frameworks now directly govern AI agent liability. Each creates distinct obligations, and together they establish a comprehensive legal architecture that enterprises cannot ignore.</p>
+              <p class="text-sm text-ink-1 mb-6 leading-relaxed">Three EU laws matter most for AI agent liability. They do different jobs: one sets obligations for high-risk AI systems, one governs compensation for defective products, and one sets operational resilience rules for financial firms.</p>
 
               <div class="space-y-4">
                 {[
@@ -185,19 +185,19 @@ const faqSchema = {
                     name: "EU AI Act, Articles 12, 14, 26",
                     deadline: "Dec 2, 2027",
                     badge: "High-Risk",
-                    text: "Automatic logging of events throughout the lifecycle, minimum 6-month retention, causal reconstructability enabling human oversight, and technical documentation before deployment. Applies to all Annex III high-risk AI systems operating in the EU, including HR screening, credit decisioning, insurance underwriting, and critical infrastructure management.",
+                    text: "High-risk systems must record events automatically over their lifetime (Art. 12) and be designed for effective human oversight (Art. 14). Deployers must keep the automatically generated logs for at least six months (Art. 26). Applies to the Annex III areas, including recruitment, creditworthiness, life and health insurance pricing, and critical infrastructure, from 2 December 2027.",
                   },
                   {
                     name: "Product Liability Directive 2024/2853",
                     deadline: "Dec 2026",
                     badge: "National transposition",
-                    text: "Extends strict liability to AI software and introduces rebuttable presumptions: where a claimant faces excessive difficulty establishing causation, courts may presume both defect and causation. Joint and several liability runs across the entire supply chain, developers, importers, platform operators, substantial modifiers. The defendant who cannot produce contrary evidence bears the loss.",
+                    text: "Treats software, including AI systems, as a product subject to strict liability for harm to natural persons. Courts can order defendants to disclose relevant evidence, and can presume defect or causation in defined cases, for example when a defendant fails to disclose or when technical complexity makes proof excessively difficult. Several liable operators can be held jointly and severally liable. Member states must transpose it by 9 December 2026.",
                   },
                   {
                     name: "DORA, Digital Operational Resilience Act",
                     deadline: "In force Jan 2025",
                     badge: "Financial sector",
-                    text: "Financial entities must maintain audit trails of third-party ICT provider interactions that are independent of the provider, not stored on provider infrastructure, not dependent on provider cooperation. Forensic evidence must be producible within 72 hours of a significant incident. Every LLM API call is an interaction with a third-party ICT provider under DORA.",
+                    text: "Applies to financial entities since 17 January 2025. They must manage ICT third-party risk (Art. 28), including from model providers, and secure access, inspection and audit rights by contract (Art. 30). Major ICT incidents have to be reported quickly: an initial notification within 4 hours of classification and no later than 24 hours after detection, an intermediate report within 72 hours and a final report within a month.",
                   },
                 ].map(({ name, deadline, badge, text }) => (
                   <div class="border border-line-0 bg-bg-1 p-6">
@@ -213,7 +213,7 @@ const faqSchema = {
 
               <div class="mt-6 border border-line-0 bg-bg-2 p-5">
                 <p class="text-sm text-ink-1 leading-relaxed">
-                  <strong class="text-ink-0">The DRCF "Many Hands" problem:</strong> The UK's joint regulator paper (CMA/FCA/ICO/Ofcom, March 2026) named the core adjudication challenge precisely: when multiple model providers, system integrators, and deploying organizations all contribute to an agent's behavior, attributing responsibility for a specific outcome is extremely difficult. Regulators expect to see who authorized what, when, against which data. Most organizations currently cannot produce that record.
+                  <strong class="text-ink-0">Fragmented accountability:</strong> The UK's Digital Regulation Cooperation Forum (CMA, FCA, ICO and Ofcom) noted in its March 2026 <a href="/blog/drcf-agentic-ai-foresight" class="underline underline-offset-4">foresight paper on agentic AI</a> that responsibility for an agent's behavior can be split across model providers, system providers and the organizations that deploy agents. That makes it harder to attribute a specific outcome, and it is one more reason for a deploying organization to keep its own record of what its agents did.
                 </p>
               </div>
             </div>
@@ -224,7 +224,7 @@ const faqSchema = {
                 <span class="font-mono text-xs text-warn bg-warn/10 border border-warn/40 px-2 py-0.5">03</span>
                 <h2 class="text-xl md:text-2xl font-bold text-ink-0 uppercase tracking-wide">What AI agent insurance coverage exists today</h2>
               </div>
-              <p class="text-sm text-ink-1 mb-6 leading-relaxed">The market is early but active. Several major players have moved from exploratory to operational positions.</p>
+              <p class="text-sm text-ink-1 mb-6 leading-relaxed">The market is early. A few established insurers offer products today, and much of the rest is still being designed.</p>
 
               <div class="overflow-x-auto">
                 <table class="w-full text-xs border-collapse">
@@ -238,11 +238,11 @@ const faqSchema = {
                   </thead>
                   <tbody>
                     {[
-                      ["Munich Re / AIUC", "aiSure platform", "Performance warranty + liability", "Operational, first policy: ElevenLabs Feb 2026"],
-                      ["HSB (Hartford Steam Boiler)", "AI Liability product line", "Third-party liability, errors & omissions", "Operational"],
-                      ["Lloyd's syndicates", "Various specialist vehicles", "Cyber, E&O, product liability", "Operational, coverage aggregated across syndicates"],
-                      ["Parametric specialists", "Trigger-based auto-payout", "Performance degradation, SLA breach", "Emerging, avoids causal complexity"],
-                      ["Cyber insurers broadly", "Cyber + AI rider extensions", "Incident response, business interruption", "Active, varies by carrier"],
+                      ["Munich Re", "aiSure", "Performance guarantee for AI models", "Offered since 2018"],
+                      ["HSB (Munich Re)", "AI liability cover", "Liability gaps for small and mid-sized businesses", "Launched March 2026, US"],
+                      ["Lloyd's market", "Specialist cover", "Varies by syndicate", "Available, terms vary"],
+                      ["Parametric structures", "Trigger-based payout", "Performance or SLA thresholds", "Emerging"],
+                      ["Cyber insurers", "Cyber policies and AI extensions", "Incident response, business interruption", "Varies by carrier"],
                     ].map(([prov, prod, cov, status]) => (
                       <tr class="border-b border-line-0 even:bg-bg-2">
                         <td class="px-4 py-3 font-semibold text-ink-0">{prov}</td>
@@ -257,10 +257,10 @@ const faqSchema = {
 
               <div class="mt-6 prose-kyde">
                 <p>
-                  The most significant development is the emergence of <strong>parametric insurance structures</strong> for AI agents. Traditional liability coverage requires establishing that a specific AI system caused a specific harm, the "Many Hands" problem makes this extremely difficult when multiple parties contribute to an agent's behavior. Parametric coverage sidesteps the causal complexity: if a defined trigger condition is met (agent performance falls below a threshold, response accuracy drops, SLA is breached), the payout is automatic. No causation argument required.
+                  One development worth watching is <strong>parametric cover</strong>. Traditional liability cover requires showing that a specific system caused a specific harm, which is hard when several parties contribute to an agent's behavior. A parametric policy instead pays out when a predefined condition is met, such as performance falling below a threshold or an SLA being breached, without a dispute about causation.
                 </p>
                 <p>
-                  This structure is well-suited to AI agent deployments where continuous behavioral monitoring can provide the trigger signal. The insurer doesn't need to reconstruct what happened in court. They need to verify that the monitored metric crossed the threshold.
+                  That structure suits AI agents well, provided both sides trust the measurement. The insurer does not have to reconstruct what happened. It has to verify that the monitored metric crossed the agreed threshold, which requires continuous and independent monitoring.
                 </p>
               </div>
             </div>
@@ -273,18 +273,18 @@ const faqSchema = {
               </div>
               <div class="prose-kyde">
                 <p>
-                  The AI Underwriting Certification (AIUC-1) framework, developed in collaboration with Munich Re, is the most significant standardization effort in the AI agent insurance market. It functions as the SOC 2 equivalent for AI agents, a structured certification that gives enterprise procurement, insurers, and regulators a concrete, auditable signal.
+                  AIUC-1 is a certification standard for AI agents, often described as a SOC 2 for agents. It was developed with technical contributors including Cisco, the Cloud Security Alliance, Orrick and MITRE, and it gives procurement teams and insurers an audited signal about how an agent is built and tested. Its requirements are organized into six domains. The topics below are our summary of what each covers.
                 </p>
               </div>
 
               <div class="mt-6 grid md:grid-cols-2 gap-4">
                 {[
-                  { domain: "Data & Privacy", desc: "PII handling, data lineage, retention policies, consent management" },
-                  { domain: "Security", desc: "Prompt injection defenses, access controls, MCP/A2A protocol security, runtime containment" },
-                  { domain: "Safety", desc: "Output filtering, human override mechanisms, fail-safe behavior" },
-                  { domain: "Reliability", desc: "SLA commitments, degradation handling, behavioral consistency under load" },
-                  { domain: "Accountability", desc: "Audit trail completeness, incident reporting, causal reconstructability" },
-                  { domain: "Societal Impact", desc: "Bias assessment, fairness metrics, explainability requirements" },
+                  { domain: "Data & Privacy", desc: "Handling of personal and customer data, retention" },
+                  { domain: "Security", desc: "Prompt injection defenses, access controls, tool and protocol security" },
+                  { domain: "Safety", desc: "Harmful output prevention, human override" },
+                  { domain: "Reliability", desc: "Consistent behavior, handling of errors and hallucinations" },
+                  { domain: "Accountability", desc: "Ownership, audit trails, incident handling" },
+                  { domain: "Society", desc: "Misuse prevention, broader societal risks" },
                 ].map(({ domain, desc }) => (
                   <div class="border border-line-0 bg-bg-1 p-4">
                     <p class="font-mono text-xs font-semibold text-ink-0 mb-1.5">{domain}</p>
@@ -296,11 +296,10 @@ const faqSchema = {
               <div class="mt-6 border border-line-0 bg-bg-2 p-5">
                 <p class="font-mono text-xs uppercase tracking-widest text-ink-0 mb-2">Key facts</p>
                 <ul class="text-sm text-ink-1 space-y-1.5">
-                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>51 requirements across 6 domains, quarterly updates as threat surface evolves</li>
-                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>Q2 2026 revision: added mandatory MCP/A2A security controls and agent identity management</li>
-                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>First insured deployment: ElevenLabs voice agent, February 2026</li>
-                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>Evidence standard: "substantive and verifiable" · screenshots and assertions no longer accepted</li>
-                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>Retesting required quarterly · not annually · due to the speed of threat surface change</li>
+                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>Around 50 requirements across six domains (ElevenLabs' certification cites 51), updated quarterly</li>
+                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>The Q2 2026 update added controls for MCP security and agent identity</li>
+                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>Certificates run for 12 months, with quarterly technical testing to keep them</li>
+                  <li class="flex gap-2"><span class="text-warn font-mono shrink-0">→</span>ElevenLabs describes itself as the first voice AI company certified, together with AI insurance</li>
                 </ul>
               </div>
             </div>
@@ -313,19 +312,19 @@ const faqSchema = {
               </div>
               <div class="prose-kyde">
                 <p>
-                  Certification answers a specific question: did this system meet the standard at the time it was tested? For traditional software systems, this is largely sufficient, systems change on defined release cycles, and the gap between certification and current state is bounded.
+                  Certification answers one question: did this system meet the standard when it was tested? For conventional software that is often enough, because systems change on planned release cycles and the gap between the audit and today stays small.
                 </p>
                 <p>
-                  AI agents are fundamentally different. The model version changes. <a href="/behavioral-drift" class="text-ink-1 underline underline-offset-4 decoration-ink-0/20 hover:decoration-warn transition-colors">Behavioral drift</a> accumulates through continuous operation. New attack patterns emerge that the certification did not anticipate. The agent certified in February may present a meaningfully different risk profile in June, not because of any discrete failure, but because of the compounding effect of continuous change.
+                  AI agents change more often and less visibly. The underlying model is updated. <a href="/behavioral-drift" class="text-ink-1 underline underline-offset-4 decoration-ink-0/20 hover:decoration-warn transition-colors">Behavioral drift</a> builds up over time. New attack techniques appear that the audit did not test for. An agent certified in February can carry a noticeably different risk in June without any single failure, simply because many small things changed.
                 </p>
                 <p>
-                  AIUC-1 acknowledges this with its quarterly retesting requirement. But quarterly retesting is still point-in-time assessment of a system that operates continuously. It tells you what the system looked like on the day of testing. It does not tell you what the system was doing on the day of the incident.
+                  AIUC-1 recognizes this with quarterly testing. Quarterly testing is still a snapshot of a system that runs all the time, though. It tells you how the system behaved on the test date, not what it was doing on the day of an incident.
                 </p>
                 <p>
-                  The liability frameworks know this too. The EU AI Act's requirement for automatic, continuous logging exists precisely because periodic audits cannot provide the causal reconstructability that human oversight requires. The PLD's rebuttable presumptions cannot be rebutted by a certification report that attests to the system's state four months before the incident occurred.
+                  The law points the same way. The EU AI Act asks high-risk systems to log events automatically throughout their life, not only at audit time. And under the Product Liability Directive, a certification report describing a system four months before an incident says little about what happened on the day.
                 </p>
                 <p>
-                  The automotive analogy from the history of insurance is precise: pre-telematics auto insurance priced risk based on proxies (age, geography, vehicle type) because direct behavioral observation wasn't possible. Usage-based insurance replaced proxies with real data, how you actually drive, continuously observed. AI agent insurance will follow the same trajectory. Certification-based underwriting will give way to behavioral-data-based underwriting as the monitoring infrastructure matures.
+                  Car insurance offers a useful comparison. Before telematics, insurers priced risk from proxies such as age, location and vehicle type, because they could not observe driving directly. Usage-based insurance added data about how people actually drive. We expect AI agent insurance to move in a similar direction, adding behavioral data to certification as monitoring becomes common.
                 </p>
               </div>
             </div>
@@ -336,29 +335,29 @@ const faqSchema = {
                 <span class="font-mono text-xs text-warn bg-warn/10 border border-warn/40 px-2 py-0.5">06</span>
                 <h2 class="text-xl md:text-2xl font-bold text-ink-0 uppercase tracking-wide">The four evidence requirements</h2>
               </div>
-              <p class="text-sm text-ink-1 mb-6 leading-relaxed">For the legal frameworks to function as designed, for the PLD's rebuttable presumptions to be rebutted, for DORA's 72-hour reporting obligation to be met, for AI Act human oversight to be meaningful, behavioral records must meet four requirements.</p>
+              <p class="text-sm text-ink-1 mb-6 leading-relaxed">None of these laws prescribes exactly how an agent's behavior must be recorded. In our view, a record that will hold up in an incident review, a liability dispute or an underwriting decision needs four properties.</p>
 
               <div class="space-y-4">
                 {[
                   {
                     num: "1",
                     title: "Complete",
-                    text: "Every agent action, every model call, every tool invocation, every data retrieval, every decision point, must be captured. Partial logs do not satisfy forensic requirements. An investigation that must reconstruct the decision chain from fragmented records across ten vendor consoles cannot produce the evidence that liability adjudication requires.",
+                    text: "It covers the agent's actions, model calls, tool calls and data access, not a sample. An investigation that has to stitch the sequence together from separate vendor consoles is slow and leaves gaps.",
                   },
                   {
                     num: "2",
                     title: "Continuous",
-                    text: "The record must exist from the moment of deployment, not assembled retrospectively when an incident surfaces. Evidence gathered after the fact does not satisfy regulators' expectation that controls were active between audit cycles.",
+                    text: "It exists from the day the agent goes live. A record assembled after an incident cannot show that controls were in place before it.",
                   },
                   {
                     num: "3",
                     title: "Independent",
-                    text: "An audit trail stored on the model provider's infrastructure, signed by the provider's keys, and accessible only through the provider's console does not satisfy DORA's independence requirement. In a dispute involving the provider, its evidentiary value is compromised.",
+                    text: "It does not depend on one vendor. A log that exists only in a model provider's console can be useful, but it is kept by the provider and covers only that provider's part of the work. In a dispute involving the provider, an independent record carries more weight.",
                   },
                   {
                     num: "4",
                     title: "Tamper-evident",
-                    text: "Software logs on a host the defendant controls can be modified. The PLD's rebuttable presumptions cannot be rebutted by evidence whose integrity depends on the word of the party producing it. Tamper-evidence requires cryptographic integrity, every record signed at the point of capture, every record chained so any modification is detectable.",
+                    text: "Later changes are detectable. Ordinary logs on a system the operator controls can be edited without a trace. Chaining each entry to the previous one, and signing entries when they are written, makes any later change visible.",
                   },
                 ].map(({ num, title, text }) => (
                   <div class="flex gap-5 border border-line-0 bg-bg-1 p-6">
@@ -380,13 +379,13 @@ const faqSchema = {
               </div>
               <div class="prose-kyde">
                 <p>
-                  Kyde is behavioral scoring for AI agents. It writes a continuous, tamper-evident record of every agent action routed through it, which is what the confidence infrastructure depends on.
+                  Kyde scores how AI agents behave. Kyde Control also writes a continuous, tamper-evident record of every agent action routed through it, which is the kind of record described above.
                 </p>
                 <p>
                   Kyde Gateway sits in the data path between the agents and the systems they act on. What you route through the Gateway is captured before it reaches the downstream system, chained to the previous entry so that altering one entry breaks every entry after it, and forwarded unchanged, without modifying agent behavior, without requiring changes to the agent or model provider, in under 100 milliseconds. Signing each entry with your own Ed25519 keys is an Enterprise capability. What the Gateway does not see, it does not record, which is why coverage is reported alongside the record rather than assumed.
                 </p>
                 <p>
-                  The insurance reading itself, a behavioral record an underwriter prices, is not shipped. What runs today is the recording it would be priced from.
+                  An insurance product that prices this record is not something we ship. What runs today is the recording such a product would be priced from.
                 </p>
               </div>
 
@@ -395,8 +394,8 @@ const faqSchema = {
                   {
                     title: "For the legal frameworks",
                     items: [
-                      "Audit trail independent of the model provider, for the agent layer of DORA duties",
-                      "Supports EU AI Act causal reconstructability, decision chain per recorded event",
+                      "A record independent of the model provider, useful for DORA incident handling",
+                      "A decision chain per recorded event, supporting EU AI Act logging and oversight",
                       "Produces the evidence you would answer PLD strict liability presumptions with",
                     ],
                   },
@@ -405,7 +404,7 @@ const faqSchema = {
                     items: [
                       "Provides the continuous behavioral signal a parametric trigger has to be checked against",
                       "Establishes the behavioral baselines dynamic risk pricing would be built on",
-                      "Produces evidence of the kind AIUC-1 calls 'substantive and verifiable'",
+                      "Continuous evidence that certified controls stayed in place between tests",
                     ],
                   },
                   {
@@ -486,7 +485,7 @@ const faqSchema = {
                 <a href="/blog/confidence-infrastructure-part-2" class="group flex items-start gap-2">
                   <span class="font-mono text-warn text-xs shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <div>
-                    <p class="text-xs font-semibold text-ink-1 leading-snug">Part II: The Law Has Assigned Liability</p>
+                    <p class="text-xs font-semibold text-ink-1 leading-snug">Part II: Liability and Proof</p>
                     <p class="text-[10px] text-ink-1 mt-0.5">EU AI Act, PLD 2024, DORA, the proof gap</p>
                   </div>
                 </a>
@@ -541,7 +540,7 @@ const faqSchema = {
             <div class="border border-line-0 bg-bg-1 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Key players</p>
               <div class="space-y-1.5">
-                {["Munich Re / aiSure", "HSB AI Liability", "Lloyd's syndicates", "AIUC-1 (standard body)", "DRCF (UK regulators)"].map((p) => (
+                {["Munich Re aiSure", "HSB AI liability", "Lloyd's market", "AIUC-1 (standard)", "DRCF (UK regulators)"].map((p) => (
                   <p class="text-xs text-ink-1 flex gap-2"><span class="font-mono text-warn shrink-0">→</span>{p}</p>
                 ))}
               </div>
