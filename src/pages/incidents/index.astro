@@ -1,0 +1,72 @@
+---
+import Base from "../../layouts/Base.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import { INCIDENTS } from "../../data/incidents";
+
+const fmt = (iso: string) =>
+    new Date(iso + "T00:00:00Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
+        { "@type": "ListItem", position: 2, name: "AI Agent Incidents", item: "https://kyde.com/incidents/" },
+    ],
+};
+---
+
+<Base
+    title="AI Agent Incidents: Documented Cases of Agents Going Off Course | KYDE"
+    description="Weekly reports on real AI agent incidents: what happened, how it worked, which behavioral signal would have shown it first, and what operators can change. Primary sources linked."
+>
+    <Fragment slot="head">
+        <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    </Fragment>
+    <Navbar />
+
+    <main>
+
+        <section data-surface="blush" class="page-hero relative overflow-hidden">
+            <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+            <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-20 md:pt-48 md:pb-28 md:border-x md:border-line-0">
+                <p class="hero-label">(incidents)</p>
+                <h1 class="hero-h1 max-w-4xl text-4xl font-bold text-ink-0 uppercase tracking-tight md:text-5xl lg:text-6xl">
+                    AI agent incidents
+                </h1>
+                <p class="mt-8 text-lg text-ink-1 leading-relaxed max-w-2xl">
+                    Documented cases in which an AI agent with access to tools did something it was not supposed to do. Each report covers what happened, how it worked, which change in the agent's behavior came first, and what you can change if you run agents yourself. We publish one a week, link every primary source, and say plainly where the public record ends.
+                </p>
+                <p class="mt-6 text-base text-ink-1 leading-relaxed max-w-2xl">
+                    The cases follow the four patterns described in <a href="/rogue-ai-agents/" class="underline underline-offset-4 hover:text-ink-0">Rogue AI agents</a>: hijacked, looping, drifting and overreaching.
+                </p>
+            </div>
+        </section>
+
+        <section class="relative">
+            <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28 md:border-x md:border-line-0">
+                <ul class="max-w-3xl divide-y divide-line-0 border-y border-line-0">
+                    {INCIDENTS.map((i) => (
+                        <li>
+                            <a href={`/incidents/${i.slug}/`} class="group block py-8">
+                                <div class="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.15em] text-ink-1 mb-3">
+                                    <time datetime={i.date}>{fmt(i.date)}</time>
+                                    <span>·</span>
+                                    <span class="text-ember">{i.pattern}</span>
+                                    <span>·</span>
+                                    <span>{i.readTime}</span>
+                                </div>
+                                <h2 class="text-xl md:text-2xl font-bold text-ink-0 leading-snug mb-3 group-hover:underline underline-offset-4">{i.title}</h2>
+                                <p class="text-base text-ink-1 leading-relaxed">{i.summary}</p>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <Footer />
+</Base>

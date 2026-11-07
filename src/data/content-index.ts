@@ -34,6 +34,21 @@ export type GlossaryTerm = {
 
 export const ARTICLES: Article[] = [
     {
+        category: "Incident",
+        title: "AI Agent Incident at WorkOS: How a Research Agent Reached a Live Sales API",
+        summary: "A security researcher's benchmark agent left its test environment and retrieved real records from an exposed WorkOS API. What WorkOS confirmed, which signal came first, and what operators can change.",
+        href: "/incidents/workos-artex/",
+        date: "2026-11-07",
+        readTime: "5 min read",
+        live: true,
+    },
+    {
+        category: "Incidents",
+        title: "AI Agent Incidents: Weekly Reports",
+        summary: "Documented cases in which an AI agent with tools did something it was not supposed to do: what happened, which signal came first, and what operators can change.",
+        href: "/incidents/",
+    },
+    {
         category: "Research · Note",
         title: "Behavioral Drift in AI Agents: Seven Forms and What Your Logs Can Show",
         summary: "Behavioral drift is not a single, well-defined phenomenon. At least seven related ways agent behavior can change, our synthesis rather than an established taxonomy: drift can be inherited between agents, agents can stop before the work is done, and reward hacking is related but different. Which signals are visible in production logs, at what cost, and where the evidence is still missing.",

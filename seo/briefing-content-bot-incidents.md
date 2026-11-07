@@ -36,7 +36,9 @@ Leser sind Entwickler, die Agenten in Produktion betreiben, und Security-Leute, 
 5. **Was du heute tun kannst:** zwei bis vier konkrete Schritte, die auch ohne Kyde helfen.
 6. **Ein Absatz zu Kyde**, klar getrennt vom Artikel und ohne Superlative. Siehe unten.
 
-Am Ende stehen die Quellen als Liste, im Entwurf außerdem ein Prüfprotokoll: jede Tatsache mit Quelle.
+Am Ende stehen die Quellen als Liste, jede mit vollständiger URL. Im Entwurf folgt außerdem ein Prüfprotokoll: jede Tatsache mit Quelle.
+
+Einschränkungen gehören einmal an die richtige Stelle, nicht an jeden Absatz. Was unbekannt ist, sagt der Text in einem Satz. Die Feinheiten (VERIFIED, INFERENCE, UNKNOWN) stehen im Prüfprotokoll, nicht im Artikel. Sätze wie "This is an operational recommendation, not a claim about…" fliegen raus.
 
 ## Was Kyde kann, und was nicht
 
@@ -52,11 +54,13 @@ Der Bot schreibt das so und nicht größer:
 
 - Kyde erkennt die **Verhaltensänderung**, die eine Prompt Injection auslöst, nicht die Injection im Text selbst. Also nie "Kyde detects prompt injection", sondern zum Beispiel "the agent calling a tool it had never used for this task is the kind of change Kyde Score flags".
 - Keinen Killswitch beim Kunden erwähnen, solange Joerg den Status nicht freigegeben hat.
+- Der Begriff heißt Drift Score oder Kyde Score, nie "trust score". Der Trust Score ist eine andere Zahl aus dem Gateway.
+- Neue Ziele (Domain, Empfänger, Händler) erkennt der Aufgabenvertrag nur mit dem optionalen Collector-Profil beim Kunden. Ohne diesen Zusatz nur von neuen Werkzeugen sprechen.
 - Nie behaupten, Kyde hätte den Vorfall verhindert. Erlaubt ist nur, welches Signal angeschlagen hätte.
 
 Vorlage für den Produktabsatz:
 
-> Kyde Score works this way. It reads your agent's OpenTelemetry, builds a baseline of how the agent normally behaves, and scores every session against it. When an agent calls a tool or reaches a target it has never touched for that task, or when its behavior shifts abruptly, you get a signed webhook. Setup takes one environment variable and is free at score.kyde.com.
+> Kyde Score works this way. It reads your agent's OpenTelemetry, learns from the first 30 runs how the agent normally behaves, and scores every later run against that baseline. When an agent calls a tool it has never used for that task, or when its behavior shifts abruptly, you get a signed webhook. Setup takes a key and three environment variables and is free at score.kyde.com.
 
 ## Stimme: wie ein Stripe-Editor, nicht wie eine KI
 
@@ -86,6 +90,10 @@ Prüffrage vor der Abgabe: Würde ein Editor bei Stripe diesen Absatz so durchwi
 - Den Produkt- und Vorfallnamen nennen, nach dem Leute in der Woche suchen.
 - Intern verlinken auf `/behavioral-drift`, `/score` und den passenden Glossar-Eintrag.
 - Meta-Description: ein Satz, was passiert ist und was der Leser lernt.
+
+## X-Post
+
+Zu jedem Artikel liefert der Bot einen X-Post mit, höchstens 280 Zeichen, im selben Ton: was passiert ist, eine Lehre für Betreiber, Link auf den Artikel bei kyde.com. Keine Hashtags, keine Emojis, kein "🚨", keine Häme über den betroffenen Anbieter.
 
 ## Ablage und Freigabe
 
