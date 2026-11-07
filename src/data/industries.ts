@@ -126,7 +126,7 @@ export const INDUSTRIES: Industry[] = [
       asides: [{
         tag: '(For underwriters)',
         line: 'The same score shows how a customer\'s agents behave over time. Insurers who cover AI agents can use it when they price the risk.',
-        href: '/ai-agent-insurance',
+        href: '/ai-agent-insurance/',
         link: 'AI agent insurance, in depth',
       }],
       scene: {

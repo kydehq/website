@@ -5,39 +5,39 @@ import { INDUSTRIES } from "../data/industries";
 
 const footerLinks = {
     Platform: [
-        { label: "Overview", href: "/platform" },
+        { label: "Overview", href: "/platform/" },
         { label: "Observe", href: "/platform#see" },
         { label: "Detect", href: "/platform#replay" },
         { label: "Quarantine", href: "/platform#control" },
         { label: "Prove", href: "/platform#prove" },
-        { label: "Behavioral Drift", href: "/behavioral-drift" },
-        { label: "Documentation", href: "/docs" },
+        { label: "Behavioral Drift", href: "/behavioral-drift/" },
+        { label: "Documentation", href: "/docs/" },
     ],
     Services: [
-        { label: "AI Workers", href: "/services" },
-        { label: "The Audit", href: "/audit" },
+        { label: "AI Workers", href: "/services/" },
+        { label: "The Audit", href: "/audit/" },
     ],
     Industries: [
-        { label: "Overview", href: "/industries" },
-        ...INDUSTRIES.filter((i) => i.page).map((i) => ({ label: i.name, href: `/industries/${i.slug}` })),
+        { label: "Overview", href: "/industries/" },
+        ...INDUSTRIES.filter((i) => i.page).map((i) => ({ label: i.name, href: `/industries/${i.slug}/` })),
     ],
     Learn: [
-        { label: "EU AI Act Compliance", href: "/eu-ai-act-compliance" },
-        { label: "Qualified Electronic Ledger (eIDAS)", href: "/qualified-electronic-ledger" },
-        { label: "AI Agent Governance", href: "/ai-agent-governance" },
-        { label: "Zero Trust for Agents", href: "/zero-trust-for-ai-agents" },
-        { label: "Behavioral Drift", href: "/behavioral-drift" },
-        { label: "OpenTelemetry GenAI Conventions", href: "/blog/genai-semantic-conventions-drift" },
+        { label: "EU AI Act Compliance", href: "/eu-ai-act-compliance/" },
+        { label: "Qualified Electronic Ledger (eIDAS)", href: "/qualified-electronic-ledger/" },
+        { label: "AI Agent Governance", href: "/ai-agent-governance/" },
+        { label: "Zero Trust for Agents", href: "/zero-trust-for-ai-agents/" },
+        { label: "Behavioral Drift", href: "/behavioral-drift/" },
+        { label: "OpenTelemetry GenAI Conventions", href: "/blog/genai-semantic-conventions-drift/" },
         { label: "Drift Survey (paper)", href: "https://github.com/kydehq/behavioral-drift-detection" },
-        { label: "Shadow Agents", href: "/shadow-ai" },
-        { label: "Glossary", href: "/glossary" },
-        { label: "FAQ", href: "/faq" },
-        { label: "All Resources", href: "/resources" },
+        { label: "Shadow Agents", href: "/shadow-ai/" },
+        { label: "Glossary", href: "/glossary/" },
+        { label: "FAQ", href: "/faq/" },
+        { label: "All Resources", href: "/resources/" },
         { label: "RSS", href: "/rss.xml" },
     ],
     Company: [
-        { label: "About", href: "/company" },
-        { label: "Privacy & Imprint", href: "/legal" },
+        { label: "About", href: "/company/" },
+        { label: "Privacy & Imprint", href: "/legal/" },
     ],
 };
 
@@ -54,8 +54,8 @@ const links = isGerman
           ...footerLinks,
           Company: [
               ...footerLinks.Company,
-              { label: "Impressum", href: "/de/impressum" },
-              { label: "Datenschutz", href: "/de/datenschutz" },
+              { label: "Impressum", href: "/de/impressum/" },
+              { label: "Datenschutz", href: "/de/datenschutz/" },
           ],
       }
     : footerLinks;

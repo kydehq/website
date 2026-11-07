@@ -9,8 +9,8 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
-    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources" },
-    { "@type": "ListItem", position: 3, name: "Shadow AI", item: "https://kyde.com/shadow-ai" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources/" },
+    { "@type": "ListItem", position: 3, name: "Shadow AI", item: "https://kyde.com/shadow-ai/" },
   ],
 };
 
@@ -71,7 +71,7 @@ const faqSchema = {
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
             <span class="text-ink-1">/</span>
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Security · Governance</span>
           </div>
@@ -197,7 +197,7 @@ const faqSchema = {
               This creates an unusual obligation: you must govern AI systems you did not know existed. The only way to satisfy that obligation is to establish visibility before enforcement begins, not after the first competent authority request arrives.
             </p>
             <p>
-              <a href="/eu-ai-act-compliance">Full breakdown of EU AI Act obligations for enterprises deploying AI agents →</a>
+              <a href="/eu-ai-act-compliance/">Full breakdown of EU AI Act obligations for enterprises deploying AI agents →</a>
             </p>
 
             <h2 id="how-to-detect">How to detect Shadow AI</h2>
@@ -226,7 +226,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <a href="/guides/detect-shadow-ai">Step-by-step Shadow AI detection guide with tool recommendations →</a>
+              <a href="/guides/detect-shadow-ai/">Step-by-step Shadow AI detection guide with tool recommendations →</a>
             </p>
 
             <h2 id="how-to-govern">How to govern it without killing adoption</h2>
@@ -277,43 +277,43 @@ const faqSchema = {
                   label: "Guide",
                   title: "How to Detect Shadow AI in Your Organization",
                   desc: "A step-by-step detection playbook: network traffic analysis, endpoint audit, SaaS inventory, and governance proxy setup.",
-                  href: "/guides/detect-shadow-ai",
+                  href: "/guides/detect-shadow-ai/",
                 },
                 {
                   label: "Article",
                   title: "Shadow AI Is Already in Your Production Systems",
                   desc: "What Shadow AI looks like in practice, the patterns, the vectors, and why most enterprises are years behind on visibility.",
-                  href: "/blog/shadow-ai-production-systems",
+                  href: "/blog/shadow-ai-production-systems/",
                 },
                 {
                   label: "Article",
                   title: "Your Employees Are Already Using AI. You Just Don't Know How.",
                   desc: "The 78% statistic in context: what employees are actually doing, what data they are exposing, and what it means for your governance posture.",
-                  href: "/blog/employees-using-ai-shadow",
+                  href: "/blog/employees-using-ai-shadow/",
                 },
                 {
                   label: "Series",
                   title: "The Shadow AI Trilogy",
                   desc: "Three-part series: Shadow AI in production, detection, and governance, read in sequence.",
-                  href: "/shadow-ai-trilogy",
+                  href: "/shadow-ai-trilogy/",
                 },
                 {
                   label: "Guide",
                   title: "EU AI Act Compliance for AI Agents",
                   desc: "Shadow AI in regulated verticals creates Annex III exposure. Here is what compliance actually requires.",
-                  href: "/eu-ai-act-compliance",
+                  href: "/eu-ai-act-compliance/",
                 },
                 {
                   label: "Guide",
                   title: "AI Agent Governance: The Complete Enterprise Guide",
                   desc: "From Shadow AI detection to full agent governance, the broader infrastructure picture.",
-                  href: "/ai-agent-governance",
+                  href: "/ai-agent-governance/",
                 },
                 {
                   label: "Compare",
                   title: "Kyde vs WitnessAI: Enforcement vs Inference",
                   desc: "Employee AI usage monitoring and Shadow AI governance overlap but are not the same. An honest comparison of the two approaches.",
-                  href: "/compare/kyde-vs-witnessai",
+                  href: "/compare/kyde-vs-witnessai/",
                 },
               ].map(({ label, title, desc, href }) => (
                 <a href={href} class="group flex items-start gap-4 border border-line-0 bg-bg-1 p-5 hover:border-line-1 transition-colors">
@@ -394,10 +394,10 @@ const faqSchema = {
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">In this cluster</p>
               <div class="space-y-3">
                 {[
-                  { href: "/guides/detect-shadow-ai", label: "Detect Shadow AI (Guide)" },
-                  { href: "/blog/shadow-ai-production-systems", label: "Shadow AI in Production" },
-                  { href: "/blog/employees-using-ai-shadow", label: "Employees Using AI" },
-                  { href: "/shadow-ai-trilogy", label: "The Shadow AI Trilogy" },
+                  { href: "/guides/detect-shadow-ai/", label: "Detect Shadow AI (Guide)" },
+                  { href: "/blog/shadow-ai-production-systems/", label: "Shadow AI in Production" },
+                  { href: "/blog/employees-using-ai-shadow/", label: "Employees Using AI" },
+                  { href: "/shadow-ai-trilogy/", label: "The Shadow AI Trilogy" },
                 ].map(({ href, label }) => (
                   <a href={href} class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors leading-snug">
                     <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
@@ -410,11 +410,11 @@ const faqSchema = {
             <div class="border border-line-0 bg-bg-1 p-5">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related clusters</p>
               <div class="space-y-3">
-                <a href="/eu-ai-act-compliance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
+                <a href="/eu-ai-act-compliance/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>EU AI Act Compliance</span>
                 </a>
-                <a href="/ai-agent-governance" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
+                <a href="/ai-agent-governance/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>AI Agent Governance</span>
                 </a>

@@ -30,13 +30,13 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "behavioral-drift",
     de: "de/wissen/behavioral-drift",
-    sourceHash: "03deeb59ae491fe2",
+    sourceHash: "efaad687807a347d",
     note: "Dieselbe Argumentation in zwei Sprachen, nicht zwei eigenständige Texte: die Befunde sind dieselben und jede Zahl ist gegen dieselbe Arbeit geprüft. Übersetzt wird sie, weil sie an Forschung und an Artikel 72 hängt statt an unserem Produkt, also selten veraltet, und weil KI-MIG und BaFin deutsches Publikum sind.",
   },
   {
     en: "qualified-electronic-ledger",
     de: "de/wissen/qualifiziertes-elektronisches-journal",
-    sourceHash: "a94790d93500b48b",
+    sourceHash: "ccac918c5aa4395b",
     note: "Nicht übersetzt, sondern eigenständig geschrieben: die deutsche Fassung ist eine Bestandsaufnahme mit eigener Auswertung der Vertrauenslisten, die englische eine Referenz zum Rechtsakt. Der Hash steht trotzdem, weil beide Seiten dieselben Rechtsaussagen tragen und nicht auseinanderlaufen dürfen.",
   },
   {
@@ -72,7 +72,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "ai-agent-governance",
     de: "de/wissen/ki-agenten-governance",
-    sourceHash: "409bbc41de564411",
+    sourceHash: "5258d6dacf0af1ea",
     note: "Gekürzte Übertragung als Fließtext. Leitfaden zu AI Act, DORA, DRCF und NIST, für deutsche Banken, Versicherer und KRITIS-Betreiber geschrieben.",
   },
   {
@@ -84,13 +84,13 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "agent-prompt-injection-detection",
     de: "de/wissen/prompt-injection-erkennen",
-    sourceHash: "3e8e25114d8802eb",
+    sourceHash: "6b6bbf3548cf43a5",
     note: "Kernseite in der Sprache des Problems (SEO-Plan 07.11.2026). Hängt an OWASP und an der Erkennungslogik von Kyde Score, beides in beiden Sprachen gleich, deshalb der Hash.",
   },
   {
     en: "agent-loop-detection",
     de: "de/wissen/agent-endlosschleife-erkennen",
-    sourceHash: "0ecd4f007d9b4e39",
+    sourceHash: "1aa4349862206270",
     note: "Kernseite in der Sprache des Problems (SEO-Plan 07.11.2026). Nennt die Schwellen aus dem Code von Kyde Score (3 und 10 Aufrufe), die in beiden Sprachen gleich bleiben müssen.",
   },
 ];
@@ -105,7 +105,10 @@ export function alternatesFor(pathname: string): Partial<Record<Locale, string>>
   const path = strip(pathname);
   const pair = LOCALE_PAIRS.find((p) => strip(p.en) === path || strip(p.de) === path);
   if (!pair) return {};
-  return { en: `/${strip(pair.en)}`, de: `/${strip(pair.de)}` };
+  // Trailing slash, because that is the URL GitHub Pages serves; without it
+  // every hreflang pointed at a 301.
+  const url = (p: string) => (strip(p) ? `/${strip(p)}/` : "/");
+  return { en: url(pair.en), de: url(pair.de) };
 }
 
 /** Locale a path belongs to, from the URL alone. */

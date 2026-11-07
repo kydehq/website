@@ -6,7 +6,7 @@ import { studies, RESULTS, REPO, MEASURED, METHOD } from "../data/research";
 export const GET: APIRoute = () => {
   const body = {
     publisher: "Kyde Research",
-    page: "https://kyde.com/research",
+    page: "https://kyde.com/research/",
     measured: MEASURED,
     method_version: METHOD,
     code: REPO,

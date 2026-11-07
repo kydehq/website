@@ -20,7 +20,7 @@ import LegalNotice from "../components/LegalNotice.astro";
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Resources</a>
             <span class="text-ink-1">/</span>
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Technical</span>
           </div>
@@ -97,7 +97,7 @@ import LegalNotice from "../components/LegalNotice.astro";
               Two limits are worth stating. Without a parameter digest on the call, Kyde does not count repeats at all, because it cannot tell an identical call from a legitimate second call to the same tool. Standard OpenTelemetry instrumentations do not send that digest today, so it has to be added as an attribute on the tool call. And Kyde does not watch your bill: it does not read token counts or costs. It watches the calls that produce them.
             </p>
             <p>
-              A loop alarm tells you an agent is stuck. Ending the run is up to you, or to Kyde Control, the gateway that sits in the agent's path, runs in your own environment and can hold the next call. <a href="/products">Compare Score and Control</a>.
+              A loop alarm tells you an agent is stuck. Ending the run is up to you, or to Kyde Control, the gateway that sits in the agent's path, runs in your own environment and can hold the next call. <a href="/products/">Compare Score and Control</a>.
             </p>
 
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
@@ -106,7 +106,7 @@ import LegalNotice from "../components/LegalNotice.astro";
                 Kyde Score flags an agent that repeats the same call: from three identical calls in a row it raises an alarm, from ten it marks the run as runaway. It works from the first run, reads only a hash of the parameters, and sends a signed webhook when the score changes band.
               </p>
               <a
-                href="/score"
+                href="/score/"
                 class="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-xs font-mono uppercase tracking-[0.1em] whitespace-nowrap text-cta-ink hover:bg-cta-hover transition-all"
               >
                 Score an agent →
@@ -127,15 +127,19 @@ import LegalNotice from "../components/LegalNotice.astro";
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
               <div class="space-y-4">
-                <a href="/agent-prompt-injection-detection" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/agent-prompt-injection-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Detecting Indirect Prompt Injection in AI Agents</span>
                 </a>
-                <a href="/behavioral-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/agent-drift-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>AI Agent Drift Detection</span>
+                </a>
+                <a href="/behavioral-drift/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>Behavioral Drift in AI Agents</span>
                 </a>
-                <a href="/blog/genai-semantic-conventions-drift" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                <a href="/blog/genai-semantic-conventions-drift/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
                   <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
                   <span>What OpenTelemetry's GenAI Conventions Can and Can't Tell You</span>
                 </a>
@@ -143,7 +147,7 @@ import LegalNotice from "../components/LegalNotice.astro";
             </div>
             <div class="border border-line-0 bg-bg-1 p-6">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Deutsch</p>
-              <a href="/de/wissen/agent-endlosschleife-erkennen" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
+              <a href="/de/wissen/agent-endlosschleife-erkennen/" class="text-xs text-ink-1 underline underline-offset-4" hreflang="de">Diesen Artikel auf Deutsch lesen →</a>
             </div>
           </aside>
 

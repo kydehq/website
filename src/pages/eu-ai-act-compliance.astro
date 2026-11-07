@@ -9,8 +9,8 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://kyde.com/" },
-    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources" },
-    { "@type": "ListItem", position: 3, name: "EU AI Act Compliance", item: "https://kyde.com/eu-ai-act-compliance" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://kyde.com/resources/" },
+    { "@type": "ListItem", position: 3, name: "EU AI Act Compliance", item: "https://kyde.com/eu-ai-act-compliance/" },
   ],
 };
 
@@ -75,7 +75,7 @@ const faqSchema = {
 
         <div class="mb-10">
           <div class="flex items-center gap-3 mb-3">
-            <a href="/resources" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
+            <a href="/resources/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-0 transition-colors">↑ Resources</a>
             <span class="text-ink-1">/</span>
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Regulatory · Compliance</span>
           </div>
@@ -175,7 +175,7 @@ const faqSchema = {
             </div>
 
             <p>
-              The December 2, 2027 deadline is the result of the Digital Omnibus agreement (preliminary agreement May 7, 2026), which extended the original August 2026 Annex III deadline. <a href="/blog/eu-ai-act-omnibus-collapse">The path to that agreement was not straightforward</a>, and the obligations themselves were not softened, only delayed.
+              The December 2, 2027 deadline is the result of the Digital Omnibus agreement (preliminary agreement May 7, 2026), which extended the original August 2026 Annex III deadline. <a href="/blog/eu-ai-act-omnibus-collapse/">The path to that agreement was not straightforward</a>, and the obligations themselves were not softened, only delayed.
             </p>
             <p>
               December 2027 sounds distant. It is not. Building the audit infrastructure, classifying systems, completing technical documentation, and registering in the EU database requires six to eighteen months of preparation for most enterprises. The organizations that start in 2027 will be building under enforcement pressure.
@@ -184,7 +184,7 @@ const faqSchema = {
             <!-- Section 3 -->
             <h2 id="annex-iii">Annex III: the 10 high-risk categories</h2>
             <p>
-              Annex III of the EU AI Act lists the categories of AI systems classified as High-Risk. If your organization deploys AI agents in any of these areas, full compliance obligations apply from December 2, 2027. <a href="/guides/classify-ai-systems">Use our classification guide</a> to determine where your systems land.
+              Annex III of the EU AI Act lists the categories of AI systems classified as High-Risk. If your organization deploys AI agents in any of these areas, full compliance obligations apply from December 2, 2027. <a href="/guides/classify-ai-systems/">Use our classification guide</a> to determine where your systems land.
             </p>
 
             <div class="not-prose my-5 border border-line-0">
@@ -233,7 +233,7 @@ const faqSchema = {
               <li>For credit, insurance, and employment decisions: the log must capture sufficient context to reconstruct the decision chain</li>
             </ul>
             <p>
-              <a href="/blog/eu-ai-act-audit-trails">What most enterprises are missing</a>: Article 12 does not prescribe a specific technical implementation, but a log that can be altered after the fact does not satisfy the regulation's intent. Tamper-evidence is a structural requirement, not a feature you can configure later.
+              <a href="/blog/eu-ai-act-audit-trails/">What most enterprises are missing</a>: Article 12 does not prescribe a specific technical implementation, but a log that can be altered after the fact does not satisfy the regulation's intent. Tamper-evidence is a structural requirement, not a feature you can configure later.
             </p>
 
             <h3 class="text-base font-bold text-ink-0 mt-6 mb-3 uppercase tracking-wide">Article 14, Human oversight</h3>
@@ -282,7 +282,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <a href="/blog/eu-ai-act-audit-trails">A full breakdown of what enterprises are currently missing, and what the audit infrastructure actually has to do.</a>
+              <a href="/blog/eu-ai-act-audit-trails/">A full breakdown of what enterprises are currently missing, and what the audit infrastructure actually has to do.</a>
             </p>
 
             <!-- Section 6 -->
@@ -292,7 +292,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Step 1, Classify your AI systems against Annex III.</strong> Do not assume your AI tools are low-risk because they feel like internal productivity tools. An AI agent that participates in employment decisions, credit processing, insurance pricing, or critical infrastructure operations is almost certainly Annex III. <a href="/guides/classify-ai-systems">Use the classification guide</a>, and involve legal counsel, not just IT.
+              <strong>Step 1, Classify your AI systems against Annex III.</strong> Do not assume your AI tools are low-risk because they feel like internal productivity tools. An AI agent that participates in employment decisions, credit processing, insurance pricing, or critical infrastructure operations is almost certainly Annex III. <a href="/guides/classify-ai-systems/">Use the classification guide</a>, and involve legal counsel, not just IT.
             </p>
 
             <p>
@@ -300,7 +300,7 @@ const faqSchema = {
             </p>
 
             <p>
-              <strong>Step 3, Assess your shadow AI surface.</strong> The agents you know about are not the only agents running on your infrastructure. <a href="/guides/detect-shadow-ai">Shadow AI</a>, models and agents deployed without IT visibility, creates compliance exposure you cannot audit. Any shadow AI system in an Annex III use case is an unregistered, non-compliant High-Risk AI system. Quantifying this exposure is a prerequisite for compliance planning.
+              <strong>Step 3, Assess your shadow AI surface.</strong> The agents you know about are not the only agents running on your infrastructure. <a href="/guides/detect-shadow-ai/">Shadow AI</a>, models and agents deployed without IT visibility, creates compliance exposure you cannot audit. Any shadow AI system in an Annex III use case is an unregistered, non-compliant High-Risk AI system. Quantifying this exposure is a prerequisite for compliance planning.
             </p>
 
             <p>
@@ -348,55 +348,55 @@ const faqSchema = {
                   label: "Guide",
                   title: "How to Classify AI Systems Under EU AI Act",
                   desc: "Step-by-step framework for determining if your AI systems are High-Risk under Annex III. With decision tree and worked examples per vertical.",
-                  href: "/guides/classify-ai-systems",
+                  href: "/guides/classify-ai-systems/",
                 },
                 {
                   label: "Article",
                   title: "What the EU AI Act Actually Requires for Audit Trails",
                   desc: "Why provider-native logs fail, what tamper-evidence means structurally, and what the causal context requirement forces you to capture.",
-                  href: "/blog/eu-ai-act-audit-trails",
+                  href: "/blog/eu-ai-act-audit-trails/",
                 },
                 {
                   label: "Article",
                   title: "The EU AI Act Is Coming. Regardless of What Brussels Decides.",
                   desc: "The timeline from the Digital Omnibus process, the four scenarios, and why planning against postponement is the wrong posture.",
-                  href: "/blog/eu-ai-act-omnibus-collapse",
+                  href: "/blog/eu-ai-act-omnibus-collapse/",
                 },
                 {
                   label: "Article",
                   title: "DORA and AI Agents: Why Your LLM Provider's Log Doesn't Satisfy Article 30",
                   desc: "For financial entities: how DORA Article 30 intersects with EU AI Act obligations, and why the requirements are additive, not overlapping.",
-                  href: "/blog/dora-ai-agents",
+                  href: "/blog/dora-ai-agents/",
                 },
                 {
                   label: "Guide",
                   title: "AI Governance Checklist: What to Have Before an Audit",
                   desc: "The documentation, technical controls, and organizational measures you need in place before a competent authority requests them.",
-                  href: "/guides/governance-checklist",
+                  href: "/guides/governance-checklist/",
                 },
                 {
                   label: "Guide",
                   title: "How to Detect Shadow AI in Your Organization",
                   desc: "Identifying unauthorized AI agent deployments, the Annex III compliance exposure you cannot audit if you cannot see.",
-                  href: "/guides/detect-shadow-ai",
+                  href: "/guides/detect-shadow-ai/",
                 },
                 {
                   label: "Article",
                   title: "AI Agents in Critical Infrastructure: NIST, the EU AI Act and NIS-2",
                   desc: "Three frameworks written independently that ask operators for similar things: a record of what AI systems did, real oversight and safe failure.",
-                  href: "/blog/nist-critical-infrastructure-ai-convergence",
+                  href: "/blog/nist-critical-infrastructure-ai-convergence/",
                 },
                 {
                   label: "Compare",
                   title: "Kyde vs Vanta: Program Compliance vs Runtime Proof",
                   desc: "A GRC platform documents your EU AI Act program. Article 12 action logs require something in the runtime path. Why most regulated deployments need both layers.",
-                  href: "/compare/kyde-vs-vanta",
+                  href: "/compare/kyde-vs-vanta/",
                 },
                 {
                   label: "Faq",
                   title: "Questions Security and Compliance Teams Ask Before Deploying",
                   desc: "Latency, data privacy, fail-open versus fail-closed, and how a governance gateway differs from a SIEM or API gateway.",
-                  href: "/faq",
+                  href: "/faq/",
                 },
               ].map(({ label, title, desc, href }) => (
                 <a href={href} class="group flex items-start gap-4 border border-line-0 bg-bg-1 p-5 hover:border-line-1 transition-colors">
@@ -481,12 +481,12 @@ const faqSchema = {
               <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Spoke pages</p>
               <div class="space-y-3">
                 {[
-                  { href: "/guides/classify-ai-systems", label: "Classify AI Systems" },
-                  { href: "/blog/eu-ai-act-audit-trails", label: "Audit Trail Requirements" },
-                  { href: "/blog/eu-ai-act-omnibus-collapse", label: "Omnibus Timeline" },
-                  { href: "/blog/dora-ai-agents", label: "DORA + AI Agents" },
-                  { href: "/guides/governance-checklist", label: "Governance Checklist" },
-                  { href: "/guides/detect-shadow-ai", label: "Detect Shadow AI" },
+                  { href: "/guides/classify-ai-systems/", label: "Classify AI Systems" },
+                  { href: "/blog/eu-ai-act-audit-trails/", label: "Audit Trail Requirements" },
+                  { href: "/blog/eu-ai-act-omnibus-collapse/", label: "Omnibus Timeline" },
+                  { href: "/blog/dora-ai-agents/", label: "DORA + AI Agents" },
+                  { href: "/guides/governance-checklist/", label: "Governance Checklist" },
+                  { href: "/guides/detect-shadow-ai/", label: "Detect Shadow AI" },
                 ].map(({ href, label }) => (
                   <a href={href} class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-0 transition-colors leading-snug">
                     <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
