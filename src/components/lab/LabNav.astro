@@ -20,8 +20,19 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     <div class="nav-side mono">
       <a href="https://score.kyde.com/dashboard">Dashboard</a>
       <button type="button" onclick="openModal()" class="btn btn-ink btn-s">Contact sales →</button>
+      <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="lab-nav-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
+  <!-- Below 860px the links above are hidden; this panel carries them. -->
+  <nav id="lab-nav-menu" class="nav-menu" aria-label="Main (mobile)" hidden>
+    <a href="/research/" aria-current={active === "research" ? "page" : undefined}>Research</a>
+    <a href="/products/" aria-current={active === "products" ? "page" : undefined}>Products</a>
+    <a href="/pricing/" aria-current={active === "pricing" ? "page" : undefined}>Pricing</a>
+    <a href="/docs/">Docs</a>
+    <a href="https://score.kyde.com/dashboard" class="mono">Dashboard</a>
+  </nav>
 </header>
 
 <script is:inline>
@@ -36,5 +47,19 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     };
     addEventListener("scroll", update, { passive: true });
     addEventListener("DOMContentLoaded", update);
+
+    const btn = nav.querySelector(".nav-burger");
+    const menu = nav.querySelector("#lab-nav-menu");
+    const setOpen = (open) => {
+      menu.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      nav.classList.toggle("menu-open", open);
+      document.documentElement.style.overflow = open ? "hidden" : "";
+    };
+    btn.addEventListener("click", () => setOpen(menu.hidden));
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) { setOpen(false); btn.focus(); } });
+    // Back to desktop width: never leave the page locked behind a hidden panel.
+    matchMedia("(min-width: 861px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
   })();
 </script>
