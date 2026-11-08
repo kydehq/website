@@ -175,6 +175,11 @@ const articleSchema = datePublished
         )}
         <slot name="head" />
 
+        <!-- Umami Cloud: cookieless reach measurement, EU data region (2026-11-08).
+             Also in astro.config.mjs for the Starlight docs. Privacy text:
+             /de/datenschutz and /legal. Funnel clicks via data-umami-event. -->
+        <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="f4e58da4-64fd-473c-9f90-29179942dd4d"></script>
+
     </head>
     <body class="min-h-screen">
         <DemoModal />

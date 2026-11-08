@@ -6,7 +6,9 @@
 // D-043. Plan limits
 // follow what score.kyde.com enforces today (Joerg, 2026-11-03).
 // Push alerts, users, export and 1-year history are not built yet (KYDE-377).
-// Solo and Team show "Coming soon" until Stripe checkout works (KYDE-377).
+// No checkout while the GmbH is on hold (D-047): Solo and Team take a
+// reservation through the contact dialog, counted by lead_source (KYDE-359).
+// Prices confirmed by Joerg on 2026-11-08.
 // Plan: 01-kyde-company/04_marketing/website/2026-11-03-kyde-com-score-seite-offene-punkte.md
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
@@ -129,7 +131,10 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
                 <p class="plan-sub">{p.who}</p>
                 <ul class="plan-list">{p.items.map((it) => <li>{it}</li>)}</ul>
                 {p.soon
-                  ? <span class="btn plan-cta plan-soon" aria-disabled="true">Coming soon</span>
+                  ? <>
+                      <button type="button" onclick={`openModal({ plan: '${p.name}' })`} class="btn btn-ink plan-cta" data-umami-event={`reserve-open-${p.name.toLowerCase()}`}>Reserve {p.name} →</button>
+                      <p class="mono plan-note">Nothing to pay today. We email you when {p.name} opens.</p>
+                    </>
                   : <a href={p.cta.href} class="btn btn-ink plan-cta">{p.cta.label}</a>}
               </div>
             ))}
@@ -142,12 +147,12 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
             <p class="plan-price"><span class="plan-from">from</span>€990<span class="plan-per">a month</span></p>
             <p class="plan-sub">For agents you need to stop, not just watch.</p>
             <ul class="plan-list">{controlItems.map((i) => <li>{i}</li>)}</ul>
-            <button type="button" onclick="openModal()" class="btn plan-cta btn-neon">Contact sales →</button>
+            <button type="button" onclick="openModal()" class="btn plan-cta btn-neon" data-umami-event="contact-open-control">Contact sales →</button>
             <p class="mono plan-foot">Try first: the <a href="https://github.com/kydehq/gateway" rel="noopener">open-source gateway</a> observes and records, without stopping.</p>
           </article>
         </div>
       </div>
-      <div class="wrap"><p class="mono p-draft">*Draft. Prices and plan limits are a proposal, not yet decided. Prices excl. VAT.</p></div>
+      <div class="wrap"><p class="mono p-draft">Prices excl. VAT. Solo and Team open soon. A reservation holds the price.</p></div>
     </section>
 
     <!-- ══════════ 01 PLANS IN DETAIL ══════════ -->
@@ -285,7 +290,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .plan-dark .plan-list li { border-top-color: #3a3a3a; }
     .plan-dark .plan-list li::before { background: var(--color-neon); }
     .plan-cta { align-self: flex-start; font-size: 0.875rem; padding: 12px 16px; }
-    .plan-soon { background: var(--color-line-0); color: var(--color-ink-2); cursor: default; }
+    .plan-note { margin-top: 10px; font-size: 0.75rem; color: var(--color-ink-2); }
     .btn-neon { background: var(--color-neon); color: var(--color-ink); }
     .btn-neon:hover { background: #fff; }
     .p-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
