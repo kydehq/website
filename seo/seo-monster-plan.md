@@ -4,7 +4,11 @@ title: SEO Monster Plan — kyde.com
 description: Masterplan für das programmatische SEO-Seitennetz auf kyde.com — 7 Seitentypen, ~60 Seiten, Wellen-Roadmap KW29–KW38, Templates, KPIs.
 tags: [seo, website, gtm, content, geo]
 timestamp: 2026-07-16
+status: superseded
+superseded_by: 01-kyde-company/04_marketing/website/2026-11-08-seo-plan-score.md
 ---
+
+> **Abgelöst am 08.11.2026.** Dieser Plan zielt auf Governance, CISOs und Kyde Gateway als Produkt. Gültig ist der [SEO-Plan für Score, Monitoring, Drift und Prompt Injection](https://github.com/kydehq/company/blob/main/04_marketing/website/2026-11-08-seo-plan-score.md) (Repo company, `04_marketing/website/2026-11-08-seo-plan-score.md`). Die Datei bleibt als Geschichte.
 
 # SEO Monster Plan — kyde.com
 > Owner: Joerg · Stand: 2026-07-16

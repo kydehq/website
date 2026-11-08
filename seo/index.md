@@ -10,7 +10,10 @@ timestamp: 2026-07-16
 
 Das SEO-Seitennetz für kyde.com (Entscheid Joerg 2026-07-16: Englisch only, Vergleiche voll namentlich). Backlog: SEO-001 bis SEO-006 in `backlog/BACKLOG.md`; baut auf SGTM-002/003/009 auf.
 
-- [seo-monster-plan.md](seo-monster-plan.md) — **Der Masterplan:** 7 Seitentypen, ~60 Seiten, Wellen-Roadmap KW29–KW38, technisches Fundament, KPIs, Hausregeln.
+- **Gültiger SEO-Plan (seit 08.11.2026):** [2026-11-08-seo-plan-score.md](https://github.com/kydehq/company/blob/main/04_marketing/website/2026-11-08-seo-plan-score.md) im Repo company, Cluster Monitoring und Drift, Prompt Injection, Loops, OpenTelemetry, Modellwechsel.
+- [gsc-auswertung-2026-11.md](gsc-auswertung-2026-11.md) — Search Console Aug bis Nov 2026, Datengrundlage des neuen Plans.
+- [briefing-content-bot-incidents.md](briefing-content-bot-incidents.md) — Wöchentliche Incident-Artikel.
+- [seo-monster-plan.md](seo-monster-plan.md) — *Abgelöst am 08.11.2026.* Alter Masterplan (Governance): 7 Seitentypen, ~60 Seiten, Wellen-Roadmap KW29–KW38, technisches Fundament, KPIs, Hausregeln.
 - `templates/`
   - [comparison-page-template.md](templates/comparison-page-template.md) — Wiederverwendbares Template für /compare/kyde-vs-x (Achsen, Ton-Regeln, Publish-Checkliste).
 - `drafts/` — Englische Seiten-Copy, Welle 1 **ist geportet** (2026-07-16, Joerg-Entscheid: kein öffentlicher Preis, alle neuen Seiten hängen unter /resources):
