@@ -21,6 +21,8 @@ export default defineConfig({
         { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png?v=2' } },
         { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png?v=2' } },
         { tag: 'link', attrs: { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png?v=2' } },
+        // Umami Cloud, same as Base.astro
+        { tag: 'script', attrs: { defer: true, src: 'https://cloud.umami.is/script.js', 'data-website-id': 'f4e58da4-64fd-473c-9f90-29179942dd4d' } },
       ],
       social: [{ icon: 'github', label: 'Kyde on GitHub', href: 'https://github.com/kydehq' }],
       customCss: ['./src/styles/starlight-kyde.css'],

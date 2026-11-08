@@ -21,8 +21,8 @@
     </button>
 
     <div class="p-8">
-      <h3 class="text-xl font-bold text-ink-0">Let's talk.</h3>
-      <p class="mt-2 text-sm text-ink-1">
+      <h3 id="demo-title" class="text-xl font-bold text-ink-0">Let's talk.</h3>
+      <p id="demo-intro" class="mt-2 text-sm text-ink-1">
         Tell us about your setup. We'll get back to you within 24 hours.
       </p>
 
@@ -78,7 +78,7 @@
           </select>
         </div>
         <div>
-          <label for="demo-message" class="block text-xs font-medium text-ink-1 mb-1.5">What do you want to talk about?</label>
+          <label for="demo-message" id="demo-message-label" class="block text-xs font-medium text-ink-1 mb-1.5">What do you want to talk about?</label>
           <textarea
             id="demo-message" name="message" required minlength="20" maxlength="2000" rows="3"
             placeholder="e.g. We run 12 claims agents and want to stop them when they drift."
@@ -115,8 +115,8 @@
             <path d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h4 class="text-lg font-semibold text-ink-0">Message received.</h4>
-        <p class="mt-2 text-sm text-ink-1">We'll be in touch within 24 hours.</p>
+        <h4 id="demo-success-title" class="text-lg font-semibold text-ink-0">Message received.</h4>
+        <p id="demo-success-text" class="mt-2 text-sm text-ink-1">We'll be in touch within 24 hours.</p>
       </div>
     </div>
   </div>
@@ -125,7 +125,44 @@
 <script>
   // Open / close
   let openedAt = 0;
-  function openModal() {
+  // Reservation mode: openModal({ plan: 'Solo' }) from the pricing page.
+  // While the GmbH is on hold there is no checkout (D-047), so a reservation
+  // is a lead with the plan in lead_source. The plan travels in lead_source,
+  // not only in message, because demo-request may not store message yet
+  // (KYDE-376). Without a plan the dialog is the plain contact form.
+  let reservePlan = '';
+  const texts = {
+    title: "Let's talk.",
+    intro: "Tell us about your setup. We'll get back to you within 24 hours.",
+    label: 'What do you want to talk about?',
+    submit: 'Send →',
+    okTitle: 'Message received.',
+    okText: "We'll be in touch within 24 hours.",
+  };
+  function setText(id: string, value: string) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+  function openModal(opts?: { plan?: string }) {
+    reservePlan = opts?.plan ?? '';
+    const msg = document.getElementById('demo-message') as HTMLTextAreaElement | null;
+    if (reservePlan) {
+      setText('demo-title', `Reserve ${reservePlan}.`);
+      setText('demo-intro', `Nothing to pay today. We hold the ${reservePlan} price for you and email you when the plan opens.`);
+      setText('demo-message-label', 'Anything we should know? (optional)');
+      setText('demo-submit', `Reserve ${reservePlan} →`);
+      setText('demo-success-title', 'Reserved.');
+      setText('demo-success-text', `We'll email you when ${reservePlan} opens.`);
+      if (msg) { msg.required = false; msg.minLength = 0; }
+    } else {
+      setText('demo-title', texts.title);
+      setText('demo-intro', texts.intro);
+      setText('demo-message-label', texts.label);
+      setText('demo-submit', texts.submit);
+      setText('demo-success-title', texts.okTitle);
+      setText('demo-success-text', texts.okText);
+      if (msg) { msg.required = true; msg.minLength = 20; }
+    }
     openedAt = Date.now();
     document.getElementById('demo-modal')?.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -182,8 +219,12 @@
       email:       data.get('email') ?? '',
       company:     data.get('company') ?? '',
       agents:      data.get('agents') ?? '',
-      message:     String(data.get('message') ?? '').trim(),
-      lead_source: 'website_demo_request',
+      message:     reservePlan
+        ? `[Reservation: ${reservePlan}] ${String(data.get('message') ?? '').trim()}`.trim()
+        : String(data.get('message') ?? '').trim(),
+      lead_source: reservePlan
+        ? `website_reservation_${reservePlan.toLowerCase()}`
+        : 'website_demo_request',
       page_url:    window.location.href,
     };
 
@@ -194,13 +235,14 @@
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        (window as any).umami?.track(reservePlan ? `reserve-sent-${reservePlan.toLowerCase()}` : 'contact-sent');
         form.classList.add('hidden');
         document.getElementById('demo-success')?.classList.remove('hidden');
       } else {
         throw new Error('server error');
       }
     } catch {
-      btn.textContent = 'Send →';
+      btn.textContent = reservePlan ? `Reserve ${reservePlan} →` : 'Send →';
       btn.disabled = false;
       alert('Something went wrong. Please email hello@kyde.com directly.');
     }
