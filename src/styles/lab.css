@@ -73,6 +73,7 @@
   #key-result { margin-top: 24px; }
   .console .code:not(.code-big) { font-size: 0.72rem; padding-right: 44px; overflow-wrap: normal; word-break: normal; }
   .lab-nav.on-paper { background: var(--color-paper); border-bottom: 1px solid var(--color-line-0); }
+  @media (min-width: 861px) { .nav-menu { display: none !important; } }
 
   /* Code: wraps instead of scrolling sideways. */
   .code { position: relative; background: var(--color-bg-2); padding: 16px 48px 16px 18px; font: 400 0.84rem/1.65 var(--font-mono); margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -157,8 +158,22 @@
   .lim-v { font-size: 1.05rem; }
   .surface-rose .note { color: var(--color-ink-1); }
 
+  /* Mobile menu: burger and a full-height panel under the bar. */
+  .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 6px; width: 36px; height: 36px; margin-right: -6px; padding: 6px; background: none; border: 0; cursor: pointer; color: var(--color-ink); }
+  .nav-burger span { display: block; height: 1.5px; width: 24px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+  .menu-open .nav-burger span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+  .menu-open .nav-burger span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  .nav-menu { display: flex; flex-direction: column; gap: 22px; padding: 28px var(--kx-pad) 40px; height: calc(100dvh - var(--kx-nav)); overflow-y: auto; background: inherit; border-top: 1px solid var(--color-line-0); }
+  .nav-menu[hidden] { display: none; }
+  .nav-menu a { color: var(--color-ink-2); text-decoration: none; font-size: 1.75rem; letter-spacing: -0.03em; }
+  .nav-menu a.mono { font-size: 0.9375rem; margin-top: 8px; }
+  .nav-menu a:hover, .nav-menu a[aria-current="page"] { color: var(--color-ink); }
+
   @media (max-width: 860px) {
     .nav-main, .nav-side a { display: none; }
+    .nav-burger { display: flex; }
+    .nav-side { gap: 16px; }
     .nav-row { grid-template-columns: 1fr auto; }
     .triggers, .plans { grid-template-columns: 1fr; }
     .lims li, .fields div { grid-template-columns: 1fr; gap: 2px; }
