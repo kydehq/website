@@ -70,6 +70,8 @@ Kyde posts on every band change, the first score and a recovery included, and on
 
 **Verify:** the header `x-kyde-signature` carries `sha256=<hex>`, the HMAC-SHA256 of the raw body, keyed with your scoring key. Delivery is best effort: one attempt, one retry after 30 seconds. Poll `/score/v0/scores` if you must not miss a change.
 
+All events and fields, verification code, Slack in one step, test events and the delivery log: [Webhooks](/docs/score/webhooks/).
+
 ## Rebaseline
 
 ```bash

@@ -42,6 +42,7 @@ export default defineConfig({
             { label: 'Quickstart', slug: 'docs/score/quickstart' },
             { label: 'For agents', slug: 'docs/score/agents' },
             { label: 'API', slug: 'docs/score/api' },
+            { label: 'Webhooks', slug: 'docs/score/webhooks' },
             { label: 'Limits and privacy', slug: 'docs/score/limits' },
           ],
         },
