@@ -26,6 +26,7 @@ export const labFooterLinks = {
     ...INDUSTRIES.filter((i) => i.page).map((i) => ({ label: i.name, href: `/industries/${i.slug}/` })),
   ],
   Learn: [
+    { label: "All resources", href: "/resources/" },
     { label: "Behavioral Drift", href: "/behavioral-drift/" },
     { label: "Rogue AI Agents", href: "/rogue-ai-agents/" },
     { label: "AI Agent Incidents", href: "/incidents/" },
@@ -37,7 +38,6 @@ export const labFooterLinks = {
     { label: "Qualified Electronic Ledger", href: "/qualified-electronic-ledger/" },
     { label: "Glossary", href: "/glossary/" },
     { label: "FAQ", href: "/faq/" },
-    { label: "All Resources", href: "/resources/" },
   ],
   Company: [
     { label: "About", href: "/company/" },
