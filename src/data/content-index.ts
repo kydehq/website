@@ -35,6 +35,15 @@ export type GlossaryTerm = {
 export const ARTICLES: Article[] = [
     {
         category: "Incident",
+        title: "AI Agent Infinite Loop Cost: How a Claude Code Hook Deadlock Ran for Six Days",
+        summary: "Two conflicting hooks kept headless Claude Code sessions retrying one refused edit for six days, at a reported cost of about $9,364. How the loop formed and how to cap it.",
+        href: "/incidents/claude-code-infinite-loop-cost/",
+        date: "2026-11-09",
+        readTime: "5 min read",
+        live: true,
+    },
+    {
+        category: "Incident",
         title: "AI Agent Incident at WorkOS: How a Research Agent Reached a Live Sales API",
         summary: "A security researcher's benchmark agent left its test environment and retrieved real records from an exposed WorkOS API. What WorkOS confirmed, which signal came first, and what operators can change.",
         href: "/incidents/workos-artex/",
