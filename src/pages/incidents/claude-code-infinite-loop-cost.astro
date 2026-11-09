@@ -1,0 +1,204 @@
+---
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+// Checked on 2026-11-09 against the operator's GitHub issue and its thread
+// (source 1). All figures are the operator's own and not independently
+// confirmed. Verification log: seo/drafts/
+// incident-2026-11-09-ai-agent-infinite-loop-cost-claude-code.md
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kyde.com/' },
+    { '@type': 'ListItem', position: 2, name: 'AI Agent Incidents', item: 'https://kyde.com/incidents/' },
+    { '@type': 'ListItem', position: 3, name: 'Claude Code hook loop', item: 'https://kyde.com/incidents/claude-code-infinite-loop-cost/' },
+  ],
+};
+---
+
+<Base
+  title="AI Agent Infinite Loop Cost: How a Claude Code Hook Deadlock Ran for Six Days | Kyde"
+  description="Two conflicting hooks kept Claude Code sessions retrying one blocked edit for six days, at a reported $9,364. How the loop formed and how to cap it."
+  headline="AI Agent Infinite Loop Cost: How a Claude Code Hook Deadlock Ran for Six Days"
+  datePublished="2026-11-09"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+  <Navbar />
+
+  <main>
+
+    <!-- ══════════ HEADER ══════════ -->
+    <section class="relative overflow-hidden">
+      <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-20 md:border-x md:border-line-0">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <a href="/incidents/" class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1 hover:text-ink-1 transition-colors">↑ Incidents</a>
+            <span class="text-ink-1">/</span>
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-1">Looping</span>
+          </div>
+          <div class="h-px w-full bg-line-0"></div>
+        </div>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-0 tracking-tight leading-[1.03] mb-6">
+            AI Agent Infinite Loop Cost: How a Claude Code Hook Deadlock Ran for Six Days
+          </h1>
+          <div class="flex items-center gap-4 text-xs font-mono text-ink-1">
+            <span>Incident report</span>
+            <span>·</span>
+            <span>5 min read</span>
+            <span>·</span>
+            <time datetime="2026-11-09">November 9, 2026</time>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ ARTICLE BODY ══════════ -->
+    <section class="border-t border-line-0">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 md:border-x md:border-line-0">
+        <div class="grid md:grid-cols-[minmax(0,42rem)_280px] gap-6 md:gap-16 items-start">
+
+          <article class="prose-kyde min-w-0">
+
+            <h2>What the operator reported</h2>
+            <p>
+              On November 4, 2026, a Claude Code user filed a <a href="https://github.com/anthropics/claude-code/issues/107256" target="_blank" rel="noopener">public bug report</a> describing scheduled agent sessions that kept retrying the same refused file edit for six days. According to the report, the loop ran from October 22 to October 28, 2026, mostly in headless runs started by a scheduler, and consumed about $9,364 of extra usage through repeated automatic credit reloads. The reporter used Claude Code 2.1.312 with an Opus model on a Max plan with extra usage enabled.
+            </p>
+            <p>
+              The reporter states up front that both hooks involved were their own configuration. They filed it as a product defect because nothing in the client, the server or billing stopped a session that repeated one denied action thousands of times. As of November 9, the public thread shows no reply from Anthropic. The figures below come from the reporter and have not been independently confirmed.
+            </p>
+
+            <h2>How the loop formed</h2>
+            <p>
+              Claude Code lets operators attach hooks, small scripts that run at defined points in the agent's work. A Stop hook refused to let a turn end until the agent had written to a journal file, <code>BUILD_LOG.md</code>. A PreToolUse hook, which checks tool calls before they run, denied writes to paths it believed another session owned.
+            </p>
+            <p>
+              The two rules collided on the same file. The Stop hook checked the journal through a symlink, while the ownership guard matched the real path and found a stale claim left by a session two weeks earlier. Each cycle therefore went the same way. The agent tried to edit the journal, the guard refused with "Another chat owns this path," the Stop hook blocked the end of the turn and asked for the journal write, and the agent tried the edit again.
+            </p>
+            <p>
+              The reporter counts nine sessions in the loop window, seven of them scheduled runs. The worst session made roughly 10,000 refused edit attempts, and the next two made about 2,000 and 750. Across the loop sessions they estimate around 2.4 billion tokens, almost all cache reads of the same context. Automatic reload topped up credits 18 times between October 22 and 28, they say.
+            </p>
+            <p>
+              The report does not say when or how the operator first noticed the loop, so the detection time is unknown. The reporter links two earlier open issues that describe similar Stop hook loops, <a href="https://github.com/anthropics/claude-code/issues/43906" target="_blank" rel="noopener">#43906</a> from April and <a href="https://github.com/anthropics/claude-code/issues/55754" target="_blank" rel="noopener">#55754</a> from May 2026.
+            </p>
+
+            <h2>What the agent's behavior showed before the bill arrived</h2>
+            <p>
+              The clearest pattern in the report is repetition. The same tool, the same path and the same denial reason came back thousands of times in one session, and the reporter points out that the client already sees each of those refusals. In our reading, a count of identical tool calls per session would have looked very different from a normal run.
+            </p>
+            <p>
+              Token volume is a second signal. After the fix, the reporter measured 42.8 million tokens on November 4 and 60.2 million on November 5 up to 08:30 ET, compared with 6 to 18 billion per day during the loop. A per-session comparison of call counts or tokens against earlier runs would likely have shown an abrupt change early in the window. That is an inference: the report publishes no per-hour data, so we cannot say how quickly any specific alert would have fired.
+            </p>
+
+            <h2>Steps you can take today</h2>
+            <ul>
+              <li><span><strong>Give every hook that can block a turn its own retry limit.</strong> The reporter's fix releases the turn after three blocks in a session and writes a pending note instead. The counter lives in a state file keyed by session ID, because each hook runs as a separate process.</span></li>
+              <li><span><strong>Put a spend or turn ceiling outside the agent configuration for scheduled runs.</strong> One commenter on the thread notes that a breaker living in the same configuration that caused the loop can fail the same way, and suggests turning off automatic reload for scheduled runs until a built-in ceiling exists.</span></li>
+              <li><span><strong>Test hooks together, including path aliases.</strong> Another commenter suggested a harness that alternates the conflicting conditions and treats a symlink and its target as the same file. The reporter ran it and saw the fourth Stop evaluation release the turn.</span></li>
+              <li><span><strong>Alert on repeated identical denials and on token use per session,</strong> not only on the monthly bill. A monthly limit can be reached before anyone looks.</span></li>
+            </ul>
+
+            <p>
+              The cause here was a small conflict between two of the operator's own hooks. It became expensive because the runs were unattended and nothing between the agent and the bill counted repeated refusals. Each of the steps above addresses one of those two conditions.
+            </p>
+
+            <div class="mt-12 border border-line-0 bg-bg-1 px-6 py-6 not-prose">
+              <p class="text-sm text-ink-1 leading-relaxed">
+                <a href="/products/" class="underline underline-offset-4">Kyde</a> watches AI agents in production and quarantines one that stops behaving like itself.
+              </p>
+            </div>
+
+            <h2>Sources</h2>
+            <ol class="sources">
+              <li>GitHub issue opened November 4, 2026, with the reporter's follow-ups on November 4 and 5 and comments through November 7: <a href="https://github.com/anthropics/claude-code/issues/107256" target="_blank" rel="noopener">anthropics/claude-code#107256</a>. Read November 9, 2026.</li>
+              <li>GitHub issue, April 5, 2026: <a href="https://github.com/anthropics/claude-code/issues/43906" target="_blank" rel="noopener">anthropics/claude-code#43906</a></li>
+              <li>GitHub issue, May 3, 2026: <a href="https://github.com/anthropics/claude-code/issues/55754" target="_blank" rel="noopener">anthropics/claude-code#55754</a></li>
+            </ol>
+
+          </article>
+
+          <aside class="md:sticky md:top-24 space-y-6">
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">Related</p>
+              <div class="space-y-4">
+                <a href="/agent-loop-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>AI Agent Loop Detection</span>
+                </a>
+                <a href="/agent-drift-detection/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>AI Agent Drift Detection</span>
+                </a>
+                <a href="/incidents/workos-artex/" class="group flex items-start gap-2 text-xs text-ink-1 hover:text-ink-1 transition-colors leading-relaxed">
+                  <span class="font-mono text-warn shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span>AI Agent Incident at WorkOS</span>
+                </a>
+              </div>
+            </div>
+            <div class="border border-line-0 bg-bg-1 p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-1 mb-3">All incidents</p>
+              <a href="/incidents/" class="text-xs text-ink-1 underline underline-offset-4">Weekly AI agent incident reports →</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .prose-kyde {
+    color: var(--color-ink-1);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .prose-kyde p { margin-bottom: 1.25rem; }
+  .prose-kyde h2 {
+    color: var(--color-ink-0);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink-0) 15%, transparent);
+  }
+  .prose-kyde ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .prose-kyde ul li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-kyde ul li::before {
+    content: "→";
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    color: var(--color-warn);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .prose-kyde ol.sources { padding-left: 1.25rem; list-style: decimal; font-size: 0.875rem; }
+  .prose-kyde ol.sources li { margin-bottom: 0.5rem; }
+  .prose-kyde a:not(.inline-flex) { color: var(--color-warn); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-kyde a:hover:not(.inline-flex) { color: var(--color-gold); }
+</style>

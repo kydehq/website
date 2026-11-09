@@ -18,6 +18,15 @@ export type Incident = {
 
 export const INCIDENTS: Incident[] = [
   {
+    slug: "claude-code-infinite-loop-cost",
+    title: "AI Agent Infinite Loop Cost: How a Claude Code Hook Deadlock Ran for Six Days",
+    summary:
+      "Two conflicting hooks kept headless Claude Code sessions retrying one refused edit for six days, at a reported cost of about $9,364. How the loop formed, what the agent's behavior showed, and how to cap it.",
+    date: "2026-11-09",
+    pattern: "Looping",
+    readTime: "5 min read",
+  },
+  {
     slug: "workos-artex",
     title: "AI Agent Incident at WorkOS: How a Research Agent Reached a Live Sales API",
     summary:
