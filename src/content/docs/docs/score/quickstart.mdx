@@ -47,7 +47,9 @@ Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
     Kyde accepts OTLP/HTTP as protobuf or JSON. `http/protobuf` works from every SDK; `http/json` exists only in the JavaScript ones. Framework agents need a GenAI instrumentation that emits `gen_ai` tool spans; other spans are ignored. Metrics are accepted but not scored.
   </TabItem>
   <TabItem label="Claude Code">
-    Set these in the `env` block of your user-level `~/.claude/settings.json` or in the shell that starts Claude Code. Claude Code ignores them in a project's `.claude/settings.json`:
+    Split the variables by how they vary.
+
+    **Global, once per machine:** endpoint, protocol, key header and the two telemetry flags. Put them in the `env` block of your user-level `~/.claude/settings.json` (covers terminal, IDE and desktop app) or in your shell profile. They are the same for every agent on the machine.
 
     ```bash
     export CLAUDE_CODE_ENABLE_TELEMETRY=1
@@ -55,8 +57,17 @@ Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
     export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
     export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
     export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<KEY>"
-    export OTEL_SERVICE_NAME=my-claude-agent
     ```
+
+    **Per agent, at launch:** `OTEL_SERVICE_NAME` only. Set it in the command that starts the agent, in a wrapper script (export it, then `exec claude "$@"`), or in the workflow or service unit that launches the agent.
+
+    ```bash
+    env OTEL_SERVICE_NAME=invoice-agent claude
+    ```
+
+    Never put `OTEL_SERVICE_NAME` into `~/.claude/settings.json`. The settings `env` block overrides the launch environment, so one global name silently merges every agent on the machine into a single baseline, and per-launch names lose without any error. Leaving the name unset is the same trap: Claude Code then reports as `claude-code`, and all agents merge under that default. If you followed these docs before November 10, 2026, remove `OTEL_SERVICE_NAME` from your settings first.
+
+    Claude Code ignores OTel exporter variables in a project's `.claude/settings.json` and `.claude/settings.local.json`.
   </TabItem>
   <TabItem label="Grok CLI">
     Grok CLI needs its own opt-in. Its exporter sends protobuf only:

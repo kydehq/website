@@ -52,13 +52,16 @@ const setupTabs = [
   { id: "plugin", label: "Plugin", code: `claude plugin marketplace add kydehq/kyde-score-skill
 claude plugin install kyde-score@kyde-score-skill`,
     note: "Installs the skill for good, so every new Claude Code session knows it. Reading a URL once installs nothing." },
-  { id: "claude", label: "Claude Code", code: `export CLAUDE_CODE_ENABLE_TELEMETRY=1
+  { id: "claude", label: "Claude Code", code: `# Once per machine: ~/.claude/settings.json (env block) or shell profile
+export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_LOGS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
 export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
 export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"
-export OTEL_SERVICE_NAME=<agent-name>`,
-    note: "In the env block of your user-level ~/.claude/settings.json or the shell that starts Claude Code. Project settings are ignored." },
+
+# Per agent, at launch
+env OTEL_SERVICE_NAME=<agent-name> claude`,
+    note: "Never put OTEL_SERVICE_NAME in ~/.claude/settings.json: the settings env block overrides the launch environment, so every agent on the machine merges into one. Without a name, Claude Code reports as claude-code, the same trap. Project settings are ignored." },
   { id: "sdk", label: "Any OTel SDK", code: `export OTEL_EXPORTER_OTLP_ENDPOINT=https://score.kyde.com
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 export OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=<YOUR_KEY>"
