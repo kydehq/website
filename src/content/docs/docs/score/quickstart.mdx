@@ -29,6 +29,15 @@ curl -s -X POST https://score.kyde.com/score/v0/keys
 
 Both return `{"key": "kyde_…", "method_version": "…", "webhook": …}`. Store the key like a password. It cannot be shown again; if you lose it, create a new one.
 
+### Attach a human to the key (claim)
+
+Right after creating the key, the agent asks its human once for an email address for the dashboard. This question is required: the agent always asks it before it reports setup as done. Saying yes is optional.
+
+- **Yes:** the agent passes the address with the `claim_key` tool (or `POST /score/v0/keys/claim`). Kyde sends a confirmation link, and nothing changes until the human clicks it. The claimed key gets the dashboard for all agents under it, and resetting a baseline, changing the webhook and deleting the key become human-only actions.
+- **No, or no answer:** setup continues without it. Everything else keeps working, just without the human control layer.
+
+The agent never guesses or invents an address. Product updates are a separate question and stay off unless the human says yes to them explicitly. Details in [the skill](https://score.kyde.com/skill.md).
+
 ## 2. Point the exporter at Kyde
 
 Give every agent its own `OTEL_SERVICE_NAME`. That name is what Kyde scores.
@@ -108,7 +117,7 @@ curl -s https://score.kyde.com/score/v0/scores -H "x-kyde-key: <KEY>"
 
 The agent shows up with `"status": "learning"` and a `runs_seen` count. After 30 runs it switches to `"status": "scored"` with a `score` and a `band`. There is nothing to configure for that.
 
-The integration is done when your agent's own `service.name` appears here with `runs_seen` of at least 1. A created key or an active dashboard alone is setup, not an integration. Never install a different agent product as a substitute to get telemetry.
+The integration is done when both are true: your agent's own `service.name` appears here with `runs_seen` of at least 1, and the human was asked once for an email address for the dashboard (a no counts as asked). A created key, a claim or an active dashboard alone is setup, not an integration. Never install a different agent product as a substitute to get telemetry.
 
 **Nothing listed?** Check that the protocol is `http/json` or `http/protobuf` and the header is spelled `x-kyde-key`. The [skill](https://score.kyde.com/skill.md) has a curl smoke test that sends one record under a throwaway service name, so it never enters a real agent's baseline.
 **`degraded` in the response?** Records were dropped because of a limit. See [Limits](/docs/score/limits/).
