@@ -2,8 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { Content as ScorePrivacy } from '../legal/score-privacy.md';
 
-const sections = [
+const sections: { id: string; n: string; title: string; body?: string; md?: boolean }[] = [
   {
     id: 'imprint',
     n: '0.',
@@ -43,8 +44,9 @@ const sections = [
   {
     id: 'score',
     n: '6.',
-    title: 'score.kyde.com (Agent Drift Scoring)',
-    body: 'Our hosted scoring service at score.kyde.com processes telemetry that customers send about their AI agents via OpenTelemetry. By design, only tool-call metadata is stored: tool name, timing, success, sequence and session identifiers, and salted entity hashes computed on the sender’s side. Tool arguments, prompts, file contents, and user identifiers such as email addresses are removed by a server-side allowlist before storage and never reach the database. An optional webhook URL, if configured, is stored solely to deliver score notifications. The service runs on servers of Hetzner Online GmbH in Germany under a data processing agreement pursuant to Art. 28 GDPR; data is not shared with third parties. Call records are deleted after 90 days (the frozen baseline window is kept for the life of the scoring key so published scores remain auditable); keys that never receive data expire after 30 days. Revoking a key — DELETE /score/v0/keys or the revoke_key tool — immediately and permanently deletes all data stored under it. Legal basis: Art. 6(1)(b) GDPR. Signing in to the score.kyde.com dashboard with a sign-in link sets one strictly necessary session cookie (kyde_session): it holds your email address and an expiry, is signed by the server, is not readable by scripts, is sent over HTTPS only and expires after 24 hours. It only keeps you signed in and is not used for analytics or advertising; no consent is required for it (§ 25(2) no. 2 TDDDG).',
+    title: 'score.kyde.com (Kyde Score)',
+    // Text verbatim from the company repo: 01_product/service-terms/privacy-notice-score-draft.md
+    md: true,
   },
   {
     id: 'rights',
@@ -84,13 +86,17 @@ const sections = [
     <section class="">
       <div class="max-w-7xl mx-auto px-6 py-8 pb-32 md:border-x md:border-line-0">
         <div class="max-w-2xl space-y-4">
-          {sections.map(({ id, n, title, body }) => (
+          {sections.map(({ id, n, title, body, md }) => (
             <div id={id} class="border border-line-0 bg-bg-1 px-8 py-7">
               <div class="flex items-baseline gap-3 mb-3">
                 <span class="font-mono text-sm text-ink-1 shrink-0">{n}</span>
                 <h2 class="text-base font-bold text-ink-0">{title}</h2>
               </div>
-              <p class="text-sm leading-relaxed text-ink-1 pl-6">{body}</p>
+              {md ? (
+                <div class="legal-md text-sm leading-relaxed text-ink-1 pl-6"><ScorePrivacy /></div>
+              ) : (
+                <p class="text-sm leading-relaxed text-ink-1 pl-6">{body}</p>
+              )}
             </div>
           ))}
         </div>
@@ -101,3 +107,12 @@ const sections = [
 
   <Footer />
 </Base>
+
+<style is:global>
+  .legal-md p { margin: 0 0 0.75rem; }
+  .legal-md p:last-child { margin-bottom: 0; }
+  .legal-md ul { margin: 0 0 0.75rem; padding-left: 1.25rem; list-style: disc; }
+  .legal-md li { margin: 0.25rem 0; }
+  .legal-md strong { color: var(--color-ink-0); font-weight: 600; }
+  .legal-md a { color: var(--color-ink-0); text-decoration: underline; text-underline-offset: 2px; }
+</style>
