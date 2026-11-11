@@ -251,7 +251,7 @@ const faq = [
         <div class="kicker"><span class="num">03</span><span class="mono">Kyde Research</span></div>
         <h2 class="h1">Agents change. The logs rarely say so.</h2>
         <ol class="rows">
-          {studies.filter((m) => ["model-switch", "trace-blind-spot", "injections"].includes(m.id)).map((m) => (
+          {studies.filter((m) => !m.hidden && ["model-switch", "trace-blind-spot", "injections"].includes(m.id)).map((m) => (
             <li class="row">
               <span class="mono no">{m.name}</span>
               <a href={`/research#${m.id}`} class="ftitle">{m.finding}</a>
