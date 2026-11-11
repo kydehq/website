@@ -1,0 +1,73 @@
+---
+// Shell for long legal texts kept as Markdown in src/legal/ (Terms, DPA).
+// Same look as /legal/: hero, then the text in one bordered card.
+import Base from "../layouts/Base.astro";
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
+
+const { title, description, eyebrow } = Astro.props as {
+    title: string;
+    description: string;
+    eyebrow: string;
+};
+
+// Markdown heading ids start with the section number ("1-who-may-use..."),
+// which is not a valid HTML id. Prefix them: #s1-who-may-use-the-service.
+const html = (await Astro.slots.render("default")).replace(/ id="(\d)/g, ' id="s$1');
+---
+
+<Base title={`${title}, Kyde`} description={description}>
+    <Navbar />
+
+    <main>
+        <section class="relative overflow-hidden">
+            <div class="bg-grid absolute inset-0 pointer-events-none"></div>
+            <div class="relative max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-48 md:pb-24 md:border-x md:border-line-0">
+                <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-ink-0/60">{eyebrow}</p>
+                <h1 class="hero-h1 max-w-3xl text-4xl leading-tight uppercase tracking-tight text-ink-0 md:text-6xl">
+                    {title}
+                </h1>
+            </div>
+        </section>
+
+        <section>
+            <div class="max-w-7xl mx-auto px-6 py-8 pb-32 md:border-x md:border-line-0">
+                <div class="legal-doc max-w-3xl border border-line-0 bg-bg-1 px-6 py-7 md:px-10 md:py-9">
+                    <Fragment set:html={html} />
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Base>
+
+<style is:global>
+    .legal-doc {
+        font-size: 0.875rem;
+        line-height: 1.7;
+        color: var(--color-ink-1, inherit);
+    }
+    .legal-doc > :first-child { margin-top: 0; }
+    .legal-doc h2 {
+        margin: 2.25rem 0 0.75rem;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-ink-0, inherit);
+    }
+    .legal-doc p { margin: 0 0 0.9rem; }
+    .legal-doc ul { margin: 0 0 0.9rem; padding-left: 1.25rem; list-style: disc; }
+    .legal-doc li { margin: 0.3rem 0; }
+    .legal-doc strong { color: var(--color-ink-0, inherit); font-weight: 600; }
+    .legal-doc a { text-decoration: underline; text-underline-offset: 2px; color: var(--color-ink-0, inherit); }
+    .legal-doc code { font-size: 0.8em; overflow-wrap: anywhere; }
+    .legal-doc hr { margin: 2.5rem 0; border: 0; border-top: 1px solid var(--color-line-0, currentColor); opacity: 0.6; }
+    .legal-doc table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 1.25rem; }
+    .legal-doc th, .legal-doc td {
+        border: 1px solid var(--color-line-0, currentColor);
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+        vertical-align: top;
+    }
+    .legal-doc td:first-child { white-space: normal; min-width: 9rem; }
+</style>
