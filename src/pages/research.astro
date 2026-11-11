@@ -42,7 +42,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
 
 <Base
   title="Kyde Research: measuring how AI agents behave"
-  description="Empirical research on how AI agents behave: model changes, telemetry, run length, reward hacking and tool updates. Measured on public agent records, with corpus, runs and source."
+  description="Empirical research on how AI agents behave: model changes, run length, reward hacking and tool updates. Measured on public agent records, with corpus, runs and source."
 >
   <link slot="head" rel="alternate" type="application/json" href="/research.json" />
   <LabNav active="research" />
@@ -55,7 +55,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
           <p class="mono label">(Kyde Research)</p>
           <h1 class="m-title">Measuring how AI agents behave.</h1>
           <p class="hero-line">Empirical research on agent behavior. We study how agents change, using execution records from public agent benchmarks and real Claude Code sessions.</p>
-          <p class="m-topics mono">Model changes · Telemetry · Run length · Reward hacking · Behavioral stability</p>
+          <p class="m-topics mono">Model changes · Run length · Reward hacking · Behavioral stability</p>
         </div>
         <dl class="m-kpis">
           {kpis.map((k) => (<div><dt class="mono">{k.label}</dt><dd>{k.value}</dd></div>))}
@@ -131,7 +131,6 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
             <h3>What Does Content Access Buy? Pricing the Observability Ladder for Behavioral Drift Detection</h3>
             <ul class="r-points">
               <li>Measures what each step up in observation buys: call records, call parameters, tool outputs, reasoning text. Same corpora, same splits, deterministic detectors throughout.</li>
-              <li>Detection follows the drift, not the data: it works where the drift leaves a trace in stored bytes, and fails where the label is a judgment about meaning.</li>
               <li>On real Claude Code sessions: every user's agent has its own fingerprint, and a frozen baseline ages within weeks.</li>
             </ul>
             <p class="r-links mono"><a href={LADDER} rel="noopener">Read →</a><a href={LADDER_PDF} rel="noopener">PDF</a></p>
@@ -170,9 +169,9 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
           <p class="mono label">(Public corpora)</p>
           <ul>
             <li><b>SWE-bench</b> submission logs of agent frameworks on different models (T1)</li>
-            <li><b>TRAIL</b> agent runs with human-annotated errors, GAIA and SWE-bench (T2, T3)</li>
-            <li><b>Terminal Wrench</b> runs where agents exploited the grader (T4)</li>
-            <li><b>SWE-chat</b> real Claude Code working sessions with real timelines (T5)</li>
+            <li><b>TRAIL</b> GAIA agent runs with error status per step (T2)</li>
+            <li><b>Terminal Wrench</b> runs where agents exploited the grader (T3)</li>
+            <li><b>SWE-chat</b> real Claude Code working sessions with real timelines (T4)</li>
           </ul>
         </div>
         <ul class="m-rules">

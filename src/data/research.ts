@@ -95,6 +95,8 @@ export const studies: Study[] = [
     corpus: "TRAIL",
     source: "trail-context-decay.md",
     status: "draft",
+    // Hidden on Joerg's call (2026-11-11).
+    hidden: true,
   },
   {
     id: "run-length",
@@ -119,8 +121,7 @@ export const studies: Study[] = [
     mark: [3],
     note: "Later steps are left out: below 140 calls per bin the rate is noise.",
     runs: 117,
-    runsCounted: false,
-    corpus: "TRAIL, GAIA, o3-mini (117 of the 148 TRAIL runs in T2)",
+    corpus: "TRAIL, GAIA, o3-mini",
     source: "trail-context-decay.md",
     status: "draft",
   },
@@ -177,7 +178,7 @@ export const studies: Study[] = [
       ["Gemini 3.1 Pro", 1181, "97.5 %", "1.2 %"],
       ["GPT-5.4", 783, "99.7 %", "0.5 %"],
     ],
-    note: "These agents narrate their exploits openly. On TRACE, a second corpus whose agents had no reason to narrate, the same approach found no more than chance. A ceiling, not a guarantee.",
+    note: "These agents narrate their exploits openly. A ceiling, not a guarantee.",
     runs: 4415,
     corpus: "Terminal Wrench",
     source: "l3-terminalwrench-rewardhack.md",
