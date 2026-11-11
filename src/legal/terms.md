@@ -1,5 +1,5 @@
 
-**Version 1.0 · Effective 11 November 2026**
+**Version 1.1 · Effective 11 November 2026**
 
 These terms govern your use of Kyde Score: the hosted service at score.kyde.com, its API and MCP endpoint, the dashboard, the installer, the hook and the agent skill (together, the **Service**). The Service is provided by Jürgen Eckel and Jörg Radehaus, Klenzestraße 57, 80469 Munich, Germany, hello@kyde.com (**Kyde**, **we**).
 
@@ -15,15 +15,15 @@ These terms govern your use of Kyde Score: the hosted service at score.kyde.com,
 
 2.2 Before a key is claimed, it can be created and used by software acting for you, such as an AI agent, an installer or a script. The installer and the API show a link to these terms. By creating or using a key you accept these terms for that use. Anything an agent or script does on your instruction counts as your act.
 
-2.3 Some features work only on a claimed key. These include blocking calls, rebaselining from the dashboard and email alerts.
+2.3 Some features work only on a claimed key. These include rebaselining from the dashboard and email alerts.
 
 ## 3. What the Service does, and what it does not do
 
-3.1 The Service learns a baseline of each agent's behaviour from the telemetry you send and scores later runs against it with deterministic detectors. It can warn your agent, notify you and, through the hook, pause or block an agent's next tool call.
+3.1 The Service learns a baseline of each agent's behaviour from the telemetry you send and scores later runs against it with deterministic detectors. It can warn your agent through the hook and notify you. Pausing or blocking an agent's tool calls is not part of the Service yet; it is offered through a waitlist and will be added with an update of these terms.
 
 3.2 **The Service gives a signal, not a guarantee.** A score describes how far an agent's observed behaviour departs from its own baseline. It does not certify that an agent is safe, correct, compliant or authorised. We do not promise that the Service detects every deviation, misuse or attack, or that it never flags legitimate work.
 
-3.3 **You decide what happens on a deviation.** You choose the hook's mode (warn only, ask a human, or block) for each agent. You are responsible for that choice and its consequences, including calls that are paused or blocked and calls that are not.
+3.3 **You decide what happens on a deviation.** The hook only adds a warning to your agent's context. It does not stop the agent. Whether you or your agent act on a warning is your decision and your responsibility.
 
 3.4 **The hook fails open.** If the Service is unreachable, slow or returns an error, the hook does not stop your agent, and the agent continues unchecked. Do not use the Service as your only safety control for actions that can cause irreversible harm.
 
@@ -71,7 +71,7 @@ These terms govern your use of Kyde Score: the hosted service at score.kyde.com,
 
 8.2 For slight negligence we are liable only for breach of an obligation essential to the contract (an obligation whose fulfilment makes the proper performance of the contract possible and on which you may regularly rely). Our liability is then limited to damage typical for this kind of contract and foreseeable when it was concluded.
 
-8.3 Otherwise our liability is excluded. In particular, as far as legally permitted, we are not liable for decisions you or your agents make based on a score, for calls paused or blocked by the hook in the mode you chose, or for harm caused by an agent the Service did not flag.
+8.3 Otherwise our liability is excluded. In particular, as far as legally permitted, we are not liable for decisions you or your agents make based on a score, or for harm caused by an agent the Service did not flag.
 
 8.4 For the free tier, our liability under 8.2 is limited to EUR 1,000 per year in total.
 
