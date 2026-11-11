@@ -16,7 +16,7 @@ import "../styles/lab.css";
 
 // Draft: every study shows. Live: only studies with status "live".
 const DRAFT = true;
-const list = studies.filter((m) => DRAFT || m.status === "live");
+const list = studies.filter((m) => !m.hidden && (DRAFT || m.status === "live"));
 const fmt = (n: number) => n.toLocaleString("en-US").replace(/,/g, " ");
 // Runs that are a subset of another study (runsCounted: false) count once.
 const runsTotal = list.reduce((s, m) => s + (m.runsCounted === false ? 0 : m.runs ?? 0), 0);
@@ -42,7 +42,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
 
 <Base
   title="Kyde Research: measuring how AI agents behave"
-  description="Empirical research on the behavior of autonomous AI systems: model changes, telemetry, run length, prompt injection, reward hacking and tool updates. Measured on public agent records, with corpus, runs and source."
+  description="Empirical research on how AI agents behave: model changes, telemetry, run length, reward hacking and tool updates. Measured on public agent records, with corpus, runs and source."
 >
   <link slot="head" rel="alternate" type="application/json" href="/research.json" />
   <LabNav active="research" />
@@ -54,8 +54,8 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
         <div class="brackets">
           <p class="mono label">(Kyde Research)</p>
           <h1 class="m-title">Measuring how AI agents behave.</h1>
-          <p class="hero-line">Empirical research on the behavior of autonomous AI systems. We study how agents change, using execution records from public agent benchmarks and real Claude Code sessions.</p>
-          <p class="m-topics mono">Model changes · Telemetry · Run length · Prompt injection · Reward hacking · Behavioral stability</p>
+          <p class="hero-line">Empirical research on agent behavior. We study how agents change, using execution records from public agent benchmarks and real Claude Code sessions.</p>
+          <p class="m-topics mono">Model changes · Telemetry · Run length · Reward hacking · Behavioral stability</p>
         </div>
         <dl class="m-kpis">
           {kpis.map((k) => (<div><dt class="mono">{k.label}</dt><dd>{k.value}</dd></div>))}
@@ -71,7 +71,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
         <nav class="m-toc" aria-label="Studies">
           {list.map((m, i) => (<a href={`#${m.id}`}><span class="m-n mono">T{i + 1}</span>{m.name}</a>))}
         </nav>
-        {DRAFT && <p class="mono m-draft">*Draft. Numbers from the open detector repo, not yet confirmed for publication.</p>}
+        {DRAFT && <p class="mono m-draft">Draft. Numbers from the open detector repo, not yet confirmed for publication.</p>}
       </div>
 
       {list.map((m, i) => (
@@ -87,7 +87,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
                 <tr class={m.mark?.includes(ri) ? "is-mark" : undefined}>
                   {r.map((cell, ci) => (
                     <td class={m.columns[ci].num ? "num" : undefined} data-label={m.columns[ci].label}>
-                      {typeof cell === "number" ? fmt(cell) : cell === "" ? "–" : cell}
+                      {typeof cell === "number" ? fmt(cell) : cell === "" ? "n/a" : cell}
                     </td>
                   ))}
                 </tr>
@@ -151,7 +151,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
             <p class="mono label">(Detectors)</p>
             <dl class="r-dl">
               <div><dt class="mono">Frozen baseline</dt><dd>Learned from an agent's first runs, then fingerprinted. A drifting agent never becomes its own reference.</dd></div>
-              <div><dt class="mono">Gradual drift</dt><dd>Jensen–Shannon divergence over a window, smoothed with an exponential moving average.</dd></div>
+              <div><dt class="mono">Gradual drift</dt><dd>Jensen-Shannon divergence over a window, smoothed with an exponential moving average.</dd></div>
               <div><dt class="mono">Abrupt shifts</dt><dd>CUSUM on the surprisal of each event against the baseline.</dd></div>
               <div><dt class="mono">Deterministic</dt><dd>Plain statistics, Python standard library only. No language model in the verdict: same record, same result.</dd></div>
             </dl>
@@ -171,16 +171,15 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
           <ul>
             <li><b>SWE-bench</b> submission logs of agent frameworks on different models (T1)</li>
             <li><b>TRAIL</b> agent runs with human-annotated errors, GAIA and SWE-bench (T2, T3)</li>
-            <li><b>AgentDojo</b> prompt-injection attacks on 29 agent pipelines (T4)</li>
-            <li><b>Terminal Wrench</b> runs where agents exploited the grader (T5)</li>
-            <li><b>SWE-chat</b> real Claude Code working sessions with real timelines (T6)</li>
+            <li><b>Terminal Wrench</b> runs where agents exploited the grader (T4)</li>
+            <li><b>SWE-chat</b> real Claude Code working sessions with real timelines (T5)</li>
           </ul>
         </div>
         <ul class="m-rules">
           <li>Real records from public corpora. No sample numbers.</li>
           <li>Every study names its runs, its corpus and the file it comes from.</li>
           <li>Method version: commit <a href={REPO} rel="noopener">{METHOD}</a> of the open detector repo.</li>
-          <li>No one can pay for a row. Mistakes go into a public correction list.</li>
+          <li>No one can pay for a row.</li>
         </ul>
       </div>
     </section>
@@ -195,7 +194,7 @@ const LADDER_PDF = `${REPO}/blob/main/paper-followup/observability-ladder.pdf`;
         <div>
           <p class="m-close-p">They cannot tell you how your own agent behaves in production. Kyde Score learns your agent's normal behavior from its own runs and scores every run against it, with the same detectors.</p>
           <div class="m-cta">
-            <a href="/products#score" class="btn btn-ink">Explore Kyde Score →</a>
+            <a href="/products/#score" class="btn btn-ink">Explore Kyde Score →</a>
             <a href="/research.json" class="mono m-json">research.json</a>
           </div>
         </div>
