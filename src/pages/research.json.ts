@@ -11,7 +11,7 @@ export const GET: APIRoute = () => {
     method_version: METHOD,
     code: REPO,
     note: "Agent behavior on public corpora. Draft studies are not confirmed for publication.",
-    studies: studies.map((m) => ({
+    studies: studies.filter((m) => !m.hidden).map((m) => ({
       id: m.id,
       status: m.status,
       name: m.name,

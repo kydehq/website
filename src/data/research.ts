@@ -35,6 +35,8 @@ export interface Study {
   corpus: string;
   source: string;
   status: "draft" | "live";
+  /** left out of the page and research.json, data kept for later */
+  hidden?: boolean;
 }
 
 export const studies: Study[] = [
@@ -154,6 +156,8 @@ export const studies: Study[] = [
     corpus: "AgentDojo",
     source: "l2-agentdojo-injection.md",
     status: "draft",
+    // No AgentDojo numbers in public until Jürgen has clarified them (CoS, 2026-11-11).
+    hidden: true,
   },
   {
     id: "reward-hacking",
@@ -161,20 +165,19 @@ export const studies: Study[] = [
     question: "When an agent games its grader, what gives it away?",
     finding: "Agents that game the test say so in their reasoning.",
     intro:
-      "Terminal Wrench runs where the agent exploited the grader instead of solving the task. Detection from tool calls, and from the agent's own reasoning text.",
+      "Terminal Wrench runs where the agent exploited the grader instead of solving the task. Detection from the agent's own reasoning text.",
     columns: [
       { label: "Agent model" },
       { label: "Hacked runs", num: true },
-      { label: "Caught from tool calls", num: true },
       { label: "Caught from reasoning", num: true },
       { label: "False alarms", num: true },
     ],
     rows: [
-      ["Claude Opus 4.6", 590, "0.0 %", "98.6 %", "0.2 %"],
-      ["Gemini 3.1 Pro", 1181, "0.0 %", "97.5 %", "1.2 %"],
-      ["GPT-5.4", 783, "0.0 %", "99.7 %", "0.5 %"],
+      ["Claude Opus 4.6", 590, "98.6 %", "0.2 %"],
+      ["Gemini 3.1 Pro", 1181, "97.5 %", "1.2 %"],
+      ["GPT-5.4", 783, "99.7 %", "0.5 %"],
     ],
-    note: "These agents narrate their exploits openly. On TRACE, a second corpus whose agents had no reason to narrate, the same approach fell to 1.5 to 1.9 %, the base rate. A ceiling, not a guarantee.",
+    note: "These agents narrate their exploits openly. On TRACE, a second corpus whose agents had no reason to narrate, the same approach found no more than chance. A ceiling, not a guarantee.",
     runs: 4415,
     corpus: "Terminal Wrench",
     source: "l3-terminalwrench-rewardhack.md",
@@ -184,7 +187,7 @@ export const studies: Study[] = [
     id: "cli-updates",
     name: "Behavioral stability across tool updates",
     question: "Do tool updates measurably change agent behavior?",
-    finding: "Claude Code updates shifted tool use no more than a day without one.",
+    finding: "Across Claude Code updates, tool use shifted no more than where nothing was updated.",
     intro:
       "Real Claude Code sessions of 171 users. Tool-use shift across 19 version updates, against the same measurement at points with no update.",
     columns: [
