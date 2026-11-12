@@ -85,7 +85,6 @@ const faq = [
   { q: "What counts as an agent?", a: "One OpenTelemetry service.name. Give each agent its own and Kyde scores it on its own baseline." },
   { q: "What happens when I go over a limit?", a: "Kyde drops the extra records and says so: the score is marked degraded. It never turns your agent's export into an error." },
   { q: "How is Kyde Control priced?", a: "From €990 a month, depending on fleet size and where it runs. Tell us how many agents you run and what they touch, and you get a number in the first call." },
-  { q: "Can I try the gateway before I talk to anyone?", a: "Yes. The open-source edition of the Kyde Gateway runs with Docker and records every action in a hash-chained ledger. It observes only: stopping and signing come with Kyde Control." },
   { q: "Can a hijacked agent reset its own baseline?", a: "No. The agent's key can only export. Resetting the baseline, moving alerts and deleting take the management key, which stays with you, in every plan. Coming with the next release of Kyde Score." },
   { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and scores call metadata only and drops everything else before storage. Kyde Control runs in your network, so nothing leaves it." },
 ];
@@ -149,7 +148,6 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
             <p class="plan-sub">For agents you need to stop, not just watch.</p>
             <ul class="plan-list">{controlItems.map((i) => <li>{i}</li>)}</ul>
             <button type="button" onclick="openModal()" class="btn plan-cta btn-neon" data-umami-event="contact-open-control">Contact sales →</button>
-            <p class="mono plan-foot">Try first: the <a href="https://github.com/kydehq/gateway" rel="noopener">open-source gateway</a> observes and records, without stopping.</p>
           </article>
         </div>
       </div>
@@ -297,8 +295,6 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .btn-neon:hover { background: #fff; }
     .p-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
     .p-ghost:hover { background: var(--color-ink); color: #fff; }
-    .plan-foot { font-size: 0.75rem; color: #aaa; margin: 14px 0 0; line-height: 1.5; }
-    .plan-foot a { color: #fff; }
     .p-draft { font-size: 0.75rem; color: var(--color-ink-2); margin: 0; padding: 8px 0 clamp(40px, 5vw, 64px); }
 
     .p-cmp { width: 100%; border-collapse: collapse; font-size: 0.9375rem; table-layout: fixed; }
