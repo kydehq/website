@@ -1,15 +1,10 @@
 ---
-// Pricing. Three Kyde Score plans on the left, Kyde Control
-// on the right. Detection free, action paid: D-042 (2026-11-04). Free detects
-// a hijack and sends one webhook on band changes; Solo (€29) explains and
-// tells you at once. Two keys for everyone, roles and approvals from Team:
-// D-043. Plan limits
-// follow what score.kyde.com enforces today (Joerg, 2026-11-03).
-// Push alerts, users, export and 1-year history are not built yet (KYDE-377).
-// No checkout while the GmbH is on hold (D-047): Solo and Team take a
-// reservation through the contact dialog, counted by lead_source (KYDE-359).
-// Prices confirmed by Joerg on 2026-11-08.
-// Plan: 01-kyde-company/04_marketing/website/2026-11-03-kyde-com-score-seite-offene-punkte.md
+// Pricing (Joerg, 2026-11-12): three columns, nothing on sale that is not
+// built, nothing billed today (no checkout, no GmbH yet).
+// Free: what score.kyde.com does today. Pro: pause and block (D-054) plus
+// team features, all planned, one waitlist (lead_source website_waitlist_stop).
+// Enterprise: Kyde Control, Contact sales only, no download hints.
+// Limits follow what score.kyde.com enforces.
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
 import LabNav from "../components/lab/LabNav.astro";
@@ -18,59 +13,40 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "../styles/lab.css";
 
-const scorePlans = [
-  {
-    name: "Free",
-    price: "€0",
-    per: "",
-    who: "No card, no account. The limits the service enforces.",
-    items: ["Hijack, loop and drift detection", "One webhook on band changes", "200 agents per key, 100,000 records a day", "90 days history, scores over API and MCP", "Two keys: the agent only exports, resets and deletes stay with you (coming)"],
-    cta: { label: "Get a free key →", href: "/#setup" },
-  },
-  {
-    name: "Solo",
-    price: "€29",
-    per: "a month",
-    who: "One developer, agents that run unattended.",
-    items: ["Everything in Free", "Instant alerts by email, Slack or ntfy", "Named issues: which run, which foreign tool", "Before and after a deploy, side by side"],
-    cta: { label: "Start Solo →", href: "/#setup" },
-    soon: true,
-  },
-  {
-    name: "Team",
-    price: "€299",
-    per: "a month",
-    who: "Agents in production that cost money or touch data.",
-    items: ["Everything in Solo", "Users with roles, a second person to approve a reset, a log of every reset", "Slack and PagerDuty", "1 year history", "Export for record-keeping (EU AI Act Art. 12)", "Support"],
-    cta: { label: "Start Team →", href: "/#setup" },
-    soon: true,
-    pick: true,
-  },
+const freeItems = [
+  "Hijack, loop and drift detection, deterministic",
+  "A score for every run",
+  "Alerts by email, Slack and webhook",
+  "Scores over API and MCP",
+  "200 agents per key, 100,000 records a day",
+  "90 days history",
+];
+const proPlanned = [
+  "Team features: users, roles, approvals",
+  "Longer history",
+  "Export for record-keeping (EU AI Act Art. 12)",
 ];
 const controlItems = [
-  "Everything in Team, inside your network",
-  "Stops and quarantines an agent on a band change",
-  "Allow and deny per tool, data loss prevention",
+  "The gateway, in your network",
+  "Rules per tool",
   "Signed, hash-chained record of every action",
-  "Fleet dashboard, your quotas, your retention",
 ];
 
 type Cell = string | true | "";
-const matrix: [string, Cell, Cell, Cell, Cell][] = [
-  ["Agents", "200 per key", "200 per key", "200 per key", "Your fleet"],
-  ["Records a day", "100,000", "100,000", "100,000", "Yours"],
-  ["History", "90 days", "90 days", "1 year", "Yours"],
-  ["Scores over API and MCP", true, true, true, true],
-  ["Hijack, loop and drift detection", true, true, true, true],
-  ["Alerts", "Webhook on band change", "Instant: email, Slack, ntfy", "Plus PagerDuty", "Plus a stop"],
-  ["Named issues and deploy comparison", "", true, true, true],
-  ["Agent key and management key apart", true, true, true, true],
-  ["Users, roles, approvals, log", "", "", true, true],
-  ["Export for record-keeping", "", "", true, true],
-  ["Stops and quarantines", "", "", "", true],
-  ["Per-tool rules, data loss prevention", "", "", "", true],
-  ["Signed record (Ed25519, HSM)", "", "", "", true],
-  ["Runs", "Hosted, EU", "Hosted, EU", "Hosted, EU", "Your network"],
+const matrix: [string, Cell, Cell, Cell][] = [
+  ["Hijack, loop and drift detection", true, true, true],
+  ["A score for every run", true, true, true],
+  ["Alerts by email, Slack and webhook", true, true, true],
+  ["Scores over API and MCP", true, true, true],
+  ["Agents", "200 per key", "200 per key", "Your fleet"],
+  ["Records a day", "100,000", "100,000", "Yours"],
+  ["History", "90 days", "Longer, planned", "Yours"],
+  ["Pause and block, a human decides", "", "Planned", true],
+  ["Users, roles, approvals", "", "Planned", true],
+  ["Export for record-keeping", "", "Planned", true],
+  ["Rules per tool", "", "", true],
+  ["Signed, hash-chained record", "", "", true],
+  ["Runs", "Hosted, EU", "Hosted, EU", "Your network"],
 ];
 
 const limits = [
@@ -85,7 +61,7 @@ const faq = [
   { q: "What counts as an agent?", a: "One OpenTelemetry service.name. Give each agent its own and Kyde scores it on its own baseline." },
   { q: "What happens when I go over a limit?", a: "Kyde drops the extra records and says so: the score is marked degraded. It never turns your agent's export into an error." },
   { q: "How is Kyde Control priced?", a: "From €990 a month, depending on fleet size and where it runs. Tell us how many agents you run and what they touch, and you get a number in the first call." },
-  { q: "Can a hijacked agent reset its own baseline?", a: "No. The agent's key can only export. Resetting the baseline, moving alerts and deleting take the management key, which stays with you, in every plan. Coming with the next release of Kyde Score." },
+  { q: "Why is there nothing to buy yet?", a: "Pro is not built yet, so we do not charge for it. Join the waitlist and we email you when it opens. Early users keep the price." },
   { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and scores call metadata only and drops everything else before storage. Kyde Control runs in your network, so nothing leaves it." },
 ];
 
@@ -94,7 +70,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
 
 <Base
   title="Pricing: Kyde Score and Kyde Control"
-  description="Kyde Score from €0, Solo €29 and Team €299 a month. Kyde Control runs in your network and stops agents that drift, from €990 a month."
+  description="Kyde Score is free during beta. Pro adds pause and block, planned at €29 a month: join the waitlist. Kyde Control runs in your network, from €990 a month."
 >
   <LabNav active="pricing" />
 
@@ -105,7 +81,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
         <div class="brackets">
           <p class="mono label">(Pricing)</p>
           <h1 class="p-title">Start free. Stop when you need to.</h1>
-          <p class="hero-line">Three plans to watch your agents on our servers. Kyde Control to stop them in your network.</p>
+          <p class="hero-line">Kyde Score is free during beta. Pause and block come next, with Pro. Kyde Control runs in your network.</p>
         </div>
       </div>
       <div class="dots-band" aria-hidden="true"></div>
@@ -114,44 +90,38 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     <!-- ══════════ PLANS ══════════ -->
     <section class="surface-paper" id="plans">
       <div class="wrap p-plans">
-        <div class="p-score">
-          <p class="mono p-group">(Kyde Score) Hosted · tells you</p>
-          <article class="plan p-tabs">
-            <div class="p-tablist mono" role="tablist" aria-label="Kyde Score plans">
-              {scorePlans.map((p, i) => (
-                <button type="button" role="tab" id={`pt-${p.name}`} aria-controls={`pp-${p.name}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? undefined : "-1"}>
-                  {p.name}{p.pick && <span class="pick-dot" aria-hidden="true"></span>}
-                </button>
-              ))}
-            </div>
-            {scorePlans.map((p, i) => (
-              <div role="tabpanel" id={`pp-${p.name}`} aria-labelledby={`pt-${p.name}`} class="p-panel" hidden={i !== 0}>
-                <p class="plan-price">{p.price}<span class="plan-per">{p.per}</span>{p.pick && <span class="pick">Most teams</span>}</p>
-                <p class="plan-sub">{p.who}</p>
-                <ul class="plan-list">{p.items.map((it) => <li>{it}</li>)}</ul>
-                {p.soon
-                  ? <>
-                      <button type="button" onclick={`openModal({ plan: '${p.name}' })`} class="btn btn-ink plan-cta" data-umami-event={`reserve-open-${p.name.toLowerCase()}`}>Reserve {p.name} →</button>
-                      <p class="mono plan-note">Nothing to pay today. We email you when {p.name} opens.</p>
-                    </>
-                  : <a href={p.cta.href} class="btn btn-ink plan-cta">{p.cta.label}</a>}
-              </div>
-            ))}
-          </article>
-          <p class="mono plan-note p-waitlist">Warns your agent today. Pause and block: <button type="button" onclick="openModal({ waitlist: 'stop' })" class="btn-reset waitlist-link" data-umami-event="waitlist-open-stop">join the waitlist</button> (opens with our GmbH).</p>
-        </div>
-        <div class="p-control">
-          <p class="mono p-group">(Kyde Control) Your network · stops it</p>
-          <article class="plan plan-dark">
-            <p class="mono plan-tag">Control</p>
-            <p class="plan-price"><span class="plan-from">from</span>€990<span class="plan-per">a month</span></p>
-            <p class="plan-sub">For agents you need to stop, not just watch.</p>
-            <ul class="plan-list">{controlItems.map((i) => <li>{i}</li>)}</ul>
-            <button type="button" onclick="openModal()" class="btn plan-cta btn-neon" data-umami-event="contact-open-control">Contact sales →</button>
-          </article>
-        </div>
+        <article class="plan plan-free">
+          <p class="mono plan-tag">Free</p>
+          <p class="plan-line1">Kyde tells you when your agent drifts.</p>
+          <p class="plan-price">€0<span class="plan-per">free during beta</span></p>
+          <p class="plan-sub">No card, no account.</p>
+          <ul class="plan-list">{freeItems.map((it) => <li>{it}</li>)}</ul>
+          <a href="/#setup" class="btn btn-ink plan-cta">Get a free key →</a>
+        </article>
+
+        <article class="plan plan-pro">
+          <p class="mono plan-tag">Pro <span class="pick">Waitlist</span></p>
+          <p class="plan-line1">Kyde pauses it.</p>
+          <p class="plan-price"><span class="plan-from">planned</span>€29<span class="plan-per">a month</span></p>
+          <p class="plan-sub">Team: €299 a month, planned.</p>
+          <ul class="plan-list">
+            <li><strong>Pause and block.</strong> The agent waits, the human decides. Phase two.</li>
+            {proPlanned.map((it) => <li class="planned">{it} <span class="mono tag-planned">planned</span></li>)}
+          </ul>
+          <button type="button" onclick="openModal({ waitlist: 'stop' })" class="btn btn-ink plan-cta" data-umami-event="waitlist-open-stop">Join the waitlist →</button>
+          <p class="mono plan-note">Join the waitlist. Early users keep the price. Nothing to pay today.</p>
+        </article>
+
+        <article class="plan plan-dark">
+          <p class="mono plan-tag">Enterprise · Kyde Control</p>
+          <p class="plan-line1">Kyde runs in your network.</p>
+          <p class="plan-price"><span class="plan-from">from</span>€990<span class="plan-per">a month</span></p>
+          <p class="plan-sub">For agents you need to stop, not just watch.</p>
+          <ul class="plan-list">{controlItems.map((i) => <li>{i}</li>)}</ul>
+          <button type="button" onclick="openModal()" class="btn plan-cta btn-neon" data-umami-event="contact-open-control">Contact sales →</button>
+        </article>
       </div>
-      <div class="wrap"><p class="mono p-draft">Prices excl. VAT. Solo and Team open soon. A reservation holds the price.</p></div>
+      <div class="wrap"><p class="mono p-draft">Prices excl. VAT. Nothing is billed today.</p></div>
     </section>
 
     <!-- ══════════ 01 PLANS IN DETAIL ══════════ -->
@@ -162,8 +132,8 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
           <thead>
             <tr>
               <th scope="col"><span class="visually-hidden">Feature</span></th>
-              <th scope="col">Free</th><th scope="col">Solo</th><th scope="col">Team</th>
-              <th scope="col" class="p-dark">Control</th>
+              <th scope="col">Free</th><th scope="col">Pro (planned)</th>
+              <th scope="col" class="p-dark">Enterprise</th>
             </tr>
           </thead>
           <tbody>
@@ -171,7 +141,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
               <tr>
                 <th scope="row">{f}</th>
                 {cells.map((c, i) => (
-                  <td class={i === 3 ? "p-dark" : undefined} data-label={["Free", "Solo", "Team", "Control"][i]}>
+                  <td class={i === 2 ? "p-dark" : undefined} data-label={["Free", "Pro (planned)", "Enterprise"][i]}>
                     {show(c) === "yes" ? <span class="yes"><span aria-hidden="true">●</span><span class="sr-only">Yes</span></span> : show(c) === "no" ? <span class="no"><span aria-hidden="true">–</span><span class="sr-only">No</span></span> : <span class="mono">{c}</span>}
                   </td>
                 ))}
@@ -230,56 +200,26 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
 
   <Footer links={labFooterLinks} />
 
-  <script is:inline>
-    // Plan tabs: click or arrow keys, one panel visible.
-    (() => {
-      const list = document.querySelector(".p-tablist");
-      if (!list) return;
-      const tabs = [...list.querySelectorAll('[role="tab"]')];
-      const pick = (tab) => tabs.forEach((t) => {
-        const on = t === tab;
-        t.setAttribute("aria-selected", on ? "true" : "false");
-        on ? t.removeAttribute("tabindex") : t.setAttribute("tabindex", "-1");
-        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
-      });
-      tabs.forEach((t, i) => {
-        t.addEventListener("click", () => pick(t));
-        t.addEventListener("keydown", (e) => {
-          const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-          if (!d) return;
-          const n = tabs[(i + d + tabs.length) % tabs.length]; pick(n); n.focus();
-        });
-      });
-    })();
-  </script>
-
   <style is:global>
     .p-hero { padding-block: var(--kx-hero-top) clamp(48px, 6vw, 96px); }
     @media (min-width: 1024px) { .p-hero .brackets { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(16px, 2vw, 24px); align-items: end; } .p-hero .label { grid-column: 1 / -1; } .p-hero .hero-line { margin: 0; } }
     .p-title { font-size: clamp(2.8rem, 4.8vw, 5.6rem); font-weight: 400; line-height: 0.94; letter-spacing: -0.055em; max-width: 12ch; margin: 0; text-wrap: balance; }
 
-    /* Three Score plans left, Control right. */
-    .p-plans { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 2vw, 28px); padding-top: var(--kx-sec); padding-bottom: 12px; }
-    .p-group { font-size: 0.8125rem; margin: 0 0 12px; color: var(--color-ink-2); }
-    .p-control, .p-score { display: flex; flex-direction: column; }
-    .p-score .plan { flex: 1; }
-    .p-tablist { display: flex; gap: 4px; margin: 0 0 28px; border-bottom: 1px solid var(--color-line-0); }
-    .p-tablist button { background: none; border: 0; font: inherit; font-size: 0.875rem; color: var(--color-ink-2); padding: 0 12px 12px 0; margin-right: 12px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 6px; }
-    .p-tablist button[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
-    .p-tablist button:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
-    .pick-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-neon); box-shadow: 0 0 0 1px var(--color-ink); }
-    .p-panel { display: flex; flex-direction: column; flex: 1; }
-    .p-panel[hidden] { display: none; }
-    .p-panel .pick { margin-left: 12px; vertical-align: middle; letter-spacing: 0; font-family: var(--font-mono); }
-    .p-control .plan { flex: 1; }
-    .p-score .plan { box-shadow: inset 0 0 0 1px var(--color-ink); }
+    /* Free, Pro (waitlist), Enterprise. */
+    .p-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); padding-top: var(--kx-sec); padding-bottom: 12px; }
+    .plan-free, .plan-pro { box-shadow: inset 0 0 0 1px var(--color-ink); }
+    .plan.plan-pro { background: var(--color-blush); }
+    .plan-line1 { font-size: clamp(1.25rem, 1.6vw, 1.5rem); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 20px; min-height: 2.4em; }
+    .plan-list li.planned { color: var(--color-ink-2); }
+    .tag-planned { font-size: 0.6875rem; margin-left: 6px; padding: 1px 6px; box-shadow: inset 0 0 0 1px currentColor; white-space: nowrap; }
     .plan { background: var(--color-paper); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column; min-width: 0; height: 100%; box-sizing: border-box; }
     .plan-dark { background: var(--color-card); color: #fff; }
     .plan-tag { font-size: 0.875rem; margin: 0 0 24px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .pick { background: var(--color-neon); color: var(--color-ink); font-size: 0.6875rem; padding: 2px 7px; }
     .plan-price { font-size: clamp(2.2rem, 3.2vw, 3.2rem); letter-spacing: -0.05em; line-height: 1; margin: 0; white-space: nowrap; }
     .plan-per { font-size: 0.875rem; letter-spacing: 0; color: var(--color-ink-2); margin-left: 8px; font-family: var(--font-mono); }
-    .plan-from { font-size: 0.875rem; letter-spacing: 0; color: #aaa; margin-right: 8px; font-family: var(--font-mono); }
+    .plan-from { font-size: 0.875rem; letter-spacing: 0; color: var(--color-ink-2); margin-right: 8px; font-family: var(--font-mono); }
+    .plan-dark .plan-from { color: #aaa; }
     .plan-dark .plan-per { color: #aaa; }
     .plan-sub { margin: 12px 0 0; color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.4; min-height: 2.8em; }
     .plan-dark .plan-sub { color: #bbb; }
@@ -290,7 +230,6 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .plan-dark .plan-list li::before { background: var(--color-neon); }
     .plan-cta { align-self: flex-start; font-size: 0.875rem; padding: 12px 16px; }
     .plan-note { margin-top: 10px; font-size: 0.75rem; color: var(--color-ink-2); }
-    .p-waitlist { margin-top: 14px; }
     .btn-neon { background: var(--color-neon); color: var(--color-ink); }
     .btn-neon:hover { background: #fff; }
     .p-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
@@ -300,8 +239,8 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .p-cmp { width: 100%; border-collapse: collapse; font-size: 0.9375rem; table-layout: fixed; }
     .p-cmp th, .p-cmp td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--color-line-0); font-weight: 400; vertical-align: top; }
     .p-cmp thead th { font: 500 0.8125rem var(--font-mono); border-bottom: 1px solid var(--color-ink); }
-    .p-cmp tbody th { padding-left: 0; width: 28%; }
-    .p-cmp thead th:first-child { width: 28%; }
+    .p-cmp tbody th { padding-left: 0; width: 34%; }
+    .p-cmp thead th:first-child { width: 34%; }
     .p-cmp .p-dark { background: var(--color-card); color: #fff; border-bottom-color: #3a3a3a; }
     .p-cmp .mono { font-size: 0.8125rem; }
     .p-cmp .yes { color: var(--color-ink); }
@@ -326,8 +265,9 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .p-close { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
     .p-close-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
       .p-plans { grid-template-columns: 1fr; }
+      .plan-line1 { min-height: 0; }
     }
     @media (max-width: 760px) {
       .p-lims { grid-template-columns: 1fr; }

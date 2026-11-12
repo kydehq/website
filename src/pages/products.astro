@@ -26,7 +26,7 @@ const scoreSpecs = [
   ["Detectors", "CUSUM for sudden shifts, Jensen-Shannon divergence for slow drift, duplicate calls for loops (needs the parameter hash kyde.args.digest). Plus a task-contract check: a tool never seen for the task. No LLM."],
   ["Score", "0 to 100 per run. 70 and up normal, 40 to 69 watch, below 40 deviating. Counts the alarms of the last 20 runs, so an agent that settles recovers."],
   ["Output", "Scores as JSON over the API and the MCP server. Signed webhook on every band change and every rebaseline."],
-  ["Data", "Call metadata only. Everything else is dropped before storage. Hosted in the EU. Retention by plan."],
+  ["Data", "Call metadata only. Everything else is dropped before storage. Hosted in the EU. 90 days history."],
   ["Effect on the agent", "None. Export is asynchronous. If Kyde is down, the agent runs as before."],
 ];
 
@@ -51,7 +51,7 @@ const compare = [
   ["Signed, tamper-evident record", false, true],
   ["Changes to the agent", "None", "One line"],
   ["Runs", "Hosted, EU", "Your network"],
-  ["Price", "From €0", "From €990 a month"],
+  ["Price", "€0, free during beta", "From €990 a month"],
 ];
 ---
 
@@ -79,10 +79,10 @@ const compare = [
             <ul class="pc-list">
               <li>No change to the agent. Three environment variables.</li>
               <li>A score from 0 to 100 for every run, against the agent's own baseline.</li>
-              <li>Webhook when the score changes band. Hosted in the EU.</li>
+              <li>Alerts by email, Slack and webhook when the score changes band. Hosted in the EU.</li>
             </ul>
             <div class="pc-foot">
-              <p class="pc-price">From €0</p>
+              <p class="pc-price">€0 <span class="mono pc-per">free during beta</span></p>
               <div class="ctas">
                 <a href="/#setup" class="btn btn-ink" data-umami-event="products-get-key">Get a key →</a>
                 <a href="#score" class="link-u mono">Details</a>
