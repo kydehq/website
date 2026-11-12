@@ -13,6 +13,8 @@ Where a business sends telemetry about agents used by its staff, that business i
 
 **6.2 Account and sign-in.** If you claim a key, we store your email address, the time you confirmed it, and the version of the [Terms](https://kyde.com/terms/) you accepted. We use your email address to send the confirmation link, sign-in links, score alerts and service notices. Sign-in links are single-use and expire. Signing in sets one strictly necessary session cookie (kyde_session). It holds your email address and an expiry, is signed by the server, cannot be read by scripts, is sent over HTTPS only and expires after 24 hours. No consent is required for it (§ 25(2) no. 2 TDDDG). If you connect an AI client to the MCP endpoint via OAuth, we store the client registration and access tokens until they expire or you revoke the key. Legal basis: Art. 6(1)(b) GDPR. We delete your email address when you revoke the key.
 
+**6.2a Waitlist for pause and block.** If you join the waitlist in the dashboard, we store the time you joined with your email address and email you once when pause and block open. Legal basis: Art. 6(1)(b) GDPR (your request). You can leave the waitlist in the dashboard at any time; revoking the key also removes the entry.
+
 **6.3 Product updates.** Only if you opt in separately, we send occasional product update emails. Legal basis: your consent, Art. 6(1)(a) GDPR. You can withdraw it at any time in the dashboard or through the link in every email. Withdrawal does not affect earlier processing.
 
 **6.4 Abuse protection.** To limit key creation and ingest, we keep short-lived rate-limit counters per IP address and per key. Legal basis: Art. 6(1)(f) GDPR, our legitimate interest in protecting the service. The counters expire automatically.
