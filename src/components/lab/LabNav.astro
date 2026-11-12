@@ -2,8 +2,9 @@
 // Nav of the new pages (home, products, pricing, research). The dashboard
 // link comes back as "Log in" once score.kyde.com allows CORS for kyde.com
 // and the email login runs (KYDE-374). Like the live home: logo left, products in the
-// middle (Research, Products, Pricing, Docs), right: Dashboard, Contact
-// sales as a text link and "Get a free key" as the one button (Joerg, 2026-11-12). GitHub lives in the docs header (astro.config.mjs, social). It takes the color of the section
+// middle (Research, Products, Pricing, Docs), right: Dashboard as a text link,
+// "Contact sales" as the outlined second button and "Get a free key" as the
+// filled main button (Joerg, 2026-11-12). GitHub lives in the docs header (astro.config.mjs, social). It takes the color of the section
 // under it: rosé over a .hero or .surface-rose, white elsewhere (DESIGN.md).
 // active: "research", "products" or "pricing" underlines the page you are on.
 const { active } = Astro.props as { active?: "research" | "products" | "pricing" };
@@ -19,7 +20,7 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     </nav>
     <div class="nav-side mono">
       <a href="https://score.kyde.com/dashboard">Dashboard</a>
-      <button type="button" onclick="openModal()" class="nav-text" data-umami-event="contact-open-nav">Contact sales</button>
+      <button type="button" onclick="openModal()" class="btn btn-line btn-s" data-umami-event="contact-open-nav">Contact sales</button>
       <a href="/#setup" class="btn btn-ink btn-s" data-umami-event="nav-get-key">Get a free key →</a>
       <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="lab-nav-menu">
         <span></span><span></span><span></span>
@@ -33,8 +34,8 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     <a href="/pricing/" aria-current={active === "pricing" ? "page" : undefined}>Pricing</a>
     <a href="/docs/">Docs</a>
     <a href="/#setup" class="btn btn-ink btn-s nav-menu-key" data-umami-event="nav-get-key">Get a free key →</a>
+    <button type="button" onclick="openModal()" class="btn btn-line btn-s nav-menu-key" data-umami-event="contact-open-nav">Contact sales</button>
     <a href="https://score.kyde.com/dashboard" class="mono">Dashboard</a>
-    <button type="button" onclick="openModal()" class="nav-text mono" data-umami-event="contact-open-nav">Contact sales</button>
   </nav>
 </header>
 
