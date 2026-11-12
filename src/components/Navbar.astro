@@ -55,13 +55,22 @@ const otherHref = alternates[otherLocale];
     </ul>
 
     <!-- CTAs (desktop) -->
-    <div class="hidden lg:flex items-center gap-3">
+    <div class="hidden lg:flex items-center gap-5">
       <button
+        type="button"
         onclick="openModal()"
-        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap nav-cta px-4 text-[13px] font-mono transition-colors"
+        class="whitespace-nowrap text-[13px] font-mono text-white/50 hover:text-white transition-colors"
+        data-umami-event="contact-open-nav"
       >
-        Contact sales →
+        Contact sales
       </button>
+      <a
+        href="/#setup"
+        class="inline-flex h-[33px] items-center gap-2 whitespace-nowrap nav-cta px-4 text-[13px] font-mono transition-colors"
+        data-umami-event="nav-get-key"
+      >
+        Get a free key →
+      </a>
       {otherHref && (
         <a
           href={otherHref}
@@ -110,11 +119,20 @@ const otherHref = alternates[otherLocale];
       ))}
     </ul>
     <div class="space-y-3">
-      <button
-        onclick="openModal()"
+      <a
+        href="/#setup"
         class="nav-cta block w-full text-center px-4 py-3 text-sm font-mono transition-all"
+        data-umami-event="nav-get-key"
       >
-        Contact sales →
+        Get a free key →
+      </a>
+      <button
+        type="button"
+        onclick="openModal()"
+        class="block w-full text-center px-4 py-3 text-sm font-mono text-white/50 hover:text-white transition-colors"
+        data-umami-event="contact-open-nav"
+      >
+        Contact sales
       </button>
     </div>
   </div>

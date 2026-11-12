@@ -2,8 +2,8 @@
 // Nav of the new pages (home, products, pricing, research). The dashboard
 // link comes back as "Log in" once score.kyde.com allows CORS for kyde.com
 // and the email login runs (KYDE-374). Like the live home: logo left, products in the
-// middle (Research, Products, Pricing, Docs), the one action
-// right. GitHub lives in the docs header (astro.config.mjs, social). It takes the color of the section
+// middle (Research, Products, Pricing, Docs), right: Dashboard, Contact
+// sales as a text link and "Get a free key" as the one button (Joerg, 2026-11-12). GitHub lives in the docs header (astro.config.mjs, social). It takes the color of the section
 // under it: rosé over a .hero or .surface-rose, white elsewhere (DESIGN.md).
 // active: "research", "products" or "pricing" underlines the page you are on.
 const { active } = Astro.props as { active?: "research" | "products" | "pricing" };
@@ -19,7 +19,8 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     </nav>
     <div class="nav-side mono">
       <a href="https://score.kyde.com/dashboard">Dashboard</a>
-      <button type="button" onclick="openModal()" class="btn btn-ink btn-s">Contact sales →</button>
+      <button type="button" onclick="openModal()" class="nav-text" data-umami-event="contact-open-nav">Contact sales</button>
+      <a href="/#setup" class="btn btn-ink btn-s" data-umami-event="nav-get-key">Get a free key →</a>
       <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="lab-nav-menu">
         <span></span><span></span><span></span>
       </button>
@@ -31,7 +32,9 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     <a href="/products/" aria-current={active === "products" ? "page" : undefined}>Products</a>
     <a href="/pricing/" aria-current={active === "pricing" ? "page" : undefined}>Pricing</a>
     <a href="/docs/">Docs</a>
+    <a href="/#setup" class="btn btn-ink btn-s nav-menu-key" data-umami-event="nav-get-key">Get a free key →</a>
     <a href="https://score.kyde.com/dashboard" class="mono">Dashboard</a>
+    <button type="button" onclick="openModal()" class="nav-text mono" data-umami-event="contact-open-nav">Contact sales</button>
   </nav>
 </header>
 
@@ -58,6 +61,9 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
       document.documentElement.style.overflow = open ? "hidden" : "";
     };
     btn.addEventListener("click", () => setOpen(menu.hidden));
+    // A link or "Contact sales" in the panel: close it first, so a jump to
+    // /#setup on the home page or the contact dialog is not left behind it.
+    menu.addEventListener("click", (e) => { if (e.target.closest("a, button")) setOpen(false); });
     addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) { setOpen(false); btn.focus(); } });
     // Back to desktop width: never leave the page locked behind a hidden panel.
     matchMedia("(min-width: 861px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
