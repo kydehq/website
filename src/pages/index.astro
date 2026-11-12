@@ -231,7 +231,7 @@ const faq = [
             </details>
           </figure>
         </div>
-        <p class="note foot">*The webhook is live in every plan. Alerts by email, Slack or ntfy with the reason spelled out come with Solo.</p>
+        <p class="note foot">*Alerts by email, Slack and webhook are live and free during beta.</p>
         <ul class="triggers">
           {triggers.map((t) => (
             <li>
@@ -304,17 +304,15 @@ const faq = [
           <h2 class="display-2">Start free. Stop when you need to.</h2>
         </div>
         <ul class="plan-line">
-          <li><span class="mono label">(Kyde Score) Free</span><span class="pl-price">€0</span><span class="note">200 agents per key, 90 days, scores over API and MCP</span></li>
-          <li><span class="mono label">(Kyde Score) Solo</span><span class="pl-price">€29</span><span class="note">Instant alerts, named issues. <a href="/pricing/#plans">Reserve now</a></span></li>
-          <li><span class="mono label">(Kyde Score) Team</span><span class="pl-price">€299</span><span class="note">Users, PagerDuty, 1 year, export. <a href="/pricing/#plans">Reserve now</a></span></li>
-          <li class="pl-dark"><span class="mono label">(Kyde Control)</span><span class="pl-price">from €990</span><span class="note">In your network. Stops the agent</span></li>
+          <li><span class="mono label">(Free)</span><span class="pl-price">€0</span><span class="note">Free during beta. Drift alerts by email, Slack and webhook, 200 agents per key, 90 days</span></li>
+          <li><span class="mono label">(Pro) Planned</span><span class="pl-price">€29</span><span class="note">Pause and block, the human decides. <button type="button" onclick="openModal({ waitlist: 'stop' })" class="btn-reset waitlist-link" data-umami-event="waitlist-open-stop">Join the waitlist</button></span></li>
+          <li class="pl-dark"><span class="mono label">(Enterprise) Kyde Control</span><span class="pl-price">from €990</span><span class="note">In your network. Stops the agent</span></li>
         </ul>
         <div class="ctas">
           <a href="/pricing/" class="btn btn-ink">See pricing →</a>
           <button type="button" onclick="openModal()" class="link-u mono btn-reset">Contact sales</button>
         </div>
-        <p class="note foot">Warns your agent today. Pause and block: <button type="button" onclick="openModal({ waitlist: 'stop' })" class="btn-reset waitlist-link" data-umami-event="waitlist-open-stop">join the waitlist</button> (opens with our GmbH).</p>
-        <p class="note foot">*Draft prices, not yet decided.</p>
+        <p class="note foot">Nothing is billed today.</p>
       </div>
     </section>
   </main>
