@@ -36,7 +36,8 @@ const otherHref = alternates[otherLocale];
     </a>
 
     <!-- Nav links (desktop) -->
-    <ul class="hidden lg:flex items-center gap-5 xl:gap-7">
+    <!-- Links sit next to the logo, actions on the right: the gap divides them (Joerg, 2026-11-12). -->
+    <ul class="hidden lg:flex items-center gap-5 xl:gap-7 lg:ml-10 lg:mr-auto">
       {navLinks.map(({ label, href }) => (
         <li>
           <a
@@ -56,6 +57,13 @@ const otherHref = alternates[otherLocale];
 
     <!-- CTAs (desktop) -->
     <div class="hidden lg:flex items-center gap-5">
+      <a
+        href="https://score.kyde.com/dashboard"
+        class="whitespace-nowrap text-[13px] font-mono text-white/50 hover:text-white transition-colors"
+        data-umami-event="nav-sign-in"
+      >
+        Sign in
+      </a>
       <button
         type="button"
         onclick="openModal()"
@@ -134,6 +142,13 @@ const otherHref = alternates[otherLocale];
       >
         Contact sales
       </button>
+      <a
+        href="https://score.kyde.com/dashboard"
+        class="block w-full text-center px-4 py-3 text-sm font-mono text-white/50 hover:text-white transition-colors"
+        data-umami-event="nav-sign-in"
+      >
+        Sign in
+      </a>
     </div>
   </div>
 </header>

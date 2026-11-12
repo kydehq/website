@@ -1,8 +1,8 @@
 ---
-// Nav of the new pages (home, products, pricing, research). The dashboard
-// link comes back as "Log in" once score.kyde.com allows CORS for kyde.com
-// and the email login runs (KYDE-374). Like the live home: logo left, products in the
-// middle (Research, Products, Pricing, Docs), right: Dashboard as a text link,
+// Nav of the new pages (home, products, pricing, research). Like Stripe
+// or Linear: logo and products (Research, Products, Pricing, Docs)
+// together on the left, the gap is the divider; right: "Sign in"
+// (the dashboard on score.kyde.com, which shows the email login) as a text link,
 // "Contact sales" as the outlined second button and "Get a free key" as the
 // filled main button (Joerg, 2026-11-12). GitHub lives in the docs header (astro.config.mjs, social). It takes the color of the section
 // under it: rosé over a .hero or .surface-rose, white elsewhere (DESIGN.md).
@@ -19,7 +19,7 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
       <a href="/docs/">Docs</a>
     </nav>
     <div class="nav-side mono">
-      <a href="https://score.kyde.com/dashboard">Dashboard</a>
+      <a href="https://score.kyde.com/dashboard" data-umami-event="nav-sign-in">Sign in</a>
       <button type="button" onclick="openModal()" class="btn btn-line btn-s" data-umami-event="contact-open-nav">Contact sales</button>
       <a href="/#setup" class="btn btn-ink btn-s" data-umami-event="nav-get-key">Get a free key →</a>
       <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="lab-nav-menu">
@@ -35,7 +35,7 @@ const { active } = Astro.props as { active?: "research" | "products" | "pricing"
     <a href="/docs/">Docs</a>
     <a href="/#setup" class="btn btn-ink btn-s nav-menu-key" data-umami-event="nav-get-key">Get a free key →</a>
     <button type="button" onclick="openModal()" class="btn btn-line btn-s nav-menu-key" data-umami-event="contact-open-nav">Contact sales</button>
-    <a href="https://score.kyde.com/dashboard" class="mono">Dashboard</a>
+    <a href="https://score.kyde.com/dashboard" class="mono" data-umami-event="nav-sign-in">Sign in</a>
   </nav>
 </header>
 
