@@ -70,7 +70,7 @@ agents you run) stop behaving normally, you can set this up yourself:
    test (one OTLP record under a throwaway service.name) is in
    https://score.kyde.com/llms.txt.
 3. Read scores: `GET https://score.kyde.com/score/v0/scores` — each agent is
-   scored 0–100 against its own baseline after ~30 runs; 70–100 normal,
+   scored 0–100 against its own baseline after 30 runs over at least 3 days; 70–100 normal,
    40–69 watch, 0–39 deviating. The integration is done when the intended
    service.name appears there with runs_seen >= 1 — a created key alone is
    setup, not an integration.

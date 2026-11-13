@@ -79,7 +79,7 @@ curl -s -X POST https://score.kyde.com/score/v0/agents/<service_name>/rebaseline
   -H "x-kyde-key: <KEY>"
 ```
 
-For an intended change, such as a new model or a new task, that left an agent deviating. Kyde forgets the baseline and learns it again from the next 30 runs. Records and alarms stay stored, and the agent carries `rebaselined_at` from then on.
+For an intended change, such as a new model or a new task, that left an agent deviating. Kyde forgets the baseline and learns it again from the next 30 runs over at least 3 days. Records and alarms stay stored, and the agent carries `rebaselined_at` from then on.
 
 ## Delete everything
 

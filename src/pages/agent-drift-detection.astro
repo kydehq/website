@@ -18,7 +18,7 @@ const faqs = [
     },
     {
         q: "How do you detect drift in an AI agent?",
-        a: "Record the agent's actions, learn what normal looks like for that specific agent, and compare every new run against it. Kyde Score learns from the first 30 runs, then runs three deterministic detectors on every later run: one for abrupt shifts, one for gradual drift, and a task contract that flags tools the agent has never used for that task.",
+        a: "Record the agent's actions, learn what normal looks like for that specific agent, and compare every new run against it. Kyde Score learns from the first 30 runs over at least 3 days, then runs three deterministic detectors on every later run: one for abrupt shifts, one for gradual drift, and a task contract that flags tools the agent has never used for that task.",
     },
     {
         q: "Can drift detection catch prompt injection?",
@@ -84,7 +84,7 @@ const detectors = [
     {
         name: "Gradual drift",
         method: "Windowed Jensen-Shannon divergence",
-        body: "Compares the distribution of recent behavior with the baseline distribution. Catches the slow shift after a model or prompt change that no single run would reveal.",
+        body: "Compares the distribution of recent behavior with the baseline distribution. Catches a clear slow shift after a model or prompt change that no single run would reveal. Small changes it does not reliably see.",
     },
     {
         name: "Task contract",
@@ -188,7 +188,7 @@ const detectors = [
                             How drift detection works in Kyde Score
                         </h2>
                         <p class="text-lg leading-relaxed text-ink-1 mb-6">
-                            Kyde Score reads the OpenTelemetry your agent already emits: which tool was called, when, in which step and with what result. It does not store prompts or payloads. Each agent learns from its first 30 runs, and that baseline is then frozen and fingerprinted, so later runs are always measured against the same reference.
+                            Kyde Score reads the OpenTelemetry your agent already emits: which tool was called, when, in which step and with what result. It does not store prompts or payloads. Each agent learns from its first 30 runs over at least 3 days, and that baseline is then frozen and fingerprinted, so later runs are always measured against the same reference.
                         </p>
                         <p class="text-lg leading-relaxed text-ink-1 mb-10">
                             Every run after that passes three detectors. Their results combine into a score from 0 to 100: 70 to 100 is normal, 40 to 69 is worth watching, and below 40 the agent is deviating from its own baseline. When the score changes band, Kyde sends a webhook signed with HMAC-SHA256 to the URL you choose.
@@ -254,7 +254,7 @@ const detectors = [
                             What drift detection does not do
                         </h2>
                         <p class="text-lg leading-relaxed text-ink-1">
-                            Kyde Score does not read prompts, so it cannot tell you that a page contained an injection. It tells you that the agent's behavior changed afterwards, which is often the more useful signal because it holds regardless of how the injection was phrased. The drift score also needs a baseline: during its first 30 runs, an agent is learning and has no score. Loop detection is the exception. Three identical calls in a row raise an alarm from the first run, provided the agent sends a parameter digest with each tool call.
+                            Kyde Score does not read prompts, so it cannot tell you that a page contained an injection. It tells you that the agent's behavior changed afterwards, which is often the more useful signal because it holds regardless of how the injection was phrased. The drift score also needs a baseline: during its first 30 runs and at least 3 days, an agent is learning and has no score. Loop detection is the exception. Three identical calls in a row raise an alarm from the first run, provided the agent sends a parameter digest with each tool call.
                         </p>
                         <p class="text-lg leading-relaxed text-ink-1">
                             The hosted service alerts and does not block. If you need an agent stopped, quarantined or held to a policy inside your own network, that is Kyde Control, described in the <a href="/docs/" class="underline underline-offset-4 hover:text-ink-0">documentation</a>.
@@ -296,7 +296,7 @@ const detectors = [
                         Try it on one agent
                     </h2>
                     <p class="text-lg leading-relaxed text-ink-1 mb-8">
-                        Kyde Score is free to start. Create a key, set three environment variables and let the agent run. After 30 runs it has a baseline, and from then on you get a score per run and a webhook when it changes band.
+                        Kyde Score is free to start. Create a key, set three environment variables and let the agent run. After 30 runs over at least 3 days it has a baseline, and from then on you get a score per run and a webhook when it changes band.
                     </p>
                     <a
                         href="https://score.kyde.com"

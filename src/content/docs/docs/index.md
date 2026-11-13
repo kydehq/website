@@ -14,7 +14,7 @@ Most teams start with Kyde Score on one agent and add Kyde Control for the agent
 
 ## Set up with your agent
 
-Paste one sentence into your coding agent (Claude Code, Codex, Cursor and others):
+Paste one sentence into your coding agent (Claude Code, Codex, OpenCode and others):
 
 ```text
 Set up score.kyde.com/skill.md

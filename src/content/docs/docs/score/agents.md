@@ -57,7 +57,7 @@ Any other MCP client:
 | `get_scores` | Current score of every agent under the key |
 | `set_webhook` | Adds or changes the webhook |
 | `claim_key` | Attaches a human's email for the dashboard and human-only controls |
-| `rebaseline` | Forgets an agent's baseline and relearns it from the next 30 runs. History stays |
+| `rebaseline` | Forgets an agent's baseline and relearns it from the next 30 runs over at least 3 days. History stays |
 | `revoke_key` | Deletes the key and all its data. Requires `confirm: true` |
 
 The key can also go in an `Authorization: Bearer` header or the `key` tool argument.

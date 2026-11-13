@@ -115,7 +115,7 @@ Run the agent once, then:
 curl -s https://score.kyde.com/score/v0/scores -H "x-kyde-key: <KEY>"
 ```
 
-The agent shows up with `"status": "learning"` and a `runs_seen` count. After 30 runs it switches to `"status": "scored"` with a `score` and a `band`. There is nothing to configure for that.
+The agent shows up with `"status": "learning"` and a `runs_seen` count. After 30 runs over at least 3 days it switches to `"status": "scored"` with a `score` and a `band`. There is nothing to configure for that.
 
 The integration is done when both are true: your agent's own `service.name` appears here with `runs_seen` of at least 1, and the human was asked once for an email address for the dashboard (a no counts as asked). A created key, a claim or an active dashboard alone is setup, not an integration. Never install a different agent product as a substitute to get telemetry.
 

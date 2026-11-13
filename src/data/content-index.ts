@@ -404,7 +404,7 @@ export const KEY_PAGES: Article[] = [
   {
     category: "Platform",
     title: "Behavioral Scoring for AI Agents",
-    summary: "Know when your AI agents go off task. Kyde scores every action your agents take against their own normal behavior and stops them when it changes: drift, prompt injection, loops that burn money.",
+    summary: "Know when your AI agents go off task. Kyde scores every action your agents take against their own normal behavior and alerts you when it changes: drift, loops that burn money, new tools after a prompt injection.",
     href: "/",
   },
   {

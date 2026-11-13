@@ -79,7 +79,7 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=&lt;your-key&gt;"</code></pre>
                         </div>
                         <div>
-                            <p class="text-lg leading-relaxed text-ink-1"><span class="font-mono text-xs text-ink-0">03</span> &nbsp;Read scores. Each agent learns for its first 30 runs, then every run is scored: 70&ndash;100 normal, 40&ndash;69 watch, 0&ndash;39 deviating. Deterministic statistics, no language model in the verdict, every score recomputable.</p>
+                            <p class="text-lg leading-relaxed text-ink-1"><span class="font-mono text-xs text-ink-0">03</span> &nbsp;Read scores. Each agent learns for its first 30 runs over at least 3 days, then every run is scored: 70&ndash;100 normal, 40&ndash;69 watch, 0&ndash;39 deviating. Deterministic statistics, no language model in the verdict, every score recomputable.</p>
                             <pre class="mt-4 border border-line-0 px-4 py-4 font-mono text-xs leading-relaxed text-ink-1 overflow-x-auto"><code>curl -s https://score.kyde.com/score/v0/scores -H "x-kyde-key: &lt;your-key&gt;"</code></pre>
                         </div>
                     </div>

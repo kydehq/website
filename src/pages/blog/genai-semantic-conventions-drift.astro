@@ -137,7 +137,7 @@ import LegalNotice from '../../components/LegalNotice.astro';
             <div class="not-prose mt-12 border border-line-0 bg-bg-1 p-8">
               <p class="font-mono text-xs uppercase tracking-widest text-ink-2 mb-3">KYDE Score</p>
               <p class="text-sm text-ink-1 leading-relaxed mb-6">
-                Kyde Score works this way. It reads <code>gen_ai.*</code> tool spans and Claude Code tool events over OTLP, learns a baseline from each agent's first 30 runs, and scores every later run from 0 to 100 using CUSUM, Jensen-Shannon divergence and a per-task contract. When an agent's score moves into a different band, it sends an HMAC-signed webhook. It never reads prompt content.
+                Kyde Score works this way. It reads <code>gen_ai.*</code> tool spans and Claude Code tool events over OTLP, learns a baseline from each agent's first 30 runs over at least 3 days, and scores every later run from 0 to 100 using CUSUM, Jensen-Shannon divergence and a per-task contract. When an agent's score moves into a different band, it sends an HMAC-signed webhook. It never reads prompt content.
               </p>
               <a
                 href="/score/"

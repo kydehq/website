@@ -25,7 +25,7 @@ const GITHUB = "https://github.com/kydehq/behavioral-drift-detection";
 const triggers = [
   { name: "Hijack", line: "It starts doing new things.", body: "Tools it rarely or never called before. The pattern a prompt injection tends to leave.", reason: "abrupt_shift" },
   { name: "Loop", line: "It does the same thing again and again.", body: "Same tool, same parameter hash, again and again. Counted via the hash your exporter sends (kyde.args.digest): repeats are visible, the content is not.", reason: "duplicate_submission" },
-  { name: "Drift", line: "It slowly stops being itself.", body: "The mix of actions moves away from the baseline, often after a model update nobody told you about.", reason: "gradual_drift" },
+  { name: "Drift", line: "It slowly stops being itself.", body: "The mix of actions moves away from the baseline, often after a model or prompt change.", reason: "gradual_drift" },
 ];
 
 
@@ -48,7 +48,7 @@ const forAgents = "Set up score.kyde.com/skill.md";
 
 const setupTabs = [
   { id: "agent", label: "Your agent", code: forAgents,
-    note: "Paste into Claude Code, Codex, Cursor or any agent. It reads the skill, gets a key, sets the variables and checks that data arrives." },
+    note: "Paste into Claude Code, Codex, OpenCode or your own agent. It reads the skill, gets a key, sets the variables and checks that data arrives." },
   { id: "plugin", label: "Plugin", code: `claude plugin marketplace add kydehq/kyde-score-skill
 claude plugin install kyde-score@kyde-score-skill`,
     note: "Installs the skill for good, so every new Claude Code session knows it. Reading a URL once installs nothing." },
@@ -114,7 +114,7 @@ OTEL_EXPORTER_OTLP_HEADERS="x-kyde-key=kyde_…"
 OTEL_SERVICE_NAME=<agent-name>`;
 
 const faq = [
-  { q: "Will it alert on every change?", a: "No. Kyde learns each agent over its first 30 runs, then freezes the baseline. One alert per band change, not one per odd run. A signal for triage, not a probability that an agent was compromised." },
+  { q: "Will it alert on every change?", a: "No. Kyde learns each agent over its first 30 runs and at least 3 days, then freezes the baseline. One alert per band change, not one per odd run. A signal for triage, not a probability that an agent was compromised." },
   { q: "Does it detect prompt injection?", a: "It detects what a hijacked agent does next: tools it does not normally use, in an order it does not normally use them. From metadata alone it cannot prove an attack." },
   { q: "How do I add an agent?", a: "Start it with the variables. Kyde knows it by its service.name and it shows up with its first data. No form, no dashboard, no registration call." },
   { q: "I run agents inside my clients' networks.", a: "That is the case it is built for. The agent exports from wherever it runs, the alert goes to you. Only call metadata leaves, and the Collector strips more if you want." },

@@ -42,7 +42,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "blog/genai-semantic-conventions-drift",
     de: "de/wissen/opentelemetry-genai-konventionen",
-    sourceHash: "122d98d77dfa632d",
+    sourceHash: "e89572d0634b58cc",
     note: "Gekürzte Übertragung derselben Argumentation. Sie hängt an einer offenen Spezifikation statt an unserem Produkt, und deutsche Plattform- und Observability-Teams suchen auf Deutsch danach.",
   },
   {
@@ -84,7 +84,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "agent-prompt-injection-detection",
     de: "de/wissen/prompt-injection-erkennen",
-    sourceHash: "6b6bbf3548cf43a5",
+    sourceHash: "ff6b4f05fa88ca35",
     note: "Kernseite in der Sprache des Problems (SEO-Plan 07.11.2026). Hängt an OWASP und an der Erkennungslogik von Kyde Score, beides in beiden Sprachen gleich, deshalb der Hash.",
   },
   {
@@ -96,7 +96,7 @@ export const LOCALE_PAIRS: LocalePair[] = [
   {
     en: "rogue-ai-agents",
     de: "de/wissen/rogue-ai-agents-erkennen",
-    sourceHash: "b611c1bf7a6f9554",
+    sourceHash: "8bf61333c40a8d07",
     note: "Hauptseite der Problem-Seiten (SEO-Plan 07.11.2026). Verteilt auf Injection, Schleife, Drift und Kill Switch, die alle zweisprachig sind.",
   },
   {

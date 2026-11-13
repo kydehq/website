@@ -1,6 +1,6 @@
 ---
 title: "Kyde Score"
-description: "How Kyde Score works: a per-agent baseline from the first 30 runs, deterministic detectors, a 0 to 100 score per run and three bands."
+description: "How Kyde Score works: a per-agent baseline from the first 30 runs over at least 3 days, deterministic detectors, a 0 to 100 score per run and three bands."
 ---
 
 Kyde Score is a hosted service at `score.kyde.com`. Your agents send OpenTelemetry. Kyde learns each agent's normal behavior and scores every later run against it.
@@ -8,7 +8,7 @@ Kyde Score is a hosted service at `score.kyde.com`. Your agents send OpenTelemet
 ## How it works
 
 1. **Identify.** Each agent is one OpenTelemetry `service.name`. One key covers all agents under it.
-2. **Learn.** The first 30 runs of an agent become its baseline. Until then its status is `learning`.
+2. **Learn.** The first 30 runs of an agent, spread over at least 3 days, become its baseline. Until then its status is `learning`.
 3. **Score.** Every later run gets a score from 0 to 100. It counts the alarms of the last 20 runs, so an agent that settles back recovers. The detectors are plain statistics, no LLM: CUSUM for sudden shifts, windowed Jensen-Shannon divergence for slow drift, duplicate calls for loops, counted only when your exporter sends the parameter hash `kyde.args.digest`. A task-contract check flags a tool the agent never used for that task, from the first run.
 4. **Tell.** Read the scores any time over the API or MCP. A signed webhook fires on every band change and every rebaseline.
 

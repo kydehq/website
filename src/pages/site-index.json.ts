@@ -50,7 +50,7 @@ export const GET: APIRoute = () => {
       {
         name: "Kyde",
         description:
-          "Kyde is behavioral scoring for AI agents: it learns how each agent normally behaves, scores every run against that baseline, and catches the agent that no longer behaves like itself, whether it drifts, loops or is hijacked. Deterministic, no LLM in the verdict, every score recomputable.",
+          "Kyde is behavioral scoring for AI agents: it learns how each agent normally behaves, scores every run against that baseline, and catches the agent that no longer behaves like itself, whether it drifts, loops or reaches for tools it never used for the task, the trace a hijack tends to leave. Deterministic, no LLM in the verdict, every score recomputable.",
         prose_index: `${BASE}/llms.txt`,
         generated: new Date().toISOString().slice(0, 10),
         count: entries.length,
