@@ -187,10 +187,40 @@ const timeline = [
       <div class="dots-band" aria-hidden="true"></div>
     </section>
 
-    <!-- ══════════ 01 SETUP ══════════ -->
+    <!-- ══════════ 01 HOW IT WORKS: one run as a timeline. Only what Kyde Score
+         does today (public-claims 4, 5, 8, 11, 16): the call goes through, Kyde
+         gets a salted hash, the score drops, the hook warns, the human gets mail.
+         Footer points to the pause/block waitlist (Joerg 14.11.: say what we do, not what we cannot).
+         No band named until Juergen confirms which one a new recipient sets. -->
+    <section class="surface-ink" id="how-it-works">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">01</span><span class="mono">How it works</span></div>
+        <div class="split">
+          <div>
+            <p class="mono label">(One run, minute by minute)</p>
+            <h2 class="h1">A payment to someone this agent never paid.</h2>
+          </div>
+          <div>
+            <ol class="tl">
+              {timeline.map((r) => (
+                <li class:list={["tl-row", r.who === "Agent" ? "tl-agent" : "tl-kyde", r.hit && "tl-hit"]}>
+                  <p class="mono tl-meta"><time>{r.t}</time> · {r.who}</p>
+                  <p class="tl-text" set:html={r.text} />
+                </li>
+              ))}
+            </ol>
+            <p class="note tl-foot">Grey: inside the agent. White: Kyde.</p>
+            <p class="note tl-foot"><strong>Today Kyde warns your agent and you.</strong> Stop before the payment: <a href="/pricing/#plans" class="link-u mono" data-umami-event="timeline-waitlist">join the waitlist →</a></p>
+            <p class="note tl-foot">Example run, times invented. <a href="/industries/agentic-commerce/" class="link-u mono">The recipient check →</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 02 SETUP ══════════ -->
     <section class="surface-paper" id="setup">
       <div class="wrap sec">
-        <div class="kicker"><span class="num">01</span><span class="mono">Setup</span></div>
+        <div class="kicker"><span class="num">02</span><span class="mono">Setup</span></div>
         <div class="split">
           <div>
             <h2 class="h1">One line for your agent. Four for you.</h2>
@@ -217,39 +247,9 @@ const timeline = [
       </div>
     </section>
 
-    <!-- ══════════ 02 HOW IT WORKS: one run as a timeline. Only what Kyde Score
-         does today (public-claims 4, 5, 8, 11, 16): the call goes through, Kyde
-         gets a salted hash, the score drops, the hook warns, the human gets mail.
-         Footer points to the pause/block waitlist (Joerg 14.11.: say what we do, not what we cannot).
-         No band named until Juergen confirms which one a new recipient sets. -->
-    <section class="surface-ink" id="how-it-works">
-      <div class="wrap sec">
-        <div class="kicker"><span class="num">02</span><span class="mono">How it works</span></div>
-        <div class="split">
-          <div>
-            <p class="mono label">(One run, minute by minute)</p>
-            <h2 class="h1">A payment to someone this agent never paid.</h2>
-          </div>
-          <div>
-            <ol class="tl">
-              {timeline.map((r) => (
-                <li class:list={["tl-row", r.who === "Agent" ? "tl-agent" : "tl-kyde", r.hit && "tl-hit"]}>
-                  <p class="mono tl-meta"><time>{r.t}</time> · {r.who}</p>
-                  <p class="tl-text" set:html={r.text} />
-                </li>
-              ))}
-            </ol>
-            <p class="note tl-foot">Grey: inside the agent. White: Kyde.</p>
-            <p class="note tl-foot"><strong>Today Kyde warns your agent and you.</strong> Stop before the payment: <a href="/pricing/#plans" class="link-u mono" data-umami-event="timeline-waitlist">join the waitlist →</a></p>
-            <p class="note tl-foot">Example run, times invented. <a href="/industries/agentic-commerce/" class="link-u mono">The recipient check →</a></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ══════════ 03 ALERT ══════════ -->
     <section class="surface-paper">
-      <div class="wrap sec">
+      <div class="wrap sec sec-tight">
         <div class="kicker"><span class="num">03</span><span class="mono">What you get</span></div>
         <div class="split">
           <div>
