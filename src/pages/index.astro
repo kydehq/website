@@ -123,6 +123,15 @@ const faq = [
 ];
 
 
+const timeline = [
+  { t: "14:02:40", who: "Agent", text: "Works on a payout task." },
+  { t: "14:02:41", who: "Agent", text: "Calls <code>send_payment</code> to an IBAN it has never used. The call goes through." },
+  { t: "14:02:41", who: "Kyde", text: "Receives a salted hash of the recipient, never the IBAN." },
+  { t: "14:02:42", who: "Kyde", text: "Its baseline holds 3 recipients from 412 runs. This hash is not one of them." },
+  { t: "14:02:42", who: "Kyde", text: "Score drops. Reason: \"Used a recipient it never used before (iban). Possible attack.\"", hit: true },
+  { t: "14:03:10", who: "Kyde", text: "The agent's next tool call carries the warning in its context." },
+  { t: "14:03:11", who: "Kyde", text: "Email, Slack or webhook to the key's human." },
+];
 ---
 
 <Base
@@ -178,10 +187,38 @@ const faq = [
       <div class="dots-band" aria-hidden="true"></div>
     </section>
 
-    <!-- ══════════ 01 SETUP ══════════ -->
+    <!-- ══════════ 01 HOW IT WORKS: one run as a timeline. Only what Kyde Score
+         does today (public-claims 4, 5, 8, 11, 16): the call goes through, Kyde
+         gets a salted hash, the score drops, the hook warns, the human gets mail.
+         No band named until Juergen confirms which one a new recipient sets. -->
+    <section class="surface-ink" id="how-it-works">
+      <div class="wrap sec">
+        <div class="kicker"><span class="num">01</span><span class="mono">How it works</span></div>
+        <div class="split">
+          <div>
+            <p class="mono label">(One run, minute by minute)</p>
+            <h2 class="h1">A payment to someone this agent never paid.</h2>
+          </div>
+          <div>
+            <ol class="tl">
+              {timeline.map((r) => (
+                <li class:list={["tl-row", r.who === "Agent" ? "tl-agent" : "tl-kyde", r.hit && "tl-hit"]}>
+                  <p class="mono tl-meta"><time>{r.t}</time> · {r.who}</p>
+                  <p class="tl-text" set:html={r.text} />
+                </li>
+              ))}
+            </ol>
+            <p class="note tl-foot">Grey: inside your agent. Kyde sees call metadata and a salted hash of the recipient, nothing else.</p>
+            <p class="note tl-foot"><strong>Kyde warns. It does not stop the payment.</strong> Example run, times invented. <a href="/industries/agentic-commerce/" class="link-u mono">The recipient check →</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 02 SETUP ══════════ -->
     <section class="surface-paper" id="setup">
       <div class="wrap sec">
-        <div class="kicker"><span class="num">01</span><span class="mono">Setup</span></div>
+        <div class="kicker"><span class="num">02</span><span class="mono">Setup</span></div>
         <div class="split">
           <div>
             <h2 class="h1">One line for your agent. Four for you.</h2>
@@ -208,10 +245,10 @@ const faq = [
       </div>
     </section>
 
-    <!-- ══════════ 02 ALERT ══════════ -->
+    <!-- ══════════ 03 ALERT ══════════ -->
     <section class="surface-paper">
       <div class="wrap sec sec-tight">
-        <div class="kicker"><span class="num">02</span><span class="mono">What you get</span></div>
+        <div class="kicker"><span class="num">03</span><span class="mono">What you get</span></div>
         <div class="split">
           <div>
             <h2 class="h1">One alert when the band changes. Nothing in between.</h2>
@@ -245,10 +282,10 @@ const faq = [
       </div>
     </section>
 
-    <!-- ══════════ 03 RESEARCH (from src/data/research.ts) ══════════ -->
+    <!-- ══════════ 04 RESEARCH (from src/data/research.ts) ══════════ -->
     <section class="surface-paper" id="research">
       <div class="wrap sec sec-tight">
-        <div class="kicker"><span class="num">03</span><span class="mono">Kyde Research</span></div>
+        <div class="kicker"><span class="num">04</span><span class="mono">Kyde Research</span></div>
         <h2 class="h1">Agents change. The logs rarely say so.</h2>
         <ol class="rows">
           {studies.filter((m) => !m.hidden && ["model-switch", "trace-blind-spot", "injections"].includes(m.id)).map((m) => (
@@ -290,7 +327,7 @@ const faq = [
     <!-- ══════════ 05 QUESTIONS ══════════ -->
     <section class="surface-paper">
       <div class="wrap sec sec-tight">
-        <div class="kicker"><span class="num">04</span><span class="mono">Questions</span></div>
+        <div class="kicker"><span class="num">05</span><span class="mono">Questions</span></div>
         <div class="qa">
           {faq.map((x) => <details><summary>{x.q}</summary><p>{x.a}</p></details>)}
         </div>
