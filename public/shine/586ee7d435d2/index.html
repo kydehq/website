@@ -61,6 +61,25 @@ h2{font-family:var(--serif);font-size:clamp(40px,5.4vw,68px);font-weight:500;lin
 .note2{margin-top:20px;font-size:15px;color:var(--muted);max-width:44em}
 .lv3 .mark{display:inline-block;width:10px;height:10px;background:var(--acid);margin-right:8px}
 
+/* verdict */
+.lead{margin-top:56px;background:var(--ink);color:var(--paper);padding:36px 32px;max-width:40em}
+.lead .n,.sig .n{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.16em}
+.lead .n{color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.lead h3{font-family:var(--serif);font-weight:500;font-size:40px;letter-spacing:-.01em;line-height:1.05;margin:12px 0 12px}
+.lead p{margin:0;font-size:17px;color:color-mix(in srgb,var(--paper) 80%,transparent)}
+.lead .mark{display:inline-block;width:10px;height:10px;background:var(--acid);margin-right:8px}
+.sig{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:32px;border-top:1px solid var(--line)}
+.sig div{padding:22px 22px 0 0}
+.sig .n{color:var(--muted)}
+.sig h3{font-family:var(--serif);font-weight:500;font-size:24px;margin:8px 0 6px;line-height:1.15}
+.sig p{margin:0;color:var(--muted);font-size:15px}
+.verdict{width:100%;border-collapse:collapse;margin-top:56px;font-size:16px}
+.verdict th{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.16em;color:var(--muted);text-align:left;padding:0 16px 12px 0;border-bottom:1px solid var(--ink)}
+.verdict td{padding:16px 16px 16px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.verdict td b{font-family:var(--serif);font-weight:500;font-size:24px}
+.answer{margin-top:24px;display:inline-block;border:1px solid var(--line);background:var(--card);padding:12px 16px;font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.12em}
+@media (max-width:820px){.sig{grid-template-columns:1fr 1fr}.verdict{font-size:15px}}
+
 /* steps */
 .steps{list-style:none;padding:0;margin:56px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
 .steps li{padding:24px 24px 0 0;border-top:2px solid var(--ink);counter-increment:s}
@@ -119,18 +138,31 @@ blockquote footer{font-size:16px;color:var(--muted)}
 <section id="levels">
 <div class="wrap">
   <p class="eyebrow">The solution</p>
-  <h2>We don't just check who the agent is. We check that it has a real order.</h2>
-  <p class="prose">Anyone can browse, as always. To hold scarce stock, an agent has to show proof. The stronger the proof, the more it may do.</p>
+  <h2>How serious is this agent? One clear answer.</h2>
+  <p class="prose">Anyone can browse, as always. For scarce stock, Shine puts several proofs together into one answer: high, medium or low intent. Next to it, what your shop does.</p>
 
-  <div class="levels">
-    <div class="lv lv1"><span class="n">Level 1</span><h3>Verified agent</h3><p>It is who it says it is, checked fresh, and it belongs to a person.</p><div class="gets">Can use the cart. Scarce items are not held.</div></div>
-    <div class="lv lv2"><span class="n">Level 2</span><h3>Verified task</h3><p>Its person gave it a real order to buy, and what it does matches that order.</p><div class="gets">Can reserve scarce items for a few minutes.</div></div>
-    <div class="lv lv3"><span class="n"><span class="mark"></span>Level 3</span><h3>Deposit</h3><p>A deposit, for example €10, credited when it buys. The strongest intent.</p><div class="gets">Reserves and goes first.</div></div>
+  <div class="lead">
+    <span class="n"><span class="mark"></span>Strongest signal today</span>
+    <h3>Card hold</h3>
+    <p>10 to 20 % of the price is held on the buyer's card through your payment provider. Its person approves. Credited when it buys, released when it does not. No money moves.</p>
   </div>
-  <div class="ways">
-    <div><span class="n">Level 2, way A</span><p><b>Agents that run Kyde.</b> Companies running their own agents: Kyde checks the task and the behavior directly.</p></div>
-    <div><span class="n">Level 2, way B</span><p><b>Big agents like ChatGPT or Gemini.</b> They need an order signed by their person. What the agent does on your site helps you prioritise.</p></div>
+
+  <div class="sig">
+    <div><span class="n">Signal</span><h3>Verified agent</h3><p>It is who it says it is, checked fresh, and it belongs to a person.</p></div>
+    <div><span class="n">Signal</span><h3>Signed order</h3><p>Its person signed an order to buy, where the agent brings one.</p></div>
+    <div><span class="n">Grows over time</span><h3>Order matches action</h3><p>What the agent does fits what it was asked to do. For agents that run Kyde.</p></div>
+    <div><span class="n">Grows over time</span><h3>Track record</h3><p>How this agent and its person behaved across shops.</p></div>
   </div>
+
+  <table class="verdict">
+    <thead><tr><th>Intent</th><th>Typical proof</th><th>Your shop</th></tr></thead>
+    <tbody>
+      <tr><td><b>High</b></td><td>Card hold and verified agent</td><td>Reserve for 10 minutes, first in line</td></tr>
+      <tr><td><b>Medium</b></td><td>Verified agent, maybe a signed order</td><td>Cart yes, scarce items not held</td></tr>
+      <tr><td><b>Low</b></td><td>Unknown agent</td><td>Browse only</td></tr>
+    </tbody>
+  </table>
+  <p class="answer">Intent: high · 15 % held on card · verified agent → reserve 10 min</p>
 </div>
 </section>
 
@@ -141,8 +173,8 @@ blockquote footer{font-size:16px;color:var(--muted)}
   <ol class="steps">
     <li><h3>Link for agents</h3><p>Under each scarce product: "Agents: verify to reserve."</p></li>
     <li><h3>Sign in with Shine</h3><p>The agent signs in under your shop's name. Its person approves.</p></li>
-    <li><h3>Checked</h3><p>Shine checks the agent, here and now, and its order to buy.</p></li>
-    <li><h3>Deposit, then in</h3><p>It places €10 through your payment provider and is cleared automatically.</p></li>
+    <li><h3>Checked</h3><p>Shine checks the agent and its proofs, and answers: high, medium or low.</p></li>
+    <li><h3>Card hold, then in</h3><p>Its person approves a hold of 10 to 20 %. Released if it does not buy.</p></li>
   </ol>
   <div class="agentlink"><span class="pt">Vintage leather handbag, one of one</span><span class="u">Agents: verify to reserve</span></div>
 </div>
