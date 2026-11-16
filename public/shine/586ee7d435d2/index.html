@@ -39,6 +39,11 @@ h2{font-family:var(--serif);font-size:clamp(40px,5.4vw,68px);font-weight:500;lin
 .prose{font-family:var(--serif);font-size:clamp(22px,2.4vw,27px);line-height:1.4;max-width:30em;margin:0}
 .prose + .prose{margin-top:16px}
 .problem .prose strong{font-weight:600;font-style:italic}
+.sig.big{grid-template-columns:1fr 1fr;gap:0 40px}
+.sig.big div{padding:28px 0 8px}
+.sig.big h3{font-size:clamp(30px,3.4vw,42px);line-height:1.08;margin:10px 0 10px}
+.sig.big p{font-size:17px;max-width:28em}
+@media (max-width:820px){.sig.big{grid-template-columns:1fr}}
 
 /* levels */
 .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:end;margin-top:56px}
@@ -118,27 +123,45 @@ blockquote footer{font-size:16px;color:var(--muted)}
 </head>
 <body>
 <div class="wrap">
-<header><a class="logo" href="#">Kyde Shine</a><nav><a href="#levels">Intent scale</a><a href="#how">How it works</a><a href="#payments">For payment providers</a></nav></header>
+<header><a class="logo" href="#">Kyde Shine</a><nav><a href="#problem">The problem</a><a href="#solution">What Shine does</a><a href="#payments">For payment providers</a></nav></header>
 
 <div class="hero">
   <h1>Agent intent.<br><em>Verified.</em></h1>
-  <p class="sub">Know which AI agents are here to buy, and give your scarce stock to them first.</p>
-  <div><a class="btn" href="#how">See how it works</a></div>
+  <p class="sub">AI agents already shop in your store. Shine shows you what each one is really doing, and proves every purchase.</p>
+  <div><a class="btn" href="#solution">See what Shine does</a></div>
 </div>
 </div>
 
-<section class="problem">
+<section class="problem" id="problem">
 <div class="wrap">
   <p class="eyebrow">The problem</p>
-  <h2>Real buyers mean it. Many bots don't.</h2>
-  <p class="prose">Bots fill carts with no intention of paying. Your one-off sits in a cart that will never check out.</p>
-  <p class="prose"><strong>The customer who wanted it leaves empty-handed.</strong></p>
+  <h2>Agents are in your shop. You can't see what they do.</h2>
+  <div class="sig big">
+    <div><span class="n">01</span><h3>They go off script.</h3><p>An agent sent to buy one thing gets talked into something else. You never notice.</p></div>
+    <div><span class="n">02</span><h3>"My agent did it."</h3><p>A customer disputes a purchase. You have no proof, and you lose the chargeback.</p></div>
+    <div><span class="n">03</span><h3>Good buyers turned away.</h3><p>Your fraud filter blocks agents that came to pay. They leave without a sound.</p></div>
+    <div><span class="n">04</span><h3>Carts that never buy.</h3><p>Your best pieces sit in agent carts that never check out.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="solution">
+<div class="wrap">
+  <p class="eyebrow">What Shine does</p>
+  <h2>Every agent read. Every purchase proven.</h2>
+  <p class="prose">Shine reads the signals every agent leaves behind: who it is, how it moves, and the order its person gave it. Our own models map them into a high-dimensional pattern space, in milliseconds.</p>
+  <div class="sig big">
+    <div><span class="n">01</span><h3>Checked against its order.</h3><p>Every purchase is matched to what the agent was sent to buy.</p></div>
+    <div><span class="n">02</span><h3>A signed receipt.</h3><p>Which agent, which order, what it bought. Ready when a dispute comes.</p></div>
+    <div><span class="n">03</span><h3>Good agents in.</h3><p>Verified agents that came to buy get through, even when old fraud signals fail.</p></div>
+    <div><span class="n">04</span><h3>No dead carts.</h3><p>Only agents that mean it get to hold your scarce stock.</p></div>
+  </div>
 </div>
 </section>
 
 <section id="levels">
 <div class="wrap">
-  <p class="eyebrow">The solution</p>
+  <p class="eyebrow">The intent scale</p>
   <h2>Every agent, on one intent scale.</h2>
   <p class="prose">Shine tells you, for every AI agent in your shop, how ready it is to buy. Three levels, plus a maximum. You decide what each level gets.</p>
 
@@ -152,38 +175,23 @@ blockquote footer{font-size:16px;color:var(--muted)}
 </div>
 </section>
 
-<section id="know">
-<div class="wrap">
-  <p class="eyebrow">How we know</p>
-  <h2>We read the signals every agent leaves behind.</h2>
-  <p class="prose">Identity, behavior, the order it carries. Our own models map these signals into a high-dimensional pattern space and place each agent on the scale, in milliseconds.</p>
-  <div class="sig">
-    <div><span class="n">Who</span><h3>Identity</h3><p>A verified agent that belongs to a person, checked fresh on every visit.</p></div>
-    <div><span class="n">How</span><h3>Behavior</h3><p>How it moves through your shop: pace, paths, carts, returns to the same piece.</p></div>
-    <div><span class="n">Why</span><h3>The order</h3><p>What its person asked it to do, from signed purchase mandates and agent telemetry.</p></div>
-    <div><span class="n">Maximum</span><h3>Card hold</h3><p>Money on the line. The one signal a bot cannot fake at scale.</p></div>
-  </div>
-</div>
-</section>
-
 <section id="how">
 <div class="wrap">
   <p class="eyebrow">How it works</p>
-  <h2>One link under every scarce product.</h2>
+  <h2>Sits quietly in front of your cart and checkout.</h2>
   <ol class="steps">
-    <li><h3>Link for agents</h3><p>Under each scarce product: "Agents: verify to reserve."</p></li>
-    <li><h3>Sign in with Shine</h3><p>The agent signs in under your shop's name. Its person approves.</p></li>
-    <li><h3>Placed on the scale</h3><p>Browsing, interested or ready to buy. In milliseconds.</p></li>
-    <li><h3>Maximum: card hold</h3><p>For the rarest pieces, its person approves a hold of 10 to 20 %. Released if it does not buy.</p></li>
+    <li><h3>Connect</h3><p>Shine sits in front of your cart, checkout and payment. Your customers see nothing.</p></li>
+    <li><h3>Read</h3><p>Every agent is read: identity, behavior, its order. Whatever signals it brings.</p></li>
+    <li><h3>Decide</h3><p>Browsing, interested, ready to buy. Your rules decide what each level gets.</p></li>
+    <li><h3>Prove</h3><p>Every agent purchase comes with a signed receipt.</p></li>
   </ol>
-  <div class="agentlink"><span class="pt">Vintage leather handbag, one of one</span><span class="u">Agents: verify to reserve</span></div>
 </div>
 </section>
 
 <section>
 <div class="wrap">
   <blockquote>
-    <p>"We used to lose our best pieces to carts that never checked out. Now the agents that hold them are the ones that buy."</p>
+    <p>"We finally see which agents buy and which just hold. And when someone says 'my agent did it', we have the receipt."</p>
     <footer>Owner, Maison Lune<br><span class="ph">Illustrative quote, placeholder. Maison Lune is fictional.</span></footer>
   </blockquote>
 </div>
