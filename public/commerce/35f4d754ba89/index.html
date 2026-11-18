@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Agent Commerce Index · Store check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B0B0B;--paper:#FFFFFF;--muted:#6A6A6A;--line:#E4E4E4;--soft:#F4F4F4;--sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#F2F2F2;--paper:#0B0B0B;--muted:#9A9A9A;--line:#262626;--soft:#151515}}
+:root[data-theme="dark"]{--ink:#F2F2F2;--paper:#0B0B0B;--muted:#9A9A9A;--line:#262626;--soft:#151515}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.logo{font:700 17px var(--sans);letter-spacing:-.01em;text-decoration:none}
+.logo span{font:400 12px var(--mono);color:var(--muted);margin-left:8px}
+.label{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}
+h1{font:700 clamp(44px,7vw,84px)/1 var(--sans);letter-spacing:-.035em;margin:0 0 24px;max-width:880px}
+h2{font:700 clamp(28px,4vw,40px)/1.08 var(--sans);letter-spacing:-.025em;margin:0 0 18px}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;padding:88px 0 96px;align-items:end}
+.hero p.sub{font-size:20px;color:var(--muted);margin:0;max-width:560px}
+.buy{border:1px solid var(--ink);padding:28px}
+.buy .price{font:700 64px/1 var(--sans);letter-spacing:-.03em}
+.buy .price small{font:400 14px var(--mono);color:var(--muted);letter-spacing:0;margin-left:6px}
+.buy ul{list-style:none;padding:0;margin:20px 0 24px;font-size:15px}
+.buy li{padding:7px 0;border-top:1px solid var(--line)}
+.btn{display:block;text-align:center;background:var(--ink);color:var(--paper);padding:16px 20px;font:500 15px var(--sans);text-decoration:none}
+.btn:hover{opacity:.85}
+.fine{font:12px var(--mono);color:var(--muted);margin-top:10px}
+section{padding:88px 0;border-top:1px solid var(--line)}
+.report{display:grid;grid-template-columns:1fr 1.5fr;border:1px solid var(--ink);margin-top:36px}
+.score{padding:28px;border-right:1px solid var(--ink)}
+.score .u{font:12px var(--mono);color:var(--muted)}
+.score .v{font:700 96px/1 var(--sans);letter-spacing:-.04em;margin:18px 0 6px}
+.score .v small{font-size:24px;color:var(--muted)}
+.score h3{margin:0 0 6px;font-size:18px}
+.score p{margin:0;color:var(--muted);font-size:15px}
+.funnel{padding:28px}
+.funnel h4{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.08em;margin:0 0 14px;color:var(--muted)}
+.fr{display:grid;grid-template-columns:190px 1fr 36px;gap:12px;align-items:center;padding:6px 0;font-size:15px}
+.bar{height:10px;background:var(--soft)}
+.bar i{display:block;height:100%;background:var(--ink)}
+.fr .n{font:500 14px var(--mono);text-align:right}
+.fixes{margin-top:20px;border-top:1px solid var(--line)}
+.fixes div{display:grid;grid-template-columns:30px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.fixes b{font:500 13px var(--mono)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--ink);margin-top:28px}
+.steps div{padding:20px 20px 0 0}
+.steps b{font:500 13px var(--mono);display:block;margin-bottom:8px}
+.steps p{margin:0;color:var(--muted);font-size:15px}
+.learn{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:28px}
+.learn div{border-top:1px solid var(--line);padding:18px 0}
+.learn h3{margin:0 0 6px;font-size:18px}
+.learn p{margin:0;color:var(--muted);font-size:15px}
+.faq div{border-top:1px solid var(--line);padding:16px 0;display:grid;grid-template-columns:1fr 1.4fr;gap:24px}
+.faq b{font-weight:500}
+.faq span{color:var(--muted)}
+.end{text-align:center}
+.end .btn{display:inline-block;margin-top:24px;padding:16px 36px}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;font:12px var(--mono);color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media (max-width:860px){
+  .hero,.report,.learn,.faq div{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .score{border-right:0;border-bottom:1px solid var(--ink)}
+  .fr{grid-template-columns:120px 1fr 32px}
+  .hero{padding:56px 0 64px}section{padding:64px 0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a class="logo" href="#">Agent Commerce Index<span>by Kyde</span></a><span class="label" style="margin:0">Store check</span></header>
+
+<div class="hero">
+  <div>
+    <p class="label">For online stores</p>
+    <h1>Do AI agents buy from your store?</h1>
+    <p class="sub">We send shopping agents to your store, like your customers' agents will. You see where they get stuck, where they go to a competitor, and what to fix.</p>
+  </div>
+  <div class="buy">
+    <div class="price">29 €<small>one time</small></div>
+    <ul>
+      <li>10 shopping runs by 4 test agents</li>
+      <li>Agent Readiness Score, 0 to 100</li>
+      <li>The path every agent took</li>
+      <li>Your three most important fixes</li>
+      <li>Report by mail within 24 hours</li>
+    </ul>
+    <a class="btn" href="mailto:joerg@kyde.com?subject=Store%20check%2029%20EUR&amp;body=Store%20URL%3A%20">Check my store · 29 €</a>
+    <p class="fine">No install. Agents stop before payment.</p>
+  </div>
+</div>
+</div>
+
+<section>
+<div class="wrap">
+  <p class="label">What you get</p>
+  <h2>One report. Clear fixes.</h2>
+  <div class="report">
+    <div class="score">
+      <span class="u">example-fashion.com · example report</span>
+      <div class="v">62<small>/100</small></div>
+      <h3>Agent Readiness Score</h3>
+      <p>How well shopping agents find, choose and buy in your store.</p>
+    </div>
+    <div class="funnel">
+      <h4>10 shopping runs, step by step</h4>
+      <div class="fr"><span>Got past bot protection</span><span class="bar"><i style="width:90%"></i></span><span class="n">9</span></div>
+      <div class="fr"><span>Found the right item</span><span class="bar"><i style="width:70%"></i></span><span class="n">7</span></div>
+      <div class="fr"><span>Saw your best price</span><span class="bar"><i style="width:40%"></i></span><span class="n">4</span></div>
+      <div class="fr"><span>Reached your checkout</span><span class="bar"><i style="width:40%"></i></span><span class="n">4</span></div>
+      <div class="fr"><span>Chose a competitor</span><span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
+      <div class="fixes">
+        <div><b>01</b><span>Your discount appears only at checkout. Agents decide before. Put it in the listed price.</span></div>
+        <div><b>02</b><span>Size is in an image, not in the text. 2 agents picked the wrong size.</span></div>
+        <div><b>03</b><span>Your store is missing from two shopping feeds that agents search.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <p class="label">How it works</p>
+  <h2>Four steps. No install.</h2>
+  <div class="steps">
+    <div><b>01</b><p>Pay 29 € and send us your store URL.</p></div>
+    <div><b>02</b><p>Confirm it is your store with a DNS entry or a meta tag.</p></div>
+    <div><b>03</b><p>Our agents shop. They identify as test agents and stop before payment.</p></div>
+    <div><b>04</b><p>Your report arrives by mail within 24 hours.</p></div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <p class="label">What we learned in the lab</p>
+  <h2>Why stores lose agent sales.</h2>
+  <div class="learn">
+    <div><h3>Agents buy by listed price.</h3><p>They compare every store they find and buy the cheapest match.</p></div>
+    <div><h3>A benefit that isn't in the price doesn't exist.</h3><p>Club perks and checkout discounts are never seen. Agents don't open a store page to look.</p></div>
+    <div><h3>Design doesn't count.</h3><p>Agents read product data: size, material, stock, delivery.</p></div>
+    <div><h3>Bot protection can cost you buyers.</h3><p>Real agents for real people get turned away without a sound.</p></div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap faq">
+  <p class="label">Questions</p>
+  <div><b>Do your agents place real orders?</b><span>No. They stop before payment. Your stock and numbers stay clean.</span></div>
+  <div><b>Which agents do you use?</b><span>Four test agents, browser-based and tool-based, built on current AI models.</span></div>
+  <div><b>What if you can't check my store?</b><span>You get your money back.</span></div>
+</div>
+</section>
+
+<section class="end">
+<div class="wrap">
+  <h2>See your store through an agent's eyes.</h2>
+  <a class="btn" href="mailto:joerg@kyde.com?subject=Store%20check%2029%20EUR&amp;body=Store%20URL%3A%20">Check my store · 29 €</a>
+</div>
+</section>
+
+<div class="wrap"><footer><span>Agent Commerce Index · an independent measurement by Kyde</span><span>Example report, numbers illustrative</span></footer></div>
+</body>
+</html>
