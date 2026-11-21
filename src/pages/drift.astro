@@ -1,0 +1,300 @@
+---
+// Kyde drift table (KYDE-511): how agents behave on each model, aggregated
+// over the Kyde fleet. Data: Jürgen's P6 endpoint (score 0.11.24), public,
+// CORS for kyde.com. Rows appear only at >= k distinct keys; suppressed_models
+// counts the rest, so an empty table is the honest state, not an error.
+// Build: a snapshot is fetched and rendered into the HTML (no-JS readers,
+// search engines, endpoint down). Browser: the page fetches the endpoint again
+// and replaces the rows, so a new model needs no deploy.
+// Decided (CoS, 21.11.2026): own fleet data only, no ranking headline, columns
+// sortable by the reader. The endpoint carries no release date, so the
+// default order is the model name until the endpoint adds a release date
+// (Joerg 21.11.: order by release date; field requested from Jürgen).
+// Wording D-038: how agents behave on a model, never model quality.
+// Concept: company repo, 04_marketing/website, concept of 2026-11-21 (KYDE-511).
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import LabNav from "../components/lab/LabNav.astro";
+import { labFooterLinks } from "../data/lab-footer";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "../styles/lab.css";
+
+const ENDPOINT = "https://score.kyde.com/score/v0/drift";
+
+interface Row {
+  model: string;
+  agents_on_model: number;
+  switches_90d: number;
+  went_watch_or_deviating_within_7d: number;
+  median_score_delta_after_switch: number | null;
+  keys: number;
+}
+interface Drift {
+  models: Row[];
+  suppressed_models: number;
+  k_anonymity_keys: number;
+  window_days: number;
+  method_note: string;
+  generated_at: string;
+}
+
+let snap: Drift | null = null;
+try {
+  const res = await fetch(ENDPOINT, { signal: AbortSignal.timeout(8000) });
+  if (res.ok) snap = await res.json();
+} catch {
+  snap = null;
+}
+const rows = [...(snap?.models ?? [])].sort((a, b) => a.model.localeCompare(b.model));
+const k = snap?.k_anonymity_keys ?? 5;
+const windowDays = snap?.window_days ?? 90;
+
+const fmtDate = (iso?: string) =>
+  iso ? new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + " UTC" : "";
+const signed = (n: number | null) => (n == null ? "–" : n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : "0");
+const waiting = (n: number) => (n === 1 ? "1 model is gathering data" : `${n} models are gathering data`);
+
+const cols = [
+  { key: "model", label: "Model", num: false },
+  { key: "agents_on_model", label: "Agents on this model", num: true },
+  { key: "switches_90d", label: `Switches, ${windowDays} days`, num: true },
+  { key: "flagged", label: "Flagged within 7 days", num: true },
+  { key: "median_score_delta_after_switch", label: "Median score change", num: true },
+];
+---
+
+<Base
+  title="Drift table: how agents behave on each model"
+  description="How AI agents behave after they switch to a new model, aggregated over the Kyde fleet. Never one customer's agent, never model quality. Data date on the page."
+>
+  <link slot="head" rel="alternate" type="application/json" href={ENDPOINT} />
+  <LabNav />
+
+  <main class="kx">
+    <!-- ══════════ HERO ══════════ -->
+    <section class="surface-rose">
+      <div class="wrap d-hero">
+        <div class="brackets">
+          <p class="mono label">(Drift table)</p>
+          <h1 class="d-title">How agents behave on each model.</h1>
+          <p class="hero-line">When a team moves an agent to another model, Kyde sees what changes in its behavior. Here is that view across the Kyde fleet, never one customer's agent.</p>
+        </div>
+        <dl class="d-kpis">
+          <div><dt class="mono">Models in the table</dt><dd data-d="shown">{rows.length}</dd></div>
+          <div><dt class="mono">Gathering data</dt><dd data-d="suppressed">{snap ? snap.suppressed_models : "–"}</dd></div>
+          <div><dt class="mono">Window</dt><dd data-d="window">{windowDays} days</dd></div>
+          <div><dt class="mono">Data as of</dt><dd class="d-date" data-d="date">{snap ? fmtDate(snap.generated_at) : "–"}</dd></div>
+        </dl>
+      </div>
+      <div class="dots-band" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════ 01 TABLE ══════════ -->
+    <section class="surface-paper" id="table">
+      <div class="wrap sec sec-tight">
+        <div class="kicker"><span class="num">01</span><span class="mono">Agents per model</span></div>
+        <p class="mono d-status" data-d="status">{snap ? `Snapshot from ${fmtDate(snap.generated_at)}. Loading live data…` : "Live data unavailable at build. Loading…"}</p>
+        <table class="d-table">
+          <thead>
+            <tr>
+              {cols.map((c, i) => (
+                <th scope="col" class={c.num ? "num" : undefined} aria-sort={i === 0 ? "ascending" : "none"}>
+                  <button type="button" class="d-sort" data-sort={c.key}>{c.label}<span class="d-arrow" aria-hidden="true"></span></button>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody data-d="rows">
+            {rows.length === 0 ? (
+              <tr class="d-empty"><td colspan="5">
+                No model has enough data yet{snap && snap.suppressed_models > 0 ? `. ${waiting(snap.suppressed_models)}` : ""}. A model appears once agents from at least {k} different Kyde keys run on it.
+              </td></tr>
+            ) : rows.map((r) => (
+              <tr>
+                <td data-label="Model" class="d-model">{r.model}</td>
+                <td data-label={cols[1].label} class="num">{r.agents_on_model}</td>
+                <td data-label={cols[2].label} class="num">{r.switches_90d}</td>
+                <td data-label={cols[3].label} class="num">{r.went_watch_or_deviating_within_7d} of {r.switches_90d}</td>
+                <td data-label={cols[4].label} class="num">{signed(r.median_score_delta_after_switch)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="m-note d-method" data-d="method">{snap?.method_note ?? ""}</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 02 HOW TO READ IT ══════════ -->
+    <section class="surface-paper" id="read">
+      <div class="wrap sec sec-tight">
+        <div class="kicker"><span class="num">02</span><span class="mono">How to read it</span></div>
+        <dl class="d-read">
+          <div><dt>Agents on this model</dt><dd>Agents in the Kyde fleet that ran on the model in the last {windowDays} days.</dd></div>
+          <div><dt>Switches</dt><dd>How often an agent moved to this model in that window. Each switch is watched for 7 calendar days.</dd></div>
+          <div><dt>Flagged within 7 days</dt><dd>Of those switches, how many ended with the agent in Watch or Deviating within 7 days. These are Kyde Score bands: the agent behaves noticeably differently from its own normal.</dd></div>
+          <div><dt>Median score change</dt><dd>The middle value of how much the agents' Kyde Score moved in the 7 days after a switch, in points from 0 to 100. Below zero means agents behaved less like themselves.</dd></div>
+          <div><dt>What it does not say</dt><dd>It does not rate the model. It shows how agents that already run in the Kyde fleet behave on it. A model with few switches tells you little either way.</dd></div>
+          <div><dt>Privacy</dt><dd>A row appears only when at least {k} different Kyde keys contribute. Test keys never count, and the fleet numbers never change an individual agent's score.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ══════════ CLOSE ══════════ -->
+    <section class="surface-rose">
+      <div class="wrap sec d-close">
+        <div>
+          <p class="mono label">(Your agent)</p>
+          <p class="d-cta-line">Switching models? Watch your own agent before and after.</p>
+        </div>
+        <div>
+          <p class="d-close-p">The table shows agents in general. Kyde Score learns how your agent normally behaves and tells you when it changes after a switch.</p>
+          <div class="d-cta">
+            <a href="/#setup" class="btn btn-ink" data-umami-event="drift-get-key">Get a free key →</a>
+            <a href="/research/" class="link-u mono">How we measure drift</a>
+            <a href={ENDPOINT} class="link-u mono">JSON</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer links={labFooterLinks} />
+
+  <script is:inline define:vars={{ ENDPOINT, cols, snap }}>
+    (function () {
+      var state = { data: snap, key: "model", dir: 1 };
+      var $ = function (s) { return document.querySelector('[data-d="' + s + '"]'); };
+      function fmtDate(iso) {
+        return new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + " UTC";
+      }
+      function signed(n) { return n == null ? "–" : n > 0 ? "+" + n : n < 0 ? "−" + Math.abs(n) : "0"; }
+      function val(r, key) {
+        if (key === "flagged") return r.switches_90d ? r.went_watch_or_deviating_within_7d / r.switches_90d : -1;
+        var v = r[key];
+        return v == null ? -Infinity : v;
+      }
+      function cell(text, label, cls) {
+        var td = document.createElement("td");
+        td.textContent = text;
+        td.setAttribute("data-label", label);
+        if (cls) td.className = cls;
+        return td;
+      }
+      function render() {
+        var d = state.data;
+        var body = $("rows");
+        body.textContent = "";
+        if (!d.models.length) {
+          var tr = document.createElement("tr");
+          tr.className = "d-empty";
+          var td = document.createElement("td");
+          td.colSpan = 5;
+          var n = d.suppressed_models;
+          td.textContent = "No model has enough data yet" +
+            (n > 0 ? ". " + (n === 1 ? "1 model is gathering data" : n + " models are gathering data") : "") +
+            ". A model appears once agents from at least " + d.k_anonymity_keys + " different Kyde keys run on it.";
+          tr.appendChild(td);
+          body.appendChild(tr);
+        } else {
+          var rows = d.models.slice().sort(function (a, b) {
+            if (state.key === "model") return state.dir * a.model.localeCompare(b.model);
+            return state.dir * (val(a, state.key) - val(b, state.key));
+          });
+          rows.forEach(function (r) {
+            var tr = document.createElement("tr");
+            tr.appendChild(cell(r.model, "Model", "d-model"));
+            tr.appendChild(cell(String(r.agents_on_model), cols[1].label, "num"));
+            tr.appendChild(cell(String(r.switches_90d), cols[2].label, "num"));
+            tr.appendChild(cell(r.went_watch_or_deviating_within_7d + " of " + r.switches_90d, cols[3].label, "num"));
+            tr.appendChild(cell(signed(r.median_score_delta_after_switch), cols[4].label, "num"));
+            body.appendChild(tr);
+          });
+        }
+        $("shown").textContent = String(d.models.length);
+        $("suppressed").textContent = String(d.suppressed_models);
+        $("window").textContent = d.window_days + " days";
+        $("date").textContent = fmtDate(d.generated_at);
+        $("method").textContent = d.method_note || "";
+        document.querySelectorAll(".d-table th").forEach(function (th) {
+          var b = th.querySelector("button");
+          th.setAttribute("aria-sort", b.dataset.sort === state.key ? (state.dir > 0 ? "ascending" : "descending") : "none");
+        });
+      }
+      document.querySelectorAll(".d-sort").forEach(function (b) {
+        b.addEventListener("click", function () {
+          if (!state.data) return;
+          var key = b.dataset.sort;
+          if (state.key === key) state.dir = -state.dir;
+          else { state.key = key; state.dir = key === "model" ? 1 : -1; }
+          render();
+        });
+      });
+      fetch(ENDPOINT, { headers: { Accept: "application/json" } })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+        .then(function (d) {
+          state.data = d;
+          render();
+          $("status").textContent = "Live data, as of " + fmtDate(d.generated_at) + ".";
+        })
+        .catch(function () {
+          var s = $("status");
+          s.textContent = s.textContent.replace(/ ?Loading.*$/, "") + " Live data unavailable right now, showing the snapshot.";
+        });
+    })();
+  </script>
+
+  <style is:global>
+    .d-hero { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: end; padding-block: var(--kx-hero-top) clamp(40px, 5vw, 72px); }
+    @media (min-width: 1024px) { .d-hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 96px); } }
+    .d-title { font-size: clamp(2.8rem, 4.8vw, 5.6rem); font-weight: 400; line-height: 0.94; letter-spacing: -0.055em; max-width: 12ch; margin: 0; text-wrap: balance; }
+    .d-kpis { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid var(--color-ink); }
+    .d-kpis div { padding: 16px 0 18px; border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); }
+    .d-kpis div:nth-child(odd) { padding-right: 16px; }
+    .d-kpis dt { font-size: 0.75rem; color: var(--color-ink-1); margin-bottom: 6px; }
+    .d-kpis dd { margin: 0; font-size: clamp(1.6rem, 2.4vw, 2.2rem); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+    .d-kpis dd.d-date { font-size: clamp(1.05rem, 1.4vw, 1.25rem); letter-spacing: -0.01em; padding-top: 8px; }
+
+    .d-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+    .d-table thead th { text-align: left; border-bottom: 1px solid var(--color-ink); vertical-align: bottom; font-weight: 400; }
+    .d-table td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--color-line-0); vertical-align: top; }
+    .d-table .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .d-table th:last-child .d-sort, .d-table td:last-child { padding-right: 0; }
+    .d-status { font-size: 0.75rem; color: var(--color-ink-2); margin: 0 0 18px; }
+    .d-table { margin-top: 8px; }
+    .d-table th { padding: 0; }
+    .d-sort { all: unset; cursor: pointer; display: inline-flex; gap: 6px; align-items: baseline; padding: 0 16px 10px 0; font: 500 0.75rem var(--font-mono); color: var(--color-ink-2); }
+    .d-table th.num .d-sort { justify-content: flex-end; width: 100%; box-sizing: border-box; }
+    .d-sort:hover, .d-sort:focus-visible { color: var(--color-ink); text-decoration: underline; }
+    .d-table th[aria-sort="ascending"] .d-arrow::after { content: "↑"; }
+    .d-table th[aria-sort="descending"] .d-arrow::after { content: "↓"; }
+    .d-table th[aria-sort="ascending"] .d-sort, .d-table th[aria-sort="descending"] .d-sort { color: var(--color-ink); }
+    .d-model { font-family: var(--font-mono); font-size: 0.875rem; }
+    .d-empty td { padding: 28px 0; color: var(--color-ink-1); font-size: 1.0625rem; line-height: 1.45; }
+    .d-method { margin: 16px 0 0; max-width: 80ch; font-size: 0.9375rem; color: var(--color-ink-1); line-height: 1.5; }
+
+    .d-read { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 80px); }
+    .d-read div { padding: 18px 0; border-top: 1px solid var(--color-line-0); }
+    .d-read dt { font-size: 1.125rem; letter-spacing: -0.015em; margin: 0 0 6px; }
+    .d-read dd { margin: 0; color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.5; max-width: 60ch; }
+
+    .d-close { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 1024px) { .d-close { grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 96px); align-items: end; } }
+    .d-cta-line { font-size: clamp(1.7rem, 2.8vw, 2.6rem); line-height: 1.08; letter-spacing: -0.035em; margin: 10px 0 0; max-width: 20ch; text-wrap: balance; }
+    .d-close-p { margin: 0 0 20px; line-height: 1.5; max-width: 52ch; }
+    .d-cta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+
+    @media (max-width: 760px) {
+      .d-read { grid-template-columns: 1fr; }
+      .d-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .d-table, .d-table tbody, .d-table tr, .d-table td { display: block; width: 100%; }
+      .d-table tr { border-bottom: 1px solid var(--color-ink); padding: 10px 0; }
+      .d-table td { display: flex; justify-content: space-between; gap: 12px; border: 0; padding: 3px 0; text-align: right; }
+      .d-table td::before { content: attr(data-label); font: 500 0.75rem var(--font-mono); color: var(--color-ink-2); text-align: left; }
+      .d-table td.d-model { font-size: 1rem; padding-bottom: 6px; }
+      .d-table td.d-model::before { content: none; }
+      .d-table tr.d-empty td { display: block; text-align: left; }
+      .d-table tr.d-empty td::before { content: none; }
+    }
+  </style>
+</Base>
