@@ -125,16 +125,13 @@
 <script>
   // Open / close
   let openedAt = 0;
-  // Reservation mode: openModal({ plan: 'Solo' }) from the pricing page.
-  // While the GmbH is on hold there is no checkout (D-047), so a reservation
-  // is a lead with the plan in lead_source. The plan travels in lead_source,
-  // not only in message, because demo-request may not store message yet
-  // (KYDE-376). Without a plan the dialog is the plain contact form.
+  // Plan mode: openModal({ plan: 'Pro' }) from the pricing page. Pro and Team
+  // are live, billing starts with the GmbH and Stripe (D-071, KYDE-377), so the
+  // request is a lead with the plan in lead_source; we switch the key by hand.
+  // The plan travels in lead_source, not only in message, because
+  // demo-request may not store message yet (KYDE-376). Without a plan the
+  // dialog is the plain contact form. No waitlist (Joerg, 21.11.2026).
   let reservePlan = '';
-  // Waitlist mode: openModal({ waitlist: 'stop' }). Pause and block through
-  // the hook wait for the GmbH (D-054, 2026-11-11). Same fields and route as
-  // a reservation, lead_source website_waitlist_<name>.
-  let waitlist = '';
   const texts = {
     title: "Let's talk.",
     intro: "Tell us about your setup. We'll get back to you within 24 hours.",
@@ -147,25 +144,16 @@
     const el = document.getElementById(id);
     if (el) el.textContent = value;
   }
-  function openModal(opts?: { plan?: string; waitlist?: string }) {
+  function openModal(opts?: { plan?: string }) {
     reservePlan = opts?.plan ?? '';
-    waitlist = reservePlan ? '' : (opts?.waitlist ?? '');
     const msg = document.getElementById('demo-message') as HTMLTextAreaElement | null;
-    if (waitlist) {
-      setText('demo-title', 'Join the waitlist.');
-      setText('demo-intro', 'Kyde Score warns your agent today. Pause and block open with our GmbH. We email you when they do.');
+    if (reservePlan) {
+      setText('demo-title', `Get ${reservePlan}.`);
+      setText('demo-intro', `Use the email your Kyde key is confirmed with. We switch the key to ${reservePlan} and tell you before we bill anything.`);
       setText('demo-message-label', 'Anything we should know? (optional)');
-      setText('demo-submit', 'Join the waitlist →');
-      setText('demo-success-title', "You're on the list.");
-      setText('demo-success-text', "We'll email you when pause and block open.");
-      if (msg) { msg.required = false; msg.minLength = 0; }
-    } else if (reservePlan) {
-      setText('demo-title', `Reserve ${reservePlan}.`);
-      setText('demo-intro', `Nothing to pay today. We hold the ${reservePlan} price for you and email you when the plan opens.`);
-      setText('demo-message-label', 'Anything we should know? (optional)');
-      setText('demo-submit', `Reserve ${reservePlan} →`);
-      setText('demo-success-title', 'Reserved.');
-      setText('demo-success-text', `We'll email you when ${reservePlan} opens.`);
+      setText('demo-submit', `Get ${reservePlan} →`);
+      setText('demo-success-title', 'Request received.');
+      setText('demo-success-text', `We'll email you when your key is on ${reservePlan}.`);
       if (msg) { msg.required = false; msg.minLength = 0; }
     } else {
       setText('demo-title', texts.title);
@@ -232,15 +220,11 @@
       email:       data.get('email') ?? '',
       company:     data.get('company') ?? '',
       agents:      data.get('agents') ?? '',
-      message:     waitlist
-        ? `[Waitlist: pause and block] ${String(data.get('message') ?? '').trim()}`.trim()
-        : reservePlan
-        ? `[Reservation: ${reservePlan}] ${String(data.get('message') ?? '').trim()}`.trim()
+      message:     reservePlan
+        ? `[Plan request: ${reservePlan}] ${String(data.get('message') ?? '').trim()}`.trim()
         : String(data.get('message') ?? '').trim(),
-      lead_source: waitlist
-        ? `website_waitlist_${waitlist}`
-        : reservePlan
-        ? `website_reservation_${reservePlan.toLowerCase()}`
+      lead_source: reservePlan
+        ? `website_plan_${reservePlan.toLowerCase()}`
         : 'website_demo_request',
       page_url:    window.location.href,
     };
@@ -252,14 +236,14 @@
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        (window as any).umami?.track(waitlist ? `waitlist-sent-${waitlist}` : reservePlan ? `reserve-sent-${reservePlan.toLowerCase()}` : 'contact-sent');
+        (window as any).umami?.track(reservePlan ? `plan-sent-${reservePlan.toLowerCase()}` : 'contact-sent');
         form.classList.add('hidden');
         document.getElementById('demo-success')?.classList.remove('hidden');
       } else {
         throw new Error('server error');
       }
     } catch {
-      btn.textContent = waitlist ? 'Join the waitlist →' : reservePlan ? `Reserve ${reservePlan} →` : 'Send →';
+      btn.textContent = reservePlan ? `Get ${reservePlan} →` : 'Send →';
       btn.disabled = false;
       alert('Something went wrong. Please email hello@kyde.com directly.');
     }

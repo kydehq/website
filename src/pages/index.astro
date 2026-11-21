@@ -190,7 +190,7 @@ const timeline = [
     <!-- ══════════ 01 HOW IT WORKS: one run as a timeline. Only what Kyde Score
          does today (public-claims 4, 5, 8, 11, 16): the call goes through, Kyde
          gets a salted hash, the score drops, the hook warns, the human gets mail.
-         Footer points to the pause/block waitlist (Joerg 14.11.: say what we do, not what we cannot).
+         Footer points to hold on Pro (D-071; Joerg 14.11.: say what we do, not what we cannot).
          No band named until Juergen confirms which one a new recipient sets. -->
     <section class="surface-ink" id="how-it-works">
       <div class="wrap sec">
@@ -210,7 +210,7 @@ const timeline = [
               ))}
             </ol>
             <p class="note tl-foot">Grey: inside the agent. White: Kyde.</p>
-            <p class="note tl-foot"><strong>Today Kyde warns your agent and you.</strong> Stop before the payment: <a href="/pricing/#plans" class="link-u mono" data-umami-event="timeline-waitlist">join the waitlist →</a></p>
+            <p class="note tl-foot"><strong>On every plan Kyde warns your agent and you.</strong> On Pro, the hook holds a call outside the agent's confirmed contract until you decide: <a href="/pricing/#plans" class="link-u mono" data-umami-event="timeline-pricing">see pricing →</a></p>
             <p class="note tl-foot">Example run, times invented. <a href="/industries/agentic-commerce/" class="link-u mono">The recipient check →</a></p>
           </div>
         </div>
@@ -270,7 +270,7 @@ const timeline = [
             </details>
           </figure>
         </div>
-        <p class="note foot">*Alerts by email, Slack and webhook are live and free during beta.</p>
+        <p class="note foot">*Alerts by email, Slack and webhook are live on every plan. Free mails one instant alert a month, the rest come in the Monday review.</p>
         <ul class="triggers">
           {triggers.map((t) => (
             <li>
@@ -340,12 +340,13 @@ const timeline = [
     <section class="surface-rose" id="pricing" data-surface="blush">
       <div class="wrap sec">
         <div class="brackets">
-          <h2 class="display-2">Start free. Stop when you need to.</h2>
+          <h2 class="display-2">Start free. Hold when you need to.</h2>
         </div>
         <ul class="plan-line">
-          <li><span class="mono label">(Free)</span><span class="pl-price">€0</span><span class="note">Free during beta. Drift alerts by email, Slack and webhook, 200 agents per key, 90 days</span></li>
-          <li><span class="mono label">(Pro) Planned</span><span class="pl-price">€29</span><span class="note">Pause and block, the human decides. <button type="button" onclick="openModal({ waitlist: 'stop' })" class="btn-reset waitlist-link" data-umami-event="waitlist-open-stop">Join the waitlist</button></span></li>
-          <li class="pl-dark"><span class="mono label">(Enterprise) Kyde Control</span><span class="pl-price">from €990</span><span class="note">In your network. Stops the agent</span></li>
+          <li><span class="mono label">(Free)</span><span class="pl-price">€0</span><span class="note">Loops, drift and task contract alerts, 200 agents per key, 90 days</span></li>
+          <li><span class="mono label">(Pro)</span><span class="pl-price">€29</span><span class="note">Every alert instantly. The hook holds a call outside the contract, you decide</span></li>
+          <li><span class="mono label">(Team)</span><span class="pl-price">€299</span><span class="note">Behavior report for your customers. More users coming</span></li>
+          <li class="pl-dark"><span class="mono label">(Control)</span><span class="pl-price">from €990</span><span class="note">The gateway in your network. Stops the agent</span></li>
         </ul>
         <div class="ctas">
           <a href="/pricing/" class="btn btn-ink">See pricing →</a>

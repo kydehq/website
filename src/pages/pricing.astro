@@ -1,9 +1,12 @@
 ---
-// Pricing (Joerg, 2026-11-12): three columns, nothing on sale that is not
-// built, nothing billed today (no checkout, no GmbH yet).
-// Free: what score.kyde.com does today. Pro: pause and block (D-054) plus
-// team features, all planned, one waitlist (lead_source website_waitlist_stop).
-// Enterprise: Kyde Control, Contact sales only, no download hints.
+// Pricing (D-071, Joerg 2026-11-21, KYDE-509): Free 0, Pro 29, Team 299,
+// Control from 990 a month. Included means live on score.kyde.com today
+// (checked against kydehq/score v0.11.23, llms.txt and /score/v0/limits);
+// everything else carries "coming". Holding a call (Claude Code hook,
+// declared contract, a human decides) is live from Pro, the gateway only in
+// Control. Task contract alarms are on every plan (D-070). No waitlist.
+// Nothing is billed until the GmbH and Stripe exist (KYDE-377), so Pro and
+// Team are a plan request, lead_source website_plan_<plan>.
 // Limits follow what score.kyde.com enforces.
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
@@ -13,40 +16,76 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "../styles/lab.css";
 
-const freeItems = [
-  "Loop, drift and new-tool detection, deterministic",
-  "A score for every run",
-  "Alerts by email, Slack and webhook",
-  "Scores over API and MCP",
-  "200 agents per key, 100,000 records a day",
-  "90 days history",
-];
-const proPlanned = [
-  "Team features: users, roles, approvals",
-  "Longer history",
-  "Export for record-keeping (EU AI Act Art. 12)",
-];
-const controlItems = [
-  "The gateway, in your network",
-  "Rules per tool",
-  "Signed, hash-chained record of every action",
+type Item = string | { t: string; coming: true };
+const plans: {
+  id: string; tag: string; line1: string; price: string; per: string; from?: boolean;
+  sub: string; items: Item[]; cta: { label: string; plan?: string; href?: string; event: string };
+}[] = [
+  {
+    id: "free", tag: "Free", line1: "Kyde tells you when your agent changes.",
+    price: "€0", per: "no time limit", sub: "No card, no account.",
+    items: [
+      "Loops, drift, new tools and model changes",
+      "Task contract: an alert when the agent leaves it",
+      "One instant alert a month, the rest in the Monday review",
+      "Webhook, Slack and dashboard, never held back",
+      "90 days history",
+    ],
+    cta: { label: "Get a free key →", href: "/#setup", event: "pricing-free-key" },
+  },
+  {
+    id: "pro", tag: "Pro", line1: "Kyde holds the call until you decide.",
+    price: "€29", per: "a month", sub: "For one developer and their agents.",
+    items: [
+      "Everything in Free",
+      "Every alert instantly",
+      "The hook holds a call outside the contract before it runs",
+      "You approve or deny with one click",
+      "90 days history",
+    ],
+    cta: { label: "Get Pro →", plan: "Pro", event: "plan-open-pro" },
+  },
+  {
+    id: "team", tag: "Team", line1: "Kyde reports to your customers.",
+    price: "€299", per: "a month", sub: "For a company that runs agents for others.",
+    items: [
+      "Everything in Pro",
+      "Behavior report to share with your customer",
+      { t: "Several users", coming: true },
+      { t: "PagerDuty", coming: true },
+      { t: "One year history and export as evidence", coming: true },
+    ],
+    cta: { label: "Get Team →", plan: "Team", event: "plan-open-team" },
+  },
+  {
+    id: "control", tag: "Control", line1: "Kyde stops the agent in your network.",
+    price: "€990", per: "a month", from: true, sub: "For agents you need to stop, not just hold.",
+    items: [
+      "The Kyde Gateway, in your network",
+      "Stop and quarantine, a human releases",
+      "Signed, hash-chained record of every action",
+    ],
+    cta: { label: "Contact sales →", event: "contact-open-control" },
+  },
 ];
 
 type Cell = string | true | "";
-const matrix: [string, Cell, Cell, Cell][] = [
-  ["Loop, drift and new-tool detection", true, true, true],
-  ["A score for every run", true, true, true],
-  ["Alerts by email, Slack and webhook", true, true, true],
-  ["Scores over API and MCP", true, true, true],
-  ["Agents", "200 per key", "200 per key", "Your fleet"],
-  ["Records a day", "100,000", "100,000", "Yours"],
-  ["History", "90 days", "Longer, planned", "Yours"],
-  ["Pause and block, a human decides", "", "Planned", true],
-  ["Users, roles, approvals", "", "Planned", true],
-  ["Export for record-keeping", "", "Planned", true],
-  ["Rules per tool", "", "", true],
-  ["Signed, hash-chained record", "", "", true],
-  ["Runs", "Hosted, EU", "Hosted, EU", "Your network"],
+const C = "Coming";
+const cols = ["Free", "Pro", "Team", "Control"];
+const matrix: [string, Cell, Cell, Cell, Cell][] = [
+  ["Loops, drift, new tools, model changes", true, true, true, true],
+  ["Task contract alerts", true, true, true, true],
+  ["Instant alerts", "1 a month", "All", "All", "All"],
+  ["Webhook, Slack, dashboard, API and MCP", true, true, true, true],
+  ["Agents", "200 per key", "200 per key", "200 per key", "Your fleet"],
+  ["History", "90 days", "90 days", "90 days, 1 year coming", "Yours"],
+  ["Hold a call, a human decides", "", true, true, true],
+  ["Behavior report for your customer", "", "", true, true],
+  ["Several users", "", "", C, C],
+  ["PagerDuty", "", "", C, C],
+  ["Export as evidence (EU AI Act Art. 12)", "", "", C, C],
+  ["Gateway: stop and quarantine", "", "", "", true],
+  ["Runs", "Hosted, EU", "Hosted, EU", "Hosted, EU", "Your network"],
 ];
 
 const limits = [
@@ -57,12 +96,12 @@ const limits = [
 ];
 
 const faq = [
-  { q: "Who pays for Kyde, and why?", a: "Teams whose agents can burn money or be turned against them. A loop that spends tokens all night, or an agent that follows an injected instruction. Kyde tells you the moment an agent stops behaving like itself." },
+  { q: "What does hold mean?", a: "Your agent writes down its task contract and you confirm it. On Pro, the Kyde hook in Claude Code checks every call against that contract on your machine. A call outside it waits, and you get one email: approve once, approve and widen the contract, or deny. Free measures the same contract and alerts, it does not hold." },
   { q: "What counts as an agent?", a: "One OpenTelemetry service.name. Give each agent its own and Kyde scores it on its own baseline." },
   { q: "What happens when I go over a limit?", a: "Kyde drops the extra records and says so: the score is marked degraded. It never turns your agent's export into an error." },
+  { q: "Why is nothing billed yet?", a: "We bill once our company is registered and payments are set up. Until then you can ask for Pro or Team and we switch your key. We tell you before we charge anything." },
   { q: "How is Kyde Control priced?", a: "From €990 a month, depending on fleet size and where it runs. Tell us how many agents you run and what they touch, and you get a number in the first call." },
-  { q: "Why is there nothing to buy yet?", a: "Pro is not built yet, so we do not charge for it. Join the waitlist and we email you when it opens. Early users keep the price." },
-  { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and scores call metadata only and drops everything else before storage. Kyde Control runs in your network, so nothing leaves it." },
+  { q: "Where does my data go?", a: "Kyde Score is hosted in the EU and scores call metadata only. It drops everything else before storage. Kyde Control runs in your network, so nothing leaves it." },
 ];
 
 const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
@@ -70,7 +109,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
 
 <Base
   title="Pricing: Kyde Score and Kyde Control"
-  description="Kyde Score is free during beta. Pro adds pause and block, planned at €29 a month: join the waitlist. Kyde Control runs in your network, from €990 a month."
+  description="Kyde Score is free. Pro holds a call outside the agent's contract until you decide, €29 a month. Team €299 a month. Kyde Control runs in your network, from €990 a month."
 >
   <LabNav active="pricing" />
 
@@ -80,8 +119,8 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
       <div class="wrap p-hero">
         <div class="brackets">
           <p class="mono label">(Pricing)</p>
-          <h1 class="p-title">Start free. Stop when you need to.</h1>
-          <p class="hero-line">Kyde Score is free during beta. Pause and block come next, with Pro. Kyde Control runs in your network.</p>
+          <h1 class="p-title">Start free. Hold when you need to.</h1>
+          <p class="hero-line">Free measures every agent. Pro holds a call outside the agent's contract until you decide. Kyde Control stops agents in your network.</p>
         </div>
       </div>
       <div class="dots-band" aria-hidden="true"></div>
@@ -90,38 +129,26 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     <!-- ══════════ PLANS ══════════ -->
     <section class="surface-paper" id="plans">
       <div class="wrap p-plans">
-        <article class="plan plan-free">
-          <p class="mono plan-tag">Free</p>
-          <p class="plan-line1">Kyde tells you when your agent drifts.</p>
-          <p class="plan-price">€0<span class="plan-per">free during beta</span></p>
-          <p class="plan-sub">No card, no account.</p>
-          <ul class="plan-list">{freeItems.map((it) => <li>{it}</li>)}</ul>
-          <a href="/#setup" class="btn btn-ink plan-cta">Get a free key →</a>
-        </article>
-
-        <article class="plan plan-pro">
-          <p class="mono plan-tag">Pro <span class="pick">Waitlist</span></p>
-          <p class="plan-line1">Kyde pauses it.</p>
-          <p class="plan-price"><span class="plan-from">planned</span>€29<span class="plan-per">a month</span></p>
-          <p class="plan-sub">Team: €299 a month, planned.</p>
-          <ul class="plan-list">
-            <li><strong>Pause and block.</strong> The agent waits, the human decides. Phase two.</li>
-            {proPlanned.map((it) => <li class="planned">{it} <span class="mono tag-planned">planned</span></li>)}
-          </ul>
-          <button type="button" onclick="openModal({ waitlist: 'stop' })" class="btn btn-ink plan-cta" data-umami-event="waitlist-open-stop">Join the waitlist →</button>
-          <p class="mono plan-note">Join the waitlist. Early users keep the price. Nothing to pay today.</p>
-        </article>
-
-        <article class="plan plan-dark">
-          <p class="mono plan-tag">Enterprise · Kyde Control</p>
-          <p class="plan-line1">Kyde runs in your network.</p>
-          <p class="plan-price"><span class="plan-from">from</span>€990<span class="plan-per">a month</span></p>
-          <p class="plan-sub">For agents you need to stop, not just watch.</p>
-          <ul class="plan-list">{controlItems.map((i) => <li>{i}</li>)}</ul>
-          <button type="button" onclick="openModal()" class="btn plan-cta btn-neon" data-umami-event="contact-open-control">Contact sales →</button>
-        </article>
+        {plans.map((p) => (
+          <article class:list={["plan", `plan-${p.id}`, p.id === "control" && "plan-dark"]}>
+            <p class="mono plan-tag">{p.tag}</p>
+            <p class="plan-line1">{p.line1}</p>
+            <p class="plan-price">{p.from && <span class="plan-from">from</span>}{p.price}<span class="plan-per">{p.per}</span></p>
+            <p class="plan-sub">{p.sub}</p>
+            <ul class="plan-list">
+              {p.items.map((it) => typeof it === "string"
+                ? <li>{it}</li>
+                : <li class="planned">{it.t} <span class="mono tag-planned">coming</span></li>)}
+            </ul>
+            {p.cta.href
+              ? <a href={p.cta.href} class="btn btn-ink plan-cta" data-umami-event={p.cta.event}>{p.cta.label}</a>
+              : p.cta.plan
+              ? <button type="button" onclick={`openModal({ plan: '${p.cta.plan}' })`} class="btn btn-ink plan-cta" data-umami-event={p.cta.event}>{p.cta.label}</button>
+              : <button type="button" onclick="openModal()" class="btn plan-cta btn-neon" data-umami-event={p.cta.event}>{p.cta.label}</button>}
+          </article>
+        ))}
       </div>
-      <div class="wrap"><p class="mono p-draft">Prices excl. VAT. Nothing is billed today.</p></div>
+      <div class="wrap"><p class="mono p-draft">Prices a month, excl. VAT. Nothing is billed today. Hold works through the Kyde hook in Claude Code.</p></div>
     </section>
 
     <!-- ══════════ 01 PLANS IN DETAIL ══════════ -->
@@ -132,8 +159,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
           <thead>
             <tr>
               <th scope="col"><span class="visually-hidden">Feature</span></th>
-              <th scope="col">Free</th><th scope="col">Pro (planned)</th>
-              <th scope="col" class="p-dark">Enterprise</th>
+              {cols.map((c, i) => <th scope="col" class={i === 3 ? "p-dark" : undefined}>{c}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -141,7 +167,7 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
               <tr>
                 <th scope="row">{f}</th>
                 {cells.map((c, i) => (
-                  <td class={i === 2 ? "p-dark" : undefined} data-label={["Free", "Pro (planned)", "Enterprise"][i]}>
+                  <td class={i === 3 ? "p-dark" : undefined} data-label={cols[i]}>
                     {show(c) === "yes" ? <span class="yes"><span aria-hidden="true">●</span><span class="sr-only">Yes</span></span> : show(c) === "no" ? <span class="no"><span aria-hidden="true">–</span><span class="sr-only">No</span></span> : <span class="mono">{c}</span>}
                   </td>
                 ))}
@@ -205,9 +231,9 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     @media (min-width: 1024px) { .p-hero .brackets { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(16px, 2vw, 24px); align-items: end; } .p-hero .label { grid-column: 1 / -1; } .p-hero .hero-line { margin: 0; } }
     .p-title { font-size: clamp(2.8rem, 4.8vw, 5.6rem); font-weight: 400; line-height: 0.94; letter-spacing: -0.055em; max-width: 12ch; margin: 0; text-wrap: balance; }
 
-    /* Free, Pro (waitlist), Enterprise. */
-    .p-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); padding-top: var(--kx-sec); padding-bottom: 12px; }
-    .plan-free, .plan-pro { box-shadow: inset 0 0 0 1px var(--color-ink); }
+    /* Free, Pro, Team, Control (D-071). */
+    .p-plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); padding-top: var(--kx-sec); padding-bottom: 12px; }
+    .plan-free, .plan-pro, .plan-team { box-shadow: inset 0 0 0 1px var(--color-ink); }
     .plan.plan-pro { background: var(--color-blush); }
     .plan-line1 { font-size: clamp(1.25rem, 1.6vw, 1.5rem); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 20px; min-height: 2.4em; }
     .plan-list li.planned { color: var(--color-ink-2); }
@@ -215,7 +241,6 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .plan { background: var(--color-paper); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column; min-width: 0; height: 100%; box-sizing: border-box; }
     .plan-dark { background: var(--color-card); color: #fff; }
     .plan-tag { font-size: 0.875rem; margin: 0 0 24px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-    .pick { background: var(--color-neon); color: var(--color-ink); font-size: 0.6875rem; padding: 2px 7px; }
     .plan-price { font-size: clamp(2.2rem, 3.2vw, 3.2rem); letter-spacing: -0.05em; line-height: 1; margin: 0; white-space: nowrap; }
     .plan-per { font-size: 0.875rem; letter-spacing: 0; color: var(--color-ink-2); margin-left: 8px; font-family: var(--font-mono); }
     .plan-from { font-size: 0.875rem; letter-spacing: 0; color: var(--color-ink-2); margin-right: 8px; font-family: var(--font-mono); }
@@ -239,8 +264,8 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .p-cmp { width: 100%; border-collapse: collapse; font-size: 0.9375rem; table-layout: fixed; }
     .p-cmp th, .p-cmp td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--color-line-0); font-weight: 400; vertical-align: top; }
     .p-cmp thead th { font: 500 0.8125rem var(--font-mono); border-bottom: 1px solid var(--color-ink); }
-    .p-cmp tbody th { padding-left: 0; width: 34%; }
-    .p-cmp thead th:first-child { width: 34%; }
+    .p-cmp tbody th { padding-left: 0; width: 32%; }
+    .p-cmp thead th:first-child { width: 32%; }
     .p-cmp .p-dark { background: var(--color-card); color: #fff; border-bottom-color: #3a3a3a; }
     .p-cmp .mono { font-size: 0.8125rem; }
     .p-cmp .yes { color: var(--color-ink); }
@@ -265,7 +290,10 @@ const show = (c: Cell) => c === true ? "yes" : c === "" ? "no" : "text";
     .p-close { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
     .p-close-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1180px) {
+      .p-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
       .p-plans { grid-template-columns: 1fr; }
       .plan-line1 { min-height: 0; }
     }
