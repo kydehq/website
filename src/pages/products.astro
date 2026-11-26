@@ -82,7 +82,12 @@ const compare = [
               <li>Alerts by email, Slack and webhook when the score changes band. Hosted in the EU.</li>
             </ul>
             <div class="pc-foot">
-              <p class="pc-price">€0 <span class="mono pc-per">Pro €29, Team €299 a month</span></p>
+              <ul class="pc-tiers">
+                <li><span class="mono pc-tier">Free</span><span class="pc-price">€0</span></li>
+                <li><span class="mono pc-tier">Pro</span><span class="pc-price">€29</span></li>
+                <li><span class="mono pc-tier">Team</span><span class="pc-price">€299</span></li>
+                <li class="pc-tiers-per mono">a month · <a href="/pricing/" class="link-u">compare plans</a></li>
+              </ul>
               <div class="ctas">
                 <a href="/#setup" class="btn btn-ink" data-umami-event="products-get-key">Get a key →</a>
                 <a href="#score" class="link-u mono">Details</a>
@@ -100,7 +105,10 @@ const compare = [
               <li>Signed, hash-chained record. Runs in your network.</li>
             </ul>
             <div class="pc-foot">
-              <p class="pc-price">From €990 <span class="mono pc-per">a month</span></p>
+              <ul class="pc-tiers">
+                <li><span class="mono pc-tier">Control</span><span class="pc-price">From €990</span></li>
+                <li class="pc-tiers-per mono">a month</li>
+              </ul>
               <div class="ctas">
                 <button type="button" onclick="openModal()" class="btn btn-neon" data-umami-event="contact-open-control">Contact sales →</button>
                 <a href="#control" class="link-u mono">Details</a>
@@ -441,6 +449,13 @@ const compare = [
     .pc-foot { margin-top: auto; padding-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
     .pc-price { font-size: 1.75rem; letter-spacing: -0.04em; margin: 0; }
     .pc-per { font-size: 0.8125rem; letter-spacing: 0; color: #9a9a9a; }
+    .pc-tiers { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 28px; flex-basis: 100%; }
+    .pc-tiers li { display: flex; flex-direction: column; gap: 2px; }
+    .pc-tier { font-size: 0.8125rem; color: var(--color-ink-2); }
+    .prod-card-dark .pc-tier { color: var(--color-blush); }
+    .pc-tiers .pc-price { font-size: clamp(1.75rem, 2.6vw, 2.25rem); line-height: 1; }
+    .pc-tiers-per { font-size: 0.8125rem; color: #9a9a9a; padding-bottom: 4px; }
+    .pc-tiers-per a { color: inherit; }
     .pc-foot .ctas { display: flex; align-items: center; gap: 20px; margin: 0; }
     .prod-card-dark .link-u { color: #fff; }
     .p-hero-note { margin-top: 20px; }
